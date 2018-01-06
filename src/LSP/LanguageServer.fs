@@ -11,6 +11,7 @@ let jsonWriteOptions =
     { defaultJsonWriteOptions with 
         customWriters = 
             [ writeTextDocumentSyncKind;
+              writeDiagnosticSeverity;
               writeInsertTextFormat;
               writeCompletionItemKind;
               writeMarkedString;
@@ -32,9 +33,18 @@ let private serializeCodeLens = serializerFactory<CodeLens> jsonWriteOptions
 let private serializeDocumentLinkList = serializerFactory<list<DocumentLink>> jsonWriteOptions
 let private serializeDocumentLink = serializerFactory<DocumentLink> jsonWriteOptions
 let private serializeWorkspaceEdit = serializerFactory<WorkspaceEdit> jsonWriteOptions
+let private serializePublishDiagnostics = serializerFactory<PublishDiagnosticsParams> jsonWriteOptions
 
 let respond (client: BinaryWriter) (requestId: int) (jsonText: string) = 
     let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
+    let messageBytes = Encoding.UTF8.GetBytes messageText
+    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+    let headerBytes = Encoding.UTF8.GetBytes headerText
+    client.Write headerBytes
+    client.Write messageBytes
+
+let notify (client: BinaryWriter) (notificationMethod: string) (jsonText: string) =
+    let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
     let messageBytes = Encoding.UTF8.GetBytes messageText
     let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
     let headerBytes = Encoding.UTF8.GetBytes headerText
@@ -111,7 +121,13 @@ let processNotification (server: ILanguageServer) (send: BinaryWriter) (n: Notif
     | OtherNotification _ ->
         ()
 
+let sendNotification (send: BinaryWriter) (n: ServerNotification) =
+    match n with
+    | PublishDiagnostics p ->
+        p |> serializePublishDiagnostics |> notify send "textDocument/publishDiagnostics"
+
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
+    eprintfn "%s" ("processing message" + m.ToString())
     match m with 
     | Parser.RequestMessage (id, method, json) -> 
         processRequest server send id (Parser.parseRequest method json) 
@@ -127,5 +143,6 @@ let readMessages (receive: BinaryReader): seq<Parser.Message> =
     Tokenizer.tokenize receive |> Seq.map Parser.parseMessage |> Seq.takeWhile notExit
 
 let connect (server: ILanguageServer) (receive: BinaryReader) (send: BinaryWriter) = 
+    eprintfn "%s" "Connecting"
     let doProcessMessage = processMessage server send 
     readMessages receive |> Seq.iter doProcessMessage

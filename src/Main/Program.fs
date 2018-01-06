@@ -5,31 +5,59 @@ open LSP.Types
 open System
 open System.IO
 open Microsoft.FSharp.Compiler.SourceCodeServices
+open CWTools.Parser
+open FParsec
 
 let private TODO() = raise (Exception "TODO")
 
-type Server() = 
+type Server(send : BinaryWriter) = 
+    let send = send
     let docs = DocumentStore()
     let projects = ProjectManager()
     let checker = FSharpChecker.Create()
     let emptyProjectOptions = checker.GetProjectOptionsFromCommandLineArgs("NotFound.fsproj", [||])
     let notFound (doc: Uri) (): 'Any = 
         raise (Exception (sprintf "%s does not exist" (doc.ToString())))
-    let lint (doc: Uri): Async<unit> = TODO()
-        // async {
-        //     let name = doc.AbsolutePath.ToString()
-        //     let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
-        //     let source = docs.GetText doc |> Option.defaultWith (notFound doc)
-        //     let compilerOptions = projects.FindProjectOptions doc |> Option.defaultValue emptyCompilerOptions
-        //     let! parseResults, checkAnswer = checker.ParseAndCheckFileInProject(name, version, source, projectOptions)
-        //     for error in parseResults.Errors do 
-        //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
-        //     match checkAnswer with 
-        //     | FSharpCheckFileAnswer.Aborted -> eprintfn "Aborted checking %s" name 
-        //     | FSharpCheckFileAnswer.Succeeded checkResults -> 
-        //         for error in checkResults.Errors do 
-        //             eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
-        // }
+    let mutable docErrors : DocumentHighlight list = []
+    let lint (doc: Uri): Async<unit> = 
+        eprintfn "%s" "lint!"
+        async {
+            let name = doc.AbsolutePath.ToString()
+            let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
+            let source = docs.GetText doc |> Option.defaultWith (notFound doc)
+            let parsed = CKParser.parseEventString source name
+            eprintfn "%s" "lint!"
+            match parsed with
+            |Success(_,_,_) -> ()
+            |Failure(msg,p,s) ->
+                let response = {
+                                range = {
+                                        start = { 
+                                                line = (int p.Position.Line - 1)
+                                                character = (int 0 )
+                                            }
+                                        ``end`` = {
+                                                line = (int p.Position.Line - 1)
+                                                character = (int p.Position.Column - 1)
+                                            }
+                                }
+                                severity = Some DiagnosticSeverity.Error
+                                code = None
+                                source = None
+                                message = msg
+                            }
+                LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = [response]})
+
+            //let compilerOptions = projects.FindProjectOptions doc |> Option.defaultValue emptyCompilerOptions
+            // let! parseResults, checkAnswer = checker.ParseAndCheckFileInProject(name, version, source, projectOptions)
+            // for error in parseResults.Errors do 
+            //     eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
+            // match checkAnswer with 
+            // | FSharpCheckFileAnswer.Aborted -> eprintfn "Aborted checking %s" name 
+            // | FSharpCheckFileAnswer.Succeeded checkResults -> 
+            //     for error in checkResults.Errors do 
+            //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
+        }
     interface ILanguageServer with 
         member this.Initialize(p: InitializeParams): InitializeResult = 
             { capabilities = 
@@ -37,8 +65,8 @@ type Server() =
                     textDocumentSync = 
                         { defaultTextDocumentSyncOptions with 
                             openClose = true 
-                            save = Some { includeText = false }
-                            change = TextDocumentSyncKind.Incremental } } }
+                            save = Some { includeText = true }
+                            change = TextDocumentSyncKind.Full } } }
         member this.Initialized(): unit = 
             ()
         member this.Shutdown(): unit = 
@@ -46,6 +74,7 @@ type Server() =
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams): unit =
             eprintfn "New configuration %s" (p.ToString())
         member this.DidOpenTextDocument(p: DidOpenTextDocumentParams): unit = 
+            eprintfn "%s" "lint!"
             docs.Open p
             lint p.textDocument.uri |> Async.RunSynchronously
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams): unit = 
@@ -62,6 +91,7 @@ type Server() =
                 eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
                 if change.uri.AbsolutePath.EndsWith ".fsproj" then
                     projects.UpdateProjectFile change.uri 
+                lint change.uri |> Async.RunSynchronously
         member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
         member this.Hover(p: TextDocumentPositionParams): Hover = TODO()
         member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()
@@ -86,7 +116,7 @@ type Server() =
 let main (argv: array<string>): int =
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
-    let server = Server()
+    let server = Server(write)
     eprintfn "Listening on stdin"
     LanguageServer.connect server read write
     0 // return an integer exit code

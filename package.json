@@ -17,7 +17,7 @@
 		"Linters"
 	],
 	"activationEvents": [
-		"onLanguage:fsharp"
+		"onLanguage:plaintext"
 	],
 	"main": "./out/client/extension",
 	"files": [
@@ -28,7 +28,7 @@
 			"type": "object",
 			"title": "FSharp configuration",
 			"properties": {
-				"fsharp.trace.server": {
+				"fsharpserver.trace.server": {
 					"scope": "window",
 					"type": "string",
 					"enum": [
@@ -40,7 +40,12 @@
 					"description": "Traces the communication between VSCode and the language server."
 				}
 			}
-		}
+		},
+		"commands" :[{
+			"command": "extension.startCW",
+			"title": "Start CW",
+			"category": ""
+		}]
 	},
 	"scripts": {
 		"vscode:prepublish": "tsc -p ./",

@@ -49,7 +49,7 @@ let parsePosition (json: JsonValue): Position =
 let parseRange (json: JsonValue): Range = 
     {
         start = json?start |> parsePosition 
-        _end = json?``end`` |> parsePosition
+        ``end`` = json?``end`` |> parsePosition
     }
 
 let parseVersionedTextDocumentIdentifier (json: JsonValue): VersionedTextDocumentIdentifier = 

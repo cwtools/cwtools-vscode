@@ -30,7 +30,7 @@ type Position = {
 
 type Range = {
     start: Position
-    _end: Position
+    ``end``: Position
 }
 
 type TextDocumentContentChangeEvent = {
@@ -103,10 +103,17 @@ type Location = {
 
 [<RequireQualifiedAccess>]
 type DiagnosticSeverity = 
-| Error 
-| Warning 
-| Information 
+| Error
+| Warning
+| Information
 | Hint
+
+let writeDiagnosticSeverity (s : DiagnosticSeverity) =
+    match s with
+    | DiagnosticSeverity.Error -> 1
+    | DiagnosticSeverity.Warning -> 2
+    | DiagnosticSeverity.Information -> 3
+    | DiagnosticSeverity.Hint -> 4
 
 type Diagnostic = {
     range: Range
@@ -605,3 +612,10 @@ type ILanguageServer =
     abstract member ExecuteCommand: ExecuteCommandParams -> unit
 
 // TODO IAsyncLanguageServer that supports request cancellation
+type PublishDiagnosticsParams = {
+    uri : Uri
+    diagnostics : Diagnostic list
+    }
+
+type ServerNotification = 
+| PublishDiagnostics of PublishDiagnosticsParams

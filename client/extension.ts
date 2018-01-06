@@ -24,17 +24,20 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for F# documents
-		documentSelector: [{scheme: 'file', language: 'fsharp'}],
+		documentSelector: [{scheme: 'file', language: 'plaintext'}],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
-			configurationSection: 'fsharp',
+			configurationSection: 'fsharpserver',
 			// Notify the server about file changes to F# project files contain in the workspace
-			fileEvents: workspace.createFileSystemWatcher('**/*.fsproj')
+			fileEvents: workspace.createFileSystemWatcher('**/events/**')
 		}
 	}
 	
+	let client = new LanguageClient('fsharpserver', 'FSharp Language Server', serverOptions, clientOptions);
+	client.registerProposedFeatures();
+	
 	// Create the language client and start the client.
-	let disposable = new LanguageClient('fsharp', 'FSharp Language Server', serverOptions, clientOptions).start();
+	let disposable = client.start();
 	
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
