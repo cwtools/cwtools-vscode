@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Json.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="Tokenizer.fs" />
+    <Compile Include="Parser.fs" />
+    <Compile Include="DocumentStore.fs" />
+    <Compile Include="LanguageServer.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FSharp.Data\FSharp.Data.fsproj" />
+  </ItemGroup>
+</Project>
