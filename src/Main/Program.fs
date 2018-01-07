@@ -22,46 +22,13 @@ type Server(send : BinaryWriter) =
     let notFound (doc: Uri) (): 'Any = 
         raise (Exception (sprintf "%s does not exist" (doc.ToString())))
     let mutable docErrors : DocumentHighlight list = []
-    let lint (doc: Uri): Async<unit> = 
-        eprintfn "%s" "lint!"
-        async {
-            let name = doc.AbsolutePath.ToString()
-            let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
-            let source = docs.GetText doc |> Option.defaultWith (notFound doc)
-            let parsed = CKParser.parseEventString source name
-            eprintfn "%s" "lint!"
-            match parsed with
-            |Success(_,_,_) -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
-            |Failure(msg,p,s) ->
-                let response = {
-                                range = {
-                                        start = { 
-                                                line = (int p.Position.Line - 1)
-                                                character = (int 0 )
-                                            }
-                                        ``end`` = {
-                                                line = (int p.Position.Line - 1)
-                                                character = (int p.Position.Column - 1)
-                                            }
-                                }
-                                severity = Some DiagnosticSeverity.Error
-                                code = None
-                                source = None
-                                message = msg
-                            }
-                LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = [response]})
 
-            //let compilerOptions = projects.FindProjectOptions doc |> Option.defaultValue emptyCompilerOptions
-            // let! parseResults, checkAnswer = checker.ParseAndCheckFileInProject(name, version, source, projectOptions)
-            // for error in parseResults.Errors do 
-            //     eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
-            // match checkAnswer with 
-            // | FSharpCheckFileAnswer.Aborted -> eprintfn "Aborted checking %s" name 
-            // | FSharpCheckFileAnswer.Succeeded checkResults -> 
-            //     for error in checkResults.Errors do 
-            //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
-        }
+    let mutable gameObj : option<STLGame> = None
 
+    let (|TrySuccess|TryFailure|) tryResult =  
+        match tryResult with
+        | true, value -> TrySuccess value
+        | _ -> TryFailure
     let parserErrorToDiagnostics e =
         let file, error, (position : Position), length = e
         let startC, endC = match length with
@@ -84,10 +51,41 @@ type Server(send : BinaryWriter) =
                         message = error
                     }
         (file, result)
-    let (|TrySuccess|TryFailure|) tryResult =  
-        match tryResult with
-        | true, value -> TrySuccess value
-        | _ -> TryFailure
+    let lint (doc: Uri): Async<unit> = 
+        eprintfn "%s" "lint!"
+        async {
+            let name = if doc.LocalPath.StartsWith("/") then doc.LocalPath.Substring(1) else doc.LocalPath
+            
+            let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
+            let source = docs.GetText doc |> Option.defaultWith (notFound doc)
+            let parsed = CKParser.parseEventString source name
+            eprintfn "%s %s" "lint!" name
+            let parserErrors = match parsed with
+                                |Success(_,_,_) -> []
+                                |Failure(msg,p,s) -> [(name, msg, p.Position, 0)]
+            let valErrors = match gameObj with
+                                |None -> []
+                                |Some game ->
+                                    let results = game.UpdateFile name
+                                    results |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+            parserErrors @ valErrors
+                    |> List.map parserErrorToDiagnostics
+                    |> List.groupBy fst
+                    |> List.map (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs})
+                    |> List.iter (fun f -> LanguageServer.sendNotification send f)
+            //let compilerOptions = projects.FindProjectOptions doc |> Option.defaultValue emptyCompilerOptions
+            // let! parseResults, checkAnswer = checker.ParseAndCheckFileInProject(name, version, source, projectOptions)
+            // for error in parseResults.Errors do 
+            //     eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
+            // match checkAnswer with 
+            // | FSharpCheckFileAnswer.Aborted -> eprintfn "Aborted checking %s" name 
+            // | FSharpCheckFileAnswer.Succeeded checkResults -> 
+            //     for error in checkResults.Errors do 
+            //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
+        }
+
+
+ 
     let processWorkspace (uri : option<Uri>) =
         LanguageServer.sendNotification send (LoadingBar {value = true})
         match uri with
@@ -97,6 +95,7 @@ type Server(send : BinaryWriter) =
                 let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
                 let game = STLGame(path, FilesScope.All, "", triggers, effects)
+                gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
                 //eprintfn "%A" game.ValidationErrors
