@@ -34,6 +34,7 @@ let private serializeDocumentLinkList = serializerFactory<list<DocumentLink>> js
 let private serializeDocumentLink = serializerFactory<DocumentLink> jsonWriteOptions
 let private serializeWorkspaceEdit = serializerFactory<WorkspaceEdit> jsonWriteOptions
 let private serializePublishDiagnostics = serializerFactory<PublishDiagnosticsParams> jsonWriteOptions
+let private serializeLoadingBarParams = serializerFactory<LoadingBarParams> jsonWriteOptions
 
 let respond (client: BinaryWriter) (requestId: int) (jsonText: string) = 
     let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
@@ -125,6 +126,8 @@ let sendNotification (send: BinaryWriter) (n: ServerNotification) =
     match n with
     | PublishDiagnostics p ->
         p |> serializePublishDiagnostics |> notify send "textDocument/publishDiagnostics"
+    | LoadingBar p->
+        p |> serializeLoadingBarParams |> notify send "loadingBar"
 
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
     eprintfn "%s" ("processing message" + m.ToString())

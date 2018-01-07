@@ -6,8 +6,8 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
+import { workspace, ExtensionContext, window, Disposable } from 'vscode';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 
 export function activate(context: ExtensionContext) {
 
@@ -35,9 +35,22 @@ export function activate(context: ExtensionContext) {
 	
 	let client = new LanguageClient('fsharpserver', 'FSharp Language Server', serverOptions, clientOptions);
 	client.registerProposedFeatures();
+	let notification = new NotificationType<boolean, void>('loadingBar');
+	let status : Disposable;
+	client.onReady().then(() => {
+		client.onNotification(notification, (param : any) =>{
+			if(param.value){
+				status = window.setStatusBarMessage("Loading files...");
+			}
+			else{
+				status.dispose();
+			}
+		})
+	})
+	let disposable = client.start();
+
 	
 	// Create the language client and start the client.
-	let disposable = client.start();
 	
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation

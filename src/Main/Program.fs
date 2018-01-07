@@ -31,7 +31,7 @@ type Server(send : BinaryWriter) =
             let parsed = CKParser.parseEventString source name
             eprintfn "%s" "lint!"
             match parsed with
-            |Success(_,_,_) -> ()
+            |Success(_,_,_) -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
             |Failure(msg,p,s) ->
                 let response = {
                                 range = {
@@ -63,16 +63,19 @@ type Server(send : BinaryWriter) =
         }
 
     let parserErrorToDiagnostics e =
-        let file, error, (position : Position) = e
+        let file, error, (position : Position), length = e
+        let startC, endC = match length with
+        | 0 -> 0,( int position.Column) - 1
+        | x ->(int position.Column) - 1,(int position.Column) + length - 1
         let result = {
                         range = {
                                 start = { 
                                         line = (int position.Line - 1)
-                                        character = (int 0 )
+                                        character = startC
                                     }
                                 ``end`` = {
                                             line = (int position.Line - 1)
-                                            character = (int position.Column - 1)
+                                            character = endC
                                     }
                         }
                         severity = Some DiagnosticSeverity.Error
@@ -86,19 +89,17 @@ type Server(send : BinaryWriter) =
         | true, value -> TrySuccess value
         | _ -> TryFailure
     let processWorkspace (uri : option<Uri>) =
-        eprintfn "%A %A" "processAlll" uri
+        LanguageServer.sendNotification send (LoadingBar {value = true})
         match uri with
         |Some u -> 
             let path = u.LocalPath.Substring(1)
-            eprintfn "%s %A" "processingSTL" path
             try
                 let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
                 let game = STLGame(path, FilesScope.All, "", triggers, effects)
-                eprintfn "%s %A %A" "procssed:" path game.ParserErrors.Length
-                eprintfn "%A %A" game.AllFiles (Directory.Exists path)
-                let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p) )
-                game.ParserErrors @ valErrors
+                let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+                let parserErrors = game.ParserErrors |> List.map (fun (n, e, p) -> n, e, p, 0)
+                parserErrors @ valErrors
                     |> List.map parserErrorToDiagnostics
                     |> List.groupBy fst
                     |> List.map (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs})
@@ -107,6 +108,7 @@ type Server(send : BinaryWriter) =
                 | :? System.Exception as e -> eprintfn "%A" e
             
         |None -> ()
+        LanguageServer.sendNotification send (LoadingBar {value = false})
 
     interface ILanguageServer with 
         member this.Initialize(p: InitializeParams): InitializeResult = 

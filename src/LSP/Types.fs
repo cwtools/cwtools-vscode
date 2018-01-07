@@ -616,6 +616,9 @@ type PublishDiagnosticsParams = {
     uri : Uri
     diagnostics : Diagnostic list
     }
-
+type LoadingBarParams = {
+    value : bool
+}
 type ServerNotification = 
 | PublishDiagnostics of PublishDiagnosticsParams
+| LoadingBar of LoadingBarParams
