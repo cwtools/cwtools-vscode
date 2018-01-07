@@ -13,7 +13,7 @@ let ``convert prefix Range to offsets`` () =
     let textBuilder = new StringBuilder(text)
     let range = 
         { start = {line = 0; character = 0}
-          _end = {line = 0; character = 3} }
+          ``end`` = {line = 0; character = 3} }
     Assert.That(DocumentStoreUtils.findRange textBuilder range, Is.EqualTo (0, 3))
 
 [<Test>]
@@ -24,7 +24,7 @@ let ``convert suffix Range to offsets`` () =
     let textBuilder = new StringBuilder(text)
     let range = 
         { start = {line = 2; character = 1}
-          _end = {line = 2; character = 3} }
+          ``end`` = {line = 2; character = 3} }
     Assert.That(DocumentStoreUtils.findRange textBuilder range, Is.EqualTo (11, 13))
 
 [<Test>]
@@ -35,7 +35,7 @@ let ``convert line-spanning Range to offsets`` () =
     let textBuilder = new StringBuilder(text)
     let range = 
         { start = {line = 1; character = 2}
-          _end = {line = 2; character = 1} }
+          ``end`` = {line = 2; character = 1} }
     Assert.That(DocumentStoreUtils.findRange textBuilder range, Is.EqualTo (7, 11))
 
 [<Test>]
@@ -90,7 +90,7 @@ let ``patch a document`` () =
               version = 2 }
           contentChanges = 
             [ { range = Some { start = {line = 0; character = 6} 
-                               _end = {line = 0; character = 11} }
+                               ``end`` = {line = 0; character = 11} }
                 rangeLength = None 
                 text = newText } ] }
     store.Change(replaceAll)

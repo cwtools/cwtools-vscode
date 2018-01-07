@@ -97,7 +97,9 @@ type Server(send : BinaryWriter) =
                 let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
                 let game = STLGame(path, FilesScope.All, "", triggers, effects)
+                //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+                //eprintfn "%A" game.ValidationErrors
                 let parserErrors = game.ParserErrors |> List.map (fun (n, e, p) -> n, e, p, 0)
                 parserErrors @ valErrors
                     |> List.map parserErrorToDiagnostics

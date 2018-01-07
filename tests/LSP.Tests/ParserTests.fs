@@ -158,7 +158,7 @@ module ParserTests =
                 [{
                     range = Some {
                         start = {line = 0; character = 0}
-                        _end = {line = 0; character = 3}
+                        ``end`` = {line = 0; character = 3}
                     }
                     rangeLength = Some 3
                     text = "let x = 1"
@@ -401,7 +401,7 @@ module ParserTests =
                     range = 
                         {
                             start = {line = 0; character = 0}
-                            _end = {line = 0; character = 2}
+                            ``end`` = {line = 0; character = 2}
                         }
                     newText = "foo()"
                 } 
@@ -410,7 +410,7 @@ module ParserTests =
                         range = 
                             {
                                 start = {line = 1; character = 0}
-                                _end = {line = 1; character = 0}
+                                ``end`` = {line = 1; character = 0}
                             }
                         newText = "foo()"
                     }]
@@ -558,7 +558,7 @@ module ParserTests =
                 range = 
                     {
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0}
+                        ``end`` = {line = 1; character = 0}
                     }
                 context = 
                     {
@@ -567,7 +567,7 @@ module ParserTests =
                                 range = 
                                     {
                                         start = {line = 1; character = 0}
-                                        _end = {line = 1; character = 0}
+                                        ``end`` = {line = 1; character = 0}
                                     }
                                 severity = None
                                 code = None
@@ -607,7 +607,7 @@ module ParserTests =
                 range = 
                     { 
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0} 
+                        ``end`` = {line = 1; character = 0} 
                     }
                 context = 
                     {
@@ -616,7 +616,7 @@ module ParserTests =
                                 range = 
                                     { 
                                         start = {line = 1; character = 0}
-                                        _end = {line = 1; character = 0} 
+                                        ``end`` = {line = 1; character = 0} 
                                     }
                                 severity = Some DiagnosticSeverity.Error
                                 code = Some "SomeError"
@@ -654,7 +654,7 @@ module ParserTests =
                 range = 
                     {
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0}
+                        ``end`` = {line = 1; character = 0}
                     }
                 context = 
                     {
@@ -663,7 +663,7 @@ module ParserTests =
                                 range = 
                                     {
                                         start = {line = 1; character = 0}
-                                        _end = {line = 1; character = 0}
+                                        ``end`` = {line = 1; character = 0}
                                     }
                                 severity = None
                                 code = Some "1"
@@ -700,7 +700,7 @@ module ParserTests =
                 range = 
                     {
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0}
+                        ``end`` = {line = 1; character = 0}
                     }
                 command = None 
                 data = JsonValue.Null
@@ -726,7 +726,7 @@ module ParserTests =
                 range = 
                     {
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0}
+                        ``end`` = {line = 1; character = 0}
                     }
                 command = Some {
                     title = "save"
@@ -763,7 +763,7 @@ module ParserTests =
                 range = 
                     {
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0}
+                        ``end`` = {line = 1; character = 0}
                     }
                 target = None
             }))
@@ -839,7 +839,7 @@ module ParserTests =
                 range = 
                     {
                         start = {line = 1; character = 0}
-                        _end = {line = 1; character = 0}
+                        ``end`` = {line = 1; character = 0}
                     }
             }))
     

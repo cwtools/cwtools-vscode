@@ -123,19 +123,26 @@ let processNotification (server: ILanguageServer) (send: BinaryWriter) (n: Notif
         ()
 
 let sendNotification (send: BinaryWriter) (n: ServerNotification) =
-    match n with
-    | PublishDiagnostics p ->
-        p |> serializePublishDiagnostics |> notify send "textDocument/publishDiagnostics"
-    | LoadingBar p->
-        p |> serializeLoadingBarParams |> notify send "loadingBar"
+    try
+        match n with
+        | PublishDiagnostics p ->
+            p |> serializePublishDiagnostics |> notify send "textDocument/publishDiagnostics"
+        | LoadingBar p->
+            p |> serializeLoadingBarParams |> notify send "loadingBar"
+    with
+    |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
 
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
     eprintfn "%s" ("processing message" + m.ToString())
-    match m with 
-    | Parser.RequestMessage (id, method, json) -> 
-        processRequest server send id (Parser.parseRequest method json) 
-    | Parser.NotificationMessage (method, json) -> 
-        processNotification server send (Parser.parseNotification method json)
+    try
+        match m with 
+        | Parser.RequestMessage (id, method, json) -> 
+            processRequest server send id (Parser.parseRequest method json) 
+        | Parser.NotificationMessage (method, json) -> 
+            processNotification server send (Parser.parseNotification method json)
+    with
+    |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
+    
 
 let private notExit (message: Parser.Message) = 
     match message with 

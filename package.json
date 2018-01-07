@@ -1,13 +1,13 @@
 {
-	"name": "fsharp-language-server",
-	"description": "F# Language Support using FSharp Compiler Services",
-	"author": "George Fraser",
+	"name": "cwtools-vscore",
+	"description": "Paradox Interactive file support using cwtools",
+	"author": "Thomas Boby",
 	"license": "MIT",
 	"version": "0.0.1",
-	"publisher": "georgewfraser",
+	"publisher": "thomasboby",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/georgewfraser/fsharp-language-server"
+		"url": "https://github.com/tboby/cwtools-vscode"
 	},
 	"engines": {
 		"vscode": "^1.16.0"
@@ -26,7 +26,7 @@
 	"contributes": {
 		"configuration": {
 			"type": "object",
-			"title": "FSharp configuration",
+			"title": "CWTools configuration",
 			"properties": {
 				"fsharpserver.trace.server": {
 					"scope": "window",
@@ -41,11 +41,6 @@
 				}
 			}
 		},
-		"commands" :[{
-			"command": "extension.startCW",
-			"title": "Start CW",
-			"category": ""
-		}],
 		"languages": [{
             "id": "paradox",
             "aliases": ["", "paradox"],
