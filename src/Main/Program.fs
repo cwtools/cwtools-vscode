@@ -6,7 +6,10 @@ open System
 open System.IO
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open CWTools.Parser
+open CWTools.Games
 open FParsec
+open System.Threading.Tasks
+open System.Text
 
 let private TODO() = raise (Exception "TODO")
 
@@ -58,8 +61,57 @@ type Server(send : BinaryWriter) =
             //     for error in checkResults.Errors do 
             //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
         }
+
+    let parserErrorToDiagnostics e =
+        let file, error, (position : Position) = e
+        let result = {
+                        range = {
+                                start = { 
+                                        line = (int position.Line - 1)
+                                        character = (int 0 )
+                                    }
+                                ``end`` = {
+                                            line = (int position.Line - 1)
+                                            character = (int position.Column - 1)
+                                    }
+                        }
+                        severity = Some DiagnosticSeverity.Error
+                        code = None
+                        source = None
+                        message = error
+                    }
+        (file, result)
+    let (|TrySuccess|TryFailure|) tryResult =  
+        match tryResult with
+        | true, value -> TrySuccess value
+        | _ -> TryFailure
+    let processWorkspace (uri : option<Uri>) =
+        eprintfn "%A %A" "processAlll" uri
+        match uri with
+        |Some u -> 
+            let path = u.LocalPath.Substring(1)
+            eprintfn "%s %A" "processingSTL" path
+            try
+                let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
+                let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
+                let game = STLGame(path, FilesScope.All, "", triggers, effects)
+                eprintfn "%s %A %A" "procssed:" path game.ParserErrors.Length
+                eprintfn "%A %A" game.AllFiles (Directory.Exists path)
+                let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p) )
+                game.ParserErrors @ valErrors
+                    |> List.map parserErrorToDiagnostics
+                    |> List.groupBy fst
+                    |> List.map (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs})
+                    |> List.iter (fun f -> LanguageServer.sendNotification send f)
+            with
+                | :? System.Exception as e -> eprintfn "%A" e
+            
+        |None -> ()
+
     interface ILanguageServer with 
         member this.Initialize(p: InitializeParams): InitializeResult = 
+            let task = new Task((fun () -> processWorkspace(p.rootUri)))
+            task.Start()
             { capabilities = 
                 { defaultServerCapabilities with 
                     textDocumentSync = 
@@ -114,6 +166,8 @@ type Server(send : BinaryWriter) =
 
 [<EntryPoint>]
 let main (argv: array<string>): int =
+    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
     let server = Server(write)

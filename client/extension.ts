@@ -24,12 +24,12 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for F# documents
-		documentSelector: [{scheme: 'file', language: 'plaintext'}],
+		documentSelector: [{scheme: 'file', language: 'paradox'}],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'fsharpserver',
 			// Notify the server about file changes to F# project files contain in the workspace
-			fileEvents: workspace.createFileSystemWatcher('**/events/**')
+			fileEvents: workspace.createFileSystemWatcher('**/{events, common}/**/*.txt')
 		}
 	}
 	

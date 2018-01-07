@@ -17,7 +17,7 @@
 		"Linters"
 	],
 	"activationEvents": [
-		"onLanguage:plaintext"
+		"onLanguage:paradox"
 	],
 	"main": "./out/client/extension",
 	"files": [
@@ -45,7 +45,17 @@
 			"command": "extension.startCW",
 			"title": "Start CW",
 			"category": ""
-		}]
+		}],
+		"languages": [{
+            "id": "paradox",
+            "aliases": ["", "paradox"],
+            "extensions": ["txt"],
+			"configuration": "./language-configuration.json",
+			"filenamePatterns": [
+				"**/stellaris/**/*.txt"
+			]
+        }]
+
 	},
 	"scripts": {
 		"vscode:prepublish": "tsc -p ./",
