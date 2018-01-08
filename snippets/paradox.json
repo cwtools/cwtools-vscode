@@ -1,0 +1,43 @@
+{
+    "Event_Shown": {
+        "prefix": "event_show",
+        "body":[
+            "${1|country_event,ship_event,planet_event,fleet_event,pop_event,pop_faction_event,event|} = {",
+            "\tid = ${2:id}",
+            "\ttitle = ${2:id}.name",
+            "\tdesc = ${2:id}.desc",
+            "\tpicture = GFX_evt_mining_station #a name of a picture to display",
+            "\tlocation = from #A scope to the object that is relevant to the event that player can move to. For example, the planet where event is happening",
+            "\tshow_sound = #Name of the sound clip to be played when event is shown",
+            "\tdiplomatic = yes #Makes event look like diplomatic communications. For example, first contact event or a conversation with the subterranean people",
+            "\tis_triggered_only = yes #The game will not consider this event for starting on its own. Event will need to be triggered by another event, or by some other effect. Most events will use this.",
+            "\ttrigger = {",
+            "\t\t",
+            "\t}",
+            "\timmediate = {",
+            "\t\t",
+            "\t}",
+            "\toption = {",
+            "\t\t",
+            "\t}",  
+            "}"
+        ],
+        "description": "Event show"
+    },
+    "Event_Hidden": {
+        "prefix": "event_hidden",
+        "body":[
+            "${1|country_event,ship_event,planet_event,fleet_event,pop_event,pop_faction_event,event|} = {",
+            "\tid = ${2:id}",
+            "\thide_window = true",
+            "\ttrigger = {",
+            "\t\t",
+            "\t}",
+            "\tmean_time_to_happen = { }",
+            "\timmediate = {",
+            "\t\t",
+            "\t}",
+            "}"
+        ]]
+    }
+}

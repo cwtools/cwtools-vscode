@@ -46,7 +46,7 @@ type Server(send : BinaryWriter) =
                                     }
                         }
                         severity = Some DiagnosticSeverity.Error
-                        code = None
+                        code = if length = 0 then Some "CW1" else Some "STL1"
                         source = None
                         message = error
                     }
