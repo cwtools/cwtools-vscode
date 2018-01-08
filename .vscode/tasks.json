@@ -15,6 +15,31 @@
                 "kind": "build",
                 "isDefault": true
             }
-        }
+        },
+        {
+            "command": "${workspaceRoot}/build.sh",
+            "windows": {
+                "command": "${workspaceRoot}/build.cmd"
+            },
+            "label": "Build",
+            "args": [
+                "Build"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "command": "${workspaceRoot}/build.sh",
+            "windows": {
+                "command": "${workspaceRoot}/build.cmd"
+            },
+            "label": "Full Build",
+            "args": [
+                "Build"
+            ],
+            "group": "build"
+        },
     ]
 }
