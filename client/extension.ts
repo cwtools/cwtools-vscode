@@ -13,11 +13,12 @@ export function activate(context: ExtensionContext) {
 
 	// The server is implemented using dotnet core
 	let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
+	let serverExe = context.asAbsolutePath(path.join('out', 'server', 'Main.exe'))
 	
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
 	let serverOptions: ServerOptions = {
-		run : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio },
+		run : { command: serverExe, transport: TransportKind.stdio },
 		debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 	}
 	
@@ -27,13 +28,13 @@ export function activate(context: ExtensionContext) {
 		documentSelector: [{scheme: 'file', language: 'paradox'}],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
-			configurationSection: 'fsharpserver',
+			configurationSection: 'cwtools',
 			// Notify the server about file changes to F# project files contain in the workspace
 			fileEvents: workspace.createFileSystemWatcher('**/{events, common}/**/*.txt')
 		}
 	}
 	
-	let client = new LanguageClient('fsharpserver', 'FSharp Language Server', serverOptions, clientOptions);
+	let client = new LanguageClient('cwtools-vscode', 'Paradox Language Server', serverOptions, clientOptions);
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
 	let status : Disposable;
