@@ -10,6 +10,7 @@ open CWTools.Games
 open FParsec
 open System.Threading.Tasks
 open System.Text
+open System.Reflection
 
 let private TODO() = raise (Exception "TODO")
 
@@ -92,7 +93,8 @@ type Server(send : BinaryWriter) =
         |Some u -> 
             let path = u.LocalPath.Substring(1)
             try
-                let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
+                let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.game_effects_triggers_1.9.1.txt"))
+               // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
                 let game = STLGame(path, FilesScope.All, "", triggers, effects)
                 gameObj <- Some game

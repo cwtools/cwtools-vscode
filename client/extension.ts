@@ -34,7 +34,7 @@ export function activate(context: ExtensionContext) {
 		}
 	}
 	
-	let client = new LanguageClient('cwtools-vscode', 'Paradox Language Server', serverOptions, clientOptions);
+	let client = new LanguageClient('cwtoolsvscode', 'Paradox Language Server', serverOptions, clientOptions);
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
 	let status : Disposable;
