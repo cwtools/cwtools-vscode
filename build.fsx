@@ -64,6 +64,9 @@ Target "DotNetRestore" <| fun () ->
 Target "BuildServer" <| fun () ->
     DotNetCli.Build (fun p -> {p with WorkingDir = "src/Main"; Configuration = "Debug";})
 
+Target "PublishServer" <| fun () ->
+    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server"; Runtime = "win-x64"})
+
 // let runTsc additionalArgs noTimeout =
 //     let cmd = "tsc webpack -- --config webpack.config.js " + additionalArgs
 //     let timeout = if noTimeout then TimeSpan.MaxValue else TimeSpan.FromMinutes 30.
@@ -142,7 +145,7 @@ Target "Release" DoNothing
 //==> "CopyForge"
 //==> "CopyGrammar"
 //==> "CopySchemas"
-==> "BuildServer"
+==> "PublishServer"
 ==> "Build"
 
 "YarnInstall" ==> "Build"

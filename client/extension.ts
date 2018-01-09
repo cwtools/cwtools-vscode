@@ -19,7 +19,9 @@ export function activate(context: ExtensionContext) {
 	// Otherwise the run options are used
 	let serverOptions: ServerOptions = {
 		run : { command: serverExe, transport: TransportKind.stdio },
-		debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
+		debug : { command: serverExe, transport: TransportKind.stdio }
+
+		// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 	}
 	
 	// Options to control the language client
