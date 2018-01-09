@@ -1,26 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="ProjectManager.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="game_effects_triggers_1.9.1.txt" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FSharp.Compiler.Service" Version="16.0.2" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="*"/>
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />
-    <ProjectReference Include="G:\Projects\CK2 Events\CWTools\CWTools.fsproj"/>
+    <ProjectReference Include="G:\Projects\CK2 Events\CWTools\CWTools.fsproj" />
   </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

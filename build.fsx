@@ -1,3 +1,4 @@
+open Fake.ProcessHelper
 // --------------------------------------------------------------------------------------
 // FAKE build script
 // --------------------------------------------------------------------------------------
@@ -13,7 +14,7 @@ open Fake.ProcessHelper
 open Fake.ReleaseNotesHelper
 open Fake.NpmHelper
 open Fake.ZipHelper
-
+open TypeScript
 
 let run cmd args dir =
     if execProcess( fun info ->
@@ -50,7 +51,7 @@ let fsacBinNetcore = fsacBin + "_netcore"
 
 Target "Clean" (fun _ ->
     CleanDir "./temp"
-    CleanDir "./out"
+    CleanDir "./out/server"
     // CopyFiles "release" ["README.md"; "LICENSE.md"]
     // CopyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
 )
@@ -82,6 +83,15 @@ Target "PublishServer" <| fun () ->
 // Target "Watch" (fun _ ->
 //     runFable "--watch" true
 // )
+
+// Target "CompileTypeScript" (fun _ ->
+//     // !! "**/*.ts"
+//     //     |> TypeScriptCompiler (fun p -> { p with OutputPath = "./out/client", Projec }) 
+//     //let cmd = "tsc -p ./"
+//     //DotNetCli.RunCommand id cmd
+//     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
+// )
+
 
 Target "CopyFSAC" (fun _ ->
     ensureDirectory releaseBin
@@ -153,6 +163,7 @@ Target "DryRelease" DoNothing
 ==> "Build"
 
 "YarnInstall" ==> "Build"
+// "CompileTypeScript" ==> "Build"
 //"DotNetRestore" ==> "BuildServer"
 //"DotNetRestore" ==> "Build"
 

@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Json.fs" />
     <Compile Include="Types.fs" />
@@ -11,8 +11,8 @@
     <Compile Include="DocumentStore.fs" />
     <Compile Include="LanguageServer.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\FSharp.Data\FSharp.Data.fsproj" />
   </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
