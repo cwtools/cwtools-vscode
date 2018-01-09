@@ -109,7 +109,8 @@ Target "InstallVSCE" ( fun _ ->
 Target "BuildPackage" ( fun _ ->
     killProcess "vsce"
     run vsceTool.Value "package" ""
-    !! "release/*.vsix"
+    killProcess "vsce"
+    !! "*.vsix"
     |> Seq.iter(MoveFile "./temp/")
 )
 
@@ -132,6 +133,7 @@ Target "PublishToGallery" ( fun _ ->
 
 Target "Build" DoNothing
 Target "Release" DoNothing
+Target "DryRelease" DoNothing
 
 //"YarnInstall" ?=> "RunScript"
 //"DotNetRestore" ?=> "RunScript"
@@ -161,5 +163,8 @@ Target "Release" DoNothing
 //==> "ReleaseGitHub"
 ==> "PublishToGallery"
 ==> "Release"
+
+"BuildPackage"
+==> "DryRelease"
 
 RunTargetOrDefault "Build"
