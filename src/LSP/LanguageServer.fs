@@ -133,7 +133,6 @@ let sendNotification (send: BinaryWriter) (n: ServerNotification) =
     |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
 
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
-    eprintfn "%s" ("processing message" + m.ToString())
     try
         match m with 
         | Parser.RequestMessage (id, method, json) -> 

@@ -53,14 +53,12 @@ type Server(send : BinaryWriter) =
                     }
         (file, result)
     let lint (doc: Uri): Async<unit> = 
-        eprintfn "%s" "lint!"
         async {
             let name = if doc.LocalPath.StartsWith("/") then doc.LocalPath.Substring(1) else doc.LocalPath
             
             let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
             let source = docs.GetText doc |> Option.defaultWith (notFound doc)
             let parsed = CKParser.parseEventString source name
-            eprintfn "%s %s" "lint!" name
             let parserErrors = match parsed with
                                 |Success(_,_,_) -> []
                                 |Failure(msg,p,s) -> [(name, msg, p.Position, 0)]
@@ -131,7 +129,6 @@ type Server(send : BinaryWriter) =
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams): unit =
             eprintfn "New configuration %s" (p.ToString())
         member this.DidOpenTextDocument(p: DidOpenTextDocumentParams): unit = 
-            eprintfn "%s" "lint!"
             docs.Open p
             lint p.textDocument.uri |> Async.RunSynchronously
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams): unit = 
