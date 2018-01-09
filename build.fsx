@@ -50,6 +50,7 @@ let fsacBinNetcore = fsacBin + "_netcore"
 
 Target "Clean" (fun _ ->
     CleanDir "./temp"
+    CleanDir "./out"
     // CopyFiles "release" ["README.md"; "LICENSE.md"]
     // CopyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
 )
@@ -65,7 +66,8 @@ Target "BuildServer" <| fun () ->
     DotNetCli.Build (fun p -> {p with WorkingDir = "src/Main"; Configuration = "Debug";})
 
 Target "PublishServer" <| fun () ->
-    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server"; Runtime = "win-x64"})
+    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server"; Runtime = "win-x64"; Configuration = "Debug"})
+    //DotNetCli.Publish (fun p -> {p with Output = "../../out/server"; Configuration = "Debug";})
 
 // let runTsc additionalArgs noTimeout =
 //     let cmd = "tsc webpack -- --config webpack.config.js " + additionalArgs

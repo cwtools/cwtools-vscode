@@ -12,15 +12,15 @@ import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, No
 export function activate(context: ExtensionContext) {
 
 	// The server is implemented using dotnet core
-	let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
+	//let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
 	let serverExe = context.asAbsolutePath(path.join('out', 'server', 'Main.exe'))
 	
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
 	let serverOptions: ServerOptions = {
 		run : { command: serverExe, transport: TransportKind.stdio },
-		debug : { command: serverExe, transport: TransportKind.stdio }
-
+		debug : { command: serverExe, transport: TransportKind.stdio}
+		//debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 		// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 	}
 	
