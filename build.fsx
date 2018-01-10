@@ -64,7 +64,7 @@ Target "DotNetRestore" <| fun () ->
 
 
 Target "BuildServer" <| fun () ->
-    DotNetCli.Build (fun p -> {p with WorkingDir = "src/Main"; Configuration = "Debug";})
+    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server"; Runtime = "win-x64"; Configuration = "Debug"})
 
 Target "PublishServer" <| fun () ->
     DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server"; Runtime = "win-x64"; Configuration = "Debug"})
@@ -159,7 +159,7 @@ Target "DryRelease" DoNothing
 //==> "CopyForge"
 //==> "CopyGrammar"
 //==> "CopySchemas"
-==> "PublishServer"
+==> "BuildServer"
 ==> "Build"
 
 "YarnInstall" ==> "Build"
@@ -170,6 +170,7 @@ Target "DryRelease" DoNothing
 "Build"
 //==> "SetVersion"
 // ==> "InstallVSCE"
+==> "PublishServer"
 ==> "BuildPackage"
 //==> "ReleaseGitHub"
 ==> "PublishToGallery"

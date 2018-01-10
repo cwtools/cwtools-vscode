@@ -1,0 +1,140 @@
+# Check which robot portrait to use for a newly built or upgraded robot in a country.
+# With the new robot portraits in synthetic dawn, robots select a portrait depending on the species class of the founder species.
+# See robot field in 00_robot_pops.txt
+# scope: country, from: upgraded from species (optional)
+
+use_robot_portrait_sd_hum_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_hum_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = HUM
+				species_portrait = sd_hum_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_mam_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_mam_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = MAM
+				species_portrait = sd_mam_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_rep_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_rep_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = REP
+				species_portrait = sd_rep_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_avi_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_avi_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = AVI
+				species_portrait = sd_avi_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_art_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_art_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = ART
+				species_portrait = sd_art_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_mol_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_mol_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = MOL
+				species_portrait = sd_mol_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_fun_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_fun_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = FUN
+				species_portrait = sd_fun_robot
+			}
+		}
+	}
+}
+
+use_robot_portrait_sd_pla_robot = {
+	host_has_dlc = "Synthetic Dawn Story Pack"
+	OR = {
+		AND = {	# upgrade -> check old model's portrait
+			exists = from
+			from = { species_portrait = sd_pla_robot }
+		}
+		AND = {	# new pop -> check founder species class or portrait
+			NOT = { exists = from }
+			OR = {
+				is_species_class = PLANT
+				species_portrait = sd_pla_robot
+			}
+		}
+	}
+}

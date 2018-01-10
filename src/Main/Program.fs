@@ -67,7 +67,9 @@ type Server(send : BinaryWriter) =
                                 |Some game ->
                                     let results = game.UpdateFile name
                                     results |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
-            parserErrors @ valErrors
+            match parserErrors @ valErrors with
+            | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
+            | x -> x
                     |> List.map parserErrorToDiagnostics
                     |> List.groupBy fst
                     |> List.map (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs})
@@ -90,11 +92,14 @@ type Server(send : BinaryWriter) =
         match uri with
         |Some u -> 
             let path = u.LocalPath.Substring(1)
+            eprintfn "%s" path
             try
-                let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.game_effects_triggers_1.9.1.txt"))
+                let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.game_effects_triggers_1.9.1.txt"))
+                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common"))
+                let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
-                let game = STLGame(path, FilesScope.All, "", triggers, effects)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
