@@ -1,4 +1,5 @@
 open Fake.ProcessHelper
+open Fake
 // --------------------------------------------------------------------------------------
 // FAKE build script
 // --------------------------------------------------------------------------------------
@@ -91,7 +92,8 @@ Target "PublishServer" <| fun () ->
 //     //DotNetCli.RunCommand id cmd
 //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
 // )
-
+Target "PaketRestore" (fun _ ->
+    Paket.PaketRestoreDefaults |> ignore)
 
 Target "CopyFSAC" (fun _ ->
     ensureDirectory releaseBin
@@ -163,6 +165,7 @@ Target "DryRelease" DoNothing
 ==> "Build"
 
 "YarnInstall" ==> "Build"
+"PaketRestore" ==> "BuildServer"
 // "CompileTypeScript" ==> "Build"
 //"DotNetRestore" ==> "BuildServer"
 //"DotNetRestore" ==> "Build"
