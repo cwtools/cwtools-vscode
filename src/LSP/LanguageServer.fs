@@ -6,6 +6,8 @@ open System.IO
 open System.Text
 open Types 
 open Json
+open System.Collections.Concurrent
+open System.Threading.Tasks
 
 let jsonWriteOptions = 
     { defaultJsonWriteOptions with 
@@ -35,7 +37,7 @@ let private serializeDocumentLink = serializerFactory<DocumentLink> jsonWriteOpt
 let private serializeWorkspaceEdit = serializerFactory<WorkspaceEdit> jsonWriteOptions
 let private serializePublishDiagnostics = serializerFactory<PublishDiagnosticsParams> jsonWriteOptions
 let private serializeLoadingBarParams = serializerFactory<LoadingBarParams> jsonWriteOptions
-
+let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPositionParams> jsonWriteOptions
 let respond (client: BinaryWriter) (requestId: int) (jsonText: string) = 
     let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
     let messageBytes = Encoding.UTF8.GetBytes messageText
@@ -46,6 +48,14 @@ let respond (client: BinaryWriter) (requestId: int) (jsonText: string) =
 
 let notify (client: BinaryWriter) (notificationMethod: string) (jsonText: string) =
     let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
+    let messageBytes = Encoding.UTF8.GetBytes messageText
+    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+    let headerBytes = Encoding.UTF8.GetBytes headerText
+    client.Write headerBytes
+    client.Write messageBytes
+
+let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jsonText: string) = 
+    let messageText = sprintf """{"id":%d,"method":%s, "params":%s"}""" requestId requestMethod jsonText
     let messageBytes = Encoding.UTF8.GetBytes messageText
     let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
     let headerBytes = Encoding.UTF8.GetBytes headerText
@@ -132,6 +142,24 @@ let sendNotification (send: BinaryWriter) (n: ServerNotification) =
     with
     |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
 
+let mutable callbacks = new ConcurrentDictionary<int, Delegate>()
+
+let sendRequest (send: BinaryWriter) (n: ServerRequest) (d : Delegate) =
+    try
+        let id = System.Random().Next()
+        callbacks.TryAdd(id, d) |> ignore
+        match n with
+        | GetWordRangeAtPosition p ->
+            p |> serializeGetWordRangeAtPosition |> request send id "getWordRangeAtPosition"
+    with
+    |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
+
+
+
+let (|TrySuccess|TryFailure|) tryResult =  
+    match tryResult with
+    | true, value -> TrySuccess value
+    | _ -> TryFailure
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
     try
         match m with 
@@ -139,6 +167,11 @@ let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Mes
             processRequest server send id (Parser.parseRequest method json) 
         | Parser.NotificationMessage (method, json) -> 
             processNotification server send (Parser.parseNotification method json)
+        | Parser.ResponseMessage (id, result) ->
+            match callbacks.TryGetValue(id) with
+            |TrySuccess t -> t.DynamicInvoke(result) |> ignore
+            |TryFailure -> failwith "Unexpected response %i" id
+            //processResponse server send id (Parser.parseResponse id result)
     with
     |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
     

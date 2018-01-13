@@ -8,19 +8,23 @@ open Types
 type Message = 
 | RequestMessage of id: int * method: string * json: JsonValue
 | NotificationMessage of method: string * json: option<JsonValue>
+| ResponseMessage of id: int * response: JsonValue
 
 let parseMessage (jsonText: string): Message = 
     let json = JsonValue.Parse jsonText
     let jsonRpcVersion = json?jsonrpc.AsString()
     assert (jsonRpcVersion = "2.0")
     let maybeId = json.TryGetProperty("id") |> Option.map JsonExtensions.AsInteger
-    let method = json?method.AsString()
+    let maybeMethod = json.TryGetProperty("method") |> Option.map JsonExtensions.AsString
     let maybeParams = json.TryGetProperty("params")
+    let maybeResult = json.TryGetProperty("result")
 
-    match maybeId, maybeParams with
-    | Some id, Some p -> RequestMessage (id, method, p)
-    | Some id, None -> raise (Exception (sprintf "Request message with id %d missing params" id))
-    | None, _ -> NotificationMessage (method, maybeParams)
+    match maybeId, maybeParams, maybeMethod, maybeResult with
+    | Some id, Some p, Some m, _ -> RequestMessage (id, m, p)
+    | Some id, _, _, Some r -> ResponseMessage(id, r)
+    | Some id, None, _, _ -> raise (Exception (sprintf "Request message with id %d missing params" id))
+    | None, _, Some m, _ -> NotificationMessage (m, maybeParams)
+    | _ -> raise (Exception (sprintf "Message %s doesn't match format expected" jsonText))
 
 let parseDidChangeConfigurationParams (json: JsonValue): DidChangeConfigurationParams = 
     {

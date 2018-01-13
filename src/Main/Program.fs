@@ -116,6 +116,13 @@ type Server(send : BinaryWriter) =
         |None -> ()
         LanguageServer.sendNotification send (LoadingBar {value = false})
 
+    let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
+        type MyDelegate = delegate of string -> unit
+        let f = MyDelegate(fun x -> 
+                                    LanguageServer. send ({}))
+        let word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos}) 
+
+
     interface ILanguageServer with 
         member this.Initialize(p: InitializeParams): InitializeResult = 
             let task = new Task((fun () -> processWorkspace(p.rootUri)))
@@ -152,7 +159,9 @@ type Server(send : BinaryWriter) =
                     projects.UpdateProjectFile change.uri 
                 lint change.uri |> Async.RunSynchronously
         member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
-        member this.Hover(p: TextDocumentPositionParams): Hover = TODO()
+        member this.Hover(p: TextDocumentPositionParams): Hover = 
+            hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
+
         member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()
         member this.SignatureHelp(p: TextDocumentPositionParams): SignatureHelp = TODO()
         member this.GotoDefinition(p: TextDocumentPositionParams): list<Location> = TODO()

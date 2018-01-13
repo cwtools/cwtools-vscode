@@ -622,3 +622,10 @@ type LoadingBarParams = {
 type ServerNotification = 
 | PublishDiagnostics of PublishDiagnosticsParams
 | LoadingBar of LoadingBarParams
+
+type GetWordRangeAtPositionParams = {
+    position : Position
+}
+
+type ServerRequest = 
+| GetWordRangeAtPosition of GetWordRangeAtPositionParams

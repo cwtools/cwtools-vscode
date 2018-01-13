@@ -6,8 +6,8 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, window, Disposable } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import { workspace, ExtensionContext, window, Disposable, Position } from 'vscode';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 
 export function activate(context: ExtensionContext) {
 
@@ -39,6 +39,7 @@ export function activate(context: ExtensionContext) {
 	let client = new LanguageClient('cwtoolsvscode', 'Paradox Language Server', serverOptions, clientOptions);
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
+	let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 	let status : Disposable;
 	client.onReady().then(() => {
 		client.onNotification(notification, (param : any) =>{
@@ -48,6 +49,12 @@ export function activate(context: ExtensionContext) {
 			else{
 				status.dispose();
 			}
+		})
+		client.onRequest(request, (param : Position) => {
+			let document = window.activeTextEditor.document;
+			let wordRange = document.getWordRangeAtPosition(param);
+			let word = document.getText(wordRange);
+			return word;
 		})
 	})
 	let disposable = client.start();
