@@ -7,7 +7,7 @@
 import * as path from 'path';
 
 import { workspace, ExtensionContext, window, Disposable, Position } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, Trace } from 'vscode-languageclient';
 
 export function activate(context: ExtensionContext) {
 
@@ -37,6 +37,7 @@ export function activate(context: ExtensionContext) {
 	}
 	
 	let client = new LanguageClient('cwtoolsvscode', 'Paradox Language Server', serverOptions, clientOptions);
+	console.log("client init")
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
 	let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
@@ -46,16 +47,20 @@ export function activate(context: ExtensionContext) {
 			if(param.value){
 				status = window.setStatusBarMessage("Loading files...");
 			}
-			else{
+			else if(status !== undefined){
 				status.dispose();
 			}
 		})
-		client.onRequest(request, (param : Position) => {
+		client.onRequest(request, (param : any, _) => {
+			console.log("recieved request " + request.method + " "+ param)
 			let document = window.activeTextEditor.document;
-			let wordRange = document.getWordRangeAtPosition(param);
+			let position = new Position(param.position.line, param.position.character)
+			let wordRange = document.getWordRangeAtPosition(position);
 			let word = document.getText(wordRange);
 			return word;
 		})
+		client.trace = Trace.Verbose
+		
 	})
 	let disposable = client.start();
 

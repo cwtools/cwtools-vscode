@@ -8,6 +8,9 @@ open Types
 open Json
 open System.Collections.Concurrent
 open System.Threading.Tasks
+open System.Globalization
+open FSharp.Collections.ParallelSeq
+open System.Threading
 
 let jsonWriteOptions = 
     { defaultJsonWriteOptions with 
@@ -38,6 +41,24 @@ let private serializeWorkspaceEdit = serializerFactory<WorkspaceEdit> jsonWriteO
 let private serializePublishDiagnostics = serializerFactory<PublishDiagnosticsParams> jsonWriteOptions
 let private serializeLoadingBarParams = serializerFactory<LoadingBarParams> jsonWriteOptions
 let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPositionParams> jsonWriteOptions
+
+type msg =
+    | Request of int * AsyncReplyChannel<string>
+    | Response of int * string
+let responseAgent = MailboxProcessor.Start(fun agent ->
+    let rec loop state =
+        async{
+            let! msg = agent.Receive()
+            match msg with
+            | Request (id, reply) ->
+                let _, response = state |> List.find (fun (i, _) -> i = id)
+                reply.Reply(response)
+                return! loop (state |> List.filter (fun (i, _) -> i <> id))
+            | Response (id, value) ->
+                return! loop ((id, value) :: state)
+        }
+    loop [])
+    
 let respond (client: BinaryWriter) (requestId: int) (jsonText: string) = 
     let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
     let messageBytes = Encoding.UTF8.GetBytes messageText
@@ -54,13 +75,20 @@ let notify (client: BinaryWriter) (notificationMethod: string) (jsonText: string
     client.Write headerBytes
     client.Write messageBytes
 
-let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jsonText: string) = 
-    let messageText = sprintf """{"id":%d,"method":%s, "params":%s"}""" requestId requestMethod jsonText
-    let messageBytes = Encoding.UTF8.GetBytes messageText
-    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-    let headerBytes = Encoding.UTF8.GetBytes headerText
-    client.Write headerBytes
-    client.Write messageBytes
+let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jsonText: string) =
+    async{
+        let messageText = sprintf """{"id":%d,"method":"%s", "params":%s}""" requestId requestMethod jsonText
+        let messageBytes = Encoding.UTF8.GetBytes messageText
+        let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+        let headerBytes = Encoding.UTF8.GetBytes headerText
+        client.Write headerBytes
+        client.Write messageBytes
+        Thread.Sleep(2000)
+        let! reply = responseAgent.PostAndAsyncReply((fun replyChannel -> Request(requestId, replyChannel)))
+        eprintfn "%s" reply
+        return reply
+    }
+
 
 let processRequest (server: ILanguageServer) (send: BinaryWriter) (id: int) (request: Request) = 
     match request with 
@@ -144,15 +172,39 @@ let sendNotification (send: BinaryWriter) (n: ServerNotification) =
 
 let mutable callbacks = new ConcurrentDictionary<int, Delegate>()
 
-let sendRequest (send: BinaryWriter) (n: ServerRequest) (d : Delegate) =
-    try
-        let id = System.Random().Next()
-        callbacks.TryAdd(id, d) |> ignore
-        match n with
-        | GetWordRangeAtPosition p ->
-            p |> serializeGetWordRangeAtPosition |> request send id "getWordRangeAtPosition"
-    with
-    |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
+let sendRequest (send: BinaryWriter) (n: ServerRequest) =
+    async {
+        try
+            let id = System.Random().Next()
+            match n with
+            | GetWordRangeAtPosition p ->
+                eprintfn "send request %i" id
+                return! p |> serializeGetWordRangeAtPosition |> request send id "getWordRangeAtPosition"
+        with
+        |e -> eprintfn "message %s failed with: %A" (n.ToString()) e; return ""
+    }
+
+
+    
+    // let rec empty = agent.Scan(function
+    //     | Response(rid, value) -> Some(full(rid, value))
+    //     | _ -> None)
+    // and full (rid, v) = agent.Scan(function
+    //     | Request(rrid, reply) when rid = rrid -> reply.Reply(v); Some(empty)
+    //     | _ -> None)
+    // empty )
+    // let requestID : option<int> = None
+    // let rec messageLoop() = async{
+    //     match requestID with
+    //     | x -> 
+    //         do! agent.Scan(function |Response(i, s) when i = x -> )
+    //     match msg with
+    //     | Request id reply -> 
+    //         inbox.Scan(function
+    //         | Response i s when id = i -> Some (async {reply.Reply(s); })
+    //         | _ -> None
+    //     | Response )
+    // })
 
 
 
@@ -161,19 +213,22 @@ let (|TrySuccess|TryFailure|) tryResult =
     | true, value -> TrySuccess value
     | _ -> TryFailure
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
-    try
-        match m with 
-        | Parser.RequestMessage (id, method, json) -> 
-            processRequest server send id (Parser.parseRequest method json) 
-        | Parser.NotificationMessage (method, json) -> 
-            processNotification server send (Parser.parseNotification method json)
-        | Parser.ResponseMessage (id, result) ->
-            match callbacks.TryGetValue(id) with
-            |TrySuccess t -> t.DynamicInvoke(result) |> ignore
-            |TryFailure -> failwith "Unexpected response %i" id
-            //processResponse server send id (Parser.parseResponse id result)
-    with
-    |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
+    // async {
+        try
+            eprintfn "received %A" m
+            match m with 
+            | Parser.RequestMessage (id, method, json) -> 
+                processRequest server send id (Parser.parseRequest method json) 
+            | Parser.NotificationMessage (method, json) -> 
+                processNotification server send (Parser.parseNotification method json)
+            | Parser.ResponseMessage (id, result) ->
+                eprintfn "received response %i %s" id (result.ToString())
+                responseAgent.Post(Response(id, result.ToString()))
+                //processResponse server send id (Parser.parseResponse id result)
+        with
+        |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
+    //}
+   
     
 
 let private notExit (message: Parser.Message) = 
@@ -187,4 +242,4 @@ let readMessages (receive: BinaryReader): seq<Parser.Message> =
 let connect (server: ILanguageServer) (receive: BinaryReader) (send: BinaryWriter) = 
     eprintfn "%s" "Connecting"
     let doProcessMessage = processMessage server send 
-    readMessages receive |> Seq.iter doProcessMessage
+    readMessages receive |> PSeq.iter doProcessMessage

@@ -71,15 +71,14 @@ Target "PublishServer" <| fun () ->
     DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server"; Runtime = "win-x64"; Configuration = "Debug"})
     //DotNetCli.Publish (fun p -> {p with Output = "../../out/server"; Configuration = "Debug";})
 
-// let runTsc additionalArgs noTimeout =
-//     let cmd = "tsc webpack -- --config webpack.config.js " + additionalArgs
-//     let timeout = if noTimeout then TimeSpan.MaxValue else TimeSpan.FromMinutes 30.
-//     DotNetCli.RunCommand (fun p -> { p with WorkingDir = "src"; TimeOut = timeout } ) cmd
-
-// Target "RunScript" (fun _ ->
-//     // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
-//     runFable "" false
-// )
+let runTsc additionalArgs noTimeout =
+    let cmd = "tsc"
+    let timeout = if noTimeout then TimeSpan.MaxValue else TimeSpan.FromMinutes 30.
+    run cmd additionalArgs ""
+Target "RunScript" (fun _ ->
+    // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
+    Shell.Exec @"C:\Users\Thomas\AppData\Roaming\npm\tsc.cmd" |> ignore
+)
 
 // Target "Watch" (fun _ ->
 //     runFable "--watch" true
@@ -164,7 +163,7 @@ Target "DryRelease" DoNothing
 ==> "BuildServer"
 ==> "Build"
 
-"YarnInstall" ==> "Build"
+"RunScript" ==> "Build"
 "PaketRestore" ==> "BuildServer"
 // "CompileTypeScript" ==> "Build"
 //"DotNetRestore" ==> "BuildServer"

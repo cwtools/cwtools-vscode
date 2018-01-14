@@ -117,10 +117,11 @@ type Server(send : BinaryWriter) =
         LanguageServer.sendNotification send (LoadingBar {value = false})
 
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
-        type MyDelegate = delegate of string -> unit
-        let f = MyDelegate(fun x -> 
-                                    LanguageServer. send ({}))
-        let word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos}) 
+        async { 
+            let! word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos})
+            eprintfn "%s" word
+            return word
+        }
 
 
     interface ILanguageServer with 
@@ -129,6 +130,7 @@ type Server(send : BinaryWriter) =
             task.Start()
             { capabilities = 
                 { defaultServerCapabilities with 
+                    hoverProvider = true
                     textDocumentSync = 
                         { defaultTextDocumentSyncOptions with 
                             openClose = true 
@@ -160,7 +162,9 @@ type Server(send : BinaryWriter) =
                 lint change.uri |> Async.RunSynchronously
         member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
         member this.Hover(p: TextDocumentPositionParams): Hover = 
-            hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
+            eprintfn "%s" "Hover"
+            let word = hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
+            {contents = [PlainString word]; range = None}
 
         member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()
         member this.SignatureHelp(p: TextDocumentPositionParams): SignatureHelp = TODO()
