@@ -11,6 +11,8 @@ open FParsec
 open System.Threading.Tasks
 open System.Text
 open System.Reflection
+open System.IO
+open System.Runtime.InteropServices
 
 let private TODO() = raise (Exception "TODO")
 
@@ -91,9 +93,12 @@ type Server(send : BinaryWriter) =
         LanguageServer.sendNotification send (LoadingBar {value = true})
         match uri with
         |Some u -> 
-            let path = u.LocalPath.Substring(1)
-            eprintfn "%s" path
+            let path = 
+                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                then u.LocalPath.Substring(1)
+                else u.LocalPath
             try
+                eprintfn "%s" path
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.game_effects_triggers_1.9.1.txt"))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())

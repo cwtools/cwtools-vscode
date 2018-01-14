@@ -5,6 +5,8 @@
 'use strict';
 
 import * as path from 'path';
+import * as os from 'os';
+import * as fs from 'fs';
 
 import { workspace, ExtensionContext, window, Disposable, Position } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, Trace } from 'vscode-languageclient';
@@ -13,7 +15,14 @@ export function activate(context: ExtensionContext) {
 
 	// The server is implemented using dotnet core
 	//let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
-	let serverExe = context.asAbsolutePath(path.join('out', 'server', 'Main.exe'))
+	var serverExe : string;
+	if(os.platform() == "win32"){
+		serverExe = context.asAbsolutePath(path.join('out', 'server','win-x64', 'Main.exe'))
+	}
+	else{
+		serverExe = context.asAbsolutePath(path.join('out', 'server','linux-x64', 'Main'))
+		fs.chmodSync(serverExe, '755');
+	}
 	
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
@@ -32,7 +41,8 @@ export function activate(context: ExtensionContext) {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'cwtools',
 			// Notify the server about file changes to F# project files contain in the workspace
-			fileEvents: workspace.createFileSystemWatcher('**/{events, common}/**/*.txt')
+			
+			fileEvents: workspace.createFileSystemWatcher(path.join(workspace.workspaceFolders[0].uri.fsPath, '**/{events, common}/**/*.txt'))
 		}
 	}
 	
