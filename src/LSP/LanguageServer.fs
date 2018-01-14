@@ -20,6 +20,7 @@ let jsonWriteOptions =
               writeInsertTextFormat;
               writeCompletionItemKind;
               writeMarkedString;
+              writeHoverContent;
               writeDocumentHighlightKind;
               writeSymbolKind ] }
 
@@ -51,11 +52,14 @@ let responseAgent = MailboxProcessor.Start(fun agent ->
             let! msg = agent.Receive()
             match msg with
             | Request (id, reply) ->
-                let _, response = state |> List.find (fun (i, _) -> i = id)
-                reply.Reply(response)
-                return! loop (state |> List.filter (fun (i, _) -> i <> id))
+                return! loop ((id, reply)::state)
             | Response (id, value) ->
-                return! loop ((id, value) :: state)
+                let result = state |> List.tryFind (fun (i, _) -> i = id)
+                match result with
+                |Some(_, reply) ->
+                    reply.Reply(value)
+                |None -> eprintfn "Unexpected response %i" id
+                return! loop state
         }
     loop [])
     
@@ -77,16 +81,16 @@ let notify (client: BinaryWriter) (notificationMethod: string) (jsonText: string
 
 let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jsonText: string) =
     async{
+        let reply = responseAgent.PostAndAsyncReply((fun replyChannel -> Request(requestId, replyChannel)))
         let messageText = sprintf """{"id":%d,"method":"%s", "params":%s}""" requestId requestMethod jsonText
         let messageBytes = Encoding.UTF8.GetBytes messageText
         let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
         let headerBytes = Encoding.UTF8.GetBytes headerText
         client.Write headerBytes
         client.Write messageBytes
-        Thread.Sleep(2000)
-        let! reply = responseAgent.PostAndAsyncReply((fun replyChannel -> Request(requestId, replyChannel)))
-        eprintfn "%s" reply
-        return reply
+        let! reply2 = reply
+        eprintfn "%s" reply2
+        return reply2
     }
 
 

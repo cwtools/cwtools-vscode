@@ -490,8 +490,21 @@ let writeMarkedString (s: MarkedString): JsonValue =
     | PlainString value -> 
         JsonValue.String value
 
+type HoverContent =
+|MarkedStrings of MarkedString[]
+|MarkupContent of kind: string * value: string
+
+let writeHoverContent (s: HoverContent): JsonValue = 
+    match s with 
+    | MarkedStrings(s) -> 
+        JsonValue.Array (s |> Array.map writeMarkedString)
+    | MarkupContent (kind, value) -> 
+        JsonValue.Record
+            [| "kind", (JsonValue.String kind);
+                "value", (JsonValue.String value)|]
+
 type Hover = {
-    contents: list<MarkedString>
+    contents: HoverContent
     range: option<Range>
 }
 

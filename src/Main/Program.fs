@@ -120,7 +120,19 @@ type Server(send : BinaryWriter) =
         async { 
             let! word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos})
             eprintfn "%s" word
-            return word
+            return match gameObj with
+            |Some game ->
+                let allEffects = game.ScriptedEffects @ game.ScripteTriggers
+                eprintfn "Looking for effect %s in the %i effects loaded" word (allEffects.Length)
+                eprintfn "%A" (allEffects |> List.take(5))
+                let hovered = allEffects |> List.tryFind (fun e -> "\"" + e.name + "\"" = word)
+                match hovered with
+                |Some effect ->
+                    let scopes = String.Join(", ", effect.scopes)
+                    let content = String.Join("\n***\n",["_"+effect.desc+"_"; "Supports scopes: " + scopes; effect.usage])
+                    {contents = (MarkupContent ("markdown", content)) ; range = None}
+                |None ->  {contents = MarkupContent ("markdown", ""); range = None}
+            |_ -> {contents = MarkupContent ("markdown", ""); range = None}
         }
 
 
@@ -163,8 +175,7 @@ type Server(send : BinaryWriter) =
         member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
         member this.Hover(p: TextDocumentPositionParams): Hover = 
             eprintfn "%s" "Hover"
-            let word = hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
-            {contents = [PlainString word]; range = None}
+            hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
 
         member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()
         member this.SignatureHelp(p: TextDocumentPositionParams): SignatureHelp = TODO()

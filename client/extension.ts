@@ -56,8 +56,12 @@ export function activate(context: ExtensionContext) {
 			let document = window.activeTextEditor.document;
 			let position = new Position(param.position.line, param.position.character)
 			let wordRange = document.getWordRangeAtPosition(position);
-			let word = document.getText(wordRange);
-			return word;
+			if(wordRange === undefined){
+				return "";
+			}
+			else{
+				return document.getText(wordRange);
+			}
 		})
 		client.trace = Trace.Verbose
 		
