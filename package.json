@@ -46,6 +46,26 @@
                     ],
                     "default": "off",
                     "description": "Traces the communication between VSCode and the language server."
+                },
+                "cwtools.localisation.languages": {
+                    "scope":"window",
+                    "type":"array",
+                    "items": {
+                        "type":"string",
+                        "enum": [
+                            "english",
+                            "french",
+                            "german",
+                            "spanish",
+                            "russian",
+                            "braz_por",
+                            "polish"
+                        ]
+                    },
+                    "default": ["english"],
+                    "description": "The list of languages to validate localisation for.",
+                    "uniqueItems": true
+
                 }
             }
         },

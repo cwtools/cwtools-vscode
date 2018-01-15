@@ -14,6 +14,9 @@ open System.Text
 open System.Reflection
 open System.IO
 open System.Runtime.InteropServices
+open FSharp.Data
+open LSP
+open CWTools.Common
 
 let private TODO() = raise (Exception "TODO")
 
@@ -28,6 +31,8 @@ type Server(send : BinaryWriter) =
     let mutable docErrors : DocumentHighlight list = []
 
     let mutable gameObj : option<STLGame> = None
+    let mutable languages : Lang list = []
+    let mutable rootUri : Uri option = None
 
     let (|TrySuccess|TryFailure|) tryResult =  
         match tryResult with
@@ -105,8 +110,8 @@ type Server(send : BinaryWriter) =
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
-                let langs = [Lang.STL STLLang.English; Lang.STL STLLang.German; Lang.STL STLLang.French; Lang.STL STLLang.Spanish; Lang.STL STLLang.Russian; Lang.STL STLLang.Polish; Lang.STL STLLang.BrazPor]
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, langs)
+                eprintfn "%A" languages                
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
@@ -147,8 +152,7 @@ type Server(send : BinaryWriter) =
 
     interface ILanguageServer with 
         member this.Initialize(p: InitializeParams): InitializeResult = 
-            let task = new Task((fun () -> processWorkspace(p.rootUri)))
-            task.Start()
+            rootUri <- p.rootUri
             { capabilities = 
                 { defaultServerCapabilities with 
                     hoverProvider = true
@@ -162,7 +166,19 @@ type Server(send : BinaryWriter) =
         member this.Shutdown(): unit = 
             ()
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams): unit =
+            let newLanguages = 
+                eprintfn "%A" p.settings
+                match p.settings.Item("cwtools").Item("localisation").Item("languages") with 
+                | JsonValue.Array o -> 
+                    o |> Array.choose (function |JsonValue.String s -> (match STLLang.TryParse<STLLang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                      |> List.ofArray
+                      |> (fun l ->  if List.isEmpty l then [STLLang.English] else l)
+                | _ -> [STLLang.English]                  
+            languages <- newLanguages |> List.map STL
             eprintfn "New configuration %s" (p.ToString())
+            let task = new Task((fun () -> processWorkspace(rootUri)))
+            task.Start()
+
         member this.DidOpenTextDocument(p: DidOpenTextDocumentParams): unit = 
             docs.Open p
             lint p.textDocument.uri |> Async.RunSynchronously
