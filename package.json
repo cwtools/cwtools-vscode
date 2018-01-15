@@ -53,19 +53,24 @@
                     "items": {
                         "type":"string",
                         "enum": [
-                            "english",
-                            "french",
-                            "german",
-                            "spanish",
-                            "russian",
-                            "braz_por",
-                            "polish"
+                            "English",
+                            "French",
+                            "German",
+                            "Spanish",
+                            "Russian",
+                            "Braz_Por",
+                            "Polish"
                         ]
                     },
                     "default": ["english"],
                     "description": "The list of languages to validate localisation for.",
                     "uniqueItems": true
-
+                },
+                "cwtools.errors.vanilla":{
+                    "scope": "window",
+                    "type":"boolean",
+                    "default":"false",
+                    "description": "Whether or not to show errors for vanilla files"
                 }
             }
         },

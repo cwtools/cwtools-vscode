@@ -33,7 +33,7 @@ type Server(send : BinaryWriter) =
     let mutable gameObj : option<STLGame> = None
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
-
+    let mutable validateVanilla : bool = false
     let (|TrySuccess|TryFailure|) tryResult =  
         match tryResult with
         | true, value -> TrySuccess value
@@ -111,7 +111,7 @@ type Server(send : BinaryWriter) =
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
                 eprintfn "%A" languages                
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages, validateVanilla)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
@@ -175,6 +175,11 @@ type Server(send : BinaryWriter) =
                       |> (fun l ->  if List.isEmpty l then [STLLang.English] else l)
                 | _ -> [STLLang.English]                  
             languages <- newLanguages |> List.map STL
+            let newVanillaOnly =
+                match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
+                | JsonValue.Boolean b -> b
+                | _ -> false
+            validateVanilla <- newVanillaOnly
             eprintfn "New configuration %s" (p.ToString())
             let task = new Task((fun () -> processWorkspace(rootUri)))
             task.Start()
