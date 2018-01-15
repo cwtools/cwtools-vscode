@@ -6,6 +6,7 @@ open System
 open System.IO
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open CWTools.Parser
+open CWTools.Common
 open CWTools.Games
 open FParsec
 open System.Threading.Tasks
@@ -104,13 +105,16 @@ type Server(send : BinaryWriter) =
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles)
+                let langs = [Lang.STL STLLang.English; Lang.STL STLLang.German; Lang.STL STLLang.French; Lang.STL STLLang.Spanish; Lang.STL STLLang.Russian; Lang.STL STLLang.Polish; Lang.STL STLLang.BrazPor]
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, langs)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+                let locErrors = game.LocalisationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+
                 //eprintfn "%A" game.ValidationErrors
                 let parserErrors = game.ParserErrors |> List.map (fun (n, e, p) -> n, e, p, 0)
-                parserErrors @ valErrors
+                parserErrors @ valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
                     |> List.groupBy fst
                     |> List.map (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs})
