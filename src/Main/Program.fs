@@ -74,7 +74,7 @@ type Server(send : BinaryWriter) =
                                 |None -> []
                                 |Some game ->
                                     let results = game.UpdateFile name
-                                    results |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+                                    results |> List.map (fun (n, l, e) -> let (Position p) = n in (p.StreamName, e, p, l) )
             match parserErrors @ valErrors with
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
             | x -> x
@@ -114,8 +114,8 @@ type Server(send : BinaryWriter) =
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages, validateVanilla)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
-                let valErrors = game.ValidationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
-                let locErrors = game.LocalisationErrors |> List.map (fun (n, e) -> let (Position p) = n.Position in (p.StreamName, e, p, n.Key.Length) )
+                let valErrors = game.ValidationErrors |> List.map (fun (n, l, e) -> let (Position p) = n in (p.StreamName, e, p, l) )
+                let locErrors = game.LocalisationErrors |> List.map (fun (n, l, e) -> let (Position p) = n in (p.StreamName, e, p, l) )
 
                 //eprintfn "%A" game.ValidationErrors
                 let parserErrors = game.ParserErrors |> List.map (fun (n, e, p) -> n, e, p, 0)
@@ -133,12 +133,10 @@ type Server(send : BinaryWriter) =
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
         async { 
             let! word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos})
-            eprintfn "%s" word
             return match gameObj with
             |Some game ->
                 let allEffects = game.ScriptedEffects @ game.ScripteTriggers
                 eprintfn "Looking for effect %s in the %i effects loaded" word (allEffects.Length)
-                eprintfn "%A" (allEffects |> List.take(5))
                 let hovered = allEffects |> List.tryFind (fun e -> "\"" + e.name + "\"" = word)
                 match hovered with
                 |Some effect ->
@@ -167,7 +165,6 @@ type Server(send : BinaryWriter) =
             ()
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams): unit =
             let newLanguages = 
-                eprintfn "%A" p.settings
                 match p.settings.Item("cwtools").Item("localisation").Item("languages") with 
                 | JsonValue.Array o -> 
                     o |> Array.choose (function |JsonValue.String s -> (match STLLang.TryParse<STLLang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
@@ -192,8 +189,8 @@ type Server(send : BinaryWriter) =
             lint p.textDocument.uri |> Async.RunSynchronously
         member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = TODO()
         member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams): list<TextEdit> = TODO()
-        member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit = 
-            eprintfn "%s" (p.ToString())
+        member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit = ()
+           // eprintfn "%s" (p.ToString())
         member this.DidCloseTextDocument(p: DidCloseTextDocumentParams): unit = 
             docs.Close p
         member this.DidChangeWatchedFiles(p: DidChangeWatchedFilesParams): unit = 
@@ -204,7 +201,6 @@ type Server(send : BinaryWriter) =
                 lint change.uri |> Async.RunSynchronously
         member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
         member this.Hover(p: TextDocumentPositionParams): Hover = 
-            eprintfn "%s" "Hover"
             hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
 
         member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()

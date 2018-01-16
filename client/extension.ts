@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 
 import { workspace, ExtensionContext, window, Disposable, Position } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, Trace } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 
 export function activate(context: ExtensionContext) {
 
@@ -28,7 +28,7 @@ export function activate(context: ExtensionContext) {
 	// Otherwise the run options are used
 	let serverOptions: ServerOptions = {
 		run : { command: serverExe, transport: TransportKind.stdio },
-		debug : { command: serverExe, transport: TransportKind.stdio}
+		debug : { command: serverExe, transport: TransportKind.stdio }
 		//debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 		// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 	}
@@ -46,7 +46,7 @@ export function activate(context: ExtensionContext) {
 		}
 	}
 	
-	let client = new LanguageClient('cwtoolsvscode', 'Paradox Language Server', serverOptions, clientOptions);
+	let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
 	console.log("client init")
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
@@ -72,9 +72,7 @@ export function activate(context: ExtensionContext) {
 			else{
 				return document.getText(wordRange);
 			}
-		})
-		client.trace = Trace.Verbose
-		
+		})		
 	})
 	let disposable = client.start();
 

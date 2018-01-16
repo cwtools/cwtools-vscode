@@ -88,9 +88,7 @@ let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jso
         let headerBytes = Encoding.UTF8.GetBytes headerText
         client.Write headerBytes
         client.Write messageBytes
-        let! reply2 = reply
-        eprintfn "%s" reply2
-        return reply2
+        return! reply
     }
 
 
@@ -188,50 +186,21 @@ let sendRequest (send: BinaryWriter) (n: ServerRequest) =
         |e -> eprintfn "message %s failed with: %A" (n.ToString()) e; return ""
     }
 
-
-    
-    // let rec empty = agent.Scan(function
-    //     | Response(rid, value) -> Some(full(rid, value))
-    //     | _ -> None)
-    // and full (rid, v) = agent.Scan(function
-    //     | Request(rrid, reply) when rid = rrid -> reply.Reply(v); Some(empty)
-    //     | _ -> None)
-    // empty )
-    // let requestID : option<int> = None
-    // let rec messageLoop() = async{
-    //     match requestID with
-    //     | x -> 
-    //         do! agent.Scan(function |Response(i, s) when i = x -> )
-    //     match msg with
-    //     | Request id reply -> 
-    //         inbox.Scan(function
-    //         | Response i s when id = i -> Some (async {reply.Reply(s); })
-    //         | _ -> None
-    //     | Response )
-    // })
-
-
-
 let (|TrySuccess|TryFailure|) tryResult =  
     match tryResult with
     | true, value -> TrySuccess value
     | _ -> TryFailure
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
-    // async {
-        try
-            eprintfn "received %A" m
-            match m with 
-            | Parser.RequestMessage (id, method, json) -> 
-                processRequest server send id (Parser.parseRequest method json) 
-            | Parser.NotificationMessage (method, json) -> 
-                processNotification server send (Parser.parseNotification method json)
-            | Parser.ResponseMessage (id, result) ->
-                eprintfn "received response %i %s" id (result.ToString())
-                responseAgent.Post(Response(id, result.ToString()))
-                //processResponse server send id (Parser.parseResponse id result)
-        with
-        |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
-    //}
+    try
+        match m with 
+        | Parser.RequestMessage (id, method, json) -> 
+            processRequest server send id (Parser.parseRequest method json) 
+        | Parser.NotificationMessage (method, json) -> 
+            processNotification server send (Parser.parseNotification method json)
+        | Parser.ResponseMessage (id, result) ->
+            responseAgent.Post(Response(id, result.ToString()))
+    with
+    |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
    
     
 
