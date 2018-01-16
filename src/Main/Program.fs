@@ -16,7 +16,7 @@ open System.IO
 open System.Runtime.InteropServices
 open FSharp.Data
 open LSP
-open CWTools.Common
+open CWTools.Validation.ValidationCore
 
 let private TODO() = raise (Exception "TODO")
 
@@ -38,8 +38,14 @@ type Server(send : BinaryWriter) =
         match tryResult with
         | true, value -> TrySuccess value
         | _ -> TryFailure
+    let sevToDiagSev =
+        function
+        | Severity.Error -> DiagnosticSeverity.Error
+        | Severity.Warning -> DiagnosticSeverity.Warning
+        | Severity.Information -> DiagnosticSeverity.Information
+        | Severity.Hint -> DiagnosticSeverity.Hint
     let parserErrorToDiagnostics e =
-        let file, error, (position : Position), length = e
+        let sev, file, error, (position : Position), length = e
         let startC, endC = match length with
         | 0 -> 0,( int position.Column) - 1
         | x ->(int position.Column) - 1,(int position.Column) + length - 1
@@ -54,7 +60,7 @@ type Server(send : BinaryWriter) =
                                             character = endC
                                     }
                         }
-                        severity = Some DiagnosticSeverity.Error
+                        severity = Some (sevToDiagSev sev)
                         code = if length = 0 then Some "CW1" else Some "STL1"
                         source = None
                         message = error
@@ -69,12 +75,13 @@ type Server(send : BinaryWriter) =
             let parsed = CKParser.parseEventString source name
             let parserErrors = match parsed with
                                 |Success(_,_,_) -> []
-                                |Failure(msg,p,s) -> [(name, msg, p.Position, 0)]
+                                |Failure(msg,p,s) -> [(Severity.Error, name, msg, p.Position, 0)]
             let valErrors = match gameObj with
                                 |None -> []
                                 |Some game ->
                                     let results = game.UpdateFile name
-                                    results |> List.map (fun (n, l, e) -> let (Position p) = n in (p.StreamName, e, p, l) )
+                                    results |> List.map (fun (s, n, l, e) -> let (Position p) = n in (s, p.StreamName, e, p, l) )
+            eprintfn "%A" parserErrors
             match parserErrors @ valErrors with
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
             | x -> x
@@ -114,11 +121,11 @@ type Server(send : BinaryWriter) =
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages, validateVanilla)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
-                let valErrors = game.ValidationErrors |> List.map (fun (n, l, e) -> let (Position p) = n in (p.StreamName, e, p, l) )
-                let locErrors = game.LocalisationErrors |> List.map (fun (n, l, e) -> let (Position p) = n in (p.StreamName, e, p, l) )
+                let valErrors = game.ValidationErrors |> List.map (fun (s, n, l, e) -> let (Position p) = n in (s, p.StreamName, e, p, l) )
+                let locErrors = game.LocalisationErrors |> List.map (fun (s, n, l, e) -> let (Position p) = n in (s, p.StreamName, e, p, l) )
 
                 //eprintfn "%A" game.ValidationErrors
-                let parserErrors = game.ParserErrors |> List.map (fun (n, e, p) -> n, e, p, 0)
+                let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> Severity.Error, n, e, p, 0)
                 parserErrors @ valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
                     |> List.groupBy fst
