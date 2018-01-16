@@ -5,7 +5,7 @@
     "description": "Paradox Interactive file support using CWTools",
     "author": "Dayshine",
     "license": "MIT",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "preview": true,
     "publisher": "tboby",
     "repository": {
@@ -48,10 +48,10 @@
                     "description": "Traces the communication between VSCode and the language server."
                 },
                 "cwtools.localisation.languages": {
-                    "scope":"window",
-                    "type":"array",
+                    "scope": "window",
+                    "type": "array",
                     "items": {
-                        "type":"string",
+                        "type": "string",
                         "enum": [
                             "English",
                             "French",
@@ -62,14 +62,16 @@
                             "Polish"
                         ]
                     },
-                    "default": ["english"],
+                    "default": [
+                        "english"
+                    ],
                     "description": "The list of languages to validate localisation for.",
                     "uniqueItems": true
                 },
-                "cwtools.errors.vanilla":{
+                "cwtools.errors.vanilla": {
                     "scope": "window",
-                    "type":"boolean",
-                    "default":"false",
+                    "type": "boolean",
+                    "default": "false",
                     "description": "Whether or not to show errors for vanilla files"
                 }
             }

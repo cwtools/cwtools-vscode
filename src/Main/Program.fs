@@ -106,7 +106,7 @@ type Server(send : BinaryWriter) =
             try
                 eprintfn "%s" path
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.game_effects_triggers_1.9.1.txt"))
-                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common"))
+                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
