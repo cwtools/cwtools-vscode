@@ -69,8 +69,10 @@ type Server(send : BinaryWriter) =
         (file, result)
     let lint (doc: Uri): Async<unit> = 
         async {
-            let name = if doc.LocalPath.StartsWith("/") then doc.LocalPath.Substring(1) else doc.LocalPath
-            
+            let name = 
+                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                then doc.LocalPath.Substring(1)
+                else doc.LocalPath            
             let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
             let source = docs.GetText doc |> Option.defaultWith (notFound doc)
             let parsed = CKParser.parseEventString source name
