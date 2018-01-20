@@ -7,6 +7,7 @@ open System.IO
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open CWTools.Parser
 open CWTools.Common
+open CWTools.Common.STLConstants
 open CWTools.Games
 open FParsec
 open System.Threading.Tasks
@@ -116,7 +117,7 @@ type Server(send : BinaryWriter) =
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
-                let triggers, effects = (docs |> (function |Success(p, _, _) -> p))
+                let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
                 eprintfn "%A" languages                
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages, validateVanilla)
                 gameObj <- Some game
@@ -144,12 +145,18 @@ type Server(send : BinaryWriter) =
             |Some game ->
                 let allEffects = game.ScriptedEffects @ game.ScripteTriggers
                 eprintfn "Looking for effect %s in the %i effects loaded" word (allEffects.Length)
-                let hovered = allEffects |> List.tryFind (fun e -> "\"" + e.name + "\"" = word)
+                let hovered = allEffects |> List.tryFind (fun e -> "\"" + e.Name + "\"" = word)
                 match hovered with
                 |Some effect ->
-                    let scopes = String.Join(", ", effect.scopes)
-                    let content = String.Join("\n***\n",["_"+effect.desc+"_"; "Supports scopes: " + scopes; effect.usage])
-                    {contents = (MarkupContent ("markdown", content)) ; range = None}
+                    match effect with
+                    | :? DocEffect as de ->
+                        let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                        let content = String.Join("\n***\n",["_"+de.Desc+"_"; "Supports scopes: " + scopes;]) // TODO: usageeffect.Usage])
+                        {contents = (MarkupContent ("markdown", content)) ; range = None}
+                    | e ->
+                        let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                        let content = String.Join("\n***\n",["_"+e.Name+"_"; "Supports scopes: " + scopes;]) // TODO: usageeffect.Usage])
+                        {contents = (MarkupContent ("markdown", content)) ; range = None}
                 |None ->  {contents = MarkupContent ("markdown", ""); range = None}
             |_ -> {contents = MarkupContent ("markdown", ""); range = None}
         }

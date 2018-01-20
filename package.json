@@ -8,6 +8,7 @@
     "version": "0.1.17",
     "preview": true,
     "publisher": "tboby",
+    "qna" : false,
     "repository": {
         "type": "git",
         "url": "https://github.com/tboby/cwtools-vscode"
@@ -84,11 +85,15 @@
                     "paradox"
                 ],
                 "extensions": [
-                    "txt"
+                    "txt",
+                    "gui",
+                    "gfx"
                 ],
                 "configuration": "./language-configuration.json",
                 "filenamePatterns": [
-                    "**/stellaris/**/*.txt"
+                    "**/stellaris/**/*.txt",
+                    "**/stellaris/**/*.gui",
+                    "**/stellaris/**/*.gfx"
                 ]
             }
         ],
