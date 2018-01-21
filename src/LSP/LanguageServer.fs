@@ -52,32 +52,62 @@ let responseAgent = MailboxProcessor.Start(fun agent ->
             let! msg = agent.Receive()
             match msg with
             | Request (id, reply) ->
+                eprintfn "request state: %A" state
                 return! loop ((id, reply)::state)
             | Response (id, value) ->
+                eprintf "response state: %A" state
                 let result = state |> List.tryFind (fun (i, _) -> i = id)
                 match result with
                 |Some(_, reply) ->
                     reply.Reply(value)
                 |None -> eprintfn "Unexpected response %i" id
-                return! loop state
+                return! loop (state |> List.filter (fun (i, _) -> i <> id))
         }
     loop [])
-    
+
+type sendMsg =
+    | ServerResponse of BinaryWriter * int * string
+    | ServerNotification of BinaryWriter * string * string
+let messageQueue = MailboxProcessor.Start(fun agent ->
+    let rec loop = 
+        async {
+            let! msg = agent.Receive()
+            match msg with
+            | ServerResponse(client, requestId, jsonText) ->
+                let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
+                let messageBytes = Encoding.UTF8.GetBytes messageText
+                let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+                let headerBytes = Encoding.UTF8.GetBytes headerText
+                client.Write headerBytes
+                client.Write messageBytes
+            | ServerNotification(client, notificationMethod, jsonText) ->
+                let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
+                let messageBytes = Encoding.UTF8.GetBytes messageText
+                let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+                let headerBytes = Encoding.UTF8.GetBytes headerText
+                client.Write headerBytes
+                client.Write messageBytes
+            do! loop
+        }
+    loop)
+
 let respond (client: BinaryWriter) (requestId: int) (jsonText: string) = 
-    let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
-    let messageBytes = Encoding.UTF8.GetBytes messageText
-    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-    let headerBytes = Encoding.UTF8.GetBytes headerText
-    client.Write headerBytes
-    client.Write messageBytes
+    messageQueue.Post(ServerResponse(client, requestId, jsonText))
+    // let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
+    // let messageBytes = Encoding.UTF8.GetBytes messageText
+    // let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+    // let headerBytes = Encoding.UTF8.GetBytes headerText
+    // client.Write headerBytes
+    // client.Write messageBytes
 
 let notify (client: BinaryWriter) (notificationMethod: string) (jsonText: string) =
-    let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
-    let messageBytes = Encoding.UTF8.GetBytes messageText
-    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-    let headerBytes = Encoding.UTF8.GetBytes headerText
-    client.Write headerBytes
-    client.Write messageBytes
+    messageQueue.Post(ServerNotification(client, notificationMethod, jsonText))
+    // let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
+    // let messageBytes = Encoding.UTF8.GetBytes messageText
+    // let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+    // let headerBytes = Encoding.UTF8.GetBytes headerText
+    // client.Write headerBytes
+    // client.Write messageBytes
 
 let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jsonText: string) =
     async{
@@ -192,6 +222,7 @@ let (|TrySuccess|TryFailure|) tryResult =
     | _ -> TryFailure
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
     try
+        eprintfn "process message"
         match m with 
         | Parser.RequestMessage (id, method, json) -> 
             processRequest server send id (Parser.parseRequest method json) 
@@ -213,6 +244,11 @@ let readMessages (receive: BinaryReader): seq<Parser.Message> =
     Tokenizer.tokenize receive |> Seq.map Parser.parseMessage |> Seq.takeWhile notExit
 
 let connect (server: ILanguageServer) (receive: BinaryReader) (send: BinaryWriter) = 
+    let task = new Task((fun () -> while true do Thread.Sleep(5000); eprintfn "%A" responseAgent.CurrentQueueLength ))
+    task.Start()
     eprintfn "%s" "Connecting"
-    let doProcessMessage = processMessage server send 
-    readMessages receive |> PSeq.iter doProcessMessage
+    let doProcessMessage = 
+        (fun m -> 
+            let task = new Task((fun () -> processMessage server send m))
+            task.Start())
+    readMessages receive |> Seq.iter doProcessMessage

@@ -142,7 +142,9 @@ type Server(send : BinaryWriter) =
 
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
         async { 
+            eprintfn "Hover before word"
             let! word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos})
+            eprintfn "Hover after word"
             return match gameObj with
             |Some game ->
                 let allEffects = game.ScriptedEffects @ game.ScripteTriggers
@@ -217,6 +219,7 @@ type Server(send : BinaryWriter) =
                 lint change.uri |> Async.RunSynchronously
         member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
         member this.Hover(p: TextDocumentPositionParams): Hover = 
+            eprintfn "Hover"
             hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
 
         member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()
