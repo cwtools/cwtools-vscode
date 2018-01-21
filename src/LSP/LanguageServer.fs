@@ -52,10 +52,8 @@ let responseAgent = MailboxProcessor.Start(fun agent ->
             let! msg = agent.Receive()
             match msg with
             | Request (id, reply) ->
-                eprintfn "request state: %A" state
                 return! loop ((id, reply)::state)
             | Response (id, value) ->
-                eprintf "response state: %A" state
                 let result = state |> List.tryFind (fun (i, _) -> i = id)
                 match result with
                 |Some(_, reply) ->
@@ -222,7 +220,6 @@ let (|TrySuccess|TryFailure|) tryResult =
     | _ -> TryFailure
 let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
     try
-        eprintfn "process message"
         match m with 
         | Parser.RequestMessage (id, method, json) -> 
             processRequest server send id (Parser.parseRequest method json) 
@@ -244,8 +241,6 @@ let readMessages (receive: BinaryReader): seq<Parser.Message> =
     Tokenizer.tokenize receive |> Seq.map Parser.parseMessage |> Seq.takeWhile notExit
 
 let connect (server: ILanguageServer) (receive: BinaryReader) (send: BinaryWriter) = 
-    let task = new Task((fun () -> while true do Thread.Sleep(5000); eprintfn "%A" responseAgent.CurrentQueueLength ))
-    task.Start()
     eprintfn "%s" "Connecting"
     let doProcessMessage = 
         (fun m -> 
