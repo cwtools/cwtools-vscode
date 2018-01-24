@@ -165,12 +165,14 @@ Target "DryRelease" DoNothing
 ==> "Build"
 
 "RunScript" ==> "Build"
+"RunScript" ==> "PublishServer"
 "PaketRestore" ==> "BuildServer"
+"PaketRestore" ==> "PublishServer"
 // "CompileTypeScript" ==> "Build"
 //"DotNetRestore" ==> "BuildServer"
 //"DotNetRestore" ==> "Build"
 
-"Build"
+"Clean"
 //==> "SetVersion"
 // ==> "InstallVSCE"
 ==> "PublishServer"

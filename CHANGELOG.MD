@@ -1,3 +1,6 @@
+# 0.2.6
+* Add more validation for technologies
+    * All "research_leader" must have an area, which should match the technology
 # 0.2.5
 * Add localisation checks for buildings
     * building name
