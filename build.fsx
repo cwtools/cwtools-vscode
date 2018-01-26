@@ -65,11 +65,11 @@ Target "DotNetRestore" <| fun () ->
 
 
 Target "BuildServer" <| fun () ->
-    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
+    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
 
 Target "PublishServer" <| fun () ->
-    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
-    DotNetCli.Publish (fun p -> {p with AdditionalArgs = ["--self-contained"]; Output = "../../out/server/linux-x64"; Runtime = "linux-x64"; Configuration = "Debug"})
+    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
+    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/linux-x64"; Runtime = "linux-x64"; Configuration = "Debug"})
     //DotNetCli.Publish (fun p -> {p with Output = "../../out/server"; Configuration = "Debug";})
 
 let runTsc additionalArgs noTimeout =
