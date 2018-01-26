@@ -1,3 +1,5 @@
+# 0.2.8
+* Temporarily remove research leader checks
 # 0.2.7
 * Add localisation for armies and army_attachments
     * army name
