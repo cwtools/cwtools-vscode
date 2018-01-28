@@ -1,3 +1,57 @@
+# 0.2.9
+* Add localisation for pop\_faction\_types
+    * pft
+    * pft plus "_desc"
+* Add localisation for static_modifiers
+    * modifier
+    * modifier plus "_desc"
+* Add localisation for spaceport modules
+    * "sm_" plus module
+* Add localisation for traits
+    * trait
+    * trait plus "_desc"
+* Add localisation for governments
+    * government key
+    * ruler\_title, ruler\_title\_female, heir\_title, heir\_title\_female
+    * civic
+    * civic plus "_desc"
+    * civic description
+* Add localisation for personalities
+    * "personality_" plus personality
+    * peronality plus "_desc"
+* Add localisation for ethics
+    * ethics
+    * ethics plus "_desc"
+* Add localisation for planet_classes
+    * planet class
+    * planet class plus "_desc"
+    * if colonizable
+        * planet class plus "_tile"
+        * planet class plus "\_tile\_desc"
+        * "trait\_" plus planet class plus "\_preference"
+        * preference plus "_desc"
+        * planet class plus "_habitability"
+* Add localisation for edicts
+    * "edict\_" plus edict name
+    * "edict\_" plus edict name plus "\_desc"
+* Add localisation for policies
+    * "policy\_" plus policy
+    * "policy\_" plus policy plus "\_desc"
+    * policy option name
+    * policy option name plus "\_desc"
+    * policy option flags
+* Add more localisation for technology
+    * feature_flags
+    * feature\_flags + "\_desc"
+* Add localisation for section_templates
+    * key
+* Add localisation for species\_name
+    * "\_desc"; "\_plural"; "\_insult\_01"; "\_insult\_plural\_01"; "\_compliment\_01";"\_compliment\_plural\_01";"\_spawn";"\_spawn\_plural";
+                                "\_sound\_01";"\_sound\_02";"\_sound\_03";"\_sound\_04";"\_sound\_05";"\_organ";"\_mouth"
+* Add localisation for strategic_resources
+    * resource
+    * resource + "\_desc"
+
 # 0.2.8
 * Temporarily remove research leader checks
 # 0.2.7
