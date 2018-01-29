@@ -1,3 +1,5 @@
+# 0.2.10
+* Add localisation_synced checking in events
 # 0.2.9
 * Add localisation for pop\_faction\_types
     * pft
