@@ -1,0 +1,379 @@
+﻿l_english:
+
+    # GENERALL / OVERRIDES / UI
+
+    ui_set_blue:0 "§B[This.GetName]§!"
+    ui_set_teal:0 "§E[This.GetName]§!"
+
+    # Sector edict description help
+    ui_sector_edicts_usage:1 "---------------\n§E§HSector Edicts§! are temporary sector-wide planetary modifiers that can be activated by spending §HInfluence§! (£influence ).§!"
+
+    count_planet_army_trigger:0 "Count planet armies"
+    PLANET_VIEW_LEADER_TYPE_SECTOR_OTHER_PLANET:0 "Sector Governor ruling from planet $PLANET|B$."
+
+
+    # EDICTS
+
+    edict_restricted_migration:0 "Restricted Migration"
+    edict_restricted_migration_desc:0 "This planet has restricted access, so the migration processes is totally under the government control."
+
+    edict_sector_capital_new:0 "Establish Sector Capital"
+    edict_sector_capital_new_desc:0 "The edict will make this planet as a Capital world for entire region moving the sector authorities and governor directly to this planet."
+    edict_sector_capital_move:0 "Set as Sector Capital"
+    edict_sector_capital_move_desc:0 "The edict will launch an administrative reform, relocating the sector authorities and governor directly to this planet."
+    edict_sector_capital_effect:0 "§H[Root.GetName]§! will gain some bonuses from capital status."
+    
+        edict_sector_capital_not_established:0 "§RPlanet has already established Sector Capital§!"
+        edict_sector_capital_has_sector_edict:0 "§RSector has active edicts§!"
+
+    edict_manage_sector:0 "Manage Sector"
+    edict_manage_sector_desc:0 "Opens administrative screen where you can manage your sector."
+
+        edict_manage_sector_duplicated:0 "§RThere is another opened sector management screen. Close it to run this one.§!"
+
+        # Sector scripted edicts
+        edict_sector_food:1 "Agriculture Investments"
+        edict_sector_food_desc:0 "§E$edict_sector_food$§!\nThis edict will force sector government to allocate much more resources and efforts directly to agricultural sphere, significantly boosting food output.\n\n§EEffects:§!\nLasts §H10§! years\nFood: §G+10%§!\n$ui_sector_edicts_usage$"
+        edict_sector_food_cost:1 "£influence  §Y[root.num_edict_cost_food]§!"
+        edict_sector_food_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_food]§! days§!"
+
+        edict_sector_energy:1 "Power Optimization"
+        edict_sector_energy_desc:0 "§E$edict_sector_energy$§!\nThis government initiative will try to optimize all local power grid networks boosting their efficiency and increasing total energy output.\n\n§EEffects:§!\nLasts §H10§! years\nEnergy: §G+10%§!\n$ui_sector_edicts_usage$"
+        edict_sector_energy_cost:1 "£influence  §Y[root.num_edict_cost_energy]§!"
+        edict_sector_energy_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_energy]§! days§!"
+
+        edict_sector_minerals:1 "Extensive Mining"
+        edict_sector_minerals_desc:0 "§E$edict_sector_minerals$§!\nSector government receives orders to expand all mining activities across the entire sector. This will significantly increase mineral production.\n\n§EEffects:§!\nLasts §H10§! years\nMinerals: §G+10%§!\n$ui_sector_edicts_usage$"
+        edict_sector_minerals_cost:1 "£influence  §Y[root.num_edict_cost_minerals]§!"
+        edict_sector_minerals_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_minerals]§! days§!"
+
+        edict_sector_research:1 "Research Grants"
+        edict_sector_research_desc:0 "§E$edict_sector_research$§!\nAccording to this edict, sector will gain additional funds for all research initiatives. Science output will be increased.\n\n§EEffects:§!\nLasts §H10§! years\nResearch: §G+10%§!\n$ui_sector_edicts_usage$"
+        edict_sector_research_cost:1 "£influence  §Y[root.num_edict_cost_research]§!"
+        edict_sector_research_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_research]§! days§!"
+
+        edict_sector_infrastructure:1 "Infrastructure Projects"
+        edict_sector_infrastructure_desc:0 "§E$edict_sector_infrastructure$§!\nThis edict puts considerable political weight behind new construction and development initiatives.\n\n§EEffects:§!\nLasts §H10§! years\nBuilding Cost: §G-10%§!\nClear Blocker Cost: §G-10%§!\n$ui_sector_edicts_usage$"
+        edict_sector_infrastructure_cost:0 "£influence  §Y[root.num_edict_cost_infrastructure]§!"
+        edict_sector_infrastructure_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_infrastructure]§! days§!"
+
+        edict_sector_happiness:1 "Entertainment Programs"
+        edict_sector_happiness_desc:0 "§E$edict_sector_happiness$§!\nSector government will spend additional resources for creation of necessary civil infrastructure - recreation zones, entertainment complexes, administrations, increasing population happiness.\n\n§EEffects:§!\nLasts §H10§! years\nHappiness: §G+5%§!\n$ui_sector_edicts_usage$"
+        edict_sector_happiness_cost:1 "£influence  §Y[root.num_edict_cost_happiness]§!"
+        edict_sector_happiness_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_happiness]§! days§!"
+
+        edict_sector_migration:1 "Interstellar Tourism Campaigns"
+        edict_sector_migration_desc:0 "§E$edict_sector_migration$§!\nThis edicts starts a massive PR campaign to attract attention to entire sector as a perfect place where you can start a new and better life with a lot of opportunities.\n\n§EEffects:§!\nLasts §H10§! years\nMigration Attractiveness: §G+50%§!\n$ui_sector_edicts_usage$"
+        edict_sector_migration_cost:1 "£influence  §Y[root.num_edict_cost_migration]§!"
+        edict_sector_migration_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_migration]§! days§!"
+
+        edict_sector_ethics:1 "Sector Centralization"
+        edict_sector_ethics_desc:0 "§E$edict_sector_ethics$§!\nThe efforts of sector authorities will be oriented to build centralized administrative system projecting the government presence across the entire region.\n\n§EEffects:§!\nLasts §H10§! years\nGovernment Ethic Attraction: §G+15%§!\n$ui_sector_edicts_usage$"
+        edict_sector_ethics_cost:1 "£influence  §Y[root.num_edict_cost_ethics]§!"
+        edict_sector_ethics_time:0 "§RRemaining time: §Y[ui_interface_planet.left_edict_ethics]§! days§!"
+
+        edict_sector_growth:1 "New Generation"
+        edict_sector_growth_desc:0 "§E$edict_sector_growth$§!\nThe goal of this edict is to prepare a new generation of workers, scientists, soldiers, significantly increasing growth speed of sector population.\n\n§EEffects:§!\nLasts §H10§! years\nGrowth Speed: §G+10%§!\n$ui_sector_edicts_usage$"
+        edict_sector_growth_cost:0  "£influence  §Y[root.num_edict_cost_growth]§!"
+        edict_sector_growth_time:0  "§RRemaining time: §Y[ui_interface_planet.left_edict_growth]§! days§!"
+
+        edict_sector_regionalism:1 "Propaganda Broadcasts"
+        edict_sector_regionalism_desc:1 "§E$edict_sector_regionalism$§!\nThis edict aims to work with different social groups showing the benefits of collaboration between government and population, reducing regionalism attraction.\n\n§EEffects:§!\nLasts §H10§! years\nSector Regionalism: §G-25%§!\n$ui_sector_edicts_usage$"
+        edict_sector_regionalism_cost:0  "£influence  §Y[root.num_edict_cost_regionalism]§!"
+        edict_sector_regionalism_time:0  "§RRemaining time: §Y[ui_interface_planet.left_edict_regionalism]§! days§!"
+
+            sector_edict_disallow_1:0 "§RThis region has no established Sector Capital§!\n "
+            sector_edict_disallow_2:0 "§RWe lack the required influence to enact this Edict§!\n "
+            sector_edict_disallow_3:0 "§RThere is no governor assigned to this sector§!\n "
+
+
+    # FACTIONS
+
+    pft_regionalist:0 "Regionalist Faction"
+    pft_regionalist_desc:0 "This faction represent the people from entire sector despite the different ethics. It's not so extremist and radical as separatists movements, however will always try to defend their regional interests.\n\n§LRegionalist Ethos§!"
+    pft_regionalist_name:0 "[Prev.GetName] Faction"
+    pft_regionalist_rename:0 "[Prev.Prev.GetName] Faction"
+    pft_regionalist_leader_name:0 "§E[This.GetName]§!"
+
+        COMMUNICATE_WITH_FACTION:0 "Contact the Faction"
+        COMMUNICATE_WITH_FACTION_DESC:0 "Communicate with §Y[Root.GetName]§! leaders to make some agreements or send orders."
+
+        action_manage_sector:0 "Manage Sector & Faction"
+        action_manage_sector_desc:0 "Open sector management screen, related to this faction."
+
+        faction_name: "[Root.GetName]"
+        faction_info: "Window Description Text"
+
+        # Demand - Governors
+        demand_governor:0 "Assigned Governor"
+        demand_governor_not:0 "Anarchy"
+        demand_governor_desc:0 "Sector should have an active governor. In other case sector becomes uncontrolled, causing political mess and paralysing government functions, so people will be disappointed."
+
+        # Demand - Faction Governor
+        demand_governor_faction:0 "Faction Governor"
+        demand_governor_faction_desc:0 "This sector is ruled by governor which is also a faction leader. Allowing people to have their own native governor you're making them happier."
+
+        # Demand - Experienced Leader
+        demand_xp_gov:0 "Experienced Leader"
+        demand_xp_gov_desc:0 "Sector governor is skilled and effective specialist with a plenty of management experience."
+
+        # Demand - Majority Leadership
+        demand_same_gov:0 "The Will of Many"
+        demand_same_gov_not:0 "The Will of a Few"
+        demand_same_gov_desc:0 "As this sector has different species, the major social group will be pleased to have installed governor from their species. In other cases it could make some troubles."
+
+        # Demand - Sector's Statecraft
+        demand_sector_statecraft:0 "Sector's Statecraft"
+        demand_sector_statecraft_desc:0 "Your civilization has gained a significant experience and efficiency in managing a vast space territories, organized into sector administrative unit"
+
+        # Demand - No Sector Capital
+        demand_sector_capital:0 "Sector Capital"       
+        demand_sector_capital_no:0 "No Sector Capital"        
+        demand_sector_capital_desc:0 "This Sector has no planet with regional capital status. The absence of §YSector Capital§! leads to ineffective management and general development of entire region."
+
+        # Demand - Lost Worlds
+        demand_lost_worlds:0 "Lost Worlds"
+        demand_lost_worlds_desc:0 "Some of sector planets have been recently transferred out of the sector borders while your territorial reforms. Losing the worlds makes faction authorities really angry."
+
+    # MODIFIERS
+
+    sector_capital:0 "§ESector Capital§!"
+    sector_capital_desc:0 "One of your primary worlds, §ESector Capital§! provides better administration for entire sector and helps to carry out empire policy."
+
+    former_capital:0 "§RFormer Capital§!"
+    former_capital_desc:0 "This planet once had capital status, but it was taken away. This fact makes people dissapointed for a while."
+
+    pop_suppressed:0 "Recently Suppressed"
+    pop_suppressed_desc:0 "This pop was recently suppressed and forced to leave its previous faction."
+
+    # POLICIES
+
+    policy_administrative_system:0 "Administrative System"
+    policy_administrative_system_desc:0 "Administrative systems defines the territorial organization of your state and mostly operates with levels of autonomy, subject rights, development plans and available freedoms for all state subjects."
+
+        corporate:0 "Corporate"
+        corporate_desc:0 "The state organization reminds a huge consortium of different corporations with distributed zones of influence among themselves. This administrative form is not centralized, but its hard to call it democratic, as corporation are mostly concerned about making the profit.\n\n§E$autonomy_high$§!\n\n"
+        corporate_system_name:0 "Corporate"
+        federal:0 "Federal"
+        federal_desc:0 "Federal system allows to find a suitable balance between the central government and all regional subjects of your state, providing an equal possibility for all administrative sectors to take a full part in all political processes, creates a stability that encourages other common interests, reduces differences between the disparate territories.\n\n§E$autonomy_extended$§!\n\n"
+        federal_system_name:0 "Federal"
+        unitary:0 "Unitary"
+        unitary_desc:0 "A unitary state is a state governed as a single power in which the central government is ultimately supreme and any administrative divisions (sub-national or sub-regional units) exercise only the powers that the central government chooses to delegate.\n\n§E$autonomy_average$§!\n\n"
+        unitary_system_name:0 "Unitary"
+        empire:0 "Empire"
+        empire_desc:0 "The empire unites different peoples and territories into a single state with a one powerful political center. This is a centralized form of government and all territorial subjects are significantly limited in their actions and freedoms, strictly subordinated to imperial authorities as provincial units.\n\n§E$autonomy_limited$§!\n\n"
+        empire_system_name:0 "Empire"
+        dominion:0 "Dominion"
+        dominion_desc:0 "Dominion system formally suppose the autonomy of state territories, but the dictatorial  government and military presence nullifies almost a lot of political freedoms and people rights in this regions. The dividing line between the civil administration and the military having blurred to the point where they have largely become one and the same.\n\n§E$autonomy_low$§!\n\n"
+        dominion_system_name:0 "Dominion"
+
+            autonomy_high:1 "High Autonomy Level"
+            autonomy_extended:1 "Extended Autonomy Level"
+            autonomy_average:1 "Average Autonomy Level"
+            autonomy_limited:1 "Limited Autonomy Level"
+            autonomy_low:1 "Low Autonomy Level"
+
+        # Sector scripted policies
+        sector_policy_disallow_1:0 "§RWe cannot change our stance on this policy for §Y[ui_interface_planet.cd_policy_leadership]§! days§!"
+
+    # SECTOR
+
+    st_military:0 "Fleet Focus"
+    st_military_desc:0 "The Sector will focus on building military ships - §YCorvettes§!, §YDestroyers§!, §YCruisers§! and §YBattleships§!. However, this will significantly decrease the development of other spheres."
+
+        # Interface
+        ui_sector_management:0 "Sector Management"
+        ui_sector_close:0 "§RYou can't close this while other windows are open§!"
+        
+        ui_sector_getName:0 "[Prev.Prev.GetName]"
+        ui_sector_name:0 "§E[ui_title_dummy.GetName]§!"
+        ui_sector_description:0 "Administrative Sector"
+
+            ui_block_development:0 "Regional Development"
+
+                ui_button_development_effect:0 "§H$ui_block_development$§!\n§GClick to open sector development settings§!"
+
+                ui_sector_capital:0 "Sector Capital:"
+                ui_sector_capital_opt:0 "[ui_interface_planet.GetName]"
+                ui_sector_capital_faq:0 "§HSector Capital§!\nCurrent capital of this sector."
+
+                ui_sector_systems:0 "Colonized Systems:"
+                ui_sector_systems_opt:0 "[root.num_sector_systems]/5"
+                ui_sector_systems_faq:0 "§HColonized Systems§!\nThe number of systems where sector has established colonies."
+
+                ui_sector_autonomy:0 "Autonomy:"
+                ui_sector_autonomy_opt:0 "Average"
+                ui_sector_autonomy_faq:0 "§HAutonomy§!\nThe amount of rights and freedom this sector is allowed to possess."
+
+                ui_sector_devtype:0 "Development Type:"
+                ui_sector_devtype_opt:0 "Default"
+                ui_sector_devtype_faq:0 "§HDevelopment Type§!\nDefines how sector will perform it's own development, by itself or with some specific empire development plans."
+
+                ui_sector_devidx:0 "Development Index:"
+                ui_sector_devidx_opt:0 "[root.prc_sector_tiles]%"
+                ui_sector_devidx_faq:0 "§HDevelopment Index§!\nThe actual percent of developed tiles (tiles with already built structures) within this sector."
+
+            ui_block_infrastructure:0 "Infrastructure Balance"
+
+                ui_sector_food_opt:0 "§G[root.prc_food_tiles]%§!"
+                ui_sector_energy_opt:0 "§H[root.prc_energy_tiles]%§!"
+                ui_sector_minerals_opt:0 "§R[root.prc_minerals_tiles]%§!"
+                ui_sector_research_opt:0 "§B[root.prc_research_tiles]%§!"
+                ui_sector_other_opt:0 "§T[root.prc_other_tiles]%§!"
+
+                ui_sector_sdi_food: "§GFood Index§!\nThis value represents the total percent of sector buildings with food output."
+                ui_sector_sdi_energy: "§HEnergy Index§!\nThis value represents the total percent of sector buildings with energy output."
+                ui_sector_sdi_minerals: "§RMinerals Index§!\nThis value represents the total percent of sector buildings with mineral output."
+                ui_sector_sdi_research: "§BResearch Index§!\nThis value represents the total percent of sector buildings with physics, society or engineering output."
+                ui_sector_sdi_other: "§LOther's Index§!\nThis value represents the total percent of sector buildings with other functions."
+
+            ui_block_demography:0 "Demography & Politics"
+
+                ui_button_politics_effect:0 "§H$ui_block_demography$§!\n§GClick to open sector & faction political settings§!"
+
+                ui_sector_species:0 "Species:"
+                ui_sector_species_opt:0 "[root.num_sector_species]"
+                ui_sector_species_faq:0 "§HUnique Species§!\nThe total number of all unique species living in this sector."
+
+                ui_sector_regionalism:0 "Regionalism Support:"
+                ui_sector_regionalism_opt:0 "[root.prc_reg_total]%"
+                ui_sector_regionalism_faq:0 "§HRegionalism Support§!\nThe percent of people from this sector who has strong regionalism views and already is member of regionalism faction."
+
+                ui_sector_unrest:0 "Unrest State:"
+                ui_sector_unrest_opt:0 "[root.num_sector_unrest]"
+                ui_sector_unrest_faq:0 "§HUnrest State§!\nAverage unrest level within this sector."
+
+                ui_block_actions:0 "Available Actions"
+
+                    sector_action_communicate:1 "Communicate"
+                    sector_action_communicate_desc:0 "§E$sector_action_communicate$§!\nOpens communication screen with faction leader."
+
+                    sector_action_install:1 "Install Government Leader"
+                    sector_action_install_desc:0 "§E$sector_action_install$§!\nThis action will install current sector governor as a faction leader. However, it requires a specific amount of unity."
+
+                    sector_action_develop:1 "Develop Faction"
+                    sector_action_develop_desc:0 "§E$sector_action_develop$§!\nCurrently is not available."
+
+                ui_block_policies:0 "Policies & Laws"
+
+                    sector_policy_leadership:1 "Faction Governance"
+                    sector_policy_leadership_desc:0 "§E$sector_policy_leadership$§!\nThis policy allows faction leaders to be assigned as sector governors making people of entire region happy of this decision. Faction leaders will be available in the recruitment screen as normal governors, however for reduced influence cost."
+
+                    sector_policy_majority:1 "The Needs of The Many"
+                    sector_policy_majority_desc:0 "§E$sector_policy_majority$§!\nThis policy controls the election process of the faction leader. When enabled, the faction leader will be picked only from the majority species within this sector."
+
+                    sector_policy_senate:1 "Electable to Senate"
+                    sector_policy_senate_desc:0 "§E$sector_policy_senate$§!\nThis policy allow sector faction to take a part in Senate elections."
+
+                        button_politics_allowed_1:0 "§RThis window has already opened§!"
+                        button_politics_allowed_2:0 "§RNot allowed for machine empires§!"
+                        button_politics_allowed_3:0 "§RSector has no related faction§!"
+
+                ui_block_summary:0 "Overview"
+
+                    ui_faction_related:1 "Established Faction:"
+                    ui_faction_related_opt:0 "[scp_faction_leader.pop_faction.GetName]"
+                    ui_faction_related_desc:0 "§HEstablished Faction§!\nThe faction which represents sector needs on a higher levels."
+
+                    ui_faction_leader:0 "Faction Leader:"
+                    ui_faction_leader_opt:0 "[scp_faction_leader.GetName]"
+
+                    ui_faction_regionalism:0 "Attraction & Factors"
+                    ui_faction_regionalism_opt:0 "[root.num_reg_attraction]"
+
+            ui_block_warfare:0 "Sector Warfare"
+
+                ui_button_military_effect:0 "§H$ui_block_warfare$§!\n§GClick to open sector military settings§!"
+
+                ui_sector_armies:0 "Garrisoned Armies:"
+                ui_sector_armies_opt:0 "[root.num_sector_armies]"
+                ui_sector_armies_faq:0 "§HGarrisoned Armies§!\nThe number of garrisoned defensive armies within sector."
+
+                ui_sector_naval:0 "Naval Capacity:"
+                ui_sector_naval_opt:0 "10%"
+                ui_sector_naval_faq:0 "§HNaval Capacity§!\nThe amount of empire naval capacity allocated to this sector."
+
+                ui_sector_fleet:0 "Fleet Size:"
+                ui_sector_fleet_opt:0 "0"
+                ui_sector_fleet_faq:0 "§HFleet Size§!\nThe actual state of established Sector Fleet."
+
+
+            ui_block_edicts:0 "Sector Edicts"
+
+                ui_sector_edict_formula:0 "Base: §Y75§!\nPlanets: §Y25§! x §Y[root.num_sector_colonies]§!"
+
+            # Tooltips
+
+            # Tooltiops - regionalism
+            ui_tt_sector_regionalism:0 "§HAttraction & Factors:§!\nThis regionalism factors have direct impact on entire sector population, defining the overall level of regionalism. The list below shows specific factors and amount of affected population. Each factor is multiplier for a single pop.\n\nBase Attraction: §Y100§!\n\n"
+
+                 #ui_tt_sector_regionalism_noncore:0 "§R1.00§!  Managed By Sector, §Y[ui_interface_planet.num_pops_reg_sector]§! Pop(s)"
+                 ui_tt_sector_regionalism_distance1:0 "§R1.10§!  Distance to Capital, §Y[ui_interface_planet.num_pops_reg_distance]§! Pop(s)"
+                 ui_tt_sector_regionalism_nogovernor:0 "§R1.15§!  No Assigned Governor, §Y[ui_interface_planet.num_pops_reg_sector]§! Pop(s)"
+                 ui_tt_sector_regionalism_unemployed:0 "§R1.20§!  Unemployed Population, §Y[ui_interface_planet.num_pops_reg_unemployed]§! Pop(s)"
+                 ui_tt_sector_regionalism_xenos:0 "§R1.25§!  Xeno Species, §Y[ui_interface_planet.num_pops_reg_xenos]§! Pop(s)"
+                 ui_tt_sector_regionalism_faction:0 "§R1.25§!  Existing Faction, §Y[ui_interface_planet.num_pops_reg_sector]§! Pop(s)"
+                 ui_tt_sector_regionalism_membership:0 "§R1.50§!  Faction Membership, §Y[ui_interface_planet.num_pops_reg_membership]§! Pop(s)"
+                 ui_tt_sector_regionalism_disconnected:0 "§R2.00§!  Disconnected Planets, §Y[ui_interface_planet.num_pops_reg_disconnected]§! Pop(s)"
+                 #ui_tt_sector_regionalism_happiness_low:0 "§R1.20§!  Unhappy population"
+
+                 ui_tt_sector_regionalism_ethics:0 "§G0.95§!  Government Ethics, §Y[ui_interface_planet.num_pops_reg_ethos]§! Pop(s)"
+                 ui_tt_sector_regionalism_viceroys:0 "§G0.90§!  Colonial Viceroys, §Y[ui_interface_planet.num_pops_reg_sector]§! Pop(s)"
+                 ui_tt_sector_regionalism_governor:0 "§G0.85§!  Installed Governor, §Y[ui_interface_planet.num_pops_reg_sector]§! Pop(s)"
+                 ui_tt_sector_regionalism_reeducation:0 "§G0.80§!  Reeducation Campaign, §Y[ui_interface_planet.num_pops_reg_reeducation]§! Pop(s)"
+                 ui_tt_sector_regionalism_edict:0 "§G0.80§!  Social Integration Edict, §Y[ui_interface_planet.num_pops_reg_edict]§! Pop(s)"
+                 #ui_tt_sector_regionalism_happiness_high:0 "§G0.80§!  Happy population"
+
+            # Tooltips - faction leader
+            ui_tt_faction_leader1:0 "§HFaction Leader§!\nThis is a person who is considered as a leader of entire region and representour of people's will on a higher level.\n\nSpecies: §Y[scp_faction_leader.species.GetName]§!"
+            ui_tt_faction_leader2:0 "Skill Level: §Y[scp_faction_leader.num_leader_skill]§!"
+            ui_tt_faction_leader3:0 "\n§HLeader Traits§!"
+
+                ui_tt_faction_leader_gender_m:0 "Gender: §YMale§!"
+                ui_tt_faction_leader_gender_f:0 "Gender: §YFemale§!"
+                ui_tt_faction_leader_seat_yes:0 "Sector Seat: §YAssigned§!"
+                ui_tt_faction_leader_seat_no:0 "Sector Seat: §YUnassigned§!"
+
+    # TRAITS
+
+    # Ruler skills
+    trait_ruler_negotiator:0 "Xeno Negotiator"
+    trait_ruler_negotiator_desc:0 "Outstanding diplomatical and negotiation skills help leader to understand alien civilisations much better allowing him to make beneficial agreements."
+
+    trait_ruler_administrator:0 "Perfect Administrator"
+    trait_ruler_administrator_desc:0 "Perfect administrative and bureaucratical skills allow leader to rule additional system by himself."
+
+    trait_ruler_outerspace:0 "Outer Space"
+    trait_ruler_outerspace_desc:0 "This leader is looking for a final forntier, to boldly go where no man has gone before."
+
+    # Governor skills
+    trait_governor_industrialist:0 "Industrialist"
+    trait_governor_industrialist_desc:0 "This governor has a firm grip on the means of production."
+
+    trait_governor_investor:0 "Investor"
+    trait_governor_investor_desc:0 "This governor is a shrewd economist, capable of maximizing financial potential."
+
+    trait_governor_charismatic:0 "Charismatic"
+    trait_governor_charismatic_desc:0 "This governor is exceptionally charismatic, enforcing their will with ease."
+
+
+    trait_edict_food:0 "§E$edict_sector_food$§!"
+    trait_edict_food_desc:0 "§LThis leader provides issued §ESector Edict§! forcing sector government to allocate much more resources and efforts directly to agricultural sphere, significantly boosting food output.§!"
+    trait_edict_energy:0 "§E$edict_sector_energy$§!"
+    trait_edict_energy_desc:0 "§LThis leader provides issued §ESector Edict§! optimizing all local power grid networks boosting their efficiency and increasing total energy output.§!"
+    trait_edict_minerals:0 "§E$edict_sector_minerals$§!"
+    trait_edict_minerals_desc:0 "§LThis leader provides issued §ESector Edict§! expanding all mining activities across the entire sector, significantly increasing mineral production.§!"
+    trait_edict_research:0 "§E$edict_sector_research$§!"
+    trait_edict_research_desc:0 "§LThis leader provides issued §ESector Edict§! allocating additional funds for all research initiatives. Science output is increased.§!"
+    trait_edict_infrastructure:0 "§E$edict_sector_infrastructure$§!"
+    trait_edict_infrastructure_desc:0 "§LThis leader provides issued §ESector Edict§! focused on considerable political weight behind new construction and development initiatives.§!"
+    trait_edict_happiness:0 "§E$edict_sector_happiness$§!"
+    trait_edict_happiness_desc:0 "§LThis leader provides issued §ESector Edict§! allocating additional resources for planetary civil infrastructure — recreation zones, entertainment complexes, administrations, increasing population happiness.§!"
+    trait_edict_migration:0 "§E$edict_sector_migration$§!"
+    trait_edict_migration_desc:0 "§LThis leader provides issued §ESector Edict§! started a massive PR campaign to attract attention to entire sector as a perfect place where you can start a new and better life with a lot of opportunities.§!"
+    trait_edict_ethics:0 "§E$edict_sector_ethics$§!"
+    trait_edict_ethics_desc:0 "§LThis leader provides issued §ESector Edict§! is oriented to build an unificated administrative system projecting the government presence across entire region.§!"
+    trait_edict_growth:0 "§E$edict_sector_growth$§!"
+    trait_edict_growth_desc:0 "§LThis leader provides issued §ESector Edict§! preparing a new generation of workers, scientists, soldiers, significantly increasing growth speed of sector population"
+    trait_edict_regionalism:0 "§E$edict_sector_regionalism$§!"
+    trait_edict_regionalism_desc:0 "Sector Regionalism: §G-25%§!\n\n§LThis leader provides issued §ESector Edict§! working with different social groups showing the benefits of collaboration between government and population, reducing regionalism attraction"

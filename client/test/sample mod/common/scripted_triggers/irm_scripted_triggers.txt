@@ -1,0 +1,447 @@
+# FACTION
+
+# This = Pop faction
+# Checks, if this faction is under suppression
+is_suppressed = {
+}
+
+# LEADER
+
+# This = Leader
+# Checks if leader has some sector edict traits
+leader_has_edicts = {
+	or = {
+		has_trait = "trait_edict_food"
+		has_trait = "trait_edict_energy"
+		has_trait = "trait_edict_minerals"
+		has_trait = "trait_edict_research"
+		has_trait = "trait_edict_infrastructure"
+		has_trait = "trait_edict_happiness"
+		has_trait = "trait_edict_migration"
+		has_trait = "trait_edict_ethics"
+		has_trait = "trait_edict_growth"
+		has_trait = "trait_edict_regionalism"
+	}
+}
+
+
+# PLANET
+
+# This = Planet
+is_growing_colony = {
+	or = {
+		has_colony_progress = 0
+		has_colony_progress > 0
+	}	
+}
+
+# This = Planet
+# Prev = Sector
+# Checks if planet belogns to selected sector
+is_sector_planet = {
+	exists = owner
+	owner = { is_same_empire = prevprev.owner }
+	exists = sector
+	sector = { is_same_value = prevprev }	
+}
+
+# This = Planet
+# Prev = Sector
+# Checks if this planet is Sector Capital
+is_sector_capital = {
+	is_sector_planet = yes
+	has_modifier = "sector_capital"	
+}
+
+# This = Planet
+# Checks if planet has already timed sector edict
+has_sector_edict_time = {
+	or = {
+		check_variable = { which = left_edict_food value > 0 }
+		check_variable = { which = left_edict_energy value > 0 }
+		check_variable = { which = left_edict_minerals value > 0 }
+		check_variable = { which = left_edict_research value > 0 }
+		check_variable = { which = left_edict_infrastructure value > 0 }
+		check_variable = { which = left_edict_happiness value > 0 }
+		check_variable = { which = left_edict_migration value > 0 }
+		check_variable = { which = left_edict_ethics value > 0 }
+		check_variable = { which = left_edict_growth value > 0 }
+	}
+}
+
+# This = Planet
+# Checks if this planet has some policy cooldown
+has_sector_policy_cooldown = {
+	or = {
+		check_variable = { which = cd_policy_leadership value > 0 }
+		check_variable = { which = cd_policy_majority value > 0 }
+	}
+}
+
+# POP
+
+# This = Pop
+# Checks if this pop could take a part in political life
+# (i.e., to create or join factons, generate a leader etc)
+pop_can_politics = {
+	is_growing = no
+	is_enslaved = no
+	is_being_purged = no
+	is_robot_pop = no
+	is_shackled_robot = no
+	is_sapient = yes
+	not = { has_trait = trait_nerve_stapled }	
+}
+
+# This = Pop
+# Prev = Pop faction
+# Checks if this pop belongs to specific faction
+is_faction_pop = {
+	exists = pop_faction
+	pop_faction = { is_same_value = prevprev }	
+}
+
+# This = Pop
+# Root = Pop faction
+# Checks if this pop belongs to sector (from faction scope)
+is_region_pop = {
+	planet = {
+		exists = sector
+		sector = { is_same_value = parameter:sector }
+	}	
+}
+
+# This = Pop
+# Prev = Sector
+# Checks if this pop belongs to sector (from sector scope)
+is_sector_pop = {
+	exists = owner
+	owner = { is_same_empire = prevprev.owner }
+	planet = {
+		exists = sector
+		sector = { is_same_value = prevprevprev }
+	}	
+}
+
+# This = Pop
+# Checks if pop has similar ethic as government has
+has_government_ethics = {
+	or = {
+		# Authoritarian
+		and = {
+			or = { has_ethic = ethic_authoritarian has_ethic = ethic_fanatic_authoritarian }
+			owner = { or = { has_ethic = ethic_authoritarian has_ethic = ethic_fanatic_authoritarian } }
+		}
+		# Egalitarian
+		and = {
+			or = { has_ethic = ethic_egalitarian has_ethic = ethic_fanatic_egalitarian }
+			owner = { or = { has_ethic = ethic_egalitarian has_ethic = ethic_fanatic_egalitarian } }
+		}
+		# Xenophobe
+		and = {
+			or = { has_ethic = ethic_xenophobe has_ethic = ethic_fanatic_xenophobe }
+			owner = { or = { has_ethic = ethic_xenophobe has_ethic = ethic_fanatic_xenophobe } }			
+		}
+		# Xenophile
+		and = {
+			or = { has_ethic = ethic_xenophile has_ethic = ethic_fanatic_xenophile }
+			owner = { or = { has_ethic = ethic_xenophile has_ethic = ethic_fanatic_xenophile } }			
+		}
+		# Militarist
+		and = {
+			or = { has_ethic = ethic_militarist has_ethic = ethic_fanatic_militarist }
+			owner = { or = { has_ethic = ethic_militarist has_ethic = ethic_fanatic_militarist } }
+		}
+		# Pacifist
+		and = {
+			or = { has_ethic = ethic_pacifist has_ethic = ethic_fanatic_pacifist }
+			owner = { or = { has_ethic = ethic_pacifist has_ethic = ethic_fanatic_pacifist } }
+		}
+		# Spiritualist
+		and = {
+			or = { has_ethic = ethic_spiritualist has_ethic = ethic_fanatic_spiritualist }
+			owner = { or = { has_ethic = ethic_spiritualist has_ethic = ethic_fanatic_spiritualist } }			
+		}
+		# Materialist
+		and = {
+			or = { has_ethic = ethic_materialist has_ethic = ethic_fanatic_materialist }
+			owner = { or = { has_ethic = ethic_materialist has_ethic = ethic_fanatic_materialist } }
+		}
+	}				
+}
+
+
+# SECTOR
+
+# This = Sector
+# Checks the existance of sector capital
+sector_has_capital = {
+	any_planet = {
+		is_sector_planet = yes
+		has_modifier = "sector_capital"
+	}
+}
+
+# This = Sector
+# Checks if sector has established the regionalist faction
+sector_has_faction = {
+	owner = {
+		count_pop_factions ={
+			limit = {
+				is_pop_faction_type = "regionalist"
+				check_pop_faction_parameter = { which = sector value = prev }
+			}
+			count > 0
+		}
+	}
+}
+
+
+# TILE
+
+# This = Tile
+# Checks if tile has building producing food
+has_building_food = {
+	or = {
+		has_building = building_basic_farm
+		has_building = building_hydroponics_farm_1
+		has_building = building_hydroponics_farm_2
+		has_building = building_hydroponics_farm_3
+		has_building = building_hydroponics_farm_4
+		has_building = building_hydroponics_farm_5
+		has_building = building_paradise_dome
+		has_building = building_slave_processing
+		has_building = building_hab_agri_bay
+		has_building = building_great_pyramid
+		has_building = building_worm_farm
+		has_building = building_primitive_farm
+		has_building = building_agri_processing_complex
+		has_building = building_fe_xeno_zoo
+	}	
+}
+
+# This = Tile
+# Checks if tile has building producing energy
+has_building_energy = {
+	or = {
+		has_building = building_basic_power_plant
+		has_building = building_power_plant_1
+		has_building = building_power_plant_2
+		has_building = building_power_plant_3
+		has_building = building_power_plant_4
+		has_building = building_power_plant_5
+		has_building = betharian_power_plant
+		has_building = building_power_hub_1
+		has_building = building_power_hub_2
+		has_building = building_galactic_stock_exchange
+		has_building = building_visitor_center
+		has_building = building_hab_capital
+		has_building = building_hab_solar_power_processor
+		has_building = building_odd_factory
+		has_building = building_akx_worm_1
+		has_building = building_dark_matter_power_plant
+	}	
+}
+
+# This = Tile
+# Checks if tile has building producing minerals
+has_building_minerals = {
+	or = {
+		has_building = building_mineral_silo_1
+		has_building = building_mineral_silo_2
+		has_building = building_mineral_silo_3
+		has_building = building_basic_mine
+		has_building = building_mining_network_1
+		has_building = building_mining_network_2
+		has_building = building_mining_network_3
+		has_building = building_mining_network_4
+		has_building = building_mining_network_5
+		has_building = building_mining_network_5
+		has_building = building_mineral_processing_plant_1
+		has_building = building_mineral_processing_plant_2
+		has_building = building_slave_processing
+		has_building = building_hab_astro_mining_facility
+		has_building = building_vault_2
+		has_building = building_odd_factory
+		has_building = building_worm_mine
+		has_building = building_primitive_factory
+		has_building = building_primitive_factory
+	}	
+}
+
+# This = Tile
+# Checks if tile has building with research output
+has_building_research = {
+	or = {
+		has_building = building_basic_science_lab_1
+		has_building = building_engineering_facility_1
+		has_building = building_engineering_facility_2
+		has_building = building_engineering_facility_3
+		has_building = building_engineering_facility_4
+		has_building = building_physics_lab_1
+		has_building = building_physics_lab_2
+		has_building = building_physics_lab_3
+		has_building = building_physics_lab_4
+		has_building = building_biolab_1
+		has_building = building_biolab_2
+		has_building = building_biolab_3
+		has_building = building_biolab_4
+		has_building = building_clone_vats
+		has_building = building_clinic
+		has_building = building_hospital
+		has_building = building_military_academy
+		has_building = building_institute
+		has_building = building_xeno_zoo
+		has_building = building_hab_laboratory_module
+		has_building = building_zanaam_obelisk
+		has_building = building_toy_factory
+		has_building = building_mutant_landfill
+		has_building = building_vault
+		has_building = building_vault_2
+		has_building = building_particle_accelerator
+		has_building = building_akx_worm_2
+		has_building = building_akx_worm_3
+		has_building = building_fe_xeno_zoo
+	}	
+}
+
+# UI
+
+# This = Pop faction
+is_sector_ui = {
+	is_pop_faction_type = "regionalist"
+	has_pop_faction_flag = "ui_sector_opened"
+	exists = leader	
+}
+
+# This = Country
+# Checks any sector management screen is opened
+ui_sector_manager_active = {
+	exists = event_target:ui_interface_planet
+	event_target:ui_interface_planet = {
+		has_planet_flag = "ui_interface_planet"
+	}
+}
+
+# This = Planet
+# Checks if this planet related to management screen
+ui_related_to_sector = {
+	exists = sector
+	sector = {
+		any_planet = {
+			is_sector_planet = yes
+			is_same_value = event_target:ui_interface_planet
+		}
+	}
+}
+
+# This = Country
+# Checks, if sector has established sector capital
+ui_sector_edict_allowed_1 = {
+	event_target:ui_interface_planet = {
+		exists = sector
+		sector = { is_core_sector = no }
+		has_modifier = "sector_capital"
+	}
+}
+
+# This = Country
+# Checks the amount of required influence
+ui_sector_edict_allowed_2 = {
+	or = {
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 75  } } influence > 74  }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 100 } } influence > 99  }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 125 } } influence > 124 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 150 } } influence > 149 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 175 } } influence > 174 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 200 } } influence > 199 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 225 } } influence > 224 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 250 } } influence > 249 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 275 } } influence > 274 }
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 300 } } influence > 299 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 325 } } influence > 324 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 350 } } influence > 349 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 375 } } influence > 374 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 400 } } influence > 399 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 425 } } influence > 424 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 450 } } influence > 449 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 475 } } influence > 474 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 500 } } influence > 499 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 525 } } influence > 524 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 550 } } influence > 549 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 575 } } influence > 574 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 600 } } influence > 599 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 625 } } influence > 624 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 650 } } influence > 649 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 675 } } influence > 674 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 700 } } influence > 699 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 725 } } influence > 724 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 750 } } influence > 749 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 775 } } influence > 774 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 800 } } influence > 799 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 825 } } influence > 824 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 850 } } influence > 849 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 875 } } influence > 874 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 900 } } influence > 899 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 925 } } influence > 924 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 950 } } influence > 949 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value = 975 } } influence > 974 }		
+		and = { event_target:ui_interface_planet = { check_variable = { which = num_edict_cost value > 999 } } influence > 999 }		
+	}
+	
+}
+
+# This = Country
+# Checks, if sector has assigned leader
+ui_sector_edict_allowed_3 = {
+	event_target:ui_interface_planet = {
+		sector = { exists = leader }
+	}
+}
+
+
+# This = Country
+# Checks if sector capital planet holds specific edict
+ui_has_edict_food = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_food value > 0 } }
+}
+ui_has_edict_energy = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_energy value > 0 } }
+}
+ui_has_edict_minerals = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_minerals value > 0 } }
+}
+ui_has_edict_research = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_research value > 0 } }
+}
+ui_has_edict_infrastructure = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_infrastructure value > 0 } }
+}
+ui_has_edict_happiness = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_happiness value > 0 } }
+}
+ui_has_edict_migration = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_migration value > 0 } }
+}
+ui_has_edict_ethics = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_ethics value > 0 } }
+}
+ui_has_edict_growth = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_growth value > 0 } }
+}
+ui_has_edict_regionalism = {
+	event_target:ui_interface_planet = { check_variable = { which = left_edict_regionalism value > 0 } }
+}
+
+# Checks status of sector policies
+ui_has_policy_leadership = {
+	event_target:scp_faction_leader = { pop_faction = { has_pop_faction_flag = "sector_policy_leadership" } }
+}
+
+# This = Country
+# Checks, if policy still has no cooldown
+ui_sector_policy_allowed_1 = {
+	event_target:ui_interface_planet = {
+		check_variable = { which = cd_policy_leadership value = 0 }
+	}
+}

@@ -1,0 +1,287 @@
+# Leader traits
+
+
+# RULER
+
+# Negotiator, increasing trade attractiveness
+trait_ruler_negotiator = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/trait_ruler_negotiator.dds"
+
+	modification = no
+	leader_trait = yes
+	leader_class = { ruler }	
+
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+
+	modifier = {
+		country_trade_attractiveness = 0.15
+	}
+
+}
+
+# Administrator, +1 core system
+trait_ruler_administrator = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/trait_ruler_administrator.dds"
+
+	modification = no
+	leader_trait = yes
+	leader_class = { ruler }	
+
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+
+	modifier = {
+		country_core_sector_system_cap = 1
+	}
+
+}
+
+# Outer Space, decrease distance effect for colonization
+trait_ruler_outerspace = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/trait_ruler_outerspace.dds"
+
+	modification = no
+	leader_trait = yes
+	leader_class = { ruler }	
+
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+
+	modifier = {
+		country_distant_colony_influence_cost_mult = -0.15
+	}
+
+}
+
+
+# GOVERNOR (Basic)
+
+# Industrialist, boosts minerals output
+trait_governor_industrialist = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/trait_governor_industrialist.dds"
+
+	modification = no
+	leader_trait = yes
+	leader_class = { governor }
+
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+
+	modifier = {
+		tile_resource_minerals_mult = 0.1
+	}
+
+}
+
+# Investor, boosts energy output
+trait_governor_investor = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/trait_governor_investor.dds"
+
+	modification = no
+	leader_trait = yes
+	leader_class = { governor }
+
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+
+	modifier = {
+		tile_resource_energy_mult = 0.1
+	}
+}
+
+# Investor, boosts energy output
+trait_governor_charismatic = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/trait_governor_charismatic.dds"
+
+	modification = no
+	leader_trait = yes
+	leader_class = { governor }
+
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+
+	modifier = {
+		edict_influence_cost = -0.2
+		edict_length_mult = 0.25
+	}
+}
+
+
+# SECTOR EDICTS
+
+# Edict - food
+trait_edict_food = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_food.dds"
+	modifier = {
+		tile_resource_food_mult = 0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - energy
+trait_edict_energy = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_energy.dds"
+	modifier = {
+		tile_resource_energy_mult = 0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - minerals
+trait_edict_minerals = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_minerals.dds"
+	modifier = {
+		tile_resource_minerals_mult = 0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - research
+trait_edict_research = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_research.dds"
+	modifier = {
+		tile_resource_physics_research_mult = 0.10
+		tile_resource_society_research_mult = 0.10
+		tile_resource_engineering_research_mult = 0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - infrastructure
+trait_edict_infrastructure = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_infrastructure.dds"
+	modifier = {
+		planet_clear_blocker_cost_mult = -0.10
+		planet_building_cost_mult = -0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - happiness
+trait_edict_happiness = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_happiness.dds"
+	modifier = {
+		pop_happiness = 0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - migration
+trait_edict_migration = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_migration.dds"
+	modifier = {
+		planet_migration_all_pull = 0.5
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - ethics
+trait_edict_ethics = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_ethics.dds"
+	modifier = {
+		pop_government_ethic_attraction = 0.15
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - growth
+trait_edict_growth = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_growth.dds"
+	modifier = {
+		pop_growth_speed = 0.10
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}
+# Edict - regionalism
+trait_edict_regionalism = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_edict_ethics.dds"
+	modifier = {
+		
+	}
+	leader_potential_add = {
+		NOT = { from = { has_ethic = "ethic_gestalt_consciousness" } }
+	}
+	leader_trait = yes
+	leader_class = { governor }
+	initial = no
+	randomized = no	
+}

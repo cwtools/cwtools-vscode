@@ -1,0 +1,124 @@
+namespace = irm_faction
+
+# 000 TRIGGERED ACTIONS
+
+# This = Country
+# From = Leader (dead)
+# Tracks faction leader's death, create a new leader for faction
+country_event = {
+	id = irm_faction.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		from = {
+			leader_class = governor
+			leader_of_faction = yes
+			has_leader_flag = "faction_leader"
+			exists = pop_faction
+		}
+	}
+
+	# Create new faction leader
+	immediate = { 
+		from = {
+			pop_faction = {
+				faction_set_leader = yes
+			}
+		}
+	}
+
+}
+
+# 200 REGULAR ACTIONS
+
+# This = Country
+# Adds small amount of xp for all faction leaders
+country_event = {
+	id = irm_faction.201
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_pop_faction = {
+			limit = {
+				exists = owner
+				owner = { is_same_empire = root }
+				exists = leader
+			}
+			leader = {
+				if = {
+					# Add xp through variables for faction leaders
+					# (they cannot receive any xp cuz they are not "direcly owned")
+					limit = { has_leader_flag = "faction_leader" }
+						change_variable = { which = num_leader_xp value = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 200  } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 300  } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 825  } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 1250 } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 1750 } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 2325 } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 2975 } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 3700 } } add_skill = 1 }
+						if = { limit = { check_variable = { which = num_leader_xp value = 4500 } } add_skill = 1 }
+					# For usual leaders just give them xp and clear vars
+					else = {
+						add_experience = 1.5
+						set_variable = { which = num_leader_xp value = 0 }
+					}
+				}
+			}
+		}
+	}
+}
+
+# This = Country
+# Suppression mechanics: remove a pop from suppressed faction
+country_event = {
+	id = irm_faction.202
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_pop_faction = {
+			limit = { has_modifier = "suppressed_faction" }
+				random_owned_pop = {
+					limit = { is_faction_pop = yes planet = { exists = sector sector = { is_core_sector = yes }}}
+						random = {
+							chance = 75
+							# Add modifier
+							if = {
+								limit = { not = { has_modifier = "pop_suppressed" } }
+									add_modifier = { modifier = "pop_suppressed" days = 3600 }
+							}
+							# Suppress pop
+							pop_suppress = yes
+						}
+				}		}
+	}
+
+}
+
+# This = Country
+# Refresh faction name to match it with related sector
+country_event = {
+	id = irm_faction.203
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_sector = {
+			limit = { is_core_sector = no }
+				owner = {
+					random_pop_faction = {
+						limit = {
+							is_pop_faction_type = "regionalist"
+							check_pop_faction_parameter = { which = sector value = prevprev }
+						}
+						set_name = "pft_regionalist_rename"
+					}
+				}
+		}
+	}
+
+}	

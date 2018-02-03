@@ -1,0 +1,684 @@
+
+#Scope type varies depending on what is selected
+# This = selected object or player country
+# From = player country
+
+# Global variables
+@standardEdictLength = 3600
+@standardEdictLength_m = 120
+
+# SECTOR SECTIONS
+
+# Button for Sector Development Settings
+ui_button_development = {
+	potential = { always = yes }
+	allow = { event_target:ui_interface_planet = { not = { has_planet_flag = "ui_development_opened" } } }
+	effect = {
+		custom_tooltip = "ui_button_development_effect"
+		hidden_effect = {
+			event_target:ui_interface_planet = {
+				planet_event = { id = irm_sector.21 }
+			}
+		}
+	}
+}
+
+# Button for Sector Demography & Political Settings
+ui_button_politics = {
+	potential = { always = yes }
+	allow = {
+		custom_tooltip = {
+			fail_text = "button_politics_allowed_1"
+			event_target:ui_interface_planet = { not = { has_planet_flag = "ui_politics_opened" } }
+		}
+		custom_tooltip = {
+			fail_text = "button_politics_allowed_2"
+			not = { has_ethic = "ethic_gestalt_consciousness" } # not for machines
+		}
+		custom_tooltip = {
+			fail_text = "button_politics_allowed_3"
+			count_pop_factions = {
+				limit = {
+					is_pop_faction_type = "regionalist"
+					check_pop_faction_parameter = { which = sector value = event_target:ui_interface_planet.sector }
+				}
+				count > 0
+			}
+		}		
+	}
+	effect = {
+		custom_tooltip = "ui_button_politics_effect"
+		hidden_effect = {
+			event_target:ui_interface_planet = {
+				planet_event = { id = irm_sector.22 }
+			}
+		}
+	}
+}
+
+	# Faction action - Communicate
+	ui_action_communicate = {
+		potential = { always = yes }
+		allow = { always = no }
+		effect = {}
+	}
+
+	# Faction action - Install
+	ui_action_install = {
+		potential = { always = yes }
+		allow = { always = no }
+		effect = {}
+	}
+
+	# Faction action - Develop
+	ui_action_develop = {
+		potential = { always = yes }
+		allow = { always = no }
+		effect = {}
+	}
+
+
+# Button for Sector Military Settings
+ui_button_military = {
+	potential = { always = yes }
+	allow = { always = no }
+	effect = {
+		custom_tooltip = "ui_button_military_effect"
+		hidden_effect = {}
+	}
+}
+
+# SECTOR EDICTS CB
+
+# Sector edict - food
+ui_cbox_edict_food_off = { potential = { ui_has_edict_food = yes } allow = { custom_tooltip = { text = "edict_sector_food_time" always = no } } }
+ui_cbox_edict_food_on = {
+		potential = { ui_has_edict_food = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_food value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+# Sector edict - energy
+ui_cbox_edict_energy_off = { potential = { ui_has_edict_energy = yes } allow = { custom_tooltip = { text = "edict_sector_energy_time" always = no } } }
+ui_cbox_edict_energy_on = {
+		potential = { ui_has_edict_energy = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_energy value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}
+}
+# Sector edict - minerals
+ui_cbox_edict_minerals_off = { potential = { ui_has_edict_minerals = yes } allow = { custom_tooltip = { text = "edict_sector_minerals_time" always = no } } }
+ui_cbox_edict_minerals_on = {
+		potential = { ui_has_edict_minerals = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_minerals value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}
+}
+# Sector edict - research
+ui_cbox_edict_research_off = { potential = { ui_has_edict_research = yes } allow = { custom_tooltip = { text = "edict_sector_research_time" always = no } } }
+ui_cbox_edict_research_on = {
+		potential = { ui_has_edict_research = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_research value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}
+}
+# Sector edict - unity
+ui_cbox_edict_infrastructure_off = { potential = { ui_has_edict_infrastructure = yes } allow = { custom_tooltip = { text = "edict_sector_infrastructure_time" always = no } } }
+ui_cbox_edict_infrastructure_on = {
+		potential = { ui_has_edict_infrastructure = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_infrastructure value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+# Sector edict - happiness
+ui_cbox_edict_happiness_off = { potential = { ui_has_edict_happiness = yes } allow = { custom_tooltip = { text = "edict_sector_happiness_time" always = no } } }
+ui_cbox_edict_happiness_on = {
+		potential = { ui_has_edict_happiness = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_happiness value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+# Sector edict - migration
+ui_cbox_edict_migration_off = { potential = { ui_has_edict_migration = yes } allow = { custom_tooltip = { text = "edict_sector_migration_time" always = no } } }
+ui_cbox_edict_migration_on = {
+		potential = { ui_has_edict_migration = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_migration value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+# Sector edict - ethics
+ui_cbox_edict_ethics_off = { potential = { ui_has_edict_ethics = yes } allow = { custom_tooltip = { text = "edict_sector_ethics_time" always = no } } }
+ui_cbox_edict_ethics_on = {
+		potential = { ui_has_edict_ethics = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_ethics value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+# Sector edict - ethics
+ui_cbox_edict_growth_off = { potential = { ui_has_edict_growth = yes } allow = { custom_tooltip = { text = "edict_sector_growth_time" always = no } } }
+ui_cbox_edict_growth_on = {
+		potential = { ui_has_edict_growth = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_growth value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+# Sector edict - regionalism
+ui_cbox_edict_regionalism_off = { potential = { ui_has_edict_regionalism = yes } allow = { custom_tooltip = { text = "edict_sector_regionalism_time" always = no } } }
+ui_cbox_edict_regionalism_on = {
+		potential = { ui_has_edict_regionalism = no }
+		allow = {
+			custom_tooltip = { fail_text = "sector_edict_disallow_1" ui_sector_edict_allowed_1 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_2" ui_sector_edict_allowed_2 = yes }
+			custom_tooltip = { fail_text = "sector_edict_disallow_3" ui_sector_edict_allowed_3 = yes }
+		}
+		effect = {
+			hidden_effect = {
+				event_target:ui_interface_planet = {
+					set_variable = { which = left_edict_regionalism value = @standardEdictLength }
+					planet_spend_edict_influence = yes
+				}
+			}
+		}	
+}
+
+# SECTOR / POLICIES	
+
+@standardPolicyCoolDown = 3600
+
+# Sector policy - Faction Leadership
+ui_cbox_policy_leadership_off = {
+	potential = { ui_has_policy_leadership = yes }
+	allow = { custom_tooltip = { fail_text = "sector_policy_disallow_1" ui_sector_policy_allowed_1 = yes } }
+	effect = {
+		hidden_effect = {
+			event_target:scp_faction_leader = {
+				recruitable = no
+				pop_faction = { remove_pop_faction_flag = "sector_policy_leadership" }
+			}
+			event_target:ui_interface_planet = {
+				set_variable = { which = cd_policy_leadership value = @standardPolicyCoolDown }
+			}			
+		}
+	}
+}
+ui_cbox_policy_leadership_on = {
+	potential = { ui_has_policy_leadership = no }
+	allow = { custom_tooltip = { fail_text = "sector_policy_disallow_1" ui_sector_policy_allowed_1 = yes } }
+	effect = {
+		hidden_effect = {
+			event_target:scp_faction_leader = {
+				recruitable = yes
+				pop_faction = { set_pop_faction_flag = "sector_policy_leadership" }
+			}
+			event_target:ui_interface_planet = {
+				set_variable = { which = cd_policy_leadership value = @standardPolicyCoolDown }
+			}			
+		}
+	}
+}
+
+### affect leaders!
+
+#
+# UI PURE CASES
+#
+
+# Buttons for tooltips
+# !!! WARNING !!!
+# All of this stuff must be linked with tooltips in irm_regionalist.txt !
+ui_tt_sector_regionalism = {
+	potential = { always = yes }
+	allow = {
+		# Regionalism factors description
+		custom_tooltip = { fail_text = "ui_tt_sector_regionalism" always = no }
+
+		# NEGATIVE
+
+		## Basic Sector Factor
+		#custom_tooltip = {
+		#	success_text = "ui_tt_sector_regionalism_noncore"
+		#	any_owned_pop = { planet = { ui_related_to_sector = yes } }
+		#}
+
+		# Distance to Sector
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_distance1"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_distance value > 0 } }
+		}
+
+		# Unassigned Governor
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_nogovernor"
+			event_target:ui_interface_planet = { has_planet_flag = "ui_temp_regionalism_nongov" }
+		}
+
+		# Unemployed Population
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_unemployed"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_unemployed value > 0 } }			
+		}
+
+		# Xeno Species
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_xenos"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_xenos value > 0 } }	
+		}
+
+		# Regionalist faction existance
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_faction"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_membership value > 0 } }	
+		}
+
+		# Regionalist faction membership
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_membership"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_membership value > 0 } }			
+		}
+
+		# Disconnected from sector
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_disconnected"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_disconnected value > 0 } }			
+		}
+
+		# POSITIVE
+
+		# Government ethics
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_ethics"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_ethos value > 0 } }			
+		}
+
+		# Colonial Viceroys
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_viceroys"
+			event_target:ui_interface_planet = { has_planet_flag = "ui_temp_regionalism_viceroys" }
+		}
+
+		# Installed Governor
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_governor"
+			event_target:ui_interface_planet = { has_planet_flag = "ui_temp_regionalism_hasgov" }
+		}
+
+		# Reeducation Campaigns
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_reeducation"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_reeducation value > 0 } }	
+		}
+
+		# Sector Edict
+		custom_tooltip = {
+			success_text = "ui_tt_sector_regionalism_edict"
+			event_target:ui_interface_planet = { check_variable = { which = num_pops_reg_edict value > 0 } }	
+		}
+
+	}
+	effect = {}
+}
+
+# Faction Leader Info
+ui_tt_faction_leader = {
+	potential = { always = yes }
+	allow = {
+		# Regionalism factors description
+		custom_tooltip = { fail_text = "ui_tt_faction_leader1" always = no }
+
+		# Gender
+		custom_tooltip = { success_text = "ui_tt_faction_leader_gender_m" event_target:scp_faction_leader = { gender = male } }
+		custom_tooltip = { success_text = "ui_tt_faction_leader_gender_f" event_target:scp_faction_leader = { gender = female } }
+
+		custom_tooltip = { fail_text = "ui_tt_faction_leader2" always = no }
+
+		custom_tooltip = {
+			success_text = "ui_tt_faction_leader_seat_yes"
+			fail_text = "ui_tt_faction_leader_seat_no"
+			any_sector = {
+				is_core_sector = no
+				exists = owner  owner  = { is_same_empire = root }
+				exists = leader leader = { is_same_value = event_target:scp_faction_leader }
+			}
+		}
+
+		custom_tooltip = { fail_text = "ui_tt_faction_leader3" always = no }
+
+		# Faction leader traits
+		custom_tooltip = { success_text = "leader_trait_adaptable" event_target:scp_faction_leader = { has_trait = "leader_trait_adaptable" } }
+		custom_tooltip = { success_text = "leader_trait_stubborn" event_target:scp_faction_leader = { has_trait = "leader_trait_stubborn" } }
+		custom_tooltip = { success_text = "leader_trait_resilient" event_target:scp_faction_leader = { has_trait = "leader_trait_resilient" } }
+		custom_tooltip = { success_text = "leader_trait_substance_abuser" event_target:scp_faction_leader = { has_trait = "leader_trait_substance_abuser" } }
+		custom_tooltip = { success_text = "leader_trait_eager" event_target:scp_faction_leader = { has_trait = "leader_trait_eager" } }
+		custom_tooltip = { success_text = "leader_trait_arrested_development" event_target:scp_faction_leader = { has_trait = "leader_trait_arrested_development" } }
+		custom_tooltip = { success_text = "leader_trait_shroud_age" event_target:scp_faction_leader = { has_trait = "leader_trait_shroud_age" } }
+
+		custom_tooltip = { success_text = "leader_trait_iron_fist" event_target:scp_faction_leader = { has_trait = "leader_trait_iron_fist" } }
+		custom_tooltip = { success_text = "leader_trait_army_veteran" event_target:scp_faction_leader = { has_trait = "leader_trait_army_veteran" } }
+		custom_tooltip = { success_text = "leader_trait_retired_fleet_officer" event_target:scp_faction_leader = { has_trait = "leader_trait_retired_fleet_officer" } }
+		custom_tooltip = { success_text = "leader_trait_architectural_interest" event_target:scp_faction_leader = { has_trait = "leader_trait_architectural_interest" } }
+		custom_tooltip = { success_text = "leader_trait_agrarian_upbringing" event_target:scp_faction_leader = { has_trait = "leader_trait_agrarian_upbringing" } }
+		custom_tooltip = { success_text = "leader_trait_intellectual" event_target:scp_faction_leader = { has_trait = "leader_trait_intellectual" } }
+		custom_tooltip = { success_text = "leader_trait_environmental_engineer" event_target:scp_faction_leader = { has_trait = "leader_trait_environmental_engineer" } }
+		custom_tooltip = { success_text = "leader_trait_governor_cyborg" event_target:scp_faction_leader = { has_trait = "leader_trait_governor_cyborg" } }
+		custom_tooltip = { success_text = "leader_trait_governor_synthetic" event_target:scp_faction_leader = { has_trait = "leader_trait_governor_synthetic" } }
+		custom_tooltip = { success_text = "leader_trait_governor_psionic" event_target:scp_faction_leader = { has_trait = "leader_trait_governor_psionic" } }
+		custom_tooltip = { success_text = "leader_trait_governor_chosen" event_target:scp_faction_leader = { has_trait = "leader_trait_governor_chosen" } }
+
+		custom_tooltip = { success_text = "trait_governor_industrialist" event_target:scp_faction_leader = { has_trait = "trait_governor_industrialist" } }
+		custom_tooltip = { success_text = "trait_governor_investor" event_target:scp_faction_leader = { has_trait = "trait_governor_investor" } }
+		custom_tooltip = { success_text = "trait_governor_charismatic" event_target:scp_faction_leader = { has_trait = "trait_governor_charismatic" } }
+
+	}
+	effect = {}
+}
+
+@P10 = 4
+@P20 = 14
+@P30 = 24
+@P40 = 34
+@P50 = 44
+@P60 = 54
+@P70 = 64
+@P80 = 74
+@P90 = 84
+@P100 = 94
+
+# Progress bar - food percentage
+ui_bar_food_10 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P10 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_20 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P20 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_30 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P30 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_40 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P40 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_50 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P50 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_60 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P60 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_70 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P70 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_80 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P80 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_90 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P90 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_food_100 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_food_tiles value > @P100 } } }
+	allow = { always = yes } effect = {}
+}
+
+# Progress bar - energy percentage
+ui_bar_energy_10 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P10 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_20 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P20 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_30 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P30 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_40 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P40 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_50 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P50 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_60 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P60 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_70 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P70 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_80 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P80 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_90 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P90 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_energy_100 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_energy_tiles value > @P100 } } }
+	allow = { always = yes } effect = {}
+}
+
+# Progress bar - minerals percentage
+ui_bar_minerals_10 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P10 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_20 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P20 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_30 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P30 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_40 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P40 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_50 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P50 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_60 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P60 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_70 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P70 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_80 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P80 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_90 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P90 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_minerals_100 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_minerals_tiles value > @P100 } } }
+	allow = { always = yes } effect = {}
+}
+
+# Progress bar - research percentage
+ui_bar_research_10 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P10 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_20 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P20 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_30 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P30 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_40 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P40 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_50 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P50 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_60 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P60 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_70 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P70 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_80 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P80 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_90 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P90 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_research_100 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_research_tiles value > @P100 } } }
+	allow = { always = yes } effect = {}
+}
+
+# Progress bar - other percentage
+ui_bar_other_10 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P10 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_20 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P20 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_30 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P30 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_40 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P40 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_50 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P50 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_60 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P60 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_70 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P70 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_80 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P80 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_90 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P90 } } }
+	allow = { always = yes } effect = {}
+}
+ui_bar_other_100 = {
+	potential = { event_target:ui_interface_planet = { check_variable = { which = prc_other_tiles value > @P100 } } }
+	allow = { always = yes } effect = {}
+}

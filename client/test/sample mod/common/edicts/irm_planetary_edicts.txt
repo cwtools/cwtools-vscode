@@ -1,0 +1,112 @@
+# Sets the edict cost and time for all edicts with this variables
+@standardEdictCost = 150
+@standardEdictLength = 3600
+
+# Restricted Migration
+planet_edict = {
+	name = "restricted_migration"
+	influence_cost = @standardEdictCost
+	length = @standardEdictLength
+
+	modifier = {
+		planet_migration_all_pull = -9.99
+	}
+	
+	potential = {}
+	allow = { not = { has_edict = "land_of_opportunity" } }
+
+	ai_weight = { weight = 0 }
+}
+
+
+# Establish sector capital
+planet_edict = {
+	name = "sector_capital_new"
+	influence_cost = 0
+	length = 0
+	
+	potential = {
+		sector_controlled = yes
+		sector = { not = { any_planet = { is_sector_capital = yes } } }
+	}
+	allow = {}
+	effect = {
+		custom_tooltip = "edict_sector_capital_effect"
+		hidden_effect = {
+			# Set planet as sector capital
+			add_modifier = { modifier = "sector_capital" days = -1 }
+			# Launch sector reconfiguration
+			# Unassign leader, to prevent disappearing of him
+			sector = {
+				if = { limit = { exists = leader } unassign_leader = leader }
+				sector_do_reconfigure = yes
+			}
+		}
+	}
+}
+
+# Relocate sector capital
+planet_edict = {
+	name = "sector_capital_move"
+	influence_cost = @standardEdictCost
+	length = 0
+	
+	potential = {
+		sector_controlled = yes
+		sector = { any_planet = { is_sector_capital = yes } }
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "edict_sector_capital_not_established"
+			not = { has_modifier = "sector_capital" }
+		}
+		custom_tooltip = {
+			fail_text = "edict_sector_capital_has_sector_edict"
+			sector = {
+				not = {
+					any_planet = {
+						is_sector_capital = yes
+						has_sector_edict_time = yes
+					}
+				}
+			}
+		}				
+	}
+	effect = {
+		custom_tooltip = "edict_sector_capital_effect"
+		hidden_effect = {
+			# Set planet as sector capital
+			add_modifier = { modifier = "sector_capital" days = -1 }
+			# Launch sector reconfiguration
+			# Unassign leader, to prevent disappearing of him
+			sector = {
+				if = { limit = { exists = leader } unassign_leader = leader }
+				sector_do_reconfigure = yes
+			}
+		}
+	}
+}
+
+# Manage Sector
+planet_edict = {
+	name = "manage_sector"
+	influence_cost = 0
+	length = 0
+	
+	potential = {
+		sector_controlled = yes
+		has_modifier = "sector_capital"
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "edict_manage_sector_duplicated"
+			owner = { not = { any_owned_planet = { has_planet_flag = "ui_management_open" } } }
+		}
+	}
+	effect = {
+		hidden_effect = {
+			# Run sector management screen from sector capital
+			planet_event = { id = irm_sector.2 }
+		}
+	}
+}

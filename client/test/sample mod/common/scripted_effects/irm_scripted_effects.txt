@@ -1,0 +1,1136 @@
+# GENERAL
+
+# Global variables
+@standardEdictLength = 3600	# planet/sector edict default time
+@nFactionMinimum = 3
+
+
+# FACTION
+
+# This = Pop faction
+# Create and assign a specific faction leader
+faction_set_leader = {
+	# Species will be picked up from regionalist population of entire sector.
+	# So, they could be either founder species or xeno species as well.
+	# The more xeno population in sector, the more chances for alien leader.
+	random_owned_pop = {
+		limit = {
+			planet = {
+				exists = sector
+				sector = { prevprevprev = { check_pop_faction_parameter = { which = sector value = prev } } }
+			}
+			pop_can_politics = yes
+		}
+		species = {
+			prev.owner = {
+				create_leader = {
+					name = random
+					species = prev
+					type = governor
+					skill = 0
+					traits = {}
+				}
+				last_created_leader = {
+
+					# Policy - Faction Leadership
+					if = {
+						limit = { prevprevprevprev = { has_pop_faction_flag = "sector_policy_leadership" } }
+							recruitable = no
+							recruitable = yes
+						else = {
+							recruitable = no
+						}
+					}
+
+					# Mark this leader
+					set_leader_flag = "faction_leader"
+					# Set special mark for name
+					set_name = "pft_regionalist_leader_name"
+
+				}							
+			}		
+		}
+	}
+	# Assign as faction leader
+	assign_leader = last_created_leader
+}
+
+
+# This = Pop faction
+# Prev = Country
+# Root = Planet
+faction_get_leader = {
+	if = {
+		limit = { exists = leader }
+			leader = {
+				switch = { trigger = has_skill
+					1  = { set_variable = { which = num_leader_skill value = 1  } }
+					2  = { set_variable = { which = num_leader_skill value = 2  } }
+					3  = { set_variable = { which = num_leader_skill value = 3  } }
+					4  = { set_variable = { which = num_leader_skill value = 4  } }
+					5  = { set_variable = { which = num_leader_skill value = 5  } }
+					6  = { set_variable = { which = num_leader_skill value = 6  } }
+					7  = { set_variable = { which = num_leader_skill value = 7  } }
+					8  = { set_variable = { which = num_leader_skill value = 8  } }
+					9  = { set_variable = { which = num_leader_skill value = 9  } }
+					10 = { set_variable = { which = num_leader_skill value = 10 } }
+				}
+				save_global_event_target_as = "scp_faction_leader"
+			}
+	}
+}
+
+# This = Pop faction
+# Prev = Sector
+# Root = Planet
+# Estimate the number of faction memebers
+faction_estimate_members = {
+	root = { set_variable = { which = num_reg_faction_pops value = 0 } }
+	every_owned_pop = {
+		limit = {
+			exists = pop_faction
+			pop_faction = {
+				is_pop_faction_type = "regionalist"
+				is_same_value = prevprev
+			}
+		}
+		root = { change_variable = { which = num_reg_faction_pops value = 1 } }
+	}
+}
+
+# LEADER
+
+# This = Leader
+# Removes all edict traits from chosen leader
+leader_remove_edicts = {
+	remove_trait = "trait_edict_food"
+	remove_trait = "trait_edict_energy"
+	remove_trait = "trait_edict_minerals"
+	remove_trait = "trait_edict_research"
+	remove_trait = "trait_edict_infrastructure"
+	remove_trait = "trait_edict_happiness"
+	remove_trait = "trait_edict_migration"
+	remove_trait = "trait_edict_ethics"
+	remove_trait = "trait_edict_growth"
+	remove_trait = "trait_edict_regionalism"
+}
+
+
+# PLANET
+
+# This = Planet
+# Prev = Sector
+# Establish sector capital on chosen planet
+planet_set_sector_capital = {
+	add_modifier = { modifier = "sector_capital" days = -1 }
+	prev = { sector_do_reconfigure = yes }
+}
+
+# This = Planet
+# Remove all potential edict timers
+planet_remove_timers = {
+	set_variable = { which = left_edict_food value = 0 }
+	set_variable = { which = left_edict_energy value = 0 }
+	set_variable = { which = left_edict_minerals value = 0 }
+	set_variable = { which = left_edict_research value = 0 }
+	set_variable = { which = left_edict_infrastructure value = 0 }
+	set_variable = { which = left_edict_happiness value = 0 }
+	set_variable = { which = left_edict_migration value = 0 }
+	set_variable = { which = left_edict_ethics value = 0 }
+	set_variable = { which = left_edict_growth value = 0 }
+	set_variable = { which = left_edict_regionalism value = 0 }
+}
+
+# This = Planet
+# Remove all potential cooldowns
+planet_remove_cooldowns = {
+	set_variable = { which = cd_policy_leadership value = 0 }
+}
+
+# This = Planet
+# Will take away influence for this edict
+planet_spend_edict_influence = {
+	if = { limit = { check_variable = { which = num_edict_cost value = 75  } } owner = { add_influence = -75  } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 100 } } owner = { add_influence = -100 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 125 } } owner = { add_influence = -125 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 150 } } owner = { add_influence = -150 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 175 } } owner = { add_influence = -175 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 200 } } owner = { add_influence = -200 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 225 } } owner = { add_influence = -225 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 250 } } owner = { add_influence = -250 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 275 } } owner = { add_influence = -275 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 300 } } owner = { add_influence = -300 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 325 } } owner = { add_influence = -325 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 350 } } owner = { add_influence = -350 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 375 } } owner = { add_influence = -375 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 400 } } owner = { add_influence = -400 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 425 } } owner = { add_influence = -425 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 450 } } owner = { add_influence = -450 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 475 } } owner = { add_influence = -475 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 500 } } owner = { add_influence = -500 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 525 } } owner = { add_influence = -525 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 550 } } owner = { add_influence = -550 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 575 } } owner = { add_influence = -575 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 600 } } owner = { add_influence = -600 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 625 } } owner = { add_influence = -625 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 650 } } owner = { add_influence = -650 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 675 } } owner = { add_influence = -675 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 700 } } owner = { add_influence = -700 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 725 } } owner = { add_influence = -725 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 750 } } owner = { add_influence = -750 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 775 } } owner = { add_influence = -775 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 800 } } owner = { add_influence = -800 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 825 } } owner = { add_influence = -825 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 825 } } owner = { add_influence = -825 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 850 } } owner = { add_influence = -850 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 875 } } owner = { add_influence = -875 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 900 } } owner = { add_influence = -900 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 925 } } owner = { add_influence = -925 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 950 } } owner = { add_influence = -950 } }
+	if = { limit = { check_variable = { which = num_edict_cost value = 975 } } owner = { add_influence = -975 } }
+}
+
+
+# POP
+
+# This = Pop
+# Forces pop to leave current faction and join government ethics
+pop_suppress = {
+	random_list = {
+		# Authoritarian
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_authoritarian" has_ethic = "ethic_fanatic_authoritarian" } } }
+			pop_change_ethic = "ethic_authoritarian"
+		}
+		# Egalitarian
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }		
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_egalitarian" has_ethic = "ethic_fanatic_egalitarian" } } }
+			pop_change_ethic = "ethic_egalitarian"
+		}
+		# Xenophobe
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }		
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_xenophobe" has_ethic = "ethic_fanatic_xenophobe" } } }
+			pop_change_ethic = "ethic_xenophobe"
+		}
+		# Xenophile
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }		
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_xenophile" has_ethic = "ethic_fanatic_xenophile" } } }
+			pop_change_ethic = "ethic_xenophile"
+		}
+		# Militarist
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }		
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_militarist" has_ethic = "ethic_fanatic_militarist" } } }
+			pop_change_ethic = "ethic_militarist"
+		}
+		# Pacifist
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }	
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_pacifist" has_ethic = "ethic_pacifist" } } }
+			pop_change_ethic = "ethic_pacifist"
+		}
+		# Spiritualist
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }		
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_spiritualist" has_ethic = "ethic_spiritualist" } } }
+			pop_change_ethic = "ethic_spiritualist"
+		}
+		# Materialist
+		20 = {
+			modifier = { factor = 5.00 owner = { num_ethics = 1 } }
+			modifier = { factor = 2.50 owner = { num_ethics = 2 } }
+			modifier = { factor = 1.65 owner = { num_ethics = 3 } }
+			modifier = { factor = 1.25 owner = { num_ethics = 4 } }		
+			modifier = { factor = 0.00 owner = { nor = { has_ethic = "ethic_materialist" has_ethic = "ethic_fanatic_materialist" } } }
+			pop_change_ethic = "ethic_materialist"
+		}														
+	}
+}
+
+# This = Pop
+# Clear all current pop ethics
+pop_clear_ethics = {
+	pop_remove_ethic = "ethic_authoritarian"
+	pop_remove_ethic = "ethic_fanatic_authoritarian"
+	pop_remove_ethic = "ethic_egalitarian"
+	pop_remove_ethic = "ethic_fanatic_egalitarian"
+	pop_remove_ethic = "ethic_xenophobe"
+	pop_remove_ethic = "ethic_fanatic_xenophobe"
+	pop_remove_ethic = "ethic_xenophile"
+	pop_remove_ethic = "ethic_fanatic_xenophile"
+	pop_remove_ethic = "ethic_militarist"
+	pop_remove_ethic = "ethic_fanatic_militarist"
+	pop_remove_ethic = "ethic_pacifist"
+	pop_remove_ethic = "ethic_fanatic_pacifist"
+	pop_remove_ethic = "ethic_spiritualist"
+	pop_remove_ethic = "ethic_fanatic_spiritualist"
+	pop_remove_ethic = "ethic_materialist"
+	pop_remove_ethic = "ethic_fanatic_materialist"	
+}
+
+
+# SECTOR
+
+# This = Sector
+# Prev = Planet
+# Reconfigurate sector according to new capital Changing the ownership for sector colonies
+# will force it to shift the capital to the last planet within sector borders
+sector_do_reconfigure = {
+	# Prepare fake owner
+	create_country = { name = "tmp_sector_country" type = ambient }
+	owner = {
+		# Some settings to avoid different cases related to ownership changes
+		if = { # land appropriation
+			limit = { has_policy_flag = "appropriation_allowed" }
+				set_timed_country_flag = { flag = "appropriation_was_allowed" days = 1 }
+				set_policy = { policy = appropriation option = appropriation_not_allowed cooldown = no }			
+		}
+		# Begin the process
+		every_owned_planet = {
+			limit = {
+				exists = sector
+				sector = { is_same_value = prevprevprev }
+				not = { is_planet = prevprevprev }
+			}
+			solar_system = {
+				set_timed_star_flag = { flag = "tmp_sector_keepstar" days = 1 }
+				# It's necessary to keep sector "linked" to current system, cuz in other case it will disappear
+				random_system_planet = {
+					limit = { is_star = yes }
+						set_owner = prevprev.owner
+				}				
+			}
+			set_timed_planet_flag = { flag = "tmp_sector_planet" days = 1 }
+			planet_event = { id = irm_sector.105 } # clean up all possible capital statuses
+			planet_remove_timers = yes # clear all possible edict timers
+			set_owner = last_created_country
+		}
+		# We should use while to simulate continuous reowning process, where the last
+		# planet will be the proper capital, this will rearrange the sector
+		while = {
+			limit = { any_system_within_border = { has_star_flag = "tmp_sector_keepstar" } }
+				random_system_within_border = {
+					limit = { has_star_flag = "tmp_sector_keepstar" }
+						every_system_planet = {
+							limit = { has_planet_flag = "tmp_sector_planet" }
+								set_owner = prevprev
+								remove_planet_flag = "tmp_sector_planet"
+									# Clear some issues based on ownership changes
+									every_owned_pop = {
+										limit = { planet = { is_same_value = prevprev } }
+											remove_modifier = "lost_owned_pop_lesser"
+									}
+						}
+						random_system_planet = {
+							limit = { is_star = yes }
+								set_owner = last_created_country							
+						}
+						remove_star_flag = "tmp_sector_keepstar"
+				}
+		}
+		# Restore Settings
+		if = { # land appropriation
+			limit = { has_country_flag = "appropriation_was_allowed" }
+				remove_country_flag = "appropriation_not_allowed"
+				set_policy = { policy = appropriation option = appropriation_allowed cooldown = no }			
+		}		
+	}
+
+	# Destroy fake country
+	last_created_country = { destroy_country = yes }
+
+}
+
+# Sector Estimations
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of developed tiles
+sector_estimate_inf_size = {
+	root = { set_variable = { which = num_sector_tiles value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				#is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		# For every tile with any building
+		every_tile = {
+			limit = { has_building = yes }
+				root = { change_variable = { which = num_sector_tiles value = 1 } }
+		}
+	}
+	# Estimate specialized infrastructure
+	sector_estimate_inf_food = yes
+	sector_estimate_inf_energy = yes
+	sector_estimate_inf_minerals = yes
+	sector_estimate_inf_research = yes
+	sector_estimate_inf_other = yes
+
+	# Clean up unnecessary variables
+	root = {
+		set_variable = { which = num_food_tiles value = 0 }
+		set_variable = { which = num_energy_tiles value = 0 }
+		set_variable = { which = num_minerals_tiles value = 0 }
+		set_variable = { which = num_research_tiles value = 0 }
+		set_variable = { which = num_other_tiles value = 0 }
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of tiles producing food
+sector_estimate_inf_food = {
+	root = { set_variable = { which = num_food_tiles value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				#is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		# Count buildings which are producing food
+		every_tile = {
+			limit = { has_building_food = yes }
+				root = {
+					change_variable = { which = num_food_tiles value = 1 }
+					set_variable = { which = prc_food_tiles value = num_food_tiles }
+					divide_variable = { which = prc_food_tiles value = num_sector_tiles }
+					multiply_variable = { which = prc_food_tiles value = 100 }
+					change_variable = { which = prc_food_tiles value = 0.01 }
+				}
+		}
+	}
+	root = { change_variable = { which = prc_food_tiles value = 0.01 } }	
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of tiles producing minerals
+sector_estimate_inf_energy = {
+	root = { set_variable = { which = num_energy_tiles value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				#is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		# Count buildings which are producing energy
+		every_tile = {
+			limit = { has_building_energy = yes }
+				root = {
+					change_variable = { which = num_energy_tiles value = 1 }
+					set_variable = { which = prc_energy_tiles value = num_energy_tiles }
+					divide_variable = { which = prc_energy_tiles value = num_sector_tiles }
+					multiply_variable = { which = prc_energy_tiles value = 100 }
+				}
+		}
+	}
+	root = { change_variable = { which = prc_energy_tiles value = 0.01 } }
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of tiles producing minerals
+sector_estimate_inf_minerals = {
+	root = { set_variable = { which = num_minerals_tiles value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				#is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		# Count buildings which are producing minerals
+		every_tile = {
+			limit = { has_building_minerals = yes }
+				root = {
+					change_variable = { which = num_minerals_tiles value = 1 }
+					set_variable = { which = prc_minerals_tiles value = num_minerals_tiles }
+					divide_variable = { which = prc_minerals_tiles value = num_sector_tiles }
+					multiply_variable = { which = prc_minerals_tiles value = 100 }
+				}
+		}
+	}
+	root = { change_variable = { which = prc_minerals_tiles value = 0.01 } }	
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of tiles with research output
+sector_estimate_inf_research = {
+	root = { set_variable = { which = num_research_tiles value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				#is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		# Count buildings which are producing minerals
+		every_tile = {
+			limit = { has_building_research = yes }
+				root = {
+					change_variable = { which = num_research_tiles value = 1 }
+					set_variable = { which = prc_research_tiles value = num_research_tiles }
+					divide_variable = { which = prc_research_tiles value = num_sector_tiles }
+					multiply_variable = { which = prc_research_tiles value = 100 }
+				}
+		}
+	}
+	root = { change_variable = { which = prc_research_tiles value = 0.01 } }	
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of other developed tiles
+sector_estimate_inf_other = {
+	root = {
+		set_variable = { which = prc_other_tiles value = 100 }
+		subtract_variable = { which = prc_other_tiles value = prc_food_tiles }
+		subtract_variable = { which = prc_other_tiles value = prc_energy_tiles }
+		subtract_variable = { which = prc_other_tiles value = prc_minerals_tiles }
+		subtract_variable = { which = prc_other_tiles value = prc_research_tiles }
+		change_variable = { which = prc_other_tiles value = 0.01 }
+	}	
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the number of systems with planets within sector
+sector_estimate_systems = {
+	root = { set_variable = { which = num_sector_systems value = 0 } }
+	every_planet = {
+		limit = {
+			is_star = yes
+			solar_system = {
+				any_planet = {
+					exists = owner
+					owner = { is_same_value = root.owner }
+					exists = sector 
+					sector = { is_same_value = root.sector }
+				}
+			}
+		}
+		root = { change_variable = { which = num_sector_systems value = 1 } }
+	}	
+}
+
+# This = Sector
+# Prev = Planet
+# Estimate the number of sector colonies
+sector_estimate_colonies = {
+	prev = {
+		set_variable = { which = num_sector_colonies value = 0 }
+	}
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = prev.owner }
+			exists = sector 
+			sector = { is_same_value = prevprev }			
+		}
+		prevprev = { change_variable = { which = num_sector_colonies value = 1 } }
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the percentage of development tiles
+sector_estimate_dev_idx = {
+	root = { set_variable = { which = num_sector_tslots  value = 0 } }
+	root = { set_variable = { which = num_sector_devidx value = 0 } }
+	# Estimate total amount and developed tiles
+	every_planet = {
+		limit = { is_sector_planet = yes }
+			every_tile = { root = { change_variable = { which = num_sector_tslots value = 1 } } }
+			every_tile = {
+				limit = { has_building = yes }
+					root = { change_variable = { which = num_sector_devidx value = 1 } }
+			}
+	}
+	root = {
+		divide_variable = { which = num_sector_devidx value = num_sector_tslots }
+		set_variable = { which = num_sector_tslots  value = 0 } # unset
+	}	
+}
+# For Management Screen
+sector_estimate_dev_idx_100 = {
+	root = {
+		set_variable = { which = prc_sector_tiles value = num_sector_devidx }
+		multiply_variable = { which = prc_sector_tiles value = 100 }
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Get the total number of sector population
+sector_estimate_population = {
+	root = { set_variable = { which = num_pops_reg_sector value = 0 } }
+	# Count all sector pops
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+		}
+		root = { change_variable = { which = num_pops_reg_sector value = 1 } }
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Counts the number of unique species within a sector
+sector_estimate_species = {
+	root = { set_variable = { which = num_sector_species value = 0 } }
+	owner = {
+		every_owned_pop_species = {
+			if = {
+				limit = {
+					prev = {
+						any_owned_pop = {
+							species = { is_same_species = prevprevprev }
+							planet = {
+								exists = sector
+								sector = { is_same_value = root.sector }
+							}
+						}
+					}
+				}
+				root = { change_variable = { which = num_sector_species value = 1 } }
+			}
+		}
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate all regionalism factors for specific sector
+sector_estimate_regionalism = {
+	# Total pops number
+	sector_estimate_population = yes
+
+	# Managed by Sector
+	# always = yes
+
+	# Affected by Distance
+	root = { set_variable = { which = num_pops_reg_distance value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			planet = { distance = { source = root.owner.capital_scope min_distance = 50 max_distance = 150 } }
+		}
+		root = { change_variable = { which = num_pops_reg_distance value = 1 } }
+	}
+
+	# Unassigned governor
+	if = {
+		limit = { not = { exists = leader } }
+			root = { set_timed_planet_flag = { flag = "ui_temp_regionalism_nongov" days = 1 } }
+	}
+
+	# Affected by unemployment
+	root = { set_variable = { which = num_pops_reg_unemployed value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			is_unemployed = yes
+		}
+		root = { change_variable = { which = num_pops_reg_unemployed value = 1 } }
+	}
+
+	# Xeno species
+	root = { set_variable = { which = num_pops_reg_xenos value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			pop_can_politics = yes
+			not = { is_same_species = owner_species }
+		}
+		root = { change_variable = { which = num_pops_reg_xenos value = 1 } }
+	}
+
+	# Affected by faction membership
+	root = { set_variable = { which = num_pops_reg_membership value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			exists = pop_faction
+			pop_faction = {
+				is_pop_faction_type = "regionalist"
+				check_pop_faction_parameter = { which = sector value = prevprev }
+			}
+		}
+		root = { change_variable = { which = num_pops_reg_membership value = 1 } }
+	}
+
+	# Affected by disconnected planets
+	root = { set_variable = { which = num_pops_reg_disconnected value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			planet = { has_modifier = "disconnected_from_sector" }
+		}
+		root = { change_variable = { which = num_pops_reg_disconnected value = 1 } }
+	}
+
+	# Government Ethics
+	root = { set_variable = { which = num_pops_reg_ethos value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			has_government_ethics = yes
+		}
+		root = { change_variable = { which = num_pops_reg_ethos value = 1 } }
+	}
+
+	# Colonial Viceroys
+	if = {
+		limit = { owner = { has_tradition = "tr_domination_colonial_viceroys" } }
+			root = { set_timed_planet_flag = { flag = "ui_temp_regionalism_viceroys" days = 1 } }
+	}	
+
+	# Installed Governor
+	if = {
+		limit = { exists = leader }
+			root = { set_timed_planet_flag = { flag = "ui_temp_regionalism_hasgov" days = 1 } }
+	}
+
+	# Reeducation
+	root = { set_variable = { which = num_pops_reg_reeducation value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			planet = { has_edict = "reeducation_campaign" }
+		}
+		root = { change_variable = { which = num_pops_reg_reeducation value = 1 } }
+	}
+
+	# Sector Edict
+	root = { set_variable = { which = num_pops_reg_edict value = 0 } }
+	every_pop = {
+		limit = {
+			is_sector_pop = yes
+			is_sapient = yes
+			is_growing = no
+			root.sector = {
+				exists = leader
+				leader = { has_trait = "trait_edict_regionalism" }
+			}
+		}
+		root = { change_variable = { which = num_pops_reg_edict value = 1 } }
+	}
+
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate all regionalism factors for specific sector
+sector_estimate_regionalism_percent = {
+	# Get the number of faction members
+	owner = {
+		random_pop_faction = {
+			limit = {
+				is_pop_faction_type = "regionalist"
+				check_pop_faction_parameter = { which = sector value = prevprev }
+			}
+			faction_estimate_members = yes
+		}
+	}
+	# Estimate percentage
+	root = {
+		set_variable = { which = prc_reg_total value = num_reg_faction_pops }
+		divide_variable = { which = prc_reg_total value = num_pops_reg_sector }
+		multiply_variable = { which = prc_reg_total value = 100 }
+
+		# Machines case
+		if = { 
+			limit = { root.owner = { has_ethic = "ethic_gestalt_consciousness" } }
+				set_variable = { which = prc_reg_total value = 0.01 }
+		}
+
+		# Clean
+		set_variable = { which = num_reg_faction_pops value = 0 }
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate regionalism average attraction
+
+@nBaseAttraction 		= 100
+
+@fSectorManagement		= 1.00
+@fSectorDistance		= 1.10
+@fSectorNongov			= 1.15
+@fSectorUnemployed 		= 1.20
+@fSectorXenos 			= 1.25
+@fSectorFaction 		= 1.25
+@fSectorMember 			= 1.50
+@fSectorDisconnected 	= 2.00
+
+@fSectorEthos	 		= 0.95
+@fSectorViceroys 		= 0.90
+@fSectorHasgov 			= 0.85
+@fSectorReeducation		= 0.80
+@fSectorEdict		= 0.80
+
+sector_estimate_regionalism_attraction = {
+	root = {
+		set_variable = { which = num_reg_attraction value = 0 }
+		set_variable = { which = num_reg_pops value = 0 }
+	}
+
+	# NEG
+
+	# Distance
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_distance  value > 0 } }
+				set_variable = { which = num_attr_distance value = @fSectorDistance }
+				multiply_variable = { which = num_attr_distance value = num_pops_reg_distance }
+				change_variable = { which = num_reg_pops value = num_pops_reg_distance }
+		}
+	}
+	# No governor
+	root = {
+		if = {
+			limit = { root.sector = { not = { exists = leader } } }
+				set_variable = { which = num_attr_gov value = @fSectorNongov }
+				multiply_variable = { which = num_attr_gov value = num_pops_reg_sector }
+				change_variable = { which = num_reg_pops value = num_pops_reg_sector }			
+		}
+	}
+	# Unemployed
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_unemployed  value > 0 } }
+				set_variable = { which = num_attr_unemployed value = @fSectorUnemployed }
+				multiply_variable = { which = num_attr_unemployed value = num_pops_reg_unemployed }
+				change_variable = { which = num_reg_pops value = num_pops_reg_unemployed }	
+		}
+	}
+	# Xeno Species
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_xenos  value > 0 } }
+				set_variable = { which = num_attr_xenos value = @fSectorXenos }
+				multiply_variable = { which = num_attr_xenos value = num_pops_reg_xenos }
+				change_variable = { which = num_reg_pops value = num_pops_reg_xenos }			
+		}
+	}	
+	# Existing faction
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_membership  value > 0 } }
+				set_variable = { which = num_attr_faction value = @fSectorFaction }
+				multiply_variable = { which = num_attr_faction value = num_pops_reg_sector }
+				change_variable = { which = num_reg_pops value = num_pops_reg_sector }			
+		}
+	}
+	# Membership
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_membership  value > 0 } }
+				set_variable = { which = num_attr_member value = @fSectorMember }
+				multiply_variable = { which = num_attr_member value = num_pops_reg_membership }
+				change_variable = { which = num_reg_pops value = num_pops_reg_membership }
+		}
+	}
+	# Disconnected
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_disconnected  value > 0 } }
+				set_variable = { which = num_attr_disconnected value = @fSectorDisconnected }
+				multiply_variable = { which = num_attr_disconnected value = num_pops_reg_disconnected }
+				change_variable = { which = num_reg_pops value = num_pops_reg_disconnected }		
+		}
+	}
+
+	# POS
+
+	# Government Ethos
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_ethos  value > 0 } }
+				set_variable = { which = num_attr_ethos value = @fSectorViceroys }
+				multiply_variable = { which = num_attr_ethos value = num_pops_reg_ethos }
+				change_variable = { which = num_reg_pops value = num_pops_reg_ethos }
+		}
+	}
+	# Viceroys
+	root = {
+		if = {
+			limit = { and = { owner = { has_tradition = "tr_domination_colonial_viceroys" } root.sector = { exists = leader } } }
+				set_variable = { which = num_attr_viceroys value = @fSectorViceroys }
+				multiply_variable = { which = num_attr_viceroys value = num_pops_reg_sector }
+				change_variable = { which = num_reg_pops value = num_pops_reg_sector }
+		}
+	}
+	# Assigned governor
+	root = {
+		if = {
+			limit = { root.sector = { exists = leader } }
+				set_variable = { which = num_attr_gov value = @fSectorHasgov }
+				multiply_variable = { which = num_attr_gov value = num_pops_reg_sector }
+				change_variable = { which = num_reg_pops value = num_pops_reg_sector }	
+		}
+	}
+	# Reeducation
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_reeducation  value > 0 } }
+				set_variable = { which = num_attr_reeducation value = @fSectorReeducation }
+				multiply_variable = { which = num_attr_reeducation value = num_pops_reg_reeducation }
+				change_variable = { which = num_reg_pops value = num_pops_reg_reeducation }	
+		}
+	}
+	# Sector Edict
+	root = {
+		if = {
+			limit = { check_variable = { which = num_pops_reg_edict  value > 0 } }
+				set_variable = { which = num_attr_edict value = @fSectorReeducation }
+				multiply_variable = { which = num_attr_edict value = num_pops_reg_edict }
+				change_variable = { which = num_reg_pops value = num_pops_reg_edict }	
+		}
+	}
+
+	# Summaraze attraction
+	root = {
+		# -
+		#change_variable = { which = num_reg_attraction value = num_attr_sector }
+		change_variable = { which = num_reg_attraction value = num_attr_distance }
+		change_variable = { which = num_reg_attraction value = num_attr_gov }
+		change_variable = { which = num_reg_attraction value = num_attr_unemployed }
+		change_variable = { which = num_reg_attraction value = num_attr_xenos }
+		change_variable = { which = num_reg_attraction value = num_attr_faction }
+		change_variable = { which = num_reg_attraction value = num_attr_member }
+		change_variable = { which = num_reg_attraction value = num_attr_disconnected }
+		# +
+		change_variable = { which = num_reg_attraction value = num_attr_ethos }
+		change_variable = { which = num_reg_attraction value = num_attr_viceroys }
+		change_variable = { which = num_reg_attraction value = num_attr_reeducation }
+		change_variable = { which = num_reg_attraction value = num_attr_edict }
+		# Average per sector pop
+		divide_variable = { which = num_reg_attraction value = num_reg_pops }
+		multiply_variable = { which = num_reg_attraction value = @nBaseAttraction }
+
+		# Clean
+		set_variable = { which = num_reg_pops value = 0 }
+
+		set_variable = { which = num_attr_sector value = 0 }
+		set_variable = { which = num_attr_distance value = 0 }
+		set_variable = { which = num_attr_gov value = 0 }
+		set_variable = { which = num_attr_unemployed value = 0 }
+		set_variable = { which = num_attr_xenos value = 0 }
+		set_variable = { which = num_attr_faction value = 0 }
+		set_variable = { which = num_attr_member value = 0 }
+		set_variable = { which = num_attr_disconnected value = 0 }
+		set_variable = { which = num_attr_ethos value = 0 }
+		set_variable = { which = num_attr_viceroys value = 0 }
+		set_variable = { which = num_attr_reeducation value = 0 }
+		set_variable = { which = num_attr_edict value = 0 }
+	}
+
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate the average unrest level within sector
+sector_estimate_unrest = {
+	sector_estimate_colonies = yes
+	root = { set_variable = { which = num_total_unrest value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		# Define unrest level
+		#if = { limit = { unrest <  1 } }
+		if = { limit = { unrest >  0 unrest < 11  } root = { change_variable = { which = num_total_unrest value = 10  } } }
+		if = { limit = { unrest > 10 unrest < 21  } root = { change_variable = { which = num_total_unrest value = 20  } } }
+		if = { limit = { unrest > 20 unrest < 31  } root = { change_variable = { which = num_total_unrest value = 30  } } }
+		if = { limit = { unrest > 30 unrest < 41  } root = { change_variable = { which = num_total_unrest value = 40  } } }
+		if = { limit = { unrest > 40 unrest < 51  } root = { change_variable = { which = num_total_unrest value = 50  } } }
+		if = { limit = { unrest > 50 unrest < 61  } root = { change_variable = { which = num_total_unrest value = 60  } } }
+		if = { limit = { unrest > 60 unrest < 71  } root = { change_variable = { which = num_total_unrest value = 70  } } }
+		if = { limit = { unrest > 70 unrest < 81  } root = { change_variable = { which = num_total_unrest value = 80  } } }
+		if = { limit = { unrest > 80 unrest < 91  } root = { change_variable = { which = num_total_unrest value = 90  } } }
+		if = { limit = { unrest > 90 unrest < 101 } root = { change_variable = { which = num_total_unrest value = 100 } } }
+	}
+	root = {
+		set_variable = { which = num_sector_unrest value = num_total_unrest }
+		divide_variable = { which = num_sector_unrest value = num_sector_colonies }
+		change_variable = { which = num_sector_unrest value = 0.01 }
+
+		# Clear unnecessary variables
+		set_variable = { which = num_total_unrest value = 0 }
+	}	
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimate all sector defensive armies
+sector_estimate_armies = {
+	root = { set_variable = { which = num_sector_armies value = 0 } }
+	every_planet = {
+		limit = {
+			exists = owner
+			owner = { is_same_value = root.owner }
+			exists = sector
+			sector = {
+				#is_core_sector = no
+				is_same_value = prevprev
+			}
+		}
+		every_planet_army = {
+			root = { change_variable = { which = num_sector_armies value = 1 } }
+		}
+	}
+}
+
+# This = Sector
+# Root = Planet
+# Prev = Planet
+# Estimates the influence cost for each sector edict
+sector_estimate_edict_cost = {
+	@nSectorEdictBase = 75
+	@nSectorEdictMult = 25
+	@nSectorEdictZero = 1
+
+	sector_estimate_colonies = yes
+
+	root = {
+		set_variable = { which = num_edict_cost value = @nSectorEdictMult }
+		multiply_variable = { which = num_edict_cost value = num_sector_colonies }
+		change_variable = { which = num_edict_cost value = @nSectorEdictBase }
+	}
+	
+	root = {
+		if = { 	limit = { has_planet_flag = "edict_sector_food" }
+					root = { set_variable = { which = num_edict_cost_food value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_food value = num_edict_cost } } }
+		}
+		if = { 	limit = { has_planet_flag = "edict_sector_energy" }
+					root = { set_variable = { which = num_edict_cost_energy value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_energy value = num_edict_cost } } }
+		}
+		if = { 	limit = { has_planet_flag = "edict_sector_minerals" }
+					root = { set_variable = { which = num_edict_cost_minerals value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_minerals value = num_edict_cost } } }					
+		}
+		if = {	limit = { has_planet_flag = "edict_sector_research" }
+					root = { set_variable = { which = num_edict_cost_research value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_research value = num_edict_cost } } }					
+		}
+		if = {	limit = { has_planet_flag = "edict_sector_infrastructure" }
+					root = { set_variable = { which = num_edict_cost_infrastructure value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_infrastructure value = num_edict_cost } } }					
+		}
+		if = {	limit = { has_planet_flag = "edict_sector_happiness" }
+					root = { set_variable = { which = num_edict_cost_happiness value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_happiness value = num_edict_cost } } }					
+		}
+		if = {	limit = { has_planet_flag = "edict_sector_migration" }
+					root = { set_variable = { which = num_edict_cost_migration value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_migration value = num_edict_cost } } }					
+		}
+		if = {	limit = { has_planet_flag = "edict_sector_ethics" }
+					root = { set_variable = { which = num_edict_cost_ethics value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_ethics value = num_edict_cost } } }					
+		}
+		if = {	limit = { has_planet_flag = "edict_sector_growth" }
+					root = { set_variable = { which = num_edict_cost_growth value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_growth value = num_edict_cost } } }					
+		}		
+		if = {	limit = { has_planet_flag = "edict_sector_regionalism" }
+					root = { set_variable = { which = num_edict_cost_regionalism value = @nSectorEdictZero } }
+				else = { root = { set_variable = { which = num_edict_cost_regionalism value = num_edict_cost } } }					
+		}																	
+	}
+}
+
+
+ui_set_policy_governance_on = {}
+ui_set_policy_governance_off = {}
+
+# UI / GENERAL
+
+# This = Any
+# Sets specific color for scope name
+ui_set_blue = { set_name = "ui_set_blue" }
+ui_set_teal = { set_name = "ui_set_teal" }

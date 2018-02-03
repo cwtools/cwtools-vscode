@@ -1,0 +1,754 @@
+namespace = irm_sector
+
+# This = Planet
+# Sector Management Screen
+# Runs from the sector capital planet (or faction manager)
+planet_event = {
+	id = irm_sector.2
+	title = "ui_sector_name"
+	desc =  "desc"
+
+	is_triggered_only = yes
+	diplomatic = yes
+	custom_gui = "irm_sector"
+	
+	show_sound = event_conversation
+
+	immediate = {
+		# Save the scope, mark that interface screen is opened
+		save_global_event_target_as = "ui_interface_planet" # ui dummy
+		set_planet_flag = "ui_management_open"
+		# RUN DATA PARSINGS
+		sector = {
+			# Generate sector name
+			# I hope, pdx will fix issues with sector.Getname in localization			
+			owner = {
+				create_leader = { name = random type = ruler }
+				last_created_leader = { set_name = "ui_sector_getName" save_event_target_as = "ui_title_dummy" }
+			}
+
+			# Infrastructure Balance
+			sector_estimate_inf_size = yes
+			# Development Stats
+			sector_estimate_dev_idx = yes
+			sector_estimate_dev_idx_100 = yes
+			sector_estimate_systems = yes
+			# Demography & Politics
+			sector_estimate_species = yes
+			sector_estimate_regionalism = yes
+			sector_estimate_regionalism_percent = yes
+			sector_estimate_unrest = yes
+			# Sector Warfare
+			sector_estimate_armies = yes
+		}
+	}
+
+	# CLOSE
+	option = {
+		custom_gui = "irm_window_close"
+		allow = {
+			nor = {
+				has_planet_flag = "ui_development_opened"
+				has_planet_flag = "ui_politics_opened"
+				has_planet_flag = "ui_warfare_opened"
+			}
+		}
+	}
+
+	# STATS TEXTS
+
+		# B2.1 Sector Capital
+		option = {
+			name = "ui_sector_capital_opt"
+			custom_gui = "irm_opt_sector_capital"
+			is_dialog_only = yes
+		}
+
+		# B2.2 Sector Systems
+		option = {
+			name = "ui_sector_systems_opt"
+			custom_gui = "irm_opt_sector_systems"
+			is_dialog_only = yes
+		}
+
+		# B2.3 Autonomy Level
+		option = {
+			name = "ui_sector_autonomy_opt"
+			custom_gui = "ui_opt_sector_autonomy"
+			is_dialog_only = yes
+		}
+
+		# B2.4 Sector Dev Type
+		option = {
+			name = "ui_sector_devtype_opt"
+			custom_gui = "irm_opt_sector_devtype"
+			is_dialog_only = yes
+		}
+
+		# B2.5 Sector Dev Index
+		option = {
+			name = "ui_sector_devidx_opt"
+			custom_gui = "irm_opt_sector_devidx"
+			is_dialog_only = yes
+		}
+
+		# B3.1 Sector Governor
+		option = {
+			name = "ui_sector_species_opt"
+			custom_gui = "irm_opt_sector_species"
+			is_dialog_only = yes
+		}
+
+		# B3.2 Regionalism
+		option = {
+			name = "ui_sector_regionalism_opt"
+			custom_gui = "irm_opt_sector_regionalism"
+			is_dialog_only = yes
+		}
+
+		# B3.3 Unrest
+		option = {
+			name = "ui_sector_unrest_opt"
+			custom_gui = "irm_opt_sector_unrest"
+			is_dialog_only = yes
+		}
+
+		# B4.1 Food
+		option = {
+			name = "ui_sector_food_opt"
+			custom_gui = "irm_opt_sector_food"
+			is_dialog_only = yes
+		}
+
+		# B4.2 Energy
+		option = {
+			name = "ui_sector_energy_opt"
+			custom_gui = "irm_opt_sector_energy"
+			is_dialog_only = yes
+		}
+
+		# B4.3 Minerals
+		option = {
+			name = "ui_sector_minerals_opt"
+			custom_gui = "irm_opt_sector_minerals"
+			is_dialog_only = yes
+		}
+
+		# B4.4 Research
+		option = {
+			name = "ui_sector_research_opt"
+			custom_gui = "irm_opt_sector_research"
+			is_dialog_only = yes
+		}		
+
+		# B4.5 Other
+		option = {
+			name = "ui_sector_other_opt"
+			custom_gui = "irm_opt_sector_other"
+			is_dialog_only = yes
+		}
+
+		# B5.1 Armies
+		option = {
+			name = "ui_sector_armies_opt"
+			custom_gui = "irm_opt_sector_armies"
+			is_dialog_only = yes
+		}
+
+		# B5.2 Naval Cap
+		option = {
+			name = "ui_sector_naval_opt"
+			custom_gui = "irm_opt_sector_naval"
+			is_dialog_only = yes
+		}
+
+		# B5.3 Fleet Size
+		option = {
+			name = "ui_sector_fleet_opt"
+			custom_gui = "irm_opt_sector_fleet"
+			is_dialog_only = yes
+		}			
+
+	# Clear all temporary variables, flags, scopes etc
+	after = {
+		hidden_effect = {
+			# Remove ui marks
+			remove_planet_flag = "ui_management_open"
+
+			# Unset variables
+			set_variable = { which = prc_food_tiles value = 0 }
+			set_variable = { which = prc_energy_tiles value = 0 }
+			set_variable = { which = prc_minerals_tiles value = 0 }
+			set_variable = { which = prc_research_tiles value = 0 }
+			set_variable = { which = prc_other_tiles value = 0 }
+			set_variable = { which = prc_sector_tiles value = 0 }
+
+			set_variable = { which = num_sector_tiles value = 0 }
+			set_variable = { which = num_sector_systems value = 0 }
+			set_variable = { which = num_sector_colonies value = 0 }
+
+			set_variable = { which = num_sector_species value = 0 }
+			#set_variable = { which = regionalism value = 0 }
+			set_variable = { which = num_pops_reg_sector value = 0 }
+			set_variable = { which = num_pops_reg_capital value = 0 }
+			set_variable = { which = num_pops_reg_unemployed value = 0 }
+			set_variable = { which = num_pops_reg_xenos value = 0 }
+			set_variable = { which = num_pops_reg_membership value = 0 }
+			set_variable = { which = num_pops_reg_disconnected value = 0 }
+			set_variable = { which = num_pops_reg_distance value = 0 }
+			set_variable = { which = num_pops_reg_ethos value = 0 }
+			set_variable = { which = num_pops_reg_reeducation value = 0 }
+			set_variable = { which = num_pops_reg_edict value = 0 }
+			set_variable = { which = prc_reg_total value = 0 }
+
+			set_variable = { which = num_sector_unrest value = 0 }
+
+			set_variable = { which = num_sector_armies value = 0 }
+
+			# Remove dummy scopes
+			clear_global_event_target = ui_interface_planet
+			event_target:ui_title_dummy = {
+				kill_leader = { show_notification = no }
+			}
+		}
+	}
+
+}
+
+	# This = Planet
+	# Sector development settings
+	planet_event = {
+		id = irm_sector.21
+		title = "title"
+		desc =  "desc"
+
+		is_triggered_only = yes
+		diplomatic = yes
+		custom_gui = "irm_sector_development"
+		
+		show_sound = event_conversation
+
+		immediate = {
+			# Mark that interface sub screen is opened
+			set_planet_flag = "ui_development_opened"
+
+			# PARSE DATA
+			
+			
+		}
+
+		# EDICTS COST
+
+		# Custom close button
+		option = {
+			custom_gui = "irm_opt_window_close"
+			hidden_effect = {
+				remove_planet_flag = "ui_development_opened"
+
+				set_variable = { which = num_sector_colonies value = 0 }
+
+				set_variable = { which = num_edict_cost value = 0 }
+				set_variable = { which = num_edict_cost_food value = 0 }
+				set_variable = { which = num_edict_cost_energy value = 0 }
+				set_variable = { which = num_edict_cost_minerals value = 0 }
+				set_variable = { which = num_edict_cost_research value = 0 }
+				set_variable = { which = num_edict_cost_infrastructure value = 0 }
+				set_variable = { which = num_edict_cost_happiness value = 0 }
+				set_variable = { which = num_edict_cost_migration value = 0 }
+				set_variable = { which = num_edict_cost_ethics value = 0 }
+				set_variable = { which = num_edict_cost_growth value = 0 }
+				set_variable = { which = num_edict_cost_regionalism value = 0 }
+			}
+		}
+
+		option = {
+			name = "edict_sector_food_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_energy_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_minerals_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_research_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_infrastructure_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_happiness_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_migration_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_ethics_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_growth_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		option = {
+			name = "edict_sector_regionalism_cost"
+			custom_tooltip = "ui_sector_edict_formula"
+			custom_gui = "irm_opt_sector_edict_row"
+			is_dialog_only = yes
+		}
+
+		after = {}
+
+	}
+
+	# This = Planet
+	# Sector political settings
+	planet_event = {
+		id = irm_sector.22
+		title = "title"
+		desc =  "desc"
+
+		is_triggered_only = yes
+		diplomatic = yes
+		custom_gui = "irm_sector_politics"
+		
+		show_sound = event_conversation
+
+		immediate = {
+			# Mark that interface sub screen is opened
+			set_planet_flag = "ui_politics_opened"
+
+			# Parse sector data
+			sector = {
+				sector_estimate_regionalism_attraction = yes
+			}
+
+			# Parse faction data
+			owner = {
+				if = {
+					limit = { not = { has_ethic = "ethic_gestalt_consciousness" } }
+						random_pop_faction = {
+							limit = {
+								is_pop_faction_type = "regionalist"
+								check_pop_faction_parameter = { which = sector value = root.sector }
+							}
+							faction_get_leader = yes
+						}					
+				}
+			}
+		}
+
+		# EDICTS COST
+
+		# Custom close button
+		option = {
+			custom_gui = "irm_opt_window_close_pol"
+			hidden_effect = {
+				# Clean flags
+				remove_planet_flag = "ui_politics_opened"
+				remove_planet_flag = "ui_temp_regionalism_nongov"
+				remove_planet_flag = "ui_temp_regionalism_hasgov"
+				remove_planet_flag = "ui_temp_regionalism_viceroys"
+				# Clean all unnecessary variables
+				set_variable = { which = num_reg_attraction value = 0 }
+				event_target:scp_faction_leader = { set_variable = { which = num_leader_skill value = 0 } }
+				# Clean Scopes
+				clear_global_event_target = "scp_faction_leader"
+			}
+		}
+
+		# Summary - Faction Leader
+		option = {
+			name = "ui_faction_related_opt"
+			custom_gui = "irm_opt_faction_related"
+			is_dialog_only = yes
+		}
+
+		# Summary - Faction Leader
+		option = {
+			name = "ui_faction_leader_opt"
+			custom_gui = "irm_opt_faction_leadership"
+			is_dialog_only = yes
+		}
+
+		# Summary - Regionalism Factors
+		option = {
+			name = "ui_faction_regionalism_opt"
+			custom_gui = "irm_opt_faction_regionalism"
+			is_dialog_only = yes
+		}
+
+		after = {}
+
+	}
+
+
+# 100 LISTENERS
+
+# This = Country
+# Listener for leaders: applies or removes specific  edict trait,
+# accordingly to the state of this sector edict.
+country_event = {
+	id = irm_sector.101
+	hide_window = yes
+	is_triggered_only = yes
+
+	#trigger = {
+	#	any_owned_leader = {
+	#		leader_class = governor
+	#	}
+	#}
+
+	immediate = {
+		# Unnasigned or core sector leaders
+		every_owned_leader = {
+			limit = {
+				leader_class = governor
+				leader_has_edicts = yes
+				owner = {
+					not = {
+						any_sector = {
+							is_core_sector = no
+							exists = leader
+							leader = { is_same_value = prevprevprev }
+						}
+					}
+				}
+			}
+			leader_remove_edicts = yes	
+		}
+		# Track edicts actuality for sector leaders
+		every_sector = {
+			limit = {
+				is_core_sector = no
+				exists = leader
+			}
+			# Check sector capital existance before edicts solving
+			if = {
+				limit = { any_planet = { is_sector_capital = yes } }
+					# Begin checking process from sector capital
+					random_planet = {
+						limit = { is_sector_capital = yes }
+						# Edict Food
+						if = {
+							limit = { check_variable = { which = left_edict_food value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_food" } } add_trait = "trait_edict_food" } }
+							else = { sector.leader = { remove_trait = "trait_edict_food" } }
+						}
+						# Edict Energy
+						if = {
+							limit = { check_variable = { which = left_edict_energy value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_energy" } } add_trait = "trait_edict_energy" } }
+							else = { sector.leader = { remove_trait = "trait_edict_energy" } }
+						}
+						# Edict Minerals
+						if = {
+							limit = { check_variable = { which = left_edict_minerals value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_minerals" } } add_trait = "trait_edict_minerals" } }
+							else = { sector.leader = { remove_trait = "trait_edict_minerals" } }
+						}
+						# Edict Research
+						if = {
+							limit = { check_variable = { which = left_edict_research value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_research" } } add_trait = "trait_edict_research" } }
+							else = { sector.leader = { remove_trait = "trait_edict_research" } }
+						}
+						# Edict Infrastructure
+						if = {
+							limit = { check_variable = { which = left_edict_infrastructure value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_infrastructure" } } add_trait = "trait_edict_infrastructure" } }
+							else = { sector.leader = { remove_trait = "trait_edict_infrastructure" } }
+						}
+						# Edict Happiness
+						if = {
+							limit = { check_variable = { which = left_edict_happiness value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_happiness" } } add_trait = "trait_edict_happiness" } }
+							else = { sector.leader = { remove_trait = "trait_edict_happiness" } }
+						}
+						# Edict Migration
+						if = {
+							limit = { check_variable = { which = left_edict_migration value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_migration" } } add_trait = "trait_edict_migration" } }
+							else = { sector.leader = { remove_trait = "trait_edict_migration" } }
+						}
+						# Edict Ethics
+						if = {
+							limit = { check_variable = { which = left_edict_ethics value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_ethics" } } add_trait = "trait_edict_ethics" } }
+							else = { sector.leader = { remove_trait = "trait_edict_ethics" } }
+						}						
+						# Edict Growth
+						if = {
+							limit = { check_variable = { which = left_edict_growth value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_growth" } } add_trait = "trait_edict_growth" } }
+							else = { sector.leader = { remove_trait = "trait_edict_growth" } }
+						}							
+						# Edict Regionalism
+						if = {
+							limit = { check_variable = { which = left_edict_regionalism value > 0 } }
+								sector.leader = { if = { limit = { not = { has_trait = "trait_edict_regionalism" } } add_trait = "trait_edict_regionalism" } }
+							else = { sector.leader = { remove_trait = "trait_edict_regionalism" } }
+						}																																									
+					}				
+				# If there is no capital, just remove all edict traits
+				else = {
+					leader = { leader_remove_edicts = yes }
+				}
+			}		
+		}
+	}
+}
+
+	# This = Country
+	# Listener for estimation edict time
+	country_event = {
+		id = irm_sector.102
+		hide_window = yes
+		is_triggered_only = yes
+
+		immediate = {
+			# For capital with running edicts
+			every_owned_planet = {
+				limit = { has_sector_edict_time = yes }
+					if = { # food
+						limit = { check_variable = { which = left_edict_food value > 0 } }
+							subtract_variable = { which = left_edict_food value = 1 }
+					}
+					if = { # energy
+						limit = { check_variable = { which = left_edict_energy value > 0 } }
+							subtract_variable = { which = left_edict_energy value = 1 }
+					}
+					if = { # minerals
+						limit = { check_variable = { which = left_edict_minerals value > 0 } }
+							subtract_variable = { which = left_edict_minerals value = 1 }
+					}
+					if = { # research
+						limit = { check_variable = { which = left_edict_research value > 0 } }
+							subtract_variable = { which = left_edict_research value = 1 }
+					}
+					if = { # infrastructure
+						limit = { check_variable = { which = left_edict_infrastructure value > 0 } }
+							subtract_variable = { which = left_edict_infrastructure value = 1 }
+					}
+					if = { # happiness
+						limit = { check_variable = { which = left_edict_happiness value > 0 } }
+							subtract_variable = { which = left_edict_happiness value = 1 }
+					}
+					if = { # migration
+						limit = { check_variable = { which = left_edict_migration value > 0 } }
+							subtract_variable = { which = left_edict_migration value = 1 }
+					}
+					if = { # ethics
+						limit = { check_variable = { which = left_edict_ethics value > 0 } }
+							subtract_variable = { which = left_edict_ethics value = 1 }
+					}						
+					if = { # growth
+						limit = { check_variable = { which = left_edict_growth value > 0 } }
+							subtract_variable = { which = left_edict_growth value = 1 }
+					}					
+					if = { # regionalism
+						limit = { check_variable = { which = left_edict_regionalism value > 0 } }
+							subtract_variable = { which = left_edict_regionalism value = 1 }
+					}																												
+			}
+			# Clean timers for non-sector planets
+			every_owned_planet = {
+				limit = {
+					has_sector_edict_time = yes
+					sector_controlled = no
+				}
+				planet_remove_timers = yes
+			}
+		}
+
+	}
+
+	# This = Country
+	# Sector regular estimations
+	country_event = {
+		id = irm_sector.103
+		hide_window = yes
+		is_triggered_only = yes
+
+		immediate = {
+			# For every non-core sector with established capital
+			every_sector = {
+				limit = { is_core_sector = no any_planet = { is_sector_capital = yes } }
+				random_planet = {
+					limit = { is_sector_capital = yes }
+						###
+				}
+			}
+		}
+
+	}
+
+	# This = Country
+	# Listener for estimation policy cd's
+	country_event = {
+		id = irm_sector.104
+		hide_window = yes
+		is_triggered_only = yes
+
+		immediate = {
+			# For capital with running edicts
+			every_owned_planet = {
+				limit = { has_sector_policy_cooldown = yes }
+					if = { # leadership
+						limit = { check_variable = { which = cd_policy_leadership value > 0 } }
+							subtract_variable = { which = cd_policy_leadership value = 1 }
+					}																												
+			}
+			# Clean timers for non-sector planets
+			every_owned_planet = {
+				limit = {
+					has_sector_policy_cooldown = yes
+					sector_controlled = no
+				}
+				planet_remove_cooldowns = yes
+			}
+		}
+
+	}
+
+	# This = Planet
+	# Clean up sector capital status for some cases
+	planet_event = {
+		id = irm_sector.105
+		hide_window = yes
+		is_triggered_only = yes
+
+		immediate = {
+			# Make people disappointed of taken away capital status
+			if = {
+				limit = {
+					has_modifier = "sector_capital"
+					not = { has_modifier = "former_capital" }
+				}
+				add_modifier = { modifier = "former_capital" days = 3600 }
+			}
+			# Clean up capital status
+			remove_modifier = "sector_capital"
+		}	
+
+	}
+		# 105 Country scope case
+		country_event = {
+			id = irm_sector.1051
+			hide_window = yes
+			is_triggered_only = yes
+
+			immediate = { from = { planet_event = { id = irm_sector.105 } } }	
+
+		}
+
+# 200 EVENTS
+
+	# This = Country
+	# Regular cleaning all non-capital planets
+	country_event = {
+		id = irm_sector.201
+		hide_window = yes
+		is_triggered_only = yes
+
+		immediate = {
+			every_owned_planet = {
+				limit = { not = { has_modifier = "sector_capital" } }
+					planet_remove_timers = yes
+					planet_remove_cooldowns = yes
+			}
+		}
+
+	}
+
+	# This = Country
+	# Solve duplicated capitals per sector
+	country_event = {
+		id = irm_sector.202
+		hide_window = yes
+		is_triggered_only = yes
+
+		immediate = {
+			every_sector = {
+				limit = {
+					is_core_sector = no
+					any_planet = {
+						is_sector_planet = yes
+						has_modifier = "sector_capital"
+						sector = {
+							any_planet = {
+								is_sector_planet = yes
+								has_modifier = "sector_capital"
+								not = { is_same_value = prevprev }
+							}
+						}
+					}
+				}
+				# Select planet with other faction members or without members of this sector
+				random_planet = {
+					limit = {
+						is_sector_capital = yes
+						or = {
+							count_owned_pops = {
+								limit = {
+									exists = pop_faction
+									pop_faction = {
+										is_pop_faction_type = "regionalist"
+										not = { check_pop_faction_parameter = { which = sector value = prev.sector } }
+									}
+								}
+								count > 2
+							}
+							count_owned_pops = {
+								limit = {
+									exists = pop_faction
+									pop_faction = {
+										is_pop_faction_type = "regionalist"
+										check_pop_faction_parameter = { which = sector value = prev.sector }
+									}
+								}
+								count < 1
+							}														
+						}
+					}
+					# Clean up capital status
+					planet_event = { id = irm_sector.105 }
+				}
+			}
+		}
+
+	}	

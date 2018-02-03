@@ -1,0 +1,80 @@
+# GENERAL
+
+
+
+
+# Scopes: Any (Country, Star, Planet, Fleet, Leader etc)
+# Gives the random values from 10000 to 999999
+get_random_6 = {
+
+	# Reset potential variables
+	set_variable = { which = "rand_uid" value = 0 }
+
+	# Set values for certain signs
+	get_random_value = yes
+	set_variable = { which = "var_1" value = "var_rand" }
+	multiply_variable = { which = "var_5" value = 1 }
+	
+	get_random_value = yes
+	set_variable = { which = "var_2" value = "var_rand" }
+	multiply_variable = { which = "var_2" value = 10 }
+	
+	get_random_value = yes
+	set_variable = { which = "var_3" value = "var_rand" }
+	multiply_variable = { which = "var_3" value = 100 }
+	
+	get_random_value = yes
+	set_variable = { which = "var_4" value = "var_rand" }
+	multiply_variable = { which = "var_4" value = 1000 }
+	
+	get_random_value = yes
+	set_variable = { which = "var_5" value = "var_rand" }
+	multiply_variable = { which = "var_5" value = 10000 }
+
+	get_random_value = yes
+	set_variable = { which = "var_6" value = "var_rand" }
+	multiply_variable = { which = "var_6" value = 100000 }	
+
+	# Assemle the value
+	change_variable = { which = "rand_uid" value = "var_1" }
+	change_variable = { which = "rand_uid" value = "var_2" }
+	change_variable = { which = "rand_uid" value = "var_3" }
+	change_variable = { which = "rand_uid" value = "var_4" }
+	change_variable = { which = "rand_uid" value = "var_5" }
+	change_variable = { which = "rand_uid" value = "var_6" }
+
+	# Assign scope uid
+	set_variable = { which = "uid" value = "rand_uid" }
+
+	# Unset helper's variables
+	unset_variables = yes
+
+}
+	# Scopes: set_variable scopers
+	# Gives the random value from 1 to 9
+	get_random_value = {
+		random_list = {
+			12 = { set_variable = { which = "var_rand" value = 1  } }
+			11 = { set_variable = { which = "var_rand" value = 2  } }
+			11 = { set_variable = { which = "var_rand" value = 3  } }
+			11 = { set_variable = { which = "var_rand" value = 4  } }
+			11 = { set_variable = { which = "var_rand" value = 5  } }
+			11 = { set_variable = { which = "var_rand" value = 6  } }
+			11 = { set_variable = { which = "var_rand" value = 7  } }
+			11 = { set_variable = { which = "var_rand" value = 8  } }
+			11 = { set_variable = { which = "var_rand" value = 9  } }
+		}	
+	}
+
+	# Scopes: set_variable scopers
+	# Unset unnecessary variables
+	unset_variables = {
+		set_variable = { which = "var_1" value = 0 }
+		set_variable = { which = "var_2" value = 0 }
+		set_variable = { which = "var_3" value = 0 }
+		set_variable = { which = "var_4" value = 0 }
+		set_variable = { which = "var_5" value = 0 }
+		set_variable = { which = "var_6" value = 0 }
+		set_variable = { which = "var_rand" value = 0 }
+		set_variable = { which = "rand_uid" value = 0 }
+	}

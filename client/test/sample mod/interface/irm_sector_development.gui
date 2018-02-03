@@ -1,0 +1,590 @@
+guiTypes = {
+
+	@SCREEN_W = 390	# window general width
+	@SCREEN_H = 460 # window general height
+	@SCREEN_Xo = 30 # offset from widnow's left side
+
+	# TEXT STATS 
+
+	@ROW_W = 50
+	@ROW_H = 34
+	@ROW_Xo = 250
+	@ROW_Yo = 48
+
+	# Close button
+	containerWindowType = {
+		name = "irm_opt_window_close"
+		position = { x = 0 y = 0 }
+		size = { width = 40 height = 40 }
+		moveable = no
+		
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_close" 
+			position = { x = 346 y = 6 }
+			Orientation = "UPPER_LEFT"
+			shortcut = "ESCAPE"
+			font = "cg_16b"
+		}
+
+		OverlappingElementsBoxType = {
+			name = "trigger_icons"
+			position = { x = 0  y = 10 }
+			size = { x= 65 y = 28 }
+		}
+	}
+
+	# E1 - Food
+	containerWindowType = {
+		name = "irm_opt_sector_edict_row"
+		position = { x = 0 y = 0 }
+		size = { width = @ROW_W height = @ROW_H }
+		orientation = UPPER_RIGHT
+		moveable = no
+		
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_tiled_window_transparent" 
+			position = { x = @ROW_Xo y = @ROW_Yo }
+			size = { x = @ROW_W y = @ROW_H }
+			Orientation = "UPPER_RIGHT"
+			format = right		
+			font = "cg_16b"	
+		}
+
+		OverlappingElementsBoxType = { name = "trigger_icons" position = { x = 0  y = 10 } size = { x= 65 y = 28 } }
+	}
+
+	### SECTOR DEVELOPMENT SETTINGS GUI ###
+
+	@CBOX_X = 330
+	@CBOX_Y = 30
+
+	@CBOX_Xo = 0
+	@TBOX_Xo = 35
+
+	containerWindowType = {
+		name = "irm_sector_development"
+		orientation = center
+		origo = center
+		moveable = yes
+		size = { width = @SCREEN_W height = @SCREEN_H }
+
+		background = { name = "background" quadTextureSprite ="GFX_tile_outliner_bg" }
+
+		iconType = { name = "hex_bg" spriteType = "GFX_hex_bg" position = { x = -10 y = -14 } alwaysTransparent = yes }
+		iconType = { name = "empire_header_line" quadTextureSprite = "GFX_line" position = { x = 6 y = 22 } alwaysTransparent = yes }
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x= -1142 y = -1112 }
+			Orientation = "UPPER_RIGHT"
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+		}
+
+		# Custom header
+		instantTextBoxType = {
+			name = "irm_some_header"
+			font = "malgun_goth_24"
+			position = { x = 20 y = 5 }
+			maxWidth = 543
+			maxHeight = 22
+			fixedSize = yes
+			alwaysTransparent = yes
+			text = "ui_block_development"		# header text
+		}
+
+		### ALL OF THIS IS HIDDEN OR DISPLACED ! ###
+
+		buttonType = { name = "focus_button" position = { x = -1180 y = -1112 } spriteType = "GFX_fleetview_focus" } # hidden
+		instantTextBoxType = { name = "heading" font = "malgun_goth_24" position = { x = -1120 y = -115 } } # hidden
+		buttonType = { name = "alien_message_background" size = { x = 0 y = 0 } position = { x = -1110 y = -11430 } spriteType = "GFX_tiles_dark_area_cut_8" } # hidden
+		buttonType = { name = "confirm_button" quadTextureSprite = "GFX_standard_button_142_34_button" } # hidden
+		containerWindowType = {
+			name = "portrait_background"
+			position = { x = -1117 y = -1145 }
+			size = { width = 0 height = 0 }		# hide portrait window
+			iconType = { name = "event_picture" spriteType = "GFX_diplomacy_portrait_frame" } # hidden
+			iconType = { name = "portrait" spriteType = "GFX_portrait_character" } # hidden
+		}
+		containerWindowType = {
+			name = "portrait"
+			position = { x = -1117 y = -1145 }
+			size = { width = 0 height = 0 } # hide portrait window
+			iconType = { name = "portrait" spriteType = "GFX_portrait_gamesetup_mask"  } # hidden
+			iconType = { name = "black_frame" spriteType = "GFX_diplomacy_portrait_shadow_frame" } # hidden
+			iconType = { name = "stripes_1" spriteType = "GFX_diplomacy_stripes_2" } # hidden
+			iconType = { name = "city_frame" spriteType = "GFX_diplomacy_portrait_frame" } # hidden
+		}
+		iconType = { name = "empire_info_bg" spriteType = "GFX_diplomacy_dark_fade_bg" } # hidden
+		instantTextBoxType={ name = "empire_name" font = "malgun_goth_24" } # hidden 
+		instantTextBoxType={ name = "empire_government_type" font = "cg_16b" } # hidden
+		instantTextBoxType={ name = "empire_personality_type" font = "cg_16b" } # hidden
+		OverlappingElementsBoxType = { name = "empire_ethics_icons" position = { x = -1145 y = -11138 } } # hidden
+		iconType = { name = "empire_flag" spriteType = "GFX_empire_flag_128" position = { x = -1125 y = -11235 } } # hidden
+		containerWindowType = {
+			name = "leader_details"
+			position = { x = -1125 y = -1175 }
+			containerWindowType = { name = "empire_traits_box" } # hidden
+			instantTextBoxType = { name = "empire_traits_label" font = "cg_16b" } # hidden
+			overlappingElementsBoxType = { name = "leader_traits" } # hidden
+			instantTextBoxType = { name = "leader_name" font = "cg_16b" } # hidden
+			instantTextBoxType = { name = "leader_species" font = "cg_16b" } # hidden
+		}
+		containerWindowType = {
+			name = "opinion_window"
+			position = { x = -1127 y = -11110 }
+			size = { width = 94 height = 30 }
+			iconType = { name = "their_opinion_icon" spriteType = "GFX_diplomacy_opinion" } # hidden
+			instantTextBoxType = { name = "their_opinion" font = "cg_16b" }
+		}
+
+		# Description Section
+		instantTextBoxType = {
+			name = "alien_message"
+			font = "cg_16b"
+			position = { x = -999 y = -999 }
+			maxWidth = 465
+			maxHeight = 220
+			format = left
+			scrollbartype = "standardtext_slider"
+		}
+
+		# Edicts
+		containerWindowType = {
+			name = "irm_sector_edicts"
+			position = { x = @SCREEN_Xo y = 100 }
+			size = { width = 400 height = 100 }
+			moveable = no
+
+				# 2.0 Block Title
+				instantTextBoxType = {
+					name = "irm_sector_edicts_title"
+					position = { x = 0 y = -40 }
+					font = "malgun_goth_24"
+					format = left
+					alwaysTransparent = yes		
+					text_color_code = "L"	
+					text = "ui_block_edicts"
+				}			
+
+				@CBOX_Yo1 = 0
+				@CBOX_Yo2 = 34
+				@CBOX_Yo3 = 68
+				@CBOX_Yo4 = 102
+				@CBOX_Yo5 = 136
+				@CBOX_Yo6 = 170
+				@CBOX_Yo7 = 204
+				@CBOX_Yo8 = 238
+				@CBOX_Yo9 = 272
+				@CBOX_Yo10 = 306
+
+				# E1 - Food
+				containerWindowType = {
+					name = "irm_sector_edict_food"
+					position = { x = -2 y = @CBOX_Yo1 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_food_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_food_on"
+						name = "irm_edict_food_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_food_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_food_off"
+						name = "irm_edict_food_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_food_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_food"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_food"
+					}	
+				}
+
+				# E2 - Energy
+				containerWindowType = {
+					name = "irm_sector_edict_energy"
+					position = { x = -2 y = @CBOX_Yo2 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_energy_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_energy_on"
+						name = "irm_edict_energy_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_energy_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_energy_off"
+						name = "irm_edict_energy_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_energy_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_energy"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_energy"
+					}	
+				}
+
+				# E3 - Minerals
+				containerWindowType = {
+					name = "irm_sector_edict_minerals"
+					position = { x = -2 y = @CBOX_Yo3 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_minerals_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_minerals_on"
+						name = "irm_edict_minerals_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_minerals_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_minerals_off"
+						name = "irm_edict_minerals_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_minerals_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_minerals"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_minerals"
+					}	
+				}
+
+				# E4 - Research
+				containerWindowType = {
+					name = "irm_sector_edict_research"
+					position = { x = -2 y = @CBOX_Yo4 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_research_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_research_on"
+						name = "irm_edict_research_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_research_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_research_off"
+						name = "irm_edict_research_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_research_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_research"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_research"
+					}	
+				}
+
+				# E5 - Infrastructure
+				containerWindowType = {
+					name = "irm_sector_edict_infrastructure"
+					position = { x = -2 y = @CBOX_Yo5 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_infrastructure_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_infrastructure_on"
+						name = "irm_edict_infrastructure_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_infrastructure_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_infrastructure_off"
+						name = "irm_edict_infrastructure_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_infrastructure_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_infrastructure"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_infrastructure"
+					}	
+				}
+
+				# E6 - Happiness
+				containerWindowType = {
+					name = "irm_sector_edict_happiness"
+					position = { x = -2 y = @CBOX_Yo6 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_happiness_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_happiness_on"
+						name = "irm_edict_happiness_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_happiness_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_happiness_off"
+						name = "irm_edict_happiness_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_happiness_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_happiness"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_happiness"
+					}	
+				}
+
+				# E7 - Migration
+				containerWindowType = {
+					name = "irm_sector_edict_migration"
+					position = { x = -2 y = @CBOX_Yo7 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_migration_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_migration_on"
+						name = "irm_edict_migration_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_migration_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_migration_off"
+						name = "irm_edict_migration_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_migration_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_migration"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_migration"
+					}	
+				}
+
+				# E8 - Ethics
+				containerWindowType = {
+					name = "irm_sector_edict_ethics"
+					position = { x = -2 y = @CBOX_Yo8 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_ethics_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_ethics_on"
+						name = "irm_edict_ethics_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_ethics_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_ethics_off"
+						name = "irm_edict_ethics_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_ethics_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_ethics"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_ethics"
+					}	
+				}
+
+				# E9 - Growth
+				containerWindowType = {
+					name = "irm_sector_edict_growth"
+					position = { x = -2 y = @CBOX_Yo9 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_growth_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_growth_on"
+						name = "irm_edict_growth_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_growth_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_growth_off"
+						name = "irm_edict_growth_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_growth_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_growth"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_growth"
+					}	
+				}
+
+				# E10 - Regionalism
+				containerWindowType = {
+					name = "irm_sector_edict_regionalism"
+					position = { x = -2 y = @CBOX_Yo10 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "edict_sector_regionalism_desc"							
+					}
+					effectButtonType = {
+						id = "irm_edict_regionalism_on"
+						name = "irm_edict_regionalism_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_regionalism_on"
+					}								
+					effectButtonType = {
+						id = "irm_edict_regionalism_off"
+						name = "irm_edict_regionalism_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_edict_regionalism_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_edict_regionalism"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "edict_sector_regionalism"
+					}	
+				}
+
+
+		}
+
+		### EVENT DIPLO ###
+		
+		containerWindowType = {
+			name = "EVENT_DIPLO"
+			position = { x = 0 y = 10 }
+			#size = { width=563 height=220 }
+			moveable = no
+			
+			instantTextBoxType={
+				name = "action_title"
+				font = "malgun_goth_24"
+				position = { x = -9920 y = -9990 }
+				maxWidth = 200
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType={
+				name = "action_desc"
+				font = "malgun_goth_24"
+				position = { x = -9490 y = -9999 }
+				maxWidth = 500
+				maxHeight = 180
+				Orientation = "UPPER_LEFT"
+				format = center
+				alwaysTransparent = yes
+				text_color_code = "H"
+			}
+			
+			# custom buttons & text
+			listboxType = {
+				name = "option_list"
+				position = { x = 0 y = 0 }
+				size = { x = 50 y = 400 }
+				orientation = "UPPER_LEFT"
+				backGround = ""
+				#spacing = 1
+				#scrollbartype = "standardlistbox_slider"
+				#borderSize = { x = 0 y = 0 }
+			}
+
+		}
+
+	}
+}

@@ -1,0 +1,639 @@
+guiTypes = {
+
+	@SCREEN_W = 760	# window general width
+	@SCREEN_H = 360 # window general height
+	@SCREEN_Xo = 30 # offset from widnow's left side
+
+	### SECTOR DEVELOPMENT SETTINGS GUI ###
+
+	@CBOX_X = 330
+	@CBOX_Y = 30
+
+	@CBOX_Xo = 0
+	@TBOX_Xo = 35
+
+	# Close button
+	containerWindowType = {
+		name = "irm_opt_window_close_pol"
+		position = { x = 0 y = 0 }
+		size = { width = 40 height = 40 }
+		moveable = no
+		
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_close" 
+			position = { x = 716 y = 4 }
+			Orientation = "UPPER_LEFT"
+			shortcut = "ESCAPE"
+			font = "cg_16b"
+		}
+
+		OverlappingElementsBoxType = {
+			name = "trigger_icons"
+			position = { x = 0  y = 10 }
+			size = { x= 65 y = 28 }
+		}
+	}
+
+	@ROW_H = 32
+	@ROW_Xo = 170
+	@ROW_Yo1 = 48
+	@ROW_Yo2 = 50
+	@ROW_Yo3 = 52
+
+	# Summary Rows
+	containerWindowType = {
+		name = "irm_opt_faction_related"
+		position = { x = 0 y = 0 }
+		size = { width = 400 height = @ROW_H }
+		orientation = UPPER_LEFT
+		moveable = no
+		
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_tiled_window_transparent" 
+			position = { x = @ROW_Xo y = @ROW_Yo1 }
+			size = { x = 150 y = @ROW_H }
+			Orientation = "UPPER_RIGHT"
+			format = right		
+			font = "cg_16b"	
+		}
+
+		OverlappingElementsBoxType = {
+			name = "trigger_icons"
+			position = { x = 0  y = 10 }
+			size = { x= 65 y = 28 }
+		}
+	}
+
+	# Summary Rows
+	containerWindowType = {
+		name = "irm_opt_faction_leadership"
+		position = { x = 0 y = 0 }
+		size = { width = 400 height = @ROW_H }
+		orientation = UPPER_LEFT
+		moveable = no
+		
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_tiled_window_transparent" 
+			position = { x = @ROW_Xo y = @ROW_Yo2 }
+			size = { x = 150 y = @ROW_H }
+			Orientation = "UPPER_RIGHT"
+			format = right		
+			font = "cg_16b"	
+		}
+
+		OverlappingElementsBoxType = {
+			name = "trigger_icons"
+			position = { x = 0  y = 10 }
+			size = { x= 65 y = 28 }
+		}
+	}
+
+	# Summary Rows
+	containerWindowType = {
+		name = "irm_opt_faction_regionalism"
+		position = { x = 0 y = 0 }
+		size = { width = 400 height = @ROW_H }
+		orientation = UPPER_LEFT
+		moveable = no
+		
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_tiled_window_transparent" 
+			position = { x = @ROW_Xo y = @ROW_Yo3 }
+			size = { x = 150 y = @ROW_H }
+			Orientation = "UPPER_RIGHT"
+			format = right		
+			font = "cg_16b"	
+		}
+
+		OverlappingElementsBoxType = {
+			name = "trigger_icons"
+			position = { x = 0  y = 10 }
+			size = { x= 65 y = 28 }
+		}
+	}
+
+	containerWindowType = {
+		name = "irm_sector_politics"
+		orientation = center
+		origo = center
+		moveable = yes
+		size = { width = @SCREEN_W height = @SCREEN_H }
+
+		background = { name = "background" quadTextureSprite ="GFX_tile_outliner_bg" }
+
+		iconType = { name = "hex_bg" spriteType = "GFX_hex_bg" position = { x = -10 y = -14 } alwaysTransparent = yes }
+		iconType = { name = "empire_header_line" quadTextureSprite = "GFX_line_long" position = { x = 6 y = 22 } alwaysTransparent = yes }
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x= -1142 y = -1112 }
+			Orientation = "UPPER_RIGHT"
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+		}
+
+		# Custom header
+		instantTextBoxType = {
+			name = "irm_some_header"
+			font = "malgun_goth_24"
+			position = { x = 20 y = 5 }
+			maxWidth = 543
+			maxHeight = 22
+			fixedSize = yes
+			alwaysTransparent = yes
+			text = "ui_block_demography" # header text
+		}
+
+		### ALL OF THIS IS HIDDEN OR DISPLACED ! ###
+
+		buttonType = { name = "focus_button" position = { x = -1180 y = -1112 } spriteType = "GFX_fleetview_focus" } # hidden
+		instantTextBoxType = { name = "heading" font = "malgun_goth_24" position = { x = -1120 y = -115 } } # hidden
+		buttonType = { name = "alien_message_background" size = { x = 0 y = 0 } position = { x = -1110 y = -11430 } spriteType = "GFX_tiles_dark_area_cut_8" } # hidden
+		buttonType = { name = "confirm_button" quadTextureSprite = "GFX_standard_button_142_34_button" } # hidden
+		containerWindowType = {
+			name = "portrait_background"
+			position = { x = -1117 y = -1145 }
+			size = { width = 0 height = 0 }		# hide portrait window
+			iconType = { name = "event_picture" spriteType = "GFX_diplomacy_portrait_frame" } # hidden
+			iconType = { name = "portrait" spriteType = "GFX_portrait_character" } # hidden
+		}
+		containerWindowType = {
+			name = "portrait"
+			position = { x = -1117 y = -1145 }
+			size = { width = 0 height = 0 } # hide portrait window
+			iconType = { name = "portrait" spriteType = "GFX_portrait_gamesetup_mask"  } # hidden
+			iconType = { name = "black_frame" spriteType = "GFX_diplomacy_portrait_shadow_frame" } # hidden
+			iconType = { name = "stripes_1" spriteType = "GFX_diplomacy_stripes_2" } # hidden
+			iconType = { name = "city_frame" spriteType = "GFX_diplomacy_portrait_frame" } # hidden
+		}
+		iconType = { name = "empire_info_bg" spriteType = "GFX_diplomacy_dark_fade_bg" } # hidden
+		instantTextBoxType={ name = "empire_name" font = "malgun_goth_24" } # hidden 
+		instantTextBoxType={ name = "empire_government_type" font = "cg_16b" } # hidden
+		instantTextBoxType={ name = "empire_personality_type" font = "cg_16b" } # hidden
+		OverlappingElementsBoxType = { name = "empire_ethics_icons" position = { x = -1145 y = -11138 } } # hidden
+		iconType = { name = "empire_flag" spriteType = "GFX_empire_flag_128" position = { x = -1125 y = -11235 } } # hidden
+		containerWindowType = {
+			name = "leader_details"
+			position = { x = -1125 y = -1175 }
+			containerWindowType = { name = "empire_traits_box" } # hidden
+			instantTextBoxType = { name = "empire_traits_label" font = "cg_16b" } # hidden
+			overlappingElementsBoxType = { name = "leader_traits" } # hidden
+			instantTextBoxType = { name = "leader_name" font = "cg_16b" } # hidden
+			instantTextBoxType = { name = "leader_species" font = "cg_16b" } # hidden
+		}
+		containerWindowType = {
+			name = "opinion_window"
+			position = { x = -1127 y = -11110 }
+			size = { width = 94 height = 30 }
+			iconType = { name = "their_opinion_icon" spriteType = "GFX_diplomacy_opinion" } # hidden
+			instantTextBoxType = { name = "their_opinion" font = "cg_16b" }
+		}
+
+		# Description Section
+		instantTextBoxType = {
+			name = "alien_message"
+			font = "cg_16b"
+			position = { x = -999 y = -999 }
+			maxWidth = 465
+			maxHeight = 220
+			format = left
+			scrollbartype = "standardtext_slider"
+		}
+
+		# Actions
+		containerWindowType = {
+			name = "irm_sector_actions"
+			position = { x = @SCREEN_Xo y = 100 }
+			size = { width = 400 height = 100 }
+			moveable = no
+
+				# 1.0 Block Title
+				instantTextBoxType = {
+					name = "irm_sector_actions_title"
+					position = { x = 0 y = -40 }
+					font = "malgun_goth_24"
+					format = left
+					alwaysTransparent = yes		
+					text_color_code = "L"	
+					text = "ui_block_actions"
+				}
+
+				@CBOX_Yo1 = 0
+				@CBOX_Yo2 = 34
+				@CBOX_Yo3 = 68
+				@CBOX_Yo4 = 102
+
+				# A1 - Communicate
+				containerWindowType = {
+					name = "irm_sector_action_rename"
+					position = { x = -2 y = @CBOX_Yo1 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "sector_action_communicate_desc"							
+					}
+
+					instantTextBoxType = {
+						name = "irm_sector_action_rename"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "sector_action_communicate"
+						text_color_code = "E"
+					}	
+				}
+
+				# A2 - Install Governor
+				containerWindowType = {
+					name = "irm_sector_action_install"
+					position = { x = -2 y = @CBOX_Yo2 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "sector_action_install_desc"							
+					}
+
+					instantTextBoxType = {
+						name = "irm_sector_action_communicate"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "sector_action_install"
+						text_color_code = "E"
+					}	
+				}
+
+
+				# A3 - Develop Faction
+				containerWindowType = {
+					name = "irm_sector_action_develop"
+					position = { x = -2 y = @CBOX_Yo3 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "sector_action_develop_desc"							
+					}
+
+					instantTextBoxType = {
+						name = "irm_sector_action_communicate"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "sector_action_develop"
+						text_color_code = "E"
+					}	
+				}
+
+
+		}
+
+		# Policies
+		containerWindowType = {
+			name = "irm_sector_policies"
+			position = { x = @SCREEN_Xo y = 260 }
+			size = { width = 400 height = 100 }
+			moveable = no
+
+				# 1.0 Block Title
+				instantTextBoxType = {
+					name = "irm_sector_policies_title"
+					position = { x = 0 y = -40 }
+					font = "malgun_goth_24"
+					format = left
+					alwaysTransparent = yes		
+					text_color_code = "L"	
+					text = "ui_block_policies"
+				}
+
+				# P1 - Faction Leadership
+				containerWindowType = {
+					name = "irm_sector_policy_leadership"
+					position = { x = -2 y = @CBOX_Yo1 }
+					size = { width = @CBOX_X height = @CBOX_Y }
+					background = {
+						name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "sector_policy_leadership_desc"							
+					}
+					effectButtonType = {
+						id = "irm_policy_leadership_on"
+						name = "irm_policy_leadership_on"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_policy_leadership_on"
+					}								
+					effectButtonType = {
+						id = "irm_policy_leadership_off"
+						name = "irm_policy_leadership_off"
+						position = { x = @CBOX_Xo y = 0 }
+						quadTextureSprite = "GFX_checkbox_20_20_01"
+						oversound = menu_over_01
+						effect = "ui_cbox_policy_leadership_off"
+						frame = 2
+					}
+					instantTextBoxType = {
+						name = "irm_sector_policy_leadership"
+						position = { x = @TBOX_Xo y = 7 }
+						maxWidth = @CBOX_X
+						font = "cg_16b"
+						alwaysTransparent = yes
+						text = "sector_policy_leadership"
+					}	
+				}
+
+				## P2 - Allow only majority's leaders
+				#containerWindowType = {
+				#	name = "irm_sector_policy_majority"
+				#	position = { x = -2 y = @CBOX_Yo2 }
+				#	size = { width = @CBOX_X height = @CBOX_Y }
+				#	background = {
+				#		name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+				#		pdx_tooltip = "sector_policy_majority_desc"							
+				#	}
+				#	effectButtonType = {
+				#		id = "irm_policy_leadership_on"
+				#		name = "irm_policy_leadership_on"
+				#		position = { x = @CBOX_Xo y = 0 }
+				#		quadTextureSprite = "GFX_checkbox_20_20_01"
+				#		oversound = menu_over_01
+				#		effect = ""
+				#	}								
+				#	effectButtonType = {
+				#		id = "irm_policy_leadership_off"
+				#		name = "irm_policy_leadership_off"
+				#		position = { x = @CBOX_Xo y = 0 }
+				#		quadTextureSprite = "GFX_checkbox_20_20_01"
+				#		oversound = menu_over_01
+				#		effect = ""
+				#		frame = 1
+				#	}
+				#	instantTextBoxType = {
+				#		name = "irm_sector_policy_leadership"
+				#		position = { x = @TBOX_Xo y = 7 }
+				#		maxWidth = @CBOX_X
+				#		font = "cg_16b"
+				#		alwaysTransparent = yes
+				#		text = "sector_policy_majority"
+				#	}	
+				#}
+
+				## P3 - Allow Senate
+				#containerWindowType = {
+				#	name = "irm_sector_policy_senate"
+				#	position = { x = -2 y = @CBOX_Yo3 }
+				#	size = { width = @CBOX_X height = @CBOX_Y }
+				#	background = {
+				#		name = "irm_sector_row" spriteType = "GFX_black_box_bg"
+				#		pdx_tooltip = "sector_policy_senate_desc"							
+				#	}
+				#	effectButtonType = {
+				#		id = "irm_policy_leadership_on"
+				#		name = "irm_policy_leadership_on"
+				#		position = { x = @CBOX_Xo y = 0 }
+				#		quadTextureSprite = "GFX_checkbox_20_20_01"
+				#		oversound = menu_over_01
+				#		effect = ""
+				#	}								
+				#	effectButtonType = {
+				#		id = "irm_policy_leadership_off"
+				#		name = "irm_policy_leadership_off"
+				#		position = { x = @CBOX_Xo y = 0 }
+				#		quadTextureSprite = "GFX_checkbox_20_20_01"
+				#		oversound = menu_over_01
+				#		effect = ""
+				#		frame = 1
+				#	}
+				#	instantTextBoxType = {
+				#		name = "irm_sector_policy_leadership"
+				#		position = { x = @TBOX_Xo y = 7 }
+				#		maxWidth = @CBOX_X
+				#		font = "cg_16b"
+				#		alwaysTransparent = yes
+				#		text = "sector_policy_senate"
+				#	}	
+				#}
+
+		}
+
+		@BLOCK_W = 330
+		@BLOCK_Xo = 0
+		@BLOCK_TEXT_H = 30
+		@BLOCK_TEXT_Xo = 10
+		@BLOCK_TEXT_Yo = 6
+
+		@ROW1_H = 32
+		@ROW2_H = 66
+		@ROW3_H = 100
+
+
+		# Summary
+		containerWindowType = {
+			name = "irm_block_summary"
+			position = { x = 400 y = 68 }
+			size = { width = @SCREEN_W height = 40 }
+			moveable = no
+
+				# 4.0 Block Title
+				instantTextBoxType = {
+					name = "irm_sector_b4_title"
+					position = { x = 0 y = -8 }
+					font = "malgun_goth_24"
+					format = left
+					alwaysTransparent = yes		
+					text_color_code = "L"	
+					text = "ui_block_summary"
+				}
+
+				# S1 - Related Faction
+				containerWindowType = {
+					name = "irm_faction_leader"
+					position = { x = @BLOCK_Xo y = @ROW1_H }
+					size = { width = @BLOCK_W height = @BLOCK_TEXT_H }
+					
+					background = {
+						name = "irm_sector_b2_2" spriteType = "GFX_black_box_bg"
+						pdx_tooltip = "ui_faction_related_desc"
+					}				
+
+					instantTextBoxType = {
+						name = "irm_sector_b2_1_text"
+						position = { x = @BLOCK_TEXT_Xo y = @BLOCK_TEXT_Yo }
+						maxWidth = @BLOCK_W
+						format = left
+						alwaysTransparent = yes
+						text_color_code = "E"				
+						font = "cg_16b"
+						text = "ui_faction_related"
+					}	
+				}
+
+				# S2 - Faction Leader
+				containerWindowType = {
+					name = "irm_faction_regionalism"
+					position = { x = @BLOCK_Xo y = @ROW2_H }
+					size = { width = @BLOCK_W height = @BLOCK_TEXT_H }
+					
+					background = { name = "irm_sector_b2_2" spriteType = "GFX_black_box_bg" }				
+
+					instantTextBoxType = {
+						name = "irm_sector_b2_1_text"
+						position = { x = @BLOCK_TEXT_Xo y = @BLOCK_TEXT_Yo }
+						maxWidth = @BLOCK_W
+						format = left
+						alwaysTransparent = yes
+						text_color_code = "E"				
+						font = "cg_16b"
+						text = "Faction Leader:"
+					}	
+				}
+
+				# S3 - Regionalism Factors
+				containerWindowType = {
+					name = "irm_faction_something"
+					position = { x = @BLOCK_Xo y = @ROW3_H }
+					size = { width = @BLOCK_W height = @BLOCK_TEXT_H }
+					
+					background = { name = "irm_sector_b2_3" spriteType = "GFX_black_box_bg" }				
+
+					instantTextBoxType = {
+						name = "irm_sector_b2_1_text"
+						position = { x = @BLOCK_TEXT_Xo y = @BLOCK_TEXT_Yo }
+						maxWidth = @BLOCK_W
+						format = left
+						alwaysTransparent = yes
+						text_color_code = "E"				
+						font = "cg_16b"
+						text = "Attraction and Factors:"
+					}	
+				}
+
+		}
+
+		### EVENT DIPLO ###
+		
+		containerWindowType = {
+			name = "EVENT_DIPLO"
+			position = { x = 0 y = 10 }
+			#size = { width=563 height=220 }
+			moveable = no
+			
+			instantTextBoxType={
+				name = "action_title"
+				font = "malgun_goth_24"
+				position = { x = -9920 y = -9990 }
+				maxWidth = 200
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType={
+				name = "action_desc"
+				font = "malgun_goth_24"
+				position = { x = -9490 y = -9999 }
+				maxWidth = 500
+				maxHeight = 180
+				Orientation = "UPPER_LEFT"
+				format = center
+				alwaysTransparent = yes
+				text_color_code = "H"
+			}
+			
+			# custom buttons & text
+			listboxType = {
+				name = "option_list"
+				position = { x = 0 y = 0 }
+				size = { x = 50 y = 400 }
+				orientation = "UPPER_LEFT"
+				backGround = ""
+				#spacing = 1
+				#scrollbartype = "standardlistbox_slider"
+				#borderSize = { x = 0 y = 0 }
+			}
+
+		}
+
+
+		# ACTIONS
+
+		effectButtonType = {
+			id = "irm_action_communicate"
+			name = "irm_action_communicate"
+			position = { x = @SCREEN_Xo y = 103 }
+			quadTextureSprite = "GFX_button_faction_communicate"
+			#scale = 0.64
+			oversound = menu_over_01
+			effect = "ui_action_communicate"
+		}		
+
+		effectButtonType = {
+			id = "irm_action_install"
+			name = "irm_action_install"
+			position = { x = @SCREEN_Xo y = 137 }
+			quadTextureSprite = "GFX_button_faction_install"
+			#scale = 0.64
+			oversound = menu_over_01
+			effect = "ui_action_install"
+		}
+
+		effectButtonType = {
+			id = "irm_action_develop"
+			name = "irm_action_develop"
+			position = { x = @SCREEN_Xo y = 171 }
+			quadTextureSprite = "GFX_button_faction_develop"
+			#scale = 0.64
+			oversound = menu_over_01
+			effect = "ui_action_develop"
+		}
+
+		# TOOLTIPS
+
+		# Faction Leader
+		containerWindowType = {
+			name = "tt21"
+			position = { x = 370 y = 134 }
+			size = { width = @BLOCK_W height = @BLOCK_TEXT_H }
+
+			# Factors list in the button effect
+			effectButtonType = {
+				id = "ui_tt_faction_leader"
+				name = "ui_tt_faction_leader"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+				position = { x = -300 y = 0 }
+				size = { x = @BLOCK_W y = @BLOCK_TEXT_H }
+				Orientation = "UPPER_RIGHT"
+				font = "cg_16b"
+				effect = "ui_tt_faction_leader"
+			}
+
+		}
+
+		# Regionalism Factors
+		containerWindowType = {
+			name = "tt7"
+			position = { x = 370 y = 168 }
+			size = { width = @BLOCK_W height = @BLOCK_TEXT_H }
+
+			# Factors list in the button effect
+			effectButtonType = {
+				id = "ui_tt_sector_regionalism"
+				name = "ui_tt_sector_regionalism"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+				position = { x = -300 y = 0 }
+				size = { x = @BLOCK_W y = @BLOCK_TEXT_H }
+				Orientation = "UPPER_RIGHT"
+				font = "cg_16b"
+				effect = "ui_tt_sector_regionalism"
+			}
+
+		}
+
+
+	}
+}

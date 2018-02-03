@@ -1,0 +1,83 @@
+# IRM
+# Imperial Routine - General Events
+
+namespace = irm
+
+# Scope = N/A
+# Country events
+country_event = {
+	id = irm.1
+	hide_window = yes
+
+	trigger = {
+		is_ai = no
+		is_country_type = default
+	}
+
+	immediate = {
+		# Regular events		
+		country_event = { id = irm_sector.101 } 					# listener: leader's edict traits
+		country_event = { id = irm_sector.102 } 					# listener: update timer for edict's length
+		country_event = { id = irm_sector.104 } 	
+						# listener: update timer for policy cd
+	}
+}
+
+# Scope = N/A
+# Monthly regular events
+event = {
+	id = irm.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_country = {
+			limit = { is_ai = no is_country_type = default }
+				country_event = { id = irm_sector.103 } 			# sector regular estimations
+				country_event = { id = irm_sector.201 } 			# clean up all vars for former sector capitals
+				country_event = { id = irm_sector.202 } 			# clean up duplicated capitals
+				country_event = { id = irm_faction.201 } 			# some xp for faction leaders
+				country_event = { id = irm_faction.203 } 			# refresh faction name
+		}
+	}	
+}
+
+# Scope = N/A
+# Yearly regular events
+event = {
+	id = irm.3
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { 
+		every_country = {
+			limit = { is_ai = no is_country_type = default }
+				country_event = { id = irm_faction.202 }			# faction suppressions
+		}
+	}
+}	
+
+
+
+
+# TMP
+
+planet_event = {
+	id = irm.100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			random_pop_faction = {
+				limit = {
+					is_pop_faction_type = "regionalist"
+					check_pop_faction_parameter = { which = sector value = root.sector }
+				}
+				leader = {
+					kill_leader = { show_notification = yes }
+				}
+			}
+		}
+	}
+}

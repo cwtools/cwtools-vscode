@@ -1,0 +1,76 @@
+administrative_system = {
+	potential = {
+		NOT = { has_ethic = "ethic_gestalt_consciousness" }
+		has_country_flag="adm_enabled"
+	}
+
+	option = {
+		name = "federal"
+		
+		policy_flags = {
+			federal_system
+		}
+
+		valid = {
+			has_authority = auth_democratic
+			sectors > 0
+		}		
+
+		modifier = {
+			#country_core_sector_system_cap = 1
+		}		
+		
+	}
+	
+	option = {
+		name = "corporate"
+		
+		policy_flags = {
+			corporate_system
+		}
+		
+		valid = {
+			has_authority = auth_oligarchic
+			sectors > 0
+		}
+
+	}
+
+	option = {
+		name = "unitary"
+		
+		policy_flags = {
+			unitary_system
+		}
+		
+	}
+
+	option = {
+		name = "dominion"
+		
+		policy_flags = {
+			dominion_system
+		}
+		
+		valid = {
+			has_authority = auth_dictatorial
+			sectors > 0
+		}
+		
+	}
+
+	option = {
+		name = "empire"
+		
+		policy_flags = {
+			empire_system
+		}
+		
+		valid = {
+			has_authority = auth_imperial
+			sectors > 0
+		}
+
+	}
+
+}

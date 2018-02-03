@@ -1,0 +1,486 @@
+# Regionalist Faction
+
+regionalist = {
+	
+	# This = Pop faction
+	unique = no
+
+	# This = Country
+	# Global Conditions
+	is_potential = {
+		is_ai = no
+		sectors > 0			
+	}
+	
+	# This = Country
+	parameters = {
+		sector = {
+			type = sector
+			valid_objects = {
+				is_core_sector = no
+			}
+		}
+	}
+	
+	# This = Pop faction
+	valid = {
+		not = { has_pop_faction_flag = "regionalist_dublicated" } # prevent duplicates
+		parameter:sector = {
+			debug_scope_type = sector
+			owner = { is_same_empire = root.owner }
+		}
+	}
+
+	# This = Pop
+	can_join_faction = {
+		pop_can_politics = yes
+		planet = { exists = sector }
+		not = { has_modifier = "pop_suppressed" }
+		# temporary planets? to keep the issue with taking out planets
+	}
+	
+	# This = Pop
+	# !!! WARNING !!!
+	# All of this stuff must be linked with tooltips in irm_button.txt !
+	attraction = {
+		base = 0
+
+		# BASIC
+
+		# Basic faction attraction within sector
+		modifier = {
+			add = 100
+			is_region_pop = yes
+		}
+
+		# Attraction for regionalist founders, to establish the faction
+		modifier = {
+			add = 9999
+			is_region_pop = yes
+			has_pop_faction_flag = "regionalist_founder"
+		}
+
+		# COUNTRY
+
+		# Colonial Viceroys
+		modifier = {
+			factor = 0.85
+			is_region_pop = yes
+			owner = { has_tradition = "tr_domination_colonial_viceroys" }
+		}
+
+		# FACTION
+
+		# Regionalist faction existance
+		modifier = {
+			factor = 1.50
+			is_region_pop = yes
+			owner = {
+				count_pop_factions = {
+					limit = {
+						is_pop_faction_type = "regionalist"
+						check_pop_faction_parameter = { which = sector value = parameter:sector }
+					}
+					count > 0
+				}
+			}
+		}
+
+		# Regionalist faction membership
+		modifier = {
+			factor = 1.75
+			is_region_pop = yes
+			member_of_faction = root
+		}
+
+		# PLANET
+
+		modifier = {
+			factor = 3.00
+			is_region_pop = yes
+			planet = { has_modifier = "disconnected_from_sector" }
+		}
+
+		# Distance to capital
+		modifier = {
+			factor = 1.15
+			planet = {
+				exists = sector
+				sector = { is_same_value = parameter:sector }
+				distance = { source = parameter:sector.owner.capital_scope min_distance = 50 max_distance = 150 }
+			}
+		}
+
+		# POP
+
+		# Government ethos
+		modifier = {
+			factor = 0.95
+			has_same_ethos = owner #### REWORK !!!
+		}		
+
+		# Unemployed Pop
+		modifier = {
+			factor = 1.25
+			is_region_pop = yes
+			is_unemployed = yes
+		}
+
+		# Different species
+		modifier = {
+			factor = 1.5
+			is_region_pop = yes
+			not = { is_same_species = owner_species }
+		}
+
+		# SECTOR
+
+		# Governor Seat
+		modifier = {
+			factor = 1.20
+			is_region_pop = yes
+			planet = { sector = { not = { exists = leader } } }
+		}
+		modifier = {
+			factor = 0.85
+			is_region_pop = yes
+			planet = { sector = { exists = leader } }
+		}				
+
+		# Sector Edict (Reduces Regionalism)
+		modifier = {
+			factor = 0.80
+			is_region_pop = yes
+			planet = {
+				sector = {
+					exists = leader
+					leader = { has_trait = "trait_edict_regionalism" }
+				}
+			}
+		}
+
+	}
+	
+	# Leader selection
+	leader = {
+		base = 100
+		
+		modifier = {
+			factor = 0
+			nor = {
+				has_leader_flag = "faction_leader"
+				is_event_leader = yes
+			}
+		}
+	}
+
+	# This = Pop faction
+	on_create = {
+		# Check all potential factions within this sector.
+		# If this faction is similar to existing, mark as duplicated.
+		# Duplicated factions will be no valid and never appear.
+		if = {
+			limit = {
+				parameter:sector = {
+					any_pop = {
+						exists = pop_faction
+						pop_faction = {
+							is_pop_faction_type = "regionalist"
+							check_pop_faction_parameter = { which = sector value = prevprev }		
+							not = { is_same_value = root }
+						}
+					}
+				}
+			}
+			# Mark the duplicate
+			set_pop_faction_flag = "regionalist_dublicated"
+
+			# Otherwise, establish the faction
+			else = {
+				# Name this faction from the sector scope, to get the proper name
+				parameter:sector = { root = { set_name = "pft_regionalist_name" } }
+
+				# Establish the faction
+				faction_set_leader = yes
+
+				# Show the default message
+				pop_faction_event = { id = factions.1 }		
+			}
+		}
+
+	}
+
+	# This = Country
+	on_destroy = {
+		every_owned_leader = {
+			limit = {
+				leader_class = governor
+				has_leader_flag = "faction_leader"
+				leader_of_faction = no
+			}
+			kill_leader = { show_notification = no }
+		}
+	}
+
+	# Govenor
+	demand = {
+		title = "demand_governor"
+		desc = "demand_governor_desc"
+		unfulfilled_title = "demand_governor_not"
+
+		fulfilled_effect = 2.5
+		unfulfilled_effect = -10
+
+		potential = {
+			exists = parameter:sector
+			exists = root.leader
+			or = {
+				parameter:sector = {
+					exists = leader
+					leader = {
+						not = { root.leader = { is_same_value = prev } }
+					}
+				}
+				parameter:sector = {
+					not = { exists = leader }
+				}
+			}
+		}
+
+		trigger = {
+			exists = parameter:sector
+			parameter:sector = {
+				exists = leader
+				leader = {
+					not = { root.leader = { is_same_value = prev } }
+				}
+			}
+		}
+	}
+
+	# Govenor, faction leader
+	demand = {
+		title = "demand_governor_faction"
+		desc = "demand_governor_faction_desc"
+		#unfulfilled_title = "demand_governor_not"
+
+		fulfilled_effect = 5
+		#unfulfilled_effect = -5
+
+		potential = {
+			exists = parameter:sector
+			exists = root.leader
+			parameter:sector = {
+				exists = leader
+				leader = {
+					leader_of_faction = yes
+					root.leader = { is_same_value = prev }
+				}
+			}
+		}
+
+		trigger = {
+			exists = parameter:sector
+			parameter:sector = {
+				exists = leader
+				leader = {
+					leader_of_faction = yes
+					root.leader = { is_same_value = prev }
+				}
+			}
+		}
+	}
+
+	# Same majority species governor
+	demand = {
+		title = "demand_same_gov"
+		desc = "demand_same_gov_desc"
+		unfulfilled_title = "demand_same_gov_not"
+
+		fulfilled_effect = 2.5
+		unfulfilled_effect = -5
+
+		potential = {
+			exists = parameter:sector
+			exists = parameter:sector.leader
+			owner = {
+				any_owned_pop = {
+					is_region_pop = yes
+					pop_can_politics = yes
+					not = { is_same_species = parameter:sector.leader }
+				}
+			}
+		}
+
+		trigger = {
+			exists = parameter:sector
+			exists = parameter:sector.leader
+			pop_percentage = {
+				limit = {
+					is_region_pop = yes
+					pop_can_politics = yes
+					not = { is_same_species = parameter:sector.leader }
+				}
+				percentage < 0.50
+			}
+		}
+	}
+
+	# Experienced Leadership
+	demand = {
+		title = "demand_xp_gov"
+		desc = "demand_xp_gov_desc"
+		unfulfilled_title = "demand_xp_gov"
+
+		fulfilled_effect = 2.5
+		unfulfilled_effect = 0
+
+		potential = {
+			exists = parameter:sector
+			exists = parameter:sector.leader
+			parameter:sector.leader = { has_skill > 4 }
+		}
+
+		trigger = {
+			exists = parameter:sector
+			exists = parameter:sector.leader
+			parameter:sector.leader = { has_skill > 4 }
+		}
+	}
+
+	# Sector's Statecraft 1
+	demand = {
+		title = "demand_sector_statecraft"
+		desc = "demand_sector_statecraft_desc"
+		#unfulfilled_title = ""
+
+		fulfilled_effect = 2.5
+		#unfulfilled_effect = -15
+
+		potential = {
+			exists = parameter:sector
+			owner = {  sectors > 2 sectors < 10 }
+		}
+
+		trigger = {
+			exists = parameter:sector
+			owner = {  sectors > 2 sectors < 10 }
+		}
+	}
+	# Sector's Statecraft 2
+	demand = {
+		title = "demand_sector_statecraft"
+		desc = "demand_sector_statecraft_desc"
+		#unfulfilled_title = ""
+
+		fulfilled_effect = 5
+		#unfulfilled_effect = -15
+
+		potential = {
+			exists = parameter:sector
+			owner = {  sectors > 9 }
+		}
+
+		trigger = {
+			exists = parameter:sector
+			owner = {  sectors > 9 }
+		}
+	}
+
+	# Sector Capital
+	demand = {
+		title = "demand_sector_capital"
+		desc = "demand_sector_capital_desc"
+		unfulfilled_title = "demand_sector_capital_no"
+
+		#fulfilled_effect = 0
+		unfulfilled_effect = -15
+
+		potential = {
+			exists = parameter:sector
+			parameter:sector = {
+				not = { any_planet = { is_sector_capital = yes } }
+			}
+		}
+
+		trigger = {
+			exists = parameter:sector
+			parameter:sector = { any_planet = { is_sector_capital = yes } }
+		}
+	}
+
+	# Lost Worlds
+	demand = {
+		#title = "demand_lost_worlds"
+		desc = "demand_lost_worlds_desc"
+		unfulfilled_title = "demand_lost_worlds"
+
+		#fulfilled_effect = 0
+		unfulfilled_effect = -20
+
+		potential = {
+			exists = parameter:sector
+			owner = {
+				any_owned_pop = {
+					exists = pop_faction
+					pop_faction = {
+						is_pop_faction_type = "regionalist"
+						is_same_value = root
+					}
+					planet = {
+						exists = sector
+						sector = { not = { is_same_value = parameter:sector } }
+					}
+				}
+			}
+		}
+
+		trigger = {
+			exists = parameter:sector
+			not = {
+				owner = {
+					any_owned_pop = {
+						exists = pop_faction
+						pop_faction = {
+							is_pop_faction_type = "regionalist"
+							is_same_value = root
+						}
+						planet = {
+							exists = sector
+							sector = { not = { is_same_value = parameter:sector } }
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	# This = Pop faction
+	# Faction management & actions
+	actions = {
+
+		# Sector Management Screen
+		manage_sector = {
+
+			title = "action_manage_sector"
+			description = "action_manage_sector_desc"
+			
+			potential = {
+				exists = parameter:sector
+				parameter:sector = { any_planet = { is_sector_capital = yes } }
+				owner = { not = { any_owned_planet = { has_planet_flag = "ui_management_open" } } }	
+			}
+			effect = {
+				parameter:sector = {
+					random_planet = {
+						limit = { is_sector_capital = yes }
+							planet_event = { id = irm_sector.2 }
+					}
+				}
+			}
+		}
+
+	}
+
+}
