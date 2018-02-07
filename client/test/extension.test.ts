@@ -28,8 +28,19 @@ suite(`Debug Integration Test: `, function() {
 
 	test('should activate', function () {
 		this.timeout(1 * 60 * 1000);
-		return vscode.extensions.getExtension('tboby.cwtools-vscode').activate().then((api) => {
+		return vscode.extensions.getExtension('tboby.cwtools-vscode').activate().then((_) => {
 			assert.ok(true);
+		});
+	});
+
+	test('should have errors', function () {
+		this.timeout(1 * 60 * 1000);
+		return vscode.extensions.getExtension('tboby.cwtools-vscode').activate().then((api) => {
+			setTimeout(() => {
+				let count = 0;
+					myExtension.default.diagnostics.forEach(([], [], []) => count++);
+					assert.ok(count);
+			}, 5000);
 		});
 	});
 }); 

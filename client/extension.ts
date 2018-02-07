@@ -11,6 +11,8 @@ import * as fs from 'fs';
 import { workspace, ExtensionContext, window, Disposable, Position } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 
+let defaultClient: LanguageClient;
+
 export function activate(context: ExtensionContext) {
 
 	// The server is implemented using dotnet core
@@ -47,6 +49,7 @@ export function activate(context: ExtensionContext) {
 	}
 	
 	let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
+	defaultClient = client;
 	console.log("client init")
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
@@ -75,7 +78,6 @@ export function activate(context: ExtensionContext) {
 		})		
 	})
 	let disposable = client.start();
-
 	
 	// Create the language client and start the client.
 	
@@ -83,3 +85,5 @@ export function activate(context: ExtensionContext) {
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
 }
+
+export default defaultClient;
