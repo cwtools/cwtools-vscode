@@ -1,3 +1,6 @@
+# 0.2.12
+* Fix ambient_object localisation checks
+* Support recursive triggers and effects
 # 0.2.10
 * Add localisation_synced checking in events
 # 0.2.9
