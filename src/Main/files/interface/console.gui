@@ -1,0 +1,68 @@
+guiTypes = 
+{
+	containerWindowType = {
+		name = "console_wnd"
+		#backGround =""
+		
+		position = { x=5 y=100 }
+		
+		#show_position = { x=5 y=100 }
+		#hide_position = { x = -700 y = 100 }
+		size = { width=700 height=540 }
+		#moveable = 0
+		#orientation="UPPER_LEFT"
+		
+		# Console list of entries
+		listBoxType = 
+		{
+			name ="console_list"
+			background = "GFX_tiles_frame"
+			position = { x=0 y=0 }
+			orientation = "UPPER_LEFT"
+			priority = 100
+			size = { x=700 y=505 }
+			borderSize = { x=0 y=0 }
+			scrollbartype = "standardlistbox_slider"
+			#alwaystransparent = yes
+		}
+		
+		# Text edit box
+		editBoxType = {
+			position = { x = 3 y = 510  }
+			name = "console_edit"
+			instantTextBoxType = no
+			textureFile = "gfx/interface/tiles/small_tiles_dialog.dds"
+			font = "cg_16b"
+			borderSize = { x=4 y=4 }	
+			size = { x=700 y=40 }
+			text = " "
+			orientation = "UPPER_LEFT"
+			}
+	}
+	
+	containerWindowType = {
+		name = "console_entry_wnd"
+		#backGround =""
+		position = { x=3 y=100 }
+		
+		#show_position = { x=3 y=100 }
+		#hide_position = { x = -703 y = 100 }
+		size = { width=700 height=16 }
+		#moveable = 0
+		#orientation="UPPER_LEFT"
+		
+		# Console entry
+		instantTextBoxType={
+			position = { x=0 y=0 }
+			name = "console_text"
+			textureFile = "gfx/interface/tiles/invisible.tga"
+			font = "cg_16b"
+			borderSize = { x=8 y=1 }
+			maxWidth = 700
+			maxHeight = 16
+			fixedsize = yes
+			orientation = "UPPER_LEFT"
+		}
+	}
+
+}

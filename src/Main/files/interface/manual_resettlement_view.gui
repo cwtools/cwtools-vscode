@@ -1,0 +1,430 @@
+guiTypes = {
+	containerWindowType = {
+		name = "manual_resettlement_view"
+		size = { width = 1270 height = 660 }
+		origo = center
+		orientation = center
+		moveable = yes
+		
+		background = {
+			name = "manual_resettlement_view_background"
+			spriteType = "GFX_tile_large_bg"
+		}
+		
+		### black boxes
+		containerWindowType = {
+			name = "black_background_box_00"
+			size = { width = 530 height = 50 }
+			position = { x = 10 y = 55 }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+		}
+		
+		containerWindowType = {
+			name = "black_background_box_01"
+			size = { width = 530 height = 530 }
+			position = { x = 10 y = 110 }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+		}
+		
+		containerWindowType = {
+			name = "black_background_box_02"
+			size = { width = 530 height = 50 }
+			position = { x = 730 y = 55 }
+			
+			background = {
+				name = "black2"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+		}
+		
+		containerWindowType = {
+			name = "black_background_box_03"
+			size = { width = 530 height = 530 }
+			position = { x = 730 y = 110 }
+			
+			background = {
+				name = "black2"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+		}
+		
+		
+		### TITLE
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -13 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 6 y = 22 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "header"
+			position = { x = 16 y = -3 }
+			font = "malgun_goth_24"
+			maxWidth = 300
+			maxHeight = 40
+			text = "RESETTLEMENT"
+			format = left
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close_square"
+			position = { x = -44 y = 13 }
+			orientation = UPPER_RIGHT
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE_TITLE"
+			clicksound = "back_click"
+			actionShortcut = "cancel"
+		}
+		
+		### CENTER STUFF
+		buttonType = {
+			name = "resettle"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x = -84 y = 110 }
+			orientation = center_up
+			buttonFont = "cg_16b"
+			text = "POP_ACTION_RESETTLE"
+			font = "cg_16b"
+		}
+		
+		instantTextBoxType={
+			name = "resettle_cost"
+			position = { x = -86 y = 170 }
+			orientation = center_up
+			font = "malgun_goth_24"
+			maxWidth = 170
+			maxHeight = 20
+			text = "stats"
+			format = center
+		}	
+		
+		iconType = {
+			name = "resettlement_arrows"
+			spriteType = "GFX_resettlement_arrows"
+			position = { x = -97 y = 260 }
+			orientation = center_up
+		}
+		
+		instantTextBoxType={
+			name = "description_text"
+			position = { x = -86 y = 390 }
+			orientation = center_up
+			font = "cg_16b"
+			maxWidth = 170
+			maxHeight = 400
+			text = "MANUAL_RESETTLEMENT_VIEW_DRAGDROP_INFO"
+			format = center
+		}
+
+		### GRIDBOX
+		gridBoxType = {
+			name = "planets"
+			slotSize = { width = 720 height = 516 }
+			max_slots_horizontal = 2
+			max_slots_vertical = 1
+			format = "UPPER_LEFT"
+			size = { width = 1032 height = 516 }
+			position = { x = 19 y = 119 }
+		}
+		
+		### DROPDOWN LEFT
+		dropDownBoxType = {
+			name = "left_planet"
+			position = { x = 0 y = 40 }
+			size = { width = 166 height = 58 }
+			
+			instantTextBoxType = {
+				name = "current"
+				position = { x = 45 y = 9 }
+				alwaystransparent = yes
+				font = "malgun_goth_24"
+				maxWidth = 450
+				maxHeight = 58
+				format = center
+				vertical_alignment = center
+			}
+			
+			expandButton = {
+				name = "expand_button"	
+				position = { x = 496 y = 21 }
+				quadTextureSprite = "GFX_button_down_arrow"
+			}
+			
+			expandedWindow = {
+				name = "expanded_window"
+				position = { x = 10 y = -300 }	
+				show_position = { x = 10 y = 65 }
+				show_animation_type = decelerated
+				hide_animation_type = accelerated
+				animation_time = 200
+				size = { width=530 height=350 }	
+				verticalScrollbar = "right_vertical_slider"
+				margin = { top = 7 bottom = 15 right = 6 }
+				
+				background = {
+					name = "bg"		
+					quadTextureSprite = "GFX_subwindow_tile_plain_solid"
+					position = { x = 0 y = 0 }
+				}
+				
+				gridBoxType = {
+					name = "elements"
+					position = { x = 30 y = 9 }
+					size = { width = 190 height = 320 }
+					slotsize = { width = 186 height = 32 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+		}
+		
+		### DROPDOWN RIGHT
+		dropDownBoxType = {
+			name = "right_planet"
+			position = { x = 720 y = 40 }
+			size = { width = 166 height = 58 }
+			
+			instantTextBoxType = {
+				name = "current"
+				position = { x = 45 y = 9 }
+				alwaystransparent = yes
+				font = "malgun_goth_24"
+				maxWidth = 450
+				maxHeight = 58
+				format = center
+				vertical_alignment = center
+			}
+			
+			expandButton = {
+				name = "expand_button"	
+				position = { x = 496 y = 21 }
+				quadTextureSprite = "GFX_button_down_arrow"
+			}
+			
+			expandedWindow = {
+				name = "expanded_window"
+				position = { x = 10 y = -300 }	
+				show_position = { x = 10 y = 65 }
+				show_animation_type = decelerated
+				hide_animation_type = accelerated
+				animation_time = 200
+				size = { width=530 height=350 }	
+				verticalScrollbar = "right_vertical_slider"
+				margin = { top = 7 bottom = 15 right = 6 }
+				
+				background = {
+					name = "bg"		
+					quadTextureSprite = "GFX_subwindow_tile_plain_solid"
+					position = { x = 0 y = 0 }
+				}
+				
+				gridBoxType = {
+					name = "elements"
+					position = { x = 30 y = 9 }
+					size = { width = 190 height = 320 }
+					slotsize = { width = 186 height = 32 }
+					max_slots_horizontal = 1
+					format = "UPPER_LEFT"
+				}
+			}
+		}
+	}
+	
+	### dropdown entry
+	containerWindowType = {
+		name = "manual_resettlement_view_planet_dropdown_entry"
+		size = { width = 470 height = 30 }
+		
+		background = {
+			name = "tile_entry_background"
+			spriteType = "GFX_button_tile"
+		}
+		
+		instantTextBoxType = {
+			name = "name"
+			position = { x = 0 y = 0 }
+			alwaystransparent = yes
+			font = "cg_16b"
+			maxWidth = 450
+			maxHeight = 30
+			format = center
+			vertical_alignment = center
+		}		
+	}
+	
+	###
+	containerWindowType = {
+		name = "manual_resettlement_view_planet_entry"
+		
+		containerWindowType = {
+			name = "tiles"
+			size = { width = 516 height = 516 }
+			
+			containerWindowType = {
+				name = "tiles"
+				size = { width = 500 height = 500 }
+				orientation = center
+				position = { x = -250 y = -240 }
+		
+				gridBoxType = {
+					name = "tiles"
+					slotSize = { width = 104 height = 104 }
+					max_slots_horizontal = 5
+					max_slots_vertical = 5
+					format = "UPPER_LEFT"
+					size = { width = 516 height = 516 }
+					position = { x = 0 y = 0 }
+				}
+			}
+		}
+	}
+	
+	###
+	containerWindowType = {
+		name = "manual_resettlement_view_tile_entry"
+		size = { width = 100 height = 100 }
+		
+		background = {
+			name = "tile_entry_background"
+			spriteType = "GFX_tiles_frame"
+		}
+
+		iconType = {
+			name = "tile_background"
+			spriteType = "GFX_tile_background"
+			position = { x = 1 y = 1 }
+		}
+
+		iconType = {
+			name = "tile_building"
+			spriteType = "GFX_building"
+			position = { x = 10 y = 4 }
+			scale = 0.9
+		}
+		
+		# Portrait
+		containerWindowType = {
+			name = "portrait"
+			size = { width = 70 height = 71 }
+			position = { x = 0 y = 8 }
+			clipping = yes
+
+			iconType = {
+				name = "portrait"
+				quadTextureSprite = "GFX_portrait_character"
+				position = { x = -32 y = -8 }
+				scale = 0.215		# DONT TOUCH, MAGIC NUMBER!
+			}
+		}
+		
+		iconType = {
+			name = "pop_status"
+			spriteType = "GFX_pop_status"
+			position = { x = 0 y = 47 }
+		}
+		
+		iconType = {
+			name = "tile_blocker"
+			position = { x = 1 y = 1 }
+			spriteType = "GFX_tile_frame_blocker"
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "tile_blocker_clearable"
+			position = { x = 1 y = 1 }
+			spriteType = "GFX_tile_frame_blocker_clearable"
+			alwaysTransparent = yes
+		}		
+		
+		containerWindowType = {
+			name = "output"
+			size = { width = 98 height = 20 }
+			position = { x = 1 y = -21 }
+			orientation = LOWER_LEFT
+	
+			background = {
+				name = "output_bar"
+				spriteType = "GFX_tile_output"
+			}
+	
+			overlappingElementsBoxType = {
+				name = "outputs_box"
+				size = { x = 120 y = 0 }
+				position = { x = -8 y = 0 }
+				orientation = upper_left
+				spacing = 0
+				format = center
+			}
+		}
+		
+		containerWindowType = {
+			name = "drop_area"
+			size = { width = 100% height = 100% }
+
+			background = {
+				name = "drop_area_background"
+				quadTextureSprite = "GFX_drop_area_green"
+			}
+		}
+	}
+	
+	containerWindowType = {
+		name = "manual_resettlement_view_dragged_pop"
+		size = { width = 64 height = 64 }
+
+		iconType = {
+			name = "portrait"
+			quadTextureSprite = "GFX_portrait_character"
+			position = { x = -45 y = -30 }
+			scale = 0.25
+			alwaysTransparent = yes
+		}
+	}
+	
+	containerWindowType = {
+        name = "manual_resettlement_view_resource_entry"
+        size = { width = 32 height = 20 }
+
+        iconType = {
+            name = "icon"
+            spriteType = "GFX_resource"
+            position = { x = 0 y = 2 }
+        }
+
+        instantTextBoxType = {
+            name = "amount"
+            font = "cg_16b"
+            text = "0"
+            position = { x = 20 y = 3 }
+            maxWidth = 20
+            maxHeight = 20
+            fixedSize = yes
+            format = left
+            orientation = upper_left
+        }
+    }
+}

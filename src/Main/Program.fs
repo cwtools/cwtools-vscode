@@ -18,6 +18,7 @@ open System.Runtime.InteropServices
 open FSharp.Data
 open LSP
 open CWTools.Validation.ValidationCore
+open System
 
 let private TODO() = raise (Exception "TODO")
 
@@ -103,8 +104,16 @@ type Server(send : BinaryWriter) =
             //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
         }
 
-
+    let rec replaceFirst predicate value = function
+        | [] -> []
+        | h :: t when predicate h -> value :: t
+        | h :: t -> h :: replaceFirst predicate value t
  
+    let fixEmbeddedFileName (s : string) =
+        let count = (Seq.filter ((=) '.') >> Seq.length) s
+        let mutable out = "//" + s
+        [1 .. count - 1] |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '/' (out |> List.ofSeq)) |> Array.ofList |> String )
+        out
     let processWorkspace (uri : option<Uri>) =
         LanguageServer.sendNotification send (LoadingBar {value = true})
         match uri with
@@ -116,8 +125,9 @@ type Server(send : BinaryWriter) =
             try
                 eprintfn "%s" path
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.game_effects_triggers_1.9.1.txt"))
-                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation"))
-                let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
+                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface"))
+                let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
+                
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
                 eprintfn "%A" languages                

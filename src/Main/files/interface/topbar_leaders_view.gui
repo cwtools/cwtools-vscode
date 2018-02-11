@@ -1,0 +1,274 @@
+guiTypes = {
+	containerWindowType = {
+		name = "topbar_leaders_view"
+		size = { width=1272 height=640 } 
+		
+		position = { x = -1270 y = 40 }
+		show_position = { x = 4 y = 40 }
+        hide_position = { x = -1270 y = 40 }
+        animation_time = 200
+        animation_type = decelerated
+		
+		orientation = upper_left
+		moveable = no
+		clipping = no
+		show_sound = "interface"
+		
+		background = {
+			name = "background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = 30 y = -12 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "leaders_header_line"
+			quadTextureSprite = "GFX_line"
+			position = { x = 6 y = 21 }
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "leaders_header"
+			font = "malgun_goth_24"
+			text = "topbar_button_leaders_name"
+			position = { x = 65 y = 5 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -41 y = 13 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+		}
+		
+		@role_icon_y = 75
+		@role_label_y = 80
+		@recruit_button_y = 70
+        
+		buttonType = {
+			name = "governor_icon"
+			quadTextureSprite = "GFX_leader_icons"
+			frame = 4
+			position = { x = 15 y = @role_icon_y }
+			orientation = "UPPER_LEFT"
+			#alwaysTransparent = yes
+		}
+        
+		instantTextBoxType = {
+			name = "governor_title_lable"
+			font = "malgun_goth_24"
+			text = "GOVERNORS"
+			position = { x = 52 y = @role_label_y }
+			maxWidth = 130
+			maxHeight = 20
+			orientation = "UPPER_LEFT"
+			format = left
+			fixedSize = yes
+		}
+        
+		buttonType = {
+			name = "hire_new_governor"
+			quadTextureSprite = "GFX_button_95_24"
+			position = { x = 196 y = @recruit_button_y }
+			buttonFont = "cg_16b"
+			buttonText = "RECRUIT"
+			oversound = menu_over_01
+		}
+        
+		buttonType = {
+			name = "scientist_icon"
+			quadTextureSprite = "GFX_leader_icons"
+			frame = 3
+			position = { x = 320 y = @role_icon_y }
+			orientation = "UPPER_LEFT"
+			alwaysTransparent = yes
+		}
+        
+		instantTextBoxType = {
+			name = "scientits_title_lable"
+			font = "malgun_goth_24"
+			text = "SCIENTIST"
+			position = { x = 350 y = @role_label_y }
+			maxWidth = 120
+			maxHeight = 20
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+        
+		buttonType = {
+			name = "hire_new_scientist"
+			quadTextureSprite = "GFX_button_95_24"
+			position = { x = 505 y = @recruit_button_y }
+			buttonFont = "cg_16b"
+			buttonText = "RECRUIT"
+			oversound = menu_over_01
+		}
+        
+		buttonType = {
+			name = "admiral_icon"
+			quadTextureSprite = "GFX_leader_icons"
+			frame = 1
+			position = { x = 635 y = @role_icon_y }
+			orientation = "UPPER_LEFT"
+			#alwaysTransparent = yes
+		}
+        
+		instantTextBoxType = {
+			name = "admirals_title_lable"
+			font = "malgun_goth_24"
+			text = "ADMIRALS"
+			position = { x = 670 y = @role_label_y }
+			maxWidth = 120
+			maxHeight = 20
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+        
+		buttonType = {
+			name = "hire_new_admiral"
+			quadTextureSprite = "GFX_button_95_24"
+			position = { x = 816 y = @recruit_button_y }
+			buttonFont = "cg_16b"
+			buttonText = "RECRUIT"
+			oversound = menu_over_01
+		}
+        
+		buttonType = {
+			name = "general_icon"
+			quadTextureSprite = "GFX_leader_icons"
+			frame = 2
+			position = { x = 953 y = @role_icon_y }
+			orientation = "UPPER_LEFT"
+			alwaysTransparent = yes
+		}
+        
+		instantTextBoxType = {
+			name = "generals_title_lable"
+			font = "malgun_goth_24"
+			text = "GENERALS"
+			position = { x = 985 y = @role_label_y }
+			maxWidth = 120
+			maxHeight = 20
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+        
+		buttonType = {
+			name = "hire_new_general"
+			quadTextureSprite = "GFX_button_95_24"
+			position = { x = 1136 y = @recruit_button_y }
+			buttonFont = "cg_16b"
+			buttonText = "RECRUIT"
+			oversound = menu_over_01
+		}
+        
+		instantTextBoxType = {
+			name = "leader_instructions"
+			font = "cg_16b"
+			text = "SELECT_LEADER_FOR"
+			position = { x = 20 y = 38 }
+			maxWidth = 500
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			alwaysTransparent = yes
+		}
+        
+		instantTextBoxType = {
+			name = "leader_capacity"
+			font = "cg_16b"
+			text = "LEADER_CAPACITY"
+			position = { x = 1000 y = 25 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+		}
+        
+		containerWindowType = {
+			name = "leader_frame_box2"
+			size = { width = 1252 height = 516 }
+			position = { x = 10 y = 113 }
+        
+			background = {
+				name = "leader_frame2"
+				spriteType = "GFX_dark_area_cut"
+				alwaysTransparent = yes
+			}
+		}
+        
+		containerWindowType = {
+			name = "leader_frame_area_1"
+			size = { width = 313 height = 516 }
+			position = { x = 317 y = 113 }
+        
+			background = {
+				name = "leader_frame2"
+				spriteType = "GFX_dark_area_cut"
+				alwaysTransparent = yes
+			}
+		}
+        
+		containerWindowType = {
+			name = "leader_frame_area_2"
+			size = { width = 313 height = 516 }
+			position = { x = 949 y = 113 }
+        
+			background = {
+				name = "leader_frame2"
+				spriteType = "GFX_dark_area_cut"
+				alwaysTransparent = yes
+			}
+		}
+        
+		# Governors list
+		smoothListboxType = {
+			name ="governors_list"
+			position = { x = 10 y = 113 }
+			size = { x= 293 y = 516 }
+			scrollbartype = "standardlistbox_slider"
+			spacing = -4
+		}
+        
+		# Scientists list
+		smoothListboxType = {
+			name ="scientists_list"
+			position = { x = 319 y = 113 }
+			size = { x= 293 y = 516 }
+			scrollbartype = "standardlistbox_slider"
+			spacing = -4
+		}
+        
+		# Admirals list
+		smoothListboxType = {
+			name ="admirals_list"
+			position = { x = 630 y = 113 }
+			size = { x= 293 y = 516 }
+			scrollbartype = "standardlistbox_slider"
+			spacing = -4
+		}
+        
+		# Generals list
+		smoothListboxType = {
+			name ="generals_list"
+			position = { x = 950 y = 113 }
+			size = { x= 293 y = 516 }
+			scrollbartype = "standardlistbox_slider"
+			spacing = -4
+		}
+		}
+	}
+}

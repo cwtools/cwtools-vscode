@@ -1,0 +1,359 @@
+guiTypes = {
+	containerWindowType = {
+		name = "policies_view_gamepad"
+		position = { x = 124 y = 124 }
+		size = { width = 1030 height = 518 }
+		orientation = upper_left
+		moveable = no
+		clipping = no
+		
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_plain_bg_tile"
+		}
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_invisible"
+			position = { x = -45 y = 16 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+			actionShortcut = "cancel"
+		}
+		
+		### TABS ###
+		@tabHeight = -2
+		@tabIndicatorHeight = 5
+		
+		buttonType = {
+			name = "tab_policies"
+			quadTextureSprite = "GFX_tab_1_long_inactive"
+			position = { x = -20 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "POLICIES"
+			buttonFont = "cg_16b"
+			shortcut = "z"
+			clicksound = "tab_click"
+			orientation = "LOWER_LEFT"
+		}
+		
+		buttonType = {
+			name = "tab_policies_active"
+			quadTextureSprite = "GFX_tab_1_long_active"
+			position = { x = -20 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "POLICIES"
+			buttonFont = "cg_16b"
+			clicksound = "tab_click"
+			shortcut = "z"
+			orientation = "LOWER_LEFT"
+		}
+		
+		buttonType = {
+			name = "tab_edicts"
+			quadTextureSprite = "GFX_tab_2_long_inactive"
+			position = { x = 155 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "EDICTS"
+			buttonFont = "cg_16b"
+			shortcut = "x"
+			clicksound = "tab_click"
+			orientation = "LOWER_LEFT"
+		}
+		
+		buttonType = {
+			name = "tab_edicts_active"
+			quadTextureSprite = "GFX_tab_2_long_active"
+			position = { x = 155 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "EDICTS"
+			buttonFont = "cg_16b"
+			clicksound = "tab_click"
+			shortcut = "x"
+			orientation = "LOWER_LEFT"
+		}
+		
+		iconType = {
+			name = "tab_navigate_left_indicator"
+			position = { x = 5 y = @tabIndicatorHeight }
+			quadTextureSprite = "GFX_controller_icon_lt"
+			orientation = "LOWER_LEFT"
+		}
+		
+		iconType = {
+			name = "tab_navigate_right_indicator"
+			position = { x = 330 y = @tabIndicatorHeight }
+			quadTextureSprite = "GFX_controller_icon_rt"
+			orientation = "LOWER_LEFT"
+		}
+		
+		### POLICIES WINDOW ###
+		containerWindowType = {
+			name = "policy_list_window"
+			position = { x = 25 y = 35 }
+			size = { width = 512 height = 465 }
+			moveable = no
+		
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8_hover"
+			}
+		
+			smoothListboxType = {
+				name = "policy_list"
+				position = { x = 10 y = 10 }
+				backGround = ""
+				size = { x = 455 y = 447 }
+				spacing = 1
+				scrollbartype = "standardlistbox_slider"
+				borderSize = { x = 0 y = 0 }
+				orientation = "UPPER_LEFT"
+			}
+			
+
+		}
+		
+		### EDICTS WINDOW ###
+		containerWindowType = {
+			name = "edict_list_window"
+			position = { x = 25 y = 35 }
+			size = { width = 512 height = 465 }
+			dontRender = ""
+		
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8_hover"
+			}
+		
+			smoothListboxType = {
+				name = "edict_list"
+				position = { x = 5 y = 8 }
+				backGround=""
+				size = { x = 500 y = 258 }
+				spacing = 1
+				scrollbartype = "standardlistbox_slider"
+				borderSize = { x = 0 y = 0 }
+				orientation = "UPPER_LEFT"
+				autohide_scrollbar = yes
+			}
+		}
+		
+		### TOOLTIP_BOX ###
+		containerWindowType = {
+			name = tooltip_box_window
+			position = { x = 545 y = 35 }
+			size = { width = 450 height = 465 }
+			clipping = yes
+			
+			background = {
+				name = "tooltip_box_bg"
+				quadTextureSprite = "GFX_tiles_dark_area_cut_8_hover"
+				position = { x = 0 y = 0 }
+			}
+			
+			instantTextBoxType = {
+				name = "tooltip"
+				font = "cg_16b"
+				text = "Tooltip box"
+				position = { x = 10 y = 5 }
+				maxWidth = 360
+				maxHeight = 500
+				fixedSize = yes
+			}
+		}
+	}
+	
+	###############################
+	# Empire Policy Entry
+	###############################
+
+	containerWindowType = {
+		name = "empire_policy_entry_gamepad"
+		position = { x = 10 y = 10 }
+		size = { width = 413 height = 30 }
+		moveable = no
+
+		buttonType = {
+			name = "background"
+			quadTextureSprite = "GFX_tiles_dark_area_cut_8_hover"
+			size = { x = 454 y = 27 }
+		}
+
+		iconType = {
+			name = "can_change"
+			alwaysTransparent = yes
+			position = { x = 6 y = 6 }
+			quadTextureSprite = "GFX_on_off_indicator"
+			frame = 1
+		}
+
+		instantTextBoxType = {
+			name = "policy_name"
+			font = "cg_16b"
+			position = { x = 26 y = 5 }
+			fixedSize = yes
+			format = left
+			maxWidth = 240
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType = {
+			name = "selected_option_name"
+			font = "cg_16b"
+			position = { x = 180 y = 5 }
+			fixedSize = yes
+			maxWidth = 240
+			format = right
+			alwaysTransparent = no
+
+			text = "hej hej"
+			text_color_code = "H"
+		}
+		
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x=  20 y = -8 }
+			size = { width = 408 height = 35 }
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_line"
+				alwaysTransparent = yes
+			}
+		}
+		
+		iconType = {
+			name = "expand_icon"
+			quadTextureSprite = "GFX_entry_expand"
+			position = { x = 430 y = 3 }
+			alwaysTransparent = yes
+			
+		}
+
+		smoothListboxType = {
+			name = "options"
+			position = { x = 15 y = 30 }
+			size = { x = 413 y = 50 }
+			alwaysTransparent = yes
+		}
+	}
+	
+	containerWindowType = {
+		name = "policy_option_entry_gamepad"
+		position = { x = 0 y = 0 }
+		size = { width = 500 height = 30 }
+		moveable = no
+
+		buttonType = {
+			name = "option_button"
+			quadTextureSprite = "GFX_tiles_dark_area_cut_8_hover"
+			position = { x = 10 y = 0 }
+			size = { x = 250 y = 27 }
+		}
+
+		instantTextBoxType = {
+			name = "name"
+			font = "cg_16b"
+			position = { x = 42 y = 6 }
+			fixedSize = yes
+			format = left
+			alwaysTransparent = yes
+			text = "very long name here"
+			text_color_code = "E"
+		}
+
+		iconType = {
+			name = "is_selected"
+			alwaysTransparent = yes
+			position = { x = 14 y = 2 }
+			quadTextureSprite = "GFX_radio_button"
+			frame = 1
+			scale = 0.8
+		}
+		
+		containerWindowType = {
+			name = "selected_overlay"
+			size = { width = 223 height = 100% }
+			position = { x = 36 y = -2 }
+			moveable = no
+			clipping = yes
+			
+			background = {
+				name = "technology_view_area_selection_frame"
+				quadTextureSprite = "GFX_glow_tile_line"
+				alwaystransparent = yes
+			}
+		}
+	}
+
+	###############################
+	# Empire Edicts Entry
+	###############################
+
+	containerWindowType = {
+		name = "empire_edicts_entry_gamepad"
+		position = { x=0 y=0 }
+		size = { width = 500 height = 36 }
+		moveable = no
+		
+		containerWindowType = {
+			name = "background_window"
+			size = { width = 413 height = 32 }
+			position = { x = 0 y = 3 }
+			
+			background = {
+				name = "background"
+				quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+			}
+		}
+
+		instantTextBoxType = {
+			name = "edicts_name"
+			font = "cg_16b"
+			position = { x = 34 y = 9 }
+			maxWidth = 300
+			format = left
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "cost"
+			font = "cg_16b"
+			position = { x = 350 y = 10 }
+			maxWidth = 60
+			fixedSize = yes
+			format = right
+		}
+
+		instantTextBoxType = {
+			name = "active"
+			font = "cg_16b"
+			position = { x = 260 y = 10 }
+			maxWidth = 100
+			fixedSize = yes
+			format = right
+			text = "ACTIVE_GREEN"
+		}
+
+		buttonType = {	
+			name = "select_button"
+			quadTextureSprite = "GFX_checkbox_20_20_01"
+			position = { x = 2 y = 2  }
+		}
+		
+		containerWindowType = {
+			name = "selected_overlay"
+			size = { width = 340 height = 100% }
+			position = { x=  26 y = -5 }
+			moveable = no
+			clipping = yes
+			
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_line"
+				alwaysTransparent = yes
+			}
+		}
+	}
+}

@@ -1,0 +1,335 @@
+guiTypes = {
+	containerWindowType = {
+		name = "leader_pool_view_gamepad"
+		position = { x = -480 y = -204 }
+		orientation = center
+		size = { width = 1000 height = 430 }
+		moveable = yes
+		
+		background = {
+			name = "leader_pool_bg"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}
+			
+		### window header ###
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -14 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 6 y = 24 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "title"
+			position = { x = 22 y = 5 }
+			orientation = "UPPER_LEFT"
+			text = "LEADER_POOL_VIEW_TITLE"
+			font = "malgun_goth_24"
+			maxWidth = 400
+			maxHeight = 100
+			fixedSize = yes
+		}
+
+		buttonType = {
+			name = "leader_pool_close"
+			quadTextureSprite = "GFX_invisible"
+			position = { x = -45 y = 15 }
+			Orientation = "UPPER_RIGHT"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+			actionshortcut = "cancel"
+		}
+
+		### list header ###
+		
+		buttonType={
+			name = "name_button"
+			spriteType = "GFX_button_150_24"
+			position = { x = 98 y = 47 }
+			Orientation = UPPER_LEFT
+		}
+		
+		buttonType={
+			name = "age_button"
+			spriteType = "GFX_button_75_24"
+			position = { x = 252 y = 47 }
+			Orientation = UPPER_LEFT
+		}
+		
+		buttonType={
+			name = "skill_button"
+			spriteType = "GFX_button_75_24"
+			position = { x = 331 y = 47 }
+			Orientation = UPPER_LEFT
+		}
+	
+		buttonType={
+			name = "traits_button"
+			spriteType = "GFX_button_150_24"
+			position = { x = 410 y = 47 }
+			Orientation = UPPER_LEFT
+		}
+		
+		buttonType={
+			name = "cost_button"
+			spriteType = "GFX_button_75_24"
+			position = { x = 564 y = 47 }
+			Orientation = UPPER_LEFT
+		}
+
+		@text_y = 63
+		
+		instantTextBoxType = {
+			name = "leader_name"
+			font = "cg_16b"
+			text = "NAME"
+			position = { x = 124 y = @text_y }
+			maxWidth = 300
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "leader_age"
+			font = "cg_16b"
+			text = "AGE"
+			position = { x = 260 y = @text_y }
+			maxWidth = 80
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "leader_skills"
+			font = "cg_16b"
+			text = "SKILL"
+			position = { x = 340 y = @text_y }
+			maxWidth = 80
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "leader_traits"
+			font = "cg_16b"
+			text = "TRAITS"
+			position = { x = 426 y = @text_y }
+			maxWidth = 140
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "leader_cost"
+			font = "cg_16b"
+			text = "LEADER_POOL_COST"
+			position = { x = 575 y = @text_y }
+			maxWidth = 80
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			alwaystransparent = yes
+		}
+		
+		### embedded tooltip box ###
+		
+		containerWindowType = {
+			name = "leader_pool_tooltip_box"
+			position = { x = 730 y = 95 }
+			size = { width = 250 height = 280 }
+			
+			background = {
+				name = "leader_pool_tooltip_box_background"
+				quadTextureSprite = "GFX_dark_area_cut"
+			}
+		
+			instantTextBoxType = {
+				name = "tooltip_box"
+				font = "cg_16b"
+				text = ""
+				position = { x = 0 y = 0 }
+				maxWidth = 250
+				maxHeight = 280
+				fixedSize = yes
+				format = center
+				alwaystransparent = yes
+			}
+		}
+
+		### list content ###
+		smoothListboxType = {
+			name ="leader_pool_list"
+			size = { x = 700 y = 285 }
+			position = { x = 10 y = 95 }
+			scrollbartype = "standardlistbox_slider"
+			spacing = 6
+		}
+		
+		### Press <Button> to recruit ###
+		instantTextBoxType = {
+			name = "control_mapping_indicator_recruit"
+			font = "malgun_goth_24"
+			text = "CLICK_TO_RECRUIT_GAMEPAD" 
+			position = { x = 0 y = 395 }
+			maxWidth = 830
+			maxHeight = 30
+			fixedSize = yes
+			format = center
+			alwaystransparent = yes
+		}
+	}
+
+	containerWindowType = {
+		name = "leader_pool_entry_gamepad"
+		size = { width = 700 height = 90 }
+
+		background = {
+			name = "planet_list_leaders_entry_background"
+			quadTextureSprite = "GFX_dark_area_cut"
+		}
+		
+		containerWindowType = {
+			name = "selected"
+			position = { x = 0 y = 0 }
+			size = { width = 100% height = 100% }
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_orange"
+				alwaysTransparent = yes
+			}
+		}
+
+		### portrait ###
+
+		containerWindowType = {
+			name = "portrait_frame"
+			size = { width = 74 height = 86 }
+			position = { x = 2 y = 2 }
+			
+			background = {
+				name = "leader_frame"
+				spriteType = "GFX_clean_frame_area"
+				tooltip_mode_enabled = yes
+			}
+		}
+
+		buttonType = {
+			name = "portrait_bg"
+			quadTextureSprite = "GFX_leader_bg_admiral"
+			position = { x = 7 y = 7 }
+			scale = 0.20
+			alwaystransparent = yes
+		}
+
+		containerWindowType = {
+			name = "portrait"
+			position = { x = 7 y = 7 }
+			size = { width = 64 height = 76 }
+			clipping = yes
+			
+			iconType = {
+				name = "portrait"
+				spriteType = "GFX_portrait_character"
+				frame = 1
+				scale = 0.26
+				alwaysTransparent = yes
+				position = { x = -50 y = -15 }
+			}
+		}
+
+		### icon, title, name ###
+
+		iconType = {
+			name = "leader_icon"
+			#name = "general_icon"
+			#name = "scientist_icon"
+			#name = "governor_icon"
+			spriteType = "GFX_leader_icons"
+			frame = 1
+			position = { x = 75 y = 30 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "leader_title"
+			font = "cg_16b"
+			text = "LEADER_TITLE"
+			position = { x = 110 y = 30 }
+			maxWidth = 234
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType = {
+			name = "leader_name"
+			font = "cg_16b"
+			text = "LEADER_NAME"
+			position = { x = 110 y = 45 }
+			maxWidth = 134
+			maxHeight = 60
+			fixedSize = yes
+			format = left
+			alwaysTransparent = no
+			text_color_code = "E"
+		}
+
+		### age, skill, traits ###
+
+		instantTextBoxType = {
+			name = "leader_age"
+			font = "cg_16b"
+			text = "00"
+			position = { x = 254 y = 38 }
+			maxWidth = 80
+			maxHeight = 20
+			fixedSize = yes
+			format = center
+			tooltip_mode_enabled = yes
+		}
+
+		iconType = {
+			name ="leader_skill"
+			spriteType = "GFX_leader_skill"
+			position = { x= 360 y = 35 }
+		}
+
+		OverlappingElementsBoxType = {
+			name = "traits"	
+			position = { x = 420  y = 31 }
+			size = { x = 100 y = 16 }
+			format = left
+		}
+
+		instantTextBoxType = {
+			name = "leader_cost"
+			font = "cg_16b"
+			text = "-666"
+			position = { x = 560 y = 38 }
+			maxWidth = 80
+			maxHeight = 20
+			fixedSize = yes
+			format = center
+			text_color_code = "H"
+			tooltip_mode_enabled = yes
+		}
+	}
+}
+	

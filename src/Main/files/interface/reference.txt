@@ -1,0 +1,296 @@
+editor="C:\Program Files (x86)\Notepad++\notepad++.exe"
+		
+				texturefile = "gfx/interface/removed.dds"
+				
+				
+				GFX_default_fallback_texture
+				
+		instantTextBoxType = {
+			name = "what_is_this_thing_text"
+			font = "malgun_goth_24"
+			text = "TEXT"
+			position = { x = 0 y = 0 }
+			maxWidth = 170
+			maxHeight = 20
+			Orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+		
+		
+		
+		fade_time = 750
+        fade_type = smoothstep
+     #  fade_type = accelerated
+     #  fade_type = decelerate
+     #  fade_type = smoothstep
+     #  fade_type = linear
+		
+		vertical_alignment = center
+		fixedSize = yes
+		
+			# UPPER_LEFT UPPER_RIGHT LOWER_LEFT LOWER_RIGHT CENTER_UP
+			# H = Highlight (orange) R = Red G = Green B  = Blue E = green text 
+
+				
+				Orientation = "UPPER_RIGHT"
+				Orientation = "UPPER_LEFT"
+				Orientation = "CENTER_UP"
+				Orientation = "CENTER DOWN"
+				Orientation = "LOWER_LEFT"
+				Orientation = "LOWER_RIGHT"
+				
+		# L = Lore text, not relevant game info, just fun to know backstory info
+		# G = Green, used for numbers that are positiv modifiers		
+		# R = Red, used for negative modifier 
+		# Y = Yellow, to be used for stuff that is sub optimal
+		# H = Highlught, Orange in Augustus
+		# T = Text, standard for all text, to be used if ALL text needs tweaking
+		# E = Standard green, used with large chunks of texts, such as events and advisor
+		# S = Subitle higlight (light green in this case)
+
+		spriteType = {
+			name = "GFX_colonies"
+			texturefile = "gfx/interface/icons/planet.dds"
+			noOfFrames = 1
+		}
+		
+		### Buttons
+		
+		GFX_button_close_24
+		GFX_button_35_24
+		GFX_button_75_24
+		GFX_button_95_24
+		GFX_button_116_24
+		GFX_button_150_24
+		GFX_standard_button_200_24
+		GFX_advisor_default_option_background
+		GFX_galactic_object_button
+		GFX_event_button_452	# Rename!
+		
+		GFX_rulers_button
+		GFX_button_animated_142			Normal standard button
+		GFX_galactic_object_background
+		GFX_standard_button_142_34_button
+		GFX_standard_button_200_34_button
+		GFX_button_animated_265_34
+		GFX_standard_button_large_211_40
+		GFX_button_animated_265_80
+		
+		GFX_button
+		
+		GFX_button_35_24
+		GFX_button_75_24
+		GFX_button_116_24
+		GFX_button_150_24
+		GFX_galactic_object_button #Should be renamed to its length
+		
+		
+		buttonType = {
+			name = "change"
+			size = { x = 298 y = 35 }
+			position = { x = 70 y = -50 }
+			spriteType = "GFX_standard_button_142_34_button"
+			buttonFont = "cg_16b"
+			text = "CHANGE"
+			font = "cg_16b"
+			orientation = LOWER_LEFT
+			hitbox_margin = { x=10 y=10 }
+		}
+		
+		containerWindowType = {
+			name = "leader_frame_box"
+			size = { width = 100 height = 100 }
+			position = { x = 0 y = 0 }
+			
+				background = {
+					name = "leader_frame"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+		}
+	
+	spriteType = {
+		name = "GFX_discovery_level_1_icon"
+		textureFile = "gfx/interface/main/discovery_level_1.dds"
+		noOfFrames = 3		
+		
+	}	
+		 
+		masking_texture = "gfx/interface/situation_log/event_mask.dds"
+	
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -8 }
+			alwaysTransparent = yes
+		}
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 6 y = 21 }
+		}	
+		
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_center_bg"
+			position = { x = -10 y = -8 }
+			alwaysTransparent = yes
+		}
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line_center"
+			position = { x = 0 y = 40 }
+		}
+		
+		instantTextBoxType = {
+			name = "hot_join_label"
+			font = "malgun_goth_24"
+			text = "HOTJOIN_REQUEST"
+			position = { x = 16 y = 5 }
+			maxWidth = 170
+			maxHeight = 20
+			Orientation = "UPPER_LEFT"
+			format = left
+		}
+	
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 17 y = 26 }
+		}
+		
+		containerWindowType = {
+			name = "black_background_box_01"
+			size = { width = 77 height = 90 }
+			position = { x = -4 y = 27 }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_clean_frame_area"
+				alwaysTransparent = yes
+			}
+		}
+
+		
+		scale = 1.1
+		
+		alwaysTransparent = yes
+		moveable = yes
+		noOfFrames = 3	
+		vertical_alignment = center
+		
+		
+		hitbox_margin = { x=10 y=3 }
+	
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		effectFile = "gfx/FX/buttonstate.lua"
+	
+		GFX_line
+		
+
+			
+			iconType = {
+				name = "influence_icon"
+				spriteType = "GFX_diplomatic_influence_top_bar"
+				position = { x = 0 y = 15 }
+			}
+		
+		
+			
+			
+			
+			
+			
+			
+
+
+		
+		#Checkbox
+		GFX_checkbox_20_20_01
+		GFX_checkbox_20_20_02
+		
+		### Fonts
+		
+		large_title_font
+		cg_16b
+		malgun_goth_24
+		##cursor = { x=-5 y= -4}	
+		
+		
+		# Old fonts not to use !!!
+		
+		GFX_government_entry_button
+		
+		### Tiles
+		
+		GFX_planet_bg_tile			# Solid green
+		GFX_tiles_dark_area_cut_8	# Black
+		GFX_clean_frame_area		# Thin glowing edge
+		GFX_plain_green_frame_tile	# Thin edge
+		GFX_tiles_frame_light		# Thin edge, thin glow and black background
+		
+		GFX_glow_tile_orange
+		
+		GFX_tiles_frame_light
+		
+		GFX_tile_large_bg	660x592
+		GFX_tile_header_bg	680x114
+		GFX_tile_outliner_bg
+		GFX_plain_bg_tile
+		
+		
+		### TEMP
+		
+		containerWindowType = {
+			name = "choose_race_cat_bg_frame"
+
+				background = {
+					name = "choose_race_cat_bg"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+					size = { width = 100 height = 25 }
+					position = { x = 0 y = 0 }
+				}
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_center_bg"
+			position = { x = -275 y = 00 }
+			alwaysTransparent = yes
+			Orientation = "CENTER_UP"
+		}
+		
+		
+			frameAnimatedSpriteType = {
+		name = "GFX_button_large_glow"
+		texturefile = "gfx/interface/old/button_large_glow.dds"
+		noOfFrames = 40
+		transparencecheck = yes
+		animation_rate_fps = 20
+		looping = yes
+		play_on_show = yes
+		alwaystransparent = yes
+	}
+	
+		spriteType = {
+		name = "GFX_button_116_24"
+		texturefile = "gfx/interface/buttons/button_116_24_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_116_24_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_268_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 40.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+		

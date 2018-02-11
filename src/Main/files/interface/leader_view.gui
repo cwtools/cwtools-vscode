@@ -1,0 +1,206 @@
+guiTypes = {
+	containerWindowType = {
+		name = "leader_view"
+		orientation = center
+		origo = center
+		moveable = yes
+		clipping = yes
+		size = { width = 570 height = 570 }
+		position = { x = 0 y = 0 }
+
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}
+
+		### HEADER ###
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -47 y = 14 }
+			Orientation = "UPPER_RIGHT"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -14 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line"
+			position = { x = 6 y = 24 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "title"
+			position = { x = 22 y = 5 }
+			orientation = "UPPER_LEFT"
+			text = "LEADER_VIEW_TITLE"
+			font = "malgun_goth_24"
+			maxWidth = 400
+			maxHeight = 100
+			fixedSize = yes
+			alwaysTransparent = yes
+		}
+
+		### PORTRAIT ###
+
+		containerWindowType = {
+			name = "portrait_window"
+			position = { x = 0 y = 55 }
+			size = { width = 546 height = 195 }
+			orientation = center_up
+			origo = center_up
+			moveable = no
+			clipping = yes
+
+			iconType = {
+				name = "portrait"
+				position = { x = 4 y = 2 }
+				quadTextureSprite = "GFX_portrait_gamesetup_mask"
+				alwaysTransparent = yes
+				scale = 0.566
+			}
+
+			iconType = {
+				name = "black_frame"
+				spriteType = "GFX_diplomacy_portrait_shadow_frame"
+				position = { x = 0 y = 0}
+				alwaysTransparent = yes
+				scale = 0.566
+			}
+
+			iconType = {
+				name = "stripes_1"
+				spriteType = "GFX_diplomacy_stripes_2"
+				position = { x = 4 y = 2 }
+				orientation = upper_left
+				alwaysTransparent = yes
+				scale = 0.566
+			}
+
+			iconType = {
+				name = "city_frame"
+				spriteType = "GFX_diplomacy_portrait_frame"
+				position = { x = 0 y = 0 }
+				alwaysTransparent = yes
+				scale = 0.566
+			}
+		}
+
+		### PORTRAIT OVERLAY INFO ###
+
+		containerWindowType = {
+			name = "portrait_overlay_window"
+			moveable = no
+			position = { x = 26 y = 29 }
+
+			containerWindowType = {
+				name = "traits_bg"
+				position = { x = -2 y = 156 }
+				size = { width = 135 height = 55 }
+
+				background = {
+					name = "traits_bg"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+			}
+
+			instantTextBoxType = {
+				name = "traits_label"
+				position = { x = 5 y = 158 }
+				font = "cg_16b"
+				maxWidth = 230
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+				#text_color_code = "E"
+				text = "TRAITS_LIST"
+			}
+
+			overlappingElementsBoxType = {
+				name = "ruler_traits"
+				position = { x = -37 y = 177 }
+				size = { x = 150 y = 330 }
+				format = centre
+			}
+
+			instantTextBoxType = {
+				name = "ruler_name"
+				position = { x = 0 y = 40 }
+				font = "cg_16b"
+				maxWidth = 230
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+				text_color_code = "E"
+				text = "LEADER_NAME"
+			}
+
+			instantTextBoxType = {
+				name = "ruler_species"
+				position = { x = 0 y = 55 }
+				font = "cg_16b"
+				maxWidth = 150
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+				text = "LEADER_SPECIES"
+			}
+		}
+
+		### TEXT ###
+
+		containerWindowType = {
+			name = "text_bg"
+			origo = center_down
+			orientation = center_down
+			position = { x = 0 y = -60 }
+			size = { width = 540 height = 240 }
+
+			background = {
+				name = "text_bg"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+			}
+		}
+
+		instantTextBoxType = {
+			name = "ruler_title"
+			alwaysTransparent = yes
+			format = center
+			orientation = center_up
+			maxWidth = 520
+			maxHeight = 100
+			position = { x = -260 y = 285 }
+			font = "malgun_goth_24"
+			text = "RULER_TITLE"
+		}
+
+		instantTextBoxType = {
+			name = "ruler_agenda"
+			alwaysTransparent = yes
+			orientation = lower_left
+			maxWidth = 400
+			maxHeight = 130
+			fixedSize = yes
+			position = { x = 30 y = -190 }
+			font = "cg_16b"
+		}
+
+		buttonType = {
+			name = "ok"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x = -84 y = -60 }
+			orientation = center_down
+			buttonText = "OK"
+			buttonFont = "cg_16b"
+		}
+	}
+}

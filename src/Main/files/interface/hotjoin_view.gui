@@ -1,0 +1,151 @@
+guiTypes = {
+	# Hotjoin setup
+	
+	containerWindowType = {
+		name = "hotjoin_view"
+		position = { x = 0 y = -500 }
+		size = { width = 400 height = 500 }
+		orientation = lower_left
+	}
+		
+	containerWindowType = {
+		name = "country_selection_view"
+		size = { width = 400 height = 540 }
+		orientation = center
+		origo = center
+		
+		background = {
+			name = "country_selection_view_background"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -12 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 6 y = 21 }
+		}
+		instantTextBoxType = {
+			name = "country_select_title"
+			font = "malgun_goth_24"
+			text = "SELECT_COUNTRY"
+			maxWidth = 400
+			maxHeight = 20
+			format = left
+			position = { x = 16 y = 5 }
+			orientation = "UPPER_LEFT"
+		}
+		
+		smoothListBoxType = {
+			name = "selectable_countries"
+			position = { x = 17 y = 40 }
+			size = { x = 355 y = 432 }
+			scrollbartype = "standardlistbox_slider"
+			autohide_scrollbar = no
+		}
+		
+		buttonType = {
+			name = "back"
+			position = { x = -83 y = -60 }
+			orientation = center_down
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			tooltip = ""
+			tooltipText = ""
+			delayedTooltipText = ""
+			buttonText = "BACK"
+			buttonFont = "cg_16b"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+		}
+	}
+					
+	containerWindowType = {
+		name = "country_selection_entry"
+		size = { width = 360 height = 68 }
+		
+		buttonType = {
+			name = "background"
+			quadTextureSprite = "GFX_hotjoinview_country_entry"
+			size = { x = 360 y = 68 }
+			orientation = "UPPER_LEFT"
+		}
+		
+		instantTextBoxType = {
+			name = "country_name"
+			font = "cg_16b"
+			text = "DEFACTO_COUNTRY_NAME"
+			position = { x = 0 y = 10 }
+			maxWidth = 360
+			maxHeight = 20
+			format = center
+			alwaysTransparent = yes
+			#text_color_code = "E"
+		}
+		
+		instantTextBoxType = {
+			name = "species_name"
+			font = "cg_16b"
+			text = "DEFACTO_SPECIES_NAME"
+			position = { x = 0 y = 25 }
+			maxWidth = 360
+			maxHeight = 20
+			format = center
+			alwaysTransparent = yes
+			text_color_code = "E"
+		}
+		
+		instantTextBoxType = {
+			name = "player_info"
+			font = "cg_16b"
+			text = "SELECT_COUNTRY"
+			maxWidth = 350
+			maxHeight = 20
+			format = center
+			position = { x = 0 y = 40 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "previously_played"
+			spriteType = "GFX_previously_played"
+			position = { x = 8 y = 8 }
+			pdx_tooltip = "PREVIOUSLY_PLAYED_TOOLTIP"
+			frame = 2
+		}
+	}
+	
+	containerWindowType = {
+		name = "country_selection_special_entry"
+		size = { width = 360 height = 68 }
+		
+		containerWindowType = {
+			name = "observer"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+			
+			background = {
+				name = "observer_background"
+				quadTextureSprite = "GFX_hotjoinview_country_entry_special"
+			}
+			
+			instantTextBoxType = {
+				name = "label"
+				font = "cg_16b"
+				text = "OBSERVER_MODE"
+				position = { x = 0 y = 8 }
+				maxWidth = 360
+				maxHeight = 50
+				format = center
+				vertical_alignment = center
+				alwaysTransparent = yes
+				text_color_code = "H"
+			}
+		}
+	}
+}

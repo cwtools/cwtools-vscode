@@ -1,0 +1,806 @@
+guiTypes = {
+	windowType =  {
+		name = "species_ethics"
+		backGround=""
+		position = { x= -629 y = -282 }	
+		
+		Orientation = "CENTER"
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""	
+		fullScreen = no
+		
+		
+	#	containerWindowType = {
+	#		name = "leader_frame_box"
+	#		size = { width = 1100 height = 600 }
+	#		position = { x = 2 y = 2 }
+	#		
+	#			background = {
+	#				name = "leader_frame"
+	#				spriteType = "GFX_tiles_dark_area_cut_8"
+	#			}
+	#	}
+			
+	#	iconType = {
+	#		name = "customize_species_bg"
+	#		position = { x = 0 y = -15 }
+	#		quadTextureSprite ="GFX_customize_species_bg"
+	#	}
+
+		
+	#	iconType = {
+	#		name ="setting_window_bg"
+	#		spriteType = "GFX_setting_window_bg"
+	#		position = { x= 0 y = 0 }	
+	#	}
+		
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = 10 y = -8 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 26 y = 31 }
+		}		
+		
+		instantTextBoxType = {
+			name = "choose_ethics_title"
+			position = { x = 45 y = 12 }
+			font = "malgun_goth_24"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Choose Ethics"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+		}
+		
+		instantTextBoxType = {
+			name = "choose_ethics_desc"
+			position = { x = 45 y = 47 }
+			font = "cg_16b"
+			maxWidth = 480
+			maxHeight = 40	
+			text = "Choose the ethics which your civilization identifies with."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		
+		
+		instantTextBoxType = {
+			name = "ethics_label"
+			position = { x = 360 y = 12 }
+			font = "malgun_goth_24"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Points Remaining:"
+			format = right
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+		}		
+				
+		instantTextBoxType = {
+			name = "ethics_points_left"
+			position = { x = 655 y = 12 }
+			font = "malgun_goth_24"
+			maxWidth = 30
+			maxHeight = 20	
+			text = "2"
+			format = right
+			orientation = "UPPER_LEFT"
+			#text_color_code = "H"
+		}
+		
+		
+		
+		@government_x = 745
+		@government_line_x = 726
+
+		iconType = {
+			name = "hex_bg2"
+			spriteType = "GFX_hex_bg"
+			position = { x = 710 y = -8 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "empire_header_line2"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = @government_line_x y = 31 }
+		}
+		
+		instantTextBoxType = {
+			name = "choose_government"
+			position = { x = @government_x y = 12 }
+			font = "malgun_goth_24"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Choose Govornment Form"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+		}	
+		
+		instantTextBoxType = {
+			name = "choose_govornment_desc"
+			position = { x = @government_x y = 47 }
+			font = "cg_16b"
+			maxWidth = 480
+			maxHeight = 40		
+			text = "Choose how your civilization is governed."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+
+		
+		
+	#	iconType = {
+	#		name ="ethics_curve_01"
+	#		spriteType = "GFX_ethics_curve"
+	#		position = { x= 55 y = 150 }	
+	#	}	
+	#	
+	#	iconType = {
+	#		name ="ethics_curve_02"
+	#		spriteType = "GFX_ethics_curve"
+	#		position = { x= 55 y = 250 }	
+	#	}	
+	#	
+	#	iconType = {
+	#		name ="ethics_curve_03"
+	#		spriteType = "GFX_ethics_curve"
+	#		position = { x= 55 y = 350 }	
+	#	}	
+	#	
+	#	iconType = {
+	#		name ="ethics_curve_04"
+	#		spriteType = "GFX_ethics_curve"
+	#		position = { x= 55 y = 450 }	
+	#	}	
+		
+		
+		instantTextBoxType = {
+			name = "ethics_authoritarian"
+			position = { x = 50 y = 100 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_authoritarian"
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+		
+		instantTextBoxType = {
+			name = "ethics_Individualist"
+			position = { x = 120 y = 100 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_egalitarian"
+			orientation = "UPPER_LEFT"
+			format = right
+		}
+
+		@ethic_fanatic_left_x = 50
+		@ethic_left_x = 107
+		@ethic_neutral_x = 172
+		@ethic_fanatic_right_x = 237
+		@ethic_right_x = 292	
+		
+	#	buttonType = {
+	#		name = "ethic_fanatic_authoritarian"
+	#		position = { x = @ethic_fanatic_left_x y = 125 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_authoritarian"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_authoritarian"
+	#		position = { x = @ethic_left_x y = 144 }
+	#		quadTextureSprite ="GFX_ethics_authoritarian"
+	#	}
+    #
+	#	buttonType = {
+	#		name = "col_neutral"
+	#		position = { x = @ethic_neutral_x y = 150 }
+	#		quadTextureSprite ="GFX_ethics_middle"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_egalitarian"
+	#		position = { x = @ethic_fanatic_right_x y = 144 }
+	#		quadTextureSprite ="GFX_ethics_egalitarian"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_fanatic_egalitarian"
+	#		position = { x = @ethic_right_x y = 125 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_egalitarian"
+	#	}
+	
+		guiButtonType = {
+			name = "ethic_fanatic_authoritarian"
+			position = { x = @ethic_fanatic_left_x y = 125 }
+			quadTextureSprite ="GFX_ethics_fanatic_authoritarian"
+		}
+		
+		guiButtonType = {
+			name = "ethic_authoritarian"
+			position = { x = @ethic_left_x y = 144 }
+			quadTextureSprite ="GFX_ethics_authoritarian"
+		}
+
+		guiButtonType = {
+			name = "col_neutral"
+			position = { x = @ethic_neutral_x y = 150 }
+			quadTextureSprite ="GFX_ethics_middle"
+		}
+		
+		guiButtonType = {
+			name = "ethic_egalitarian"
+			position = { x = @ethic_fanatic_right_x y = 144 }
+			quadTextureSprite ="GFX_ethics_egalitarian"
+		}
+		
+		guiButtonType = {
+			name = "ethic_fanatic_egalitarian"
+			position = { x = @ethic_right_x y = 125 }
+			quadTextureSprite ="GFX_ethics_fanatic_egalitarian"
+		}		
+		
+
+		instantTextBoxType = {
+			name = "ethics_Xenophobe"
+			position = { x = 50 y = 200 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_xenophobe"
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+		
+		instantTextBoxType = {
+			name = "ethics_Xenophile"
+			position = { x = 120 y = 200 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_xenophile"
+			orientation = "UPPER_LEFT"
+			format = right
+		}
+		
+		guiButtonType = {
+			name = "ethic_fanatic_xenophobe"
+			position = { x = @ethic_fanatic_left_x y = 225 }
+			quadTextureSprite ="GFX_ethics_fanatic_xenophobe"
+		}
+		
+		guiButtonType = {
+			name = "ethic_xenophobe"
+			position = { x = @ethic_left_x y = 244 }
+			quadTextureSprite ="GFX_ethics_xenophobe"
+		}
+
+		guiButtonType = {
+			name = "xen_neutral"
+			position = { x = @ethic_neutral_x y = 250 }
+			quadTextureSprite ="GFX_ethics_middle"
+		}
+		
+		guiButtonType = {
+			name = "ethic_xenophile"
+			position = { x = @ethic_fanatic_right_x y = 244 }
+			quadTextureSprite ="GFX_ethics_xenophile"
+		}
+		
+		guiButtonType = {
+			name = "ethic_fanatic_xenophile"
+			position = { x = @ethic_right_x y = 225 }
+			quadTextureSprite ="GFX_ethics_fanatic_xenophile"
+		}	
+	
+	
+	
+	#	buttonType = {
+	#		name = "ethic_fanatic_xenophobe"
+	#		position = { x = @ethic_fanatic_left_x y = 225 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_xenophobe"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_xenophobe"
+	#		position = { x = @ethic_left_x y = 244 }
+	#		quadTextureSprite ="GFX_ethics_xenophobe"
+	#	}
+    #
+	#	buttonType = {
+	#		name = "xen_neutral"
+	#		position = { x = @ethic_neutral_x y = 250 }
+	#		quadTextureSprite ="GFX_ethics_middle"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_xenophile"
+	#		position = { x = @ethic_fanatic_right_x y = 244 }
+	#		quadTextureSprite ="GFX_ethics_xenophile"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_fanatic_xenophile"
+	#		position = { x = @ethic_right_x y = 225 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_xenophile"
+	#	}
+
+	
+		instantTextBoxType = {
+			name = "ethics_Pacifist"
+			position = { x = 50 y = 300 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_pacifist"
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+	
+	
+	instantTextBoxType = {
+			name = "ethics_Militarist"
+			position = { x = 120 y = 300 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_militarist"
+			orientation = "UPPER_LEFT"
+			format = right
+		}
+		
+		
+		guiButtonType = {
+			name = "ethic_fanatic_pacifist"
+			position = { x = @ethic_fanatic_left_x y = 325 }
+			quadTextureSprite ="GFX_ethics_fanatic_pacifist"
+		}
+				
+		guiButtonType = {
+			name = "ethic_pacifist"
+			position = { x = @ethic_left_x y = 344 }
+			quadTextureSprite ="GFX_ethics_pacifist"
+		}
+	
+		guiButtonType = {
+			name = "mil_neutral"
+			position = { x = @ethic_neutral_x y = 350 }
+			quadTextureSprite ="GFX_ethics_middle"
+		}
+		
+		guiButtonType = {
+			name = "ethic_militarist"
+			position = { x = @ethic_fanatic_right_x y = 344 }
+			quadTextureSprite ="GFX_ethics_militarist"
+		}
+	
+		guiButtonType = {
+			name = "ethic_fanatic_militarist"
+			position = { x = @ethic_right_x y = 325 }
+			quadTextureSprite ="GFX_ethics_fanatic_militarist"
+		}
+
+		
+		
+	#	buttonType = {
+	#		name = "ethic_fanatic_militarist"
+	#		position = { x = @ethic_fanatic_left_x y = 325 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_militarist"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_militarist"
+	#		position = { x = @ethic_left_x y = 344 }
+	#		quadTextureSprite ="GFX_ethics_militarist"
+	#	}
+    #
+	#	buttonType = {
+	#		name = "mil_neutral"
+	#		position = { x = @ethic_neutral_x y = 350 }
+	#		quadTextureSprite ="GFX_ethics_middle"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_pacifist"
+	#		position = { x = @ethic_fanatic_right_x y = 344 }
+	#		quadTextureSprite ="GFX_ethics_pacifist"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_fanatic_pacifist"
+	#		position = { x = @ethic_right_x y = 325 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_pacifist"
+	#	}
+		
+		
+		
+		instantTextBoxType = {
+			name = "ethics_Spiritualist"
+			position = { x = 50 y = 400 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_spiritualist"
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+		
+		instantTextBoxType = {
+			name = "ethics_Materialist"
+			position = { x = 120 y = 400 }
+			font = "cg_16b"
+			maxWidth = 204
+			maxHeight = 52	
+			alwaysTransparent = yes
+			text = "ethic_materialist"
+			orientation = "UPPER_LEFT"
+			format = right
+		}
+	
+		guiButtonType = {
+			name = "ethic_fanatic_spiritualist"
+			position = { x = @ethic_fanatic_left_x y = 425 }
+			quadTextureSprite ="GFX_ethics_fanatic_spiritualist"
+		}
+		
+		guiButtonType = {
+			name = "ethic_spiritualist"
+			position = { x = @ethic_left_x y = 444 }
+			quadTextureSprite ="GFX_ethics_spiritualist"
+		}
+
+		guiButtonType = {
+			name = "spi_neutral"
+			position = { x = @ethic_neutral_x y = 450 }
+			quadTextureSprite ="GFX_ethics_middle"
+		}
+		
+		guiButtonType = {
+			name = "ethic_materialist"
+			position = { x = @ethic_fanatic_right_x y = 444 }
+			quadTextureSprite ="GFX_ethics_materialist"
+		}
+		
+		guiButtonType = {
+			name = "ethic_fanatic_materialist"
+			position = { x = @ethic_right_x y = 425 }
+			quadTextureSprite ="GFX_ethics_fanatic_materialist"
+		}	
+		
+	#	buttonType = {
+	#		name = "ethic_fanatic_spiritualist"
+	#		position = { x = @ethic_fanatic_left_x y = 425 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_spiritualist"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_spiritualist"
+	#		position = { x = @ethic_left_x y = 444 }
+	#		quadTextureSprite ="GFX_ethics_spiritualist"
+	#	}
+    #
+	#	buttonType = {
+	#		name = "spi_neutral"
+	#		position = { x = @ethic_neutral_x y = 450 }
+	#		quadTextureSprite ="GFX_ethics_middle"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_materialist"
+	#		position = { x = @ethic_fanatic_right_x y = 444 }
+	#		quadTextureSprite ="GFX_ethics_materialist"
+	#	}
+	#	
+	#	buttonType = {
+	#		name = "ethic_fanatic_materialist"
+	#		position = { x = @ethic_right_x y = 425 }
+	#		quadTextureSprite ="GFX_ethics_fanatic_materialist"
+	#	}
+	
+
+		
+		
+	
+		@ethics_info_x = 380
+	
+	
+		iconType = {
+			name = "dominant_ethics_choice_bg_01"
+			quadTextureSprite = "GFX_test_message_icon"
+			position = { x = 355 y = 100 }
+		}
+	
+		instantTextBoxType = {
+			name = "dominant_ethic_title"
+			position = { x = @ethics_info_x y = 105 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Placeholder Ethic"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+			format = left
+		}
+			
+		iconType = {
+			name = "travel_method_line_01"
+			quadTextureSprite = "GFX_line"
+			position = { x = 365 y = 123 }
+		}
+		
+		instantTextBoxType = {
+			name = "travel_method_01_desc"
+			position = { x = @ethics_info_x y = 140 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+		}		
+			
+		#	instantTextBoxType = {
+		#		name = "empire_modifier_breakdown"
+		#		position = { x = 640 y = -270 }
+		#		font = "cg_16b"
+		#		maxWidth = 200
+		#		maxHeight = 260
+		#		orientation = "UPPER_LEFT"
+		#		format = left
+		#	}
+		
+		instantTextBoxType = {
+			name = "ethics_modifer_01"
+			position = { x = @ethics_info_x y = 200 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Production output +50%"
+			format = left
+			orientation = "UPPER_LEFT"
+		}	
+		
+		instantTextBoxType = {
+			name = "ethics_modifer_02"
+			position = { x = @ethics_info_x y = 220 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Research speed-25%"
+			format = left
+			orientation = "UPPER_LEFT"
+		}	
+		
+		
+		
+		
+		iconType = {
+			name = "secondary_ethics_choice_bg_01"
+			quadTextureSprite = "GFX_test_message_icon"
+			position = { x = 355 y = 270 }
+		}
+		
+		instantTextBoxType = {
+			name = "secondary_ethic_title"
+			position = { x = @ethics_info_x y = 280 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Fanatic Militarist"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+			format = left
+		}
+			
+		iconType = {
+			name = "secondary_ethic_line_01"
+			quadTextureSprite = "GFX_line"
+			position = { x = 365 y = 298 }
+		}
+		
+		instantTextBoxType = {
+			name = "secondary_ethic_desc"
+			position = { x = @ethics_info_x y = 315 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Your race is militarist in its nature. Causing a more authoritarian mindset"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+		}		
+
+		
+		instantTextBoxType = {
+			name = "secondary_ethic_ethics_modifer_03"
+			position = { x =@ethics_info_x y = 365 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "War happiness +25%"
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		instantTextBoxType = {
+			name = "secondary_ethic_ethics_modifer_04"
+			position = { x =@ethics_info_x y = 385 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Ship construction cost -25%"
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+
+		
+		
+		
+		
+		
+	#	containerWindowType = {
+	#		name = "government_list_item"
+	#		position = { x=0 y=0 }
+	#		size = { width=204 height= 60 }
+		
+			@gov_button_y = 100
+			@gov_icon_y =  97
+		
+			guiButtonType = {
+				name = "gov1"
+				position = { x = 790 y = @gov_button_y }
+				quadTextureSprite = "GFX_government_authority"
+			}
+			
+			iconType = {
+				name ="gov1_sel"
+				spriteType = "GFX_gamesetup_gov_sel"
+				position = { x= 787 y = @gov_icon_y }
+				alwaysTransparent = yes
+			}
+			
+			guiButtonType = {
+				name = "gov2"
+				position = { x = 850 y = @gov_button_y }
+				quadTextureSprite = "GFX_government_authority"
+			}
+			
+			iconType = {
+				name ="gov2_sel"
+				spriteType = "GFX_gamesetup_gov_sel"
+				position = { x= 847 y = @gov_icon_y }
+				alwaysTransparent = yes
+			}
+			
+			guiButtonType = {
+				name = "gov3"
+				position = { x = 910 y = @gov_button_y }
+				quadTextureSprite = "GFX_government_authority"
+			}
+			
+			iconType = {
+				name ="gov3_sel"
+				spriteType = "GFX_gamesetup_gov_sel"
+				position = { x= 907 y = -@gov_icon_y }
+				alwaysTransparent = yes
+			}
+			
+			guiButtonType = {
+				name = "gov4"
+				position = { x = 970 y = @gov_button_y }
+				quadTextureSprite = "GFX_government_authority"
+			}
+			
+			iconType = {
+				name ="gov4_sel"
+				spriteType = "GFX_gamesetup_gov_sel"
+				position = { x= 967 y = @gov_icon_y }
+				alwaysTransparent = yes
+			}
+			
+			guiButtonType = {
+				name = "gov5"
+				position = { x = 1030 y = @gov_button_y }
+				quadTextureSprite = "GFX_government_authority"
+			}
+			
+			iconType = {
+				name ="gov5_sel"
+				spriteType = "GFX_gamesetup_gov_sel"
+				position = { x= 1027 y = @gov_icon_y }
+				alwaysTransparent = yes
+			}
+		#}
+		
+		
+		
+		
+		
+		
+		
+		iconType = {
+			name = "govornment_choice_bg_01"
+			quadTextureSprite = "GFX_test_message_icon"
+			position = { x = 755 y = 300 }
+		}
+		
+		instantTextBoxType = {
+			name = "goverment_type_title"
+			position = { x = 775 y = 305 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Empire"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+			format = left
+		}
+			
+		iconType = {
+			name = "government_line"
+			quadTextureSprite = "GFX_line"
+			position = { x = 766 y = 323 }
+		}
+		
+		instantTextBoxType = {
+			name = "government_desc"
+			position = { x = 775 y = 340 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "This government is a relatively pure form of autocrazy. with an absolut ruler that governs the state with an iron gripping appendage."
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+		}		
+		
+		instantTextBoxType = {
+			name = "govornment_modifer_01"
+			position = { x = 775 y = 400 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Income +50%"
+			format = left
+			orientation = "UPPER_LEFT"
+		}	
+		
+		instantTextBoxType = {
+			name = "govornment_modifer_02"
+			position = { x = 775 y = 420 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Revolt risk -25%"
+			format = left
+			orientation = "UPPER_LEFT"
+		}		
+	}	
+}

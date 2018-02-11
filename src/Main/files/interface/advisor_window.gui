@@ -1,0 +1,240 @@
+guiTypes = {
+	
+	positionType = {
+		name = "advisor_3d_view_size"
+	#	position = { x = 200 y = 220 }
+		position = { x = 100 y = 120 }
+	}
+	
+	positionType = {
+		name = "advisor_event_window_extra_size"
+		position = { x = 0 y = 45 }
+	}
+	
+	positionType = {
+		name = "advisor_event_frame_extra_size"
+		position = { x = 23 y = 20 }
+	}
+	
+	positionType = {
+		name = "advisor_tutorial_window_extra_size"
+		position = { x = 0 y = 45 }
+	}
+	
+	positionType = {
+		name = "advisor_tutorial_frame_extra_size"
+		position = { x = 23 y = 20 }
+	}
+
+	containerWindowType = {
+		name = "advisor_window"
+		position = { x = -110 y = 115 }
+		show_position = { x = -110 y = 115 }
+		hide_position = { x = 500 y = 115 }
+		animation_time = 500
+		animation_type = decelerated
+		size = { width = 100 height = 120 }
+		orientation = upper_right
+		moveable = no
+		clipping = no
+		
+		background = {
+			name = "start_screen_background"
+			quadTextureSprite = "GFX_interface_list_dark"
+		}
+		
+		buttonType = {
+			name = "3d_view"
+			quadTextureSprite = "GFX_dummy_3d_advisor_window"
+			size = { x = 100 y = 120 }
+		}
+
+		buttonType = {
+			name = "advisor_button"
+			quadTextureSprite = "GFX_advisor_button_animated"
+			position = { x = -13 y = -11 }
+			Orientation = "UPPER_LEFT"
+			no_clicksound = yes
+		}
+		
+	}
+	
+	containerWindowType = {
+		name = "advisor_event_window"		
+		position = { x = 500 y = 110 }
+		show_position = { x = -420 y = 110 }
+		hide_position = { x = 500 y = 110 }
+		animation_time = 500
+		animation_type = decelerated
+		size = { width = 300 height = 200 }
+		orientation = upper_right
+		moveable = no
+		clipping = no
+		
+		background = {
+			name = "advisor_message_background"
+			quadTextureSprite = "GFX_set_focus_bg"
+		}
+
+		containerWindowType = {
+			name = "description_frame"
+			position = { x = 11 y = 30 }
+			size = { width = 277 height = 280 }
+			orientation = upper_left
+			
+			background = {
+				name = "frame_background"
+				quadTextureSprite = "GFX_advisor_frame"
+				position = { x = 0 y = 0 }
+			}
+		}	
+		
+		iconType = {
+			name = "arrowthingy"
+			spriteType = "GFX_advisor_arrow"
+			position = { x = 235 y = -11 }
+			rotation = -1.5 
+		}
+		
+		instantTextBoxType = {
+			name = "title"
+			position = { x = 0 y = 8 }
+			textureFile = ""
+			font = "malgun_goth_24"
+			text = "Long text here!"
+			maxWidth = 300
+			maxHeight = 32
+			format = centre
+			fixedSize = yes
+		}
+		
+		instantTextBoxType = {
+			name = "description"
+			position = { x = 25 y = 40 }
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = {x = 0 y = 0}
+			text = "Long text here!"
+			maxWidth = 255
+			maxHeight = 150
+			format = left
+			text_color_code = "E"  
+		}
+		
+		## Attachments
+		containerWindowType = {
+			name = "options_window"
+			size = { width = 300 height = 30 }
+			position = { x = 5 y = -25 }
+			orientation = LOWER_LEFT
+			clipping = no
+			
+			gridBoxType = {
+				name = "options"
+				slotSize = { width = 290 height = 34 }
+				max_slots_horizontal = 1
+				format = "LOWER_LEFT"
+				add_horizontal = no
+			}
+		}
+	}
+	
+	containerWindowType = {
+		name = "advisor_option_window"
+		position = { x = -1 y = 10 }
+		size = { width = 268 height = 30 }
+		moveable = no
+		clipping = no
+		
+		background = {
+			name = "advisor_option_bg"
+			quadTextureSprite = "GFX_advisor_option_background"
+			clicksound = click
+		}
+		
+		instantTextBoxType = {
+			name = "text"
+			position = { x = 10 y = 9 }
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = { x = 0 y = 0 }
+			text = "Long text here!"
+			maxWidth = 268
+			maxHeight = 20
+			format = center
+			fixedSize = yes
+			#alwaysTransparent = yes
+		}
+	}
+	
+	containerWindowType = {
+		name = "advisor_tutorial_window"
+		position = { x = 500 y = 110 }
+		show_position = { x = -420 y = 110 }
+		hide_position = { x = 500 y = 110 }
+		animation_time = 500
+		animation_type = decelerated
+		size = { width = 300 height = 200 }
+		orientation = upper_right
+		moveable = no
+		clipping = no
+		
+		background = {
+			name = "advisor_tutorial_background"
+			quadTextureSprite = "GFX_set_focus_bg"
+		}
+		
+		containerWindowType = {
+			name = "description_frame"
+			position = { x = 11 y = 30 }
+			size = { width = 277 height = 280 }
+			orientation = upper_left
+			
+			background = {
+				name = "frame_background"
+				quadTextureSprite = "GFX_advisor_frame"
+				position = { x = 0 y = 0 }
+			}
+		}	
+		
+		instantTextBoxType = {
+			name = "title"
+			position = { x = 0 y = 8 }
+			textureFile = ""
+			font = "malgun_goth_24"
+			text = "Long text here!"
+			maxWidth = 300
+			maxHeight = 32
+			format = centre
+		}
+		
+		instantTextBoxType = {
+			name = "description"
+			position = { x = 25 y = 40 }
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = {x = 0 y = 0}
+			text = "Long text here!"
+			maxWidth = 255
+			maxHeight = 150
+			format = left
+			text_color_code = "E"  
+		}
+		
+		buttonType = {
+			name = "close_button"
+			orientation = "CENTER_DOWN"
+			position = { x = -146 y = -44 }
+			quadTextureSprite = "GFX_advisor_option_background"
+			tooltip = ""
+			tooltipText = ""
+			delayedTooltipText = ""
+			buttonText = "CLOSE_DONT_SHOW_AGAIN"
+			buttonFont = "cg_16b"
+			shortcut = "RETURN"
+		}
+		
+		
+	}
+
+}

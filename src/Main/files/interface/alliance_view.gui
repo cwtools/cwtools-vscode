@@ -1,0 +1,238 @@
+@sort_button_height = 80
+@entry_info_height = 17
+
+guiTypes = {
+
+	# Button in the lower right of the main view, opening the Alliance View.
+	containerWindowType = {
+		name = "alliance_button_window"
+		position = { x=-60 y=-80 }
+		size = { width= 70 height= 40 }
+		orientation = lower_right
+		moveable = no
+
+		buttonType = {
+			name = "federation_button"
+			spriteType = "GFX_at_federation_with_bg"
+			position = { x= -24 y = -73 }
+		}
+	}
+
+	containerWindowType = {
+		name = "alliance_view"
+		position = { x=450 y=200 }
+		size = { width= 797 height= 477 }
+		moveable = yes
+
+		background = {
+			name = "background"
+			spriteType = "GFX_tile_header_bg"
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -10 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 07 y = 24 }
+			alwaysTransparent = yes
+		}
+
+
+		instantTextBoxType={
+			name = "header"
+			font = "malgun_goth_24"
+			position = { x = 12 y = 5 }
+			maxwidth = 300
+			maxheight = 25
+			format = Left
+		}
+		
+		buttonType = {
+			name = "alliance_rename_button"
+			spriteType = "GFX_invisible"
+			position = { x = -390 y = 5 }
+			size = { x = 300 y = 25 }
+			orientation = center_up
+			pdx_tooltip = "RENAME_ALLIANCE_TOOLTIP"
+		}		
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close_button_galaxy"
+			position = { x= -40 y = 10  }
+			Orientation = "UPPER_RIGHT"
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE_TITLE"
+			clicksound = "back_click"
+		}
+
+		buttonType={
+			name = "vote_federation_button"
+			font = "cg_16b"
+			spriteType = "GFX_galactic_object_button"
+			buttonText = "ALLIANCE_VIEW_FEDERATION_BUTTON"
+			position = { x = -140 y = 40 }
+			Orientation = "CENTER_UP"
+		}
+
+		containerWindowType = {
+			name = "sort_buttons"
+			position = {  x = 0 y = 5 }
+			size = { width= 100% height= 26 }
+			moveable = yes
+			orientation = upper_left
+
+			buttonType={
+				name = "name_button"
+				font = "cg_16b"
+				spriteType = "GFX_galactic_object_button"
+				buttonText = "ALLIANCE_AND_FEDERATION_VIEW_NAME"
+				position = { x = 1 y = 87 }
+				Orientation = UPPER_LEFT
+				pdx_tooltip = "ALLIANCE_AND_FEDERATION_VIEW_SORT_NAME"
+			}
+
+			buttonType={
+				name = "opinion_button"
+				font = "cg_16b"
+				spriteType = "GFX_button_75_24"
+				buttonText = "ALLIANCE_AND_FEDERATION_VIEW_OPINION"
+				position = { x = 275 y = @sort_button_height }
+				Orientation = UPPER_LEFT
+				pdx_tooltip = "ALLIANCE_AND_FEDERATION_VIEW_SORT_OPINION"
+			}
+
+			buttonType={
+				name = "ships_button"
+				font = "cg_16b"
+				spriteType = "GFX_button_75_24"
+				buttonText = "ALLIANCE_AND_FEDERATION_VIEW_SHIPS"
+				position = { x = 355 y = @sort_button_height }
+				Orientation = UPPER_LEFT
+				pdx_tooltip = "ALLIANCE_AND_FEDERATION_VIEW_SORT_SHIPS"
+			}
+
+			buttonType={
+				name = "armies_button"
+				font = "cg_16b"
+				spriteType = "GFX_button_75_24"
+				buttonText = "ALLIANCE_AND_FEDERATION_VIEW_ARMIES"
+				position = { x = 435 y = @sort_button_height }
+				Orientation = UPPER_LEFT
+				pdx_tooltip = "ALLIANCE_AND_FEDERATION_VIEW_SORT_ARMIES"
+			}
+
+			buttonType={
+				name = "planets_button"
+				font = "cg_16b"
+				spriteType = "GFX_button_75_24"
+				buttonText = "ALLIANCE_AND_FEDERATION_VIEW_PLANETS"
+				position = { x = 515 y = @sort_button_height }
+				Orientation = UPPER_LEFT
+				pdx_tooltip = "ALLIANCE_AND_FEDERATION_VIEW_SORT_PLANETS"
+			}
+		}
+
+		instantTextBoxType={
+			name = "alliance_date"
+			font = "cg_16b"
+			position = { x = 290 y = 452 }
+			maxwidth = 300
+		}
+
+		# LIST ENTRIES
+
+		containerWindowType = {
+			name = "members_window"
+			size = { width = 750 height = 310 }
+			position = { x=20 y=122 }
+			margin = { top = 5 bottom = 5 }
+
+			background = {
+				name ="alliance_and_federation_members_window_bg"
+				spriteType = "GFX_tiled_window_transparent"
+			}
+
+			smoothListboxType = {
+				name = "members"
+				position = { x = -12 y = -5 }
+				backGround = ""
+				size = { x = 775 y = 310 }
+				scrollbarType = "standardlistbox_slider"
+				borderSize = { x = 0 y = 0 }
+			}
+		}
+	}
+
+	containerWindowType = {
+		name = "alliance_member_entry"
+		position = { x=0 y=0 }
+		size = { width=748 height=48 }
+
+		buttonType = {
+			name = "background"
+			spriteType = "GFX_tiles_frame_light"
+			size = { x = 780 y = 48 }
+		}
+
+		buttonType = {
+			name = "flag"
+			quadTextureSprite = "GFX_empire_flag_32"
+			position = { x= 10 y = 8  }
+		}
+
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			maxWidth = 250
+			position = { x = 50 y = @entry_info_height }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "their_opinion"
+			font = "cg_16b"
+			text = "-"
+			maxWidth = 30
+			position = { x = 305 y = @entry_info_height }
+		}
+
+		instantTextBoxType={
+			name = "ship_amount"
+			font = "cg_16b"
+			maxWidth = 30
+			position = { x = 380 y = @entry_info_height }
+			format = center
+		}
+
+		instantTextBoxType={
+			name = "armies_amount"
+			font = "cg_16b"
+			maxWidth = 30
+			position = { x = 460 y = @entry_info_height }
+			format = center
+		}
+
+		instantTextBoxType={
+			name = "planets_amount"
+			font = "cg_16b"
+			maxWidth = 30
+			position = { x = 545 y = @entry_info_height }
+			format = center
+		}
+
+		buttonType={
+			name = "alliance_button"
+			font = "cg_16b"
+			spriteType = "GFX_button_150_24"
+			position = { x = 595 y = 0 }
+			text = "ALLIANCE_VIEW_LEAVE_ALLIANCE_BUTTON"
+		}
+	}
+}

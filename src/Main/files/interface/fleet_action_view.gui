@@ -1,0 +1,132 @@
+guiTypes = {
+
+	# Mainly used for adding the extra size for the header of the window
+	positionType = {
+		name = "extra_window_padding"
+		position = { x = 0 y = 35 }
+	}
+
+	# Main window
+	containerWindowType = {
+		name = "fleet_action_view"
+		position = { x = 0 y = 0 }
+		size = { width = 258 height = 200 }
+		orientation = CENTER
+		origo = CENTER
+
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_subwindow_tile_plain_solid"
+		}
+
+		instantTextBoxType = {
+			name = "title"
+			font = "malgun_goth_24"
+			text = "ACTION_MENU"
+			position = { x = 11 y = 0 }
+			maxWidth = 250
+			maxHeight = 20
+			
+			Orientation = "UPPER_LEFT"
+			text_color_code = "H"
+		}
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "gfx_transparency_button"
+			orientation = UPPER_RIGHT
+			position = { x = -41 y = 3  }
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			actionShortcut = "cancel"
+		}
+
+		gridBoxType = {
+			name = "actions"
+			position = { x = 11 y = 25 }
+			slotSize = { width = 46 height = 46 }
+			max_slots_horizontal = 5
+			format = "UPPER_LEFT"
+			defaultSelection = yes
+		}
+	}
+
+	# Generic action entry
+	containerWindowType = {
+		name = "fleet_action_view_generic_entry"
+		size = { width = 52 height = 52 }
+		position = { x = 0 y = 0 }
+
+		buttonType = {
+			name = "button"
+			spriteType = "gfx_transparency_button"
+			pdx_tooltip = "DISBAND"
+		}
+
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = 0 y = 0 }
+			size = { width = 100% height = 100% }
+			
+			background = {
+				name = "selected_background"
+				alwaystransparent = yes
+				quadTextureSprite = "GFX_glow_tile_orange"
+			}
+		}
+	}
+
+	# Order action entry
+	containerWindowType = {
+		name = "fleet_action_view_order_entry"
+		size = { width = 52 height = 52 }
+		position = { x = 0 y = 0 }
+
+		buttonType = {
+			name = "button_animation"
+			spriteType = "gfx_transparency_button"
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "button"
+			spriteType = "gfx_transparency_button"
+		}
+
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = 0 y = 0 }
+			size = { width = 100% height = 100% }
+			
+			background = {
+				name = "selected_background"
+				alwaystransparent = yes
+				quadTextureSprite = "GFX_glow_tile_orange"
+			}
+		}
+	}
+
+	# Action entry
+	containerWindowType = {
+		name = "fleet_action_view_action_entry"
+		size = { width = 52 height = 52 }
+		position = { x = 0 y = 0 }
+
+		buttonType = {
+			name = "button"
+			spriteType = "gfx_transparency_button"
+		}
+
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = 0 y = 0 }
+			size = { width = 100% height = 100% }
+			
+			background = {
+				name = "selected_background"
+				alwaystransparent = yes
+				quadTextureSprite = "GFX_glow_tile_orange"
+			}
+		}
+	}
+}

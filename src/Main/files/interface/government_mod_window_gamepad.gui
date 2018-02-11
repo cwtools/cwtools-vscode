@@ -1,0 +1,112 @@
+guiTypes = {
+	containerWindowType = {
+		name = "government_mod_window_gamepad"
+		position = { x = 600 y = 80 }
+		
+	#	show_position = { x = 5 y = 40 }
+    #    hide_position = { x = -1050 y = 40 }
+    #    animation_time = 200
+    #    animation_type = decelerated
+		
+		size = { width = 344 height = 500 }
+		moveable = yes
+		orientation = UPPER_LEFT
+		
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_plain_bg_tile"
+		}
+			containerWindowType = {
+				name = "start_screen_frame_bg"
+				position = { x=-165 y=-220 }
+				size = { width = 330 height = 462 }
+				orientation = center
+				
+				background = {
+					name = "start_screen_frame"
+					quadTextureSprite = "GFX_gov_mod_frame"
+					position = { x = 0 y = 0 }
+					alwaysTransparent = yes
+				}
+			}	
+			
+		instantTextBoxType={
+			name = "title"
+			font = "malgun_goth_24"
+			position = { x = 10 y = 5 }
+			maxWidth = 400
+			maxHeight = 22
+			text = "MOD_GOVERNMENT_TITLE"
+			format = left
+			alwaysTransparent = yes
+		}
+	
+		buttonType = {
+			name = "ok"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 168 y = 430  }
+			shortcut = "RETURN"
+			text = "REFORM"
+			font = "cg_16b"
+		}
+		
+		buttonType = {
+			name = "cancel"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 10 y = 430  }
+			shortcut = "ESCAPE"
+			text = "CANCEL"
+			font = "cg_16b"
+			clicksound = "back_click"
+		}
+		
+		smoothListboxType = {
+			name = "government_list"
+			position = { x = 10 y = 50 }
+			backGround=""
+			size = { x=307 y=380 }
+			spacing = 1
+			scrollbartype = "standardlistbox_slider"
+		}
+	}
+	
+	# GOVERNMENT TYPE ENTRY
+	containerWindowType = {
+		name = "government_mod_entry_gamepad"
+		position = { x=0 y=0 }
+		size = { width = 314 height = 45 }
+		moveable = no
+		
+		buttonType = {
+			name = "background"
+			quadTextureSprite = "GFX_government_mod_window_trait_entry_bg"
+			position = { x = 0 y = 0  }
+		}
+		
+		iconType = {
+			name = "icon"
+			position = { x = 12 y = 8 }
+			spriteType = "GFX_government_authority"
+			scale = 0.7
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name ="selected"
+			spriteType = "GFX_government_mod_window_trait_entry_selected"
+			position = { x= 0 y = 0 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			position = { x = 50 y = 13 }
+			maxWidth = 225
+			maxHeight = 22
+			fixedsize = yes
+			format = left
+			alwaysTransparent = yes
+		}
+	}
+}

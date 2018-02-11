@@ -1,0 +1,642 @@
+guiTypes = {
+	
+	windowType = {
+		name = "ship_counter_entry"
+		size = { x = 18 y = 36 }
+		
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_ship_counter_1"
+			position = { x=0 y=0 }
+		}
+		instantTextBoxType = {
+			name = "count"
+			position = { x = 0 y = 13 }
+			maxWidth = 20
+			maxHeight = 20
+			format = center
+			font = "hoi_16mbs"
+		}
+	}
+	
+	containerWindowType = {
+		name = "debris_mapicon"
+		size = {width = 20 height = 20}
+		
+		buttonType = {
+			name = "special_project"
+			quadTextureSprite = "GFX_point_of_interest"
+			position = { x=-20 y=-20 }
+		}
+	}
+
+	containerWindowType = {
+		name = "intel_mapicon"
+		size = {width = 20 height = 20}
+		
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_hostile_intel_icon"
+			position = { x=-20 y=-20 }
+		#	frame = 11
+		}
+	}
+
+	##############################
+	##  	PLANET RESOURCES	##
+	##############################
+	
+	windowType = {
+		name = "resource_icon_item"
+		backGround = ""
+		position = { x = 0 y = 0 }
+		size = { x = 19 y = 32 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder = ""
+		verticalBorder = ""
+		fullScreen = no
+		
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_resource_minerals"
+			position = { x=0 y=0 }
+		}
+		
+		# Resources on planets text
+		
+		instantTextBoxType={
+			name = "num"
+			font = "hoi_16mbs"
+			borderSize = { x=0 y=0 }
+			position = { x=-5 y=16 }
+			maxWidth = 28
+			maxHeight = 16
+			format = center
+			alwaysTransparent = yes
+			text = "0"
+		}
+	}
+	
+	#################
+	##  FLEETS     ##
+	#################
+	positionType = {
+		name = "military_fleet_icon_size"
+		position = { x = 108 y = 48 }
+	}
+	positionType = {
+		name = "civilian_fleet_icon_size"
+		position = { x = 108 y = 32 }
+	}
+	
+	containerWindowType = {
+		name = "fleet_map_icon"
+		position = { x = -65 y = 8  }
+		size = { width = 108 height = 48 }		
+
+		iconType = {
+			name ="shield"
+			spriteType = "GFX_fleet_shield_bar"
+			position = { x= 25 y = 3 }
+			frame = 100
+		}		
+		iconType = {
+			name ="health"
+			spriteType = "GFX_fleet_health_bar"
+			position = { x = 25 y = 23 }
+			frame = 100
+		}
+		buttonType = {
+			name = "bg"
+			position = { x = 13 y = 7 }
+			quadTextureSprite = "GFX_map_icon_bg"
+			no_clicksound = yes
+			size =  { x = 104 y = 18 }
+		}	
+		instantTextBoxType = {
+			name = "offensive_power"
+			position = { x = 40 y = 8 }
+			font = "cg_16b"
+			format = center
+			maxWidth = 56
+			maxHeight = 20
+			#alwaysTransparent = yes
+		}	
+		buttonType = {
+			name = "flag"
+			position = { x = 10 y = 0 }
+			quadTextureSprite = "GFX_map_icon_flag"
+			no_clicksound = yes
+		}
+		iconType = {
+			name = "type_bg_actually"
+			position = { x = 98 y = 2 }
+			quadTextureSprite = "GFX_typt_bg"
+			alwaysTransparent = yes
+		}
+		iconType = {
+			name ="type"
+			spriteType = "GFX_ship_class_small"
+			position = { x = 98 y = 2 }
+			alwaysTransparent = yes
+			#scale = 0.75
+		}
+		iconType = {
+			name = "type_bg"
+			position = { x = 94 y = 0 }
+			quadTextureSprite = "GFX_type_frame"
+			alwaysTransparent = yes
+		}
+		iconType = {
+			name = "has_ftl_magnet"
+			quadTextureSprite = "GFX_has_ftl_magnet"
+			position = { x = 103 y = -18 }
+		}
+		OverlappingElementsBoxType = {
+			name = "ship_counters"
+			position = { x = 25 y = 24 }
+			size = { x = 87 y = 20 }
+			format = center
+		}
+		buttonType = {
+			name = "special_project"
+			quadTextureSprite = "GFX_point_of_interest"
+			position = { x=-5 y=4 }
+		}
+	}
+	
+	##############################
+	##  		PLANET 			##
+	##############################
+	
+	positionType = {
+		name = "planet_map_icon_flag_capital_decoration_offset"
+		position = { x = -55 y = 3 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_flag_capital_offset"
+		position = { x = -12 y = 3 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_flag_offset"
+		position = { x = -14 y = 7 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_flag_controller_offset"
+		position = { x = 3 y = 3 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_type_bg2_offset"
+		position = { x = 9 y = 8 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_type_offset"
+		position = { x = 9 y = 8 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_type_bg_offset"
+		position = { x = 5 y = 7 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_bg_capital_size_offset"
+		position = { x = 23 y = 0 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_bg_size_offset"
+		position = { x = 23 y = 0 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_health_offset"
+		position = { x = -17 y = 11 }
+	}
+	
+	positionType = {
+		name = "planet_map_icon_colonizable_offset"
+		position = { x = -40 y = 7 }
+	}
+	
+	containerWindowType = {
+		name = "planet_map_icon"
+		position = { x = 0 y = 0 }
+		
+		buttonType = {
+			name = "bg"
+			position = { x = 0 y = 12 }
+			quadTextureSprite = "GFX_map_icon_bg"
+			size = { x = 18 y = 22 }
+		}
+		
+		buttonType = {
+			name = "bg_capital"
+			position = { x = 0 y = 12 }
+			quadTextureSprite = "GFX_map_icon_bg_capital"
+			size = { x = 22 y = 22 }
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			borderSize = { x=0 y=0 }
+			position = { x= -400 y = 15 }
+			maxWidth = 800
+			maxHeight = 16
+			format = centre
+			alwaysTransparent = yes
+			fixedsize = yes
+		}
+		
+		iconType = {
+			name = "flag_capital_decoration"
+			quadTextureSprite = "GFX_map_icon_flag_capital_decoration"
+			position = { x = 0 y = 2 }
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "flag"
+			position = { x = -25 y = 0 }
+			quadTextureSprite = "GFX_map_icon_flag"
+		}
+
+		buttonType = {
+			name = "flag_capital"
+			position = { x = 0 y = 3 }
+			quadTextureSprite = "GFX_map_icon_flag_capital"
+		}
+		
+		iconType = {
+			name = "type_bg2"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_typt_bg"
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name ="type"
+			spriteType = "GFX_ship_class_small"
+			frame = 4
+			position = { x= 0 y = 0 }
+			alwaysTransparent = yes
+			#scale = 0.75
+		}
+		
+		iconType = {
+			name = "type_bg"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_type_frame"
+		}
+		
+		buttonType = {
+			name = "flag_controller"
+			position = { x = 95 y = 3 }
+			quadTextureSprite = "GFX_map_icon_flag_capital"
+		}
+
+		iconType = {
+			name = "health"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_planet_map_icon_health"
+		}
+		
+		iconType = {
+			name = "colonizable"
+			quadTextureSprite = "GFX_colonizability"
+			# position comes from a "planet_map_icon_colonizable_offset"
+		}
+				
+		buttonType = {
+			name = "special_project"
+			quadTextureSprite = "GFX_point_of_interest"
+			position = { x=-10 y=-33 }
+			scale = 1.0
+		}
+		
+		buttonType = {
+			name = "anomaly"
+			spriteType = "GFX_discovery_level_1_icon"
+			position = { x = -5 y = 30 }
+		}
+		
+		OverlappingElementsBoxType = {
+			name = "resources"
+			position = { x = -60 y = 35 }
+			size = { x = 120 y = 32 }
+			spacing = 1.0
+			format = center
+		}
+	}
+	
+	containerWindowType = {
+		name = "ambient_object_mapicon"
+		position = { x = -120 y = 25 }
+		size = { width = 240 height = 20 }
+		
+		instantTextBoxType = {
+			name = "name"
+			font = "cg_16b"
+			borderSize = { x=0 y=0 }
+			position = { x= 0 y= 0 }
+			maxWidth = 240
+			maxHeight = 32
+			format = centre
+			#alwaysTransparent = yes
+			fixedsize = yes
+		}
+		
+		buttonType = {
+			name = "special_project"
+			quadTextureSprite = "GFX_point_of_interest"
+			position = { x= 95  y=-50 }
+		}
+	}
+
+	######################
+	## SUPER STRUCTURES ##
+	######################
+
+	positionType = {
+		name = "megastructure_map_icon_flag_offset"
+		position = { x = -4 y = 7 }
+	}
+	
+	positionType = {
+		name = "megastructure_map_icon_type_offset"
+		position = { x = 9 y = 8 }
+	}
+	
+	positionType = {
+		name = "megastructure_map_icon_type_bg_offset"
+		position = { x = 5 y = 7 }
+	}
+	
+	positionType = {
+		name = "megastructure_map_icon_bg_size_offset"
+		position = { x = 23 y = 0 }
+	}
+	
+	containerWindowType = {
+		name = "megastructure_map_icon"
+		position = { x = 0 y = 0 }
+		
+		buttonType = {
+			name = "bg"
+			position = { x = 0 y = 12 }
+			quadTextureSprite = "GFX_map_icon_bg"
+			size = { x = 18 y = 22 }
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			borderSize = { x=0 y=0 }
+			position = { x= -400 y = 15 }
+			maxWidth = 800
+			maxHeight = 16
+			format = centre
+			alwaysTransparent = yes
+			fixedsize = yes
+		}
+
+		buttonType = {
+			name = "flag"
+			position = { x = -25 y = 0 }
+			quadTextureSprite = "GFX_map_icon_flag"
+		}
+		
+		iconType = {
+			name ="type"
+			spriteType = "GFX_ship_class_small"
+			frame = 22
+			position = { x= 0 y = 0 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "type_bg"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_type_frame"
+		}
+		
+		OverlappingElementsBoxType = {
+			name = "resources"
+			position = { x = -60 y = 35 }
+			size = { x = 120 y = 32 }
+			spacing = 1.0
+			format = center
+		}
+	}
+	
+	#####################
+	## Galactic object ##
+	#####################
+	
+	positionType = {
+		name = "star_mapicon_icon_offset"
+		position = { x = -37 y = 7 }
+	}
+	
+	positionType = {
+		name = "star_mapicon_icon_offset_controller"
+		position = { x = -69 y = 3 }
+	}
+	
+	positionType = {
+		name = "star_mapicon_icon_offset_capital"
+		position = { x = -40 y = 3 }
+	}
+	
+	positionType = {
+		name = "star_mapicon_stations_offset"
+		position = { x = 5 y = 7 }
+	}
+	
+	containerWindowType = {
+		name = "star_mapicon"
+		position = { x=0 y=0 }	
+		size = { width=180 height=64 }
+		
+		buttonType = {
+			name = "name_bg"
+			position = { x = 0 y = 14 }
+			quadTextureSprite = "GFX_map_icon_bg"
+			size =  { x = 18 y = 18 }
+		}
+		
+		buttonType = {
+			name = "name_bg_capital"
+			position = { x = 0 y = 12 }
+			quadTextureSprite = "GFX_map_icon_bg_capital"
+			size =  { x = 22 y = 22 }
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			borderSize = { x=0 y=0 }
+			position = { x= -88 y = 15 }
+			maxWidth = 176
+			maxHeight = 16
+			format = centre
+			alwaysTransparent = yes
+			fixedsize = yes
+		}
+		
+		iconType = {
+			name = "flag_capital_decoration"
+			quadTextureSprite = "GFX_map_icon_flag_capital_decoration"
+			position = { x = -3 y = -1 }
+			alwaystransparent = yes
+		}
+		buttonType = {
+			name = "star_owner"
+			quadTextureSprite = "GFX_map_icon_flag"
+			position = { x = 10 y = 7 } #use positiontypes above to move
+			scale = 1.0
+			no_clicksound = yes
+		}
+		buttonType = {
+			name = "star_owner_capital"
+			quadTextureSprite = "GFX_map_icon_flag_capital"
+			position = { x = -50 y = 7 } #use positiontypes above to move
+			scale = 1.0
+			no_clicksound = yes
+		}
+		
+		overlappingElementsBoxType = {
+			name = "controllers"
+			position = { x = 10 y = 7 }
+			size = { x = 80 y = 40 }
+			spacing = 0
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		iconType = {
+			name = "has_ftl_magnet"
+			quadTextureSprite = "GFX_has_ftl_magnet"
+			position = { x = 26 y = -11 }
+		}
+		
+		iconType = {
+			name = "sector_management_status"
+			quadTextureSprite = "GFX_sector_management_status"
+			position = { x = -36 y = -22 }
+		}
+
+		buttonType = {
+			name = "has_intel_hostile"
+			spriteType = "GFX_hostile_intel_icon"
+			position = { x = 13 y = -16 }
+		}
+
+		### OVERLAPPING ELEMENTS ###
+		
+		overlappingElementsBoxType = {
+			name = "researchables"
+			position = { x = -190 y = -15 }
+			size = { x = 176 y = 32 }
+			spacing = 1.0
+			format = right
+		}
+
+		overlappingElementsBoxType = {
+			name = "fleets"
+			position = { x = 10 y = -15 }
+			size = { x = 176 y = 132 }
+			spacing = 1.0
+			format = left
+		}
+
+		overlappingElementsBoxType = {
+			name = "resources"
+			position = { x = -88 y = 35 }
+			size = { x = 176 y = 32 }
+			spacing = 1.0
+			format = center
+		}
+		
+		overlappingElementsBoxType = {
+			name = "stations"
+			position = { x = 31 y = 7 }
+			size = { x = 90 y = 32 }
+			format = left
+			spacing = 0
+		}
+		
+		# HOVER INDICATORS SHOULD ALWAYS BE AT THE BOTTOM 
+		
+		iconType = {
+			name = "hover_indicator"
+			spriteType = "GFX_map_icon_system_enter"
+			position = { x=-35 y=-23 }
+			alwaysTransparent = yes
+		}
+	}
+	
+	containerWindowType = {
+		name = "station_icon_entry"
+		size = { width = 28 height = 30 }
+		
+		iconType = {
+			name = "type_bg2"
+			position = { x = 4 y = 2 }
+			quadTextureSprite = "GFX_typt_bg"
+		}
+		iconType = {
+			name ="type"
+			spriteType = "GFX_ship_class_small"
+			position = { x = 4 y = 2 }
+			alwaysTransparent = yes
+			#scale = 0.75
+		}
+		iconType = {
+			name = "type_bg"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_type_frame"
+		}
+	}
+	
+	containerWindowType = {
+		name = "controller_country_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 40 height = 40 }
+		moveable = no
+		orientation = center
+
+		buttonType = {
+			name = "country"
+			quadTextureSprite = "GFX_map_icon_flag_capital"
+			no_clicksound = yes
+		}
+	}
+
+	containerWindowType = {
+		name = "star_fleet_entry"
+		size = { width = 22 height = 22 }
+
+		buttonType = {
+			name = "fleet"
+			spriteType = "GFX_fleet_presence_icons"
+		}
+	}
+
+	containerWindowType = {
+		name = "star_research_entry"
+		size = { width = 28 height = 26 }
+
+		buttonType = {
+			name = "research"
+			spriteType = "GFX_invisible"
+		}
+	}
+}

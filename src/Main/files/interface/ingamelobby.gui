@@ -1,0 +1,265 @@
+guiTypes = {
+
+	containerWindowType = {
+		name ="ingame_lobby_window"
+		position = { x=-256 y = -128 }	
+		size = { width=700 height = 376 }
+		orientation = center
+		clipping = no
+		moveable = yes
+
+		background = {
+			name = "background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+	
+		containerWindowType = {
+			name = "chat_area_box"
+			size = { width = 275 height = 215 }
+			position = { x = 14 y = 47 }
+			
+				background = {
+					name = "chat_area"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+					alwaysTransparent = yes
+				}
+		}	
+	
+		containerWindowType = {
+			name = "player_list_area_box"
+			size = { width = 401 height = 224 }
+			position = { x = 290 y = 43 }
+			
+				background = {
+					name = "player_list_area"
+					spriteType = "GFX_tiles_frame_light"
+					alwaysTransparent = yes
+				}
+		}	
+		
+	
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -11 y = -14 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line"
+			position = { x = 6 y = 22 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "customize_appearance_label"
+			font = "malgun_goth_24"
+			text = "WAITING_FOR_PLAYERS"
+			position = { x = 19 y = 6 }
+			maxWidth = 470
+			maxHeight = 20
+			orientation = "UPPER_LEFT"
+			format = left
+			alwaysTransparent = yes
+		}
+		
+		listboxType = {
+			name ="multiplayer_list"
+			position = { x=10 y = 50 }
+			backGround=""
+			size = { x=263 y =200 }
+		#	size = { x=263 y =30 }
+			horizontal = 0
+			spacing = 0
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 10 y = 10}
+	    
+			Orientation = "UPPER_LEFT"
+		}
+				
+		listboxType = {
+			name ="chatlog"
+			position = { x = 299 y = 47 }
+			backGround=""
+			size = { x= 385 y =215 }
+			Orientation = "UPPER_LEFT"
+			horizontal = 0
+			spacing = 0
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 0 y = 0}
+		}
+				
+		editBoxType = {
+			position = { x = 14 y = 276 }
+			name = "lobby_chat_edit"
+			instantTextBoxType = no
+			textureFile = "gfx/interface/tiles/small_tiles_dialog.dds"
+			font = "cg_16b"
+			borderSize = {x =8 y = 0}	
+			size = { x=682 y=32 }
+			text = ""	
+			orientation = "UPPER_LEFT"
+			cursor = { x=0 y= 4}
+		}
+		
+		buttonType = {
+			name = "back_button"
+			position = { x = 0 y = -66 }
+			quadTextureSprite ="GFX_button_animated_142"	
+			tooltip = ""
+			tooltipText =""
+			delayedTooltipText = ""
+			buttonText = "ABANDON_GAME"
+			buttonFont = "cg_16b"
+			orientation = "LOWER_LEFT"
+		}	
+			
+		buttonType = {
+			name = "start_button"
+			position = { x = -170 y = -66 }
+			quadTextureSprite ="GFX_button_animated_142"	
+			tooltip = ""
+			tooltipText =""
+			delayedTooltipText = ""
+			buttonText = "START"
+			buttonFont = "cg_16b"
+			orientation = "LOWER_RIGHT"
+		}
+	}
+		
+	containerWindowType = {
+		name = "ingame_multiplayer_entry"
+		position = { x=0 y=0 }	
+		size = { width=275 height= 32 }
+
+		iconType = {
+			name ="player_shield"
+			spriteType = "GFX_planet_view_pop"
+			position = { x= 0 y = -11 }
+			Orientation = "UPPER_LEFT"
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "name"
+			position = { x = 32 y =-7 }
+			format = left
+			font = "cg_16b"
+			maxWidth = 180
+			maxHeight = 30	
+			Orientation = "UPPER_LEFT"
+			vertical_alignment = center
+		}
+
+		buttonType = {
+			name = "button_kick"	
+			quadTextureSprite = "GFX_button_kick"
+			position = { x=-60 y =-19}
+			orientation = "UPPER_RIGHT"
+			pdx_tooltip = "INGAMELOBBY_KICK"
+		}
+	}
+	
+	containerWindowType = {
+		name = "ingame_lobby_chat_text"
+		position = { x=0 y=5 }	
+		size = { width=390 height= 16 }
+		
+		instantTextBoxType = {
+			name = "messagelogtext"
+			position = { x = 0 y = 3 }
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = {x = 1 y = 1}
+			text = ""	
+			maxWidth = 390
+			maxHeight = 16	
+			Orientation = "UPPER_LEFT"
+		}
+	}
+	
+	containerWindowType = {
+		name = "player_lost_window"
+		position = { x=350 y=200 }	
+		size = { width=500 height=280 }
+		moveable = yes
+		
+		background = {
+			name = "Background"	
+			quadTextureSprite ="GFX_tile_outliner_bg"
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_center_bg"
+			position = { x = -25 y = 10 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line_center"
+			position = { x = -5 y = 50 }
+		}
+		
+		instantTextBoxType = {
+			name = "Title"
+			position = { x = 0 y = 25 }
+			textureFile = ""
+			font = "malgun_goth_24"
+			borderSize = {x = 4 y = 4}
+			text = "DUMMY_HEADER"	
+			maxWidth = 500
+			maxHeight = 32
+			format = centre
+		}
+		
+		instantTextBoxType = {
+			name = "Description"
+			position = { x = 100 y = 90 }
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = {x = 4 y = 4}
+			text = ""	
+			maxWidth = 300
+			maxHeight = 200	
+
+			format = centre
+		}
+		
+		buttonType = {
+			name = "save_button"
+			position = { x=12 y =200}
+			quadTextureSprite ="GFX_button_animated_142"
+			tooltip = ""
+			tooltipText =""
+			delayedTooltipText = ""
+			buttonText = "SAVE"
+			buttonFont = "cg_16b"
+		}
+				
+		buttonType = {
+			name = "continue_button"
+			position = { x=165 y =200}
+			quadTextureSprite ="GFX_button_animated_142"
+			tooltip = ""
+			tooltipText =""
+			delayedTooltipText = ""
+			buttonText = "CONTINUE"
+			buttonFont = "cg_16b"
+		}
+
+		buttonType = {
+			name = "quit_button"
+			position = { x=318 y =200}
+			quadTextureSprite ="GFX_button_animated_142"
+			tooltip = ""
+			tooltipText =""
+			delayedTooltipText = ""
+			buttonText = "QUIT"
+			buttonFont = "cg_16b"
+		}
+	}
+}

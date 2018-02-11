@@ -1,0 +1,1169 @@
+guiTypes = {
+	containerWindowType = {
+		name = "technology_view_window"
+		size = { width=595 height=682 } 
+		
+		show_position = { x = -1 y = 35 }
+        hide_position = { x = -1070 y = 35 }
+        animation_time = 200
+        animation_type = decelerated
+	#	fade_time = 750
+    #   fade_type = smoothstep
+		
+		orientation = upper_left
+		moveable = no
+		clipping = no
+		
+
+	#	iconType = {
+	#		name = "main_screen_bg"
+	#		spriteType = "GFX_main_screen_bg"
+	#		position = { x = 5 y = 5 }
+	#	}
+		
+		containerWindowType = {
+			name = "black_background_box_01"
+			size = { width = 595 height = 640 }
+			position = { x = 5 y = 5 }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_tile_outliner_bg"
+				#alwaysTransparent = yes
+			}
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = 35 y = -7 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 11 y = 26 }
+		}
+		
+		
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_outliner_member_bg"
+		}	
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -41 y = 21 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+		}
+
+		instantTextBoxType={
+			name = "header"
+			font = "malgun_goth_24"
+			text = "TECHNOLOGY"
+			position = { x = 70 y = 10 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		containerWindowType = {
+			name = "areas_window"
+			size = { width = 560 height = 800 }
+			position = { x = 7 y= 55 }
+			orientation = UPPER_LEFT
+			clipping = no
+			
+			gridBoxType = {
+				name = "grid"
+				slotSize = { width = 290 height = 190 }
+				max_slots_horizontal = 1
+				format = UPPER_LEFT
+			}
+		}
+
+		buttonType = {
+			name = "researched"
+			quadTextureSprite = "GFX_button_116_24"
+			position = { x = -186 y = 30 }
+			orientation = upper_right
+			font = "cg_16b"
+			text = "RESEARCHED"
+			shortcut = "v"
+			pdx_tooltip = "RESEARCHED_TECHS"
+		}						
+
+		containerWindowType = {
+			name = "select_window"
+			size = { width=487 height=455 }
+			position = { x = 604 y = 14 }
+					
+		#	show_position = { x = 570 y = 14 }
+		#	hide_position = { x = -570 y = 14 }
+		#	animation_time = 200
+		#	animation_type = decelerated
+		
+		#	fade_time = 100
+		#	fade_type = smoothstep
+			
+			orientation = upper_left
+			moveable = no
+			
+			containerWindowType = {
+				name = "reserached_tech_bg_box"
+				size = { width = 490 height = 631 }
+				position = { x = 0 y = 0 }
+				
+					background = {
+						name = "reserached_tech_bg"
+						spriteType = "GFX_tile_outliner_bg"
+					}
+			}
+
+			buttonType = {
+				name = "close"
+				quadTextureSprite = "GFX_close"
+				position = { x = -44 y = 16 }
+				orientation = upper_right
+				shortcut = "ESCAPE"
+				clicksound = "back_click"
+				pdx_tooltip = "CLOSE_TITLE"
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_hex_bg"
+				position = { x = -10 y = -14 }
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = "empire_header_line"
+				quadTextureSprite = "GFX_line"
+				position = { x = 6 y = 22 }
+				alwaysTransparent = yes
+			}
+		
+
+			instantTextBoxType={
+				name = "header"
+				font = "malgun_goth_24"
+				text = "SELECT_TECHNOLOGY"
+				position = { x = 19 y = 5 }
+				maxWidth = 400
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+			}
+
+			instantTextBoxType={
+				name = "desc"
+				font = "cg_16b"
+				text = "SELECT_TECHNOLOGY_DESC"
+				position = { x = -200 y = 44 }
+				maxWidth = 400
+				maxHeight = 100
+				fixedSize = yes
+				format = center
+				orientation = "CENTER_UP"
+			}
+
+			smoothListBoxType = {
+				name = "list"
+				position = { x = 2 y= 135 }
+				size = { x = 472 y = 490 }
+				scrollbartype = "standardlistbox_slider"
+			}
+
+			buttonType={
+				name = "fade_top"
+				spriteType = "GFX_faded_border_top"
+				orientation = upper_left
+				size = { x = 490 y = 18 }
+				position = { x = 0 y = 118 }
+				alwaysTransparent = yes
+			}
+
+			buttonType={
+				name = "fade_bottom"
+				spriteType = "GFX_faded_border_bottom_tech"
+				#orientation = upper_left
+				size = { x = 472 y = 8 }
+				position = { x = 5 y = 618 }
+				alwaysTransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "researched_window"
+			size = { width=455 height=610 }
+			position = { x = 604 y = 14 }
+			orientation = upper_left
+			moveable = no
+	
+			containerWindowType = {
+				name = "reserached_tech_bg_box"
+				size = { width = 490 height = 591 }
+				position = { x = 0 y = 0 }
+				
+				background = {
+					name = "reserached_tech_bg"
+					spriteType = "GFX_tile_outliner_bg"
+				}
+			}
+
+			buttonType = {
+				name = "close"
+				quadTextureSprite = "GFX_close"
+				position = { x = -12 y = 16 }
+				orientation = upper_right
+				shortcut = "ESCAPE"
+				clicksound = "back_click"
+				pdx_tooltip = "CLOSE_TITLE"
+			}
+
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_hex_bg"
+				position = { x = -10 y = -12 }
+				alwaysTransparent = yes
+			}
+			
+			containerWindowType = {
+				name = "black_background_box_01"
+				size = { width = 400 height = 90 }
+				position = { x = 0 y = 0 }
+				clipping = yes
+				
+				iconType = {
+					name = "header_line"
+					spriteType = "GFX_line_long"
+					position = { x = 6 y = 21 }
+				}
+			}
+				
+			
+
+			
+			instantTextBoxType={
+				name = "header"
+				font = "malgun_goth_24"
+				text = ""
+				position = { x = 20 y = 6 }
+				maxWidth = 300
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+			}			
+
+			smoothListBoxType = {
+				name = "list"
+				position = { x = 10 y = 60 }
+				orientation = "UPPER_LEFT"
+				priority = 100
+				size = { x = 460 y = 510 }
+				borderSize = { x=0 y=0 }
+				scrollbartype = "standardlistbox_slider"
+				spacing = 15
+			}
+
+			@tabheight = -21 
+			
+			buttonType = {
+				name = "tab_physics"
+				quadTextureSprite = "GFX_tab_1_inactive"
+				position = { x= -20 y = @tabheight }
+				font = "cg_16b"
+				buttonText = "PHYSICS"
+				buttonFont = "cg_16b"
+				shortcut = "z"
+				clicksound = "tab_click"
+				Orientation = "LOWER_LEFT"
+			}
+			
+			buttonType = {
+				name = "tab_physics_active"
+				quadTextureSprite = "GFX_tab_1_active"
+				position = { x = -20 y = @tabheight }
+				font = "cg_16b"
+				buttonText = "PHYSICS"
+				buttonFont = "cg_16b"
+				clicksound = "tab_click"
+				shortcut = "z"
+				Orientation = "LOWER_LEFT"
+			}
+
+			buttonType = {
+				name = "tab_society"
+				quadTextureSprite = "GFX_tab_2_inactive"
+				position = { x = 109 y = @tabheight }
+				font = "cg_16b"
+				buttonText = "SOCIETY"
+				buttonFont = "cg_16b"
+				shortcut = "x"
+				clicksound = "tab_click"
+				Orientation = "LOWER_LEFT"
+			}
+			
+			buttonType = {
+				name = "tab_society_active"
+				quadTextureSprite = "GFX_tab_2_active"
+				position = { x= 109 y = @tabheight }
+				font = "cg_16b"
+				buttonText = "SOCIETY"
+				buttonFont = "cg_16b"
+				clicksound = "tab_click"
+				shortcut = "x"
+				Orientation = "LOWER_LEFT"
+			}
+
+			buttonType = {
+				name = "tab_engineering"
+				quadTextureSprite = "GFX_tab_2_inactive"
+				position = { x= 245 y = @tabheight }
+				font = "cg_16b"
+				buttonText = "ENGINEERING"
+				buttonFont = "cg_16b"
+				shortcut = "c"
+				clicksound = "tab_click"
+				Orientation = "LOWER_LEFT"
+			}
+			
+			buttonType = {
+				name = "tab_engineering_active"
+				quadTextureSprite = "GFX_tab_2_active"
+				position = { x= 245 y = @tabheight }
+				font = "cg_16b"
+				buttonText = "ENGINEERING"
+				buttonFont = "cg_16b"
+				clicksound = "tab_click"
+				shortcut = "c"
+				Orientation = "LOWER_LEFT"
+			}								
+		}												
+	}
+
+	containerWindowType = {
+		name = "technology_view_area_window"
+		size = { width = 600 height = 210 }
+		position = { x = 0 y = 0 }
+		orientation = upper_left
+		moveable = no
+		clipping = yes
+		
+		#GFX_choose_tech_button	
+
+		iconType = {
+			name ="topbar"
+			spriteType = "GFX_scientist_top_bar_physics"
+			position = { x = 130 y = 11 }
+		}
+
+		iconType = {
+			name ="area_icon"
+			spriteType = "GFX_resource_engineering"
+			position = { x = 134 y = 14 }
+		}
+
+		instantTextBoxType={
+			name = "area_name"
+			font = "cg_16b"
+			text = "Physics"
+			position = { x = 156 y = 14 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}		
+
+				
+		#buttonType = {
+		#	name = "dsag"
+		#	position = { x= 1119 y = 69 }
+		#	#size = { x = 411 y = 35 }
+		#	spriteType = "GFX_choose_tech_button"	
+		#	#alwaystransparent = yes
+		#}
+		
+		buttonType = {
+			name = "scientist_background"
+			position = { x = 131 y = 42 }
+			size = { x = 451 y = 35 }
+			spriteType = "GFX_tiles_dark_area_cut_8"	
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "leader_name"
+			font = "malgun_goth_24"
+			text = "TECH_NO_LEADER"
+			position = { x = 140 y = 47 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			text_color_code = "E"
+		}
+
+		OverlappingElementsBoxType = {
+			name = "leader_traits"	
+			position = { x = 20 y = 45 }
+			size = { x=200 y= 32 }
+			format = left
+			Orientation = "UPPER_LEFT"
+		}
+
+		iconType = {
+			name = "modifier_icon"
+			quadTextureSprite = "GFX_modifier_unknown"
+			position = { x = -98 y = 48 }
+			Orientation = "UPPER_RIGHT"
+		}
+
+		instantTextBoxType={
+			name = "modifier_value"
+			font = "cg_16b"
+			text = "+???%"
+			position = { x = -60 y = 52 }
+			maxWidth = 46
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			text_color_code = "G"
+			Orientation = "UPPER_RIGHT"
+		}
+
+		containerWindowType = {
+			name = "leader_window"
+			size = { width = 114 height = 154 }
+			position = { x = 10 y = 12 }
+			clipping = yes
+			
+			buttonType = {
+				name = "type_bg"
+				quadTextureSprite = "GFX_leader_bg_scientist"
+				position = { x = 0 y = 0 }
+				scale = 0.4
+			}			
+			
+			iconType = {
+				name = "portrait"
+				quadTextureSprite = "GFX_portrait_character"
+				position = { x = -95 y = -35 }
+				scale = 0.5
+				alwaysTransparent = yes
+			}
+		
+			iconType = {
+				name ="leader_skill"
+				spriteType = "GFX_leader_skill"
+				position = { x= 0 y = 130 }
+			}				
+		}
+		
+		buttonType = {
+			name = "portrait_frame"
+			position = { x = 4 y = 6 }
+			size = { x = 126 y = 165 }
+			spriteType = "GFX_empty_green_frame"	
+			alwaystransparent = yes
+		}		
+		
+		iconType = {
+			name = "bottom_line"
+			position = { x = 9 y = 212 }
+			spriteType = "GFX_bottom_line_physics"
+			alwaysTransparent = yes
+		}		
+
+		containerWindowType = {
+			name = "no_leader"
+			size = { width = 98 height = 114 }
+			position = { x = 18 y = 30 }
+			
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				position = { x = 0 y =0 }
+			}
+			
+			instantTextBoxType={
+				name = "desc"
+				font = "cg_16b"
+				text = "TECHNOLOGY_NO_LEADER_ASSIGN_DESC"
+				position = { x = -40 y = 20 }
+				maxWidth = 80
+				maxHeight = 80
+				format = centre
+				orientation = "CENTER_UP"
+			}
+		}
+
+		containerWindowType = {
+			name = "choose"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+
+			buttonType =
+			{
+				name = "select"
+				quadTextureSprite = "GFX_button_411_58_animated"   #GFX_outliner_member_bg
+				position = { x= 137 y=84  }
+				size = { x = 411 y = 85 }
+#				buttonText = "TECH_VIEW_RESEARCH_NEW_SELECT"
+#				buttonFont = "cg_16b"
+				Orientation = "UPPER_LEFT"
+				clicksound = ui_click_research_tab
+			}
+
+			instantTextBoxType={
+				font = "cg_16b"
+				name = "button_text"
+				text = "TECH_VIEW_RESEARCH_NEW_SELECT"
+				position = { x = 180 y = 116 }
+				maxWidth = 340
+				maxHeight = 20
+				fixedSize = yes
+				format = center
+				alwaysTransparent = yes
+			}			
+		}
+
+		containerWindowType = {
+			name = "research"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+			clipping = yes
+			
+			iconType = {
+				name ="tech_option_bg"
+				spriteType = "GFX_tech_entry_physics_bg"
+				position = { x= 130 y = 81 }
+			}				
+			
+			iconType = {
+				name = "icon"
+				spriteType = "GFX_technology_unknown"
+				position = { x = 134 y = 109 }
+				orientation = "UPPER_LEFT"
+				alwaystransparent = yes
+			}
+			
+			containerWindowType = {
+				name = "icon_frame_box"
+				size = { width = 54 height = 54 }
+				position = { x = 133 y = 108 }
+				
+					background = {
+						name = "icon_frame"
+						spriteType = "GFX_plain_green_frame_tile"
+						alwaystransparent = yes
+					}
+			}
+			
+		#	iconType = {
+		#		name = "eta_bg"
+		#		spriteType = "GFX_eta_slot"
+		#		position = { x = 405 y = 172 }
+		#		orientation = "UPPER_LEFT"
+		#		alwaystransparent = yes
+		#	}			
+
+			iconType = {
+				name ="category_icon"
+				spriteType = "GFX_traits"
+				position = { x= 547 y = 112 }
+				scale = 1.0
+			}
+
+			instantTextBoxType={
+				name = "name"
+				font = "cg_16b"
+				text = ""
+				position = { x = 136 y = 82 }
+				maxWidth = 300
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+			}
+
+			containerWindowType = {
+				name = "tech_progress"
+				clipping = no
+				size = { width = 100% height = 100% }
+
+				iconType = {
+					name = "progress"
+					spriteType = "GFX_tech_research_progressbar"
+					position = { x = 130 y = 163 }
+				}
+
+				instantTextBoxType={
+					name = "eta"
+					font = "cg_16b"
+					text = "? days remaining"
+					position = { x = -230 y = -35 }
+					maxWidth = 180
+					maxHeight = 20
+					fixedSize = yes
+					format = centre
+					orientation = "LOWER_RIGHT"
+				}
+			}
+
+			instantTextBoxType={
+				name = "special_project"
+				font = "cg_16b"
+				text = "Current special project?"
+				position = { x = 130 y = -35 }
+				maxWidth = 400
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+				orientation = "LOWER_LEFT"
+			}
+
+
+			instantTextBoxType={
+				name = "progress_value"
+				font = "cg_16b"
+				text = ""
+				position = { x = -125 y = 83 }
+				maxWidth = 100
+				maxHeight = 20
+				fixedSize = yes
+				format = right
+				text_color_code = "H"
+				orientation = "UPPER_RIGHT"
+			}
+
+			smoothListBoxType = {
+				name ="unlocks"
+				position = { x = 196 y = 109 }
+				size = { x = 350 y = 60 }
+				orientation = "UPPER_LEFT"
+				borderSize = { x=0 y=0 }
+				spacing = 1	
+				alwaystransparent = yes
+			}				
+
+			iconType = {
+				name = "risk_icon"
+				spriteType = "GFX_failure_risk_icon"
+				position = { x = 160 y = 138 }
+				orientation = "UPPER_LEFT"
+			}
+
+			
+
+			buttonType = {
+				name = "cancel_research"
+				quadTextureSprite = "GFX_button_update"
+				position = { x = -59 y = -44 }
+				orientation = "LOWER_RIGHT"
+				scale = 1.0
+				clicksound = back_click
+			}											
+		}						
+	}
+
+	containerWindowType = {
+		name = "technology_view_tech_entry_window"
+		size = { width=550 height=109 }
+
+		buttonType = {
+			name = "select"
+			spriteType = "GFX_tech_option_button"
+			position = { x= 0 y= 0  }
+			clicksound = "research_click_01"
+		}
+		
+		iconType = {
+			name = "tech_option_bg"
+			spriteType = "GFX_tech_entry_physics_bg"
+			position = { x = 13 y = 13 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "always_available"
+			spriteType = "GFX_tech_entry_always_available"
+			position = { x = 8 y = 8 }
+			alwaystransparent = yes
+		}
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_technology_unknown"
+			position = { x = 17 y = 41 }
+			alwaystransparent = yes
+		}
+
+		containerWindowType = {
+			name = "icon_frame_box"
+			size = { width = 54 height = 54 }
+			position = { x = 16 y = 40 }
+			
+			background = {
+				name = "icon_frame"
+				spriteType = "GFX_plain_green_frame_tile"
+				alwaystransparent = yes
+			}
+		}
+		
+		iconType = {
+			name ="category_icon"
+			spriteType = "GFX_traits"
+			position = { x= 430 y = 38 }
+			scale = 1.0
+		}
+		
+		iconType = {
+			name ="gateway_icon"
+			spriteType = "GFX_tech_gateway"
+			position = { x= 430 y = 72 }
+			scale = 1.0
+		}
+
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			text = "Tech name"
+			position = { x = 20 y = 15 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "cost"
+			font = "cg_16b"
+			text = "0"
+			position = { x = 355 y = 15 }
+			maxWidth = 100
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+			text_color_code = "H"
+			#alwaystransparent = yes
+		}
+
+		smoothListBoxType = {
+			name ="unlocks"
+			position = { x = 80 y = 41 }
+			size = { x = 350 y = 60 }
+			orientation = "UPPER_LEFT"
+			borderSize = { x=0 y=0 }
+			spacing = 1	
+			alwaystransparent = yes
+		}		
+
+		iconType = {
+			name = "risk_icon"
+			spriteType = "GFX_failure_risk_icon"
+			position = { x = -32 y = -32 }
+			orientation = "LOWER_RIGHT"
+		}									
+	}
+
+	containerWindowType = {
+		name = "technology_view_tech_researched_entry_window"
+		size = { width=420 height=90 }
+		position = { x = 0 y = 0 }
+		orientation = upper_left
+		moveable = no
+		clipping = no
+
+		
+		iconType = {
+			name = "tech_option_bg"
+			spriteType = "GFX_tech_entry_physics_bg"
+			position = { x = 4 y = 5 }
+			orientation = upper_left
+		}	
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_technology_unknown"
+			position = { x = 8 y = 33 }
+			orientation = "UPPER_LEFT"
+		}
+		
+		containerWindowType = {
+			name = "icon_frame_box22"
+			size = { width = 54 height = 54 }
+			position = { x = 7 y = 32 }
+			
+				background = {
+					name = "icon_frame22"
+					spriteType = "GFX_plain_green_frame_tile"
+				}
+		}
+
+		iconType = {
+			name ="category_icon"
+			spriteType = "GFX_traits"
+			position = { x= 421 y = 36 }
+			scale = 1.0
+		}
+
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			text = "Tech name"
+			position = { x = 10 y = 6 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		instantTextBoxType={
+			name = "cost"
+			font = "cg_16b"
+			text = "240"
+			position = { x = 350 y = 7 }
+			maxWidth = 100
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+			text_color_code = "G"
+			pdx_tooltip = "TECH_BASE_COST"
+		}
+
+		iconType = {
+			name = "risk_icon"
+			spriteType = "GFX_failure_risk_icon"
+			position = { x = -32 y = -32 }
+			orientation = "LOWER_RIGHT"
+		}		
+
+		smoothListBoxType = {
+			name ="unlocks"
+			position = { x = 70 y = 33 }
+			size = { x = 350 y = 60 }
+			orientation = "UPPER_LEFT"
+			borderSize = { x=0 y=0 }
+			spacing = 1	
+			alwaystransparent = yes
+		}													
+	}
+
+	containerWindowType = {
+		name = "technology_view_unlock_entry"
+		size = { width = 340 height = 60 } #Height will be changed by code according to requirements
+		position = { x = 0 y = 0 }
+		clipping = yes
+
+		instantTextBoxType={
+			name = "desc"
+			font = "cg_16b"
+			text = ""
+			position = { x = 5 y = 0 } # Please don't move from (0,0)
+			maxWidth = 337
+			maxHeight = 60
+			format = left
+			fixedsize = yes
+		}						
+	}
+
+	containerWindowType = {
+		name = "technology_view_unlock_entry_tile_blocker"
+		size = { width = 340 height = 60 }
+		position = { x = 0 y = 0 }
+		clipping = yes
+
+		instantTextBoxType={
+			name = "header"
+			font = "cg_16b"
+			text = "TECH_UNLOCK_TILE_BLOCKER"
+			position = { x = 5 y = 0 }
+			maxWidth = 340
+			maxHeight = 60
+			format = left
+			fixedsize = yes
+		}
+
+		OverlappingElementsBoxType = {
+			name = "box"
+			position = { x = 3 y = 16 }
+			size = { x = 350 y = 46 }
+			spacing = 1
+		}						
+	}
+
+	containerWindowType = {
+		name = "technology_view_unlock_entry_resource"
+		size = { width = 340 height = 60 }
+		position = { x = 0 y = 0 }
+		clipping = yes
+
+		instantTextBoxType={
+			name = "header"
+			font = "cg_16b"
+			text = "TECH_UNLOCK_RESOURCE"
+			position = { x = 5 y = 0 }
+			maxWidth = 230
+			maxHeight = 60
+			format = left
+			fixedsize = yes
+		}
+
+		OverlappingElementsBoxType = {
+			name = "box"
+			position = { x = 10 y = 0 }
+			size = { x = 350 y = 46 }
+			spacing = 8
+		}						
+	}
+
+	containerWindowType = {
+		name = "technology_view_unlock_entry_component"
+		size = { width = 340 height = 40 }
+		position = { x = 0 y = 0 }
+		clipping = yes
+
+		instantTextBoxType={
+			name = "header"
+			font = "cg_16b"
+			text = "TECH_UNLOCK_RESOURCE"
+			position = { x = 5 y = -2 }
+			maxWidth = 320
+			maxHeight = 18
+			format = left
+			fixedsize = yes
+		}
+
+		iconType = {
+			name = "single_component_icon"
+			spriteType = "GFX_component_slot_icons"
+			position = { x = 315 y = -2 }
+			frame = 2
+		}
+
+		OverlappingElementsBoxType = {
+			name = "box"
+			position = { x = 3 y = 16 }
+			size = { x = 350 y = 22 }
+			spacing = 8
+		}						
+	}	
+
+	containerWindowType = {
+		name = "technology_view_tile_blocker"
+		size = { width = 50 height = 50 }
+		position = { x = 0 y = 0 }
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_tile_frame_blocker"
+			position = { x = 0 y = 0 }
+			scale = 0.5
+		}				
+	}
+
+	containerWindowType = {
+		name = "technology_view_resource"
+		size = { width = 20 height = 20 }
+		position = { x = 0 y = 0 }
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_resource"
+			position = { x = 0 y = 0 }
+		}				
+	}
+
+	containerWindowType = {
+		name = "technology_view_component_size"
+		size = { width = 18 height = 24 }
+		position = { x = 0 y = 0 }
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_component_slot_icons"
+			position = { x = 0 y = 0 }
+		}				
+	}
+
+	containerWindowType = {
+		name = "technology_researched_dialog_window"
+		size = { width=564 height=330 }
+		position = { x = 0 y = 0 }     
+		orientation = center
+		origo = center
+		moveable = yes
+		clipping = yes
+		fade_time = 750
+        fade_type = smoothstep
+     #  fade_type = accelerated
+     #  fade_type = decelerate
+     #  fade_type = smoothstep
+     #  fade_type = linear
+
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}		
+		
+
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -16 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 6 y = 21 }
+			alwaysTransparent = yes
+		}	
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -46 y = 17 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+		}
+
+		instantTextBoxType={
+			name = "header"
+			font = "malgun_goth_24"
+			text = "RESEARCH_FINISHED_TITLE"
+			position = { x = 20 y = 4 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		containerWindowType = {
+			name = "bg_frame_box"
+			size = { width = 490 height = 200 }
+			position = { x = 37 y = 60 }
+			
+				background = {
+					name = "bg_frame"
+					spriteType = "GFX_clean_frame_area"
+					alwaystransparent = yes
+				}
+		}
+		
+		iconType = {
+			name = "tech_option_bg"
+			spriteType = "GFX_tech_entry_physics_bg"
+			position = { x = 57 y = 79 }
+			orientation = upper_left
+			alwaystransparent = yes
+		}		
+
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_technology_unknown"
+			position = { x = 61 y = 106 }
+			orientation = "UPPER_LEFT"
+			alwaystransparent = yes
+		}
+
+		containerWindowType = {
+			name = "icon_frame_box"
+			size = { width = 54 height = 54 }
+			position = { x = 60 y = 106 }
+			
+				background = {
+					name = "icon_frame"
+					spriteType = "GFX_plain_green_frame_tile"
+					alwaystransparent = yes
+				}
+		}
+		
+		iconType = {
+			name ="category_icon"
+			spriteType = "GFX_traits"
+			position = { x= 471 y = 111 }
+			scale = 1.1
+		}
+
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			text = "Tech name"
+			position = { x = 65 y = 81 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "cost"
+			font = "cg_16b"
+			text = ""
+			position = { x = 396 y = 81 }
+			maxWidth = 100
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+			text_color_code = "H"
+			alwaystransparent = yes
+		}
+
+		smoothListBoxType = {
+			name ="unlocks"
+			position = { x = 125 y = 108 }
+			size = { x = 350 y = 60 }
+			orientation = "UPPER_LEFT"
+			borderSize = { x = 0 y = 0 }
+			spacing = 1	
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "researched_desc"
+			font = "cg_16b"
+			text = ""
+			position = { x = 57 y = 162 }
+			maxWidth = 460
+			maxHeight = 100
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			#alwaystransparent = yes
+			text_color_code = "E"
+		}
+
+		buttonType =	{
+			name = "close_button"
+			quadTextureSprite = "GFX_standard_button_200_34_button"
+			position = { x= 29 y = -60 }
+			text = "CLOSE"
+			buttonFont = "cg_16b"
+			Orientation = "LOWER_LEFT"
+			pdx_tooltip = "CLOSE_TITLE"
+		}
+
+		buttonType =	{
+			name = "new_research"
+			quadTextureSprite = "GFX_standard_button_200_34_button"
+			position = { x= -253 y = -60 }
+			text = "TECH_NEW_RESEARCH"
+			buttonFont = "cg_16b"
+			Orientation = "LOWER_RIGHT"
+		}			
+	}		
+}

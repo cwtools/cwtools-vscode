@@ -1,0 +1,54 @@
+guiTypes = {
+
+	containerWindowType = {
+		name = "shipdesign_dialog"
+		position = { x=200 y=-116 }
+		size = { width=400 height=232 }
+		moveable = yes
+		Orientation = upper_left
+		
+		background = {
+				name = "background"
+				quadTextureSprite ="GFX_test_message_icon"
+		}
+		
+		buttonType = {
+			name = "warp"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 120 y = 50  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "WARP"
+			buttonFont = "cg_16b"
+		}
+		
+		buttonType = {
+			name = "hyperdrive"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 120 y = 100  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "HYPERDRIVE"
+			buttonFont = "cg_16b"
+		}
+		
+		buttonType = {
+			name = "wormhole"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 120 y = 150  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "WORMHOLE"
+			buttonFont = "cg_16b"
+		}
+		
+		instantTextBoxType={
+			position = { x = 0 y = 20 }
+			name = "title"
+			font = "malgun_goth_24"
+			borderSize = {x = 0 y = 0 }	
+			maxWidth = 400
+			maxHeight = 20
+			text = "CHOOSE_FTL_TYPE"	
+			orientation = "UPPER_LEFT"
+			format = centre
+		}	
+	}
+}

@@ -1,0 +1,131 @@
+guiTypes = {
+
+	###
+	### Top bar window
+	###
+	
+	containerWindowType = {
+		name = "navbar_view"
+		position = { x = 124 y = 36 }
+		size = { width = 1030 height = 88 }
+		clipping = yes
+
+		containerWindowType = {
+			name = "navbar_background_container"
+			size = { width = 1030 height = 150 }
+
+			background = {
+				name = "background"
+				spriteType = "GFX_plain_bg_tile"
+			}
+		}
+
+		iconType = {
+			name = "empire_header_line"
+			spriteType = "GFX_line_center"
+			orientation = center
+			centerPosition = yes
+			position = { x = 0 y = -8 }
+			scale = 0.85
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = 440 y = -13 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "header"
+			font = "large_title_font"
+			position = { x = 120 y = -3 }
+			maxWidth = 800
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			alwaysTransparent = yes
+			
+		}
+		
+		
+		
+		containerWindowType = {
+			name = "tabs_window"
+			position = { x = 0 y = -48 }
+			size = { width = 1030 height = 48 }
+			orientation = lower_left
+			clipping = no
+
+			iconType = {
+				name = "tab_lb"
+				spriteType = "GFX_controller_icon_lb"
+				position = { x = 12 y = 8}
+			}
+
+			iconType = {
+				name = "navbar_lb_bottom"
+				spriteType = "GFX_navbar_tab_inactive"
+				position = { x = -5 y = -17 }
+				orientation = lower_left
+				scale = 0.66
+			}
+
+			gridboxType = {
+				name = "tabs"
+				size = { width = 1030 height = 48 }
+				position = { x = 37 y = 0}
+				slotSize = { width = 73 height = 48 }
+				max_slots_vertical = 1
+				max_slots_horizontal = 12
+				format = LOWER_LEFT
+			}
+
+			iconType = {
+				name = "tab_rb"
+				spriteType = "GFX_controller_icon_rb"
+				position = { x = -39 y = 8}
+				orientation = upper_right
+			}
+
+			iconType = {
+				name = "navbar_rb_bottom"
+				spriteType = "GFX_navbar_tab_inactive"
+				position = { x = -75 y = -17 }
+				orientation = lower_right
+				scale = 0.66
+			}
+		}
+	}
+
+	###
+	### Tab entries
+	###
+
+	containerWindowType = {
+		name = "navbar_tab_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 73 height = 48 }
+
+		iconType = {
+			name = "navbar_tab_icon"
+			spriteType = "GFX_navbar_icons_galaxy"
+			position = { x = 16 y = 8 }
+			scale = 0.75
+			orientation = center_up
+			frame = 2
+		}
+
+		iconType = {
+			name = "navbar_tab_arrow"
+			spriteType = "GFX_navbar_tab_arrow"
+			position = { x = 0 y = -17 }
+			orientation = center_down
+			scale = 0.66
+			frame = 2
+		}
+	}
+	
+	
+}
+

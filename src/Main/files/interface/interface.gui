@@ -1,0 +1,185 @@
+guiTypes = {
+
+	windowType = {
+		name = "interface"
+		backGround=""
+		position = { x=0 y=0 }	
+		size = { x=64 y=64 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+			
+		guiButtonType =
+		{
+			name = "Generate"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 0  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Generate"
+			buttonFont = "cg_16b"
+		}
+		guiButtonType =
+		{
+			name = "Random"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 64  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Random"
+			buttonFont = "cg_16b"
+		}		
+		guiButtonType =
+		{
+			name = "Previous"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 128  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Previous"
+			buttonFont = "cg_16b"
+		}	
+		guiButtonType =
+		{
+			name = "Reload"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 192  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Reload"
+			buttonFont = "cg_16b"
+		}			
+	}
+	
+	windowType = {
+		name = "combat"
+		backGround=""
+		position = { x=0 y=0 }	
+		size = { x=64 y=64 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = yes
+			
+		guiButtonType =
+		{
+			name = "Setup"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 0  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Setup"
+			buttonFont = "cg_16b"
+			shortcut = "s"
+		}
+		guiButtonType =
+		{
+			name = "Turn"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 64  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Turn"
+			buttonFont = "cg_16b"
+			shortcut = "t"
+		}
+		guiButtonType =
+		{
+			name = "Simulate"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 128  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Simulate 10"
+			buttonFont = "cg_16b"
+			shortcut = "u"
+		}
+		
+		guiButtonType =
+		{
+			name = "Calibrate"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = -70  }
+			Orientation = "LOWER_LEFT"
+			buttonText = "Calibrate"
+			buttonFont = "cg_16b"
+		}
+		guiButtonType =
+		{
+			name = "Reset"
+			quadTextureSprite = "GFX_button"
+			position = { x= 200 y = 128  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "Reset"
+			buttonFont = "cg_16b"
+		}		
+		guiButtonType =
+		{
+			name = "control_0"
+			quadTextureSprite = "GFX_button"
+			position = { x= 200 y = 0  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "0:AI"
+			buttonFont = "cg_16b"
+		}
+		guiButtonType =
+		{
+			name = "control_1"
+			quadTextureSprite = "GFX_button"
+			position = { x= 400 y = 0  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "1:AI"
+			buttonFont = "cg_16b"
+		}
+		instantTextBoxType={
+			name = "info"
+			font = "cg_16b"
+			borderSize = { x=16 y=16 }
+			position = { x= 0 y= 192 }
+			maxWidth = 400
+			maxHeight = 256
+			alwaystransparent = yes
+		}
+		
+		listboxType = 
+		{
+			name ="abilities"
+			position = { x = 0 y = 440 }
+			backGround=""
+			size = { x=276 y =300}
+			Orientation = "UPPER_LEFT"
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 0 y = 0}
+		}
+
+		instantTextBoxType={
+			name = "wins"
+			font = "cg_16b"
+			borderSize = { x=16 y=16 }
+			position = { x= 200 y= 64 }
+			maxWidth = 400
+			maxHeight = 16
+			alwaystransparent = yes
+		}
+	}
+	
+	windowType = {
+		name = "ability"
+		backGround=""
+		position = { x=0 y=0 }	
+		size = { x=64 y=48 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+			
+		guiButtonType =
+		{
+			name = "button"
+			quadTextureSprite = "GFX_button"
+			position = { x= 0 y = 0  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "ability"
+			buttonFont = "cg_16b"
+		}
+	
+	}
+	
+}

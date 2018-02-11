@@ -1,0 +1,132 @@
+guiTypes = {
+	containerWindowType = {
+		name = "credits_view_window"
+		position = { x= -300 y = -300 }
+		size = { width=660 height=600 }
+		orientation = center
+
+		background = {
+			name ="background"
+			quadTextureSprite = "GFX_tile_large_bg"
+			position = { x = 0 y = 0 }
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -5 y = -5 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line"
+			position = { x = 10 y = 35 }
+		}
+
+		instantTextBoxType={
+			name = "load_label"
+			font = "large_title_font"
+			position = { x= 26 y= 8 }
+			maxWidth = 300
+			maxHeight = 16
+			text = "CREDITS_VIEW"
+			Orientation = "UPPER_LEFT"
+			format = left
+		}
+
+		smoothListBoxType = {
+			name = "list"
+			position = { x = 60 y= 50 }
+			orientation = "UPPER_LEFT"
+			priority = 100
+			size = { x = 550 y = 485 }
+			borderSize = { x=0 y=0 }
+			scrollbartype = "standardlistbox_slider"
+			spacing = 4
+		}
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_button_animated_142"
+			position = { x = -75 y = -65 }
+			orientation = "CENTER_DOWN"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+			buttontext = "CLOSE"
+			font = "malgun_goth_24"
+			actionShortCut = "cancel"
+		}
+		
+		instantTextBoxType = {
+			name = "close_button_gamepad_indicator"
+			format = center
+			position = { x = -80 y = -45 }
+			orientation = "CENTER_DOWN"
+			maxWidth = 180
+			maxHeight = 20
+			font = "malgun_goth_24"
+			text = "CLOSE_GAMEPAD_INDICATOR"
+		}
+	}
+
+	containerWindowType = {
+		name = "credits_header_entry_window"
+		size = { width = 550 height = 30 }
+		position = { x = 0 y = 0 }
+		orientation = upper_right
+		moveable = no
+
+		instantTextBoxType = {
+			name = "text"
+			font = "malgun_goth_24"
+			text = ""
+			position = { x = 0 y = 0 }
+			maxWidth = 550
+			maxHeight = 20
+			fixedSize = yes
+			orientation = "UPPER_LEFT"
+			format = centre
+		}
+	}
+
+	containerWindowType = {
+		name = "credits_subheader_entry_window"
+		size = { width = 550 height = 20 }
+		position = { x = 0 y = 0 }
+		orientation = upper_right
+		moveable = no
+
+		instantTextBoxType = {
+			name = "text"
+			font = "malgun_goth_24"
+			text = ""
+			position = { x = 0 y = 0 }
+			maxWidth = 550
+			maxHeight = 20
+			fixedSize = yes
+			orientation = "UPPER_LEFT"
+			format = centre
+		}
+	}
+
+	containerWindowType = {
+		name = "credits_entry_window"
+		size = { width = 550 height = 20 }
+		position = { x = 0 y = 0 }
+		orientation = upper_right
+		moveable = no
+
+		instantTextBoxType = {
+			name = "text"
+			font = "cg_16b"
+			text = ""
+			position = { x = 0 y = 0 }
+			maxWidth = 550
+			maxHeight = 20
+			fixedSize = yes
+			orientation = "UPPER_LEFT"
+			format = centre
+		}
+	}
+}

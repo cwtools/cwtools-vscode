@@ -1,0 +1,106 @@
+guiTypes = {
+	containerWindowType = {
+		name = "station_selection_window"
+		size = { width = 330 height = 400 }
+		
+		orientation = center
+		position = { x = -150 y = -200 }
+		
+		moveable = yes
+		
+		background = {
+			name = "station_selection_window_background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+		
+		instantTextBoxType={
+			name = "title"
+			position = { x = 20 y = 10 }
+			font = "malgun_goth_24"
+			text = "STATION_SELECTION_PICK_DESIGN"
+			maxWidth = 300
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			vertical_alignment = center
+			text_color_code = "H"
+		}
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close_button_galaxy"
+			position = { x= -40 y = 10  }
+			Orientation = "UPPER_RIGHT"
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE_TITLE"
+			clicksound = "back_click"
+			actionShortcut = "cancel"
+		}
+		
+		containerWindowType = {
+			name = "leader_frame_box"
+			size = { width = 300 height = 340 }
+			position = { x = 15 y = 50 }
+			
+			background = {
+				name = "leader_frame"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+		}
+		
+		smoothListboxType = {
+			name = "entries"
+			position = { x = 30 y = 65 }
+			size = { x = 263 y = 315 }
+			borderSize = { x = 0 y = 0 }
+			orientation = "UPPER_LEFT"
+			scrollbartype = "standardlistbox_slider"
+			autohide_scrollbar = yes
+		}
+	}
+	
+	containerWindowType = {
+		name = "station_selection_window_entry"
+		size = { width = 260 height = 50 }
+		
+		background = {
+			name = "station_selection_window_entry_background"
+			spriteType = "GFX_tiles_frame"
+		}
+
+		containerWindowType = {
+            name = "selected"
+            position = { x = 0 y = 0 }
+            size = { width = 100% height = 100% }
+            background = {
+                name = "selected_bg"
+                spriteType = "GFX_glow_tile_orange_no_padding"
+                alwaysTransparent = yes
+            }
+        }
+		
+		instantTextBoxType={
+			name = "name"
+			position = { x = 5 y = 0 }
+			font = "cg_16b"
+			text = "STATION_NAME"
+			maxWidth = 250
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			text_color_code = "E"
+		}
+		
+		instantTextBoxType={
+			name = "desc"
+			position = { x = 5 y = 16 }
+			font = "cg_16b"
+			text = "STATION_DESC"
+			maxWidth = 250
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+		}
+	}
+}

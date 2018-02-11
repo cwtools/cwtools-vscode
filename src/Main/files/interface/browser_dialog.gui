@@ -1,0 +1,115 @@
+guiTypes = {
+	##########################
+	## Browse Entity Dialog ##
+	##########################
+	containerWindowType = {
+		name = "browser_dialog"
+		position = { x=0 y=0 }		
+		size = { width=100% height=100% }
+		#moveable = 0
+		background = {
+			name = "black_overlay"
+			position = { x=0 y=0 }
+			spriteType = "gfx_transparency_white"
+		}
+
+		containerWindowType = {
+			name = "dialog_window"
+			position = { x=-200 y=100 }	
+			size = { width=400 height=800 }
+			orientation = center_up
+			
+			background = {
+				name = "background"	
+				quadTextureSprite ="GFX_tile_outliner_bg"
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_hex_bg"
+				position = { x = -10 y = -8 }
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "header_line"
+				spriteType = "GFX_line"
+				position = { x = 6 y = 21 }
+			}
+			
+			instantTextBoxType={
+				position = { x = 16 y = 6 }
+				name = "title"
+				font = "malgun_goth_24"
+				maxWidth = 400
+				maxHeight = 40
+				text = ""	
+				format = left
+			}
+			buttonType = {
+				name = "close"
+				position = { x = 352 y = 16 }
+				quadTextureSprite = "GFX_close"
+			}
+			
+			containerWindowType = {
+				name = "list_bg"
+				position = { x=10 y=65 }	
+				size = { width=380 height=600 }
+				
+				background = {
+					name = "background"	
+					quadTextureSprite ="gfx_message_bg"
+				}
+			}
+			
+			listBoxType = {
+				name ="list"
+				position = { x=20 y=75 }	
+				size = { x=345 y=580 }
+				scrollbartype = "standardlistbox_slider"
+			}
+			
+			instantTextBoxType={
+				position = { x = 20 y = 740 }
+				name = "filter_label"
+				font = "cg_16b"	
+				maxWidth = 400
+				maxHeight = 40
+				text = "SEARCH_TITLE"	
+			}
+			
+			editBoxType = { instantTextBoxType = no
+				position = { x = 10 y = 755 }
+				name = "filter"
+				textureFile = "gfx/interface/tiles/small_tiles_dialog2.dds"
+				font = "cg_16b"
+				size = { x=380 y=35 }
+				borderSize = { x=5 y=1 }
+			}
+		}
+	}
+	#########
+	# Entry #
+	#########
+	windowType = {
+		name = "browser_entry"
+		position = { x = 0 y = 0 }
+		size = { x = 380 y = 25 }
+
+		guiButtonType = {
+			name = "button"	
+			quadTextureSprite ="GFX_planet_bg_tile"
+			position = { x = 0 y = 1 }
+			size = { x = 340 y = 23 }
+		}
+		
+		instantTextBoxType = {
+			name = "name" 
+			position = { x = 5 y = 5 }
+			font = "cg_16b"	
+			maxWidth = 380
+			maxHeight = 40
+		}
+	}
+}

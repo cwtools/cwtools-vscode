@@ -1,0 +1,96 @@
+guiTypes = {
+
+	containerWindowType = {
+		name = "ambient_object_view"
+		position = { x=0 y=-300 }	
+		size = { width=400 height=250 }
+		Orientation = lower_left
+		upsound = click
+	
+		containerWindowType = {
+			name = "fleet_view_background"
+			position = { x=6 y=10 }
+			size = { width=478 height=250 }
+			moveable = no
+			Orientation = upper_left
+			
+			backGround = {
+				name ="planet_background"
+				quadTextureSprite = "GFX_tile_outliner_bg"
+			}	
+		}
+		
+		containerWindowType = {
+			name = "main_screen_bg_box"
+			size = { width = 462 height = 150 }
+			position = { x = 10 y = 65 }
+			
+				background = {
+					name = "main_screen_bg"
+					spriteType = "GFX_tiles_frame_light"
+				}
+		}
+		
+	#	iconType = {
+	#		name ="top"
+	#		spriteType = "GFX_fleet_view_top"
+	#		position = { x = 0 y = 9990 }
+	#		Orientation = upper_left
+	#	}	
+	
+	#	iconType = {
+	#		name ="bottom"
+	#		spriteType = "GFX_fleet_view_bottom"
+	#		position = { x = 0 y = -9910 }
+	#		Orientation = lower_left
+	#	}	
+		
+		instantTextBoxType={
+			name = "name"
+			font = "malgun_goth_24"
+			text = ""
+			position = { x = 25 y = 20 }
+			maxWidth = 556
+			maxHeight = 50
+			fixedsize = yes
+			format = left
+		}
+		
+		iconType = {
+			name ="line"
+			spriteType = "GFX_line"
+			position = { x = 10 y = 38 }
+		}	
+	
+		
+		instantTextBoxType={
+			name = "desc"
+			font = "cg_16b"
+			text = ""
+			position = { x = 30 y = 80 }
+			maxWidth = 396
+			maxHeight = 50
+			fixedsize = yes
+			format = left
+		}
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close_square"
+			position = { x = 433 y = 26  }
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE_TITLE"
+			clicksound = "back_click"
+		}	
+		
+		
+		buttonType = {
+			name = "focus"
+			quadTextureSprite ="GFX_fleetview_focus"
+			position = { x = 397 y = 26  }
+			pdx_tooltip = "TOOLTIP_AMBIENT_OBJECT_FOCUS"
+			clicksound = "back_click"
+			shortCut = "q"
+		}	
+	}
+}

@@ -1,0 +1,56 @@
+spriteTypes = {
+
+	spriteType = {
+		name = "GFX_alerticons"
+		texturefile = "gfx/interface/icons/alerticons.dds"
+		noOfFrames = 29
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_alerticon_banner_low"
+		texturefile = "gfx/interface/icons/alert_icon_1.dds"
+		noOfFrames = 1
+		transparencecheck = yes
+	}
+
+	spriteType = {
+		name = "GFX_alerticon_banner_med"
+		texturefile = "gfx/interface/icons/alert_icon_2.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 1
+		animation = {
+			animationmaskfile = "gfx/interface/icons/alert_icon_mask.dds"
+			animationtexturefile = "gfx/interface/icons/alert_icon_2_anim.dds"
+			animationrotation = -45.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_alerticon_banner_high"
+		texturefile = "gfx/interface/icons/alert_icon_3.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 1
+		animation = {
+			animationmaskfile = "gfx/interface/icons/alert_icon_mask.dds"
+			animationtexturefile = "gfx/interface/icons/alert_icon_3_anim.dds"
+			animationrotation = 0.0
+			animationlooping = yes
+			animationtime = 4.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "rotating"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.5 y = 1.5 }
+			animationframes = { 1 2 3 }
+		}
+	}
+}

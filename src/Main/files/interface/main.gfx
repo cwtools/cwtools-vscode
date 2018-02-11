@@ -1,0 +1,1172 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_topbar_running"
+		texturefile = "gfx/interface/topbar/running_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		animation = {
+			animationmaskfile = "gfx/interface/topbar/paused_mask.dds"
+			animationtexturefile = "gfx/interface/topbar/running_texture.dds"
+			animationrotation = -90.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_topbar_paused"
+		texturefile = "gfx/interface/topbar/paused_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		animation = {
+			animationmaskfile = "gfx/interface/topbar/paused_mask.dds"
+			animationtexturefile = "gfx/interface/topbar/paused_texture.dds"
+			animationrotation = -90.0
+			animationlooping = yes
+			animationtime = 20000.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_topbar_pause_glow"
+		texturefile = "gfx/interface/topbar/pause_glow_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		animation = {
+			animationmaskfile = "gfx/interface/topbar/pause_glow_mask.dds"
+			animationtexturefile = "gfx/interface/topbar/pause_glow.dds"
+			animationrotation = 0.0
+			animationlooping = yes
+			animationtime = 5.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "pulsing"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_topbar_dropdown_background"
+		texturefile = "gfx/interface/buttons/button_265_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_265_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_142_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 40.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_dropdown_background_selected"
+		texturefile = "gfx/interface/buttons/button_265_animated_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_265_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_142_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 40.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+
+
+	spriteType = {
+		name = "GFX_topbar_technology_button"
+		texturefile = "gfx/interface/buttons/topbar_tech_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_technology_button_selected"
+		texturefile = "gfx/interface/buttons/topbar_tech_button_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_contacts_button"
+		texturefile = "gfx/interface/buttons/topbar_galaxy_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_contacts_button_selected"
+		texturefile = "gfx/interface/buttons/topbar_galaxy_button_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_empire_button"
+		texturefile = "gfx/interface/icons/menu_icon_planets_and_sectors.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_empire_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_planets_and_sectors.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_leaders_button"
+		texturefile = "gfx/interface/icons/menu_icon_leaders.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_leaders_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_leaders.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_factions_button"
+		texturefile = "gfx/interface/icons/modifiers/mod_pop_ethic_shift.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_factions_button_selected"
+		texturefile = "gfx/interface/icons/modifiers/mod_pop_ethic_shift.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_policies_button"
+		texturefile = "gfx/interface/icons/menu_icon_policies_and_edicts.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_policies_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_policies_and_edicts.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_species_button"
+		texturefile = "gfx/interface/icons/menu_icon_species.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_species_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_species.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_ship_designer_button"
+		texturefile = "gfx/interface/icons/menu_icon_ship_designer.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_ship_designer_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_ship_designer.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_expansion_planner_button"
+		texturefile = "gfx/interface/icons/menu_icon_expansion_planner.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_expansion_planner_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_expansion_planner.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_traditions_button"
+		texturefile = "gfx/interface/icons/menu_icon_traditions.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_traditions_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_traditions.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_strategic_resource_button"
+		texturefile = "gfx/interface/icons/menu_icon_strategic_resource.dds" # TODO [HL]: Use proper icon
+		noOfFrames = 1
+	}
+	
+	spriteType = {
+		name = "GFX_topbar_strategic_resource_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_strategic_resource.dds" # TODO [HL]: Use proper icon
+		noOfFrames = 1
+	}
+	
+	spriteType = {
+		name = "GFX_topbar_situation_button"
+		texturefile = "gfx/interface/buttons/topbar_situation_log_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+
+
+	spriteType = {
+		name = "GFX_topbar_situation_button_selected"
+		texturefile = "gfx/interface/buttons/topbar_situation_log_button_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_government_button"
+		texturefile = "gfx/interface/buttons/topbar_government_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_government_button_selected"
+		texturefile = "gfx/interface/buttons/topbar_government_button_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_more_button"
+		texturefile = "gfx/interface/buttons/topbar_more_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_more_button_selected"
+		texturefile = "gfx/interface/buttons/topbar_more_button_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_topbar_button_dropdown"
+		texturefile = "gfx/interface/buttons/topbar_empire_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_topbar_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+
+	spriteType = {
+		name = "GFX_open_galaxy_map"
+		texturefile = "gfx/interface/buttons/open_galaxy_map.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/open_galaxy_map_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.6 y = 1.6 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+#	spriteType = {
+#		name = "GFX_topbar_situation_log_notify_new"
+#		texturefile = "gfx/interface/topbar/topbar_situation_log_notify_new.dds"
+#	}
+
+	spriteType = {
+		name = "GFX_paused_bar_bg"
+		texturefile = "gfx/interface/main/paused_bar.dds"
+	}
+
+	spriteType = {
+		name = "GFX_starsystem_panel"
+		texturefile = "gfx/interface/main/starsystem_panel.dds"
+	}
+
+	spriteType = {
+		name = "GFX_topbar_bar_04"
+		texturefile = "gfx/interface/main/topbar_bar_04.dds"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_topbar_bar_03"
+		texturefile = "gfx/interface/tiles/topbar_bar.dds"
+		borderSize = { x=10 y=10 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+
+	spriteType = {
+		name = "GFX_bottombar_details"
+		texturefile = "gfx/interface/main/bottombar_details.dds"
+	}
+
+	spriteType = {
+		name = "GFX_bottombar_details_left"
+		texturefile = "gfx/interface/main/bottombar_details_left.dds"
+	}
+
+	spriteType = {
+		name = "GFX_message_frame"
+		texturefile = "gfx/interface/icons/message/message_frame.dds"
+		noOfFrames = 2
+	}
+
+	spriteType = {
+		name = "GFX_resource_strategic_top_bar"
+		texturefile = "gfx/interface/icons/resources/strategic.dds"
+	}
+
+	spriteType = {
+		name = "GFX_topbar_menu_button"
+		texturefile = "gfx/interface/buttons/topbar_menu_button.dds"
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_date_plus"
+		texturefile = "gfx/interface/buttons/topbar_date_plus.dds"
+	}
+
+	spriteType = {
+		name = "GFX_topbar_date_minus"
+		texturefile = "gfx/interface/buttons/topbar_date_minus.dds"
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_topbar_background"
+		texturefile = "gfx/interface/main/topbar_background.dds"
+		borderSize = { x=8 y=8 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+
+#	corneredTileSpriteType = {
+#		name = "GFX_order_window"
+#		size= {x=19 y=19 }
+#		texturefile = "gfx/interface/main/order_window.dds"
+#		borderSize = { x=8 y=8 }
+#		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+#	}
+
+	spriteType = {
+		name = "GFX_speed_indicator"
+		texturefile = "gfx/interface/main/speed_indicator.dds"
+		noOfFrames = 6
+		alwaystransparent = yes
+	}
+
+	spriteType = {
+		name = "GFX_test_message_icon"
+		texturefile = "gfx/interface/removed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_default_fallback_texture"
+		texturefile = "gfx/interface/removed.dds"
+	}
+
+	spriteType = {
+		name = "GFX_pi_logo"
+		texturefile = "gfx/interface/icons/logo_paradox_interactive.dds"
+	}
+
+	spriteType = {
+		name = "GFX_pds_logo"
+		texturefile = "gfx/interface/icons/logo_paradox_development_studio.dds"
+	}
+
+	spriteType = {
+		name = "GFX_control_group_window_bg"
+		texturefile = "gfx/interface/main/control_group/control_group_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/main/control_group/control_group_bg_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_control_group_window_army_bg"
+		texturefile = "gfx/interface/main/control_group/control_group_army_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/main/control_group/control_group_bg_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_control_group_window_civilian_bg"
+		texturefile = "gfx/interface/main/control_group/control_group_civilian_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/main/control_group/control_group_bg_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_control_group_window_science_bg"
+		texturefile = "gfx/interface/main/control_group/control_group_science_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/main/control_group/control_group_bg_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_control_group_window_military_bg"
+		texturefile = "gfx/interface/main/control_group/control_group_warship_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/main/control_group/control_group_bg_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	frameAnimatedSpriteType = {
+		name = "GFX_control_group_in_combat_flash"
+		texturefile = "gfx/interface/main/control_group/in_combat_flash.dds"
+		noOfFrames = 10
+		transparencecheck = yes
+		animation_rate_fps = 8
+		looping = yes
+		play_on_show = yes
+		alwaystransparent = yes
+	}
+
+	progressbartype = {
+		name = "GFX_control_group_progress"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/main/control_group/progress.dds"
+		textureFile2 = "gfx/interface/main/control_group/progress_empty.dds"
+		size = { x = 57 y = 8 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	spriteType = {
+		name = "GFX_find"
+		textureFile = "gfx/interface/buttons/search_starsystem.dds"
+	}
+
+	spriteType = {
+		name = "GFX_home"
+		textureFile = "gfx/interface/buttons/homesystem.dds"
+	}
+
+	spriteType = {
+		name = "GFX_mapmode"
+		texturefile = "gfx/interface/buttons/mapmode.dds"
+		noOfFrames = 10
+	}
+	corneredTileSpriteType = {
+		name = "GFX_ship_army_outliner"
+		size= {x=45 y=45 }
+		texturefile = "gfx/interface/tiles/ship_army_outliner.dds"
+		borderSize = { x=14 y=14 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+
+	textSpriteType = {
+		name = "GFX_error_log_button"
+		texturefile = "gfx/interface/buttons/error_log_button.dds"
+		clicksound = click
+	}
+
+	corneredTileSpriteType = {
+		name = "GFX_invisible"
+		size = { x = 32 y = 32 }
+		textureFile = "gfx/interface/tiles/invisible.dds"
+		borderSize= { x = 16 y = 16 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+
+	spriteType = {
+		name = "GFX_special_project"
+		textureFile = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	}
+
+	spriteType = {
+		name = "GFX_event_chain"
+		textureFile = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	}
+
+	spriteType = {
+		name = "GFX_help_icon"
+		texturefile = "gfx/interface/icons/help_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_chat_icon"
+		texturefile = "gfx/interface/icons/chat_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_home_icon"
+		texturefile = "gfx/interface/icons/homesystem.dds"
+	}
+
+	spriteType = {
+		name = "GFX_search_icon"
+		texturefile = "gfx/interface/icons/search_starsystem.dds"
+	}
+
+	spriteType = {
+		name = "GFX_time_bg"
+		texturefile = "gfx/interface/main/time_bg.dds"
+	}
+
+	spriteType = {
+		name = "GFX_start_stop_icons"
+		texturefile = "gfx/interface/icons/topbar_start_stop_icons.dds"
+		noOfFrames = 6
+	}
+
+	spriteType = {
+		name = "GFX_button_60_29"
+		texturefile = "gfx/interface/buttons/button_60_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_60_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_60_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_button_kick"
+		texturefile = "gfx/interface/buttons/button_kick.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "button_29_animated_exploration"
+		texturefile = "gfx/interface/buttons/button_29_animated_exploration.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_button_29_animated_expansion"
+		texturefile = "gfx/interface/buttons/button_29_animated_expansion.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_button_29_animated_exploitation"
+		texturefile = "gfx/interface/buttons/button_29_animated_exploitation.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_button_29_animated_fleet"
+		texturefile = "gfx/interface/buttons/button_29_animated_fleet.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_button_29_animated_survey"
+		texturefile = "gfx/interface/buttons/button_29_animated_survey.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_button_29_animated"
+		texturefile = "gfx/interface/buttons/button_29_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_top_bottom_bar_button_small"
+		texturefile = "gfx/interface/buttons/button_29_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_29_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_29_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_advisor_button"
+		texturefile = "gfx/interface/buttons/advisor_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_advisor_button_animated"
+		texturefile = "gfx/interface/buttons/advisor_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/advisor_button_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/advisor_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 20.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
+	spriteType = {
+		name = "GFX_time_animation"
+		texturefile = "gfx/interface/main/time_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		#noOfFrames = 2
+		animation = {
+			animationmaskfile = "gfx/interface/main/time_animation_mask.dds"
+			animationtexturefile = "gfx/interface/main/time_animation_1.dds"
+			#animationrotation = -90.0
+			animationlooping = yes
+			animationtime = 15.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "rotating_ccw"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			#animationframes = { 1 2 3 }
+		}
+		animation = {
+			animationmaskfile = "gfx/interface/main/time_animation_2_mask.dds"
+			animationtexturefile = "gfx/interface/main/time_animation_2.dds"
+			#animationrotation = 90.0
+			animationlooping = yes
+			animationtime = 25.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "rotating_cw"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			#animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_time_animation_paused"
+		texturefile = "gfx/interface/main/time_bg_orange.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		#noOfFrames = 2
+		animation = {
+			animationmaskfile = "gfx/interface/main/time_animation_mask.dds"
+			animationtexturefile = "gfx/interface/main/time_animation_1_orange.dds"
+			#animationrotation = -90.0
+			animationlooping = yes
+			animationtime = 15.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "rotating_ccw"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			#animationframes = { 1 2 3 }
+		}
+		animation = {
+			animationmaskfile = "gfx/interface/main/time_animation_2_mask.dds"
+			animationtexturefile = "gfx/interface/main/time_animation_2_orange.dds"
+			#animationrotation = 90.0
+			animationlooping = yes
+			animationtime = 25.0
+			animationdelay = 0.0
+			animationblendmode = "add"       #add, multiply, overlay
+			animationtype = "rotating_cw"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			#animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "outliner_button"
+		texturefile = "gfx/interface/buttons/outliner_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/outliner_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_system_cap_icon"
+		texturefile = "gfx/interface/icons/GFX_planet_cap_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_map_mode_default"
+		texturefile = "gfx/interface/icons/map_mode_default.dds"
+		noOfFrames = 2
+	}
+	spriteType = {
+		name = "GFX_map_mode_diplomatic"
+		texturefile = "gfx/interface/icons/map_mode_diplomatic.dds"
+		noOfFrames = 2
+	}
+	spriteType = {
+		name = "GFX_map_mode_opinion"
+		texturefile = "gfx/interface/icons/map_mode_opinion.dds"
+		noOfFrames = 2
+	}
+	spriteType = {
+		name = "GFX_map_mode_attitude"
+		texturefile = "gfx/interface/icons/map_mode_attitude.dds"
+		noOfFrames = 2
+	}
+	spriteType = {
+		name = "GFX_map_mode_sectors"
+		texturefile = "gfx/interface/icons/map_mode_sectors.dds"
+		noOfFrames = 2
+	}
+	spriteType = {
+		name = "GFX_map_mode_neighbours"
+		texturefile = "gfx/interface/icons/map_mode_neighbours.dds"
+		noOfFrames = 2
+	}
+	
+	spriteType = {
+		name = "GFX_map_mode_hyperlanes"
+		texturefile = "gfx/interface/icons/map_mode_hyperlanes.dds"
+		noOfFrames = 2
+	}
+	
+	spriteType = {
+		name = "GFX_map_mode_unions"
+		texturefile = "gfx/interface/icons/map_mode_unions.dds"
+		noOfFrames = 2
+	}	
+
+	spriteType = {
+		name = "GFX_sector_cap_icon"
+		texturefile = "gfx/interface/icons/GFX_sector_cap_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_topbar_shield_decoration"
+		texturefile = "gfx/interface/main/topbar_shield_decoration.dds"
+	}
+
+	spriteType = {
+		name = "GFX_dummy_browser"
+		texturefile = "gfx/interface/transp_white.dds"
+	}
+
+	spriteType = {
+		name = "GFX_crosshair_cursor"
+		texturefile = "gfx/cursors/crosshair_01.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 2
+		animation = {
+			animationmaskfile = "gfx/cursors/crosshair_mask.dds"
+			animationtexturefile = "gfx/cursors/crosshair_anim.dds"
+			animationrotation = -90.0
+			animationlooping = yes
+			animationtime = 1.5
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "pulsing"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1 y = 1 }
+			animationframes = { 1 2 3 }
+		}
+	}
+	
+	spriteType = {
+		name = "GFX_crosshair_cursor_overlay"
+		texturefile = "gfx/cursors/crosshair_overlay.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 1
+		animation = {
+			animationmaskfile = "gfx/cursors/crosshair_overlay_mask.dds"
+			animationtexturefile = "gfx/interface/icons/alert_icon_2_anim.dds"
+			animationrotation = -90.0
+			animationlooping = yes
+			animationtime = 1.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "pulsing"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.1 y = 1.1 }
+			animationframes = { 1 2 3 }
+		}
+	}
+}

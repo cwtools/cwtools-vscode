@@ -1,0 +1,93 @@
+spriteTypes = {
+
+	spriteType = {
+		name = "GFX_at_alliance_with_bg"
+		textureFile = "gfx/interface/waroverview/at_alliance_with_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+		
+	spriteType = {
+		name = "GFX_at_federation_with_bg"
+		textureFile = "gfx/interface/waroverview/at_federation_with_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_waroverview_frame"
+		texturefile = "gfx/interface/tiles/green_frame_tile.dds"
+		borderSize = { x=15 y=15 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_waroverview_background"
+		textureFile = "gfx/interface/tiles/green_bg_tile.dds"
+		borderSize = { x=8 y=8 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	progressbarType = {
+		name = "GFX_war_progressbar"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/fleet_combat_progeress_bar_green.dds"
+		textureFile2 = "gfx/interface/progressbars/fleet_combat_progeress_bar_red.dds"
+		size = { x = 525 y = 20 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+	
+	spriteType = {
+		name = "GFX_war_demand_background"
+		textureFile = "gfx/interface/waroverview/waroverview_demand_background.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+	}
+	
+	spriteType = {
+		name = "GFX_war_demand_vote_background"
+		textureFile = "gfx/interface/waroverview/waroverview_demand_vote_background.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 2
+	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_tiling_window_no_mouseover"
+		texturefile = "gfx/interface/removed.dds"
+		borderSize = { x=8 y=8 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		alwaysTransparent = yes
+	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_black_box_waroverview"
+		texturefile = "gfx/interface/tiles/black_bg_tile.dds"
+		borderSize = { x=5 y=5 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	spriteType = {
+		name = "GFX_waroverview_button_1"
+		texturefile = "gfx/interface/buttons/button_520_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3			
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_520_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_520_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 80.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 } 
+			animationframes = { 1 2 3 }
+		}
+	}
+	
+	spriteType = {
+		name = "GFX_at_war_with_bg"
+		textureFile = "gfx/interface/waroverview/at_war_with_bg.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+}

@@ -1,0 +1,140 @@
+guiTypes = {
+	containerWindowType = {
+		name = "mainmenu_window"
+		size = { width = 100% height = 100% }
+		background = {
+			name ="background"
+			quadTextureSprite = "gfx_transparency_button"
+
+		}
+
+		containerWindowType = {
+			name = "window"
+			orientation = center
+			origo = center
+			size = { width = 360 height = 545 }
+			position = { x = 0 y = -10 }
+
+			background = {
+				name ="background"
+				quadTextureSprite = "GFX_plain_bg_tile"
+				position = { x = 0 y = 0 }
+			}
+
+			iconType = {
+				name ="lines"
+				spriteType = "GFX_mainmenu_lines"
+				position = { x= 75 y = 109 }
+			}
+
+			buttonType =
+			{
+				id = "save"
+				name = "save"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 50  }
+				buttonText = "MAIN_SAVE"
+				buttonFont = "malgun_goth_24"
+				Orientation = "CENTER_UP"
+				oversound = menu_over_01
+				navUp = "resume"
+				navDown = "load"
+			}
+
+			iconType = {
+				name = "ironman_icon"
+				spriteType = "GFX_ironman_icon"
+				position = { x= 80 y = 64 }
+				Orientation = "CENTER_UP"
+				alwaystransparent = yes
+			}
+
+			buttonType =
+			{
+				id = "load"
+				name = "load"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 120  }
+				buttonText = "MAIN_LOAD"
+				buttonFont = "malgun_goth_24"
+				Orientation = "CENTER_UP"
+				oversound = menu_over_01
+				navUp = "save"
+				navDown = "settings"
+			}
+			buttonType =
+			{
+				id = "settings"
+				name = "settings"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 190  }
+				buttonText = "SETTINGS"
+				buttonFont = "malgun_goth_24"
+				Orientation = "CENTER_UP"
+				oversound = menu_over_01
+				navUp = "load"
+				navDown = "resign"
+			}
+			buttonType =
+			{
+				id = "resign"
+				name = "resign"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 260  }
+				buttonText = "MAIN_RESIGN"
+				buttonFont = "malgun_goth_24"
+				Orientation = "CENTER_UP"
+				oversound = menu_over_01
+				navUp = "settings"
+				navDown = "quit"
+			}
+			buttonType =
+			{
+				id = "quit"
+				name = "quit"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 330  }
+				buttonText = "MAIN_QUIT"
+				buttonFont = "malgun_goth_24"
+				Orientation = "CENTER_UP"
+				oversound = menu_over_01
+				navUp = "resign"
+				navDown = "resume"
+			}
+			buttonType =
+			{
+				id = "resume"
+				name = "resume"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 430  }
+				buttonText = "MAIN_RESUME"
+				buttonFont = "malgun_goth_24"
+				shortcut = "ESCAPE"
+				Orientation = "CENTER_UP"
+				clicksound = "back_click"
+				oversound = menu_over_01
+				defaultSelection = yes
+				navUp = "quit"
+				navDown = "save"
+				actionShortcut = "cancel"
+			}
+
+			instantTextBoxType = {
+				name = "version"
+				font = "cg_16b"
+				text = "1337"
+				position = { x= 12 y = 520  }
+				maxWidth = 300
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+			}
+			buttonType = {
+				name = "version_button"
+				spriteType = "GFX_invisible"
+				size = { x = 300 y = 20 }
+				position = { x= 12 y = 520  }
+			}
+		}
+	}
+}

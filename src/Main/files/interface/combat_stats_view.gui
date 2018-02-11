@@ -1,0 +1,1251 @@
+guiTypes = {
+
+	@STAT_W = 400
+	@STAT_H = 20
+	@STAT_H2 = 142
+
+	@leader_y = 75
+	@FLEET_LIST_Y = 175
+	@STAT_LIST_Y = 325
+	@ALT_STAT_LIST_Y = 430
+
+
+	@COMBAT_STAT_W = 64
+	@COMBAT_STAT_H = 64
+
+	containerWindowType = {
+		name = "combat_stats_clearfix"
+		size = { width = @STAT_W height = 10 }
+
+		background = {
+			name = "clearfix"
+			spriteType = "GFX_invisible"
+		}
+	}
+
+	### COMBAT STATS COMBATANT ###
+
+	containerWindowType = {
+		name = "combat_stats_combatant"
+		size = { width = @STAT_W height = 45 }
+
+		buttonType = {
+			name = "flag"
+			spriteType = "GFX_empire_flag_32"
+			position = { x = 1 y = 0 }
+		}
+
+		instantTextBoxType = {
+			name = "fleet_name"
+			font = "malgun_goth_24"
+			text = "fleet name"
+			maxWidth = 350
+			maxHeight = 20
+			position = { x = 35 y = 0 }
+			alwaysTransparent = yes
+			fixedSize = yes
+			text_color_code = "E"
+		}
+
+		instantTextBoxType = {
+			name = "ship_info"
+			font = "cg_16b"
+			maxWidth = 350
+			maxHeight = 20
+			position = { x = 20 y = 23 }
+			#alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "ship_count_lost"
+			font = "cg_16b"
+			maxWidth = 350
+			maxHeight = 20
+			position = { x = 33 y = 23 }
+			format = right
+			#alwaysTransparent = yes
+		}
+	}
+
+	### COMBAT STATS VIEW ###
+
+	containerWindowType = {
+		name = "combat_stats_view"
+		#name = "message_window_dialog_combat_stats"
+		orientation = center
+		origo = center
+		moveable = yes
+		clipping = yes
+		size = { width = 860 height = 500 }
+
+		background = {
+			name = "background"
+			spriteType ="GFX_tile_combat_stats_won_bg"
+		}
+
+		buttonType = {
+			name = "focus"
+			spriteType = "GFX_fleetview_lock_focus"
+			orientation = upper_right
+			position = { x = -75 y = 11 }
+			pdx_tooltip = "FOCUS_ON_TARGET_NOTIFICATION"
+			shortcut = "q"
+			clicksound = "confirmation"
+			actionShortcut = "focus_camera"
+		}
+
+		buttonType = {
+			name = "close"
+			spriteType = "GFX_close_square"
+			orientation = upper_right
+			position = { x = -40 y = 11 }
+			pdx_tooltip = "CLOSE_TITLE"
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			actionShortcut = "cancel"
+		}
+
+		# title
+
+	#	iconType = {
+	#		name = "hex_bg"
+	#		spriteType = "GFX_hex_bg"
+	#		position = { x = -15 y = -15 }
+	#		alwaysTransparent = yes
+	#	}
+
+		iconType = {
+			name = "empire_header_line"
+			spriteType = "GFX_line_long"
+			position = { x = 5 y = 22 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "title"
+			maxWidth = 400
+			maxHeight = 20
+			position = { x = 19 y = 5 }
+			font = "malgun_goth_24"
+			text = "MESSAGE_COMBAT_STATS_TITLE"
+			alwaysTransparent = yes
+		}
+
+		### COMBAT LOCATION, DATE, OUTCOME ###
+
+		instantTextBoxType = {
+			name = "combat_location"
+			font = "malgun_goth_24"
+			text = ""
+			maxWidth = 830
+			maxHeight = 20
+			position = { x = 0 y = 38 }
+			alwaysTransparent = yes
+			format = center
+		}
+
+		### FLEETS LEFT ###
+
+		containerWindowType = {
+			name = "our_leader"
+			size = { width = 10 height = 10 }
+			position = { x = 7 y = @leader_y }
+			clipping = no
+
+			### leader portrait ###
+
+			buttonType = {
+				name = "portrait_bg"
+				spriteType = "GFX_leader_bg_admiral"
+				position = { x = 5 y = 5 }
+				scale = 0.225
+				alwaystransparent = yes
+			}
+
+			containerWindowType = {
+				name = "portrait"
+				size = { width = 75 height = 85 }
+				position = { x = 5 y = 5 }
+				clipping = yes
+
+				iconType = {
+					name = "portrait"
+					spriteType = "GFX_portrait_character"
+					scale = 0.30
+					alwaysTransparent = yes
+					position = { x = -50 y = -15 }
+				}
+			}
+
+			containerWindowType = {
+				name = "portrait_frame"
+				size = { width = 82 height = 95 }
+
+				background = {
+					name = "frame_box"
+					spriteType = "GFX_clean_frame_area"
+					alwaysTransparent = yes
+				}
+			}
+
+			### leader info ###
+
+			instantTextBoxType={
+				name = "name"
+				position = { x = 85 y = 5 }
+				font = "cg_16b"
+				text = "NAME"
+				maxWidth = 220
+				maxHeight = 15
+				fixedSize = yes
+				format = left
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name ="skill"
+				spriteType = "GFX_leader_skill"
+				position = { x= 85 y = 22 }
+			}
+
+			iconType = {
+				name = "experience"
+				spriteType = "GFX_queue_progressbar_192"
+				position = { x = 85 y = 44 }
+			}
+
+			OverlappingElementsBoxType = {
+				name = "traits"
+				position = { x = 86 y = 62 }
+				size = { x = 156 y = 16 }
+				format = left
+			}
+		}
+
+		containerWindowType = {
+			name = "fleets_left"
+			size = { width = @STAT_W height = @STAT_H2 }
+			position = { x = 11 y = @FLEET_LIST_Y }
+			clipping = no
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_frame_extra_light"
+			}
+
+			instantTextBoxType = {
+				name = "ship_count_lost"
+				font = "cg_16b"
+				text = "LOST"
+				maxWidth = 350
+				maxHeight = 20
+				position = { x = 33 y = -18 }
+				format = right
+				#alwaysTransparent = yes
+			}
+
+			smoothListboxType = {
+				name = "list"
+				size = { x = 385 y = 138 }
+				position = { x = 0 y = 2 }
+				scrollbartype = "standardlistbox_slider"
+			}
+		}
+
+		containerWindowType = {
+			name = "fleet_stats_left"
+			size = { width = @STAT_W height = 100 }
+			position = { x = 11 y = @STAT_LIST_Y }
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_frame_extra_light"
+			}
+
+			# OUTGOING DAMAGE TOTAL
+
+			containerWindowType = {
+				name = "outgoing_damage_total"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 10 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "malgun_goth_24"
+					text = "COMBAT_STAT_DAMAGE_TOTAL"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 10 y = -6 }
+					alwaysTransparent = yes
+					text_color_code = "H"
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE HITPOINTS
+
+			containerWindowType = {
+				name = "outgoing_damage_hitpoints"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 30 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "cg_16b"
+					text = "COMBAT_STAT_DAMAGE_HITPOINTS"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 30 y = 0 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE ARMOR
+
+			containerWindowType = {
+				name = "outgoing_damage_armor"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 50 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "cg_16b"
+					text = "COMBAT_STAT_DAMAGE_ARMOR"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 30 y = 0 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE SHIELDS
+
+			containerWindowType = {
+				name = "outgoing_damage_shields"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 70 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "cg_16b"
+					text = "COMBAT_STAT_DAMAGE_SHIELDS"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 30 y = 0 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING HIT RATIO
+
+			#containerWindowType = {
+			#	name = "outgoing_hit_ratio"
+			#	size = { width = @STAT_W height = @STAT_H }
+			#	position = { x = 0 y = 110 }
+            #
+			#	background = {
+			#		name = "stat_hitbox"
+			#		spriteType = "GFX_invisible"
+			#	}
+            #
+			#	instantTextBoxType = {
+			#		name = "stat_name"
+			#		font = "cg_16b"
+			#		text = "COMBAT_STAT_HIT_RATIO"
+			#		maxWidth = 300
+			#		maxHeight = 20
+			#		position = { x = 10 y = 0 }
+			#		alwaysTransparent = yes
+			#	}
+            #
+			#	instantTextBoxType = {
+			#		name = "stat_value"
+			#		font = "cg_16b"
+			#		text = "000"
+			#		format = right
+			#		orientation = upper_right
+			#		maxWidth = 100
+			#		maxHeight = 20
+			#		position = { x = -110 y = 0 }
+			#		alwaysTransparent = yes
+			#	}
+			#}
+		}
+
+		containerWindowType = {
+			name = "fleet_stats_left_variant"
+			size = { width = @STAT_W height = 140 }
+			position = { x = 6 y = @ALT_STAT_LIST_Y }
+
+			# OUTGOING DAMAGE KINETIC
+
+			containerWindowType = {
+				name = "outgoing_damage_kinetic"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 0 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_kinetic"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE ENERGY
+
+			containerWindowType = {
+				name = "outgoing_damage_energy"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 58 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_energy"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE EXPLOSIVE
+
+			containerWindowType = {
+				name = "outgoing_damage_explosive"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 116 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_explosive"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING POINT DEFENCE
+
+			containerWindowType = {
+				name = "outgoing_point_defence"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 174 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_point_defence"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING KILLED STRIKE CRAFTS
+
+			containerWindowType = {
+				name = "outgoing_killed_strike_crafts"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 232 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_strike_craft"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING HIT RATIO
+
+			containerWindowType = {
+				name = "outgoing_hit_ratio"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 290 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_projectiles_hit"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = center
+					maxWidth = 66
+					maxHeight = 20
+					position = { x = 0 y = 42 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# INCOMING EVASION RATIO
+
+			containerWindowType = {
+				name = "incoming_evasion_ratio"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 348 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_projectiles_evaded"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = center
+					maxWidth = 66
+					maxHeight = 20
+					position = { x = 0 y = 42 }
+					alwaysTransparent = yes
+				}
+			}
+		}
+
+		### FLEETS RIGHT ###
+
+		containerWindowType = {
+			name = "their_leader"
+			size = { width = 10 height = 10 }
+			position = { x = 446 y = @leader_y }
+			clipping = no
+
+			### leader portrait ###
+
+			buttonType = {
+				name = "portrait_bg"
+				spriteType = "GFX_leader_bg_admiral"
+				position = { x = 5 y = 5 }
+				scale = 0.225
+				alwaystransparent = yes
+			}
+
+			containerWindowType = {
+				name = "portrait"
+				size = { width = 75 height = 85 }
+				position = { x = 5 y = 5 }
+				clipping = yes
+
+				iconType = {
+					name = "portrait"
+					spriteType = "GFX_portrait_character"
+					scale = 0.30
+					alwaysTransparent = yes
+					position = { x = -50 y = -15 }
+				}
+			}
+			containerWindowType = {
+				name = "portrait_frame"
+				size = { width = 82 height = 95 }
+
+				background = {
+					name = "frame_box"
+					spriteType = "GFX_clean_frame_area"
+					alwaysTransparent = yes
+				}
+			}
+
+			### leader info ###
+
+			instantTextBoxType={
+				name = "name"
+				position = { x = 85 y = 5 }
+				font = "cg_16b"
+				text = "NAME"
+				maxWidth = 220
+				maxHeight = 15
+				fixedSize = yes
+				format = left
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name ="skill"
+				spriteType = "GFX_leader_skill"
+				position = { x= 85 y = 22 }
+			}
+
+			iconType = {
+				name = "experience"
+				spriteType = "GFX_queue_progressbar_192"
+				position = { x = 85 y = 44 }
+			}
+
+			OverlappingElementsBoxType = {
+				name = "traits"
+				position = { x = 86 y = 62 }
+				size = { x = 156 y = 16 }
+				format = left
+			}
+
+			instantTextBoxType = {
+				name = "communicate_with_belligerent"
+				font = "cg_16b"
+				text = "COMBAT_STAT_COMMUNICATE_WITH_BELLIGERENT"
+				maxWidth = 220
+				maxHeight = 15
+				position = { x = 170 y = 15 }
+				fixedSize = yes
+				format = right
+				alwaysTransparent = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "fleets_right"
+			orientation = upper_right
+			origo = upper_right
+			size = { width = @STAT_W height = @STAT_H2 }
+			position = { x = -10 y = @FLEET_LIST_Y }
+			clipping = no
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_frame_extra_light"
+			}
+
+			instantTextBoxType = {
+				name = "ship_count_lost"
+				font = "cg_16b"
+				text = "LOST"
+				maxWidth = 350
+				maxHeight = 20
+				position = { x = 35 y = -18 }
+				format = right
+				#alwaysTransparent = yes
+			}
+
+			smoothListboxType = {
+				name = "list"
+				size = { x = 385 y = 138 }
+				position = { x = 0 y = 2 }
+
+				scrollbartype = "standardlistbox_slider"
+			}
+		}
+
+		containerWindowType = {
+			name = "fleet_stats_right"
+			orientation = upper_right
+			origo = upper_right
+			size = { width = @STAT_W height = 100 }
+			position = { x = -10 y = @STAT_LIST_Y }
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_frame_extra_light"
+			}
+
+			# INCOMING DAMAGE TOTAL
+
+			containerWindowType = {
+				name = "incoming_damage_total"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 10 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "malgun_goth_24"
+					text = "COMBAT_STAT_DAMAGE_TOTAL"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 10 y = -6 }
+					alwaysTransparent = yes
+					text_color_code = "H"
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# INCOMING DAMAGE HITPOINTS
+
+			containerWindowType = {
+				name = "incoming_damage_hitpoints"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 30 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "cg_16b"
+					text = "COMBAT_STAT_DAMAGE_HITPOINTS"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 30 y = 0 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# INCOMING DAMAGE ARMOR
+
+			containerWindowType = {
+				name = "incoming_damage_armor"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 50 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "cg_16b"
+					text = "COMBAT_STAT_DAMAGE_ARMOR"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 30 y = 0 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# INCOMING DAMAGE SHIELDS
+
+			containerWindowType = {
+				name = "incoming_damage_shields"
+				size = { width = @STAT_W height = @STAT_H }
+				position = { x = 0 y = 70 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_name"
+					font = "cg_16b"
+					text = "COMBAT_STAT_DAMAGE_SHIELDS"
+					maxWidth = 300
+					maxHeight = 20
+					position = { x = 30 y = 0 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					orientation = upper_right
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = -115 y = 0 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# INCOMING HIT RATIO
+
+			#containerWindowType = {
+			#	name = "incoming_hit_ratio"
+			#	size = { width = @STAT_W height = @STAT_H }
+			#	position = { x = 0 y = 110 }
+            #
+			#	background = {
+			#		name = "stat_hitbox"
+			#		spriteType = "GFX_invisible"
+			#	}
+            #
+			#	instantTextBoxType = {
+			#		name = "stat_name"
+			#		font = "cg_16b"
+			#		text = "COMBAT_STAT_HIT_RATIO"
+			#		maxWidth = 300
+			#		maxHeight = 20
+			#		position = { x = 10 y = 0 }
+			#		alwaysTransparent = yes
+			#	}
+            #
+			#	instantTextBoxType = {
+			#		name = "stat_value"
+			#		font = "cg_16b"
+			#		text = "000"
+			#		format = right
+			#		orientation = upper_right
+			#		maxWidth = 100
+			#		maxHeight = 20
+			#		position = { x = -110 y = 0 }
+			#		alwaysTransparent = yes
+			#	}
+			#}
+		}
+
+		containerWindowType = {
+			name = "fleet_stats_right_variant"
+			orientation = upper_right
+			origo = upper_right
+			size = { width = @STAT_W height = 140 }
+			position = { x = -15 y = @ALT_STAT_LIST_Y }
+
+			# OUTGOING DAMAGE KINETIC
+
+			containerWindowType = {
+				name = "outgoing_damage_kinetic"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 0 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_kinetic"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE ENERGY
+
+			containerWindowType = {
+				name = "outgoing_damage_energy"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 58 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_energy"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING DAMAGE EXPLOSIVE
+
+			containerWindowType = {
+				name = "outgoing_damage_explosive"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 116 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_explosive"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING POINT DEFENCE
+
+			containerWindowType = {
+				name = "outgoing_point_defence"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 174 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_point_defence"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING KILLED STRIKE CRAFTS
+
+			containerWindowType = {
+				name = "outgoing_killed_strike_crafts"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 232 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_damage_strike_craft"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = right
+					maxWidth = 54
+					maxHeight = 20
+					position = { x = 0 y = 44 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# OUTGOING HIT RATIO
+
+			containerWindowType = {
+				name = "outgoing_hit_ratio"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 290 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_projectiles_hit"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = center
+					maxWidth = 66
+					maxHeight = 20
+					position = { x = 0 y = 42 }
+					alwaysTransparent = yes
+				}
+			}
+
+			# INCOMING EVASION RATIO
+
+			containerWindowType = {
+				name = "incoming_evasion_ratio"
+				size = { width = @COMBAT_STAT_W height = @COMBAT_STAT_H }
+				position = { x = 348 y = -1 }
+
+				background = {
+					name = "stat_hitbox"
+					spriteType = "GFX_invisible"
+					tooltip_mode_enabled = yes
+				}
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_combat_stat_projectiles_evaded"
+					orientation = center_up
+					centerPosition = yes
+					position = { x = 0 y = 33 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					font = "cg_16b"
+					text = "000"
+					format = center
+					maxWidth = 66
+					maxHeight = 20
+					position = { x = 0 y = 42 }
+					alwaysTransparent = yes
+				}
+			}
+		}
+	}
+}

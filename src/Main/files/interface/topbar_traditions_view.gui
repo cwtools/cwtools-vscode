@@ -1,0 +1,950 @@
+@entries_row1_y = 60
+@entries_row2_y = 327
+@entries_column1 = 11
+@entries_column2 = 325
+@entries_column3 = 640
+@entries_column4 = 954
+@entry_h = 260
+@entry_w = 308
+
+guiTypes = {
+
+	################################################################
+	# TRADITION ENTRY POSITIONS
+	################################################################
+
+	positionType = { name = "tr_domination_colonial_viceroys"         	position = { x = 61 y = 55 } }
+	positionType = { name = "tr_domination_protection_racket"         	position = { x = 61 y = 125 } }
+	positionType = { name = "tr_domination_star_lords"                	position = { x = 201 y = 55 } }
+	positionType = { name = "tr_domination_fleet_levies"     	 	  	position = { x = 131 y = 125 } }
+	positionType = { name = "tr_domination_vassal_acculturation"      	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_expansion_colonization_fever"         	position = { x = 96 y = 55 } }
+	positionType = { name = "tr_expansion_galactic_ambition" 		  	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_expansion_a_new_life"                 	position = { x = 131 y = 125 } }
+	positionType = { name = "tr_expansion_courier_network"            	position = { x = 61 y = 125 } }
+	positionType = { name = "tr_expansion_reach_for_the_stars"        	position = { x = 201 y = 55 } }
+	positionType = { name = "tr_discovery_to_boldly_go"            	  	position = { x = 96 y = 55 } }
+	positionType = { name = "tr_discovery_planetary_survey_corps"  	  	position = { x = 96 y = 125 } }
+	positionType = { name = "tr_discovery_science_division"        	  	position = { x = 166 y = 55 } }
+	positionType = { name = "tr_discovery_polytechnic_education"   	  	position = { x = 166 y = 125 } }
+	positionType = { name = "tr_discovery_faith_in_science"        	  	position = { x = 166 y = 195 } }
+	positionType = { name = "tr_harmony_the_greater_good"             	position = { x = 201 y = 55 } }
+	positionType = { name = "tr_harmony_kinship"    			      	position = { x = 131 y = 55 } }
+	positionType = { name = "tr_harmony_utopian_dream" 		          	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_harmony_bulwark_of_harmony"           	position = { x = 96 y = 125 } }
+	positionType = { name = "tr_harmony_mind_and_body"                	position = { x = 61 y = 55 } }
+	positionType = { name = "tr_prosperity_sct"                       	position = { x = 96 y = 55 } }
+	positionType = { name = "tr_prosperity_administrative_operations" 	position = { x = 131 y = 125 } }
+	positionType = { name = "tr_prosperity_fleet_logistical_corps"    	position = { x = 61 y = 125 } }
+	positionType = { name = "tr_prosperity_trans_stellar_corporations"	position = { x = 201 y = 55 } }
+	positionType = { name = "tr_prosperity_pursuit_of_profit"         	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_diplomacy_the_federation"			  	position = { x = 96 y = 55 } }
+	positionType = { name = "tr_adaptability_reproductive_augmentation"	position = { x = 96 y = 55 } }
+	positionType = { name = "tr_diplomacy_entente_coordination"		  	position = { x = 61 y = 125 } }
+	positionType = { name = "tr_diplomacy_survival_fittest"		 	 	position = { x = 61 y = 125 } }
+	positionType = { name = "tr_diplomacy_federal_unity"			  	position = { x = 131 y = 125 } }
+	positionType = { name = "tr_adaptability_environmental_adaptation"	position = { x = 131 y = 125 } }
+	positionType = { name = "tr_diplomacy_dynamic_ecomorphism"		  	position = { x = 201 y = 55 } }
+	positionType = { name = "tr_adaptability_dynamic_ecomorphism"		position = { x = 201 y = 55 } }
+	positionType = { name = "tr_diplomacy_alien_tourism"			  	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_adaptability_hive_mind_synapse"		  	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_adaptability_xenology_center"		  	position = { x = 201 y = 125 } }
+	positionType = { name = "tr_supremacy_master_shipwrights"         	position = { x = 61 y = 55 } }	
+	positionType = { name = "tr_supremacy_war_games"                  	position = { x = 96 y = 125 } }
+	positionType = { name = "tr_supremacy_right_of_conquest"          	position = { x = 131 y = 55 } }
+	positionType = { name = "tr_supremacy_overwhelming_force"         	position = { x = 201 y = 55 } }
+	positionType = { name = "tr_supremacy_great_game"                 	position = { x = 166 y = 125 } }
+	
+	################################################################
+	# ASCENSION PERKS ENTRY POSITIONS
+	################################################################
+	
+	positionType = { name = "ap_0"	position = { x = 15 y = 50 } }
+	positionType = { name = "ap_1"	position = { x = 73 y = 50 } }
+	positionType = { name = "ap_2"	position = { x = 131 y = 50 } }
+	positionType = { name = "ap_3"	position = { x = 189 y = 50 } }
+	positionType = { name = "ap_4"	position = { x = 44 y = 99 } }
+	positionType = { name = "ap_5"	position = { x = 102 y = 99 } }
+	positionType = { name = "ap_6"	position = { x = 160 y = 99 } }
+	positionType = { name = "ap_7"	position = { x = 218 y = 99 } }
+	
+	containerWindowType = {
+		name = "traditions_ascension_perk_entry"
+		size = { width = 44 height = 44 }
+
+		iconType = {
+			name = "icon"
+			position = { x = 9 y = 5 }
+			quadTextureSprite = "GFX_ascension_perk_slot_locked"
+			alwaystransparent = yes
+			scale = 1.0
+		}
+
+		buttonType = {
+			name = "ascension_perk_button"
+			spriteType = "GFX_flag_64_frame"
+			buttonFont = "cg_16b"
+			clicksound = click
+		}
+	
+	}
+
+	################################################################
+	# TRADITION ENTRY
+	################################################################
+
+	containerWindowType = {
+		name = "tradition_entry"
+		size = { width = 44 height = 44 }
+
+		buttonType = {
+			name = "adopt_button"
+			spriteType = "GFX_event_button_452"
+			buttonFont = "cg_16b"
+			clicksound = click
+		}
+		
+		#Need to hook this in
+		#Orange frame to show available traditions
+		iconType = {
+			name = "available_tradition"
+			spriteType = "GFX_tradition_available_button"
+			alwaysTransparent = yes
+			position = { x = -22 y = -22}
+		}
+	}
+
+	################################################################
+	# TRADITION VIEW
+	################################################################
+
+	containerWindowType = {
+		name = "traditions_topbar_view"
+		size = { width = 1272 height = 600 } 
+
+		position = { x = -1270 y = 40 }
+		show_position = { x = 4 y = 40 }
+		hide_position = { x = -1270 y = 40 }
+		animation_time = 200
+		animation_type = decelerated
+
+		orientation = upper_left
+		moveable = no
+		clipping = no
+		show_sound = "interface"
+
+		background = {
+			name = "background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -23 y = -18 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 6 y = 21 }
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "header"
+			font = "malgun_goth_24"
+			text = "TRADITIONS"
+			position = { x = 65 y = 5 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		buttonType = {
+			name = "close"
+			spriteType = "GFX_close"
+			position = { x = -45 y = 16 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+		}		
+		
+		containerWindowType = {
+			name = "tradition_box"
+			size = { width = 600 height = 100 }
+			position = { x = 370 y = 20 }
+
+			instantTextBoxType = {
+				name = "tradition_cost"
+				font = "malgun_goth_24"
+				position = { x = 0 y = -3 }
+				maxWidth = 140
+				maxHeight = 20
+				fixedSize = yes
+				format = right
+			}
+
+			iconType = {
+				name = "progress"
+				spriteType = "GFX_tech_research_progressbar"
+				position = { x = 150 y = -10 }
+			}
+
+			instantTextBoxType = {
+				name = "time_to_next_tradition"
+				font = "malgun_goth_24"
+				text = "11 months"
+				position = { x = 390 y = -3 }
+				maxWidth = 300
+				maxHeight = 20
+				fixedSize = yes
+				format = left
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY DOMINATION
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_domination"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column2 y = @entries_row1_y }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_orange"
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_orange"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType = {
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_domination"
+			}
+
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+			
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_domination_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_single"
+					position = { x = 77 y = 100 }
+				}
+
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_single"
+					position = { x = 217 y = 100 }
+				}				
+				
+				iconType = {
+					name = "arrow_3"
+					spriteType = "GFX_arrow_merge_wide"
+					position = { x = 82 y = 100 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY EXPANSION
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_expansion"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column1 y = @entries_row1_y }
+
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_green"
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_green"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_expansion"
+			}
+
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_expansion_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_double"
+					position = { x = 76 y = 100 }
+				}
+				
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_single"
+					position = { x = 217 y = 100 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY DISCOVERY
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_discovery"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column3 y = @entries_row2_y }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_gray"
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_gray"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType={
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_discovery"
+			}
+
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+			
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+			
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_discovery_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_single"
+					position = { x = 112 y = 100 }
+				}
+
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_single"
+					position = { x = 182 y = 100 }
+				}
+
+				iconType = {
+					name = "arrow_3"
+					spriteType = "GFX_arrow_single"
+					position = { x = 182 y = 170 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY HARMONY
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_harmony"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column4 y = @entries_row1_y }
+		
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_turqoise"
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_turqoise"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+		
+			instantTextBoxType={
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_harmony"
+			}
+			
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+				
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_harmony_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_merge"
+					position = { x = 82 y = 100 }
+				}
+
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_single"
+					position = { x = 217 y = 100 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY PROSPERITY
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_prosperity"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column3 y = @entries_row1_y }
+		
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_yellow"
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_yellow"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType={
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_prosperity"
+			}
+
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+				
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+			
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_prosperity_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_double"
+					position = { x = 76 y = 100 }
+				}
+				
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_single"
+					position = { x = 217 y = 100 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY DIPLOMACY
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_diplomacy"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column2 y = @entries_row2_y }
+
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_blue"
+				alwaysTransparent = yes
+			}
+
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_blue"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+
+			instantTextBoxType={
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_diplomacy"
+			}
+
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+				
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_diplomacy_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_double"
+					position = { x = 76 y = 100 }
+				}
+				
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_single"
+					position = { x = 217 y = 100 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION CATEGORY SUPREMACY
+		################################################################
+
+		containerWindowType = {
+			name = "tradition_supremacy"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = @entries_column1 y = @entries_row2_y }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_tradition_category_tile_red"
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_tradition_hex_bg_red"
+				position = { x = -23 y = -18 }
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType={
+				name = "category_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "tradition_supremacy"
+			}
+
+			containerWindowType = {
+				name = "adopted_count"
+				size = { width = 150 height = 40 }
+				position = { x = 163 y = -2 }
+				
+				background = {
+					name = "adopted_hitbox"
+					spriteType = "GFX_invisible"
+				}
+				
+				iconType = {
+					name = "adopted"
+					spriteType = "GFX_adopted_tradition_category_bg_orange"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "value"
+					font = "cg_16b"
+					position = { x = 33 y = 10 }
+					maxWidth = 100
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					alwaysTransparent = yes
+				}
+			}
+
+			buttonType = {
+			#	id = "change"
+				name = "adopt_button"
+				size = { x = 298 y = 35 }
+				position = { x = 163 y = -5 }
+				spriteType = "GFX_adopt_tradition_category_button"
+				buttonFont = "cg_16b"
+				text = "TRADITION_ADOPT_BUTTON"
+				font = "cg_16b"
+				oversound = menu_over_01
+			#	navUp = "terraform_button"
+			#	navRight = "edicts_list"
+			}
+
+			instantTextBoxType = {
+				name = "category_desc"
+				font = "cg_16b"
+				position = { x = 10 y = 35 }
+				maxWidth = 280
+				format = center
+				vertical_alignment = center
+				alwaystransparent = yes
+				text = "tradition_supremacy_desc"
+			}
+
+			containerWindowType = {
+				name = "tree"
+
+				iconType = {
+					name = "arrow_1"
+					spriteType = "GFX_arrow_merge"
+					position = { x = 82 y = 100 }
+				}
+
+				iconType = {
+					name = "arrow_2"
+					spriteType = "GFX_arrow_merge"
+					position = { x = 152 y = 100 }
+				}
+			}
+		}
+
+		################################################################
+		# TRADITION ASCENSION PERKS
+		################################################################
+
+		containerWindowType = {
+			name = "ascension_perks"
+			size = { width = @entry_w height = @entry_h }
+			position = { x = 954 y = @entries_row2_y }
+			
+			background = {
+				name = "black"
+				spriteType = "GFX_plain_bg_tile"
+				alwaysTransparent = yes
+			}
+			
+			iconType = {
+				name = "hex_bg"
+				spriteType = "GFX_hex_bg"
+				position = { x = -15 y = -15 }
+				alwaysTransparent = yes
+			}
+			
+			instantTextBoxType = {
+				name = "ascension_perks_label"
+				font = "malgun_goth_24"
+				position = { x = 18 y = 4 }
+				text = "ASCENSION_PERKS"
+			}
+			
+			containerWindowType = {
+				name = "tradition_box"
+				size = { width = 300 height = 200 }
+				position = { x = 15 y = 70 }
+			}
+		}
+	}
+}

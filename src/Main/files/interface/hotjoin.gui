@@ -1,0 +1,95 @@
+guiTypes = {
+	######### HOTJOIN REQUESTS  ###################################
+	
+	containerWindowType = {
+		name = "hotjoin_request_entry"
+		size = { width = 300 height = 30 }
+		
+		background = {
+			name = "hotjoin_request_entry_bg"
+			spriteType = "GFX_hotjoin_requests_background"
+		}
+		
+		checkboxType = {
+			name = "hotjoin_request_check_accept"
+			position = { x = 5 y = 0 }
+			quadTextureSprite = "GFX_button_20_20_accept"
+		}
+		
+		checkboxType = {
+			name = "hotjoin_request_check_decline"
+			position = { x = 30 y = 0 }
+			quadTextureSprite = "GFX_button_20_20_reject"
+		}
+
+		instantTextBoxType = {
+			name = "hotjoin_request_entry_name"
+			position = { x = 70 y = 7 }
+			format = left
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = {x = 0 y = 0}
+			text = ""
+			maxWidth = 240
+			maxHeight = 32
+			Orientation = "UPPER_LEFT"			
+		}
+	}
+	
+	containerWindowType = {
+		name = "hotjoin_requests_window"
+		size = { width = 325 height = 400 }
+		moveable = yes
+		show_position = { x = 0 y = 160 }
+		hide_position = { x = -200 y = 160 }
+		animation_time = 200
+		animation_type = decelerated
+		
+		background = {
+			name = "hotjoin_requests_background"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -13 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 6 y = 21 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType = {
+			name = "hot_join_label"
+			font = "malgun_goth_24"
+			text = "HOTJOIN_REQUEST"
+			position = { x = 16 y = 5 }
+			maxWidth = 170
+			maxHeight = 20
+			Orientation = "UPPER_LEFT"
+			format = left
+			alwaysTransparent = yes
+		}
+		
+		smoothListboxType = {
+			name = "list"
+			position = { x = 10 y = 40 }
+			size = { x = 300 y = 350 }
+			scrollbartype = "standardlistbox_slider"
+		}	
+		
+		buttonType = {
+			name = "hotjoin_request_confirm_button"
+			position = { x = 78 y = 330 }
+			size = { x = 150 y = 20 }
+			quadTextureSprite = "GFX_button_animated_142"
+			text = "HOTJOIN_CONFIRM"
+			font = "cg_16b"
+		}
+	}
+}

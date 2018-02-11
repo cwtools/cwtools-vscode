@@ -1,0 +1,63 @@
+guiTypes = {
+	containerWindowType = {
+		name = "achievement_window"
+		position = { x=-550 y=-155 }	
+		size = { width=512 height=128 }
+		orientation = LOWER_RIGHT
+		
+		background = {
+			name = "background"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}
+		
+		instantTextBoxType = {
+			name = "achievement_title"
+			font = "malgun_goth_24"
+			text = "Achievement unlocked!"
+			position = { x = 10 y = 0 }
+			maxWidth = 550
+			maxHeight = 20
+			fixedSize = yes
+			orientation = "UPPER_LEFT"
+			format = left
+		}
+
+		buttonType = {
+			name = "achievement_closebutton"
+			quadTextureSprite = "GFX_close"
+			position = { x = -41 y = 13 }
+			Orientation = "UPPER_RIGHT"
+			shortCut = "ESCAPE"
+			pdx_tooltip = "CLOSE_TITLE"
+			clicksound = "back_click"
+		}
+		
+		iconType = {
+			name = "achievement_icon"
+			position = { x = 18 y = 34 }
+			spriteType = "GFX_tile_frame_blocker_clearable"
+		}
+		
+		instantTextBoxType = {
+			name = "achievement_header"
+			font = "cg_16b"
+			position = { x = 128 y = 36 }
+			text = "The Industrial Re-Revolution"
+			format = left
+		}
+		
+		instantTextBoxType = {
+			name = "achievement_text"
+			font = "cg_16b"
+			position = { x = 128 y = 58 }
+			text = "Earn a mineral income each month above 1000"
+			format = left
+		}
+	}
+		
+	containerWindowType = {
+		name = "achievements_view"
+		position = { x=0 y=0 }	
+		size = { width=100% height=100% }
+	}
+}

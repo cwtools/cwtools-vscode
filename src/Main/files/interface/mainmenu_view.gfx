@@ -1,0 +1,35 @@
+spriteTypes = {	
+
+	corneredTileSpriteType = {
+		name = "GFX_menu_window_bg"
+		texturefile = "gfx/interface/tiles/main_menu_tile.dds"
+		borderSize = { x=20 y=20 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+
+	spriteType = {
+		name = "GFX_standard_button_large_211_40"
+		texturefile = "gfx/interface/buttons/button_211_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3			
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_211_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_211_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 60.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 } 
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=10 }
+	}
+	
+	spriteType = {
+		name = "GFX_mainmenu_lines"
+		texturefile = "gfx/interface/main/mainmenu_lines.dds"
+	}
+}

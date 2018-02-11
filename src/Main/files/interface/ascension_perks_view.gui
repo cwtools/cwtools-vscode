@@ -1,0 +1,165 @@
+guiTypes = {
+	containerWindowType = {
+		name = "ascension_perks_view"
+		position = { x = -200 y = -300 }
+		orientation = center
+		size = { width = 519 height = 530 }
+		moveable = yes
+		
+		background = {
+			name = "leader_pool_bg"
+			quadTextureSprite = "GFX_tile_outliner_bg"
+		}
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -11 y = -13 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 6 y = 21 }
+			alwaystransparent = yes
+		}
+
+		instantTextBoxType={
+			name = "header"
+			font = "malgun_goth_24"
+			text = "ASCENSION_PERKS"
+			position = { x = 20 y = 5 }
+			maxWidth = 300
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x = -45 y = 16 }
+			Orientation = "UPPER_RIGHT"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+			pdx_tooltip = "CLOSE_TITLE"
+		}
+		
+		instantTextBoxType={
+			name = "desc"
+			font = "cg_16b"
+			text = "SELECT_AN_ASCENSION_PERK"
+			position = { x = 20 y = 45 }
+			maxWidth = 275
+			maxHeight = 30
+			fixedSize = yes
+			format = left
+		}
+
+		containerWindowType = {
+			name = "filter_show_unavailable"
+			position = { x = 300 y = 38 }
+
+			checkboxType = {
+				name = "checked"
+				spriteType = "GFX_checkbox_20_20_01"
+				pdx_tooltip = "ASCENSION_PERKS_VIEW_SHOW_UNAVAILABLE_DESC"
+			}
+
+			instantTextBoxType = {
+				name = "title"
+				font = "cg_16b"
+				maxWidth = 120
+				maxHeight = 30
+				position = { x = 35 y = 0 }
+				vertical_alignment = center
+				text_color_code = "E"
+				text = "ASCENSION_PERKS_VIEW_SHOW_UNAVAILABLE"
+				pdx_tooltip = "ASCENSION_PERKS_VIEW_SHOW_UNAVAILABLE_DESC"
+			}
+		}
+		
+		containerWindowType = {
+			name = "perks_list_box"
+			size = { width = 497 height = 448 }
+			position = { x = 11 y = 71 }
+			
+			background = {
+				name = "black_bg"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+				alwaysTransparent = yes
+			}
+		}
+
+		
+		smoothListboxType = {
+			name = "ascension_perks_list"
+			position = { x = 15 y = 81 }
+			size = { x = 475 y = 433 }
+			scrollbarType = "standardlistbox_slider"
+			borderSize = { x = 0 y = 0 }
+		}
+	}
+	
+	containerWindowType = {
+		name = "ascension_perk_entry_1"
+		position = { x=0 y=0 }
+		size = { width=470 height=86 }
+		
+		buttonType = {
+			name = "bg"
+			quadTextureSprite = "GFX_planet_bg_tile"
+			position = { x = 5 y = 0 }
+			size = { x = 470 y = 83 }
+		}
+
+		iconType = {
+			name = "icon"
+			position = { x = 13 y = 9 }
+			quadTextureSprite = "GFX_ascension_perk_slot_locked"
+			alwaystransparent = yes
+			scale = 1.0
+		}
+		
+		iconType = {
+			name = "ascension_perk_button"
+			spriteType = "GFX_flag_64_frame"
+			alwaystransparent = yes
+			position = { x = 4 y = 4 }
+		}
+		
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line_medium"
+			position = { x = 70 y = 15 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "key"
+			font = "malgun_goth_24"
+			text = "NAME"
+			position = { x = 78 y = 0 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			alwaystransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "desc"
+			font = "cg_16b"
+			text = "One two three four five six seven eight nine ten eleven twelve. One two three four five six seven eight nine ten eleven twelve. One two three four five six seven eight nine ten eleven twelve."
+			position = { x = 75 y = 30 }
+			maxWidth = 400
+			maxHeight = 60
+			fixedSize = yes
+			format = left
+			alwaystransparent = yes
+			text_color_code = "L"
+		}
+	}
+}
+	

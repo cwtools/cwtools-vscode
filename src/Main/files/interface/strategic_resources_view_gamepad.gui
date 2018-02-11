@@ -1,0 +1,180 @@
+guiTypes = {
+	containerWindowType = {
+		name = "strategic_resource_entry_gamepad"
+		moveable = no
+		clipping = no
+		size = { width = 560 height = 55 }
+		
+		background = {
+			name = "bg"
+			position = { x = 0 y = 5 }
+			#size = { width = 570 height = 55 }
+			spriteType = "GFX_planet_bg_tile"
+		}
+		
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = -5 y = 0 }
+			size = { width = 572 height = 65 }
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_striped"
+				alwaysTransparent = yes
+			}
+		}
+
+		instantTextBoxType = {
+			name = "name"
+			font = "malgun_goth_24"
+			maxWidth = 190
+			maxHeight = 40
+			vertical_alignment = center
+			position = { x = 8 y = 10 }
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "effect"
+			font = "cg_16b"
+			maxWidth = 190
+			maxHeight = 40
+			vertical_alignment = center
+			position = { x = 210 y = 10 }
+			alwaysTransparent = yes
+			text = "-"
+		}
+
+		instantTextBoxType = {
+			name = "amount"
+			font = "cg_16b"
+			maxWidth = 100
+			maxHeight = 40
+			format = center
+			vertical_alignment = center
+			position = { x = -92 y = 9 }
+			#alwaysTransparent = yes
+			Orientation = "UPPER_RIGHT"
+		}
+	}
+
+	containerWindowType = {
+		name = "strategic_resources_view_gamepad"
+		#orientation = center
+		#origo = center
+		moveable = no
+		clipping = yes
+		position = { x = 124 y = 124 }
+		size = { width = 1030 height = 558 }
+		orientation = UPPER_LEFT
+		
+		background = {
+			name = "bg"
+			quadTextureSprite = "GFX_plain_bg_tile"
+		}
+
+		### WINDOW HEADER ###
+
+		buttonType = {
+			name = "close"
+			spriteType = "GFX_invisible"
+			position = { x = -45 y = 16 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			actionShortcut = "cancel"
+		}
+
+		containerWindowType = {
+			name = "background_frame_box"
+			size = { width = 583 height = 480 }			
+			position = { x = 46 y = 55 }
+			
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+			}
+		}
+				
+		### LIST HEADER ###
+
+		containerWindowType = {
+			name = "strategic_resource_list_header"
+			moveable = no
+			clipping = no
+			size = { width = 780 height = 60 }
+			position = { x = 45 y = 15 }
+
+			buttonType = {
+				name = "name"
+				font = "cg_16b"
+				spriteType = "GFX_standard_button_200_24"
+				buttonText = "STRATEGIC_RESOURCE_HEADER_NAME"
+				position = { x = -6 y = 0 }
+				pdx_tooltip = "STRATEGIC_RESOURCE_HEADER_SORT_NAME"
+			}
+
+			buttonType = {
+				name = "effect"
+				font = "cg_16b"
+				spriteType = "GFX_galactic_object_button"
+				buttonText = "STRATEGIC_RESOURCE_HEADER_EFFECT"
+				position = { x = 199 y = 0 }
+				pdx_tooltip = "STRATEGIC_RESOURCE_HEADER_SORT_EFFECT"
+			}
+
+			buttonType = {
+				name = "amount"
+				font = "cg_16b"
+				spriteType = "GFX_button_95_24"
+				buttonText = "STRATEGIC_RESOURCE_HEADER_AMOUNT"
+				position = { x = 472 y = -7 }
+				pdx_tooltip = "STRATEGIC_RESOURCE_HEADER_SORT_AMOUNT"
+			}
+		}
+
+		### EXAMPLE LIST ENTRY ###
+
+		smoothListboxType = {
+			name = "strategic_resource_list"
+			position = { x = 53 y = 57 }
+			size = { x = 565 y = 478 }
+			scrollbartype = "standardlistbox_slider"
+			defaultSelection = yes
+			spacing = 4
+		}		
+				
+		### TOOLTIP_BOX ###
+		containerWindowType = {
+			name = tooltip_box_window
+			position = { x = 645 y = 55 }
+			size = { width = 360 height = 480 }
+			clipping = yes
+			
+			background = {
+				name = "tooltip_box_bg"
+				quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+				position = { x = 0 y = 0 }
+			}
+			
+			instantTextBoxType = {
+				name = "tooltip"
+				font = "cg_16b"
+				text = ""
+				position = { x = 10 y = 7 }
+				maxWidth = 345
+				maxHeight = 350
+				fixedSize = yes
+			}
+
+			instantTextBoxType = {
+				name = "tooltip_amount"
+				font = "cg_16b"
+				text = ""
+				position = { x = 10 y = 355 }
+				maxWidth = 345
+				maxHeight = 105
+				fixedSize = yes
+			}
+		}
+	}
+}

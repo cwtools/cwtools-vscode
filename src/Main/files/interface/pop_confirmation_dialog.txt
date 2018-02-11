@@ -1,0 +1,67 @@
+guiTypes = {
+
+	windowType = {
+		name = "pop_confirmation_dialog"
+		backGround="background"
+		position = { x=-200 y=-116 }	
+		size = { x=400 y=232 }
+		moveable = 1
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+		Orientation = "CENTER"
+		
+		guiButtonType = {
+			name = "background"	
+			quadTextureSprite ="gfx_message_bg"
+			tooltip = ""	
+			tooltipText =""
+			delayedTooltipText = ""
+		}
+		
+		guiButtonType =
+		{
+			name = "AgreeButton"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 10 y = 180  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "MAIN_RESIGN"
+			buttonFont = "cg_16b"
+			shortcut = "RETURN"
+		}
+		guiButtonType =
+		{
+			name = "DeclineButton"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x= 220 y = 180  }
+			Orientation = "UPPER_LEFT"
+			buttonText = "CONTINUE"
+			buttonFont = "cg_16b"
+		}	
+		
+		instantTextBoxType={
+			position = { x = 0 y = 10 }
+			name = "title"
+			font = "cg_16b"
+			borderSize = {x = 0 y = 0 }	
+			maxWidth = 400
+			maxHeight = 20
+			text = ""	
+			orientation = "UPPER_LEFT"
+			format = centre
+		}
+
+	instantTextBoxType={
+			position = { x = 0 y = 30 }
+			name = "description"
+			font = "cg_16b"
+			borderSize = {x = 5 y = 5 }	
+			maxWidth = 400
+			maxHeight = 20
+			text = ""	
+			orientation = "UPPER_LEFT"
+			format = centre
+		}		
+	}
+}

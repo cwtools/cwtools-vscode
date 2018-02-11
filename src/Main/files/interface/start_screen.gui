@@ -1,0 +1,269 @@
+guiTypes = {
+	containerWindowType = {
+		name = "start_screen_window"
+		size = { width = 560 height = 589 }
+		orientation = center
+		origo = center
+		moveable = yes
+		clipping = no
+
+		background = {
+			name = "start_screen_background"
+			quadTextureSprite = "GFX_start_screen_bg"
+		}
+
+		containerWindowType = {
+			name = "start_screen_frame_bg"
+			position = { x=-265 y=-20 }
+			size = { width = 530 height = 279 }
+			orientation = center
+			
+			background = {
+				name = "start_screen_frame"
+				quadTextureSprite = "GFX_start_screen_frame"
+				position = { x = 0 y = 0 }
+				alwaysTransparent = yes
+			}
+		}
+		
+		containerWindowType = {
+			name = "banner"
+			size = { width = 530 height = 200 }
+			position = { x = 0 y = 55 }
+			orientation = center_up
+			origo = center_up
+			
+			background = {
+				name = "banner"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+			}
+		}
+		
+		containerWindowType = {
+			name = "portrait_window"
+			position = { x=15 y=5 }
+			size = { width = 240 height = 250 }
+			orientation = upper_left
+			clipping = yes
+			
+			iconType = {
+				name = "species_portrait"
+				position = { x = -108 y = 0 }
+				spriteType = "GFX_portrait_character"
+				scale = 0.75
+				alwaysTransparent = yes
+			}
+		}
+		
+		instantTextBoxType={
+			name = "empire_name"
+			font = "malgun_goth_24"
+			text = "GNORKALL EMPIRE"
+			position = { x = 260 y = 60 }
+			maxWidth = 270
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "government_type_label"
+			font = "cg_16b"
+			text = "GOVERNMENT_LABEL"
+			appendtext = ":"
+			position = { x = 260 y = 90 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			tooltip_mode_enabled = yes
+		}
+		
+		instantTextBoxType={
+			name = "government_type"
+			font = "cg_16b"
+			text = "government type"
+			position = { x = 380 y = 90 }
+			maxWidth = 163
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "ruler_name_label"
+			font = "cg_16b"
+			text = "LEADER_LABEL"
+			appendtext = ":"
+			position = { x = 260 y = 110 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			tooltip_mode_enabled = yes
+		}
+		
+		instantTextBoxType={
+			name = "ruler_name"
+			font = "cg_16b"
+			text = "Emperor Gnorkius"
+			position = { x = 380 y = 110 }
+			maxWidth = 163
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "species_name_label"
+			font = "cg_16b"
+			text = "SPECIES"
+			appendtext = ":"
+			position = { x = 260 y = 130 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			tooltip_mode_enabled = yes
+		}
+		
+		instantTextBoxType={
+			name = "species_name"
+			font = "cg_16b"
+			text = "Gnorkallians"
+			position = { x = 380 y = 130 }
+			maxWidth = 163
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "ftl_method_label"
+			font = "cg_16b"
+			text = "SPECIES_SELECTION_FTL_METHOD_LABEL"
+			appendtext = ":"
+			position = { x = 260 y = 150 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "ftl_method"
+			font = "cg_16b"
+			text = ""
+			position = { x = 380 y = 150 }
+			maxWidth = 163
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "capital_name_label"
+			font = "cg_16b"
+			text = "CAPITAL"
+			appendtext = ":"
+			position = { x = 260 y = 170 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "capital_name"
+			font = "cg_16b"
+			text = "Gnorkallia"
+			position = { x = 380 y = 170 }
+			maxWidth = 163
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+		
+		instantTextBoxType={
+			name = "ethics_label"
+			font = "cg_16b"
+			text = "ETHICS"
+			appendtext = ":"
+			position = { x = 260 y = 195 }
+			maxWidth = 270
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+		}
+		
+		overlappingElementsBoxType = {
+			name = "ethics"	
+			position = { x = 380 y = 188 }
+			size = { x = 150 y = 18 }
+			spacing = 2.0
+		}
+		
+		instantTextBoxType={
+			name = "traits_label"
+			font = "cg_16b"
+			text = "TRAITS"
+			appendtext = ":"
+			position = { x = 260 y = 224 }
+			maxWidth = 270
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+		}
+		
+		overlappingElementsBoxType = {
+			name = "traits"
+			position = { x = 380 y = 222 }
+			size = { x = 150 y = 18 }
+			spacing = 2.0
+		}
+		
+		containerWindowType = {
+			name = "starting_description_container"
+			size = { width = 512 height = 263 }
+			position = { x = 2 y = 282 }
+			orientation = center_up
+			origo = center_up
+			verticalScrollBar = "right_vertical_slider"
+			
+			background = {
+				name = "scroll_input_hitbox"
+				spriteType = "GFX_invisible"
+			}
+
+			instantTextBoxType={
+				name = "starting_description"
+				font = "cg_16b"
+				text = "desc"
+				maxWidth = 500
+				text_color_code = "E"
+				alwaysTransparent = yes
+			}
+		}
+
+		iconType = {
+			name = "flag"
+			quadTextureSprite = "GFX_empire_flag_128"
+			position = { x = 10 y = 165 }
+			orientation = "UPPER_LEFT"
+			alwaysTransparent = yes
+			scale = 1.0
+		}
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_start_screen_button"
+			position = { x = -272 y = -46 }
+			orientation = center_down
+			text = "START_SCREEN_BEGIN"
+			font = "cg_16b"
+			shortCut = "ESCAPE"
+			clicksound = "back_click"
+			defaultSelection = yes
+		}
+	}
+}

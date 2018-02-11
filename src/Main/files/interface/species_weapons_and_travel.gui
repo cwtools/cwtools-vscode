@@ -1,0 +1,454 @@
+guiTypes = {
+	windowType =  {
+		name = "weapons_and_travel"
+		backGround=""
+		position = { x= -629 y = -302 }	
+		
+		Orientation = "CENTER"
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""	
+		fullScreen = no
+		
+		
+	#	containerWindowType = {
+	#		name = "leader_frame_box"
+	#		size = { width = 1100 height = 600 }
+	#		position = { x = 2 y = 2 }
+	#		
+	#			background = {
+	#				name = "leader_frame"
+	#				spriteType = "GFX_tiles_dark_area_cut_8"
+	#			}
+	#	}
+			
+	#	iconType = {
+	#		name = "customize_species_bg"
+	#		position = { x = 0 y = 5 }
+	#		quadTextureSprite ="GFX_customize_species_bg"
+	#	}
+
+		
+	#	iconType = {
+	#		name ="setting_window_bg"
+	#		spriteType = "GFX_setting_window_bg"
+	#		position = { x= 0 y = 0 }	
+	#	}
+		
+		
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = 10 y = -8 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "empire_header_line"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 26 y = 31 }
+		}		
+		
+		instantTextBoxType = {
+			name = "choose_travel"
+			position = { x = 45 y = 12 }
+			font = "malgun_goth_24"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Choose Travel Method"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+		}
+		
+		instantTextBoxType = {
+			name = "choose_travel_desc"
+			position = { x = 45 y = 47 }
+			font = "cg_16b"
+			maxWidth = 480
+			maxHeight = 40	
+			text = "The way you choose will be permanent for this session."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		
+		
+		
+		
+
+		iconType = {
+			name = "hex_bg2"
+			spriteType = "GFX_hex_bg"
+			position = { x = 610 y = -8 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "empire_header_line2"
+			quadTextureSprite = "GFX_line_long"
+			position = { x = 626 y = 31 }
+		}
+		
+		instantTextBoxType = {
+			name = "choose_weapons"
+			position = { x = 645 y = 12 }
+			font = "malgun_goth_24"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Choose Weapon"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "H"
+		}	
+		
+		instantTextBoxType = {
+			name = "choose_weapons_desc"
+			position = { x = 645 y = 47 }
+			font = "cg_16b"
+			maxWidth = 480
+			maxHeight = 40		
+			text = "Choose which weapon type your nation should start with."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+
+	
+	
+		iconType = {
+			name ="travel_method_01_image"
+			spriteType = "GFX_travel_method_01"
+			position = { x= 30 y = 90 }	
+		}	
+		
+		iconType = {
+			name ="travel_method_02_image"
+			spriteType = "GFX_travel_method_02"
+			position = { x= 30 y = 260 }	
+		}	
+		
+		iconType = {
+			name ="travel_method_03_image"
+			spriteType = "GFX_travel_method_03"
+			position = { x= 30 y = 430 }	
+		}	
+		
+	
+	
+	
+		instantTextBoxType = {
+			name = "travel_method_01_title"
+			position = { x = 280 y = 85 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Warpdrive"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+			
+		iconType = {
+			name = "travel_method_line_01"
+			quadTextureSprite = "GFX_line"
+			position = { x = 270 y = 103 }
+		}
+		
+		instantTextBoxType = {
+			name = "travel_method_01_desc"
+			position = { x = 280 y = 120 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Warp drive allows your fleets to move freely between the stars. It's not as fast as other methods but with greater tactical advantages."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		guiButtonType = {
+			name = "choose_tm_1"	
+			quadTextureSprite = "GFX_button_animated_265_34"
+			position = { x = 290 y = 186	}
+			buttonFont = "cg_16b"
+			buttonText = "Choose Warpdrive"
+		}
+		
+		#	buttonType =	{
+		#		name = "choose_tm_1"
+		#		quadTextureSprite = "GFX_button_animated_265_34"
+		#		position = { x = 290 y = 186	}
+		#		"buttonText = "Choose Warpdrive"
+		#	}
+				
+				
+				
+				
+		instantTextBoxType = {
+			name = "travel_method_02_title"
+			position = { x = 280 y = 255 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Hyperspace network"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+			
+		iconType = {
+			name = "travel_method_line_02"
+			quadTextureSprite = "GFX_line"
+			position = { x = 270 y = 273 }
+		}
+		
+		instantTextBoxType = {
+			name = "travel_method_02_desc"
+			position = { x = 280 y = 290 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "The hyperspace engine allow for fast travel between the stars on precalculated network, faster than warp but more limited in movement."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		guiButtonType = {
+			name = "choose_tm_2"	
+			quadTextureSprite = "GFX_button_animated_265_34"
+			position = { x = 290 y = 356 }
+			buttonFont = "cg_16b"
+			buttonText = "Choose Hyperspace"
+		}
+		
+		#	buttonType =	{
+		#		name = "choose_tm_2"
+		#		quadTextureSprite = "GFX_button_animated_265_34"
+		#		position = { x = 290 y = 356 }
+		#		"buttonText = "Choose Hyperspace"
+		#	}			
+			
+			
+			
+			
+			
+		instantTextBoxType = {
+			name = "travel_method_03_title"
+			position = { x = 280 y = 425 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Wormhole stations"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+			
+		iconType = {
+			name = "travel_method_line_03"
+			quadTextureSprite = "GFX_line"
+			position = { x = 270 y = 443 }
+		}
+		
+		instantTextBoxType = {
+			name = "travel_method_03_desc"
+			position = { x = 280 y = 460 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "With wormhole stations you can travel faster and greater distances than by other means of FTL at the higher cost of building stations"
+			format = left
+			orientation = "UPPER_LEFT"
+		}	
+		
+		guiButtonType = {
+			name = "choose_tm_3"	
+			quadTextureSprite = "GFX_button_animated_265_34"
+			position = { x = 290 y = 526 }
+			buttonFont = "cg_16b"
+			buttonText = "Choose Wormholes"
+		}
+		
+		#	buttonType =	{
+		#		name = "choose_tm_3"
+		#		quadTextureSprite = "GFX_button_animated_265_34"
+		#		position = { x = 290 y = 526 }
+		#		"buttonText = "Choose Wormholes"
+		#	}		
+	
+	
+
+
+
+
+
+		
+	
+		iconType = {
+			name ="weapon_type_01_image"
+			spriteType = "GFX_weapon_type_01"
+			position = { x= 630 y = 90 }	
+		}	
+		
+		iconType = {
+			name ="weapon_type_02_image"
+			spriteType = "GFX_weapon_type_02"
+			position = { x= 630 y = 260 }	
+		}	
+		
+		iconType = {
+			name ="weapon_type_03_image"
+			spriteType = "GFX_weapon_type_03"
+			position = { x= 630 y = 430 }	
+		}	
+		
+	
+	
+	
+		instantTextBoxType = {
+			name = "weapon_type_01_title"
+			position = { x = 880 y = 85 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Mass Drivers"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+			
+		iconType = {
+			name = "weapon_type_line_01"
+			quadTextureSprite = "GFX_line"
+			position = { x = 870 y = 103 }
+		}
+		
+		instantTextBoxType = {
+			name = "weapon_type_01_desc"
+			position = { x = 880 y = 120 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Mass drivers has the greatest damage of all the weapon types. With the shorter range you have to get up close and personal."
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		guiButtonType = {
+			name = "choose_wt_1"	
+			quadTextureSprite = "GFX_button_animated_265_34"
+			position = { x = 890 y = 186 }
+			buttonFont = "cg_16b"
+			buttonText = "Choose Mass Drivers"
+		}
+		
+		#	buttonType =	{
+		#		name = "choose_wt_1"
+		#		quadTextureSprite = "GFX_button_animated_265_34"
+		#		position = { x = 890 y = 186 }
+		#		"buttonText = "Choose Hyperspace"
+		#	}		
+				
+				
+				
+		instantTextBoxType = {
+			name = "weapon_type_02_title"
+			position = { x = 880 y = 255 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Energy Weapons"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+			
+		iconType = {
+			name = "weapon_type_line_02"
+			quadTextureSprite = "GFX_line"
+			position = { x = 870 y = 273 }
+		}
+		
+		instantTextBoxType = {
+			name = "weapon_type_02_desc"
+			position = { x = 880 y = 290 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Lasers have a good range and deals a good amount of damage. Weaker against Shield"
+			format = left
+			orientation = "UPPER_LEFT"
+		}			
+
+		guiButtonType = {
+			name = "choose_wt_2"	
+			quadTextureSprite = "GFX_button_animated_265_34"
+			position = { x = 890 y = 354 }
+			buttonFont = "cg_16b"
+			buttonText = "Choose Energy Weapons"
+		}
+		
+		#	buttonType =	{
+		#		name = "choose_wt_2"
+		#		quadTextureSprite = "GFX_button_animated_265_34"
+		#		position = { x = 890 y = 354 }
+		#		"buttonText = "Choose Energy Weapons"
+		#	}		
+			
+			
+			
+			
+		instantTextBoxType = {
+			name = "weapon_type_03_title"
+			position = { x = 880 y = 425 }
+			font = "malgun_goth_24"
+			maxWidth = 200
+			maxHeight = 20	
+			text = "Missle Weapons"
+			format = left
+			orientation = "UPPER_LEFT"
+			text_color_code = "E"
+			format = left
+		}
+			
+		iconType = {
+			name = "weapon_type_line_03"
+			quadTextureSprite = "GFX_line"
+			position = { x = 870 y = 443 }
+		}
+		
+		instantTextBoxType = {
+			name = "weapon_type_03_desc"
+			position = { x = 880 y = 460 }
+			font = "cg_16b"
+			maxWidth = 300
+			maxHeight = 20	
+			text = "Missile weapons have the greatest range and high damage, but watch out for ships with point defences."
+			format = left
+			orientation = "UPPER_LEFT"
+		}	
+
+		guiButtonType = {
+			name = "choose_wt_3"	
+			quadTextureSprite = "GFX_button_animated_265_34"
+			position = { x = 890 y = 526 }
+			buttonFont = "cg_16b"
+			buttonText = "Choose Missile Weapons"
+		}
+		
+		#	buttonType =	{
+		#		name = "choose_wt_3"
+		#		quadTextureSprite = "GFX_button_animated_265_34"
+		#		position = { x = 890 y = 526 }
+		#		"buttonText = "Choose Missile Weapons"
+		#	}			
+	
+			
+	}
+}

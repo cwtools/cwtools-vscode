@@ -1,0 +1,717 @@
+guiTypes = {
+	containerWindowType = {
+		name = "situation_log_gamepad"
+		moveable = no
+		orientation = upper_left
+		position = { x = 124 y = 124 }
+		size = { width = 1030 height = 518 }
+	
+		containerWindowType = {
+			name = "galaxy_view_background_box"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+			
+			background = {
+				name = "galaxy_view_background"
+				spriteType = "GFX_plain_bg_tile"
+
+			}
+		}
+						
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_invisible"
+			position = { x = -45 y = 11 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			clicksound = "back_click"
+			actionshortcut = "cancel"
+		}
+		
+		containerWindowType = {
+			name = "log_window"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+
+			containerWindowType = {
+				name = "currently_selected"
+				size = { width = 600 height = 475 }
+				position = { x = 360 y = 18 }
+				
+				background = {
+					name = "situation_log_selected_background"
+					quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+				#	alwaysTransparent = yes
+				}
+				
+				iconType = {
+					name = "project_picture"
+					quadTextureSprite = "GFX_evt_landing_ship"
+					position = { x = 55 y = 14 }
+					scale = 1.1
+				}
+				
+				iconType = {
+					name = "picture_frame"
+					quadTextureSprite = "GFX_event_frame"
+					position = { x = 48 y = 8 }
+					scale = 1.1
+				}
+				
+				instantTextBoxType={
+					name = "title"
+					font = "malgun_goth_24"
+					text = "TITLE"
+					position = { x = 20 y = 190 }
+					maxWidth = 565
+					maxHeight = 40
+					fixedSize = yes
+					format = centre
+					#alwaysTransparent = yes
+				}
+				
+				instantTextBoxType={
+					name = "description"
+					font = "cg_16b"
+					text = "DESCRIPTION"
+					position = { x = 20 y = 235 }
+					maxWidth = 570
+					maxHeight = 280
+					fixedSize = yes
+					format = left
+					text_color_code = "E"
+					#alwaysTransparent = yes
+				}
+				
+				containerWindowType = {
+					name = "wrapper"
+					position = { x = 55 y = 455 }
+
+					smoothListBoxType = {
+						name = "counters"
+						size = { x = 460 y = 200 }
+					}
+				}
+				
+				containerWindowType = {
+					name = "can_research_info"
+					size = { width = 485 height = 480 }
+					position = { x = 0 y = 0 }
+					
+					instantTextBoxType={
+						name = "requirements"
+						position = { x = 20 y = -300 }
+						orientation = "UPPER_LEFT"
+						font = "cg_16b"
+						maxWidth = 245
+						fixedSize = yes
+						format = left
+					}
+					
+					buttonType = {
+						name = "focus_on"
+						orientation = "LOWER_LEFT"
+						position = { x = 5 y = -63 }
+						quadTextureSprite = "GFX_standard_button_142_34_button"
+						font = "cg_16b"
+						text = "FOCUS"
+						format = center
+						actionshortcut = "focus_camera"
+					}
+					
+					instantTextBoxType = {
+						name = "focus_on_text"
+						orientation = "LOWER_LEFT"
+						format = center
+						position = { x = 0 y = -43 }
+						maxWidth = 180
+						maxHeight = 20
+						font = "malgun_goth_24"
+						text = "SITUATION_LOG_FOCUS_ON_GAMEPAD_INDICATOR"
+					}
+					
+					buttonType = {
+						name = "cancel"
+						orientation = "LOWER_RIGHT"
+						position = { x = -171 y = -63 }
+						quadTextureSprite = "GFX_standard_button_142_34_button"
+						font = "cg_16b"
+						text = "CANCEL"
+						format = center
+						#actionshortcut = "accept" #Causes conflict with the "research" button. Handled in view code instead.
+					}
+					
+					instantTextBoxType = {
+						name = "cancel_text"
+						orientation = "LOWER_RIGHT"
+						format = center
+						position = { x = -50 y = -43 }
+						maxWidth = 180
+						maxHeight = 20
+						font = "malgun_goth_24"
+						text = "SITUATION_LOG_CANCEL_RESERACH_GAMEPAD_INDICATOR"
+					}
+
+					instantTextBoxType = {
+						name = "times_out_in"
+						position = { x = -220 y = -135 }
+						orientation = "LOWER_RIGHT"
+						font = "cg_16b"
+						text = ""
+						maxWidth = 200
+						maxHeight = 20
+						fixedSize = yes
+						format = right
+					}
+					
+					instantTextBoxType = {
+						name = "time_left"
+						position = { x = -220 y = -80 }
+						orientation = "LOWER_RIGHT"
+						font = "cg_16b"
+						text = ""
+						maxWidth = 200
+						maxHeight = 20
+						fixedSize = yes
+						format = right
+					}
+					
+					iconType = {
+						name = "cost_icon"
+						spriteType = "GFX_resource_physics"
+						position = { x = -38 y = -106 }
+						orientation = "LOWER_RIGHT"
+						tooltip_mode_enabled = yes
+					}
+					
+					instantTextBoxType={
+						name = "cost_value"
+						position = { x = -144 y = -105 }
+						orientation = "LOWER_RIGHT"
+						font = "cg_16b"
+						text = "100"
+						maxWidth = 100
+						maxHeight = 20
+						fixedSize = yes
+						format = right
+					}
+					
+					buttonType = {
+						name = "research"
+						orientation = "LOWER_RIGHT"
+						position = { x = -171 y = -63 }
+						quadTextureSprite = "GFX_standard_button_142_34_button"
+						font = "cg_16b"
+						text = "RESEARCH"
+						format = center
+						#actionshortcut = "accept" #Causes conflict with the "cancel" button. Handled in view code instead.
+					}
+					
+					instantTextBoxType = {
+						name = "research_text"
+						orientation = "LOWER_RIGHT"
+						format = center
+						position = { x = -50 y = -43 }
+						maxWidth = 180
+						maxHeight = 20
+						font = "malgun_goth_24"
+						text = "SITUATION_LOG_RESEARCH_GAMEPAD_INDICATOR"
+					}
+				}
+				
+				buttonType = {
+					name = "track"
+					orientation = "LOWER_LEFT"
+					position = { x = 5 y = -108 }
+					quadTextureSprite = "GFX_standard_button_142_34_button"
+					font = "cg_16b"
+					text = "PROJECT_TRACK"
+					format = center
+					actionshortcut = "track_on_map"
+				}
+				
+				instantTextBoxType = {
+					name = "track_text"
+					orientation = "LOWER_LEFT"
+					format = center
+					position = { x = 5 y = -88 }
+					maxWidth = 180
+					maxHeight = 20
+					font = "malgun_goth_24"
+					text = "SIUATION_LOG_TRACK_ON_MAP_GAMEPAD_INDICATOR"
+				}
+			}
+		
+			containerWindowType = {
+				name = "entries"
+				position = { x = 36 y = 18 }
+				size = { width = 308 height = 475 }
+				
+				background = {
+					name = "situation_log_entries_background_2"
+					quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType={
+					name = "no_entries_tip"
+					font = "cg_16b"
+					text = "SITUATION_LOG_NO_ENTRIES_TIP"
+					position = { x = 0 y = 50 }
+					orientation = upper_left
+					maxWidth = 300
+					maxHeight = 40
+					fixedSize = yes
+					format = centre
+				}
+				
+				smoothListBoxType = {
+					name = "entries"
+					position = { x = 5 y = 10 }
+					size = { x = 285 y = 460 }
+					scrollbarType = "standardlistbox_slider"
+				}
+			}
+		}
+
+		containerWindowType = {
+			name = "victories_window"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+
+			containerWindowType = {
+				name = "entries"
+				position = { x = 36 y = 18 }
+				size = { width = 308 height = 475 }
+				
+				background = {
+					name = "situation_log_entries_background_2"
+					quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+					alwaysTransparent = yes
+				}
+				
+				smoothListBoxType = {
+					name = "list"
+					position = { x = 5 y = 10 }
+					size = { x = 285 y = 390 }
+					scrollbarType = "standardlistbox_slider"
+				}
+			}
+			containerWindowType = {
+				name = "currently_selected"
+				size = { width = 650 height = 470 }
+				position = { x = 340 y = 18 }
+				
+				containerWindowType = {
+					name = "entries"
+					position = { x = 20 y = 0 }
+					size = { width = 600 height = 475 }
+					
+				
+					background = {
+						name = "situation_log_selected_background"
+						quadTextureSprite = "GFX_tiles_dark_area_cut_8"
+						
+		
+					}
+				}
+				
+				iconType = {
+					name = "project_picture"
+					quadTextureSprite = "GFX_evt_landing_ship"
+					position = { x = 75 y = 13 }
+					scale = 1.1
+				}
+				
+				iconType = {
+					name = "picture_frame"
+					quadTextureSprite = "GFX_event_frame"
+					position = { x = 68 y = 8 }
+					scale = 1.1
+				}
+				
+				iconType = {
+					name = "header_line"
+					spriteType = "GFX_line_center"
+					position = { x = 63 y = 220 }
+					
+				}
+				
+				instantTextBoxType={
+					name = "title"
+					font = "malgun_goth_24"
+					text = "TITLE"
+					position = { x = 40 y = 200 }
+					maxWidth = 565
+					maxHeight = 40
+					fixedSize = yes
+					format = centre
+					#alwaysTransparent = yes
+				}
+				
+				instantTextBoxType={
+					name = "description"
+					font = "cg_16b"
+					text = "DESCRIPTION"
+					position = { x = 50 y = 245 }
+					maxWidth = 550
+					maxHeight = 280
+					fixedSize = yes
+					format = center
+					text_color_code = "E"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType={
+					name = "progress_title"
+					font = "malgun_goth_24"
+					text = "PROGRESS"
+					position = { x = 40 y = 380 }
+					maxWidth = 565
+					maxHeight = 40
+					fixedSize = yes
+					format = centre
+					#alwaysTransparent = yes
+				}
+				
+				iconType = {
+					name = "progressbar"
+					spriteType = "GFX_infra_progressbar"
+					frame = 0
+					position = { x = 105 y = 430 }
+					#alwaysTransparent = yes
+				}
+
+				instantTextBoxType={
+					name = "progress_desc"
+					font = "cg_16b"
+					text = "There are 132 independent left to conquer"
+					position = { x = 40 y = 410 }
+					maxWidth = 565
+					maxHeight = 40
+					fixedSize = yes
+					format = centre
+					#alwaysTransparent = yes
+				}
+			}
+		}
+
+		########################
+		# THE TABS
+		########################
+
+		@tabHeight = -2
+		@tabIndicatorHeight = 5
+		
+		buttonType = {
+			name = "tab_log"
+			quadTextureSprite = "GFX_tab_1_long_inactive"
+			position = { x = -21 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "SITUATION_LOG_HEADER"
+			buttonFont = "cg_16b"
+			shortcut = "z"
+			clicksound = "tab_click"
+			orientation = "LOWER_LEFT"
+		}
+		
+		buttonType = {
+			name = "tab_log_active"
+			quadTextureSprite = "GFX_tab_1_long_active"
+			position = { x = -21 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "SITUATION_LOG_HEADER"
+			buttonFont = "cg_16b"
+			clicksound = "tab_click"
+			shortcut = "z"
+			orientation = "LOWER_LEFT"
+		}
+		
+		buttonType = {
+			name = "tab_victories"
+			quadTextureSprite = "GFX_tab_2_long_inactive"
+			position = { x = 155 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "VICTORIES"
+			buttonFont = "cg_16b"
+			shortcut = "x"
+			clicksound = "tab_click"
+			orientation = "LOWER_LEFT"
+		}
+		
+		buttonType = {
+			name = "tab_victories_active"
+			quadTextureSprite = "GFX_tab_2_long_active"
+			position = { x = 155 y = @tabHeight }
+			font = "cg_16b"
+			buttonText = "VICTORIES"
+			buttonFont = "cg_16b"
+			clicksound = "tab_click"
+			shortcut = "x"
+			orientation = "LOWER_LEFT"
+		}
+		
+		iconType = {
+			name = "tab_navigate_left_indicator"
+			position = { x = 5 y = @tabIndicatorHeight }
+			quadTextureSprite = "GFX_controller_icon_lt"
+			orientation = "LOWER_LEFT"
+		}
+		
+		iconType = {
+			name = "tab_navigate_right_indicator"
+			position = { x = 330 y = @tabIndicatorHeight }
+			quadTextureSprite = "GFX_controller_icon_rt"
+			orientation = "LOWER_LEFT"
+		}
+	}
+	
+	### SITUATION LOG ENTRY
+	containerWindowType = {
+		name = "situation_log_entry_gamepad"
+		size = { width = 300 height = 48 }
+		
+
+		buttonType = {
+			name = "button"
+			quadTextureSprite = "GFX_long_button"
+			size = { x = 272 y = 40 }
+			position = { x = 9 y = 0 }
+		}
+		
+		iconType = {
+			name = "progressbar"
+			spriteType = "GFX_situation_log_progressbar"
+			frame = 0
+			position = { x = 14 y = 5 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "selected"
+			spriteType = "GFX_long_button_selected"
+			position = { x = 13 y = 5 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "cost_icon"
+			spriteType = "GFX_resource_physics"
+			position = { x = 263 y = 8 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "entry_icon"
+			spriteType = "GFX_alert"
+			position = { x = 17 y = 6 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			text = "TITLE"
+			position = { x = -88 y = -16 }
+			maxWidth = 195
+			maxHeight = 33
+			fixedSize = yes
+			format = center
+			orientation = center
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "expand_button"
+			quadTextureSprite = "GFX_entry_expand"
+			position = { x = 255 y = 14 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "completed"
+			spriteType = "GFX_situation_log_tick"
+			orientation = LOWER_RIGHT
+			position = { x = -44 y = -30 }
+			alwaysTransparent = yes
+			scale = 0.8
+		}
+		
+		iconType = {
+			name = "tracked"
+			spriteType = "GFX_dot_orange_icon"
+			position = { x = 12 y = 4 }
+			tooltip = "SITUATION_LOG_TRACKED_TOOLTIP"
+		}
+		
+		smoothListBoxType = {
+			name = "subentries"
+			size = { x = 300 y = 1000 }
+			position = { x = 0 y = 40 }
+		}
+	}
+	
+	### SUB ENTRY
+	containerWindowType = {
+		name = "situation_log_subentry_gamepad"
+		size = { width = 280 height = 48 }
+		
+		iconType = {
+			name = "first_branch"
+			spriteType = "GFX_situation_log_branches"
+			position = { x = 16 y = 6 }
+			frame = 6
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "second_branch"
+			spriteType = "GFX_situation_log_branches"
+			position = { x = 24 y = 6 }
+			frame = 6
+			alwaysTransparent = yes
+		}
+		
+		buttonType = {
+			name = "button"
+			quadTextureSprite = "GFX_short_button"
+			size = { x = 226 y = 40 }
+			position = { x = 30 y = 8 }
+		}
+		
+		iconType = {
+			name = "progressbar"
+			spriteType = "GFX_situation_log_progressbar_subentry"
+			frame = 0
+			position = { x = 35 y = 13 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "selected"
+			spriteType = "GFX_short_button_selected"
+			position = { x = 34 y = 13 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "cost_icon"
+			spriteType = "GFX_resource_physics"
+			position = { x = 263 y = 16 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "entry_icon"
+			spriteType = "GFX_alert"
+			position = { x = 39 y = 13 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			text = "TITLE"
+			position = { x = -67 y = -10 }
+			maxWidth = 190
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			orientation = center
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "completed"
+			spriteType = "GFX_situation_log_tick"
+			orientation = LOWER_RIGHT
+			position = { x = -24 y = -21 }
+			alwaysTransparent = yes
+			scale = 0.8
+		}
+		
+		iconType = {
+			name = "or"
+			spriteType = "GFX_situation_or_button"
+			position = { x = 153 y = -2 }
+		}
+		
+		iconType = {
+			name = "tracked"
+			spriteType = "GFX_dot_orange_icon"
+			position = { x = 33 y = 12 }
+			tooltip = "SITUATION_LOG_TRACKED_TOOLTIP"
+		}
+
+	}
+
+	###
+	containerWindowType = {
+		name = "situation_log_event_chain_counter_gamepad"
+		size = { width = 460 height = 20 }
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			text = ""
+			position = { x = 5 y = 0 }
+			maxWidth = 340
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		instantTextBoxType={
+			name = "value"
+			font = "cg_16b"
+			text = "0/0"
+			position = { x = 390 y = 0 }
+			maxWidth = 64
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+		}
+	}	
+	
+	### VICTORY CONDITION ITEM
+	containerWindowType = {
+		name = "victory_condition_item_gamepad"
+		size = { width = 300 height = 48 }
+		
+		iconType = {
+			name = "progressbar"
+			spriteType = "GFX_situation_log_progressbar"
+			frame = 0
+			position = { x = 14 y = 5 }
+			alwaysTransparent = yes
+		}
+		
+		buttonType = {
+			name = "button"
+			quadTextureSprite = "GFX_long_button"
+			size = { x = 272 y = 40 }
+			position = { x = 9 y = 0 }
+		}
+		
+		iconType = {
+			name = "selected"
+			spriteType = "GFX_long_button_selected"
+			position = { x = 13 y = 5 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType = {
+			name = "name"
+			font = "malgun_goth_24"
+			text = "TITLE"
+			position = { x = 20 y = 12 }
+			maxWidth = 260
+			maxHeight = 40
+			fixedSize = yes
+			format = centre
+			alwaysTransparent = yes
+		}
+	}
+}

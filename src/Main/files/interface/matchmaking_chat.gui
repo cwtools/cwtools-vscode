@@ -1,0 +1,74 @@
+guiTypes = {
+	containerWindowType = {
+		name = "matchmaking_chat_window"
+		position = { x=-638 y=-370 }	
+		#size = { width=1170 height=560 }
+		size = { width=100% height=100% }
+		orientation = center
+
+		buttonType = {
+			name = "close"
+			quadTextureSprite = "GFX_close"
+			position = { x= 890 y = 140 }
+			buttonFont = "cg_16b"
+		}
+
+		OverlappingElementsBoxType = {
+			name = "channels"	
+			position = { x = 0  y = 0  }
+			size = { x=76 y= 18 }
+			spacing = 1.0
+		}
+
+		listboxType = 
+		{
+			name ="chat"
+			position = { x = 33 y = 140 }
+			backGround=""
+			size = { x = 895 y = 450}
+			Orientation = "UPPER_LEFT"
+			spacing = 1
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 0 y = 0}
+		}
+
+		listboxType = 
+		{
+			name ="users"
+			position = { x = 76 y = 0 }
+			backGround=""
+			size = { x=100 y =382}
+			Orientation = "UPPER_LEFT"
+			spacing = 2
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 0 y = 0}
+		}
+
+		editBoxType = {
+			position = { x = 38 y = 603 }
+			name = "chat_input"
+			textureFile = ""
+			font = "cg_16b"
+			size = { x=820 y=32 }
+			text = ""
+			orientation = "UPPER_LEFT"
+			cursor = { x=-1 y= -4}	
+		}
+	}
+
+	containerWindowType = {
+		name = "matchmaking_chat_item"
+		position = { x=0 y=0 }	
+		size = { width=736 height= 18 }
+
+		instantTextBoxType={
+			position = {x = 5 y = 0 }
+			name = "text"
+			font = "cg_16b"
+			borderSize = {x = 0 y = 0}	
+			maxWidth = 896
+			maxHeight = 18
+			text = ""	
+		}
+	}	
+}

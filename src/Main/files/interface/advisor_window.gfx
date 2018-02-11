@@ -1,0 +1,70 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_dummy_3d_advisor_window"
+		textureFile = "gfx/interface/transp_white.dds"
+		effectFile = "gfx/FX/buttonstate_rendertarget.lua"
+		alwaysTransparent = no
+		transParencecheck = no
+	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_advisor_event_background"
+		textureFile = "gfx/interface/tiles/main_menu_tile.dds"
+		borderSize = { x=24 y=24 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_advisor_frame"
+		texturefile = "gfx/interface/tiles/green_frame_tile.dds"
+		borderSize = { x=15 y=15 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	spriteType = {
+		name = "GFX_advisor_default_option_background"
+		texturefile = "gfx/interface/buttons/button_268_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3			
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_268_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_268_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 200.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 } 
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_advisor_option_background"
+		texturefile = "gfx/interface/buttons/button_268_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3			
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_268_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_268_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 200.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 } 
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=10 y=3 }
+	}
+
+	spriteType = {
+		name = "GFX_advisor_arrow"
+		textureFile = "gfx/interface/main/arrow.dds"
+		noOfFrames = 1
+	}
+}

@@ -1,0 +1,273 @@
+guiTypes = {
+	containerWindowType = {
+		name = "megastructure_view"
+		position = { x = 4 y = -512 }
+		size = { width = 560 height = 472 }
+		orientation = lower_left
+		upsound = click
+
+		background = {
+			name = "bg"
+			spriteType = "GFX_tile_outliner_bg"
+		}
+
+
+
+		### WINDOW HEADER ###
+
+		buttonType = {
+			name = "close"
+			spriteType = "GFX_close_button"
+			position = { x = -45 y = 16 }
+			orientation = upper_right
+			shortcut = "ESCAPE"
+			pdx_tooltip = "CLOSE_TITLE"
+			clicksound = "back_click"
+		}
+
+		buttonType = {
+			name = "focus"
+			spriteType = "GFX_fleetview_focus"
+			position = { x = -81 y = 16 }
+			orientation = upper_right
+			shortcut = "q"
+			pdx_tooltip = "TOOLTIP_AMBIENT_OBJECT_FOCUS"
+			clicksound = "back_click"
+		}
+
+		iconType = {
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -10 y = -14 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "header_line"
+			spriteType = "GFX_line"
+			position = { x = 28 y = 38 }
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "flag"
+			spriteType = "GFX_empire_flag_64"
+			scale = 0.8
+		}
+
+		instantTextBoxType = {
+			name = "title"
+			font = "malgun_goth_24"
+			position = { x = 55 y = 5 }
+			maxWidth = 1000
+			maxHeight = 20
+			fixedSize = yes
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "subtitle"
+			font = "cg_16b"
+			position = { x = 55 y = 28 }
+			maxWidth = 430
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+			text_color_code = "E"
+			alwaysTransparent = yes
+			text = "MEGASTRUCTURE"
+		}
+		
+		containerWindowType = {
+			name = "megastructure_portrait_window"
+			size = { width = 540 height = 188 }
+			position = { x = 9 y = 50 }
+			clipping = yes
+    
+			iconType = {
+				name = "megastructure_portrait"
+				spriteType = "GFX_megastructure_construction_background"
+				position = { x = 1 y = 12 }
+				scale = 1.0
+			}
+    
+			iconType = {
+				name = "black_frame"
+				spriteType = "GFX_planetview_black_frame"
+				position = { x = 1 y = 13 }
+			}
+    
+			iconType = {
+				name = "stripes_1"
+				spriteType = "GFX_planetview_stripes_1"
+				position = { x = -10 y = 12 }
+				orientation = upper_left
+				alwaysTransparent = yes
+			}
+    
+			iconType = {
+				name = "city_frame"
+				spriteType = "GFX_city_frame"
+				position = { x = -4 y = 9 }
+			}
+		}
+	
+			buttonType = {
+			name = "box"
+			spriteType = "GFX_tiles_frame_light"
+			position = { x = 6 y = 245 }
+			size = { x = 548 y = 220 }
+			
+			alwaysTransparent = yes
+		}
+
+		### CONTENT ###
+		instantTextBoxType = {
+			name = "desc"
+			font = "cg_16b"
+			position = { x = 25 y = 260 }
+			maxWidth = 520
+			maxHeight = 100
+			fixedSize = yes
+			#alwaysTransparent = yes
+			text = ""
+			format = left
+		}
+		
+		instantTextBoxType = {
+			name = "production_header"
+			font = "cg_16b"
+			position = { x = 150 y = 310 }
+			maxWidth = 280
+			maxHeight = 30
+			fixedSize = yes
+			#alwaysTransparent = yes
+			text = "PRODUCTION"
+			format = center
+		}
+		gridBoxType = {
+			name = "production"
+			position = { x = 150 y = 327 }
+			size = { width = 50% height = 60 }
+			slotSize = { width = 50 height = 20 }
+			max_slots_horizontal = 3
+			format = CENTERED_UP
+		}
+
+		instantTextBoxType = {
+			name = "maintenance_header"
+			font = "cg_16b"
+			position = { x = -70 y = 410 }
+			maxWidth = 280
+			maxHeight = 30
+			fixedSize = yes
+			#alwaysTransparent = yes
+			text = "MAINTENANCE"
+			format = center
+		}
+		gridBoxType = {
+			name = "maintenance"
+			position = { x = -70 y = 427 }
+			size = { width = 50% height = 60 }
+			slotSize = { width = 50 height = 20 }
+			max_slots_horizontal = 3
+			format = CENTERED_UP
+		}
+		
+		containerWindowType = {
+			name = "possible_upgrades_content"
+			position = { x = 0 y = 345 }
+			size = { width = 100% height = 40% }
+			
+			instantTextBoxType = {
+				name = "title"
+				font = "malgun_goth_24"
+				position = { x = 25 y = 5 }
+				maxWidth = 520
+				maxHeight = 20
+				format = centre
+				alwaysTransparent = yes
+				text = "UPGRADE"
+			}
+			smoothListboxType = {
+				name = "upgrades"
+				position = { x = 120 y = 30 }
+				size = { x = 475 y = 100 }
+				borderSize = { x = 0 y = 0 }
+				orientation = "UPPER_LEFT"
+				spacing = 1
+			}
+		}
+		containerWindowType = {
+			name = "upgrading_content"
+			position = { x = 0 y = 325 }
+			size = { width = 100% height = 40% }
+			
+			instantTextBoxType = {
+				name = "upgrade_remaining"
+				font = "cg_16b"
+				position = { x = 110 y = 51 }
+				maxWidth = 315
+				maxHeight = 20
+				format = center
+				text = "(clock) X days remaining."
+			}
+			iconType = {
+				name = "upgrade_progress"
+				spriteType = "GFX_infra_progressbar"
+				position = { x = 63 y = 70 }
+			}			
+		}		
+	}
+	containerWindowType = {
+		name = "megastructure_upgrade_entry"			
+		size = { width = 316 height = 69 }
+		position = { x = 0 y = 0 }
+		
+		background = {
+			name = "bg"
+			spriteType = "GFX_button_animated_265_80"
+			clicksound = "megastructure_upgraded"
+		}
+		
+		instantTextBoxType = {
+			name = "title"
+			font = "malgun_goth_24"
+			position = { x = 0 y = 13 }
+			maxWidth = 316
+			maxHeight = 20
+			format = centre
+			fixedSize = yes
+			alwaysTransparent = yes
+			text = "ring_world_2_intermediate"
+		}
+		instantTextBoxType = {
+			name = "cost"
+			font = "cg_16b"
+			position = { x = 5 y = 42 }
+			maxWidth = 290
+			maxHeight = 20
+			format = center
+			fixedSize = yes
+			alwaysTransparent = yes
+			text = "DBG_MEGA_STRUCTURE_GUI_TEXT"
+		}
+	}
+	containerWindowType = {
+		name = "megastructure_production_entry"
+		#background = {
+		#}
+		size = { width = 50 height = 20 }
+		instantTextBoxType = {
+			name = "text"
+			font = "cg_16b"
+			position = { x = -50 y = 0 }
+			maxWidth = 150
+			maxHeight = 20
+			format = center
+			fixedSize = yes
+			alwaysTransparent = no
+			text = ""
+		}
+	}
+}

@@ -1,0 +1,85 @@
+spriteTypes = {
+
+	spriteType = {
+		name = "GFX_ai_acceptance"
+		texturefile = "gfx/interface/icons/diplomacy/ai_acceptance.dds"
+		noOfFrames = 2			
+	}
+
+	spriteType = {
+		name = "GFX_our_rivalry_icon"
+		texturefile = "gfx/interface/icons/diplomacy/our_rivalry_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_their_rivalry_icon"
+		texturefile = "gfx/interface/icons/diplomacy/their_rivalry_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_relative_power_icon"
+		texturefile = "gfx/interface/icons/diplomacy/relative_power_icon.dds"
+	}
+	
+	#	spriteType = {
+	#		name = "GFX_species_portrait_placeholder"
+	#		texturefile = "gfx/interface/old/species/placeholder.dds"
+	#		noOfFrames = 1
+	#	}
+	
+	corneredTileSpriteType = {
+		name = "GFX_diplomacy_frame"
+		texturefile = "gfx/interface/tiles/green_frame_tile.dds"
+		borderSize = { x=15 y=15 }
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+	}
+	
+	spriteType = {
+		name = "GFX_diplomacy_long_button"
+		texturefile = "gfx/interface/buttons/button_211_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3			
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_211_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_211_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 40.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 } 
+			animationframes = { 1 2 3 }
+		}
+	}
+	
+	spriteType = {
+		name = "GFX_info_background"
+		texturefile = "gfx/interface/diplomacy/info_background.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_info_background_125"
+		texturefile = "gfx/interface/diplomacy/info_background_125.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_info_background_148"
+		texturefile = "gfx/interface/diplomacy/info_background_148.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_embassy_their"
+		texturefile = "gfx/interface/icons/diplomacy/embassy_their.dds"
+	}
+	spriteType = {
+		name = "GFX_embassy_our"
+		texturefile = "gfx/interface/icons/diplomacy/embassy_our.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_diplomacy_dark_fade_bg"
+		texturefile = "gfx/interface/diplomacy/diplomacy_dark_fade_bg.dds"
+	}
+}

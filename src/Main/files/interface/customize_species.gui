@@ -1,0 +1,331 @@
+guiTypes = {
+	@menu_width = 220
+
+	containerWindowType = {
+		name = "customize_species_view"
+		size = { width = 230 height = 100% }
+
+		containerWindowType = {
+			name = "menu"
+			size = { width = @menu_width height = 100% }
+			position = { x = 0 y = 0 }
+			orientation = UPPER_LEFT
+
+			background = {
+				name = "background"
+				spriteType = "GFX_plain_bg_tile"
+			}
+
+			smoothListboxType = {
+				name = "editors_list"
+				position = { x = 0 y = 0 }
+				size = { x = 213 y = 570 }
+				scrollbarType = "standardlistbox_slider"
+				borderSize = { x = 0 y = 0 }
+			}
+
+			buttonType = {
+				name = "save"
+				font = "malgun_goth_24"
+				spriteType = "GFX_standard_button_large_211_40"
+				buttonText = "SAVE"
+				position = { x = -10 y = -156 }
+				orientation = LOWER_LEFT
+			}
+
+			buttonType = {
+				name = "next"
+				font = "malgun_goth_24"
+				spriteType = "GFX_standard_button_large_211_40"
+				buttonText = "DONE"
+				position = { x = -10 y = -108 }
+				orientation = LOWER_LEFT
+			}
+
+			buttonType = {
+				name = "back"
+				font = "malgun_goth_24"
+				spriteType = "GFX_standard_button_large_211_40"
+				buttonText = "BACK"
+				position = { x = -10 y = -60 }
+				orientation = LOWER_LEFT
+				actionShortCut = "cancel"
+			}
+		}
+	}
+
+	positionType = {
+		name = "customize_species_view_menu_margin_bottom"
+		position = { x = 0 y = 150 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_width"
+		position = { x = 213 y = 0 }
+	}
+
+	positionType = {
+		name = "customize_species_view_menu_section_size_1_buttons"
+		position = { x = @menu_width y = 80 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_section_size_2_buttons"
+		position = { x = @menu_width y = 105 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_section_size_3_buttons"
+		position = { x = @menu_width y = 130 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_section_size_4_buttons"
+		position = { x = @menu_width y = 157 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_section_size_5_buttons"
+		position = { x = @menu_width y = 180 }
+	}
+
+	@menu_label_x = 0
+	@menu_label_y = 5
+
+	@menu_button_x = -2
+
+	positionType = {
+		name = "customize_species_view_menu_button_pos_1"
+		position = { x = @menu_button_x y = 33 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_button_pos_2"
+		position = { x = @menu_button_x y = 60 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_button_pos_3"
+		position = { x = @menu_button_x y = 87 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_button_pos_4"
+		position = { x = @menu_button_x y = 114 }
+	}
+	positionType = {
+		name = "customize_species_view_menu_button_pos_5"
+		position = { x = @menu_button_x y = 141 }
+	}
+
+	# Species
+	containerWindowType = {
+		name = "customize_species_view_menu_entry_species"
+
+		instantTextBoxType = {
+			name = "label"
+			font = "malgun_goth_24"
+			position = { x = @menu_label_x y = @menu_label_y }
+			maxWidth = @menu_width
+			text = "SPECIES"
+			format = center
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "species_portrait"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "PORTRAIT"
+			pdx_tooltip = "TOOLTIP_SETUP_APPEARANCE"
+		}
+
+		buttonType = {
+			name = "species_name"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "SPECIES_NAME"
+			pdx_tooltip = "TOOLTIP_SETUP_SPECIES_NAME"
+		}
+
+		buttonType = {
+			name = "species_name_list"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "CUSTOMIZE_NAME_LISTS"
+			pdx_tooltip = "TOOLTIP_SETUP_EMPIRE_NAMELIST"
+		}
+
+		buttonType = {
+			name = "species_traits"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "TRAITS"
+			pdx_tooltip = "TOOLTIP_SETUP_TRAITS"
+		}
+
+		buttonType = {
+			name = "species_ruler"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "RULER"
+			pdx_tooltip = "TOOLTIP_SETUP_RULER"
+		}
+	}
+
+	# Secondary species
+	containerWindowType = {
+		name = "customize_species_view_menu_entry_secondary_species"
+
+		instantTextBoxType = {
+			name = "label"
+			font = "malgun_goth_24"
+			position = { x = @menu_label_x y = @menu_label_y }
+			maxWidth = @menu_width
+			text = "SECONDARY_SPECIES"
+			format = center
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "secondary_species_portrait"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "SECONDARY_SPECIES_PORTRAIT_short"
+			pdx_tooltip = "TOOLTIP_SETUP_SECONDARY_SPECIES_APPEARANCE"
+		}
+
+		buttonType = {
+			name = "secondary_species_name"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "SECONDARY_SPECIES_NAME_short"
+			pdx_tooltip = "TOOLTIP_SETUP_SECONDARY_SPECIES_NAME"
+		}
+
+		buttonType = {
+			name = "secondary_species_name_list"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "SECONDARY_SPECIES_NAME_LISTS_short"
+			pdx_tooltip = "TOOLTIP_SETUP_SECONDARY_SPECIES_NAMELIST"
+		}
+
+		buttonType = {
+			name = "secondary_species_traits"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "SECONDARY_SPECIES_TRAITS_short"
+			pdx_tooltip = "TOOLTIP_SETUP_SECONDARY_SPECIES_TRAITS"
+		}
+	}
+
+	# Homeworld
+	containerWindowType = {
+		name = "customize_species_view_menu_entry_homeworld"
+
+		instantTextBoxType = {
+			name = "label"
+			font = "malgun_goth_24"
+			position = { x = @menu_label_x y = @menu_label_y }
+			maxWidth = @menu_width
+			text = "GOVERNMENT_VIEW_CAPITAL_LABEL"
+			format = center
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "planet_class"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "NAME_AND_CLASS"
+			pdx_tooltip = "TOOLTIP_SETUP_NAME_CLASS"
+		}
+
+		buttonType = {
+			name = "planet_city_gfx_culture"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "CITY_GRAPHICS"
+			pdx_tooltip = "TOOLTIP_SETUP_CITY_APPEARANCE"
+		}
+	}
+
+	# Empire
+	containerWindowType = {
+		name = "customize_species_view_menu_entry_empire"
+
+		instantTextBoxType = {
+			name = "label"
+			font = "malgun_goth_24"
+			position = { x = @menu_label_x y = @menu_label_y }
+			maxWidth = @menu_width
+			text = "EMPIRE"
+			format = center
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "empire_ethics_and_government"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "ETHICS_AND_GOVERNMENT"
+			pdx_tooltip = "TOOLTIP_SETUP_GOVERNMENT"
+		}
+
+		buttonType = {
+			name = "empire_advisor"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "EMPIRE_ADVISOR"
+			pdx_tooltip = "TOOLTIP_SETUP_EMPIRE_ADVISOR"
+		}
+
+		buttonType = {
+			name = "empire_name"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "EMPIRE_NAME"
+			pdx_tooltip = "TOOLTIP_SETUP_EMPIRE_NAME"
+		}
+
+		buttonType = {
+			name = "empire_flag"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "EMPIRE_FLAG"
+			pdx_tooltip = "TOOLTIP_SETUP_FLAG"
+		}
+	}
+
+	# Ships
+	containerWindowType = {
+		name = "customize_species_view_menu_entry_ships"
+
+		instantTextBoxType = {
+			name = "label"
+			font = "malgun_goth_24"
+			position = { x = @menu_label_x y = @menu_label_y }
+			maxWidth = @menu_width
+			text = "TAB_SHIPS"
+			format = center
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "ship_weapons"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "STARTING_WEAPONS"
+			pdx_tooltip = "TOOLTIP_SETUP_WEAPONS"
+		}
+
+		buttonType = {
+			name = "ship_ftl"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "FTL_LABEL"
+			pdx_tooltip = "TOOLTIP_SETUP_FTL"
+		}
+
+		buttonType = {
+			name = "ship_gfx_culture"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "SHIP_GRAPHICS"
+			pdx_tooltip = "TOOLTIP_SETUP_SHIP_APPEARANCE"
+		}
+	}
+}

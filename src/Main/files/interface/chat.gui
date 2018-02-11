@@ -1,0 +1,203 @@
+guiTypes = {
+
+	windowType = {
+		name = "chat_window"
+		backGround=""
+		position = { x=1 y=-342 }	
+		size =   { x=376 y= 420 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+		orientation = "LOWER_LEFT"
+
+		guiButtonType =
+		{
+			name = "close"
+			quadTextureSprite = "GFX_button_close"
+			position = { x= 456 y = 9 }
+			orientation = "UPPER_LEFT"
+			buttonFont = "hoi_16mbs"
+		}
+		
+		OverlappingElementsBoxType = {
+			name = "channels"	
+			position = { x = -23  y = -47  }
+			size = { x=400 y= 18 }
+			spacing = 1.0
+		}
+
+		listboxType = 
+		{
+			name ="chat"
+			position = { x = 15 y = 17 }
+			backGround=""
+			size = { x=269 y =251}
+			orientation = "UPPER_LEFT"
+			spacing = 2
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 0 y = 0}
+		}
+
+		listboxType = 
+		{
+			name ="users"
+			position = { x = 370 y = 53 }
+			backGround=""
+			size = { x=100 y =240}
+			orientation = "UPPER_LEFT"
+			spacing = 2
+			scrollbartype = "standardlistbox_slider"
+			borderSize = {x = 0 y = 0}
+		}
+
+		editBoxType = {
+			position = { x = 19 y = 276 }
+			name = "chat_input"
+			textureFile = ""
+			font = "hoi_16mbs"
+			size = { x=276 y=120 }
+			text = ""
+			orientation = "UPPER_LEFT"
+		}
+	}
+
+	windowType = {
+		name = "chat_item"
+		backGround=""
+		position = { x=0 y=0 }	
+		size = { x=512 y= 18 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+
+		instantTextBoxType={
+			position = {x = 5 y = 10 }
+			name = "text"
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}	
+			maxWidth = 250
+			maxHeight = 18
+			text = ""	
+		}
+	}
+
+
+	windowType = {
+		name = "chat_inbox_window"
+		backGround=""
+		position = { x=0 y=-22 }	
+		size = { x=276 y= 18 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+
+		orientation = "LOWER_LEFT"
+
+		guiButtonType = {
+			name = "open"
+			quadTextureSprite = "GFX_default_fallback_texture"
+			position = { x=0 y =0}	
+		}
+		
+		instantTextBoxType = {
+			name = "chat_title"
+			position = { x = 22 y = 2 }
+			textureFile = ""
+			font = "cg_16b"
+			borderSize = {x = 4 y = 4}
+			text = "Chat"	
+			maxWidth = 50
+			maxHeight = 32	
+			format = centre
+		}
+	}
+
+
+	windowType = {
+		name = "channel_window"
+		backGround=""
+		position = { x=0 y=0 }	
+		size = { x=100 y= 18 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+
+		guiButtonType = {
+			name = "select"
+			quadTextureSprite = "GFX_channel_select"
+			position = { x=32 y=31}	
+		}
+
+		guiButtonType =	{
+			name = "close"
+			quadTextureSprite = "GFX_button_close"
+			position = { x=95 y=28 }
+			orientation = "UPPER_LEFT"
+			buttonFont = "hoi_16mbs"
+		}
+
+		instantTextBoxType={
+			position = {x = 39 y = 37 }
+			name = "name"
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}	
+			maxWidth = 100
+			maxHeight = 18
+			fixedSize = yes
+			text = ""	
+		}
+	}
+
+	windowType = {
+		name = "user_item"
+		backGround=""
+		position = { x=0 y=0 }	
+		size = { x=100 y=35 }
+		moveable = 0
+		dontRender = ""
+		horizontalBorder= ""
+		verticalBorder= ""
+		fullScreen = no
+
+		guiButtonType = {
+			name = "whisper"
+			quadTextureSprite = "GFX_default_fallback_texture"
+			position = { x= -29 y = 0}	
+		}
+
+		guiButtonType =
+		{
+			name = "kick"
+			quadTextureSprite = "GFX_button_kick"
+			position = { x= 71 y = -3 }
+			orientation = "UPPER_LEFT"
+			buttonFont = "hoi_16mbs"
+			pdx_tooltip = "kick_from_channel_tooltip"
+		}
+
+		guiButtonType = {
+			name = "country_icon"
+			quadTextureSprite = "GFX_empire_flag_32"
+			position = { x= -62 y = -3}
+			orientation = "UPPER_LEFT"
+		}
+
+		instantTextBoxType={
+			position = {x = -22 y = 5 }
+			name = "name"
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}	
+			maxWidth = 100
+			maxHeight = 18
+			text = ""	
+		}
+	}
+}
