@@ -1,3 +1,6 @@
+# 0.2.13
+* Check button_effects used in .gui files are defined
+* Check spriteTypes used in .gui files are defined
 # 0.2.12
 * Fix ambient_object localisation checks
 * Support recursive triggers and effects

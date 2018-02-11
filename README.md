@@ -7,11 +7,13 @@ This extension is still in very early alpha, it may not work, it may stop workin
 * Immediate highlighting of syntax errors
 * Checks the scopes effects/triggers are used in
 * Tooltip giving quick info on effects/triggers
+* Localisation checking for almost all common/events/interface
 
 # Usage
 1. Install this extension
 2. If on linux, possibly follow [these instructions](https://code.visualstudio.com/docs/setup/linux#_error-enospc)
-3. Open the Stellaris folder containing your mods. This can be one of:
+3. Either open your mod folder directly
+3. or open the Stellaris folder containing your mods. This can be one of:
     * "C:\Users\name\Paradox Interactive\Stellaris"
     * "C:\Program Files(x86)\Steam\steamapps\common\Stellaris"
 
