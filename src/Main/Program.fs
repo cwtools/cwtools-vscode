@@ -36,6 +36,7 @@ type Server(send : BinaryWriter) =
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
     let mutable validateVanilla : bool = false
+    let mutable experimental : bool = false
     let (|TrySuccess|TryFailure|) tryResult =  
         match tryResult with
         | true, value -> TrySuccess value
@@ -124,7 +125,8 @@ type Server(send : BinaryWriter) =
                 else u.LocalPath
             try
                 eprintfn "%s" path
-                let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.game_effects_triggers_1.9.1.txt"))
+                let docspath = if experimental then "Main.files.game_effects_triggers_2.0.txt" else "Main.files.game_effects_triggers_1.9.1.txt"
+                let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 
@@ -205,6 +207,11 @@ type Server(send : BinaryWriter) =
                 | JsonValue.Boolean b -> b
                 | _ -> false
             validateVanilla <- newVanillaOnly
+            let newExperimental =
+                match p.settings.Item("cwtools").Item("experimental") with
+                | JsonValue.Boolean b -> b
+                | _ -> false
+            experimental <- newExperimental
             eprintfn "New configuration %s" (p.ToString())
             let task = new Task((fun () -> processWorkspace(rootUri)))
             task.Start()
