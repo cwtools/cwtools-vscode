@@ -1,3 +1,9 @@
+# 0.2.15
+* Update scope checking to support PREV and check inside scopes
+* Check effects and triggers in more parts of events (options, desc triggers)
+# 0.2.14
+* Add experimental option to enable experimental features
+* Added 2.0 effects/triggers behind experimental flag
 # 0.2.13
 * Check button_effects used in .gui files are defined
 * Check spriteTypes used in .gui files are defined
