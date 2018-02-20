@@ -1,3 +1,6 @@
+# 0.2.16
+* Add "cwtools.errors.ignore" setting to allow ignoring of specific error codes
+* Handle "hidden" prefix on scopes
 # 0.2.15
 * Update scope checking to support PREV and check inside scopes
 * Check effects and triggers in more parts of events (options, desc triggers)
