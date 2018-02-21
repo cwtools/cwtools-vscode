@@ -1,3 +1,5 @@
+# 0.2.17
+* Check effectFile and textureFile against actual files, throw an error if the file isn't found
 # 0.2.16
 * Add "cwtools.errors.ignore" setting to allow ignoring of specific error codes
 * Handle "hidden" prefix on scopes
