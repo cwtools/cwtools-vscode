@@ -128,7 +128,7 @@ type Server(send : BinaryWriter) =
                 else u.LocalPath
             try
                 eprintfn "%s" path
-                let docspath = if experimental then "Main.files.game_effects_triggers_2.0.txt" else "Main.files.game_effects_triggers_1.9.1.txt"
+                let docspath = "Main.files.game_effects_triggers_2.0.txt"
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())

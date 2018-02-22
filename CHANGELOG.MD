@@ -1,3 +1,6 @@
+# 0.2.18
+* Add Stellaris 2.0 scopes
+* Set 2.0 trigger_docs as default
 # 0.2.17
 * Check effectFile and textureFile against actual files, throw an error if the file isn't found
 # 0.2.16
