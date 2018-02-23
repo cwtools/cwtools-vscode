@@ -128,6 +128,9 @@ type Server(send : BinaryWriter) =
                 else u.LocalPath
             try
                 eprintfn "%s" path
+                let filelist = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.vanilla_files_2.0.csv") 
+                                |> (fun f -> (new StreamReader(f)).ReadToEnd().Split(Environment.NewLine))
+                                |> Array.toList |> List.map (fun f -> f, "")
                 let docspath = "Main.files.game_effects_triggers_2.0.txt"
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface"))
@@ -136,7 +139,7 @@ type Server(send : BinaryWriter) =
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
                 eprintfn "%A" languages                
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles, languages, validateVanilla)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles @ filelist, languages, validateVanilla)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
