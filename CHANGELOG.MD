@@ -1,3 +1,7 @@
+# 0.2.19
+* Support scripted_variables
+* Fix bug with checking variables in nested blocks
+* Check correct scope of static modifiers using in add_modifier effects
 # 0.2.18
 * Add Stellaris 2.0 scopes
 * Set 2.0 trigger_docs as default

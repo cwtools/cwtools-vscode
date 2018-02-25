@@ -5,9 +5,10 @@ This extension is still in very early alpha, it may not work, it may stop workin
 **Make backups of your mod files.**
 # Features
 * Immediate highlighting of syntax errors
-* Checks the scopes effects/triggers are used in
+* Checks the scopes effects/triggers/modifiers are used in
 * Tooltip giving quick info on effects/triggers
 * Localisation checking for almost all common/events/interface
+* Checks interface files for valid sprites and graphics files
 
 # Usage
 1. Install this extension
