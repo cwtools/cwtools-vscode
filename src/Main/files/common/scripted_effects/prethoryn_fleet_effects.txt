@@ -1,0 +1,368 @@
+#	Example:
+#
+#	example_effect = {
+#		add_energy = -100
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		example_effect = yes
+#	}
+#
+
+############################
+# Prethoryn Scourge Fleets #
+############################
+
+swarm_vanguard = {
+	
+	random_list = {
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 3452
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 2967
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 4126
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 756
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 1007
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 2510
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 4831
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 3367
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 987
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+		10 = {
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = random
+				skill = 3
+				set_age = 4517
+				traits = {
+					trait = leader_trait_void_swimmer
+				}
+			}
+		}
+	}
+
+	create_fleet = {
+		name = "NAME_Prethoryn_Vanguard"
+		effect = {
+			set_owner = PREV
+			create_ship = {
+				name = random
+				design = "NAME_Swarm_Small"
+				graphical_culture = "swarm_01"
+			}
+			assign_leader = last_created_leader
+			while = {
+				count = 30
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Small"
+					graphical_culture = "swarm_01"
+				}
+			}
+			set_location = {
+				target = PREVPREV
+				distance = 35
+				angle = random 
+			}
+			set_fleet_stance = aggressive
+			set_aggro_range = 500
+			set_aggro_range_measure_from = self
+		}
+	}
+}
+
+swarm_brood = {
+	random_list = {
+		75 = {
+			create_leader = {
+				type = admiral
+				species = event_target:prethoryn_species
+				name = random
+				skill = 3
+				set_age = 1125
+			}
+		}
+		25 = {
+			create_leader = {
+				type = admiral
+				species = event_target:prethoryn_species
+				name = random
+				skill = 3
+				set_age = 1125
+				traits = {
+					trait = leader_trait_hive_affinity
+				}
+			}
+		}
+	}
+	create_fleet = {
+		name = "NAME_Prethoryn_Star_Brood"
+		effect = {
+			set_owner = event_target:prethoryn
+			create_ship = {
+				name = random
+				design = "NAME_Swarm_Queen"
+				graphical_culture = "swarm_01"
+			}
+			assign_leader = last_created_leader
+			while = {
+				count = 10
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Large"
+					graphical_culture = "swarm_01"
+				}
+			}
+			while = {
+				count = 8
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Carrier"
+					graphical_culture = "swarm_01"
+				}
+			}
+			while = {
+				count = 35
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Small"
+					graphical_culture = "swarm_01"
+				}
+			}
+			set_location = event_target:spawn_location
+			set_fleet_stance = aggressive
+			set_aggro_range = 500
+			set_aggro_range_measure_from = self
+		}
+	}
+}
+
+swarm_armies = {
+	create_fleet = {
+		name = "NAME_Prethoryn_Armies"
+		effect = {
+			set_owner = event_target:prethoryn
+			while = {
+				count = 20
+				create_army_transport = {
+					ship_name = "NAME_Prethoryn_Transport"
+					graphical_culture = "swarm_01"
+					army_name = "NAME_Prethoryn_Invaders"
+					army_type = "swarm_army"
+					species = event_target:prethoryn_species
+				}
+			}
+			set_location = {
+				target = PREVPREV
+				distance = 20
+				angle = random 
+			}
+		}
+	}
+}
+
+##########################
+# Feral Prethoryn Fleets #
+##########################
+
+# Garrisons
+
+feral_prethoryn_garrison_1 = {
+	create_fleet = {
+		name = "NAME_Feral_Prethoryn"
+		effect = {
+			set_owner = event_target:feral_prethoryn
+			while = {
+				count = 56
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Small"
+					graphical_culture = "swarm_01"
+				}
+			}
+			set_location = {
+				target = prev
+				distance = 35
+				angle = random 
+			}
+			set_fleet_stance = aggressive
+			set_aggro_range = 500
+			set_aggro_range_measure_from = self
+		}
+		settings = {
+			garrison = yes
+		}
+	}
+}
+
+feral_prethoryn_garrison_2 = {
+	create_fleet = {
+		name = "NAME_Feral_Prethoryn"
+		effect = {
+			set_owner = event_target:feral_prethoryn
+			while = {
+				count = 10
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Large"
+					graphical_culture = "swarm_01"
+				}
+			}
+			while = {
+				count = 8
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Carrier"
+					graphical_culture = "swarm_01"
+				}
+			}
+			while = {
+				count = 35
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Small"
+					graphical_culture = "swarm_01"
+				}
+			}
+			set_location = {
+				target = prev
+				distance = 35
+				angle = random 
+			}
+			set_fleet_stance = aggressive
+			set_aggro_range = 500
+			set_aggro_range_measure_from = self
+		}
+		settings = {
+			garrison = yes
+		}
+	}
+}
+
+# Roaming
+
+feral_prethoryn_roaming_1 = {
+	create_fleet = {
+		name = "NAME_Feral_Prethoryn"
+		effect = {
+			set_owner = event_target:feral_prethoryn
+			while = {
+				count = 30
+				create_ship = {
+					name = random
+					design = "NAME_Swarm_Small"
+					graphical_culture = "swarm_01"
+				}
+			}
+			set_location = {
+				target = prev
+				distance = 35
+				angle = random 
+			}
+			set_fleet_flag = roaming_prethoryn_fleet
+			set_fleet_stance = aggressive
+			set_aggro_range = 500
+			set_aggro_range_measure_from = self
+		}
+	}
+}

@@ -138,8 +138,11 @@ type Server(send : BinaryWriter) =
                 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
+                let logspath = "Main.files.setup.log"
+                let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
+                let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
                 eprintfn "%A" languages                
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, embeddedFiles @ filelist, languages, validateVanilla)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )

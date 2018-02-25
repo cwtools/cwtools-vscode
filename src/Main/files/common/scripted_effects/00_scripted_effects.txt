@@ -204,306 +204,27 @@ create_pirate_country = {
 				exists = event_target:pirate_country
 			}
 		}
-		random_list = {
-			50 = {
-				create_country = {
-					name = "NAME_Privateers"
-					name_list = "PRT1"
-					species = random
-					type = pirate
-					flag = {
-						icon = {
-							category = "zoological"
-							file = "flag_zoological_1.dds"
-						}
-						background= {
-							category = "backgrounds"
-							file = "00_solid.dds"
-						}
-						colors={
-							"black"
-							"black"
-							"null"
-							"null"
-						}
-					}
+		create_country = {
+			name = "NAME_Privateers"
+			name_list = "PRT1"
+			species = random
+			type = pirate
+			flag = {
+				background = {
+					category = "backgrounds"
+					file = "00_solid.dds"
 				}
-				last_created_country = {
-					save_global_event_target_as = pirate_country
-				}
-			}
-			50 = {
-				create_country = {
-					name = "NAME_Privateers"
-					name_list = "PRT2"
-					species = random
-					type = pirate
-					flag = {
-						icon = {
-							category = "zoological"
-							file = "flag_zoological_1.dds"
-						}
-						background= {
-							category = "backgrounds"
-							file = "00_solid.dds"
-						}
-						colors={
-							"black"
-							"black"
-							"null"
-							"null"
-						}
-					}
-				}
-				last_created_country = {
-					save_global_event_target_as = pirate_country
+				colors ={
+					"black"
+					"black"
+					"null"
+					"null"
 				}
 			}
 		}
-	}
-}
-
-swarm_vanguard = {
-	
-	random_list = {
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 3452
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 2967
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 4126
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 756
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 1007
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 2510
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 4831
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 3367
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 987
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-		10 = {
-			create_leader = {
-				type = admiral
-				species = last_created
-				name = random
-				skill = 500
-				set_age = 4517
-				traits = {
-					trait = leader_trait_void_swimmer
-				}
-			}
-		}
-	}
-
-	create_fleet = {
-		name = "NAME_Prethoryn_Vanguard"
-		effect = {
-			set_owner = PREV
-			create_ship = {
-				name = random
-				design = "NAME_Swarm_Small"
-				graphical_culture = "swarm_01"
-			}
-			assign_leader = last_created_leader
-			while = {
-				count = 46
-				create_ship = {
-					name = random
-					design = "NAME_Swarm_Small"
-					graphical_culture = "swarm_01"
-				}
-			}
-			set_location = {
-				target = PREVPREV
-				distance = 35
-				angle = random 
-			}
-			set_fleet_stance = aggressive
-			set_aggro_range = 500
-			set_aggro_range_measure_from = self
-		}
-	}
-}
-
-swarm_brood = {
-	random_list = {
-		75 = {
-			create_leader = {
-				type = admiral
-				species = event_target:prethoryn_species
-				name = random
-				skill = 500
-				set_age = 1125
-			}
-		}
-		25 = {
-			create_leader = {
-				type = admiral
-				species = event_target:prethoryn_species
-				name = random
-				skill = 500
-				set_age = 1125
-				traits = {
-					trait = leader_trait_hive_affinity
-				}
-			}
-		}
-	}
-	create_fleet = {
-		name = "NAME_Prethoryn_Star_Brood"
-		effect = {
-			set_owner = event_target:prethoryn
-			create_ship = {
-				name = random
-				design = "NAME_Swarm_Queen"
-				graphical_culture = "swarm_01"
-			}
-			assign_leader = last_created_leader
-			while = {
-				count = 15
-				create_ship = {
-					name = random
-					design = "NAME_Swarm_Large"
-					graphical_culture = "swarm_01"
-				}
-			}
-			while = {
-				count = 13
-				create_ship = {
-					name = random
-					design = "NAME_Swarm_Carrier"
-					graphical_culture = "swarm_01"
-				}
-			}
-			while = {
-				count = 63
-				create_ship = {
-					name = random
-					design = "NAME_Swarm_Small"
-					graphical_culture = "swarm_01"
-				}
-			}
-			set_location = prevprev
-			set_fleet_stance = aggressive
-			set_aggro_range = 500
-			set_aggro_range_measure_from = self
-		}
-	}
-}
-
-swarm_armies = {
-	create_fleet = {
-		name = "NAME_Prethoryn_Armies"
-		effect = {
-			set_owner = event_target:prethoryn
-			while = {
-				count = 20
-				create_army_transport = {
-					ship_name = "NAME_Prethoryn_Transport"
-					graphical_culture = "swarm_01"
-					army_name = "NAME_Prethoryn_Invaders"
-					army_type = "swarm_army"
-					species = event_target:prethoryn_species
-				}
-			}
-			set_location = {
-				target = PREVPREV
-				distance = 20
-				angle = random 
-			}
+		last_created_country = {
+			save_global_event_target_as = pirate_country
+			randomize_flag_symbol = "pirate"
 		}
 	}
 }
@@ -839,10 +560,10 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = leader_trait_expertise_rocketry }
+							NOT = { has_trait = leader_trait_expertise_propulsion }
 						}
-						add_trait = leader_trait_expertise_rocketry
-						set_timed_leader_flag = { flag = gained_leader_trait_expertise_rocketry days = 7 }
+						add_trait = leader_trait_expertise_propulsion
+						set_timed_leader_flag = { flag = gained_leader_trait_expertise_propulsion days = 7 }
 						set_timed_leader_flag = { flag = has_gained_trait days = 7 }
 					}
 				}
@@ -1403,20 +1124,14 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = leader_trait_defender }
+							owner = {
+								NOT = { has_authority = "auth_machine_intelligence" }
+							}						
+							NOT = { has_trait = leader_trait_butcher }
+							NOT = { has_trait = leader_trait_restrained }						
 						}
-						add_trait = leader_trait_defender
-						set_timed_leader_flag = { flag = gained_leader_trait_defender days = 7 }
-						set_timed_leader_flag = { flag = has_gained_trait days = 7 }
-					}
-				}
-				5 = {
-					if = {
-						limit = {
-							NOT = { has_trait = leader_trait_attacker }
-						}
-						add_trait = leader_trait_attacker
-						set_timed_leader_flag = { flag = gained_leader_trait_attacker days = 7 }
+						add_trait = leader_trait_restrained
+						set_timed_leader_flag = { flag = gained_leader_trait_restrained days = 7 }
 						set_timed_leader_flag = { flag = has_gained_trait days = 7 }
 					}
 				}
@@ -1451,6 +1166,7 @@ add_random_leader_trait = {
 					if = {
 						limit = {
 							NOT = { has_trait = leader_trait_butcher }
+							NOT = { has_trait = leader_trait_restrained }
 						}
 						add_trait = leader_trait_butcher
 						set_timed_leader_flag = { flag = gained_leader_trait_butcher days = 7 }
@@ -1622,7 +1338,13 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = trait_ruler_corvette_focus }
+							NOR = { 
+								has_trait = trait_ruler_corvette_focus
+								has_trait = trait_ruler_destroyer_focus
+								has_trait = trait_ruler_cruiser_focus
+								has_trait = trait_ruler_battleship_focus 
+							}
+							owner = { has_technology = "tech_destroyers" }
 						}
 						add_trait = trait_ruler_corvette_focus
 						set_timed_leader_flag = { flag = gained_trait_ruler_corvette_focus days = 7 }
@@ -1632,7 +1354,13 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = trait_ruler_destroyer_focus }
+							NOR = { 
+								has_trait = trait_ruler_corvette_focus
+								has_trait = trait_ruler_destroyer_focus
+								has_trait = trait_ruler_cruiser_focus
+								has_trait = trait_ruler_battleship_focus 
+							}
+							owner = { has_technology = "tech_destroyers" }
 						}
 						add_trait = trait_ruler_destroyer_focus
 						set_timed_leader_flag = { flag = gained_trait_ruler_destroyer_focus days = 7 }
@@ -1642,7 +1370,13 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = trait_ruler_cruiser_focus }
+							NOR = { 
+								has_trait = trait_ruler_corvette_focus
+								has_trait = trait_ruler_destroyer_focus
+								has_trait = trait_ruler_cruiser_focus
+								has_trait = trait_ruler_battleship_focus 
+							}
+							owner = { has_technology = "tech_cruisers" }
 						}
 						add_trait = trait_ruler_cruiser_focus
 						set_timed_leader_flag = { flag = gained_trait_ruler_cruiser_focus days = 7 }
@@ -1652,7 +1386,13 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = trait_ruler_battleship_focus }
+							NOR = { 
+								has_trait = trait_ruler_corvette_focus
+								has_trait = trait_ruler_destroyer_focus
+								has_trait = trait_ruler_cruiser_focus
+								has_trait = trait_ruler_battleship_focus 
+							}
+							owner = { has_technology = "tech_battleships" }
 						}
 						add_trait = trait_ruler_battleship_focus
 						set_timed_leader_flag = { flag = gained_trait_ruler_battleship_focus days = 7 }
@@ -2162,6 +1902,24 @@ spawn_planet_temperature_effect = {
 	}
 }
 
+spawn_planet_temperature_effect2 = {
+	create_ambient_object = {
+		location = this
+		#type = planet_heat_up_particle_object
+		type = blue_sun_grow_particle_object
+		duration = 3
+		
+		use_3d_location= yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.03
+	}
+}
+
 guardian_difficulty = {
 	if = {
 		limit = {
@@ -2584,2523 +2342,254 @@ wipe_pop_ethos = {
 	}
 }
 spawn_vultaum_anomaly = {
-	if = {
+	random_system_within_border = {
 		limit = {
-			NOT = { has_country_flag = vultaum_1 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+			has_star_flag = precursor_1
+			any_planet = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+		random_system_planet = {
+			limit = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				surveyed = {
-					set_surveyed = no
-					surveyor = ROOT
-				}
-				add_anomaly = vultaum_1_cat
+			save_event_target_as = precursor_planet
+			set_planet_flag = precursor_world
+			enable_special_project = {
+				name = "VULTAUM_ARTIFACT_FOUND"
+				location = this
+				owner = root
 			}
 		}
-		set_country_flag = vultaum_1
-		break = yes
 	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_2 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				surveyed = {
-					set_surveyed = no
-					surveyor = ROOT
-				}
-				add_anomaly = vultaum_2_cat
-			}
-		}
-		set_country_flag = vultaum_2
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_3 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_3_cat
-			}
-		}
-		set_country_flag = vultaum_3
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_4 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_4_cat
-			}
-		}
-		set_country_flag = vultaum_4
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_5 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_5_cat
-			}
-		}
-		set_country_flag = vultaum_5
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_6 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_6_cat
-			}
-		}
-		set_country_flag = vultaum_6
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_7 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_7_cat
-			}
-		}
-		set_country_flag = vultaum_7
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_8 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_8_cat
-			}
-		}
-		set_country_flag = vultaum_8
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_9 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_9_cat
-			}
-		}
-		set_country_flag = vultaum_9
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = vultaum_10 }
-			any_system_within_border = {
-				has_star_flag = precursor_1
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_1
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = vultaum_10_cat
-			}
-		}
-		set_country_flag = vultaum_10
-		break = yes
-	}
+	set_country_flag = ongoing_precursor_artifact
 }
 		
 spawn_yuht_anomaly = {
-	if = {
+	random_system_within_border = {
 		limit = {
-			NOT = { has_country_flag = yuht_1 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+			has_star_flag = precursor_2
+			any_planet = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+		random_system_planet = {
+			limit = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_1_cat
+			save_event_target_as = precursor_planet
+			set_planet_flag = precursor_world
+			enable_special_project = {
+				name = "YUHT_ARTIFACT_FOUND"
+				location = this
+				owner = root
 			}
 		}
-		set_country_flag = yuht_1
-		break = yes
 	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_2 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_2_cat
-			}
-		}
-		set_country_flag = yuht_2
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_3 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_3_cat
-			}
-		}
-		set_country_flag = yuht_3
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_4 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_4_cat
-			}
-		}
-		set_country_flag = yuht_4
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_5 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_5_cat
-			}
-		}
-		set_country_flag = yuht_5
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_6 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_6_cat
-			}
-		}
-		set_country_flag = yuht_6
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_7 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_7_cat
-			}
-		}
-		set_country_flag = yuht_7
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = yuht_8 }
-			any_system_within_border = {
-				has_star_flag = precursor_2
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_2
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = yuht_8_cat
-			}
-		}
-		set_country_flag = yuht_8
-		break = yes
-	}
+	set_country_flag = ongoing_precursor_artifact
 }
 
 spawn_league_anomaly = {
-	if = {
+	random_system_within_border = {
 		limit = {
-			NOT = { has_country_flag = first_league_1 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+			has_star_flag = precursor_3
+			any_planet = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+		random_system_planet = {
+			limit = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_1_cat
+			save_event_target_as = precursor_planet
+			set_planet_flag = precursor_world
+			enable_special_project = {
+				name = "LEAGUE_ARTIFACT_FOUND"
+				location = this
+				owner = root
 			}
 		}
-		set_country_flag = first_league_1
-		break = yes
 	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_2 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_2_cat
-			}
-		}
-		set_country_flag = first_league_2
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_3 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_3_cat
-			}
-		}
-		set_country_flag = first_league_3
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_4 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_4_cat
-			}
-		}
-		set_country_flag = first_league_4
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_5 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_5_cat
-			}
-		}
-		set_country_flag = first_league_5
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_6 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_6_cat
-			}
-		}
-		set_country_flag = first_league_6
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_7 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_7_cat
-			}
-		}
-		set_country_flag = first_league_7
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_8 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_8_cat
-			}
-		}
-		set_country_flag = first_league_8
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_9 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_9_cat
-			}
-		}
-		set_country_flag = first_league_9
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_10 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_10_cat
-			}
-		}
-		set_country_flag = first_league_10
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_11 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_11_cat
-			}
-		}
-		set_country_flag = first_league_11
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_12 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_12_cat
-			}
-		}
-		set_country_flag = first_league_12
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = first_league_13 }
-			any_system_within_border = {
-				has_star_flag = precursor_3
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_3
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = league_13_cat
-			}
-		}
-		set_country_flag = first_league_13
-		break = yes
-	}
+	set_country_flag = ongoing_precursor_artifact
 }
 
 spawn_irassian_anomaly = {
-	if = {
+	random_system_within_border = {
 		limit = {
-			NOT = { has_country_flag = irassians_1 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+			has_star_flag = precursor_4
+			any_planet = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+		random_system_planet = {
+			limit = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_1_cat
+			save_event_target_as = precursor_planet
+			set_planet_flag = precursor_world
+			enable_special_project = {
+				name = "IRASSIAN_ARTIFACT_FOUND"
+				location = this
+				owner = root
 			}
 		}
-		set_country_flag = irassians_1
-		break = yes
 	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_2 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_2_cat
-			}
-		}
-		set_country_flag = irassians_2
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_3 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_3_cat
-			}
-		}
-		set_country_flag = irassians_3
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_4 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_4_cat
-			}
-		}
-		set_country_flag = irassians_4
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_5 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_5_cat
-			}
-		}
-		set_country_flag = irassians_5
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_6 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_6_cat
-			}
-		}
-		set_country_flag = irassians_6
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_7 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_7_cat
-			}
-		}
-		set_country_flag = irassians_7
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_8 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_8_cat
-			}
-		}
-		set_country_flag = irassians_8
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_9 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_9_cat
-			}
-		}
-		set_country_flag = irassians_9
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = irassians_10 }
-			any_system_within_border = {
-				has_star_flag = precursor_4
-				any_planet = {
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_4
-				any_planet = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = irassian_10_cat
-			}
-		}
-		set_country_flag = irassians_10
-		break = yes
-	}
+	set_country_flag = ongoing_precursor_artifact
 }
 
 spawn_cybrex_anomaly = {
-	if = {
+	random_system_within_border = {
 		limit = {
-			NOT = { has_country_flag = cybrex_1 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+			has_star_flag = precursor_5
+			any_planet = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
+		random_system_planet = {
+			limit = { 
+				uninhabitable_regular_planet = yes
+				NOT = { has_planet_flag = precursor_world }
+				has_owner = no
+				has_anomaly = no
+				is_surveyed = {
+					who = root
+					status = yes
 				}
 			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_1_cat
+			save_event_target_as = precursor_planet
+			set_planet_flag = precursor_world
+			enable_special_project = {
+				name = "CYBREX_ARTIFACT_FOUND"
+				location = this
+				owner = root
 			}
 		}
-		set_country_flag = cybrex_1
+	}
+	set_country_flag = ongoing_precursor_artifact
+}
+
+collector_surrenders_artifact = {
+	if = {
+		limit = { has_event_chain = "vultaum_chain" }
+		add_event_chain_counter = { 
+			event_chain = "vultaum_chain" 
+			counter = "vultaum_artifacts" 
+			amount = 1 
+		}
+		hidden_effect = { 
+			country_event = { id = precursor.97 } 
+		}
 		break = yes
 	}
 	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_2 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
+		limit = { has_event_chain = "yuht_chain" }
+		add_event_chain_counter = { 
+			event_chain = "yuht_chain" 
+			counter = "yuht_artifacts" 
+			amount = 1 
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_2_cat
-			}
+		hidden_effect = { 
+			country_event = { id = precursor.597 } 
 		}
-		set_country_flag = cybrex_2
 		break = yes
 	}
 	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_3 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
+		limit = { has_event_chain = "first_league_chain" }
+		add_event_chain_counter = { 
+			event_chain = "first_league_chain" 
+			counter = "first_league_artifacts" 
+			amount = 1 
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_3_cat
-			}
+		hidden_effect = { 
+			country_event = { id = precursor.1097 } 
 		}
-		set_country_flag = cybrex_3
 		break = yes
 	}
 	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_4 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
+		limit = { has_event_chain = "irassian_chain" }
+		add_event_chain_counter = { 
+			event_chain = "irassian_chain" 
+			counter = "irassian_artifacts" 
+			amount = 1 
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_4_cat
-			}
+		hidden_effect = { 
+			country_event = { id = precursor.1597 } 
 		}
-		set_country_flag = cybrex_4
 		break = yes
 	}
 	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_5 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
+		limit = { has_event_chain = "cybrex_chain" }
+		add_event_chain_counter = { 
+			event_chain = "cybrex_chain" 
+			counter = "cybrex_artifacts" 
+			amount = 1 
 		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					habitable_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_5_cat
-			}
+		hidden_effect = { 
+			country_event = { id = precursor.2103 } 
 		}
-		set_country_flag = cybrex_5
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_7 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					is_planet_class = pc_gas_giant
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_7_cat
-			}
-		}
-		set_country_flag = cybrex_7
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_8 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_8_cat
-			}
-		}
-		set_country_flag = cybrex_8
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_9 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_9_cat
-			}
-		}
-		set_country_flag = cybrex_9
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_10 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_10_cat
-			}
-		}
-		set_country_flag = cybrex_10
-		break = yes
-	}
-	if = {
-		limit = {
-			NOT = { has_country_flag = cybrex_11 }
-			any_system_within_border = {
-				has_star_flag = precursor_5
-				any_planet = {
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-		}
-		random_system_within_border = {
-			limit = {
-				has_star_flag = precursor_5
-				any_planet = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-			}
-			random_system_planet = {
-				limit = { 
-					uninhabitable_regular_planet = yes
-					NOT = { has_planet_flag = precursor_world }
-					has_owner = no
-					has_anomaly = no
-					is_surveyed = {
-						who = ROOT
-						status = yes
-					}
-				}
-				save_event_target_as = precursor_planet
-				add_anomaly = cybrex_11_cat
-			}
-		}
-		set_country_flag = cybrex_11
 		break = yes
 	}
 }
@@ -6204,13 +3693,6 @@ give_fe_tech = {
 	}
 	if = {
 		limit = {
-			NOT = { has_technology = tech_gaia_creation }
-		}
-		give_technology = { tech = tech_gaia_creation }
-		break = yes
-	}
-	if = {
-		limit = {
 			NOT = { has_technology = tech_nutrient_replication }
 		}
 		give_technology = { tech = tech_nutrient_replication }
@@ -6355,7 +3837,7 @@ create_ai_planet_defense = {
 			type = admiral
 			species = owner_main_species
 			name = random
-			skill = 800
+			skill = 3
 		}
 		last_created_leader = { set_age = 0 }
 	}
@@ -6363,7 +3845,7 @@ create_ai_planet_defense = {
 		effect = {
 			set_owner = event_target:AI_crisis
 			while = {
-				count = 40
+				count = 25
 				create_ship = {
 					name = random
 					design = "NAME_Euthanizer"
@@ -6372,7 +3854,7 @@ create_ai_planet_defense = {
 			}
 			assign_leader = last_created_leader
 			while = {
-				count = 80
+				count = 50
 				create_ship = {
 					name = random
 					design = "NAME_Sterilizer"
@@ -6524,7 +4006,7 @@ create_ai_fleet = {
 			type = admiral
 			species = owner_main_species
 			name = random
-			skill = 400
+			skill = 3
 		}
 		last_created_leader = { set_age = 0 }
 	}
@@ -6532,7 +4014,7 @@ create_ai_fleet = {
 		effect = {
 			set_owner = event_target:AI_crisis
 			while = {
-				count = 16
+				count = 10
 				create_ship = {
 					name = random
 					design = "NAME_Euthanizer"
@@ -6541,7 +4023,7 @@ create_ai_fleet = {
 			}
 			assign_leader = last_created_leader
 			while = {
-				count = 38
+				count = 20
 				create_ship = {
 					name = random
 					design = "NAME_Sterilizer"
@@ -6604,60 +4086,8 @@ awaken_guardians_of_the_galaxy = {
 	}
 }
 
-create_fallen_empire_large_station = {
-	if = {
-		limit = {
-			owner = { has_authority = auth_machine_intelligence }
-		}
-		create_ship = {
-			name = random
-			design = "NAME_Omega"
-			graphical_culture = owner
-		}						
-	}					
-	if = {
-		limit = {
-			owner = { has_ethic = ethic_fanatic_materialist }
-		}
-		create_ship = {
-			name = random
-			design = "NAME_Obscurer"
-			graphical_culture = owner
-		}						
-	}
-	if = {
-		limit = {
-			owner = { has_ethic = ethic_fanatic_spiritualist }
-		}
-		create_ship = {
-			name = random
-			design = "NAME_Bulwark"
-			graphical_culture = owner
-		}						
-	}
-	if = {
-		limit = {
-			owner = { has_ethic = ethic_fanatic_xenophobe }
-		}
-		create_ship = {
-			name = random
-			design = "NAME_Reaper"
-			graphical_culture = owner
-		}						
-	}
-	if = {
-		limit = {
-			owner = { has_ethic = ethic_fanatic_xenophile }
-		}
-		create_ship = {
-			name = random
-			design = "NAME_Sentinel"
-			graphical_culture = owner
-		}						
-	}
-}
 
-create_fallen_empire_small_station = {
+create_fallen_empire_platform = {
 	if = {
 		limit = {
 			owner = { has_authority = auth_machine_intelligence }
@@ -6705,6 +4135,59 @@ create_fallen_empire_small_station = {
 		create_ship = {
 			name = random
 			design = "NAME_Watcher"
+			graphical_culture = owner
+		}						
+	}
+}
+
+create_fallen_empire_colossus = {
+	if = {
+		limit = {
+			owner = { has_authority = auth_machine_intelligence }
+		}
+		create_ship = {
+			name = random
+			design = "NAME_Omega"
+			graphical_culture = owner
+		}						
+	}					
+	if = {
+		limit = {
+			owner = { has_ethic = ethic_fanatic_materialist }
+		}
+		create_ship = {
+			name = random
+			design = "NAME_Enforcer"
+			graphical_culture = owner
+		}						
+	}
+	if = {
+		limit = {
+			owner = { has_ethic = ethic_fanatic_spiritualist }
+		}
+		create_ship = {
+			name = random
+			design = "NAME_Cleanser"
+			graphical_culture = owner
+		}						
+	}
+	if = {
+		limit = {
+			owner = { has_ethic = ethic_fanatic_xenophobe }
+		}
+		create_ship = {
+			name = random
+			design = "NAME_Reaper"
+			graphical_culture = owner
+		}						
+	}
+	if = {
+		limit = {
+			owner = { has_ethic = ethic_fanatic_xenophile }
+		}
+		create_ship = {
+			name = random
+			design = "NAME_Adjuster"
 			graphical_culture = owner
 		}						
 	}
@@ -6928,11 +4411,11 @@ create_fallen_empire_reinforcements = {
 		effect = {
 			set_owner = prev.owner
 			while = {
-				count = 5
+				count = 2
 				create_fallen_empire_large_ship = yes
 			}
 			while = {
-				count = 10
+				count = 8
 				create_fallen_empire_small_ship = yes
 			}
 			random_list = {
@@ -6975,11 +4458,11 @@ create_fallen_empire_fleet = {
 		effect = {
 			set_owner = prev.owner
 			while = {
-				count = 10
+				count = 5
 				create_fallen_empire_large_ship = yes
 			}
 			while = {
-				count = 20
+				count = 15
 				create_fallen_empire_small_ship = yes
 			}
 			random_list = {
@@ -7023,8 +4506,27 @@ create_fallen_empire_starting_navy = {
 		chance = 33			
 		create_fallen_empire_fleet = yes
 	}
+	if = {
+		limit = { 
+			host_has_dlc = "Apocalypse"
+		}
+		random = {
+			chance = 10
+			create_fleet = {
+				effect = {
+					set_owner = prev.owner
+					create_fallen_empire_colossus = yes
+					set_location = {
+						target = prev
+						distance = 30
+						angle = random 
+					}					
+				}
+			}
+		}			
+	}
 	random = {
-		chance = 10
+		chance = 25
 		create_fleet = {
 			effect = {
 				set_owner = prev.owner
@@ -7184,6 +4686,7 @@ apply_robotic_pop_growth_behavior = {
 
 refugee_pop_effect = {
 	remove_modifier = "pop_recently_conquered"
+	remove_culture_shock = yes
 	owner = {
 		save_event_target_as = RefugeeEscapedFrom
 		random_relation = {
@@ -7205,7 +4708,7 @@ refugee_pop_effect = {
 					habitability = { who = root value > 0.2 }
 					is_under_colonization = no
 					is_controlled_by = owner
-					under_bombardment = no
+					has_orbital_bombardment = no
 					any_tile = {
 						has_blocker = no
 						has_pop = no
@@ -7217,7 +4720,7 @@ refugee_pop_effect = {
 					habitability = { who = root value > 0.2 }
 					is_under_colonization = no
 					is_controlled_by = owner
-					under_bombardment = no
+					has_orbital_bombardment = no
 					any_tile = {
 						has_blocker = no
 						has_pop = no
@@ -7342,7 +4845,7 @@ generate_start_buildings_and_blockers = {
 		random_neighboring_tile = {
 			limit = { has_blocker = no has_building = no }
 			set_building = "building_power_plant_1"
-			set_deposit = d_rich_energy_deposit					
+			set_deposit = d_rich_energy_deposit
 		}
 		random_neighboring_tile = {
 			limit = { has_blocker = no has_building = no }
@@ -7407,6 +4910,317 @@ generate_start_buildings_and_blockers = {
 	}	
 }
 
+reset_start_buildings_and_blockers_post_apoc = { #Selectively resets necessary tiles for Post-Apoc Civic users. Relies on "generate_start_buildings_and_blockers" and game_start.32
+	random_tile = {
+		limit = { has_building = "building_capital_1" }
+		set_deposit = d_energy_deposit
+		random_neighboring_tile = {
+			limit = { has_building = "building_hydroponics_farm_1" }
+			clear_deposits = yes
+		}
+		random_neighboring_tile = {
+			limit = { has_building = "building_hydroponics_farm_1" }
+			clear_deposits = yes
+		}
+	}
+	random_tile = {
+		limit = { has_building = "building_basic_science_lab_1" }
+		clear_deposits = yes
+		remove_building = yes
+		set_building = "building_hydroponics_farm_1"
+	}		
+	random_tile = {
+		limit = { has_deposit = "d_engineering_deposit" has_building = no }
+		if = {
+			limit = { 
+				owner = { has_civic = civic_machine_terminator }
+			}
+			set_blocker = "tb_former_battlefield"
+			else = {
+				set_blocker = "tb_bomb_crater"
+			}
+		}	
+	}
+	random_tile = {
+		limit = { has_deposit = "d_society_deposit" has_building = no }
+		if = {
+			limit = { 
+				owner = { has_civic = civic_machine_terminator }
+			}
+			set_blocker = "tb_former_battlefield"
+			else = {
+				set_blocker = "tb_bomb_crater"
+			}
+		}	
+	}
+	random_tile = {
+		limit = { has_deposit = "d_physics_deposit" has_building = no }		
+		if = {
+			limit = { 
+				owner = { has_civic = civic_machine_terminator }
+			}
+			set_blocker = "tb_exterminators_ruins"
+			else = {
+				set_blocker = "tb_radioactive_wasteland"
+			}
+		}	
+	}
+	random_tile = {
+		limit = { has_deposit = "d_rich_energy_deposit" has_building = no }
+		if = {
+			limit = { 
+				owner = { has_civic = civic_machine_terminator }
+			}
+			set_blocker = "tb_exterminators_ruins"
+			else = {
+				set_blocker = "tb_radioactive_wasteland"
+			}
+		}
+	}
+	random_tile = {
+		limit = { has_deposit = "d_rich_farmland_deposit" has_building = no }
+		random_list = {
+			33 = {
+				set_deposit = d_engineering_deposit
+			}
+			33 = {
+				set_deposit = d_society_deposit
+			}
+			33 = {
+				set_deposit = d_physics_deposit
+			}
+		}
+	}
+	random_tile = { #turns one farm tile into empty tile
+		limit = {
+			OR = {
+				has_deposit = "d_farmland_deposit"
+				has_deposit = "d_rich_farmland_deposit"
+				has_deposit = "d_mineral_food_deposit"
+				has_deposit = "d_rich_food_mineral_deposit"
+				has_deposit = "d_vast_farmland_deposit"
+				has_deposit = "d_immense_farmland_deposit"
+			}
+		}
+		clear_deposits = yes
+	}
+	every_tile = {
+		limit = { has_deposit = "d_farmland_deposit" }
+		clear_deposits = yes
+		random_list = {
+			35 = {
+				set_deposit = d_energy_deposit
+			}
+			35 = {
+				set_deposit = d_mineral_deposit
+			}
+		}
+	}
+	every_tile = {
+		limit = {
+			OR = {
+				has_deposit = "d_rich_farmland_deposit"
+				has_deposit = "d_mineral_food_deposit"
+				has_deposit = "d_rich_food_mineral_deposit"
+			}
+		}
+		clear_deposits = yes
+		random_list = {
+			10 = {
+				set_deposit = d_rich_engineering_deposit
+			}
+			10 = {
+				set_deposit = d_rich_society_deposit
+			}
+			10 = {
+				set_deposit = d_rich_physics_deposit
+			}
+			35 = {
+				set_deposit = d_rich_energy_deposit
+			}
+			35 = {
+				set_deposit = d_rich_mineral_deposit
+			}
+		}
+	}
+	every_tile = {
+		limit = { has_deposit = "d_vast_farmland_deposit" }
+		clear_deposits = yes
+		random_list = {
+			10 = {
+				set_deposit = d_vast_engineering_deposit
+			}
+			10 = {
+				set_deposit = d_vast_society_deposit
+			}
+			10 = {
+				set_deposit = d_vast_physics_deposit
+			}
+			35 = {
+				set_deposit = d_vast_energy_deposit
+			}
+			35 = {
+				set_deposit = d_vast_mineral_deposit
+			}
+		}
+	}
+	every_tile = {
+		limit = { has_deposit = "d_immense_farmland_deposit" }
+		clear_deposits = yes
+		random_list = {
+			10 = {
+				set_deposit = d_immense_engineering_deposit
+			}
+			10 = {
+				set_deposit = d_immense_society_deposit
+			}
+			10 = {
+				set_deposit = d_immense_physics_deposit
+			}
+			35 = {
+				set_deposit = d_immense_energy_deposit
+			}
+			35 = {
+				set_deposit = d_immense_mineral_deposit
+			}
+		}
+	}
+	IF = { #ensures at least one empty tile, if no farm tile was generated to nuke
+		limit = { any_tile = { NOT = { has_deposit = no } } }
+		random_tile = {
+			limit = { has_blocker = no has_building = no has_deposit = yes }
+			clear_deposits = yes
+		}
+		else = {
+			#do nothing
+		}
+	}
+}
+
+reset_start_buildings_and_blockers_life_seeded = { #Selectively resets necessary tiles for Life-Seeded Civic users. Is triggered after "generate_start_buildings_and_blockers" by game_start.34
+	# Find capitol and buildings, and then remove them
+	# this is needed because planet's deposits were re-rolled after
+	every_tile = {
+		limit = { has_building = yes }
+		remove_building = yes
+	}
+	# Set up a new capitol and nearby buildings
+	random_tile = {
+		limit = { has_blocker = no has_building = no num_adjacent_tiles > 3 }
+		set_building = "building_capital_1"
+		set_deposit = d_energy_deposit	
+		random_neighboring_tile = {
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_hydroponics_farm_1"
+			set_deposit = d_rich_farmland_deposit						
+		}
+		random_neighboring_tile = {
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_hydroponics_farm_1"
+			set_deposit = d_rich_farmland_deposit						
+		}
+		random_neighboring_tile = {
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_power_plant_1"
+			set_deposit = d_rich_energy_deposit
+		}
+		random_neighboring_tile = {
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_mining_network_1"
+			set_deposit = d_rich_mineral_deposit
+		}
+	}
+	
+	# Add the lab
+	# has pop = yes to make sure they use the tiles that were first generated for this task
+	random_tile = {
+		limit = { has_blocker = no has_building = no has_pop = yes  }
+		set_building = "building_basic_science_lab_1"
+		random_list = {
+			33 = {
+				set_deposit = d_engineering_deposit										
+			}
+			33 = { 
+				set_deposit = d_society_deposit											
+			}
+			33 = { 
+				set_deposit = d_physics_deposit											
+			}					
+		}	
+	}
+	# Add mine and power plant
+	# has pop = yes to make sure they use the tiles that were first generated for this task
+	random_tile = {
+		limit = { has_blocker = no has_building = no has_pop = yes }
+		set_building = "building_mining_network_1"
+		set_deposit = d_mineral_deposit
+	}
+	random_tile = {
+		limit = { has_blocker = no has_building = no has_pop = yes  }
+		set_building = "building_power_plant_1"
+		set_deposit = d_rich_energy_deposit
+	}
+	
+	# Move pops to tiles
+	every_tile = {
+		limit = { has_building = yes has_pop = no }
+		
+		save_event_target_as = needs_worker	
+		planet = {
+			random_pop = {
+				limit = { tile = { has_building = no } }
+
+				resettle_pop = {
+					pop = this
+					tile = event_target:needs_worker
+				}
+			
+			}		
+		}
+	}
+	# Add blockers
+	random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_failing_infrastructure"
+        set_deposit = d_mineral_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_failing_infrastructure"
+        set_deposit = d_engineering_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no  }
+        set_blocker = "tb_failing_infrastructure"
+        set_deposit = d_society_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_failing_infrastructure"
+        set_deposit = d_physics_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_decrepit_dwellings"
+        set_deposit = d_rich_energy_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_decrepit_dwellings"
+        set_deposit = d_rich_energy_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_decrepit_dwellings"
+        set_deposit = d_rich_farmland_deposit        
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+        set_blocker = "tb_decrepit_dwellings"
+        set_deposit = d_rich_mineral_deposit        
+    }
+}
+
 calculate_servitor_morale = {
 	if = { # >40%
 		limit = {
@@ -7431,16 +5245,20 @@ calculate_servitor_morale = {
 		}
 		switch = {
 			trigger = has_modifier
+			servitor_morale_35 = { remove_modifier = servitor_morale_35 }
 			servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+			servitor_morale_25 = { remove_modifier = servitor_morale_25 }
 			servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+			servitor_morale_15 = { remove_modifier = servitor_morale_15 }
 			servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+			servitor_morale_5 = { remove_modifier = servitor_morale_5 }
 			servitor_morale_0 = { remove_modifier = servitor_morale_0 }
 		}
 		else = {
-			if = { # >30%
+			if = { # >35%
 				limit = {
 					pop_percentage = {
-						percentage > 0.29
+						percentage > 0.34
 						limit = {
 							has_living_standard = {
 								country = prev
@@ -7451,25 +5269,29 @@ calculate_servitor_morale = {
 				}
 				if = {
 					limit = {
-						NOT = { has_modifier = servitor_morale_30 }
+						NOT = { has_modifier = servitor_morale_35 }
 					}
 					add_modifier = {
-						modifier = servitor_morale_30
+						modifier = servitor_morale_35
 						days = -1
 					}
 				}
 				switch = {
 					trigger = has_modifier
 					servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+					servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+					servitor_morale_25 = { remove_modifier = servitor_morale_25 }
 					servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+					servitor_morale_15 = { remove_modifier = servitor_morale_15 }
 					servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+					servitor_morale_5 = { remove_modifier = servitor_morale_5 }
 					servitor_morale_0 = { remove_modifier = servitor_morale_0 }
 				}
 				else = {
-					if = { # >20%
+					if = { # >30%
 						limit = {
 							pop_percentage = {
-								percentage > 0.19
+								percentage > 0.29
 								limit = {
 									has_living_standard = {
 										country = prev
@@ -7480,25 +5302,29 @@ calculate_servitor_morale = {
 						}
 						if = {
 							limit = {
-								NOT = { has_modifier = servitor_morale_20 }
+								NOT = { has_modifier = servitor_morale_30 }
 							}
 							add_modifier = {
-								modifier = servitor_morale_20
+								modifier = servitor_morale_30
 								days = -1
 							}
 						}
 						switch = {
 							trigger = has_modifier
 							servitor_morale_40 = { remove_modifier = servitor_morale_40 }
-							servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+							servitor_morale_35 = { remove_modifier = servitor_morale_35 }
+							servitor_morale_25 = { remove_modifier = servitor_morale_25 }
+							servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+							servitor_morale_15 = { remove_modifier = servitor_morale_15 }
 							servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+							servitor_morale_5 = { remove_modifier = servitor_morale_5 }
 							servitor_morale_0 = { remove_modifier = servitor_morale_0 }
 						}
 						else = {
-							if = { # >10%
+							if = { # >25%
 								limit = {
 									pop_percentage = {
-										percentage > 0.09
+										percentage > 0.24
 										limit = {
 											has_living_standard = {
 												country = prev
@@ -7509,25 +5335,29 @@ calculate_servitor_morale = {
 								}
 								if = {
 									limit = {
-										NOT = { has_modifier = servitor_morale_10 }
+										NOT = { has_modifier = servitor_morale_25 }
 									}
 									add_modifier = {
-										modifier = servitor_morale_10
+										modifier = servitor_morale_25
 										days = -1
 									}
 								}
 								switch = {
 									trigger = has_modifier
 									servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+									servitor_morale_35 = { remove_modifier = servitor_morale_35 }
 									servitor_morale_30 = { remove_modifier = servitor_morale_30 }
 									servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+									servitor_morale_15 = { remove_modifier = servitor_morale_15 }
+									servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+									servitor_morale_5 = { remove_modifier = servitor_morale_5 }
 									servitor_morale_0 = { remove_modifier = servitor_morale_0 }
 								}
 								else = {
-									if = { # <1%
+									if = { # >20%
 										limit = {
 											pop_percentage = {
-												percentage < 0.01
+												percentage > 0.19
 												limit = {
 													has_living_standard = {
 														country = prev
@@ -7536,22 +5366,166 @@ calculate_servitor_morale = {
 												}
 											}
 										}
+										if = {
+											limit = {
+												NOT = { has_modifier = servitor_morale_20 }
+											}
+											add_modifier = {
+												modifier = servitor_morale_20
+												days = -1
+											}
+										}
 										switch = {
 											trigger = has_modifier
 											servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+											servitor_morale_35 = { remove_modifier = servitor_morale_35 }
 											servitor_morale_30 = { remove_modifier = servitor_morale_30 }
-											servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+											servitor_morale_25 = { remove_modifier = servitor_morale_25 }
+											servitor_morale_15 = { remove_modifier = servitor_morale_15 }
 											servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+											servitor_morale_5 = { remove_modifier = servitor_morale_5 }
+											servitor_morale_0 = { remove_modifier = servitor_morale_0 }
 										}
-										if = {
-											limit = {
-												NOT = { has_modifier = servitor_morale_0 }
+										else = {
+											if = { # >15%
+												limit = {
+													pop_percentage = {
+														percentage > 0.14
+														limit = {
+															has_living_standard = {
+																country = prev
+																type = living_standard_organic_trophy
+															}
+														}
+													}
+												}
+												if = {
+													limit = {
+														NOT = { has_modifier = servitor_morale_15 }
+													}
+													add_modifier = {
+														modifier = servitor_morale_15
+														days = -1
+													}
+												}
+												switch = {
+													trigger = has_modifier
+													servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+													servitor_morale_35 = { remove_modifier = servitor_morale_35 }
+													servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+													servitor_morale_25 = { remove_modifier = servitor_morale_25 }
+													servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+													servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+													servitor_morale_5 = { remove_modifier = servitor_morale_5 }
+													servitor_morale_0 = { remove_modifier = servitor_morale_0 }
+												}
+												else = {
+													if = { # >10%
+														limit = {
+															pop_percentage = {
+																percentage > 0.09
+																limit = {
+																	has_living_standard = {
+																		country = prev
+																		type = living_standard_organic_trophy
+																	}
+																}
+															}
+														}
+														if = {
+															limit = {
+																NOT = { has_modifier = servitor_morale_10 }
+															}
+															add_modifier = {
+																modifier = servitor_morale_10
+																days = -1
+															}
+														}
+														switch = {
+															trigger = has_modifier
+															servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+															servitor_morale_35 = { remove_modifier = servitor_morale_35 }
+															servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+															servitor_morale_25 = { remove_modifier = servitor_morale_25 }
+															servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+															servitor_morale_15 = { remove_modifier = servitor_morale_15 }
+															servitor_morale_5 = { remove_modifier = servitor_morale_5 }
+															servitor_morale_0 = { remove_modifier = servitor_morale_0 }
+														}
+														else = {
+															if = { # >5%
+																limit = {
+																	pop_percentage = {
+																		percentage > 0.04
+																		limit = {
+																			has_living_standard = {
+																				country = prev
+																				type = living_standard_organic_trophy
+																			}
+																		}
+																	}
+																}
+																if = {
+																	limit = {
+																		NOT = { has_modifier = servitor_morale_5 }
+																	}
+																	add_modifier = {
+																		modifier = servitor_morale_5
+																		days = -1
+																	}
+																}
+																switch = {
+																	trigger = has_modifier
+																	servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+																	servitor_morale_35 = { remove_modifier = servitor_morale_35 }
+																	servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+																	servitor_morale_25 = { remove_modifier = servitor_morale_25 }
+																	servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+																	servitor_morale_15 = { remove_modifier = servitor_morale_15 }
+																	servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+																	servitor_morale_0 = { remove_modifier = servitor_morale_0 }
+																}
+																else = {
+																	if = { # <5%
+																		limit = {
+																			pop_percentage = {
+																				percentage < 0.05
+																				limit = {
+																					has_living_standard = {
+																						country = prev
+																						type = living_standard_organic_trophy
+																					}
+																				}
+																			}
+																		}
+																		switch = {
+																			trigger = has_modifier
+																			servitor_morale_40 = { remove_modifier = servitor_morale_40 }
+																			servitor_morale_35 = { remove_modifier = servitor_morale_35 }
+																			servitor_morale_30 = { remove_modifier = servitor_morale_30 }
+																			servitor_morale_25 = { remove_modifier = servitor_morale_25 }
+																			servitor_morale_20 = { remove_modifier = servitor_morale_20 }
+																			servitor_morale_15 = { remove_modifier = servitor_morale_15 }
+																			servitor_morale_10 = { remove_modifier = servitor_morale_10 }
+																			servitor_morale_5 = { remove_modifier = servitor_morale_5 }
+																		}
+																		if = {
+																			limit = {
+																				NOT = { has_modifier = servitor_morale_0 }
+																			}
+																			add_modifier = {
+																				modifier = servitor_morale_0
+																				days = -1
+																			}
+																		}												
+																	}
+																}
+															}
+														}
+													}
+												}
 											}
-											add_modifier = {
-												modifier = servitor_morale_0
-												days = -1
-											}
-										}												
+										}
 									}
 								}
 							}
@@ -7606,6 +5580,38 @@ remove_culture_shock = {
 	}
 }
 
+nuke_primitives_effect = {
+	destroy_colony = yes
+	set_planet_flag = primitives_nuked_themselves
+	change_pc = pc_nuked
+	reroll_planet = yes
+	every_tile = {
+		limit = { has_building = yes }
+		if = {
+			limit = {
+				has_building = "building_primitive_farm"
+			}
+			remove_building = yes
+			else = {
+				set_ruined = yes
+			}			
+		}
+	}
+}
+
+nuke_primitives_toxic_effect = {
+	destroy_colony = yes
+	change_pc = pc_toxic
+	reset_planet = yes
+	add_modifier = {
+		modifier = "nuclear_devastation"
+		days = -1
+	}
+	orbital_deposit_tile = {
+		set_deposit = d_vast_society_deposit
+	}
+}
+
 generate_cyborg_treats = {
 	add_monthly_resource_mult = {
 		resource = unity
@@ -7618,6 +5624,1806 @@ generate_cyborg_treats = {
 		value = 1
 		min = 5
 		max = 100
+	}
+}
+
+create_1st_khan_fleet = {
+	create_fleet = {
+		name = "NAME_Chosen_of_the_Great_Khan"
+		effect = {
+			set_owner = event_target:raider_khanate
+			while = {
+				count = 18
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 12
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 6
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Ancestral_Glory"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			assign_leader = last_created_leader
+			set_location = {
+				target = event_target:marauder_rally_point
+				distance = 45
+				angle = random
+			}
+		}
+		settings = { 
+			can_upgrade = no 
+			can_disband = no
+			can_change_composition = no 
+			can_change_leader = no 
+			uses_naval_capacity = no
+		}
+	}
+}
+
+create_2nd_khan_fleet = {
+	create_fleet = {
+		name = "NAME_Chosen_of_the_Great_Khan"
+		effect = {
+			set_owner = event_target:raider_khanate
+			while = {
+				count = 18
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 12
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 6
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Ancestral_Glory"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_leader = exiled_khan
+			set_location = {
+				target = event_target:marauder_rally_point
+				distance = 45
+				angle = random
+			}
+		}
+		settings = { 
+			can_upgrade = no 
+			can_disband = no
+			can_change_composition = no 
+			can_change_leader = no 
+			uses_naval_capacity = no
+		}
+	}
+}
+
+create_marauder_starbase = {
+	create_starbase = {
+		size = "starbase_marauder"
+		owner = event_target:marauder_starbase_owner
+	}		 
+}
+
+create_marauder_fleet = {
+	create_leader = {
+		type = admiral
+		species = owner_main_species
+		name = random
+		skill = 3
+		leader_age_min = 25
+		leader_age_max = 45
+		traits = {
+			trait = leader_trait_mercenary_warrior
+			trait = random_trait
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:raider_khanate
+			while = {
+				count = 16
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 8
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 6
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Ancestral_Glory"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			assign_leader = last_created_leader
+			set_location = {
+				target = event_target:marauder_rally_point
+				distance = 45
+				angle = random
+			}
+		}
+		settings = { 
+			uses_naval_capacity = no
+			can_upgrade = no 
+			can_change_composition = no
+		}
+	}
+}
+
+create_marauder_armies = {
+	create_leader = {
+		type = general
+		species = owner_main_species
+		name = random
+		skill = 3
+		traits = {
+			trait = random_trait
+		}
+	}
+	create_fleet = {
+		effect = {
+			set_owner = event_target:raider_khanate
+			while = {
+				count = 20
+				create_army_transport = {
+					ship_name = "NAME_Pirate_Transport"
+					graphical_culture = "mammalian_01"
+					army_type = "assault_army"
+					species = event_target:raider_khanate
+				}
+			}
+			set_location = {
+				target = event_target:marauder_rally_point
+				distance = 20
+				angle = random 
+			}
+		}
+	}
+	last_created_army = { assign_leader = last_created_leader }
+}
+
+create_marauder_constructors = {
+	if = {
+		limit = {
+			event_target:raider_khanate = {
+				count_owned_ships = {
+					limit = { is_ship_size = constructor }
+					count < 5
+				}
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:raider_khanate
+				create_ship = {
+					name = random
+					design = "NAME_Clan_Builder"
+				}
+				set_location = {
+					target = event_target:marauder_rally_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+	}
+}
+
+create_small_marauder_auxiliaries = {
+	create_leader = {
+		type = admiral
+		species = event_target:satrapy_species
+		name = random
+		leader_age_min = 34
+		leader_age_max = 45
+		traits = { trait = random_trait }
+	}
+	create_fleet = {
+		name = "NAME_Horde_Auxiliary_Fleet"
+		effect = {
+			set_owner = event_target:raider_khanate
+			set_fleet_flag = horde_auxuliaries
+			while = {
+				count = 10
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 4
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 2
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			assign_leader = last_created_leader
+			set_location = {
+				target = root
+				distance = 10
+				angle = random
+			}
+		}
+		settings = { 
+			can_upgrade = no 
+			can_disband = no
+			can_change_composition = no 
+			can_change_leader = no 
+			uses_naval_capacity = no
+		}
+	}
+}
+
+create_medium_marauder_auxiliaries = {
+	create_leader = {
+		type = admiral
+		species = event_target:satrapy_species
+		name = random
+		leader_age_min = 34
+		leader_age_max = 45
+		traits = { trait = random_trait }
+	}
+	create_fleet = {
+		name = "NAME_Marauder_Auxiliary_Fleet"
+		effect = {
+			set_owner = event_target:raider_khanate
+			set_fleet_flag = horde_auxuliaries
+			while = {
+				count = 16
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 8
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 6
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Ancestral_Glory"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			assign_leader = last_created_leader
+			set_location = {
+				target = root
+				distance = 10
+				angle = random
+			}
+		}
+		settings = { 
+			can_upgrade = no 
+			can_disband = no
+			can_change_composition = no 
+			can_change_leader = no 
+			uses_naval_capacity = no
+		}
+	}
+}
+
+create_large_marauder_auxiliaries = {
+	create_leader = {
+		type = admiral
+		species = event_target:satrapy_species
+		name = random
+		leader_age_min = 34
+		leader_age_max = 45
+		traits = { trait = random_trait }
+	}
+	create_fleet = {
+		name = "NAME_Marauder_Auxiliary_Fleet"
+		effect = {
+			set_owner = event_target:raider_khanate
+			set_fleet_flag = horde_auxuliaries
+			while = {
+				count = 22
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 12
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 8
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Ancestral_Glory"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			assign_leader = last_created_leader
+			set_location = {
+				target = root
+				distance = 10
+				angle = random
+			}
+		}
+		settings = { 
+			can_upgrade = no 
+			can_disband = no
+			can_change_composition = no 
+			can_change_leader = no 
+			uses_naval_capacity = no
+		}
+	}
+}
+
+create_very_large_marauder_auxiliaries = {
+	create_leader = {
+		type = admiral
+		species = event_target:satrapy_species
+		name = random
+		traits = { trait = random_trait }
+	}
+	last_created_leader = { set_age = 37 }
+	create_fleet = {
+		name = "NAME_Marauder_Auxiliary_Fleet"
+		effect = {
+			set_owner = event_target:raider_khanate
+			set_fleet_flag = horde_auxuliaries
+			while = {
+				count = 26
+				create_ship = {
+					name = random
+					design = "NAME_Outrider"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 18
+				create_ship = {
+					name = random
+					design = "NAME_Lancer"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 12
+				create_ship = {
+					name = random
+					design = "NAME_Void_Champion"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			while = {
+				count = 1
+				create_ship = {
+					name = random
+					design = "NAME_Ancestral_Glory"
+					prefix = no
+					graphical_culture = "pirate_01"
+				}
+			}
+			assign_leader = last_created_leader
+			set_location = {
+				target = root
+				distance = 10
+				angle = random
+			}
+		}
+		settings = { 
+			can_upgrade = no 
+			can_disband = no
+			can_change_composition = no 
+			can_change_leader = no 
+			uses_naval_capacity = no
+		}
+	}
+}
+
+create_contingency_starbase = {
+	create_starbase = {
+		size = starbase_ai
+		owner = event_target:AI_crisis
+	}
+}
+
+create_fe_home_citadel = {
+	create_starbase = {
+		size = "starbase_citadel"
+
+		module = "shipyard"
+		module = "shipyard"
+		module = "shipyard"			
+		module = "hangar_bay"
+		module = "gun_battery"
+		module = "gun_battery"		
+
+		building = "target_uplink_computer"
+		building = "defense_grid"
+		building = "colossus_yards"
+		building = "titan_yards"
+		
+		effect = {
+			while = {
+				count = 10
+				create_fallen_empire_platform = yes
+			}	
+		}
+	}
+}
+
+create_fe_citadel = {
+	create_starbase = {
+		size = "starbase_citadel"
+
+		module = "shipyard"
+		module = "anchorage"
+		module = "anchorage"
+		module = "hangar_bay"
+		module = "gun_battery"
+		module = "gun_battery"
+
+		building = "crew_quarters"
+		building = "command_center"
+		building = "target_uplink_computer"
+		building = "listening_post"
+		
+		effect = {
+			while = {
+				count = 4
+				create_fallen_empire_platform = yes
+			}	
+		}			
+	}
+}
+
+create_fe_outpost = {
+	create_starbase = {
+		size = "starbase_outpost"
+		effect = {
+			while = {
+				count = 2
+				create_fallen_empire_platform = yes
+			}	
+		}		
+	}
+}
+
+create_broken_fe_outpost = {
+	create_ambient_object = {
+		type = broken_holy_world_outpost
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = prev
+			distance = 10
+		}
+		save_event_target_as = broken_outpost
+	}
+	#create_ambient_object = {
+	#	type = large_debris_object
+	#}
+	#last_created_ambient_object = {
+	#	set_location = {
+	#		target = event_target:broken_outpost
+	#		distance = 0
+	#	}
+	#}
+	create_ambient_object = {
+		type = small_debris_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 1
+			angle = 0
+		}
+	}
+	create_ambient_object = {
+		type = small_debris_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 1
+			angle = 90
+		}
+	}
+	create_ambient_object = {
+		type = small_debris_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 1
+			angle = 180
+		}
+	}
+	create_ambient_object = {
+		type = small_debris_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 1
+			angle = 270
+		}
+	}
+	create_ambient_object = {
+		type = medium_debris_02_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 3
+			angle = 5
+		}
+	}
+	create_ambient_object = {
+		type = medium_debris_02_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 9
+			angle = 120
+		}
+	}
+	create_ambient_object = {
+		type = medium_debris_01_object
+	}
+	last_created_ambient_object = {
+		set_location = {
+			target = event_target:broken_outpost
+			distance = 6
+			angle = 240
+		}
+	}
+}
+
+assign_first_diadochi_planets = {
+	random_system_within_border = {
+		limit = { is_potential_diadochi_system = yes }
+		save_event_target_as = first_diadochi_origin
+	}
+	effect_on_blob = {
+		center = event_target:first_diadochi_origin
+		owned_planets_percentage = 0.25
+		planet_limit = {
+			solar_system = {
+				is_potential_diadochi_system = yes
+			}
+		}
+		effect = {
+			set_star_flag = first_diadochi_system
+			if = { 
+				limit = { NOT = { exists = event_target:first_diadochi_first_planet_system } }
+				save_event_target_as = first_diadochi_first_planet_system
+			}
+		}
+	}
+	if = { 
+		limit = { exists = event_target:first_diadochi_first_planet_system }
+		save_event_target_as = first_diadochi_origin
+	}
+}
+create_first_diadochi = {
+	create_country = {
+		name_list = random
+		species = event_target:marauder_species
+		type = default
+		authority = auth_imperial
+		civics = { civic = civic_diadochi }
+		ethos = {
+			ethic = ethic_fanatic_militarist
+			ethic = ethic_xenophobe
+		}
+		ignore_initial_colony_error = yes
+	}
+	last_created_country = {
+		save_event_target_as = first_diadochi
+		set_country_flag = diadochi_1
+		set_name = random
+	}
+	# Flip Starbases
+	every_system_within_border = {
+		limit = { 
+			has_star_flag = first_diadochi_system
+			exists = starbase 
+		}
+		starbase = {
+			set_owner = event_target:first_diadochi
+		}
+	}
+	# Flip Planets
+	every_owned_planet = {
+		limit = {
+			solar_system = { has_star_flag = first_diadochi_system }
+		}
+		set_owner = event_target:first_diadochi
+		set_controller = event_target:first_diadochi
+	}
+	event_target:first_diadochi = {
+		add_minerals = 20000
+		add_energy = 20000
+		add_food = 2000
+		add_influence = 1000
+		copy_techs_from = { target = root }
+		every_owned_starbase = {
+			set_starbase_size = starbase_outpost
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+				set_starbase_module = {
+					slot = 1
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 2
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 3
+					module = shipyard
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		# Survey Own Space
+		every_planet_within_border = {
+			surveyed = {
+				set_surveyed = yes
+				surveyor = event_target:first_diadochi
+			}
+		}
+		# Survey Rest of Marauder's Space
+		root = {
+			every_planet_within_border = {
+				surveyed = {
+					set_surveyed = yes
+					surveyor = event_target:first_diadochi
+				}
+			}
+		}
+		# Mining and Research Stations
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_mining_station 
+				has_mining_station = no
+			}
+			create_mining_station = {
+				owner = event_target:first_diadochi
+			}
+		}
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_research_station 
+				has_research_station = no
+			}
+			create_research_station = {
+				owner = event_target:first_diadochi
+			}
+		}
+		### Units
+		create_ship_design = { design = "NAME_Pirate_Transport" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Clan_Builder" }
+		add_ship_design = last_created_design
+		random_owned_planet = { save_event_target_as = unit_spawn_point }
+		# Fleet
+		create_leader = {
+			type = admiral
+			species = owner_main_species
+			name = random
+			skill = 3
+			leader_age_min = 25
+			leader_age_max = 45
+			traits = {
+				trait = leader_trait_mercenary_warrior
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:first_diadochi
+				while = {
+					count = 16
+					create_ship = {
+						name = random
+						design = "NAME_Outrider"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 8
+					create_ship = {
+						name = random
+						design = "NAME_Lancer"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 6
+					create_ship = {
+						name = random
+						design = "NAME_Void_Champion"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_Ancestral_Glory"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				assign_leader = last_created_leader
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 45
+					angle = random
+				}
+			}
+			settings = { 
+				uses_naval_capacity = no
+			}
+		}
+		# Armies
+		create_leader = {
+			type = general
+			species = owner_main_species
+			name = random
+			skill = 3
+			traits = {
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:first_diadochi
+				while = {
+					count = 12
+					create_army_transport = {
+						ship_name = "NAME_Pirate_Transport"
+						graphical_culture = "mammalian_01"
+						army_type = "assault_army"
+						species = event_target:first_diadochi
+					}
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+		last_created_army = { assign_leader = last_created_leader }
+		# Constructor
+		create_fleet = {
+			effect = {
+				set_owner = event_target:first_diadochi
+				create_ship = {
+					name = random
+					design = "NAME_Clan_Builder"
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+	}
+	# Establish Communications
+	every_country = {
+		limit = { 
+			OR = {
+				has_communications = root
+				has_government = gov_diadochi
+			}
+		}
+		establish_communications_no_message = event_target:first_diadochi
+	}
+}
+
+assign_second_diadochi_planets = {
+	random_system_within_border = {
+		limit = { is_potential_diadochi_system = yes }
+		save_event_target_as = second_diadochi_origin
+	}
+	effect_on_blob = {
+		center = event_target:second_diadochi_origin
+		owned_planets_percentage = 0.33
+		planet_limit = {
+			solar_system = {
+				is_potential_diadochi_system = yes
+			}
+		}
+		effect = {
+			set_star_flag = second_diadochi_system
+			if = { 
+				limit = { NOT = { exists = event_target:second_diadochi_first_planet_system } }
+				save_event_target_as = second_diadochi_first_planet_system
+			}
+		}
+	}
+	if = { 
+		limit = { exists = event_target:second_diadochi_first_planet_system }
+		save_event_target_as = second_diadochi_origin
+	}
+}
+create_second_diadochi = {
+	create_country = {
+		name_list = random
+		species = event_target:marauder_species
+		type = default
+		authority = auth_imperial
+		civics = { civic = civic_diadochi }
+		ethos = {
+			ethic = ethic_fanatic_militarist
+			ethic = ethic_xenophobe
+		}
+		ignore_initial_colony_error = yes
+	}
+	last_created_country = {
+		save_event_target_as = second_diadochi
+		set_country_flag = diadochi_2
+		set_name = random
+	}
+	# Flip Starbases
+	every_system_within_border = {
+		limit = { 
+			has_star_flag = second_diadochi_system
+			exists = starbase 
+		}
+		starbase = {
+			set_owner = event_target:second_diadochi
+		}
+	}
+	# Flip Planets
+	every_owned_planet = {
+		limit = {
+			solar_system = { has_star_flag = second_diadochi_system }
+		}
+		set_owner = event_target:second_diadochi
+		set_controller = event_target:second_diadochi
+	}
+	event_target:second_diadochi = {
+		add_minerals = 20000
+		add_energy = 20000
+		add_food = 2000
+		add_influence = 1000
+		copy_techs_from = { target = root }
+		every_owned_starbase = {
+			set_starbase_size = starbase_outpost
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+				set_starbase_module = {
+					slot = 1
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 2
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 3
+					module = shipyard
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		# Survey Own Space
+		every_planet_within_border = {
+			surveyed = {
+				set_surveyed = yes
+				surveyor = event_target:second_diadochi
+			}
+		}
+		# Survey Rest of Marauder's Space
+		root = {
+			every_planet_within_border = {
+				surveyed = {
+					set_surveyed = yes
+					surveyor = event_target:second_diadochi
+				}
+			}
+		}
+		# Mining and Research Stations
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_mining_station 
+				has_mining_station = no
+			}
+			create_mining_station = {
+				owner = event_target:second_diadochi
+			}
+		}
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_research_station 
+				has_research_station = no
+			}
+			create_research_station = {
+				owner = event_target:second_diadochi
+			}
+		}
+		### Units
+		create_ship_design = { design = "NAME_Pirate_Transport" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Clan_Builder" }
+		add_ship_design = last_created_design
+		random_owned_planet = { save_event_target_as = unit_spawn_point }
+		# Fleet
+		create_leader = {
+			type = admiral
+			species = owner_main_species
+			name = random
+			skill = 3
+			leader_age_min = 25
+			leader_age_max = 45
+			traits = {
+				trait = leader_trait_mercenary_warrior
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:second_diadochi
+				while = {
+					count = 16
+					create_ship = {
+						name = random
+						design = "NAME_Outrider"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 8
+					create_ship = {
+						name = random
+						design = "NAME_Lancer"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 6
+					create_ship = {
+						name = random
+						design = "NAME_Void_Champion"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_Ancestral_Glory"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				assign_leader = last_created_leader
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 45
+					angle = random
+				}
+			}
+			settings = { 
+				uses_naval_capacity = no
+			}
+		}
+		# Armies
+		create_leader = {
+			type = general
+			species = owner_main_species
+			name = random
+			skill = 3
+			traits = {
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:second_diadochi
+				while = {
+					count = 12
+					create_army_transport = {
+						ship_name = "NAME_Pirate_Transport"
+						graphical_culture = "mammalian_01"
+						army_type = "assault_army"
+						species = event_target:first_diadochi
+					}
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+		last_created_army = { assign_leader = last_created_leader }
+		# Constructor
+		create_fleet = {
+			effect = {
+				set_owner = event_target:second_diadochi
+				create_ship = {
+					name = random
+					design = "NAME_Clan_Builder"
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+	}
+	# Establish Communications
+	every_country = {
+		limit = { 
+			OR = {
+				has_communications = root
+				has_government = gov_diadochi
+			}
+		}
+		establish_communications_no_message = event_target:second_diadochi
+	}
+}
+
+assign_third_diadochi_planets = {
+	random_system_within_border = {
+		limit = { is_potential_diadochi_system = yes }
+		save_event_target_as = third_diadochi_origin
+	}
+	effect_on_blob = {
+		center = event_target:third_diadochi_origin
+		owned_planets_percentage = 0.5
+		planet_limit = {
+			solar_system = {
+				is_potential_diadochi_system = yes
+			}
+		}
+		effect = {
+			set_star_flag = third_diadochi_system
+			if = { 
+				limit = { NOT = { exists = event_target:third_diadochi_first_planet_system } }
+				save_event_target_as = third_diadochi_first_planet_system
+			}
+		}
+	}
+	if = { 
+		limit = { exists = event_target:third_diadochi_first_planet_system }
+		save_event_target_as = third_diadochi_origin
+	}
+}
+create_third_diadochi = {
+	create_country = {
+		name_list = random
+		species = event_target:marauder_species
+		type = default
+		authority = auth_imperial
+		civics = { civic = civic_diadochi }
+		ethos = {
+			ethic = ethic_fanatic_militarist
+			ethic = ethic_xenophobe
+		}
+		ignore_initial_colony_error = yes
+	}
+	last_created_country = {
+		save_event_target_as = third_diadochi
+		set_country_flag = diadochi_3
+		set_name = random
+	}
+	# Flip Starbases
+	every_system_within_border = {
+		limit = { 
+			has_star_flag = third_diadochi_system
+			exists = starbase 
+		}
+		starbase = {
+			set_owner = event_target:third_diadochi
+		}
+	}
+	# Flip Planets
+	every_owned_planet = {
+		limit = {
+			solar_system = { has_star_flag = third_diadochi_system }
+		}
+		set_owner = event_target:third_diadochi
+		set_controller = event_target:third_diadochi
+	}
+	event_target:third_diadochi = {
+		add_minerals = 20000
+		add_energy = 20000
+		add_food = 2000
+		add_influence = 1000
+		copy_techs_from = { target = root }
+		every_owned_starbase = {
+			set_starbase_size = starbase_outpost
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+				set_starbase_module = {
+					slot = 1
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 2
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 3
+					module = shipyard
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		# Survey Own Space
+		every_planet_within_border = {
+			surveyed = {
+				set_surveyed = yes
+				surveyor = event_target:third_diadochi
+			}
+		}
+		# Survey Rest of Marauder's Space
+		root = {
+			every_planet_within_border = {
+				surveyed = {
+					set_surveyed = yes
+					surveyor = event_target:third_diadochi
+				}
+			}
+		}
+		# Mining and Research Stations
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_mining_station 
+				has_mining_station = no
+			}
+			create_mining_station = {
+				owner = event_target:third_diadochi
+			}
+		}
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_research_station 
+				has_research_station = no
+			}
+			create_research_station = {
+				owner = event_target:third_diadochi
+			}
+		}
+		### Units
+		create_ship_design = { design = "NAME_Pirate_Transport" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Clan_Builder" }
+		add_ship_design = last_created_design
+		random_owned_planet = { save_event_target_as = unit_spawn_point }
+		# Fleet
+		create_leader = {
+			type = admiral
+			species = owner_main_species
+			name = random
+			skill = 3
+			leader_age_min = 25
+			leader_age_max = 45
+			traits = {
+				trait = leader_trait_mercenary_warrior
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:third_diadochi
+				while = {
+					count = 16
+					create_ship = {
+						name = random
+						design = "NAME_Outrider"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 8
+					create_ship = {
+						name = random
+						design = "NAME_Lancer"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 6
+					create_ship = {
+						name = random
+						design = "NAME_Void_Champion"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_Ancestral_Glory"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				assign_leader = last_created_leader
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 45
+					angle = random
+				}
+			}
+			settings = { 
+				uses_naval_capacity = no
+			}
+		}
+		# Armies
+		create_leader = {
+			type = general
+			species = owner_main_species
+			name = random
+			skill = 3
+			traits = {
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:third_diadochi
+				while = {
+					count = 12
+					create_army_transport = {
+						ship_name = "NAME_Pirate_Transport"
+						graphical_culture = "mammalian_01"
+						army_type = "assault_army"
+						species = event_target:first_diadochi
+					}
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+		last_created_army = { assign_leader = last_created_leader }
+		# Constructor
+		create_fleet = {
+			effect = {
+				set_owner = event_target:third_diadochi
+				create_ship = {
+					name = random
+					design = "NAME_Clan_Builder"
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+	}
+	# Establish Communications
+	every_country = {
+		limit = { 
+			OR = {
+				has_communications = root
+				has_government = gov_diadochi
+			}
+		}
+		establish_communications_no_message = event_target:third_diadochi
+	}
+}
+
+assign_fourth_diadochi_planets = {
+	random_system_within_border = {
+		limit = { is_potential_diadochi_system = yes }
+		save_event_target_as = fourth_diadochi_origin
+	}
+	effect_on_blob = {
+		center = event_target:fourth_diadochi_origin
+		owned_planets_percentage = 1
+		planet_limit = {
+			solar_system = {
+				is_potential_diadochi_system = yes
+			}
+		}
+		effect = {
+			set_star_flag = fourth_diadochi_system
+			if = { 
+				limit = { NOT = { exists = event_target:fourth_diadochi_first_planet_system } }
+				save_event_target_as = fourth_diadochi_first_planet_system
+			}
+		}
+	}
+	if = { 
+		limit = { exists = event_target:fourth_diadochi_first_planet_system }
+		save_event_target_as = fourth_diadochi_origin
+	}
+}
+create_fourth_diadochi = {
+	create_country = {
+		name_list = random
+		species = event_target:marauder_species
+		type = default
+		authority = auth_imperial
+		civics = { civic = civic_diadochi }
+		ethos = {
+			ethic = ethic_fanatic_militarist
+			ethic = ethic_xenophobe
+		}
+		ignore_initial_colony_error = yes
+	}
+	last_created_country = {
+		save_event_target_as = fourth_diadochi
+		set_country_flag = diadochi_4
+		set_name = random
+	}
+	# Flip Starbases
+	every_system_within_border = {
+		limit = { 
+			has_star_flag = fourth_diadochi_system
+			exists = starbase 
+		}
+		starbase = {
+			set_owner = event_target:fourth_diadochi
+		}
+	}
+	# Flip Planets
+	every_owned_planet = {
+		limit = {
+			solar_system = { has_star_flag = fourth_diadochi_system }
+		}
+		set_owner = event_target:fourth_diadochi
+		set_controller = event_target:fourth_diadochi
+	}
+	event_target:fourth_diadochi = {
+		add_minerals = 20000
+		add_energy = 20000
+		add_food = 2000
+		add_influence = 1000
+		copy_techs_from = { target = root }
+		every_owned_starbase = {
+			set_starbase_size = starbase_outpost
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+				set_starbase_module = {
+					slot = 1
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 2
+					module = shipyard
+				}
+				set_starbase_module = {
+					slot = 3
+					module = shipyard
+				}
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		if = {
+			limit = {
+				any_owned_starbase = { has_starbase_size = starbase_outpost }
+			}
+			random_owned_starbase = {
+				limit = { has_starbase_size = starbase_outpost }
+				set_starbase_size = starbase_starhold
+			}
+		}
+		# Survey Own Space
+		every_planet_within_border = {
+			surveyed = {
+				set_surveyed = yes
+				surveyor = event_target:fourth_diadochi
+			}
+		}
+		# Survey Rest of Marauder's Space
+		root = {
+			every_planet_within_border = {
+				surveyed = {
+					set_surveyed = yes
+					surveyor = event_target:fourth_diadochi
+				}
+			}
+		}
+		# Mining and Research Stations
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_mining_station 
+				has_mining_station = no
+			}
+			create_mining_station = {
+				owner = event_target:fourth_diadochi
+			}
+		}
+		every_planet_within_border = {
+			limit = { 
+				has_deposit_for = shipclass_research_station 
+				has_research_station = no
+			}
+			create_research_station = {
+				owner = event_target:fourth_diadochi
+			}
+		}
+		### Units
+		create_ship_design = { design = "NAME_Pirate_Transport" }
+		add_ship_design = last_created_design
+		create_ship_design = { design = "NAME_Clan_Builder" }
+		add_ship_design = last_created_design
+		random_owned_planet = { save_event_target_as = unit_spawn_point }
+		# Fleet
+		create_leader = {
+			type = admiral
+			species = owner_main_species
+			name = random
+			skill = 3
+			leader_age_min = 25
+			leader_age_max = 45
+			traits = {
+				trait = leader_trait_mercenary_warrior
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:fourth_diadochi
+				while = {
+					count = 16
+					create_ship = {
+						name = random
+						design = "NAME_Outrider"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 8
+					create_ship = {
+						name = random
+						design = "NAME_Lancer"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 6
+					create_ship = {
+						name = random
+						design = "NAME_Void_Champion"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				while = {
+					count = 1
+					create_ship = {
+						name = random
+						design = "NAME_Ancestral_Glory"
+						prefix = no
+						graphical_culture = "pirate_01"
+					}
+				}
+				assign_leader = last_created_leader
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 45
+					angle = random
+				}
+			}
+			settings = { 
+				uses_naval_capacity = no
+			}
+		}
+		# Armies
+		create_leader = {
+			type = general
+			species = owner_main_species
+			name = random
+			skill = 3
+			traits = {
+				trait = random_trait
+			}
+		}
+		create_fleet = {
+			effect = {
+				set_owner = event_target:fourth_diadochi
+				while = {
+					count = 12
+					create_army_transport = {
+						ship_name = "NAME_Pirate_Transport"
+						graphical_culture = "mammalian_01"
+						army_type = "assault_army"
+						species = event_target:first_diadochi
+					}
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+		last_created_army = { assign_leader = last_created_leader }
+		# Constructor
+		create_fleet = {
+			effect = {
+				set_owner = event_target:fourth_diadochi
+				create_ship = {
+					name = random
+					design = "NAME_Clan_Builder"
+				}
+				set_location = {
+					target = event_target:unit_spawn_point
+					distance = 20
+					angle = random 
+				}
+			}
+		}
+	}
+	# Establish Communications
+	every_country = {
+		limit = { 
+			OR = {
+				has_communications = root
+				has_government = gov_diadochi
+			}
+		}
+		establish_communications_no_message = event_target:fourth_diadochi
+	}
+}
+
+assign_diadochi_systems = {
+	while = {
+		count = 100
+		limit = {
+			any_system_within_border = {
+				is_potential_diadochi_system = yes
+			}
+		}
+
+		if = { limit = { exists = event_target:first_diadochi_origin }
+			event_target:first_diadochi_origin = {
+				closest_system = {
+					limit = { is_potential_diadochi_system = yes }
+					max_steps = 20
+					set_star_flag = first_diadochi_system
+				}
+			}
+		}
+		if = { limit = { exists = event_target:second_diadochi_origin }
+			event_target:second_diadochi_origin = {
+				closest_system = {
+					limit = { is_potential_diadochi_system = yes }
+					max_steps = 20
+					set_star_flag = second_diadochi_system
+				}
+			}
+		}
+		event_target:third_diadochi_origin = {
+			closest_system = {
+				limit = { is_potential_diadochi_system = yes }
+				max_steps = 20
+				set_star_flag = third_diadochi_system
+			}
+		}
+		event_target:fourth_diadochi_origin = {
+			closest_system = {
+				limit = { is_potential_diadochi_system = yes }
+				max_steps = 20
+				set_star_flag = fourth_diadochi_system
+			}
+		}
 	}
 }
 
@@ -7939,5 +7745,463 @@ fire_warning_sign = {
 				}
 			}
 		}
+	}
+}
+
+fallen_empire_humiliate_effect = {
+	custom_tooltip = fallen_empire_humiliate_effect_tooltip
+	hidden_effect = {
+		add_modifier = { modifier = humiliated days = 3600 }
+		end_rivalry = event_target:fallen_empire_humiliator
+		save_event_target_as = fallen_empire_humiliated
+		event_target:fallen_empire_humiliator = { 
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_insult }
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_refused_fallen_empire_demand }
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_refused_fallen_empire_task }
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_failed_fallen_empire_task }
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_majorly_failed_fallen_empire_task }
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_refused_fallen_empire_request }
+			remove_opinion_modifier = { who = event_target:fallen_empire_humiliated modifier = opinion_spurned_fallen_empire_gift } 
+		}
+		event_target:fallen_empire_humiliator = { 
+			every_system_within_border = {
+				limit = {
+					event_target:fallen_empire_humiliated = { has_claim = prev }
+				}
+				remove_claims = { who = event_target:fallen_empire_humiliated }
+			}				
+		}				
+	}
+}
+
+fallen_empire_stop_atrocities_effect = {
+	hidden_effect = {
+		set_policy = {
+			policy = slavery
+			option = slavery_not_allowed
+			cooldown = yes
+		}
+		set_policy = {
+			policy = purge
+			option = purge_not_allowed
+			cooldown = yes
+		}		
+		every_subject = {
+			set_policy = {
+				policy = slavery
+				option = slavery_not_allowed
+				cooldown = yes
+			}
+			set_policy = {
+				policy = purge
+				option = purge_not_allowed
+				cooldown = yes
+			}				
+		}							
+	}
+}
+
+fallen_empire_stop_ai_effect = {
+	hidden_effect = {
+		set_policy = {
+			policy = artificial_intelligence_policy
+			option = ai_outlawed
+			cooldown = yes
+		}
+	}
+}
+
+fallen_empire_cleanse_holy_worlds_effect = {
+	every_owned_planet = {
+		limit = {
+			has_modifier = "holy_planet"
+		}
+		destroy_colony = yes
+	}	
+}
+
+fallen_empire_cleanse_border_worlds_effect = {
+	every_owned_planet = {
+		limit = {
+			is_capital = no
+			is_neighbor_of = event_target:fallen_empire_humiliator
+		}
+		destroy_colony = yes
+	}
+	every_owned_fleet = {
+		limit = {
+			is_ship_class = shipclass_starbase
+			solar_system = {
+				is_neighbor_of = event_target:fallen_empire_humiliator
+			}			
+		}
+		destroy_fleet = this
+	}
+	every_subject = {
+		every_owned_planet = {
+			limit = {
+				is_capital = no
+				is_neighbor_of = event_target:fallen_empire_humiliator
+			}
+			destroy_colony = yes
+		}
+		every_owned_fleet = {
+			limit = {
+				is_ship_class = shipclass_starbase
+				solar_system = {
+					is_neighbor_of = event_target:fallen_empire_humiliator
+				}			
+			}
+			destroy_fleet = this
+		}	
+	}
+}
+
+generate_home_system_resources = {
+	every_system_planet = {	
+		limit = {
+			colonizeable_planet = no
+		}
+		prevent_anomaly = yes
+		clear_deposits = yes
+	}
+
+	system_star = {	
+		set_planet_flag = starting_mining_target
+		set_planet_flag = starting_deposit
+		orbital_deposit_tile = {
+			set_deposit = d_vast_energy_deposit
+		}		
+	}
+	
+	random_system_planet = {
+		limit = {
+			NOT = { has_planet_flag = starting_deposit }
+			OR = {	
+				is_planet_class = pc_a_star
+				is_planet_class = pc_b_star
+				is_planet_class = pc_f_star
+				is_planet_class = pc_g_star
+				is_planet_class = pc_k_star
+				is_planet_class = pc_m_star
+				is_planet_class = pc_molten
+				is_planet_class = pc_gas_giant
+			}
+		}
+		
+		set_planet_flag = starting_deposit
+		orbital_deposit_tile = {
+			random_list = {
+				50 = { set_deposit = d_rich_energy_deposit }
+				50 = { set_deposit = d_vast_energy_deposit }
+			}			
+		}		
+	}
+	
+	random_system_planet = {
+		limit = {
+			NOT = { has_planet_flag = starting_deposit }
+			OR = {	
+				is_asteroid = yes
+				is_planet_class = pc_barren
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_toxic
+				is_planet_class = pc_frozen
+			}
+		}
+		
+		set_planet_flag = starting_mining_target
+		set_planet_flag = starting_deposit
+		orbital_deposit_tile = {
+			set_deposit = d_vast_mineral_deposit
+		}		
+	}
+	
+	random_system_planet = {
+		limit = {
+			NOT = { has_planet_flag = starting_deposit }
+			OR = {	
+				is_asteroid = yes
+				is_planet_class = pc_barren
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_toxic
+				is_planet_class = pc_frozen
+			}	
+		}
+		
+		set_planet_flag = starting_deposit
+		orbital_deposit_tile = {
+			random_list = {
+				50 = { set_deposit = d_rich_mineral_deposit }
+				50 = { set_deposit = d_vast_mineral_deposit }
+			}
+		}		
+	}
+	
+	random_system_planet = {
+		limit = {
+			NOT = { has_planet_flag = starting_deposit }
+			OR = {	
+				is_planet_class = pc_gas_giant
+				is_planet_class = pc_toxic
+				is_planet_class = pc_frozen
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_barren
+			}
+		}
+		
+		set_planet_flag = starting_research_target
+		set_planet_flag = starting_deposit
+		
+		if = {
+			limit = {
+				is_planet_class = pc_toxic
+			}
+			orbital_deposit_tile = {
+				set_deposit = d_rich_society_deposit
+			}			
+			else = {
+				if = {
+					limit = {
+						OR = {
+							is_planet_class = pc_barren_cold
+							is_planet_class = pc_barren							
+						}			
+					}
+					orbital_deposit_tile = {
+						set_deposit = d_rich_physics_deposit
+					}
+					else = {
+						orbital_deposit_tile = {
+							set_deposit = d_rich_engineering_deposit
+						}						
+					}
+				}				
+			}
+		}
+	}	
+
+	random_system_planet = {
+		limit = {
+			NOT = { has_planet_flag = starting_deposit }
+			OR = {	
+				is_planet_class = pc_gas_giant
+				is_planet_class = pc_toxic
+				is_planet_class = pc_frozen
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_barren
+			}
+		}
+		
+		set_planet_flag = starting_deposit
+		
+		if = {
+			limit = {
+				is_planet_class = pc_toxic
+			}
+			orbital_deposit_tile = {
+				set_deposit = d_rich_society_deposit
+			}			
+			else = {
+				if = {
+					limit = {
+						OR = {
+							is_planet_class = pc_barren_cold
+							is_planet_class = pc_barren							
+						}			
+					}
+					orbital_deposit_tile = {
+						set_deposit = d_rich_physics_deposit
+					}
+					else = {
+						orbital_deposit_tile = {
+							set_deposit = d_rich_engineering_deposit
+						}						
+					}
+				}				
+			}
+		}	
+	}		
+}
+
+clear_buildings = {
+	every_tile = {
+		limit = { has_building = yes }
+		remove_building = yes
+	}
+}
+
+# Planet Cracker effect
+spawn_habitat_cracker_effect = {
+	create_ambient_object = {
+		location = this
+		type = habitat_cracker_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+spawn_ringworld_cracker_effect = {
+	create_ambient_object = {
+		location = this
+		type = ringworld_cracker_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+# Global Pacifier effect
+spawn_habitat_pacifier_effect = {
+	create_ambient_object = {
+		location = this
+		type = habitat_pacifier_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+spawn_ringworld_pacifier_effect = {
+	create_ambient_object = {
+		location = this
+		type = ringworld_pacifier_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+# Neutron Sweep effect
+spawn_habitat_neutron_effect = {
+	create_ambient_object = {
+		location = this
+		type = habitat_neutron_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+spawn_ringworld_neutron_effect = {
+	create_ambient_object = {
+		location = this
+		type = ringworld_neutron_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+# Divine Enforcer effect
+spawn_habitat_divine_effect = {
+	create_ambient_object = {
+		location = this
+		type = habitat_divine_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+spawn_ringworld_divine_effect = {
+	create_ambient_object = {
+		location = this
+		type = ringworld_divine_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+# Nanobot effect
+spawn_habitat_nanobot_effect = {
+	create_ambient_object = {
+		location = this
+		type = habitat_nanobot_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
+	}
+}
+
+spawn_ringworld_nanobot_effect = {
+	create_ambient_object = {
+		location = this
+		type = ringworld_nanobot_object
+		duration = 5
+		
+		use_3d_location = yes
+		base_angle_towards = star
+		entity_face_object = star
+		
+		entity_offset = { min = 0 max = 0 }
+		
+		entity_scale_to_size = yes
+		scale = 0.10
 	}
 }

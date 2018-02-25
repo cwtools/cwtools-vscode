@@ -46,7 +46,12 @@ is_shackled_robot = { # The pop is a non-free robot
 			has_trait = "trait_robotic_3"
 			NAND = {
 				exists = owner
-				owner = { has_policy_flag = ai_full_rights }
+				owner = { 
+					OR = {
+						has_policy_flag = ai_full_rights 
+						is_mechanical_empire = yes
+					}
+				}
 			}
 		}
 	}
@@ -188,28 +193,43 @@ wears_clothes = { # The species uses the portrait that wears clothes
 	}
 }
 
-is_awakened_fallen_empire_machine = {
-	is_country_type = awakened_fallen_empire
+is_fallen_empire_machine = {
+	OR = {
+		is_country_type = fallen_empire
+		is_country_type = awakened_fallen_empire
+	}
 	has_authority = auth_machine_intelligence
 }
 
-is_awakened_fallen_empire_materialist = {
-	is_country_type = awakened_fallen_empire
+is_fallen_empire_materialist = {
+	OR = {
+		is_country_type = fallen_empire
+		is_country_type = awakened_fallen_empire
+	}
 	has_ethic = ethic_fanatic_materialist
 }
 
-is_awakened_fallen_empire_spiritualist = {
-	is_country_type = awakened_fallen_empire
+is_fallen_empire_spiritualist = {
+	OR = {
+		is_country_type = fallen_empire
+		is_country_type = awakened_fallen_empire
+	}
 	has_ethic = ethic_fanatic_spiritualist
 }
 
-is_awakened_fallen_empire_xenophobe = {
-	is_country_type = awakened_fallen_empire
+is_fallen_empire_xenophobe = {
+	OR = {
+		is_country_type = fallen_empire
+		is_country_type = awakened_fallen_empire
+	}
 	has_ethic = ethic_fanatic_xenophobe
 }
 
-is_awakened_fallen_empire_xenophile = {
-	is_country_type = awakened_fallen_empire
+is_fallen_empire_xenophile = {
+	OR = {
+		is_country_type = fallen_empire
+		is_country_type = awakened_fallen_empire
+	}
 	has_ethic = ethic_fanatic_xenophile
 }
 
@@ -355,7 +375,6 @@ can_be_military_leader = {
 
 can_be_soldier = {
 	is_sapient = yes
-	is_robot_pop = no
 	OR = {
 		has_military_service_type = { type = military_service_full }
 		has_military_service_type = { type = military_service_limited }
@@ -494,16 +513,6 @@ has_culture_shock = {
 	}
 }
 
-# Checks if a planet is under any kind of orbital bombardment
-under_bombardment = {
-	OR = {
-		orbital_bombardment = soft
-		orbital_bombardment = limited
-		orbital_bombardment = full
-		orbital_bombardment = armageddon	
-	}
-}
-
 has_any_megastructure_in_empire = {
 	any_system_within_border = {
 		OR = {
@@ -617,6 +626,7 @@ pops_on_planet_can_form_government = {
 
 is_valid_refugee_pop = {
 	is_robot_pop = no
+	has_culture_shock = no
 	NOR = { 
 		has_trait = trait_hive_mind 
 		has_trait = trait_nerve_stapled
@@ -655,5 +665,386 @@ is_mechanical_empire = {
 	OR = {	
 		owner_species = { has_trait = trait_mechanical }		
 		has_country_flag = synthetic_empire
+	}
+}
+
+is_country_type_with_subjects = {
+	OR = {
+		is_country_type = default
+		is_country_type = awakened_fallen_empire
+	}
+}
+
+is_valid_target_fe_stop_atrocities = {
+	OR = {
+		allows_slavery = yes
+		allows_purge = yes
+	}
+	NOT = { has_ethic = ethic_gestalt_consciousness }
+	NOR = {
+		has_valid_civic = civic_machine_terminator
+		has_valid_civic = civic_hive_devouring_swarm
+		has_valid_civic = civic_fanatic_purifiers
+	}
+}
+
+is_valid_target_fe_stop_ai = {
+	NOT = { has_policy_flag = ai_outlawed }
+	NOT = { has_ethic = ethic_gestalt_consciousness }
+	has_technology = tech_synthetic_workers
+	is_mechanical_empire = no
+}
+
+is_valid_target_fe_cleanse_holy_worlds = {
+	OR = {
+		any_owned_planet = {
+			has_modifier = "holy_planet"
+		}
+		any_subject = {
+			any_owned_planet = {
+				has_modifier = "holy_planet"
+			}					
+		}
+	}	
+}
+
+has_sapient_combat_computer = {
+	OR = {
+		has_component = COMBAT_COMPUTER_SWARM_SAPIENT
+		has_component = COMBAT_COMPUTER_LINE_SAPIENT
+		has_component = COMBAT_COMPUTER_PICKET_SAPIENT
+		has_component = COMBAT_COMPUTER_ARTILLERY_SAPIENT
+		has_component = COMBAT_COMPUTER_PLATFORM_SAPIENT
+	}
+}
+
+is_pacifist = {
+	OR = {
+		has_ethic = ethic_pacifist
+		has_ethic = ethic_fanatic_pacifist
+	}
+}
+
+is_militarist = {
+	OR = {
+		has_ethic = ethic_militarist
+		has_ethic = ethic_fanatic_militarist
+	}
+}
+
+is_materialist = {
+	OR = {
+		has_ethic = ethic_materialist
+		has_ethic = ethic_fanatic_materialist
+	}
+}
+
+is_spiritualist = {
+	OR = {
+		has_ethic = ethic_spiritualist
+		has_ethic = ethic_fanatic_spiritualist
+	}
+}
+
+is_egalitarian = {
+	OR = {
+		has_ethic = ethic_egalitarian
+		has_ethic = ethic_fanatic_egalitarian
+	}
+}
+
+is_authoritarian = {
+	OR = {
+		has_ethic = ethic_authoritarian
+		has_ethic = ethic_fanatic_authoritarian
+	}
+}
+
+is_xenophile = {
+	OR = {
+		has_ethic = ethic_xenophile
+		has_ethic = ethic_fanatic_xenophile
+	}
+}
+
+is_xenophobe = {
+	OR = {
+		has_ethic = ethic_xenophobe
+		has_ethic = ethic_fanatic_xenophobe
+	}
+}
+
+can_set_ai_policy = {
+	is_mechanical_empire = no
+	OR = {
+		has_technology = tech_synthetic_workers
+		has_technology = tech_sapient_ai
+		any_relation = {
+			has_communications = prev
+			OR = {
+				has_technology = tech_synthetic_workers
+				has_technology = tech_sapient_ai
+				has_authority = auth_machine_intelligence
+			}
+			OR = {
+				is_country_type = default
+				has_ai_personality_behaviour = robot_exploiter
+				has_ai_personality_behaviour = robot_liberator
+			}
+		}
+	}
+}
+
+can_set_robot_policy = {
+	is_mechanical_empire = no
+	OR = {
+		has_civic = civic_mechanists
+		has_technology = tech_robotic_workers
+		any_owned_pop = {
+			is_robot_pop = yes
+		}				
+		any_relation = {
+			has_communications = prev
+			OR = {
+				has_technology = tech_robotic_workers
+				has_authority = auth_machine_intelligence
+			}
+			OR = {
+				is_country_type = default
+				has_ai_personality_behaviour = robot_exploiter
+				has_ai_personality_behaviour = robot_liberator
+			}
+		}
+	}
+}
+
+has_met_primitives = {
+	OR = {
+		has_country_flag = encountered_first_primitive
+		any_relation = {
+			has_communications = root
+			is_country_type = primitive
+		}
+	}
+}
+
+has_comms_with_alien_empire = {
+	any_relation = {	
+		has_communications = root
+		OR = {
+			is_country_type = default
+			is_country_type = fallen_empire
+			is_country_type = awakened_fallen_empire
+		}
+	}
+}
+
+has_comms_with_alien_civilization = {
+	any_relation = {	
+		has_communications = root
+		OR = {
+			is_country_type = default
+			is_country_type = fallen_empire
+			is_country_type = awakened_fallen_empire
+			is_country_type = enclave
+			is_country_type = nomad
+			is_country_type = dormant_marauders
+			is_country_type = awakened_marauders
+		}
+	}
+}
+
+has_total_war_cb = {
+	OR = {
+		#attacker checks
+		AND = {
+			OR = {
+				is_country_type = default
+				is_country_type = awakened_fallen_empire
+				is_country_type = fallen_empire
+			}
+			OR = {
+				is_country_type = awakened_fallen_empire
+				has_valid_civic = civic_hive_devouring_swarm
+				AND = {
+					has_technology = "tech_colossus"
+					is_rival = from
+				}		
+				AND = {
+					has_valid_civic = civic_machine_terminator
+					from = {
+						NOR = {
+							has_country_flag = synthetic_empire
+							has_authority = auth_machine_intelligence
+						}
+					}				
+				}
+				AND = {
+					has_valid_civic = civic_fanatic_purifiers
+					NOT = { is_same_species = from }
+				}
+			}			
+		}
+		#end threat checks
+		AND = {
+			is_country_type = default
+			NOR = {
+				is_country_type = awakened_fallen_empire
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_machine_terminator				
+				AND = {
+					is_rival = root
+					has_technology = "tech_colossus"
+				}	
+			}
+			from = {
+				OR = {
+					is_country_type = awakened_fallen_empire
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_hive_devouring_swarm
+					has_valid_civic = civic_machine_terminator		
+					AND = {
+						is_rival = root
+						has_technology = "tech_colossus"
+					}					
+				}	
+			}		
+		}
+	}
+}
+
+has_isolated_system = {
+	any_system_within_border = {
+		any_neighbor_system = {
+			root = { 
+				intel_level = { 
+					level > none
+					system = prev 
+				} 
+			}
+			NOR = {
+				has_star_flag = pirates_spawned
+				has_star_flag = precursor_system
+				has_star_flag = enclave
+				any_ship_in_system = {
+					exists = owner
+					owner = { is_hostile = root }
+				}
+				any_ship_in_system = {
+					is_ship_size = constructor
+					is_constructing = starbase
+				}
+				any_ship_in_system = {
+					fleet = { fleet_power > 1000 }
+				}
+			}
+			NOT = { exists = space_owner }
+			any_neighbor_system = {
+				exists = space_owner 
+				NOT = {
+					space_owner = { NOT = { is_same_value = root } } 
+				}
+			}
+			NOT = {
+				any_neighbor_system = {
+					NOT = { exists = space_owner }
+				}
+			}
+		}
+	}
+}
+
+has_bordering_system = {
+	any_system_within_border = {
+		any_neighbor_system = {
+			root = { 
+				intel_level = { 
+					level > none
+					system = prev 
+				} 
+			}
+			NOR = {
+				has_star_flag = pirates_spawned
+				has_star_flag = precursor_system
+				has_star_flag = enclave
+				any_ship_in_system = {
+					exists = owner
+					owner = { is_hostile = root }
+				}
+				any_ship_in_system = {
+					is_ship_size = constructor
+					is_constructing = starbase
+				}
+				any_ship_in_system = {
+					fleet = { fleet_power > 1000 }
+				}
+			}
+			NOT = { exists = space_owner }
+		}
+	}
+}
+
+# this: system
+# root: great khan's horde (country)
+is_potential_diadochi_system = {
+	exists = starbase
+	starbase = { owner = { is_same_value = root } }
+	NOR = {
+		has_star_flag = first_diadochi_system
+		has_star_flag = second_diadochi_system
+		has_star_flag = third_diadochi_system
+		has_star_flag = fourth_diadochi_system
+	}
+}
+
+has_no_non_gate_megastructure = {
+	OR = {
+		NOT = { has_any_megastructure = yes }
+		any_system_megastructure = { # exclude gateways
+			NOR = {
+				is_megastructure_type = dyson_sphere_0
+				is_megastructure_type = dyson_sphere_1
+				is_megastructure_type = dyson_sphere_2
+				is_megastructure_type = dyson_sphere_3
+				is_megastructure_type = dyson_sphere_4
+				is_megastructure_type = dyson_sphere_5
+				is_megastructure_type = dyson_sphere_ruined
+				is_megastructure_type = dyson_sphere_restored
+	
+				is_megastructure_type = ring_world_1
+				is_megastructure_type = ring_world_2_intermediate
+				is_megastructure_type = ring_world_2
+				is_megastructure_type = ring_world_3_intermediate
+				is_megastructure_type = ring_world_ruined
+				is_megastructure_type = ring_world_restored
+	
+				is_megastructure_type = think_tank_0
+				is_megastructure_type = think_tank_1
+				is_megastructure_type = think_tank_2
+				is_megastructure_type = think_tank_3
+				is_megastructure_type = think_tank_4
+				is_megastructure_type = think_tank_ruined
+				is_megastructure_type = think_tank_restored
+	
+				is_megastructure_type = spy_orb_0
+				is_megastructure_type = spy_orb_1
+				is_megastructure_type = spy_orb_2
+				is_megastructure_type = spy_orb_3
+				is_megastructure_type = spy_orb_4
+				is_megastructure_type = spy_orb_ruined
+				is_megastructure_type = spy_orb_restored
+	
+				is_megastructure_type = habitat_0
+			}
+		}
+	}
+}
+
+is_homicidal = {
+	OR = {
+		has_valid_civic = civic_fanatic_purifiers
+		has_valid_civic = civic_machine_terminator
+		has_valid_civic = civic_hive_devouring_swarm
 	}
 }

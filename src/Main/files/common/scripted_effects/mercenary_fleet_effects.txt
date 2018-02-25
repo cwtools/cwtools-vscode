@@ -1,0 +1,459 @@
+#	Example:
+#
+#	example_effect = {
+#		add_energy = -100
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		example_effect = yes
+#	}
+#
+
+#############################
+# Marauder Mercenary Fleets #
+#############################
+
+# Marauder Mercenary Admiral
+create_marauder_merc_admiral = {
+	create_leader = {
+		type = admiral
+		species = event_target:marauder_species
+		name = random
+		event_leader = yes
+		skill = 3
+		leader_age_min = 25
+		leader_age_max = 45
+		traits = {
+			trait = leader_trait_mercenary_warrior
+			trait = random_trait
+		}
+	}
+	last_created_leader = {
+		set_leader_flag = marauder_merc_leader
+	}
+}
+
+# Armada of the Voidborn
+create_armada_of_the_voidborn = {
+	while = {
+		count = 16
+		create_ship = {
+			name = random
+			design = "NAME_Outrider"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 8
+		create_ship = {
+			name = random
+			design = "NAME_Lancer"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 6
+		create_ship = {
+			name = random
+			design = "NAME_Void_Champion"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Star Rider Flotilla
+create_star_rider_flotilla = {
+	while = {
+		count = 12
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Outrider"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 6
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Lancer"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 4
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Void_Champion"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# First Storm Wing
+create_first_storm_wing = {
+	while = {
+		count = 8
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Outrider"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 4
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Lancer"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 2
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Void_Champion"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Dwamak Bashers
+create_dwamak_bashers = {
+	while = {
+		count = 16
+		create_ship = {
+			name = random
+			design = "NAME_Outrider"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 8
+		create_ship = {
+			name = random
+			design = "NAME_Lancer"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 6
+		create_ship = {
+			name = random
+			design = "NAME_Void_Champion"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Unhinged Screamer Flotilla
+create_unhinged_screamer_flotilla = {
+	while = {
+		count = 12
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Outrider"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 6
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Lancer"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 4
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Void_Champion"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Frenzied Volunteer Squadron
+create_frenzied_volunteer_squadron = {
+	while = {
+		count = 8
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Outrider"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 4
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Lancer"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 2
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Void_Champion"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Her Chosen Champions
+create_her_chosen_champions = {
+	while = {
+		count = 16
+		create_ship = {
+			name = random
+			design = "NAME_Outrider"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 8
+		create_ship = {
+			name = random
+			design = "NAME_Lancer"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 6
+		create_ship = {
+			name = random
+			design = "NAME_Void_Champion"
+			prefix = no
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Order of Eternal Night
+create_order_of_eternal_night = {
+	while = {
+		count = 12
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Outrider"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 6
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Lancer"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 4
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Void_Champion"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+# Twilight Congregation
+create_twilight_congregation = {
+	while = {
+		count = 8
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Outrider"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 4
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Lancer"
+			graphical_culture = "pirate_01"
+		}
+	}
+	while = {
+		count = 2
+		create_ship = {
+			name = random
+			prefix = no
+			design = "NAME_Void_Champion"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+####################
+# Marauder Raiders #
+####################
+
+create_marauder_raiders = {
+	# Less than 40 years into game
+	if = {
+		limit = { years_passed < 40 }
+		while = {
+			count = 6
+			create_ship = {
+				name = random
+				design = "NAME_Outrider"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 4
+			create_ship = {
+				name = random
+				design = "NAME_Lancer"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 1
+			create_ship = {
+				name = random
+				design = "NAME_Void_Champion"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		set_fleet_flag = marauder_raider_fleet_1
+	}
+	# 40 years into game, less than 60
+	if = {
+		limit = { 
+			years_passed > 39 
+			years_passed < 60 
+		}
+		while = {
+			count = 12
+			create_ship = {
+				name = random
+				design = "NAME_Outrider"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 6
+			create_ship = {
+				name = random
+				design = "NAME_Lancer"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 2
+			create_ship = {
+				name = random
+				design = "NAME_Void_Champion"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		set_fleet_flag = marauder_raider_fleet_2
+	}
+	# 60 years into game, less than 80
+	if = {
+		limit = { 
+			years_passed > 59 
+			years_passed < 80 
+		}
+		while = {
+			count = 18
+			create_ship = {
+				name = random
+				design = "NAME_Outrider"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 10
+			create_ship = {
+				name = random
+				design = "NAME_Lancer"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 3
+			create_ship = {
+				name = random
+				design = "NAME_Void_Champion"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		set_fleet_flag = marauder_raider_fleet_3
+	}
+	# 80 years into game
+	if = {
+		limit = { 
+			years_passed > 80
+		}
+		while = {
+			count = 24
+			create_ship = {
+				name = random
+				design = "NAME_Outrider"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 14
+			create_ship = {
+				name = random
+				design = "NAME_Lancer"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		while = {
+			count = 4
+			create_ship = {
+				name = random
+				design = "NAME_Void_Champion"
+				prefix = no
+				graphical_culture = "pirate_01"
+			}
+		}
+		set_fleet_flag = marauder_raider_fleet_4
+	}
+}

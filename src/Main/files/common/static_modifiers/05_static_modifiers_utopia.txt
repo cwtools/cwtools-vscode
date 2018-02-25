@@ -1,0 +1,540 @@
+# From observation station mission
+native_indoctrination = {
+	pop_ethics_shift_speed_mult = 3
+}
+
+# Pops Unhappiness
+megastructure_demands_rejected = {
+	pop_happiness = -0.2
+}
+
+colonization_fever = {
+	pop_happiness = 0.10
+}
+
+standardized_colony_ships = {
+	shipsize_colonizer_build_speed_mult = 1
+	shipsize_colonizer_build_cost_mult = -0.5
+}
+
+withdrawal_symptoms = {
+	pop_happiness = -0.1
+	tile_resource_food_mult = -0.2
+	tile_resource_minerals_mult = -0.2
+	tile_resource_energy_mult = -0.2
+	tile_resource_unity_mult = -0.2
+	tile_resource_physics_research_mult = -0.2
+	tile_resource_society_research_mult = -0.2
+	tile_resource_engineering_research_mult = -0.2
+}
+
+##########################################################################
+# Ring World #
+##########################################################################
+
+ms_build_speed_mult = {
+	megastructure_build_speed_mult = 0.20
+	icon = "gfx/interface/icons/modifiers/mod_country_engineering_tech_research_speed.dds"
+}
+lower_build_speed_mult = {
+	megastructure_build_speed_mult = -0.20
+	icon = "gfx/interface/icons/modifiers/mod_country_engineering_tech_research_speed.dds"
+}
+ring_world_halted = {
+	icon = "gfx/interface/icons/modifiers/mod_planet_clear_blocker_time_mult.dds"
+}
+
+##########################################################################
+# Unity #
+##########################################################################
+
+
+unity_reduction_diplomatic_18 = {
+	country_resource_unity_mult = -0.10
+}
+
+unity_reduction_akx_9541 = {
+	country_resource_unity_mult = -0.20
+}
+
+unity_reduction_observation_47 = {
+	country_resource_unity_mult = -0.10
+}
+
+unity_reduction_crisis_2204 = {
+	country_resource_unity_mult = -0.10
+}
+
+unity_reduction_utopia_30 = {
+	country_resource_unity_mult = -0.10
+}
+
+unity_increase_utopia_30 = {
+	country_resource_unity_mult = 0.10
+}
+
+##########################################################################
+# The Shroud #
+##########################################################################
+
+shroud_cooldown = {
+	icon = "gfx/interface/icons/modifiers/mod_shroud_unavailable.dds"
+}
+
+shroud_precog_cooldown = {
+	icon = "gfx/interface/icons/modifiers/mod_shroud_unavailable.dds"
+}
+
+
+# Positive Modifiers
+
+shroud_happiness = {
+	pop_happiness = 0.25
+}
+
+shroud_ship_upkeep = {
+	ship_upkeep_mult = -0.3
+}
+
+shroud_research_speed = {
+	all_technology_research_speed = 0.2
+}
+
+shroud_shield_boost = {
+	ship_shield_mult = 0.5
+}
+
+shroud_weapon_boost = {
+	ship_weapon_damage = 0.2
+}
+
+shroud_firing_rate = {
+	ship_fire_rate_mult = 0.2
+}
+
+shroud_ethic_boost = {
+	pop_government_ethic_attraction = 0.5
+}
+
+shroud_influence_boost = {
+	country_resource_influence_mult = 0.3
+}
+
+shroud_unity_boost = {
+	country_resource_unity_mult = 0.3
+}
+
+shroud_evasion = {
+	ship_evasion_mult = 0.3
+}
+
+shroud_repair = {
+	ship_hull_regen_add_perc = 0.5
+	ship_armor_regen_add_perc = 0.5
+}
+
+shroud_speed = {
+	ship_speed_mult = 0.4
+}
+
+shroud_morale = {
+	army_morale = 0.4
+}
+
+shroud_sensors = {
+	ship_sensor_range_add = 2
+}
+
+# Negative Modifiers
+
+shroud_neg_happiness = {
+	pop_happiness = -0.2
+}
+
+shroud_neg_ethic = {
+	pop_government_ethic_attraction = -0.5
+}
+
+shroud_neg_armor = {
+	ship_armor_mult = -0.2
+}
+
+shroud_neg_growth = {
+	pop_growth_speed = -0.30
+}
+
+shroud_neg_research = {
+	all_technology_research_speed = -0.2
+}
+
+shroud_neg_influence = {
+	country_resource_influence_mult = -0.2
+}
+
+shroud_neg_unity = {
+	country_resource_unity_mult = -0.2
+}
+
+shroud_neg_speed = {
+	ship_speed_mult = -0.2
+}
+
+shroud_neg_morale = {
+	army_morale = -0.20
+}
+
+shroud_neg_sensors = {
+	ship_sensor_range_add = -2
+}
+
+covenant_whisperers_in_the_void = {
+	all_technology_research_speed = 0.15
+	country_resource_influence_mult = 0.15
+}
+
+covenant_composer_of_strands = {
+	pop_growth_speed = 0.15
+	leader_age = 20
+}
+
+covenant_instrument_of_desire = {
+	country_resource_energy_mult = 0.25
+	country_resource_minerals_mult = 0.25
+}
+
+covenant_eater_of_worlds = {
+	ship_fire_rate_mult = 0.15
+	army_morale = 0.3
+}
+
+covenant_end_of_the_cycle = {
+	country_resource_food_mult = 1
+	country_resource_minerals_mult = 1
+	country_resource_energy_mult = 1
+	country_resource_unity_mult = 1
+	country_resource_influence_mult = 1
+	all_technology_research_speed = 1
+	country_naval_cap_mult = 1
+}
+
+covenant_shroud_marked = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_planet_from_space.dds"
+	icon_frame = 3
+}
+
+##########################################################################
+# Other #
+##########################################################################
+
+research_utopia_60 = {
+	country_engineering_tech_research_speed = 0.10
+	country_physics_tech_research_speed = 0.10
+	country_society_tech_research_speed = 0.10
+}
+
+energy_utopia_57 = {
+	country_resource_energy_add = 200
+}
+
+ageless = {
+	leader_age = 15
+}
+
+#############
+# Unrest
+#############
+
+minor_terrorist_action = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_nationalist_corruption.dds"
+	icon_frame = 3
+	pop_government_ethic_attraction = -0.33
+}
+
+major_terrorist_action = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_nationalist_corruption.dds"
+	icon_frame = 3
+	pop_government_ethic_attraction = -0.75
+}
+
+riots_averted = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_natural_beauty.dds"
+	icon_frame = 1
+	pop_government_ethic_attraction = 0.33
+}
+
+spiritualist_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_spiritualist_attraction_mult = 1
+}
+
+authoritarian_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_authoritarian_attraction_mult = 1
+}
+
+xenophobe_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_xenophobe_attraction_mult = 1
+}
+
+materialist_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_materialist_attraction_mult = 1
+}
+
+xenophile_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_xenophile_attraction_mult = 1
+}
+
+egalitarian_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_egalitarian_attraction_mult = 1
+}
+
+pacifist_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_pacifist_attraction_mult = 1
+}
+
+militarist_unrest = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_unknown.dds"
+	icon_frame = 2
+	pop_ethic_militarist_attraction_mult = 1
+}
+
+adding_unrest_slaves = {
+	planet_unrest_add = 20
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+revolt_suppressed = {
+	planet_unrest_add = -50
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+revolt_suppressed_2 = {
+	planet_unrest_add = -50
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+slave_hunger_strike = {
+	pop_slave_resource_output = -0.50
+	icon = "gfx/interface/icons/planet_modifiers/pm_hunger_strike.dds"
+}
+
+slave_riots = {
+	pop_slave_resource_output = -100
+	pop_growth_speed = -0.5
+	planet_army_build_speed_mult = -0.50
+	planet_building_build_speed_mult = -0.50
+	planet_migration_all_pull = -1
+	pop_migration_speed = 1
+	icon = "gfx/interface/icons/planet_modifiers/pm_slave_riots.dds"
+}
+
+slaves_defected = {
+	planet_unrest_add = -50
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+free_at_last = {
+	planet_unrest_add = -50
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+insurgents_free = {
+	planet_unrest_add = -50
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+pop_disappearances = {
+	planet_unrest_add = 50
+	icon_frame = 3
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+}
+
+#############
+# Factions
+#############
+
+embraced_another_faction = {
+	faction_happiness = -0.2
+}
+
+embraced_faction_timer = {
+	icon = "gfx/interface/icons/modifiers/mod_pop_government_ethic_attraction.dds"
+}
+
+embraced_faction = {
+	faction_happiness = 0.1
+}
+
+suppressed_faction = {
+	faction_happiness = -0.2
+}
+
+suppressed_xenophobe = {
+	pop_ethic_xenophobe_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_xenophobe = {
+	pop_ethic_xenophobe_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_xenophile = {
+	pop_ethic_xenophile_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_xenophile = {
+	pop_ethic_xenophile_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_spiritualist = {
+	pop_ethic_spiritualist_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_spiritualist = {
+	pop_ethic_spiritualist_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_materialist = {
+	pop_ethic_materialist_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_materialist = {
+	pop_ethic_materialist_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_pacifist = {
+	pop_ethic_pacifist_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_pacifist = {
+	pop_ethic_pacifist_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_militarist = {
+	pop_ethic_militarist_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_militarist = {
+	pop_ethic_militarist_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_egalitarian = {
+	pop_ethic_egalitarian_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_egalitarian = {
+	pop_ethic_egalitarian_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+suppressed_authoritarian = {
+	pop_ethic_authoritarian_attraction_mult = -0.75
+	country_resource_influence_add = -1
+}
+
+promoted_authoritarian = {
+	pop_ethic_authoritarian_attraction_mult = 1
+	country_resource_influence_add = -2
+}
+
+absorbed_consciousness_1 = {
+	ship_shield_add = 100000 
+	ship_hull_add = 50000
+	ship_shield_regen_add_static = 100
+	ship_weapon_damage = 2
+	ship_fire_rate_mult = 2
+}
+
+absorbed_consciousness_2 = {
+	ship_shield_add = 200000 
+	ship_hull_add = 100000
+	ship_shield_regen_add_static = 200
+	ship_weapon_damage = 3
+	ship_fire_rate_mult = 3
+}
+
+absorbed_consciousness_3 = {
+	ship_shield_add = 300000 
+	ship_hull_add = 150000
+	ship_shield_regen_add_static = 300
+	ship_weapon_damage = 4
+	ship_fire_rate_mult = 4
+}
+
+absorbed_consciousness_4 = {
+	ship_shield_add = 400000 
+	ship_hull_add = 200000
+	ship_shield_regen_add_static = 400
+	ship_weapon_damage = 5
+	ship_fire_rate_mult = 5
+}
+
+absorbed_consciousness_5 = {
+	ship_shield_add = 500000 
+	ship_hull_add = 250000
+	ship_shield_regen_add_static = 500
+	ship_weapon_damage = 6
+	ship_fire_rate_mult = 6
+}
+
+whisperers_madness = {
+	planet_unrest_add = 100
+}
+
+whisperers_psychosis = {
+	planet_unrest_add = 200
+}
+
+eater_unhappiness_planet_1 = {
+	pop_happiness = -0.2
+}
+
+eater_unhappiness_planet_2 = {
+	pop_happiness = -0.4
+}
+
+eater_unhappiness_empire = {
+	pop_happiness = -0.3
+}
+
+instrument_consumer_goods = {
+	pop_food_req_mult = 1.0
+	pop_consumer_goods_mult = 1.0
+}
+
+instrument_deviance_planet = {
+	pop_government_ethic_attraction = -1.00
+}
+
+instrument_deviance_empire = {
+	pop_government_ethic_attraction = -0.50
+}
