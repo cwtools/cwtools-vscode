@@ -76,7 +76,7 @@ let rec private serializer (options: JsonWriteOptions) (t: Type): obj -> string 
         let fields = FSharpType.GetRecordFields t 
         let serializers = Array.map (fieldSerializer options) fields 
         fun outer ->
-            let fieldStrings = Array.map (fun f -> f outer) serializers
+            let fieldStrings = Array.map (fun f -> f outer) serializers  |> Array.filter (fun f -> f <> "")
             let innerString = String.concat "," fieldStrings
             sprintf "{%s}" innerString
     elif implementsEnum t then 
@@ -84,7 +84,7 @@ let rec private serializer (options: JsonWriteOptions) (t: Type): obj -> string 
         let serializeInner = serializer options innerType
         fun outer -> 
             let asSeq = outer :?> System.Collections.IEnumerable |> Seq.cast<obj>
-            let inners = Seq.map serializeInner asSeq 
+            let inners = Seq.map serializeInner asSeq
             let join = String.Join(',', inners) 
             sprintf "[%s]" join
     elif isOption t then 
@@ -103,8 +103,13 @@ and fieldSerializer (options: JsonWriteOptions) (field: PropertyInfo): obj -> st
     let name = escapeStr field.Name
     let innerSerializer = serializer options field.PropertyType
     fun outer -> 
-        let inner = field.GetValue outer |> innerSerializer
-        sprintf "%s:%s" name inner
+        let isSomeProp = field.PropertyType.GetProperty "IsSome"
+        let isSome outer = isSomeProp.GetValue(None, [|outer|]) :?> bool
+        if isOption (field.PropertyType) && not (isSome (field.GetValue outer)) then
+            ""
+        else
+            let inner = field.GetValue outer |> innerSerializer
+            sprintf "%s:%s" name inner
 
 let serializerFactory<'T> (options: JsonWriteOptions): 'T -> string = serializer options typeof<'T>
 

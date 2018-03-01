@@ -240,10 +240,10 @@ type CompletionItem = {
     insertText: option<string>
     insertTextFormat: option<InsertTextFormat>
     textEdit: option<TextEdit>
-    additionalTextEdits: list<TextEdit>
-    commitCharacters: list<char>
+    additionalTextEdits: option<list<TextEdit>>
+    commitCharacters: option<list<char>>
     command: option<Command>
-    data: JsonValue
+    data: option<JsonValue>
 }
 
 type ReferenceContext = {

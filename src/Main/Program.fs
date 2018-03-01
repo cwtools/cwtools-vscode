@@ -198,7 +198,8 @@ type Server(send : BinaryWriter) =
                         { defaultTextDocumentSyncOptions with 
                             openClose = true 
                             save = Some { includeText = true }
-                            change = TextDocumentSyncKind.Full } } }
+                            change = TextDocumentSyncKind.Full }
+                    completionProvider = Some {resolveProvider = false; triggerCharacters = []} } }
         member this.Initialized(): unit = 
             ()
         member this.Shutdown(): unit = 
@@ -251,7 +252,15 @@ type Server(send : BinaryWriter) =
                 if change.uri.AbsolutePath.EndsWith ".fsproj" then
                     projects.UpdateProjectFile change.uri 
                 lint change.uri |> Async.RunSynchronously
-        member this.Completion(p: TextDocumentPositionParams): CompletionList = TODO()
+        member this.Completion(p: TextDocumentPositionParams): CompletionList = 
+            let defaultCompletionItem = { label = ""; additionalTextEdits = []; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
+            match gameObj with
+            |Some game ->
+                let eventIDs = game.References.EventIDs
+                let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames
+                let items = names |> List.map (fun e -> {defaultCompletionItem with label = e})
+                {isIncomplete = false; items = items}
+            |None -> {isIncomplete = false; items = []}
         member this.Hover(p: TextDocumentPositionParams): Hover = 
             eprintfn "Hover"
             hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
