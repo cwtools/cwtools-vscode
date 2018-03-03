@@ -230,11 +230,24 @@ let writeCompletionItemKind (i: CompletionItemKind) =
     | CompletionItemKind.File -> 17
     | CompletionItemKind.Reference -> 18
 
+type CompletionDocumentation =
+    |DocString of string
+    |DocMarkup of kind : string * value : string
+
+let writeCompletionDocumentation (s: CompletionDocumentation): JsonValue = 
+    match s with 
+    | DocString(s) -> 
+        JsonValue.String s
+    | DocMarkup (kind, value) -> 
+        JsonValue.Record
+            [| "kind", (JsonValue.String kind);
+                "value", (JsonValue.String value)|]
+
 type CompletionItem = {
     label: string 
     kind: option<CompletionItemKind>
     detail: option<string>
-    documentation: option<string>
+    documentation: option<CompletionDocumentation>
     sortText: option<string>
     filterText: option<string>
     insertText: option<string>

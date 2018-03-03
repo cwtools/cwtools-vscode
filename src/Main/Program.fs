@@ -186,6 +186,32 @@ type Server(send : BinaryWriter) =
                 |None ->  {contents = MarkupContent ("markdown", ""); range = None}
             |_ -> {contents = MarkupContent ("markdown", ""); range = None}
         }
+    
+    let completionResolveItem (item :CompletionItem) =
+        async {
+            eprintfn "Completion resolve"
+            return match gameObj with
+                    |Some game ->
+                        let allEffects = game.ScriptedEffects @ game.ScripteTriggers
+                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
+                        match hovered with
+                        |Some effect ->
+                            match effect with
+                            | :? DocEffect as de ->
+                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                                let usage = de.Usage
+                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
+                                //{item with documentation = (MarkupContent ("markdown", content))}
+                                {item with documentation = Some (DocMarkup ("markdown", content))}
+                            | e ->
+                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some (DocMarkup ("markdown", content))}
+                        |None -> item
+                    |None -> item
+        }
 
 
     interface ILanguageServer with 
@@ -199,7 +225,7 @@ type Server(send : BinaryWriter) =
                             openClose = true 
                             save = Some { includeText = true }
                             change = TextDocumentSyncKind.Full }
-                    completionProvider = Some {resolveProvider = false; triggerCharacters = []} } }
+                    completionProvider = Some {resolveProvider = true; triggerCharacters = []} } }
         member this.Initialized(): unit = 
             ()
         member this.Shutdown(): unit = 
@@ -253,7 +279,7 @@ type Server(send : BinaryWriter) =
                     projects.UpdateProjectFile change.uri 
                 lint change.uri |> Async.RunSynchronously
         member this.Completion(p: TextDocumentPositionParams): CompletionList = 
-            let defaultCompletionItem = { label = ""; additionalTextEdits = []; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
+            let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
             match gameObj with
             |Some game ->
                 let eventIDs = game.References.EventIDs
@@ -265,7 +291,8 @@ type Server(send : BinaryWriter) =
             eprintfn "Hover"
             hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
 
-        member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = TODO()
+        member this.ResolveCompletionItem(p: CompletionItem): CompletionItem = 
+            completionResolveItem(p) |> Async.RunSynchronously
         member this.SignatureHelp(p: TextDocumentPositionParams): SignatureHelp = TODO()
         member this.GotoDefinition(p: TextDocumentPositionParams): list<Location> = TODO()
         member this.FindReferences(p: ReferenceParams): list<Location> = TODO()

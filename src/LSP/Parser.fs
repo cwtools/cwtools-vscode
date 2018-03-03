@@ -239,16 +239,16 @@ let parseCompletionItem (json: JsonValue): CompletionItem =
         label = json?label.AsString()
         kind = json.TryGetProperty("kind") |> Option.map JsonExtensions.AsInteger |> Option.map parseCompletionItemKind
         detail = json.TryGetProperty("detail") |> Option.map JsonExtensions.AsString 
-        documentation = json.TryGetProperty("documentation") |> Option.map JsonExtensions.AsString 
+        documentation = json.TryGetProperty("documentation") |> Option.map JsonExtensions.AsString |> Option.map DocString
         sortText = json.TryGetProperty("sortText") |> Option.map JsonExtensions.AsString 
         filterText = json.TryGetProperty("filterText") |> Option.map JsonExtensions.AsString 
         insertText = json.TryGetProperty("insertText") |> Option.map JsonExtensions.AsString 
         insertTextFormat = json.TryGetProperty("insertTextFormat") |> Option.map JsonExtensions.AsInteger |> Option.map parseInsertTextFormat
         textEdit = json.TryGetProperty("textEdit") |> Option.map parseTextEdit
-        additionalTextEdits = json.TryGetProperty("additionalTextEdits") |> Option.map JsonExtensions.AsArray |> noneAs [||] |> List.ofArray |> List.map parseTextEdit
-        commitCharacters = json.TryGetProperty("commitCharacters") |> Option.map JsonExtensions.AsArray |> noneAs [||] |> List.ofArray |> List.map JsonExtensions.AsString |> List.map char
+        additionalTextEdits = json.TryGetProperty("additionalTextEdits") |> Option.map (JsonExtensions.AsArray >> List.ofArray >> List.map parseTextEdit)
+        commitCharacters = json.TryGetProperty("commitCharacters") |> Option.map (JsonExtensions.AsArray >> List.ofArray >> List.map JsonExtensions.AsString >> List.map char)
         command = json.TryGetProperty("command") |> Option.map parseCommand
-        data = json.TryGetProperty("data") |> noneAs JsonValue.Null
+        data = json.TryGetProperty("data")
     }
 
 let parseReferenceContext (json: JsonValue): ReferenceContext = 

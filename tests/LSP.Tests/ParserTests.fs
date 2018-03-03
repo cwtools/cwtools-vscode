@@ -347,10 +347,10 @@ module ParserTests =
                 insertText = None 
                 insertTextFormat = None 
                 textEdit = None 
-                additionalTextEdits = []
-                commitCharacters = []
+                additionalTextEdits = None
+                commitCharacters = None
                 command = None 
-                data = JsonValue.Null
+                data = None
             }))
 
     [<Test>]
@@ -405,7 +405,7 @@ module ParserTests =
                         }
                     newText = "foo()"
                 } 
-                additionalTextEdits = 
+                additionalTextEdits = Some
                     [{
                         range = 
                             {
@@ -414,13 +414,13 @@ module ParserTests =
                             }
                         newText = "foo()"
                     }]
-                commitCharacters = ['\t']
+                commitCharacters = Some ['\t']
                 command = Some {
                     title = "eval"
                     command = "do/eval"
                     arguments = [JsonValue.Parse """{"hello":"world"}"""]
                 } 
-                data = JsonValue.Parse """{"hello":"world"}"""
+                data = Some (JsonValue.Parse """{"hello":"world"}""")
             }))
 
     [<Test>]
