@@ -1,0 +1,188 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "cwtools-paradox",
+	"scopeName": "source.mod",
+	"foldingStartMarker": "^\\s*#",
+	"foldingStopMarker": "(?!^[^#])",
+	"patterns": [
+		{
+			"include": "#namespace"
+		},
+		{
+			"include": "#code"
+		}
+	],
+	"repository": {
+		"namespace": {
+			"patterns": [
+				{
+					"name": "meta.namespace.paradox",
+					"match": "^\\s*[^@]?((namespace)\\s[=]\\s([\\w.]+))",
+					"captures": {
+						"1": {
+							"name": "meta.namespace.identifier.txt"
+						},
+						"2": {
+							"name": "keyword.other.namespace.txt"
+						},
+						"3": {
+							"name": "entity.name.type.namespace.txt"
+						}
+					}
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.paradox",
+					"match": "\\b(if|else|limit|AND|OR|NOT|NOR)\\b"
+				},
+				{
+					"name": "variable.language.description.scope.paradox",
+					"match": "\\b(option|immediate|trigger|mean_time_to_happen|hidden_effect|ai_weight|weight_modifier)\\b"
+				},
+				{
+					"name": "variable.language.scope.paradox",
+					"match": "\\b(ROOT|FROM|FROMFROM|FROMFROMFROM|FROMFROMFROMFROM|PREV|PREVPREV|PREVPREVPREV|PREVPREVPREVPREV|THIS)\\b"
+				},
+				{
+					"name": "variable.language.description.paradox",
+					"match": "\\b(id|title|desc|picture|is_triggered_only|hide_window|name|custom_tooltip|weight|factor)\\b"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.language.paradox",
+					"match": "\\b(yes|no)\\b"
+				},
+				{
+					"name": "constant.numeric.paradox",
+					"match": "-?\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b"
+				},
+				{
+					"include": "#strings"
+				}
+			]
+		},
+		"comment": {
+			"patterns": [
+				{
+					"name": "comment.line.number-sign.paradox",
+					"begin": "#",
+					"captures": {
+						"1": {
+						"name": "punctuation.definition.comment.paradox"
+						}
+					},
+					"end": "$\\n?"
+				}
+			]
+		},
+		"block": {
+			"patterns": [
+				{
+				"begin": "(?<==)\\s*{",
+				"beginCaptures": {
+					"0": {
+						"name": "punctuation.section.block.begin.paradox"
+					}
+				},
+				"end": "}",
+				"endCaptures": {
+					"0": {
+						"name": "punctuation.section.block.end.paradox"
+					}
+				},
+				"name": "meta.block.paradox",
+				"patterns": [
+					{
+						"include": "#code"
+					}
+				]
+				}
+			]
+		},
+		"code": {
+			"patterns": [
+				{
+				"include": "#block"
+				},
+				{
+				"include": "#comment"
+				},
+				{
+				"include": "#constants"
+				},
+				{
+				"include": "#keywords"
+				},
+				{
+				"include": "#variables"
+				}
+			]
+		},
+		"variables": {
+			"patterns": [
+				{
+					"begin": "[^\\S\\n]*(?<!@)(?=\\b\\w+\\b[^\\S\\n]*=[^\\S\\n]*[^{\\s])",
+					"end": "[^\\S\\n]*=",
+					"contentName": "variable.paradox",
+					"patterns": [
+						{
+							"include": "#keywords"
+						}
+					]
+				},
+				{
+					"begin": "[^\\S\\n]*(?<!@)(?=\\b\\w+\\b[^\\S\\n]*=[^\\S\\n]*[{])",
+					"end": "[^\\S\\n]*=",
+					"contentName": "variable.scope.paradox",
+					"patterns": [
+						{
+							"include": "#keywords"
+						}
+					]
+				},
+				{
+					"begin": "(?<=(@))(?=\\b\\w+\\b)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.definition.variable.paradox"
+						}
+					},
+					"end": "\\s",
+					"contentName": "variable.other.paradox",
+					"patterns": [
+						{
+							"include": "#constants"
+						}
+					]
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.paradox",
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+				"name": "punctuation.definition.string.begin.paradox"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+				"name": "punctuation.definition.string.end.paradox"
+				}
+			},
+			"patterns": [
+				{
+					"name": "constant.other.paradox",
+					"match": "Â§[A-Za-z!]"
+				}
+			]
+		}
+	}
+}
