@@ -645,13 +645,24 @@ type PublishDiagnosticsParams = {
 type LoadingBarParams = {
     value : bool
 }
+type CreateVirtualFileParams = {
+    uri : Uri
+    fileContent : string
+}
 type ServerNotification = 
 | PublishDiagnostics of PublishDiagnosticsParams
 | LoadingBar of LoadingBarParams
+| CreateVirtualFile of CreateVirtualFileParams
 
 type GetWordRangeAtPositionParams = {
     position : Position
 }
 
+type ApplyWorkspaceEditParams = {
+    label : option<string>
+    edit : WorkspaceEdit
+}
+
 type ServerRequest = 
 | GetWordRangeAtPosition of GetWordRangeAtPositionParams
+| ApplyWorkspaceEdit of ApplyWorkspaceEditParams

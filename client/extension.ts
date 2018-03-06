@@ -8,12 +8,29 @@ import * as path from 'path';
 import * as os from 'os';
 import * as fs from 'fs';
 
-import { workspace, ExtensionContext, window, Disposable, Position } from 'vscode';
+import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
+import { create } from 'domain';
 
 let defaultClient: LanguageClient;
 
 export function activate(context: ExtensionContext) {
+
+	class CwtoolsProvider
+	{
+		private disposables: Disposable[] = [];
+
+		constructor(){
+			workspace.registerTextDocumentContentProvider("cwtools", this)
+		}
+		async provideTextDocumentContent(_: Uri): Promise<string> {
+			return '';
+		}
+
+		dispose(): void {
+			this.disposables.forEach(d => d.dispose());
+		}
+	}
 
 	// The server is implemented using dotnet core
 	//let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
@@ -53,6 +70,8 @@ export function activate(context: ExtensionContext) {
 	console.log("client init")
 	client.registerProposedFeatures();
 	let notification = new NotificationType<boolean, void>('loadingBar');
+	interface CreateVirtualFile { uri : string; fileContent : string }
+	let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
 	let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 	let status : Disposable;
 	client.onReady().then(() => {
@@ -63,6 +82,17 @@ export function activate(context: ExtensionContext) {
 			else if(status !== undefined){
 				status.dispose();
 			}
+		})
+		client.onNotification(createVirtualFile, (param : CreateVirtualFile) => {
+			let uri = Uri.parse(param.uri);
+			let doc = workspace.openTextDocument(uri).then(doc => {
+				let edit = new WorkspaceEdit();
+				let range = new Range(0, 0, doc.lineCount, doc.getText().length);
+				edit.set(uri, [new TextEdit(range, param.fileContent)]);
+				workspace.applyEdit(edit);
+				window.showTextDocument(uri);
+				//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
+			});
 		})
 		client.onRequest(request, (param : any, _) => {
 			console.log("recieved request " + request.method + " "+ param)
@@ -84,6 +114,7 @@ export function activate(context: ExtensionContext) {
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
+	context.subscriptions.push(new CwtoolsProvider());
 }
 
 export default defaultClient;

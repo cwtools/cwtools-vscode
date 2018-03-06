@@ -43,7 +43,8 @@ let private serializeWorkspaceEdit = serializerFactory<WorkspaceEdit> jsonWriteO
 let private serializePublishDiagnostics = serializerFactory<PublishDiagnosticsParams> jsonWriteOptions
 let private serializeLoadingBarParams = serializerFactory<LoadingBarParams> jsonWriteOptions
 let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPositionParams> jsonWriteOptions
-
+let private serializeApplyWorkspaceEdit = serializerFactory<ApplyWorkspaceEditParams> jsonWriteOptions
+let private serializeCreateVirtualFileParams = serializerFactory<CreateVirtualFileParams> jsonWriteOptions
 type msg =
     | Request of int * AsyncReplyChannel<string>
     | Response of int * string
@@ -198,6 +199,8 @@ let sendNotification (send: BinaryWriter) (n: ServerNotification) =
             p |> serializePublishDiagnostics |> notify send "textDocument/publishDiagnostics"
         | LoadingBar p->
             p |> serializeLoadingBarParams |> notify send "loadingBar"
+        | CreateVirtualFile p ->
+            p |> serializeCreateVirtualFileParams |> notify send "createVirtualFile"
     with
     |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
 
@@ -211,6 +214,9 @@ let sendRequest (send: BinaryWriter) (n: ServerRequest) =
             | GetWordRangeAtPosition p ->
                 eprintfn "send request %i" id
                 return! p |> serializeGetWordRangeAtPosition |> request send id "getWordRangeAtPosition"
+            | ApplyWorkspaceEdit p ->
+                eprintfn "send request %i" id
+                return! p |> serializeApplyWorkspaceEdit |> request send id "workspace/applyEdit"
         with
         |e -> eprintfn "message %s failed with: %A" (n.ToString()) e; return ""
     }

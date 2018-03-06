@@ -87,7 +87,7 @@ type Server(send : BinaryWriter) =
                                 |None -> []
                                 |Some game ->
                                     let results = game.UpdateFile name
-                                    results |> List.map (fun (c, s, n, l, e) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
+                                    results |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
             eprintfn "%A" parserErrors
             match parserErrors @ valErrors with
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
@@ -145,8 +145,8 @@ type Server(send : BinaryWriter) =
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
-                let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
-                let locErrors = game.LocalisationErrors |> List.map (fun (c, s, n, l, e) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
+                let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
+                let locErrors = game.LocalisationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
 
                 //eprintfn "%A" game.ValidationErrors
                 let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, p, 0)
@@ -212,6 +212,11 @@ type Server(send : BinaryWriter) =
                         |None -> item
                     |None -> item
         }
+    let isPositionInRange (pos : FParsec.Position) (range : LSP.Types.Range) =
+        int pos.Column - 1 >= range.start.character 
+        && int pos.Column - 1 <= range.``end``.character
+        && int pos.Line - 1 >= range.start.line
+        && int pos.Line - 1 <= range.``end``.line
 
 
     interface ILanguageServer with 
@@ -225,7 +230,9 @@ type Server(send : BinaryWriter) =
                             openClose = true 
                             save = Some { includeText = true }
                             change = TextDocumentSyncKind.Full }
-                    completionProvider = Some {resolveProvider = true; triggerCharacters = []} } }
+                    completionProvider = Some {resolveProvider = true; triggerCharacters = []}
+                    codeActionProvider = true
+                    executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"]} } }
         member this.Initialized(): unit = 
             ()
         member this.Shutdown(): unit = 
@@ -299,7 +306,19 @@ type Server(send : BinaryWriter) =
         member this.DocumentHighlight(p: TextDocumentPositionParams): list<DocumentHighlight> = TODO()
         member this.DocumentSymbols(p: DocumentSymbolParams): list<SymbolInformation> = TODO()
         member this.WorkspaceSymbols(p: WorkspaceSymbolParams): list<SymbolInformation> = TODO()
-        member this.CodeActions(p: CodeActionParams): list<Command> = TODO()
+        member this.CodeActions(p: CodeActionParams): list<Command> =
+            match gameObj with
+            |Some game ->
+                let es = game.LocalisationErrors
+                let les = es |> List.filter (fun (_, e, pos,_, _, _) -> (Position.UnConv pos) |> (fun a -> (isPositionInRange a p.range) && a.StreamName.Replace("\\","/") = p.textDocument.uri.LocalPath.Substring(1)) )
+                match les with
+                |[] -> []
+                |_ -> 
+                    [
+                        {title = "Generate localisation .yml for this file"; command = "genlocfile"; arguments = [p.textDocument.uri.LocalPath.Substring(1) |> JsonValue.String]}
+                        {title = "Generate localisation .yml for all"; command = "genlocall"; arguments = []}
+                    ] 
+            |None -> []
         member this.CodeLens(p: CodeLensParams): List<CodeLens> = TODO()
         member this.ResolveCodeLens(p: CodeLens): CodeLens = TODO()
         member this.DocumentLink(p: DocumentLinkParams): list<DocumentLink> = TODO()
@@ -308,7 +327,31 @@ type Server(send : BinaryWriter) =
         member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams): list<TextEdit> = TODO()
         member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams): list<TextEdit> = TODO()
         member this.Rename(p: RenameParams): WorkspaceEdit = TODO()
-        member this.ExecuteCommand(p: ExecuteCommandParams): unit = TODO()
+        member this.ExecuteCommand(p: ExecuteCommandParams): unit = 
+            match gameObj with
+            |Some game ->
+                match p with
+                | {command = "genlocfile"; arguments = x::_} -> 
+                    let les = game.LocalisationErrors |> List.filter (fun (_, e, pos,_, _, _) -> (Position.UnConv pos) |> (fun a -> a.StreamName.Replace("\\","/") = x.AsString()))
+                    let keys = les |> List.choose (fun (_, _, _, _, _, k) -> k)
+                                   |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
+                                   |> List.distinct
+                                   |> List.rev
+                    let text = String.Join(Environment.NewLine,keys)
+                    let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
+                    LanguageServer.sendNotification send notif
+                | {command = "genlocall"; arguments = _} -> 
+                    let les = game.LocalisationErrors
+                    let keys = les |> List.choose (fun (_, _, _, _, _, k) -> k)
+                                   |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
+                                   |> List.distinct
+                                   |> List.rev
+                    let text = String.Join(Environment.NewLine,keys)
+                    let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
+                    LanguageServer.sendNotification send notif
+                |_ -> ()
+            |None -> ()
+
 
 [<EntryPoint>]
 let main (argv: array<string>): int =
@@ -320,3 +363,5 @@ let main (argv: array<string>): int =
     eprintfn "Listening on stdin"
     LanguageServer.connect server read write
     0 // return an integer exit code
+    //eprintfn "%A" (JsonValue.Parse "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"processId\":12660,\"rootUri\": \"file:///c%3A/Users/Thomas/Documents/Paradox%20Interactive/Stellaris\"},\"capabilities\":{\"workspace\":{}}}")
+    //0

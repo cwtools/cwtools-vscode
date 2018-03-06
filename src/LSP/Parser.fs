@@ -10,7 +10,7 @@ type Message =
 | NotificationMessage of method: string * json: option<JsonValue>
 | ResponseMessage of id: int * response: JsonValue
 
-let parseMessage (jsonText: string): Message = 
+let parseMessage (jsonText: string): Message =
     let json = JsonValue.Parse jsonText
     let jsonRpcVersion = json?jsonrpc.AsString()
     assert (jsonRpcVersion = "2.0")

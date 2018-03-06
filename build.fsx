@@ -65,7 +65,7 @@ Target "DotNetRestore" <| fun () ->
 
 
 Target "BuildServer" <| fun () ->
-    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
+    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
 
 Target "PublishServer" <| fun () ->
     DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})

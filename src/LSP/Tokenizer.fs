@@ -28,7 +28,7 @@ let readLine (client: BinaryReader): option<string> =
             if nextChar = '\n' then do 
                 endOfLine <- true
             elif nextChar = '\r' then do 
-                assert (client.ReadChar() = '\n')
+                client.ReadChar() |> ignore
                 endOfLine <- true
             else do 
                 buffer.Append nextChar |> ignore
