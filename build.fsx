@@ -134,7 +134,7 @@ Target "PublishToGallery" ( fun _ ->
         | _ -> getUserPassword "VSCE Token: "
 
     killProcess "vsce"
-    run vsceTool.Value (sprintf "publish patch --pat %s" token) ""
+    run vsceTool.Value (sprintf "publish minor --pat %s" token) ""
 )
 
 

@@ -1,7 +1,13 @@
+# 0.3.0
+* Add simple autocomplete (triggers, effects, and modifiers)
+* Add documentation for autocomplete (usage information and supported scopes)
+* Add action to generate .yml for missing localisation keys
+* Ignore missing keys that are just scripted loc (e.g. "[GetName]")
+* Check correct scope of static modifiers use in has_modifier and remove_modifier
 # 0.2.19
 * Support scripted_variables
 * Fix bug with checking variables in nested blocks
-* Check correct scope of static modifiers using in add_modifier effects
+* Check correct scope of static modifiers use in add_modifier effects
 # 0.2.18
 * Add Stellaris 2.0 scopes
 * Set 2.0 trigger_docs as default
