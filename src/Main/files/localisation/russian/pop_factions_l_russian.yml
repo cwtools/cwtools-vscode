@@ -79,6 +79,10 @@
  SUPREMACIST_GIANT_MASSACRE:0 "Истребление гигантов"
  SUPREMACIST_NO_GIANT_MASSACRE:0 "$SUPREMACIST_GIANT_MASSACRE$"
  SUPREMACIST_GIANT_MASSACRE_DESC:0 "[Root.GetName] будут какое-то время довольны в случае избавления от мучений каких-нибудь гигантских чужаков-§Yлевиафанов§!."
+ SUPREMACIST_ISOLATIONIST_NO_FEDERATION:0 "Сильны в одиночку"
+ SUPREMACIST_ISOLATIONIST_NO_FEDERATION_DESC:0 "[Root.GetName] будут недовольны, если [Root.Owner.GetName] §Yвступит§! в федерацию и тем самым позволит чужакам использовать их в своих интересах."
+ SUPREMACIST_ISOLATIONIST_FEDERATION:0 "$SUPREMACIST_ISOLATIONIST_NO_FEDERATION$"
+ 
  
  # XENOISTS
  XENOIST_PASSIVE_STUDY:0 "Косвенные ксенологические исследования"
@@ -108,9 +112,9 @@
  XENOIST_RECENT_ENLIGHTENMENT:0 "Недавнее просвещение"
  XENOIST_RECENT_ENLIGHTENMENT_DESC:0 "[Root.GetName] будут какое-то время довольны в случае просвещения примитивных инопланетных существ в отношении чудес космической эры как можно менее агрессивным способом."
  XENOIST_NO_RECENT_ENLIGHTENMENT:0 "$XENOIST_RECENT_ENLIGHTENMENT$"
- XENOIST_DIPLOMACY_TRADITION:0 "Традиционная дипломатия"
+ XENOIST_DIPLOMACY_TRADITION:0 "Традиции: [Root.GetDiplomacyTraditionName]"
  XENOIST_NO_DIPLOMACY_TRADITION:0 "$XENOIST_DIPLOMACY_TRADITION$"
- XENOIST_DIPLOMACY_TRADITION_DESC:0 "[Root.GetName] будут довольны в случае принятия традиций §Yдипломатии§!."
+ XENOIST_DIPLOMACY_TRADITION_DESC:0 "[Root.GetName] будут довольны в случае принятия следующих традиций: §Y[Root.GetDiplomacyTraditionName]§!."
  XENOIST_PRE_SAPIENT_SURVIVAL:0 "Выживание предразумных существ"
  XENOIST_NO_PRE_SAPIENT_SURVIVAL:0 "$XENOIST_PRE_SAPIENT_SURVIVAL$"
  XENOIST_PRE_SAPIENT_SURVIVAL_DESC:0 "[Root.GetName] будут недовольны в случае неспособности законодательно обеспечить выживание предразумных существ."
@@ -128,8 +132,8 @@
  IMPERIALIST_PHILOSOPHY:0 "Агрессивная дипломатия"
  IMPERIALIST_PHILOSOPHY_DESC:0 "[Root.GetName] будут недовольны в случае невозможности вести неограниченные войны."
  IMPERIALIST_NO_PHILOSOPHY:0 "$IMPERIALIST_PHILOSOPHY$"
- IMPERIALIST_CONQUEST:0 "Подчинение"
- IMPERIALIST_CONQUEST_DESC:0 "[Root.GetName] будут какое-то время довольны в случае захвата чужих планет или превращения других империй в наших подданных в ходе войны."
+ IMPERIALIST_CONQUEST:0 "Покорение"
+ IMPERIALIST_CONQUEST_DESC:0 "[Root.GetName] будут какое-то время довольны в случае захвата чужих планет."
  IMPERIALIST_NO_CONQUEST:0 "$IMPERIALIST_CONQUEST$"
  IMPERIALIST_FRONTIER_OUTPOSTS:0 "Расширение границ"
  IMPERIALIST_FRONTIER_OUTPOSTS_DESC:0 "[Root.GetName] будут какое-то время довольны в случае строительства §Yпограничного форпоста§! для расширения нашей территории."
@@ -143,9 +147,6 @@
  IMPERIALIST_RIVALS3:0 "Галактические заклятые враги"
  IMPERIALIST_RIVALS_DESC3:0 "[Root.GetName] будут довольны, если мы объявим себя соперником как минимум §Yтрех соседних империй§!."
  IMPERIALIST_FEW_RIVALS3:0 "$IMPERIALIST_RIVALS3$"
- IMPERIALIST_NO_FEDERATION:0 "Сильны в одиночку"
- IMPERIALIST_NO_FEDERATION_DESC:0 "[Root.GetName] будут недовольны, если [Root.Owner.GetName] §Yвступит§! в федерацию и тем самым позволит чужакам использовать их в своих интересах."
- IMPERIALIST_FEDERATION:0 "$IMPERIALIST_NO_FEDERATION$"
  IMPERIALIST_OVERLORD:0 "Имперская гегемония"
  IMPERIALIST_NOT_OVERLORD:0 "$IMPERIALIST_OVERLORD$"
  IMPERIALIST_OVERLORD_DESC:0 "[Root.GetName] будут довольны, если мы станем §Yсюзереном§! одной или нескольких иностранных держав."
@@ -202,7 +203,7 @@
  
  # TRADITIONALISTS
  TRADITIONALIST_NO_ROBOTS:0 "Органическая жизнь"
- TRADITIONALIST_NO_ROBOTS_DESC:0 "[Root.GetName] будут недовольны в случае замены органической жизни и органических рабочих на бездушные машины."
+ TRADITIONALIST_NO_ROBOTS_DESC:0 "[Root.GetName] будут недовольны в случае, если мы допустим замену органической жизни и органических рабочих на бездушные машины."
  TRADITIONALIST_ROBOTS:0 "Пустые оболочки"
  TRADITIONALIST_NO_ROBOT_RIGHTS:0 "Бесправие синтетиков"
  TRADITIONALIST_NO_ROBOT_RIGHTS_DESC:0 "[Root.GetName] будут крайне недовольны в случае нашей неспособности объявить вне закона непотребство, которым являются думающие машины."
@@ -225,8 +226,8 @@
  TRADITIONALIST_NO_TOMB_WORLDS:0 "Грешная земля"
  TRADITIONALIST_NO_TOMB_WORLDS_DESC:0 "[Root.GetName] будут огорчены, если мы прибудем в какой-нибудь из §Yопустошенных миров§!."
  TRADITIONALIST_TOMB_WORLDS:0 "$TRADITIONALIST_NO_TOMB_WORLDS$"
- TRADITIONALIST_GAIA_WORLDS:0 "Рай для заселения"
- TRADITIONALIST_GAIA_WORLDS_DESC:0 "[Root.GetName] будут довольны в случае заселения какого-либо §Yидеального мира§!."
+ TRADITIONALIST_GAIA_WORLDS:0 "Священный мир"
+ TRADITIONALIST_GAIA_WORLDS_DESC:0 "[Root.GetName] будут довольны в случае объявления какого-либо неиспорченного цивилизацией §Yидеального мира§! §Yсвященным§!."
  TRADITIONALIST_NO_GAIA_WORLDS:0 "$TRADITIONALIST_GAIA_WORLDS$"
  TRADITIONALIST_UNBLISSED:0 "Благословенные без блаженства"
  TRADITIONALIST_BLISSED:0 "$TRADITIONALIST_UNBLISSED$"
@@ -251,7 +252,7 @@
  TRADITIONALIST_SHROUD_CURSE_DESC:0 "[Root.GetName] будут какое-то время недовольны в случае получения вредных наград от Покрова."
  TRADITIONALIST_HARMONY:0 "Гармоничная империя"
  TRADITIONALIST_NO_HARMONY:0 "$TRADITIONALIST_HARMONY$"
- TRADITIONALIST_HARMONY_DESC:0 "[Root.GetName] будут довольны в случае принятия §Yтрадиций гармонии§!."
+ TRADITIONALIST_HARMONY_DESC:0 "[Root.GetName] будут довольны в случае принятия традиций §Yгармонии§!."
  
  # TECHNOLOGISTS
  TECHNOLOGIST_ROBOTS:0 "Любовь к машинам"

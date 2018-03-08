@@ -66,7 +66,7 @@
  allow_edict_consectrated_worlds:0 "§HОткрывает планетарный указ:§! Сакральный мир"
  describe_edict_consectrated_worlds:0 "§EЭтот планетарный указ, действующий §Y100§! лет, повышает §Y$MOD_POP_HAPPINESS$§! £pop  поселений, §Yпривлекательность принципа Спиритуализм§!, §Y$MOD_POP_GROWTH_SPEED$§! и §Yпроизводство§! £unity  единства.§!"
  allow_machine_worlds:0 "§HОткрывает параметр терраформирования:§! Мир Машин"
- describe_machine_worlds:0 "§YМир Машин§! - это особый класс планет, непригодный для органиков. В §Yмашинных поселениях§!, находящихся в §YМирах Машин§!, производство ресурсов увеличено на §G15%§!."
+ describe_machine_worlds:0 "§YМир Машин§! - это особый класс планет, непригодный для органиков. В §Yмашинных поселениях§!, находящихся в §YМирах Машин§!, производство ресурсов увеличено на §G20%§!."
  
  ALLOW_PSI_CORPS:0 "Доступно такое сооружение, как §H$building_psi_corps$§!."
  ALLOW_PSI_ARMIES:0 "Теперь можно завербовать §H$psionic_army_plural$§!."
@@ -116,6 +116,7 @@
  
  requires_planets_for_material:0 "$TRIGGER_FAIL$Нельзя строить в системах без планет с материалами."
  requires_no_existing_megastructure:0 "$TRIGGER_FAIL$Нельзя строить из-за существующего мегасооружения."
+ requires_no_existing_gateway:0 "$TRIGGER_FAIL$Нельзя строить из-за существующих врат."
  requires_no_orbital_station:0 "$TRIGGER_FAIL$Нельзя строить из-за существующей орбитальной станции."
  requires_no_habitable_planets:0 "$TRIGGER_FAIL$Нельзя строить в системах с пригодными для жизни планетами."
  requires_surveyed_system:0 "Нельзя строить в еще не изученных системах."
@@ -126,6 +127,7 @@
  requires_borders_survey_no_habitable:0 "$TRIGGER_FAIL$Нельзя строить в системах с пригодными для жизни планетами или черными дырами, в не до конца изученных системах или за пределами империи."
  requires_borders_survey_no_habitable_dyson:0 "$TRIGGER_FAIL$Нельзя строить в системах с пригодными для жизни планетами, черными дырами, нейтронными звездами или пульсарами, в не до конца изученных системах или за пределами империи."
  requires_survey_not_habitable:0 "$TRIGGER_FAIL$Нельзя строить на неизученной или пригодной для жизни планете."
+ requires_surveyed_planet:0 "$TRIGGER_FAIL$Нельзя строить на неизученной планете."
  requires_not_minor_planetary_body:0 "$TRIGGER_FAIL$Нельзя строить на малом планетарном теле (астероиде или луне)."
  requires_not_star:0 "$TRIGGER_FAIL$Нельзя строить вокруг звезды."
  requires_no_existing_spyorb:0 "$TRIGGER_FAIL$Нельзя построить больше одного дозорного комплекса."
