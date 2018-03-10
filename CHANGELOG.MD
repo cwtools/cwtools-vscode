@@ -1,3 +1,7 @@
+# 0.3.3
+* Fix bug with scope usage through prev
+* Add simple scope commands to autocomplete
+* Properly parse hsv/rgb with 4 values
 # 0.3.2
 * Check scope usage through "AND", "OR", etc
 * Properly parse files with only values
