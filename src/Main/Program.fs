@@ -79,7 +79,7 @@ type Server(send : BinaryWriter) =
                 else doc.LocalPath            
             let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
             let source = docs.GetText doc |> Option.defaultWith (notFound doc)
-            let parsed = CKParser.parseEventString source name
+            let parsed = CKParser.parseString source name
             let parserErrors = match parsed with
                                 |Success(_,_,_) -> []
                                 |Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
@@ -290,7 +290,7 @@ type Server(send : BinaryWriter) =
             match gameObj with
             |Some game ->
                 let eventIDs = game.References.EventIDs
-                let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames
+                let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames
                 let items = names |> List.map (fun e -> {defaultCompletionItem with label = e})
                 {isIncomplete = false; items = items}
             |None -> {isIncomplete = false; items = []}
