@@ -228,6 +228,7 @@ type Server(send : BinaryWriter) =
                     textDocumentSync = 
                         { defaultTextDocumentSyncOptions with 
                             openClose = true 
+                            willSave = true
                             save = Some { includeText = true }
                             change = TextDocumentSyncKind.Full }
                     completionProvider = Some {resolveProvider = true; triggerCharacters = []}
@@ -273,10 +274,10 @@ type Server(send : BinaryWriter) =
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams): unit = 
             docs.Change p
             lint p.textDocument.uri |> Async.RunSynchronously
-        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = TODO()
+        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = 
+            lint p.textDocument.uri |> Async.RunSynchronously
         member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams): list<TextEdit> = TODO()
         member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit = ()
-           // eprintfn "%s" (p.ToString())
         member this.DidCloseTextDocument(p: DidCloseTextDocumentParams): unit = 
             docs.Close p
         member this.DidChangeWatchedFiles(p: DidChangeWatchedFilesParams): unit = 
