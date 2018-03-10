@@ -1,3 +1,10 @@
+# 0.3.2
+* Check scope usage through "AND", "OR", etc
+* Properly parse files with only values
+* Properly parse "rgb"
+* Give better feedback for parser errors when there is no matched brace
+# 0.3.1
+* Update localisation to 2.0
 # 0.3.0
 * Add simple autocomplete (triggers, effects, and modifiers)
 * Add documentation for autocomplete (usage information and supported scopes)
