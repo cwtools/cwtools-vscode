@@ -293,7 +293,8 @@ type Server(send : BinaryWriter) =
                 let eventIDs = game.References.EventIDs
                 let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames
                 let items = names |> List.map (fun e -> {defaultCompletionItem with label = e})
-                {isIncomplete = false; items = items}
+                let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                {isIncomplete = false; items = items @ variables}
             |None -> {isIncomplete = false; items = []}
         member this.Hover(p: TextDocumentPositionParams): Hover = 
             eprintfn "Hover"
