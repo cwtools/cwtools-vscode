@@ -6,8 +6,8 @@ guiTypes = {
 		name = "random_species_preview"
 		orientation = center
 		origo = center
-		size = { width = 1040 height = 710 }
-		position = { x = 115 y = 0 }
+		size = { width = 1040 height = 750 }
+		position = { x = 115 y = -20 }
 
 		background = {
 			name = "random"
@@ -17,7 +17,7 @@ guiTypes = {
 		iconType = {
 			name = "randomize_image"
 			spriteType = "GFX_gamesetup_randomize_image"
-			position = { x = 6 y = 45 }
+			position = { x = 6 y = 65 }
 			alwaysTransparent = yes
 		}
 		
@@ -75,8 +75,8 @@ guiTypes = {
 		name = "species_preview"
 		orientation = center
 		origo = center
-		size = { width = 1040 height = 710 }
-		position = { x = 115 y = 0 }
+		size = { width = 1040 height = 750 }
+		position = { x = 115 y = -20 }
 
 		background = {
 			name = "background"
@@ -122,20 +122,19 @@ guiTypes = {
 		buttonType = {
 			name = "species_description_bg"
 			spriteType = "GFX_tiles_dark_area_cut_8"
-			size = { x = 295 y = 160 }
-			position = { x = 325 y = 490 }
+			size = { x = 450 y = 140 }
+			position = { x = 580 y = 530 }
 		}
 		
 		instantTextBoxType = {
 			name = "species_description"
-			position = { x = 332 y = 496 }
+			position = { x = 585 y = 535 }
 			font = "cg_16b"
-			maxWidth = 273
-			maxHeight = 148
+			maxWidth = 430
+			maxHeight = 128
 			format = left
 			text_color_code = "E"
 			scrollbarType = "standardtext_slider"
-			alwaysTransparent = yes
 		}
 		
 		#portrait
@@ -273,7 +272,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "government_and_ethics"
 			position = { x = 10 y = 350 }
-			size = { width = 610 height = 135 }
+			size = { width = 280 height = 320 }
 			
 			background = {
 				name = "background"
@@ -283,45 +282,48 @@ guiTypes = {
 
 			instantTextBoxType = {
 				name = "government_type_name"
-				position = { x = 10 y = 7 }
+				position = { x = 0 y = 7 }
 				font = "malgun_goth_24"
-				maxWidth = 500
+				maxWidth = 280
+				format = center
 				text = ""
 			}
 
 			iconType = {
 				name = "government_authority_icon"
 				spriteType = "GFX_government_authority"
-				position = { x = 12 y = 40 }
+				position = { x = 120 y = 35 }
 			}
 			instantTextBoxType = {
 				name = "government_authority_name"
-				position = { x = 70 y = 35 }
+				position = { x = 0 y = 80 }
 				font = "malgun_goth_24"
-				maxWidth = 240
+				maxWidth = 280
+				format = center
 				text = ""
 			}
 
 			smoothListboxType = {
 				name = "civics"
-				position = { x = 58 y = 65 }
-				size = { x = 300 y = 72 }
+				position = { x = 20 y = 110 }
+				size = { x = 245 y = 72 }
 				scrollbarType = "standardlistbox_slider"
 			}
 
 			smoothListboxType = {
 				name = "ethics"
-				position = { x = 310 y = 32 }
-				size = { x = 300 y = 105 }
+				position = { x = 20 y = 210 }
+				size = { x = 245 y = 105 }
 				scrollbarType = "standardlistbox_slider"
 			}
+			
 		}
 		
 		#species
 		containerWindowType = {
 			name = "species_window"
-			position = { x = 10 y = 490 }
-			size = { width = 310 height = 160 }
+			position = { x = 295 y = 350 }
+			size = { width = 280 height = 320 }
 			
 			background = {
 				name = "species_hitbox"
@@ -330,10 +332,10 @@ guiTypes = {
 			}
 			instantTextBoxType = {
 				name = "species_name"
-				format = center
-				maxWidth = 130
+				format = left
+				maxWidth = 145
 				maxHeight = 25
-				position = { x = -3 y = 3 }
+				position = { x = 150 y = 7 }
 				font = "malgun_goth_24"
 				text = "SPECIES NAME"
 				alwaysTransparent = yes
@@ -342,13 +344,13 @@ guiTypes = {
 			buttonType = {
 				name = "species_name_hitbox"
 				spriteType = "GFX_invisible"
-				size = { x = 120 y = 25 }
-				position = { x = 0 y = 3 }
+				size = { x = 130 y = 25 }
+				position = { x = 150 y = 7 }
 			}
 			instantTextBoxType = {
 				name = "species_class"
 				format = left
-				position = { x = 20 y = 138 }
+				position = { x = 150 y = 30 }
 				maxWidth = 200
 				font = "cg_16b"
 				text = "SPECIES CLASS"
@@ -357,20 +359,19 @@ guiTypes = {
 			}
 			smoothListboxType = {
 				name = "traits"
-				position = { x = 105 y = 15 }
-				size = { x = 200 y = 144 }
+				position = { x = 5 y = 145 }
+				size = { x = 260 y = 170 }
 				scrollbarType = "standardlistbox_slider"
 				borderSize = { x = 0 y = 0 }
 				orientation = "UPPER_LEFT"
-				#autohide_scrollbar = no
 				spacing = 0
 				alwaysTransparent = yes
 			}
 
 			containerWindowType = {
 				name = "leader_frame_box"
-				size = { width = 82 height = 100 }
-				position = { x = 20 y = 33 }
+				size = { width = 135 height = 135 }
+				position = { x = 5 y = 5 }
 				
 					background = {
 						name = "leader_frame"
@@ -383,13 +384,13 @@ guiTypes = {
 			containerWindowType = {
 				name = "portrait"
 				clipping = yes
-				size = { width = 82 height = 100 }
-				position = { x = 20 y = 32 }
+				size = { width = 135 height = 135 }
+				position = { x = 5 y = 5 }
 
 				iconType = {
 					name = "portrait"
 					spriteType = "GFX_portrait_character"
-					scale = 0.31
+					scale = 0.4
 					position = { x = -50 y = -15 }
 					alwaysTransparent = yes
 				}
@@ -398,76 +399,17 @@ guiTypes = {
 			buttonType = {
 				name = "species_frame"
 				spriteType = "GFX_clean_frame_area"
-				size = { x = 92 y = 110 }
-				position = { x = 15 y = 27 }
+				size = { x = 145 y = 145 }
+				position = { x = 0 y = 0 }
 			}
 
-		}
-		
-		#starting weapon
-		containerWindowType = {
-			name = "starting_weapon"
-			position = { x = 625 y = 350 }
-			size = { width = 200 height = 155 }
-			background = {
-				name = "weapon_hitbox"
-				spriteType = "GFX_tiles_dark_area_cut_8"
-				clicksound = tab_click
-				tooltip_mode_enabled = yes
-			}
-			iconType = {
-				name = "icon"
-				spriteType = "GFX_weapon_type_01"
-				position = { x = 9 y = 35 }
-				scale = 0.8
-				alwaysTransparent = yes
-			}
-			instantTextBoxType = {
-				name = "weapon_type"
-				position = { x = 10 y = 5 }
-				font = "malgun_goth_24"
-				maxWidth = 180
-				text = "STARTING WEAPON TYPE"
-				format = center
-				alwaysTransparent = yes
-			}
-		}
-		#starting ftl
-		containerWindowType = {
-			name = "starting_ftl"
-			position = { x = 830 y = 350 }
-			size = { width = 200 height = 155 }
-			background = {
-				name = "ftl_hitbox"
-				spriteType = "GFX_tiles_dark_area_cut_8"
-				clicksound = tab_click
-				tooltip_mode_enabled = yes
-			}
-			iconType = {
-				name = "icon"
-				spriteType = "GFX_travel_method_01"
-				position = { x = 9 y = 35 }
-				scale = 0.8
-				alwaysTransparent = yes
-			}
-			instantTextBoxType = {
-				name = "ftl_type"
-				position = { x = 4 y = 5 }
-				font = "malgun_goth_24"
-				maxWidth = 190
-				maxHeight = 20
-				text = "STARTING FTL TYPE"
-				format = center
-				alwaysTransparent = yes
-				fixedSize = yes
-			}
 		}
 		
 		#ship preview
 		containerWindowType = {
 			name = "ship_preview"
-			position = { x = 625 y = 510 }
-			size = { width = 405 height = 140 }
+			position = { x = 580 y = 350 }
+			size = { width = 450 height = 175 }
 			
 			background = {
 				name = "ship_hitbox"
@@ -479,7 +421,7 @@ guiTypes = {
 				name = "render_target"
 				quadTextureSprite = "GFX_dummy_3d_graphical_culture_preview"
 				position = { x = 10 y = 10 }
-				size = { x = 385 y = 120 }
+				size = { x = 430 y = 155 }
 			}
 		}
 	}
@@ -514,7 +456,7 @@ guiTypes = {
 
 	containerWindowType = {
 		name = "species_preview_ethic"
-		size = { width = 250 height = 32 }
+		size = { width = 240 height = 32 }
 
 		background = {
 			name = "bg"
@@ -533,7 +475,7 @@ guiTypes = {
 			name = "name"
 			font = "cg_16b"
 			position = { x = 48 y = 7 }
-			maxWidth = 250
+			maxWidth = 240
 			text =	 ""
 			format = left
 			alwaysTransparent = yes
@@ -542,7 +484,7 @@ guiTypes = {
 
 	containerWindowType = {
 		name = "species_preview_civic"
-		size = { width = 250 height = 32 }
+		size = { width = 240 height = 32 }
 
 		background = {
 			name = "bg"
@@ -561,7 +503,7 @@ guiTypes = {
 			name = "name"
 			font = "cg_16b"
 			position = { x = 48 y = 7 }
-			maxWidth = 200
+			maxWidth = 240
 			text =	 ""
 			format = left
 			alwaysTransparent = yes

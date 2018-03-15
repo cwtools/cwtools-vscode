@@ -274,8 +274,8 @@ type Server(send : BinaryWriter) =
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams): unit = 
             docs.Change p
             lint p.textDocument.uri |> Async.RunSynchronously
-        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = 
-            lint p.textDocument.uri |> Async.RunSynchronously
+        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = ()
+            //lint p.textDocument.uri |> Async.RunSynchronously
         member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams): list<TextEdit> = TODO()
         member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit = ()
         member this.DidCloseTextDocument(p: DidCloseTextDocumentParams): unit = 

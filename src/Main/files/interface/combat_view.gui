@@ -1,7 +1,7 @@
 @frame_list_w = 265
-@frame_list_h = 338
+@frame_list_h = 381
 @list_w = 256
-@list_h = 334
+@list_h = 377
 @combat_stat_w = 64
 @combat_stat_h = 64
 
@@ -159,7 +159,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "left_stats"
-			size = { width = @frame_list_w height = 128 }
+			size = { width = @frame_list_w height = 87 }
 			position = { x = 7 y = -11 }
 			orientation = lower_left
 			origo = lower_left
@@ -169,144 +169,22 @@ guiTypes = {
 				spriteType = "GFX_tiles_frame_extra_light"
 			}
 
-			# OUTGOING DAMAGE KINETIC
-
-			containerWindowType = {
-				name = "outgoing_damage_kinetic"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 2 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_damage_kinetic"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = right
-					maxWidth = 54
-					maxHeight = 20
-					position = { x = 0 y = 44 }
-					alwaysTransparent = yes
-				}
+			instantTextBoxType = {
+				name = "header"
+				font = "cg_16b"
+				text = "COMBAT_STAT_DAMAGE_HEADER"
+				maxWidth = 250
+				maxHeight = 20
+				position = { x = 8 y = 5 }
+				#alwaysTransparent = yes
+				text_color_code = "E"
 			}
 
-			# OUTGOING DAMAGE ENERGY
-
+			# outgoing_damage_hitpoints
 			containerWindowType = {
-				name = "outgoing_damage_energy"
+				name = "outgoing_damage_hitpoints"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 60 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_damage_energy"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = right
-					maxWidth = 54
-					maxHeight = 20
-					position = { x = 0 y = 44 }
-					alwaysTransparent = yes
-				}
-			}
-
-			# OUTGOING DAMAGE EXPLOSIVE
-
-			containerWindowType = {
-				name = "outgoing_damage_explosive"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 118 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_damage_explosive"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = right
-					maxWidth = 54
-					maxHeight = 20
-					position = { x = 0 y = 44 }
-					alwaysTransparent = yes
-				}
-			}
-
-			# OUTGOING HIT RATIO
-
-			containerWindowType = {
-				name = "outgoing_hit_ratio"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 192 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_projectiles_hit"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = center
-					maxWidth = 66
-					maxHeight = 20
-					position = { x = 0 y = 42 }
-					alwaysTransparent = yes
-				}
-			}
-
-			# INCOMING DAMAGE HITPOINTS
-
-			containerWindowType = {
-				name = "incoming_damage_hitpoints"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 2 y = 62 }
+				position = { x = 2 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -325,7 +203,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = right
 					maxWidth = 54
 					maxHeight = 20
@@ -334,12 +212,11 @@ guiTypes = {
 				}
 			}
 
-			# INCOMING DAMAGE ARMOR
-
+			# outgoing_damage_armor
 			containerWindowType = {
-				name = "incoming_damage_armor"
+				name = "outgoing_damage_armor"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 60 y = 62 }
+				position = { x = 60 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -358,7 +235,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = right
 					maxWidth = 54
 					maxHeight = 20
@@ -367,12 +244,11 @@ guiTypes = {
 				}
 			}
 
-			# INCOMING DAMAGE SHIELDS
-
+			# outgoing_damage_shields
 			containerWindowType = {
-				name = "incoming_damage_shields"
+				name = "outgoing_damage_shields"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 118 y = 62 }
+				position = { x = 118 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -391,7 +267,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = right
 					maxWidth = 54
 					maxHeight = 20
@@ -400,12 +276,11 @@ guiTypes = {
 				}
 			}
 
-			# INCOMING EVASION RATIO
-
+			# outgoing_hit_ratio
 			containerWindowType = {
-				name = "incoming_evasion_ratio"
+				name = "outgoing_hit_ratio"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 192 y = 62 }
+				position = { x = 192 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -414,7 +289,7 @@ guiTypes = {
 
 				iconType = {
 					name = "stat_icon"
-					spriteType = "GFX_combat_stat_projectiles_evaded"
+					spriteType = "GFX_combat_stat_projectiles_hit"
 					orientation = center_up
 					centerPosition = yes
 					position = { x = 0 y = 33 }
@@ -424,7 +299,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = center
 					maxWidth = 66
 					maxHeight = 20
@@ -466,7 +341,7 @@ guiTypes = {
 
 		containerWindowType = {
 			name = "right_stats"
-			size = { width = @frame_list_w height = 128 }
+			size = { width = @frame_list_w height = 87 }
 			position = { x = -12 y = -11 }
 			orientation = lower_right
 			origo = lower_right
@@ -476,144 +351,22 @@ guiTypes = {
 				spriteType = "GFX_tiles_frame_extra_light"
 			}
 
-			# OUTGOING DAMAGE KINETIC
-
-			containerWindowType = {
-				name = "outgoing_damage_kinetic"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 2 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_damage_kinetic"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = right
-					maxWidth = 54
-					maxHeight = 20
-					position = { x = 0 y = 44 }
-					alwaysTransparent = yes
-				}
+			instantTextBoxType = {
+				name = "header"
+				font = "cg_16b"
+				text = "COMBAT_STAT_DAMAGE_HEADER"
+				maxWidth = 250
+				maxHeight = 20
+				position = { x = 8 y = 5 }
+				#alwaysTransparent = yes
+				text_color_code = "E"
 			}
 
-			# OUTGOING DAMAGE ENERGY
-
+			# outgoing_damage_hitpoints
 			containerWindowType = {
-				name = "outgoing_damage_energy"
+				name = "outgoing_damage_hitpoints"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 60 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_damage_energy"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = right
-					maxWidth = 54
-					maxHeight = 20
-					position = { x = 0 y = 44 }
-					alwaysTransparent = yes
-				}
-			}
-
-			# OUTGOING DAMAGE EXPLOSIVE
-
-			containerWindowType = {
-				name = "outgoing_damage_explosive"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 118 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_damage_explosive"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = right
-					maxWidth = 54
-					maxHeight = 20
-					position = { x = 0 y = 44 }
-					alwaysTransparent = yes
-				}
-			}
-
-			# OUTGOING HIT RATIO
-
-			containerWindowType = {
-				name = "outgoing_hit_ratio"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 192 y = -1 }
-
-				background = {
-					name = "stat_hitbox"
-					spriteType = "GFX_invisible"
-				}
-
-				iconType = {
-					name = "stat_icon"
-					spriteType = "GFX_combat_stat_projectiles_hit"
-					orientation = center_up
-					centerPosition = yes
-					position = { x = 0 y = 33 }
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "stat_value"
-					font = "cg_16b"
-					text = "000"
-					format = center
-					maxWidth = 66
-					maxHeight = 20
-					position = { x = 0 y = 42 }
-					alwaysTransparent = yes
-				}
-			}
-
-			# INCOMING DAMAGE HITPOINTS
-
-			containerWindowType = {
-				name = "incoming_damage_hitpoints"
-				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 2 y = 62 }
+				position = { x = 2 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -632,7 +385,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = right
 					maxWidth = 54
 					maxHeight = 20
@@ -641,12 +394,11 @@ guiTypes = {
 				}
 			}
 
-			# INCOMING DAMAGE ARMOR
-
+			# outgoing_damage_armor
 			containerWindowType = {
-				name = "incoming_damage_armor"
+				name = "outgoing_damage_armor"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 60 y = 62 }
+				position = { x = 60 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -665,7 +417,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = right
 					maxWidth = 54
 					maxHeight = 20
@@ -674,12 +426,11 @@ guiTypes = {
 				}
 			}
 
-			# INCOMING DAMAGE SHIELDS
-
+			# outgoing_damage_shields
 			containerWindowType = {
-				name = "incoming_damage_shields"
+				name = "outgoing_damage_shields"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 118 y = 62 }
+				position = { x = 118 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -698,7 +449,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = right
 					maxWidth = 54
 					maxHeight = 20
@@ -707,12 +458,11 @@ guiTypes = {
 				}
 			}
 
-			# INCOMING EVASION RATIO
-
+			# outgoing_hit_ratio
 			containerWindowType = {
-				name = "incoming_evasion_ratio"
+				name = "outgoing_hit_ratio"
 				size = { width = @combat_stat_w height = @combat_stat_h }
-				position = { x = 192 y = 62 }
+				position = { x = 192 y = 20 }
 
 				background = {
 					name = "stat_hitbox"
@@ -721,7 +471,7 @@ guiTypes = {
 
 				iconType = {
 					name = "stat_icon"
-					spriteType = "GFX_combat_stat_projectiles_evaded"
+					spriteType = "GFX_combat_stat_projectiles_hit"
 					orientation = center_up
 					centerPosition = yes
 					position = { x = 0 y = 33 }
@@ -731,7 +481,7 @@ guiTypes = {
 				instantTextBoxType = {
 					name = "stat_value"
 					font = "cg_16b"
-					text = "000"
+					text = "0"
 					format = center
 					maxWidth = 66
 					maxHeight = 20
@@ -932,6 +682,16 @@ guiTypes = {
 		}
 
 		iconType = {
+			name = "armor"
+			spriteType = "GFX_ship_armor_radial_progress"
+			position = { x = 41 y = -37 }
+			orientation = "UPPER_LEFT"
+			rotation = 3.14159
+			frame = 30
+			alwaystransparent = yes
+		}
+
+		iconType = {
 			name = "shields"
 			spriteType = "GFX_ship_shield_radial_progress"
 			position = { x = 41 y = -37 }
@@ -941,20 +701,26 @@ guiTypes = {
 			alwaystransparent = yes
 		}
 
-		iconType = {
-			name = "ship_class"
-			position = { x = 10 y = 9 }
-			spriteType = "GFX_ship_class_small"
-			alwaysTransparent = yes
-			orientation = "UPPER_LEFT"
-		}
-
-		iconType = {
-			name = "destroyed"
-			position = { x = 10 y = 11 }
-			spriteType = "GFX_ship_destroyed"
-			orientation = "UPPER_LEFT"
-		}
+        iconType = {
+            name = "ship_class"
+            position = { x = 10 y = 9 }
+            spriteType = "GFX_ship_class_small"
+            alwaysTransparent = yes
+            orientation = "UPPER_LEFT"
+        }
+        iconType = {
+            name = "destroyed"
+            position = { x = 10 y = 11 }
+            spriteType = "GFX_ship_destroyed"
+            orientation = "UPPER_LEFT"
+        }
+        
+        iconType = {
+            name = "disengaged"
+            position = { x = 10 y = 11 }
+            spriteType = "GFX_ship_disengaged"
+            orientation = "UPPER_LEFT"
+        } 		
 
 		buttonType = {
 			name = "inspect"

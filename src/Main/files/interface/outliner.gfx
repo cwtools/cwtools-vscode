@@ -29,12 +29,11 @@ spriteTypes = {
 		textureFile = "gfx/interface/buttons/outliner_options_button.dds"
 	}
 	
-	
-	
-	
-	
-	
-	
+	spriteType = {
+		name = "GFX_outliner_status"
+		texturefile = "gfx/interface/outliner/outliner_entity_status.dds"
+		noOfFrames = 5
+	}	
 	
 	spriteType = {
 		name = "GFX_outliner_manage_sectors"
@@ -73,7 +72,7 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_fleet_status_icon"
 		texturefile = "gfx/interface/outliner/outliner_ship_status_icons.dds"
-		noOfFrames = 21
+		noOfFrames = 22
 	}
 	
 	corneredTileSpriteType = {
@@ -104,6 +103,63 @@ spriteTypes = {
 		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
 		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
 		size = { x = 44 y = 8 }
+		effectFile = "gfx/FX/progress.lua"
+	}
+
+	# Progress bar n + 1 width = n_1 width / ( n + 1 )
+	@starbase_progressbar_y = 8
+	progressbarType = {
+		name = "GFX_outliner_starbase_construction_progressbar_1"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
+		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
+		size = { x = 50 y = @starbase_progressbar_y }
+		effectFile = "gfx/FX/progress.lua"
+	}
+	progressbarType = {
+		name = "GFX_outliner_starbase_construction_progressbar_2"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
+		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
+		size = { x = 25 y = @starbase_progressbar_y }
+		effectFile = "gfx/FX/progress.lua"
+	}
+	progressbarType = {
+		name = "GFX_outliner_starbase_construction_progressbar_3"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
+		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
+		size = { x = 16 y = @starbase_progressbar_y }
+		effectFile = "gfx/FX/progress.lua"
+	}
+	progressbarType = {
+		name = "GFX_outliner_starbase_construction_progressbar_4"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
+		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
+		size = { x = 12 y = @starbase_progressbar_y }
+		effectFile = "gfx/FX/progress.lua"
+	}
+	progressbarType = {
+		name = "GFX_outliner_starbase_construction_progressbar_5"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
+		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
+		size = { x = 10 y = @starbase_progressbar_y }
+		effectFile = "gfx/FX/progress.lua"
+	}
+	progressbarType = {
+		name = "GFX_outliner_starbase_construction_progressbar_6"
+		color = { 1.0 1.0 1.0 }
+		colorTwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/outliner_progress_full.dds"
+		textureFile2 = "gfx/interface/progressbars/outliner_progress_empty.dds"
+		size = { x = 8 y = @starbase_progressbar_y }
 		effectFile = "gfx/FX/progress.lua"
 	}
 
@@ -155,5 +211,11 @@ spriteTypes = {
 		textureFile2 = "gfx/interface/progressbars/outliner_shiptask_empty.dds"
 		size = { x = 160 y = 8 }
 		effectFile = "gfx/FX/progress.lua"
+	}
+
+	spriteType = {
+		name = "GFX_outliner_fleet_status"
+		textureFile = "gfx/interface/outliner/outliner_upgradable_design.dds"
+		noOfFrames = 2
 	}
 }

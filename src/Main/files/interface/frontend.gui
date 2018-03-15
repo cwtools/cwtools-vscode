@@ -19,17 +19,10 @@ guiTypes = {
 			
 		iconType = {
 			name = "game_logo"
-			position = { x = 30 y = 20 }
+			position = { x =140 y = 60 }
 			quadTextureSprite = "gfx_game_logo"
 			Orientation = "UPPER_LEFT"
-		}	
-		
-		iconType = {
-			name = "pds_logo"
-			position = { x = -140 y = 25 }
-			quadTextureSprite = "GFX_pds_logo"
-			Orientation = "UPPER_RIGHT"
-		}			
+		}
 
 		containerWindowType = {
 			id = "press_to_continue"
@@ -78,7 +71,7 @@ guiTypes = {
 				name = "version"
 				font = "cg_16b"
 				text = "1337"
-				position = { x= -550 y = -38  }
+				position = { x= -480 y = -38  }
 				maxWidth = 300
 				maxHeight = 20
 				fixedSize = yes
@@ -88,7 +81,7 @@ guiTypes = {
 				name = "version_button"
 				spriteType = "GFX_invisible"
 				size = { x = 300 y = 20 }
-				position = { x= -550 y = -38  }
+				position = { x= -600 y = -38  }
 			}
 
 			containerWindowType = {
@@ -277,10 +270,17 @@ guiTypes = {
 			
 			iconType = {
 				name = "pi_logo"
-				position = { x = -640 y = -100 }
+				position = { x = -570 y = -100 }
 				quadTextureSprite = "GFX_pi_logo"
 				#Orientation = "LOWER_RIGHT"
 				scale = 0.7
+			}
+
+			iconType = {
+				name = "pds_logo"
+				position = { x = -641 y = -105 }
+				quadTextureSprite = "GFX_pds_logo"
+				scale = 0.53
 			}
 		}
 		

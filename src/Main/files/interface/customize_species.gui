@@ -83,6 +83,10 @@ guiTypes = {
 		name = "customize_species_view_menu_section_size_5_buttons"
 		position = { x = @menu_width y = 180 }
 	}
+	positionType = {
+		name = "customize_species_view_menu_section_size_6_buttons"
+		position = { x = @menu_width y = 207 }
+	}
 
 	@menu_label_x = 0
 	@menu_label_y = 5
@@ -109,6 +113,10 @@ guiTypes = {
 		name = "customize_species_view_menu_button_pos_5"
 		position = { x = @menu_button_x y = 141 }
 	}
+	positionType = {
+		name = "customize_species_view_menu_button_pos_6"
+		position = { x = @menu_button_x y = 168 }
+	}	
 
 	# Species
 	containerWindowType = {
@@ -154,14 +162,6 @@ guiTypes = {
 			spriteType = "GFX_standard_button_200_24"
 			buttonText = "TRAITS"
 			pdx_tooltip = "TOOLTIP_SETUP_TRAITS"
-		}
-
-		buttonType = {
-			name = "species_ruler"
-			font = "cg_16b"
-			spriteType = "GFX_standard_button_200_24"
-			buttonText = "RULER"
-			pdx_tooltip = "TOOLTIP_SETUP_RULER"
 		}
 	}
 
@@ -212,37 +212,6 @@ guiTypes = {
 		}
 	}
 
-	# Homeworld
-	containerWindowType = {
-		name = "customize_species_view_menu_entry_homeworld"
-
-		instantTextBoxType = {
-			name = "label"
-			font = "malgun_goth_24"
-			position = { x = @menu_label_x y = @menu_label_y }
-			maxWidth = @menu_width
-			text = "GOVERNMENT_VIEW_CAPITAL_LABEL"
-			format = center
-			alwaysTransparent = yes
-		}
-
-		buttonType = {
-			name = "planet_class"
-			font = "cg_16b"
-			spriteType = "GFX_standard_button_200_24"
-			buttonText = "NAME_AND_CLASS"
-			pdx_tooltip = "TOOLTIP_SETUP_NAME_CLASS"
-		}
-
-		buttonType = {
-			name = "planet_city_gfx_culture"
-			font = "cg_16b"
-			spriteType = "GFX_standard_button_200_24"
-			buttonText = "CITY_GRAPHICS"
-			pdx_tooltip = "TOOLTIP_SETUP_CITY_APPEARANCE"
-		}
-	}
-
 	# Empire
 	containerWindowType = {
 		name = "customize_species_view_menu_entry_empire"
@@ -288,44 +257,52 @@ guiTypes = {
 			buttonText = "EMPIRE_FLAG"
 			pdx_tooltip = "TOOLTIP_SETUP_FLAG"
 		}
-	}
-
-	# Ships
-	containerWindowType = {
-		name = "customize_species_view_menu_entry_ships"
-
-		instantTextBoxType = {
-			name = "label"
-			font = "malgun_goth_24"
-			position = { x = @menu_label_x y = @menu_label_y }
-			maxWidth = @menu_width
-			text = "TAB_SHIPS"
-			format = center
-			alwaysTransparent = yes
-		}
-
-		buttonType = {
-			name = "ship_weapons"
-			font = "cg_16b"
-			spriteType = "GFX_standard_button_200_24"
-			buttonText = "STARTING_WEAPONS"
-			pdx_tooltip = "TOOLTIP_SETUP_WEAPONS"
-		}
-
-		buttonType = {
-			name = "ship_ftl"
-			font = "cg_16b"
-			spriteType = "GFX_standard_button_200_24"
-			buttonText = "FTL_LABEL"
-			pdx_tooltip = "TOOLTIP_SETUP_FTL"
-		}
-
+		
 		buttonType = {
 			name = "ship_gfx_culture"
 			font = "cg_16b"
 			spriteType = "GFX_standard_button_200_24"
 			buttonText = "SHIP_GRAPHICS"
 			pdx_tooltip = "TOOLTIP_SETUP_SHIP_APPEARANCE"
+		}
+
+		buttonType = {
+			name = "species_ruler"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "RULER"
+			pdx_tooltip = "TOOLTIP_SETUP_RULER"
+		}
+	}
+
+	# Homeworld
+	containerWindowType = {
+		name = "customize_species_view_menu_entry_homeworld"
+
+		instantTextBoxType = {
+			name = "label"
+			font = "malgun_goth_24"
+			position = { x = @menu_label_x y = @menu_label_y }
+			maxWidth = @menu_width
+			text = "GOVERNMENT_VIEW_CAPITAL_LABEL"
+			format = center
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "planet_class"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "NAME_AND_CLASS"
+			pdx_tooltip = "TOOLTIP_SETUP_NAME_CLASS"
+		}
+
+		buttonType = {
+			name = "planet_city_gfx_culture"
+			font = "cg_16b"
+			spriteType = "GFX_standard_button_200_24"
+			buttonText = "CITY_GRAPHICS"
+			pdx_tooltip = "TOOLTIP_SETUP_CITY_APPEARANCE"
 		}
 	}
 }

@@ -271,6 +271,22 @@ guiTypes = {
 					format = left
 					text_color_code = "E"
 				}
+				
+				iconType = {
+					name = "ruler_skill"
+					spriteType = "GFX_leader_skill"
+					position = { x = -3 y = 71 }
+					scale = 0.90
+					frame = 5
+				}				
+				
+				buttonType = {
+					name = "rename_ruler"
+					spriteType = "GFX_invisible"
+					position = { x = -5 y = 35 }
+					size = { x = 335 y = 25 }
+					orientation = left
+				}				
 
 				instantTextBoxType = {
 					name = "species"
@@ -380,6 +396,47 @@ guiTypes = {
 			}
 			
 			containerWindowType = {
+				name = "piracy_window"
+				size = { width = 100 height = 45 }
+				position = { x = 3 y = 495 }
+
+				background = {
+					name = "leader_frame"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+					alwaysTransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "piracy_label"
+					position = { x = 5 y = 2 }
+					font = "cg_16b"
+					text = "PIRACY_LABEL"
+					maxWidth = 100
+					maxHeight = 22
+					fixedSize = yes
+					format = left
+				}					
+				
+				iconType = {
+					name = "piracy_icon"
+					quadTextureSprite = "GFX_piracy_risk"
+					position = { x = 10 y = 23 }
+					orientation = "UPPER_LEFT"
+				}	
+
+				instantTextBoxType = {
+					name = "piracy_risk"
+					position = { x = 25 y = 22 }
+					font = "cg_16b"
+					text = "12%"
+					maxWidth = 50
+					maxHeight = 22
+					fixedSize = yes
+					format = left
+				}				
+			}
+			
+			containerWindowType = {
 				name = "government_spec_window"
 				size = { width = 250 height = 155 }
 				position = { x = 3 y = 335 }
@@ -483,12 +540,28 @@ guiTypes = {
 						font = "cg_16b"
 						text = ""
 						maxWidth = 220
-						maxHeight = 60
+						maxHeight = 20
 						#fixedSize = yes
 						format = left
 						#alwaysTransparent = yes
 						#text_color_code = "E"
 					}
+					
+					buttonType = {
+						name = "rename_heir"
+						spriteType = "GFX_invisible"
+						position = { x = -5 y = 31 }
+						size = { x = 225 y = 25 }
+						orientation = left
+					}
+
+					iconType = {
+						name = "heir_skill"
+						spriteType = "GFX_leader_skill"
+						position = { x = -3 y = 51 }
+						scale = 0.90
+						frame = 5
+					}						
 
 					overlappingElementsBoxType = {
 						name = "traits"

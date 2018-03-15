@@ -164,12 +164,11 @@ guiTypes = {
 				format = left
 			}
 
-			iconType = {
+			buttonType = {
 				name = "empire_flag"
-				spriteType = "GFX_empire_flag_128"
+				quadTextureSprite = "GFX_empire_flag_128"
 				position = { x = 25 y = 235 }
 				orientation = UPPER_LEFT
-				alwaysTransparent = yes
 			}
 		}
 
@@ -195,7 +194,7 @@ guiTypes = {
 				maxWidth = 520
 				maxHeight = 150
 				alwaysTransparent = yes
-				scrollbartype = "standardlistbox_slider"
+				scrollbartype = "standardtext_slider"
 			}
 		}
 
@@ -262,336 +261,37 @@ guiTypes = {
 		}
 	}
 
-	### INCOMING OFFER PEACE ###
+	### INCOMING DECLARE WAR AND OFFER PEACE VIEW ###
 
 	containerWindowType = {
-		name = "incoming_diplomacy_view_action_offer_peace"
+		name = "incoming_diplomacy_view_action_war_peace"
 		orientation = center
 		origo = center
 		moveable = yes
-		size = { width = 1085 height = 688 }
+		size = { width = 749 height = 688 }
 
 		background = {
 			name = "background"
 			quadTextureSprite = "GFX_tile_large_bg"
 		}
 
-		### PORTRAIT ###
+		@left_column_x = 18
+		@left_column_x_inner = 30
+		@left_column_width = 400
+		@left_column_width_inner = 370
 
-		@portrait_scale = 0.75
+		@right_column_x = -326
+		@right_column_x_inner = -314
+		@right_column_width = 308
+		@right_column_width_inner = 280
 
-		containerWindowType = {
-			name = "portrait"
-			position = { x = 18 y = 60 }
-			size = { width = 714 height = 341 }
-			moveable = no
-			clipping = yes
+		@column_y = 375
+		@column_height = 255
+		@column_header_y = 330
+		@column_header_height = 40
 
-			iconType = {
-				name = "portrait"
-				position = { x = 0 y = 0 }
-				quadTextureSprite = "GFX_portrait_gamesetup_mask"
-				scale = @portrait_scale
-			}
-
-			iconType = {
-				name = "black_frame"
-				spriteType = "GFX_diplomacy_portrait_shadow_frame"
-				position = { x = -4 y = 0 }
-				alwaysTransparent = yes
-				scale = @portrait_scale
-			}
-
-			iconType = {
-				name = "stripes_1"
-				spriteType = "GFX_diplomacy_stripes_2"
-				alwaysTransparent = yes
-				scale = @portrait_scale
-			}
-
-			iconType = {
-				name = "city_frame"
-				spriteType = "GFX_diplomacy_portrait_frame"
-				position = { x = -6 y = 0 }
-				alwaysTransparent = yes
-				scale = @portrait_scale
-			}
-		}
-
-		### EMPIRE INFO ###
-
-		containerWindowType = {
-			name = "empire_info"
-			position = { x = 0 y = 20 }
-
-			iconType = {
-				name = "empire_info_bg"
-				spriteType = "GFX_diplomacy_dark_fade_bg"
-				position = { x = 33 y = 64 }
-				alwaysTransparent = yes
-			}
-
-			instantTextBoxType={
-				name = "empire_name"
-				font = "malgun_goth_24"
-				text = "Kammarian Galactic Concordat"
-				position = { x = 45 y = 70 }
-				maxWidth = 450
-				maxHeight = 16
-				format = LEFT
-				text_color_code = "E"
-				fixedsize = yes
-			}
-
-			instantTextBoxType={
-				name = "empire_government_type"
-				font = "cg_16b"
-				text = "Autocracy"
-				position = { x = 45 y = 95	}
-				maxWidth = 250
-				maxHeight = 16
-				format = LEFT
-				fixedsize = yes
-				text_color_code = "Y"
-			}
-
-			instantTextBoxType={
-				name = "empire_personality_type"
-				font = "cg_16b"
-				text = "Despicable Neutrals"
-				position = { x = 45 y = 112	}
-				maxWidth = 250
-				maxHeight = 16
-				format = LEFT
-				fixedsize = yes
-			}
-
-			OverlappingElementsBoxType = {
-				name = "empire_ethics_icons"
-				position = { x = 45 y = 138 }
-				size = { x = 240 y = 30 }
-				spacing = 2.0
-				format = left
-			}
-
-			iconType = {
-				name = "empire_flag"
-				spriteType = "GFX_empire_flag_64"
-				position = { x = 25 y = 210 }
-				orientation = UPPER_LEFT
-				alwaysTransparent = yes
-			}
-		}
-
-		buttonType = {
-			name = "close"
-			orientation = "UPPER_RIGHT"
-			position = { x = -45 y = 15 }
-			quadTextureSprite = "GFX_close"
-			clicksound = "back_click"
-			shortcut = "ESCAPE"
-		}
-
-		buttonType = {
-			name = "focus_on"
-			orientation = "UPPER_RIGHT"
-			position = { x = -80 y = 15 }
-			spriteType ="GFX_fleetview_focus"
-			pdx_tooltip = "FOCUS_ON_SYSTEM"
-		}
-
-		iconType = {
-			name = "hex_bg"
-			spriteType = "GFX_hex_bg"
-			position = { x = -5 y = -10 }
-			alwaysTransparent = yes
-		}
-
-		iconType = {
-			name = "empire_header_line"
-			quadTextureSprite = "GFX_line_long"
-			position = { x = 12 y = 29 }
-			alwaysTransparent = yes
-		}
-
-		containerWindowType = {
-			name = "description_frame"
-			position = { x = -999 y = 480 }
-			size = { width = 555 height = 200 }
-			orientation = upper_left
-
-			background = {
-				name = "frame_background"
-				quadTextureSprite = "GFX_tiles_dark_area_cut_8"
-				position = { x = 0 y = 0 }
-				#alwaysTransparent = yes
-			}
-
-			instantTextBoxType={
-				name = "offer_description"
-				font = "cg_16b"
-				position = { x = 10 y = 10 }
-				maxWidth = 520
-				maxHeight = 200
-				alwaysTransparent = yes
-				scrollbartype = "standardlistbox_slider"
-			}
-		}
-
-		containerWindowType = {
-			name = "alliance_members"
-			position = { x = 6 y = 470 }
-			size = { width = 555 height = 200 }
-			orientation = upper_left
-
-			instantTextBoxType={
-				name = "members"
-				font = "cg_16b"
-				position = { x = 0 y = 0 }
-				format = left
-				text = "ALLIANCE_MEMBERS"
-			}
-
-			smoothListBoxType = {
-				name = "members_list"
-				position = { x = 0 y = 30 }
-				size = { x=500 y=100 }
-				spacing = 4
-				scrollbartype = "standardlistbox_slider"
-				orientation = "UPPER_LEFT"
-				autohide_scrollbar = yes
-			}
-		}
-
-		instantTextBoxType={
-			name = "heading"
-			font = "malgun_goth_24"
-			position = { x = 20 y = 10 }
-			maxWidth = 563
-			maxHeight = 22
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
-		}
-
-		containerWindowType = {
-			name = "peace_offer_background_window"
-			size = { width = 715 height = 40 }
-			position = { x = 18 y = 330 }
-
-			background = {
-				name = "peace_offer_background"
-				spriteType = "GFX_tiles_dark_area_cut_8"
-			}
-		}
-
-		instantTextBoxType={
-			name = "peace_offer_label"
-			font = "malgun_goth_24"
-			position = { x = 23 y = 330 }
-			maxWidth = 715
-			maxHeight = 40
-			fixedSize = yes
-			format = center
-			vertical_alignment = center
-			alwaysTransparent = yes
-		}
-
-		containerWindowType = {
-			name = "alien_message_background"
-			size = { width = 715 height = 205 }
-			position = { x = 18 y = 380 }
-
-			background = {
-				name = "message_background"
-				spriteType = "GFX_tiles_dark_area_cut_8"
-			}
-		}
-
-		instantTextBoxType={
-			name = "alien_message"
-			font = "cg_16b"
-			position = { x = 23 y = 385 }
-			maxWidth = 705
-			maxHeight = 195
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
-		}
-
-		buttonType = {
-			name = "confirm_button"
-			quadTextureSprite = "GFX_standard_button_142_34_button"
-			position = { x= -190 y = 600  }
-			Orientation = "UPPER_RIGHT"
-			font = "cg_16b"
-		}
-
-		buttonType = {
-			name = "cancel_button"
-			quadTextureSprite = "GFX_standard_button_142_34_button"
-			position = { x = 33 y = 600  }
-			Orientation = "UPPER_LEFT"
-			font = "cg_16b"
-		}
-
-		instantTextBoxType={
-			name = "decline_cost"
-			font = "cg_16b"
-			format = left
-			maxWidth = 540
-			maxHeight = 178
-			position = { x = 95 y = 655 }
-			alwaysTransparent = yes
-		}
-
-		containerWindowType = {
-			name = "demands"
-			orientation = UPPER_RIGHT
-			position = { x = -340 y = 60 }
-			size = { width = 320 height = 525 }
-
-			instantTextBoxType={
-				name = "demands_label"
-				font = "malgun_goth_24"
-				format = left
-				maxWidth = 320
-				maxHeight = 24
-				position = { x = 0 y = 1 }
-				text = "WAR_DEMANDS_VIEW_TITLE"
-				alwaysTransparent = yes
-				format = center
-			}
-
-
-			background = {
-				name = "demands_background"
-				spriteType = "GFX_tiles_dark_area_cut_8"
-			}
-
-			smoothListBoxType = {
-				name = "demands"
-				size = { x = 295 y = 495 }
-				position = { x = 5 y = 25 }
-				scrollbartype = "standardlistbox_slider"
-				autohide_scrollbar = no
-			}
-		}
-	}
-
-	### INCOMING DECLARE WAR ###
-
-	containerWindowType = {
-		name = "incoming_diplomacy_view_action_declare_war"
-		orientation = center
-		origo = center
-		moveable = yes
-		size = { width = 1085 height = 688 }
-
-		background = {
-			name = "background"
-			quadTextureSprite = "GFX_tile_large_bg"
-		}
+		@response_button_y = -58
+		@response_button_left_x = 6
 
 		### PORTRAIT ###
 
@@ -691,12 +391,11 @@ guiTypes = {
 				format = left
 			}
 
-			iconType = {
+			buttonType = {
 				name = "empire_flag"
-				spriteType = "GFX_empire_flag_64"
+				quadTextureSprite = "GFX_empire_flag_64"
 				position = { x = 25 y = 210 }
 				orientation = UPPER_LEFT
-				alwaysTransparent = yes
 			}
 		}
 
@@ -751,10 +450,11 @@ guiTypes = {
 				maxWidth = 520
 				maxHeight = 200
 				alwaysTransparent = yes
-				scrollbartype = "standardlistbox_slider"
+				scrollbartype = "standardtext_slider"
 			}
 		}
 
+		# Not used for this window
 		containerWindowType = {
 			name = "alliance_members"
 			position = { x = 6 y = 470 }
@@ -792,32 +492,31 @@ guiTypes = {
 		}
 
 		containerWindowType = {
-			name = "declaration_of_war_background_window"
-			size = { width = 715 height = 40 }
-			position = { x = 18 y = 330 }
+			name = "background_window"
+			size = { width = @left_column_width height = @column_header_height }
+			position = { x = @left_column_x y = @column_header_y }
 
 			background = {
-				name = "declaration_of_war_background"
+				name = "background"
 				spriteType = "GFX_tiles_dark_area_cut_8"
 			}
 		}
 
 		instantTextBoxType={
-			name = "declaration_of_war_label"
+			name = "header"
 			font = "malgun_goth_24"
-			position = { x = 23 y = 330 }
-			maxWidth = 715
-			maxHeight = 40
+			position = { x = @left_column_x_inner y = @column_header_y }
+			maxWidth = @left_column_width_inner
+			maxHeight = @column_header_height
 			fixedSize = yes
-			format = center
 			vertical_alignment = center
 			alwaysTransparent = yes
 		}
 
 		containerWindowType = {
 			name = "alien_message_background"
-			size = { width = 715 height = 205 }
-			position = { x = 18 y = 380 }
+			size = { width = @left_column_width height = @column_height }
+			position = { x = @left_column_x y = @column_y }
 
 			background = {
 				name = "message_background"
@@ -828,28 +527,38 @@ guiTypes = {
 		instantTextBoxType={
 			name = "alien_message"
 			font = "cg_16b"
-			position = { x = 23 y = 385 }
-			maxWidth = 705
-			maxHeight = 195
-			fixedSize = yes
+			position = { x = @left_column_x_inner y = 390 }
+			maxWidth = @left_column_width_inner
+			maxHeight = 230
 			format = left
-			alwaysTransparent = yes
+			scrollbartype = "standardtext_slider"
 		}
 
 		buttonType = {
 			name = "confirm_button"
 			quadTextureSprite = "GFX_standard_button_142_34_button"
-			position = { x= -190 y = 600  }
-			Orientation = "UPPER_RIGHT"
+			position = { x = -173 y = @response_button_y  }
+			orientation = lower_right
 			font = "cg_16b"
 		}
 
 		buttonType = {
 			name = "cancel_button"
 			quadTextureSprite = "GFX_standard_button_142_34_button"
-			position = { x = 33 y = 600  }
+			position = { x = @response_button_left_x y = @response_button_y  }
 			Orientation = "UPPER_LEFT"
 			font = "cg_16b"
+			orientation = lower_left
+		}
+
+		buttonType = {
+			name = "set_war_goal"
+			quadTextureSprite = "GFX_standard_button_142_34_button"
+			position = { x = @response_button_left_x y = @response_button_y  }
+			Orientation = "UPPER_LEFT"
+			font = "cg_16b"
+			orientation = lower_left
+			buttontext = "SET_WAR_GOAL"
 		}
 
 		instantTextBoxType={
@@ -858,40 +567,74 @@ guiTypes = {
 			format = left
 			maxWidth = 540
 			maxHeight = 178
-			position = { x = 95 y = 655 }
+			position = { x = 180 y = 650 }
 			alwaysTransparent = yes
 		}
 
 		containerWindowType = {
-			name = "demands"
-			orientation = UPPER_RIGHT
-			position = { x = -340 y = 60 }
-			size = { width = 320 height = 525 }
-
-			instantTextBoxType={
-				name = "demands_label"
-				font = "malgun_goth_24"
-				format = left
-				maxWidth = 320
-				maxHeight = 24
-				position = { x = 0 y = 1 }
-				text = "WAR_DEMANDS_VIEW_TITLE"
-				alwaysTransparent = yes
-				format = center
-			}
-
+			name = "war_goal_background"
+			size = { width = @right_column_width height = @column_header_height }
+			position = { x = @right_column_x y = @column_header_y }
+			orientation = upper_right
 
 			background = {
-				name = "demands_background"
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+			}
+		}
+
+		instantTextBoxType={
+			name = "war_goal_label"
+			font = "malgun_goth_24"
+			format = left
+			maxWidth = @right_column_width_inner
+			maxHeight = @column_header_height
+			position = { x = @right_column_x_inner y = @column_header_y }
+			text = "WAR_GOAL"
+			text_color_code = "Y"
+			alwaysTransparent = yes
+			orientation = upper_right
+			vertical_alignment = center
+		}
+
+		# Duplicated in diplomacy_voting_view_action_declare_war
+		containerWindowType = {
+			name = "war_goal"
+			orientation = upper_right
+			position = { x = @right_column_x y = @column_y }
+			size = { width = @right_column_width height = @column_height }
+
+			background = {
+				name = "war_goal_background"
 				spriteType = "GFX_tiles_dark_area_cut_8"
 			}
 
-			smoothListBoxType = {
-				name = "demands"
-				size = { x = 295 y = 495 }
-				position = { x = 5 y = 25 }
-				scrollbartype = "standardlistbox_slider"
-				autohide_scrollbar = no
+			instantTextBoxType={
+				name = "war_goal_name"
+				position = { x = 43 y = 0 }
+				maxWidth = 221
+				maxHeight = 42
+				fixedSize = yes
+				font = "malgun_goth_24"
+				multiline = no
+				vertical_alignment = center
+				format = center
+			}
+
+			iconType = {
+				name = "war_goal_icon"
+				position = { x = 25 y = 25 }
+				centerPosition = yes
+				spriteType = "GFX_alliance_vote_status"
+			}
+
+			instantTextBoxType={
+				name = "war_goal_desc"
+				position = { x = 10 y = 50 }
+				maxWidth = @right_column_width_inner
+				maxHeight = 190
+				font = "cg_16b"
+				scrollbartype = "standardtext_slider"
 			}
 		}
 	}
@@ -1040,12 +783,11 @@ guiTypes = {
 				format = left
 			}
 
-			iconType = {
+			buttonType = {
 				name = "empire_flag"
-				spriteType = "GFX_empire_flag_128"
+				quadTextureSprite = "GFX_empire_flag_128"
 				position = { x = 25 y = 235 }
 				orientation = UPPER_LEFT
-				alwaysTransparent = yes
 			}
 		}
 
@@ -1071,7 +813,7 @@ guiTypes = {
 				maxWidth = 520
 				maxHeight = 150
 				alwaysTransparent = yes
-				scrollbartype = "standardlistbox_slider"
+				scrollbartype = "standardtext_slider"
 			}
 		}
 
@@ -1100,7 +842,7 @@ guiTypes = {
 				maxWidth = 464
 				maxHeight = 20
 				alwaysTransparent = yes
-				scrollbartype = "standardlistbox_slider"
+				scrollbartype = "standardtext_slider"
 				format = center
 			}
 
@@ -1152,7 +894,7 @@ guiTypes = {
 				maxWidth = 464
 				maxHeight = 150
 				alwaysTransparent = yes
-				scrollbartype = "standardlistbox_slider"
+				scrollbartype = "standardtext_slider"
 				format = center
 			}
 

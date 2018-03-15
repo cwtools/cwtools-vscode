@@ -72,34 +72,16 @@ guiTypes = {
 				}
 			}
 
-			iconType ={
-				name ="info_bg_1"
-				spriteType = "GFX_info_background"
-				position = { x = 26 y = 517 }
-				alwaystransparent = yes
-			}
-			iconType ={
-				name ="info_bg_2"
-				spriteType = "GFX_info_background"
-				position = { x = 26 y = 550 }
-				alwaystransparent = yes
-			}
-			iconType ={
-				name ="info_bg_3"
-				spriteType = "GFX_info_background"
-				position = { x = 26 y = 583 }
-				alwaystransparent = yes
-			}
-
 			instantTextBoxType={
 				name = "alien_message_main"
 				font = "cg_16b"
 				position = { x = 24 y = 402 }
 				maxWidth = 446
-				maxHeight = 120
-				fixedSize = yes
+				maxHeight = 95
+				fixedSize = no
 				format = left
 #				alwaysTransparent = yes
+				scrollbartype = "standardtext_slider"
 			}
 		}
 
@@ -170,12 +152,11 @@ guiTypes = {
 			alwaysTransparent = yes
 		}
 
-		iconType = {
+		buttonType = {
 			name = "empire_flag"
-			spriteType = "GFX_empire_flag_128"
+			quadTextureSprite = "GFX_empire_flag_128"
 			position = { x = 25 y = 235 }
 			orientation = UPPER_LEFT
-			alwaysTransparent = yes
 		}
 
 		instantTextBoxType={
@@ -276,164 +257,182 @@ guiTypes = {
 			format = right
 		}
 
-		### attitude and opinion
-
-		### ATTITUDE
+		### STATS
 		containerWindowType = {
-			name = "attitude_window"
-			position = { x=160 y= 588 }
-			size = { width = 154 height = 30 }
-
-
-			iconType = {
-				name = "attitude_background"
-				quadTextureSprite = "GFX_info_background_125"
-				position = { x = -31 y = -5 }
-			}
-
-			iconType = {
-				name = "attitude_icon"
-				quadTextureSprite = "GFX_attitude"
-				position = { x = -26 y = 0 }
-			}
-
-			instantTextBoxType={
-				name = "attitude"
-				font = "cg_16b"
-				maxWidth = 90
-				maxHeight = 16
-				position = { x = -2 y = 1 }
-				text = "TEST"
-				format = RIGHT
-				tooltip_mode_enabled = yes
-			}
-		}
-
-		### POWER
-		containerWindowType = {
-			name = "power_window"
-			position = { x=160 y= 555 }
-			size = { width = 154 height = 30 }
-
-			iconType = {
-				name = "power_background"
-				quadTextureSprite = "GFX_info_background_125"
-				position = { x = -31 y = -5 }
-			}
-
-			iconType = {
-				name = "power_icon"
-				quadTextureSprite = "GFX_relative_power_icon"
-				position = { x = -28 y = -2 }
-			}
-
-			instantTextBoxType = {
-				name = "power"
-				font = "cg_16b"
-				maxWidth = 110
-				maxHeight = 16
-				position = { x = -20 y = 2 }
-				text = "TEST"
-				format = RIGHT
-				tooltip_mode_enabled = yes
-			}
-		}
-
-		### OPINION
-		containerWindowType = {
-			name = "opinion_window"
+			name = "country_diplomacy_stats"
 			position = { x = 26 y = 517 }
-			size = { width = 94 height = 30 }
 
-			# Use this for tooltip area, picture comes from somewhere else
-			background = {
-				name = "opinion_bg"
-				spriteType = "GFX_tiled_window_transparent"
-			}
-
-			iconType = {
-				name = "their_opinion_icon"
-				spriteType = "GFX_diplomacy_opinion"
-				position = { x = 7 y = 4 }
-				alwaysTransparent = yes
-			}
-
-			instantTextBoxType = {
-				name = "their_opinion"
-				font = "cg_16b"
-				maxWidth = 85
-				position = { x = 0 y = 7 }
-				format = right
-				alwaysTransparent = yes
-				tooltip_mode_enabled = yes
-			}
-		}
-
-		### TRUST
-		containerWindowType = {
-			name = "trust_window"
-			position = { x = 129 y = 517 }
-			size = { width = 154 height = 30 }
-
-			iconType = {
-				name = "trust_bg"
-				quadTextureSprite = "GFX_info_background_125"
+			# opinion
+			containerWindowType = {
+				name = "opinion"
 				position = { x = 0 y = 0 }
+				size = { width = 94 height = 30 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_info_background"
+				}
+
+				iconType = {
+					name = "icon"
+					spriteType = "GFX_diplomacy_opinion"
+					position = { x = 3 y = 4 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					font = "cg_16b"
+					maxWidth = 60
+					position = { x = 25 y = 7 }
+					format = right
+					alwaysTransparent = yes
+				}
 			}
 
-			iconType = {
-				name = "their_trust_icon"
-				spriteType = "GFX_diplomacy_trust"
-				position = { x = 2 y = 4 }
-				alwaysTransparent = yes
+			# planet
+			containerWindowType = {
+				name = "planets"
+				position = { x = 0 y = 33 }
+				size = { width = 94 height = 30 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_info_background"
+				}
+
+				iconType = {
+					name = "icon"
+					spriteType = "GFX_colonies"
+					position = { x = 0 y = 3 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					font = "cg_16b"
+					maxWidth = 60
+					position = { x = 25 y = 7 }
+					format = right
+					alwaysTransparent = yes
+				}
 			}
 
-			instantTextBoxType = {
-				name = "their_trust"
-				font = "cg_16b"
-				maxWidth = 120
-				maxHeight = 20
-				position = { x = 0 y = 7 }
-				format = right
-				alwaysTransparent = yes
-				tooltip_mode_enabled = yes
+			# pops
+			containerWindowType = {
+				name = "pops"
+				position = { x = 0 y = 66 }
+				size = { width = 94 height = 30 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_info_background"
+				}
+
+				iconType = {
+					name = "icon"
+					spriteType = "GFX_population"
+					position = { x = 5 y = -1 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					font = "cg_16b"
+					maxWidth = 60
+					position = { x = 25 y = 7 }
+					format = right
+					alwaysTransparent = yes
+				}
+			}
+
+			# trust
+			containerWindowType = {
+				name = "trust"
+				position = { x = 103 y = 0 }
+				size = { width = 154 height = 30 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_info_background_125"
+				}
+
+				iconType = {
+					name = "icon"
+					spriteType = "GFX_diplomacy_trust"
+					position = { x = 2 y = 4 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					font = "cg_16b"
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = 20 y = 7 }
+					format = right
+					alwaysTransparent = yes
+				}
+			}
+
+			# power
+			containerWindowType = {
+				name = "power"
+				position = { x = 103 y = 33 }
+				size = { width = 154 height = 30 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_info_background_125"
+				}
+
+				iconType = {
+					name = "icon"
+					spriteType = "GFX_relative_power_icon"
+					position = { x = 3 y = 3 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					font = "cg_16b"
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = 20 y = 7 }
+					format = right
+					alwaysTransparent = yes
+				}
+			}
+
+			# attitude
+			containerWindowType = {
+				name = "attitude"
+				position = { x = 103 y = 66 }
+				size = { width = 154 height = 30 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_info_background_125"
+				}
+
+				iconType = {
+					name = "icon"
+					spriteType = "GFX_attitude"
+					position = { x = 5 y = 5 }
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					font = "cg_16b"
+					maxWidth = 100
+					maxHeight = 20
+					position = { x = 20 y = 7 }
+					format = right
+					alwaysTransparent = yes
+				}
 			}
 		}
-
-		### planet and pop
-
-		iconType = {
-			name = "colonies_icon"
-			quadTextureSprite = "GFX_colonies"
-			position = { x = 31 y = 553 }
-			pdx_tooltip = "ZOOM_TO_PLANET"
-		}
-
-		instantTextBoxType={
-			name = "colonies"
-			font = "cg_16b"
-			maxWidth = 40
-			position = { x = 70 y = 557 }
-			format = RIGHT
-			tooltip_mode_enabled = yes
-		}
-
-		iconType = {
-			name = "population_icon"
-			quadTextureSprite = "GFX_population"
-			position = { x = 35 y = 582 }
-			pdx_tooltip = "ZOOM_TO_PLANET"
-		}
-
-		instantTextBoxType={
-			name = "population"
-			font = "cg_16b"
-			maxWidth = 40
-			position = { x = 70 y = 590 }
-			format = right
-			tooltip_mode_enabled = yes
-		}
-
 
 		### FOUNDER SPECIES
 		iconType = {

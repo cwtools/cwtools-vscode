@@ -424,14 +424,15 @@ guiTypes = {
 		}
 		
 		iconType = {
-			name = "influence_icon"
-			spriteType = "GFX_diplomatic_influence_top_bar"
-			position = { x = 511 y = 12 }
+			name = "distance_icon"
+			spriteType = "GFX_empire_capital"
+			position = { x = 509 y = 10 }
 			alwaysTransparent = yes
+			scale = 0.66
 		}
 		
 		instantTextBoxType = {
-			name = "expansion_cost"
+			name = "expansion_distance"
 			font = "cg_16b"
 			text = "131"
 			position = { x = 495 y = 33 }
@@ -732,26 +733,6 @@ guiTypes = {
 
 		### PLANET INFO ###
 
-		instantTextBoxType = {
-			name = "expansion_cost_label"
-			font = "cg_16b"
-			text = "EXPANSION_COST_LABEL"
-			position = { x = 270 y = 55 }
-			maxWidth = 180
-			maxHeight = 20
-			format = Right
-		}
-		
-		instantTextBoxType = {
-			name = "expansion_cost"
-			font = "cg_16b"
-			text = "131"
-			position = { x = 465 y = 55 }
-			maxWidth = 50
-			maxHeight = 20
-			format = left
-		}
-
 		overlappingElementsBoxType = {
 			name = "modifiers"
 			format = center
@@ -881,7 +862,7 @@ guiTypes = {
 
 		### LIST COLONY SHIP TARGETS ###
 
-		# Entry shows planet class, habitability, name, tile size, expansion cost, resources, modifiers, risks.
+		# Entry shows planet class, habitability, name, tile size, expansion distance, resources, modifiers, risks.
 
 		instantTextBoxType = {
 			name = "expansion_target_title"
@@ -956,13 +937,13 @@ guiTypes = {
 			}
 			
 			buttonType={
-				name = "cost"
+				name = "distance"
 				font = "cg_16b"
 				spriteType = "GFX_button_75_24"
-				buttonText = "COST"
+				buttonText = "DISTANCE"
 				position = { x = 485 y = @sort_button_height }
 				orientation = UPPER_LEFT
-				pdx_tooltip = "EXPANSION_PLANNER_SORT_COST"
+				pdx_tooltip = "EXPANSION_PLANNER_SORT_DISTANCE"
 				oversound = menu_over_01
 			}
 			

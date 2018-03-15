@@ -225,7 +225,8 @@ guiTypes = {
 				font = "cg_16b"
 				spriteType = "GFX_standard_button_142_34_button"
 				position = { x = 413 y = 48 }
-				Orientation = UPPER_LEFT
+				borderSize = { x = 12 y = 12 }
+				multiline = yes
 				text = "TOGGLE_SPECIES"
 			}
 
@@ -246,7 +247,8 @@ guiTypes = {
 				text = "RESET_RIGHTS"
 				spriteType = "GFX_standard_button_142_34_button"
 				position = { x = 950 y = 48 }
-				orientation = UPPER_LEFT
+				borderSize = { x = 12 y = 12 }
+				multiline = yes
 			}
 
 			buttonType = {
@@ -255,7 +257,8 @@ guiTypes = {
 				text = "SET_DEFAULT_RIGHTS"
 				spriteType = "GFX_standard_button_142_34_button"
 				position = { x = 1100 y = 48 }
-				orientation = UPPER_LEFT
+				borderSize = { x = 12 y = 12 }
+				multiline = yes
 			}
 
 			## SORT BUTTONS
@@ -693,6 +696,7 @@ guiTypes = {
 			alwaysTransparent = yes
 			text = "Species Right Name"
 			text_color_code = "E"
+			maxWidth = 410
 		}
 
 		iconType = {

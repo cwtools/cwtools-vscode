@@ -33,6 +33,16 @@ guiTypes = {
 			orientation = center_down
 			origo = center_up
 
+			###	BACKGROUND FOR AVOIDED SYSTEMS					
+			iconType = {
+				name = "starsystem_panel_avoid_bg"
+				spriteType = "GFX_starsystem_panel_avoid"
+				position = { x = 0 y = 62 }
+				alwaysTransparent = yes
+				orientation = center_up
+				centerPosition = yes
+			}
+
 			iconType = {
 				name = "starsystem_panel"
 				spriteType = "GFX_starsystem_panel"
@@ -42,18 +52,33 @@ guiTypes = {
 				centerPosition = yes
 			}
 
+			### BACKGROUND FOR CLAIMS BUTTON VISIBLE WHEN ENABLED
+			iconType = {
+				name = "claims_button_bg"
+				spriteType = "GFX_starsystem_panel_left"
+				position = { x = -205 y = 38 }				
+			}
+
+			### BACKGROUND FOR AVOID SYSTEM BUTTON VISIBLE WHEN ENABLED
+			iconType = {
+				name = "restricted_button_bg"
+				spriteType = "GFX_starsystem_panel_right"
+				position = { x = -112 y = 46 }				
+			}
+
 			buttonType = {
 				name = "flag_button"
 				quadTextureSprite = "GFX_empire_flag_64"
 				position = { x= -257 y = 27  }
 				orientation = center_up
 			}
+	
 
 			buttonType = {
 				name = "button"
 				quadTextureSprite = "GFX_open_galaxy_map"
 				orientation = center_up
-				position = { x= 195 y = 33 }
+				position = { x= 194 y = 33 }
 				pdx_tooltip = "TOOLTIP_LEAVE_SYSTEM"
 				pdx_tooltip_anchor_offset = { x= 0 y = @tt_offset_y }
 				pdx_tooltip_anchor_orientation = lower_left
@@ -86,7 +111,7 @@ guiTypes = {
 			instantTextBoxType={
 				name = "system_name"
 				font = "large_title_font_28"
-				position = { x=-195 y=47 }
+				position = { x=-195 y=38 }
 				text = "Systemname"
 				maxWidth = 390
 				maxHeight = 50
@@ -96,15 +121,47 @@ guiTypes = {
 				fixedsize = yes
 				#text_color_code = "E"
 			}
+			
+			instantTextBoxType={
+				name = "system_type"
+				font = "cg_16b"
+				position = { x=-195 y=65 }
+				text = "Mining System"
+				maxWidth = 390
+				maxHeight = 50
+				format = center
+				orientation = center_up
+				alwaystransparent = yes
+				fixedsize = yes
+				text_color_code = "E"
+			}			
 
 			buttonType = {
 				name = "system_rename_button"
 				spriteType = "GFX_invisible"
-				position = { x = -188 y = 50 }
-				size = { x = 380 y = 25 }
+				position = { x = -163 y = 40 }
+				size = { x = 330 y = 45 }
 				orientation = center_up
 				pdx_tooltip = "RENAME_SYSTEM_TOOLTIP"
 			}
+			
+			iconType = {
+				name = "environmental_effects_icon"
+				spriteType = "GFX_system_hazards_icon"
+				position = { x = 252 y = 49 }				
+			}
+
+			buttonType = {
+				name = "claim_system_button"
+				quadTextureSprite = "GFX_claim_system_icon"
+				position = { x = -204 y = 43 }		
+			}			
+
+			buttonType = {
+				name = "restricted_system_button"
+				quadTextureSprite = "GFX_restricted_system_icon"
+				position = { x = -112 y = 43 }		
+			}			
 		}
 
 		### LEAVE GALAXY WINDOW
@@ -121,8 +178,8 @@ guiTypes = {
 			orientation = center_down
 
 			iconType = {
-				name = "systet_button_panel"
-				spriteType = "GFX_systet_button_panel"
+				name = "system_button_panel"
+				spriteType = "GFX_system_button_panel"
 				position = { x = -130 y = 35 }
 				alwaysTransparent = yes
 			}
@@ -186,8 +243,8 @@ guiTypes = {
 			}
 
 			iconType = {
-				name = "systet_button_panel"
-				spriteType = "GFX_systet_button_panel"
+				name = "system_button_panel"
+				spriteType = "GFX_system_button_panel"
 				position = { x = -130 y = 45 }
 				alwaysTransparent = yes
 			}
@@ -201,6 +258,47 @@ guiTypes = {
 				pdx_tooltip = "TOOLTIP_CLOSE_SECTOR_MANAGEMENT"
 				shortcut = "ESCAPE"
 				actionShortcut = "cancel"
+			}
+		}
+
+		## Claims Management
+		containerWindowType = {
+			name = "claims_management"
+
+			size = { width = 166 height = 114 }
+			position = { x = -83 y = 0 }
+			hide_position = { x = -83 y = 20 }
+			show_position = { x = -83 y = -97 }
+			animation_type = decelerated
+			animation_time = 500.5
+
+			orientation = center_down
+
+			instantTextBoxType={
+				name = "status"
+				font = "malgun_goth_24"
+				position = { x = -60 y = -10 }
+				maxWidth = 250
+				maxHeight = 16
+				alwaysTransparent = yes
+				format = center
+				text = "CLAIMS_MANAGEMENT_MODE"
+			}
+
+			iconType = {
+				name = "system_button_panel"
+				spriteType = "GFX_system_button_panel"
+				position = { x = -130 y = 45 }
+				alwaysTransparent = yes
+			}
+
+			buttonType = {
+				name = "close"
+				quadTextureSprite = "GFX_standard_button_142_34_button"
+				position = { x = -14 y = 42 }
+				text = "CLOSE"
+				buttonFont = "cg_16b"
+				pdx_tooltip = "TOOLTIP_CLOSE_CLAIMS_MANAGEMENT"
 			}
 		}
 

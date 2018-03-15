@@ -278,6 +278,18 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_topbar_claims_button"
+		texturefile = "gfx/interface/icons/menu_icon_claims.dds" 
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_claims_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_claims.dds" 
+		noOfFrames = 1
+	}
+
+	spriteType = {
 		name = "GFX_topbar_strategic_resource_button"
 		texturefile = "gfx/interface/icons/menu_icon_strategic_resource.dds" # TODO [HL]: Use proper icon
 		noOfFrames = 1
@@ -286,6 +298,18 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_topbar_strategic_resource_button_selected"
 		texturefile = "gfx/interface/icons/menu_icon_strategic_resource.dds" # TODO [HL]: Use proper icon
+		noOfFrames = 1
+	}
+
+	spriteType = {
+		name = "GFX_topbar_fleet_manager_button"
+		texturefile = "gfx/interface/icons/menu_icon_fleet_manager.dds" 
+		noOfFrames = 1
+	}
+	
+	spriteType = {
+		name = "GFX_topbar_fleet_manager_button_selected"
+		texturefile = "gfx/interface/icons/menu_icon_fleet_manager.dds" 
 		noOfFrames = 1
 	}
 	
@@ -474,8 +498,41 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_starsystem_panel_avoid"
+		texturefile = "gfx/interface/main/avoid_system_bg.png"
+	}
+
+#	frameAnimatedSpriteType = {
+#		name = "GFX_starsystem_panel_avoid"
+#		texturefile = "gfx/interface/main/avoid_system_anim_bg.png"
+#		noOfFrames = 2
+#		animation_rate_fps = 1.5
+#		looping = yes
+#		play_on_show = yes
+#		pause_on_loop = 0.25
+#		allwaystransparent = yes
+#		effectFile = "gfx/FX/buttonstate_blendframes.lua"
+#	}
+	
+	spriteType = {
+		name = "GFX_starsystem_panel_left"
+		texturefile = "gfx/interface/main/starsystem_panel_left.png"
+	}
+
+	spriteType = {
+		name = "GFX_starsystem_panel_right"
+		texturefile = "gfx/interface/main/starsystem_panel_right.png"
+	}
+
+
+	spriteType = {
 		name = "GFX_topbar_bar_04"
 		texturefile = "gfx/interface/main/topbar_bar_04.dds"
+	}
+
+	spriteType = {
+		name = "GFX_vertical_divider"
+		texturefile = "gfx/interface/vertical_line.dds"
 	}
 
 	corneredTileSpriteType = {
@@ -1168,5 +1225,37 @@ spriteTypes = {
 			animationtexturescale = { x = 1.1 y = 1.1 }
 			animationframes = { 1 2 3 }
 		}
+	}
+	
+	spriteType = {
+		name = "GFX_claim_system_icon"
+		texturefile = "gfx/interface/icons/claim_system_icon.dds"
+		noOfFrames = 2
+	}
+	
+	spriteType = {
+		name = "GFX_retrofit_icon"
+		texturefile = "gfx/interface/fleet_view/retrofit_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_restricted_system_icon"
+		texturefile = "gfx/interface/icons/restricted_system_icon.dds"
+		noOfFrames = 2
 	}
 }

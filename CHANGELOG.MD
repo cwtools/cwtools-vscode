@@ -1,3 +1,7 @@
+# 0.3.4
+* Add OSX support
+* Update embedded interface to 2.0
+
 # 0.3.3
 * Fix bug with scope usage through prev
 * Add simple scope commands to autocomplete

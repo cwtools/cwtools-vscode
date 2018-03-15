@@ -227,7 +227,7 @@ guiTypes = {
 
 		background = {
 			name = "Background"	
-			quadTextureSprite = "GFX_ncp_scroll_bg"
+			quadTextureSprite = "GFX_tiled_window_transparent"
 		}
 		
 		track = {
@@ -239,6 +239,30 @@ guiTypes = {
 		slider = {
 			name = "Slider"	
 			quadTextureSprite = "GFX_ncp_scroll_slider"
+			position = { x = -2 y = 0 }
+		}
+	}
+	
+	extendedScrollbarType = {
+		name = "right_vertical_slider_s"
+		position = { x = 2 y = 0 }
+ 		size = { width = 18 height = 18 }
+		startValue = 0
+
+		background = {
+			name = "Background"	
+			quadTextureSprite = "GFX_tiled_window_transparent"
+		}
+		
+		track = {
+			name = "Track"
+			quadTextureSprite = "GFX_ncp_scroll_bg"
+			position = { x = 3 y = 0 }
+		}	
+		
+		slider = {
+			name = "Slider"	
+			quadTextureSprite = "GFX_ncp_scroll_slider_small"
 			position = { x = -2 y = 0 }
 		}
 	}

@@ -65,6 +65,12 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/hostile_intel_icon.dds"
 	}
 
+	spriteType = {
+		name = "GFX_system_hazards_icon"
+		texturefile = "gfx/interface/icons/system_hazards_icon.dds"
+		noOfFrames = 2
+	}	
+
 #	spriteType = {
 #		name = "GFX_fleet_icons_neutral"
 #		texturefile = "gfx/interface/icons/fleet_icons_neutral.dds"
@@ -79,9 +85,15 @@ spriteTypes = {
 	
 	spriteType = {
 		name = "GFX_fleet_presence_icons"
-		texturefile = "gfx/interface/icons/fleet_presence_icons.dds"
+		texturefile = "gfx/interface/icons/ship_icons_type.dds"
 		noOfFrames = 16
 	}
+	
+	spriteType = {
+		name = "GFX_fleet_presence_overlay_icons"
+		texturefile = "gfx/interface/icons/ship_overlay_icons.dds"
+		noOfFrames = 80
+	}	
 
 	#spriteType = {
 	#	name = "GFX_is_surveyed"
@@ -105,6 +117,12 @@ spriteTypes = {
 		textureFile = "gfx/interface/icons/colonizability_icons.dds"
 		noOfFrames = 10
 	}
+
+	spriteType = {
+		name = "GFX_colonizability_shadow"
+		textureFile = "gfx/interface/icons/colonizability_icons_shadow.dds"
+		noOfFrames = 10
+	}
 	
 	spriteType = {
 		name = "GFX_has_ftl_magnet"
@@ -116,6 +134,16 @@ spriteTypes = {
 		color = { 1.0 1.0 1.0 }
 		colortwo = { 1.0 1.0 1.0 }
 		textureFile1 = "gfx/interface/system/map_gui_health.dds"
+		textureFile2 = "gfx/interface/system/map_gui_empty.dds"
+		size = { x = 85 y = 4 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_fleet_armor_bar"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/system/map_gui_armor.dds"
 		textureFile2 = "gfx/interface/system/map_gui_empty.dds"
 		size = { x = 85 y = 4 }
 		effectFile = "gfx/FX/progress_startend.lua"
@@ -225,6 +253,18 @@ spriteTypes = {
 		textureFile = "gfx/interface/system/sector_management_mapicons.dds"
 		noOfFrames = 5
 	}
+
+	spriteType = {
+		name = "GFX_claim_management_status"
+		textureFile = "gfx/interface/system/claim_management_mapicons.dds"
+		noOfFrames = 5
+	}
+
+	#spriteType = {
+	#	name = "GFX_claim_management_status_old"
+	#	textureFile = "gfx/interface/system/claim_management_mapicons_old.dds"
+	#	noOfFrames = 5
+	#}
 	
 	spriteType = {
 		name = "GFX_map_icon_system_enter"
@@ -274,5 +314,4 @@ spriteTypes = {
 		effectFile = "gfx/FX/progress.lua"
 		horizontal = no
 	}
-
 }

@@ -233,6 +233,25 @@ spriteTypes = {
 		}
 	}
 	spriteType = {
+		name = "GFX_button_up_arrow"
+		texturefile = "gfx/interface/buttons/button_up.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_randomize_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_211_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 10.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+	spriteType = {
 		name = "GFX_button_left"
 		texturefile = "gfx/interface/buttons/button_left.dds"
 		effectFile = "gfx/FX/buttonstate_onlydisable.lua"

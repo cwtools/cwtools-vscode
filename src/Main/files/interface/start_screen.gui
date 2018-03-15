@@ -59,7 +59,7 @@ guiTypes = {
 			name = "empire_name"
 			font = "malgun_goth_24"
 			text = "GNORKALL EMPIRE"
-			position = { x = 260 y = 60 }
+			position = { x = 260 y = 55 }
 			maxWidth = 270
 			maxHeight = 20
 			fixedSize = yes
@@ -71,7 +71,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "GOVERNMENT_LABEL"
 			appendtext = ":"
-			position = { x = 260 y = 90 }
+			position = { x = 260 y = 85 }
 			maxWidth = 200
 			maxHeight = 20
 			fixedSize = yes
@@ -83,7 +83,7 @@ guiTypes = {
 			name = "government_type"
 			font = "cg_16b"
 			text = "government type"
-			position = { x = 380 y = 90 }
+			position = { x = 380 y = 85 }
 			maxWidth = 163
 			maxHeight = 20
 			fixedSize = yes
@@ -95,7 +95,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "LEADER_LABEL"
 			appendtext = ":"
-			position = { x = 260 y = 110 }
+			position = { x = 260 y = 105 }
 			maxWidth = 200
 			maxHeight = 20
 			fixedSize = yes
@@ -107,7 +107,7 @@ guiTypes = {
 			name = "ruler_name"
 			font = "cg_16b"
 			text = "Emperor Gnorkius"
-			position = { x = 380 y = 110 }
+			position = { x = 380 y = 105 }
 			maxWidth = 163
 			maxHeight = 20
 			fixedSize = yes
@@ -119,7 +119,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "SPECIES"
 			appendtext = ":"
-			position = { x = 260 y = 130 }
+			position = { x = 260 y = 125 }
 			maxWidth = 200
 			maxHeight = 20
 			fixedSize = yes
@@ -131,30 +131,7 @@ guiTypes = {
 			name = "species_name"
 			font = "cg_16b"
 			text = "Gnorkallians"
-			position = { x = 380 y = 130 }
-			maxWidth = 163
-			maxHeight = 20
-			fixedSize = yes
-			format = left
-		}
-		
-		instantTextBoxType={
-			name = "ftl_method_label"
-			font = "cg_16b"
-			text = "SPECIES_SELECTION_FTL_METHOD_LABEL"
-			appendtext = ":"
-			position = { x = 260 y = 150 }
-			maxWidth = 200
-			maxHeight = 20
-			fixedSize = yes
-			format = left
-		}
-		
-		instantTextBoxType={
-			name = "ftl_method"
-			font = "cg_16b"
-			text = ""
-			position = { x = 380 y = 150 }
+			position = { x = 380 y = 125 }
 			maxWidth = 163
 			maxHeight = 20
 			fixedSize = yes
@@ -166,7 +143,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "CAPITAL"
 			appendtext = ":"
-			position = { x = 260 y = 170 }
+			position = { x = 260 y = 145 }
 			maxWidth = 200
 			maxHeight = 20
 			fixedSize = yes
@@ -177,7 +154,7 @@ guiTypes = {
 			name = "capital_name"
 			font = "cg_16b"
 			text = "Gnorkallia"
-			position = { x = 380 y = 170 }
+			position = { x = 380 y = 145 }
 			maxWidth = 163
 			maxHeight = 20
 			fixedSize = yes
@@ -189,7 +166,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "ETHICS"
 			appendtext = ":"
-			position = { x = 260 y = 195 }
+			position = { x = 260 y = 170 }
 			maxWidth = 270
 			maxHeight = 40
 			fixedSize = yes
@@ -198,17 +175,36 @@ guiTypes = {
 		
 		overlappingElementsBoxType = {
 			name = "ethics"	
-			position = { x = 380 y = 188 }
+			position = { x = 380 y = 163 }
 			size = { x = 150 y = 18 }
 			spacing = 2.0
 		}
+		
+		instantTextBoxType={
+			name = "civics_label"
+			font = "cg_16b"
+			text = "GOVERNMENT_CIVICS"
+			appendtext = ":"
+			position = { x = 260 y = 199 }
+			maxWidth = 270
+			maxHeight = 40
+			fixedSize = yes
+			format = left
+		}
+		
+		overlappingElementsBoxType = {
+			name = "civics"
+			position = { x = 380 y = 193 }
+			size = { x = 150 y = 18 }
+			spacing = 2.0
+		}			
 		
 		instantTextBoxType={
 			name = "traits_label"
 			font = "cg_16b"
 			text = "TRAITS"
 			appendtext = ":"
-			position = { x = 260 y = 224 }
+			position = { x = 260 y = 230 }
 			maxWidth = 270
 			maxHeight = 40
 			fixedSize = yes
@@ -217,10 +213,10 @@ guiTypes = {
 		
 		overlappingElementsBoxType = {
 			name = "traits"
-			position = { x = 380 y = 222 }
+			position = { x = 380 y = 224 }
 			size = { x = 150 y = 18 }
 			spacing = 2.0
-		}
+		}	
 		
 		containerWindowType = {
 			name = "starting_description_container"

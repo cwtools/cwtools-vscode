@@ -40,10 +40,15 @@ spriteTypes = {
 		name = "GFX_mod_country_all_tech_research_speed"
 		texturefile = "gfx/interface/icons/modifiers/mod_country_all_tech_research_speed.dds"
 	}	
+
+	spriteType = {
+		name = "GFX_mod_country_claim_influence_cost_mult"
+		texturefile = "gfx/interface/icons/modifiers/mod_country_claim_influence_cost.dds"
+	}	
 	
 	spriteType = {
-		name = "GFX_mod_country_edict_influence_cost"
-		texturefile = "gfx/interface/icons/modifiers/mod_country_edict_influence_cost.dds"
+		name = "GFX_mod_country_edict_cost"
+		texturefile = "gfx/interface/icons/modifiers/mod_country_edict_cost.dds"
 	}	
 	
 	spriteType = {
@@ -122,12 +127,6 @@ spriteTypes = {
 	}	
 	
 	spriteType = {
-
-		name = "GFX_mod_ship_armor_regen_add"
-		texturefile = "gfx/interface/icons/modifiers/mod_ship_armor_regen_add.dds"
-	}	
-	
-	spriteType = {
 		name = "GFX_mod_pop_resettlement_cost_mult"
 		texturefile = "gfx/interface/icons/modifiers/mod_pop_resettlement_cost_mult.dds"
 	}		
@@ -135,17 +134,27 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_tile_resource_society_research_mult"
 		texturefile = "gfx/interface/icons/modifiers/tile_resource_society_research_mult.dds"
-	}	
-	
-	spriteType = {
-		name = "GFX_mod_num_tech_alternatives_add"
-		texturefile = "gfx/interface/icons/modifiers/mod_num_tech_alternatives_add.dds"
 	}		
 	
 	spriteType = {
 		name = "GFX_mod_country_influence_gain_mult"
 		texturefile = "gfx/interface/icons/modifiers/mod_country_influence_gain_mult.dds"
-	}		
+	}	
+	
+	spriteType = {
+		name = "GFX_country_resource_physics_research_mult"
+		texturefile = "gfx/interface/icons/modifiers/tile_resource_physics_research_mult.dds"
+	}	
+	
+	spriteType = {
+		name = "GFX_country_resource_society_research_mult"
+		texturefile = "gfx/interface/icons/modifiers/tile_resource_society_research_mult.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_country_resource_engineering_research_mult"
+		texturefile = "gfx/interface/icons/modifiers/tile_resource_engineering_research_mult.dds"
+	}	
 	
 	spriteType = {
 		name = "GFX_mod_pop_food_req_mult"
@@ -153,7 +162,12 @@ spriteTypes = {
 	}		
 	
 	spriteType = {
-		name = "GFX_mod_navy_size_add"
+		name = "GFX_mod_country_naval_cap_add"
+		texturefile = "gfx/interface/icons/modifiers/mod_navy_size_add.dds"
+	}
+	
+	spriteType = {
+		name = "GFX_mod_country_naval_cap_mult"
 		texturefile = "gfx/interface/icons/modifiers/mod_navy_size_add.dds"
 	}		
 	
@@ -168,8 +182,8 @@ spriteTypes = {
 	}			
 	
 	spriteType = {
-		name = "GFX_mod_spaceport_ship_build_cost_mult"
-		texturefile = "gfx/interface/icons/modifiers/mod_spaceport_ship_build_cost_mult.dds"
+		name = "GFX_mod_starbase_ship_build_cost_mult"
+		texturefile = "gfx/interface/icons/modifiers/mod_starbase_ship_build_cost_mult.dds"
 	}				
 	
 	spriteType = {
@@ -183,9 +197,19 @@ spriteTypes = {
 	}					
 	
 	spriteType = {
-		name = "GFX_mod_ship_hitpoints_add"
-		texturefile = "gfx/interface/icons/modifiers/mod_ship_hitpoints_add.dds"
+		name = "GFX_mod_ship_hull_add"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_hull_add.dds"
 	}					
+
+	spriteType = {
+		name = "GFX_mod_ship_hull_regen_add_perc"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_hull_regen_add_perc.dds" 
+	}
+
+	spriteType = {
+		name = "GFX_mod_ship_hull_regen_add_static"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_hull_regen_add_static.dds" 
+	}
 	
 	spriteType = {
 		name = "GFX_mod_ship_weapon_damage"
@@ -196,10 +220,25 @@ spriteTypes = {
 		name = "GFX_mod_ship_evasion_mult"
 		texturefile = "gfx/interface/icons/modifiers/mod_ship_evasion_mult.dds"
 	}						
+
+	spriteType = {
+		name = "GFX_mod_ship_shield_add"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_shield_add.dds"
+	}
+
+	spriteType = {
+		name = "GFX_mod_ship_shield_regen_add_perc"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_shield_regen_add_perc.dds"
+	}
+
+	spriteType = {
+		name = "GFX_mod_ship_shield_regen_add_static"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_shield_regen_add_perc.dds" # Same as _perc
+	}
 	
 	spriteType = {
-		name = "GFX_mod_ship_shield_hp_mult"
-		texturefile = "gfx/interface/icons/modifiers/mod_ship_shield_hp_mult.dds"
+		name = "GFX_mod_ship_shield_mult"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_shield_mult.dds"
 	}
 	
 	spriteType = {
@@ -210,6 +249,16 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_mod_ship_armor_add"
 		texturefile = "gfx/interface/icons/modifiers/mod_ship_armor_mult.dds"
+	}
+
+	spriteType = {
+		name = "GFX_mod_ship_armor_regen_add_perc"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_armor_regen_add_perc.dds"
+	}
+
+	spriteType = {
+		name = "GFX_mod_ship_armor_regen_add_static"
+		texturefile = "gfx/interface/icons/modifiers/mod_ship_armor_regen_add_perc.dds" # Same as _perc
 	}
 	
 	spriteType = {
@@ -261,16 +310,16 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/modifiers/mod_pop_happiness.dds"
 	}	
 	spriteType = {
-		name = "GFX_mod_spaceport_module_cost_mult"
-		texturefile = "gfx/interface/icons/modifiers/mod_spaceport_module_cost_mult.dds"
+		name = "GFX_mod_starbase_module_build_cost_mult"
+		texturefile = "gfx/interface/icons/modifiers/mod_starbase_module_build_cost_mult.dds"
 	}	
 	spriteType = {
 		name = "GFX_mod_leader_age"
 		texturefile = "gfx/interface/icons/modifiers/mod_leader_age.dds"
 	}	
 	spriteType = {
-		name = "GFX_mod_leader_influence_cost"
-		texturefile = "gfx/interface/icons/modifiers/mod_leader_influence_cost.dds"
+		name = "GFX_mod_leader_cost"
+		texturefile = "gfx/interface/icons/modifiers/mod_leader_cost.dds"
 	}	
 	spriteType = {
 		name = "GFX_mod_country_insult_efficiency"
@@ -297,15 +346,15 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/modifiers/mod_ship_tracking_add.dds"
 	}
 	spriteType = {
-		name = "GFX_mod_spaceport_ship_build_speed_mult"
-		texturefile = "gfx/interface/icons/modifiers/mod_spaceport_ship_build_speed_mult.dds"
+		name = "GFX_mod_starbase_ship_build_speed_mult"
+		texturefile = "gfx/interface/icons/modifiers/mod_starbase_ship_build_speed_mult.dds"
 	}
 	spriteType = {
-		name = "GFX_mod_ship_auto_repair_add"
+		name = "GFX_mod_ship_auto_repair_add" # Unused
 		texturefile = "gfx/interface/icons/modifiers/mod_ship_auto_repair_add.dds"
 	}	
 	spriteType = {
-		name = "GFX_mod_ship_combat_speed_mult"
+		name = "GFX_mod_ship_combat_speed_mult" # Unused
 		texturefile = "gfx/interface/icons/modifiers/mod_ship_combat_speed_mult.dds"
 	}
 	spriteType = {
@@ -345,4 +394,8 @@ spriteTypes = {
 		texturefile = "gfx/interface/icons/modifiers/mod_country_insult_efficiency.dds" # TODO [HL]: Placeholder
 	}
 
+	spriteType = {
+		name = "GFX_mod_planet_sensor_range_add"
+		texturefile = "gfx/interface/icons/modifiers/mod_planet_sensor_range_mult.dds"
+	}	
 }

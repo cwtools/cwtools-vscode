@@ -269,76 +269,6 @@ guiTypes = {
 		}	
 	
 	}
-
-	containerWindowType = {
-		name = "outliner_member_rallypoint_window"
-		size = { width = 318 height = 41 }
-		position = { x = 0 y = 0 }
-		orientation = upper_right
-		moveable = no
-
-		buttonType = {
-			name = "background"
-			quadTextureSprite = "GFX_outliner_member_bg"
-			position = { x = -3 y = -5 }
-			orientation = "UPPER_LEFT"
-			clicksound = click_outliner
-		}
-
-		containerWindowType = {
-			name = "selected_overlay"
-			position = { x = 0 y = 0 }
-			size = { width = 248 height = 100% }
-			background = {
-				name = "selected_bg"
-				spriteType = "GFX_glow_tile_orange_no_padding"
-				alwaysTransparent = yes
-			}
-		}
-		
-		iconType = {
-			name = "planet"
-			position = { x = 4 y = 1 }
-			spriteType = "GFX_planet_type"
-			frame = 1
-			alwaysTransparent = yes
-		}
-		
-		iconType = {
-			name = "fleet"
-			position = { x = 6 y = 1 }
-			spriteType = "GFX_ship_class_medium"
-			frame = 15
-			alwaysTransparent = yes
-		}
-		
-		instantTextBoxType = {
-			name = "name"
-			font = "cg_16b"
-			text = "0"
-			position = { x = 42 y = 3 }
-			maxWidth = 130
-			maxHeight = 20
-			fixedSize = yes
-			orientation = "UPPER_LEFT"
-			format = left
-			text_color_code = "H" 
-			alwaysTransparent = yes
-		}
-		
-		instantTextBoxType = {
-			name = "location"
-			font = "cg_16b"
-			text = ""
-			position = { x = -200 y = 3 }
-			maxWidth = 120
-			maxHeight = 20
-			fixedSize = yes
-			orientation = "UPPER_RIGHT"
-			format = right
-			alwaysTransparent = yes
-		}	
-	}
 	
 	containerWindowType = {
 		name = "outliner_member_army_entry_window"
@@ -402,6 +332,18 @@ guiTypes = {
 			frame = 3
 			scale = 0.6
 		}
+		
+		instantTextBoxType = {
+			name = "army_power"
+			position = { x = -138 y = 23 }
+			font = "cg_16b"
+			text = "power: 5"
+			maxWidth = 58
+			format = right
+			maxHeight = 20
+			fixedSize = yes
+			orientation = "UPPER_RIGHT"
+		}		
 
 		instantTextBoxType = {
 			name = "name"
@@ -483,10 +425,10 @@ guiTypes = {
 
 		iconType = {
 			name = "alliance_icon"
-			position = { x = 222 y = 1 }
+			position = { x = 4 y = 1 }
 			spriteType = "GFX_ship_class_small"
-			frame = 18
-			scale = 0.75
+			frame = 16
+			scale = 0.66
 		}
 
 		
@@ -502,7 +444,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "0"
 			position = { x = 40 y = 3 }
-			maxWidth = 180
+			maxWidth = 130
 			maxHeight = 20
 			fixedSize = yes
 			orientation = "UPPER_LEFT"
@@ -515,7 +457,7 @@ guiTypes = {
 			name = "location"
 			font = "cg_16b"
 			text = ""
-			position = { x = -160 y = 18 }
+			position = { x = -162 y = 3 }
 			maxWidth = 80
 			maxHeight = 20
 			fixedSize = yes
@@ -528,8 +470,8 @@ guiTypes = {
 			name = "size_limit"
 			font = "cg_16b"
 			text = ""
-			position = { x = 40 y = 18 }
-			maxWidth = 50
+			position = { x = 40 y = 20 }
+			maxWidth = 112
 			maxHeight = 20
 			fixedSize = yes
 			orientation = "UPPER_LEFT"
@@ -540,15 +482,43 @@ guiTypes = {
 
 		instantTextBoxType = {
 			name = "offensive_power"
-			position = { x = 102 y = 18 }
+			position = { x = -138 y = 20 }
 			font = "cg_16b"
-			maxWidth = 100
+			maxWidth = 58
 			maxHeight = 20
 			text = "?"
-			#alwaysTransparent = yes
 			fixedSize = yes
-			text_color_code = "H" 
+			text_color_code = "Y" 
+			format = right
+			orientation = "UPPER_RIGHT"
 		}
+		
+		iconType = {
+			name = "progress"
+			position = { x = 40 y = 22 }
+			spriteType = "GFX_outliner_planet_colonize_progressbar"
+			frame = 50
+		}
+		
+		gridBoxType = {
+			name = "fleet_status_grid"
+			position = { x = -130 y = -21 }
+			slotSize = { width = 15 height = 15 }
+			max_slots_horizontal = 2
+			max_slots_vertical = 1
+			format = "UPPER_RIGHT"
+			orientation ="LOWER_RIGHT"
+		}
+	}
+
+	containerWindowType = {
+		name = "fleet_status_entry"
+		size = { width = 15 height = 15 }
+
+		iconType = {
+			name = "status"
+			spriteType = "GFX_outliner_fleet_status"
+		}		
 	}
 
 	containerWindowType = {
@@ -603,7 +573,21 @@ guiTypes = {
 			position = { x = 0 y = 13 }
 			spriteType = "GFX_planet_invasion"
 			alwaysTransparent = no
-		}		
+		}
+		
+		containerWindowType = {
+			name = "planet_status_container"
+			size = { width = 45 height = 15 }
+			position = { x = 20 y = 20 }	
+		
+			gridBoxType = {
+				name = "planet_status_list"
+				slotSize = { width = 15 height = 15 }
+				max_slots_horizontal = 3
+				max_slots_vertical = 1
+				format = "UPPER_RIGHT"
+			}	
+		}
 
 		instantTextBoxType = {
 			name = "name"
@@ -615,8 +599,8 @@ guiTypes = {
 			fixedSize = yes
 			orientation = "UPPER_LEFT"
 			format = left
-			text_color_code = "E" 
-			#text_color_code = "H" 
+			text_color_code = "E"
+			alwaysTransparent = yes
 		}
 
 		instantTextBoxType = {
@@ -629,13 +613,14 @@ guiTypes = {
 			fixedSize = yes
 			orientation = "UPPER_RIGHT"
 			format = right
+			alwaysTransparent = yes
 		}
 
 		instantTextBoxType = {
 			name = "class"
 			font = "cg_16b"
 			text = ""
-			position = { x = 44 y = 18 }
+			position = { x = 44 y = 20 }
 			maxWidth = 200
 			maxHeight = 20
 			fixedSize = yes
@@ -702,12 +687,6 @@ guiTypes = {
 			spriteType = "GFX_ship_class_small"
 			frame = 3
 			scale = 0.8
-		}
-
-		iconType = {
-			name = "new_spaceport"
-			position = { x = 0 y = -2 }
-			spriteType = "GFX_new_spaceport"
 		}
 
 		iconType = {
@@ -1293,5 +1272,226 @@ guiTypes = {
 			spriteType = "GFX_outliner_planet_terraforming_progressbar"
 			frame = 50
 		}									
+	}
+	
+	### STARBASE ###
+	containerWindowType = {
+		name = "outliner_member_starbase_entry_window"
+		size = { width = 318 height = 41 }
+		position = { x = 0 y = 0 }
+		orientation = upper_right
+		moveable = no
+
+		@text_max_height = 20
+		@text_bottom_y = 19
+
+		buttonType = {
+			name = "background"
+			quadTextureSprite = "GFX_outliner_member_bg"
+			position = { x = -3 y = -5 }
+			clicksound = "click_outliner"
+		}
+
+		containerWindowType = {
+			name = "selected_overlay"
+			position = { x = 0 y = 0 }
+			size = { width = 248 height = 100% }
+			background = {
+				name = "selected_bg"
+				spriteType = "GFX_glow_tile_orange_no_padding"
+				alwaysTransparent = yes
+			}
+		}
+
+		iconType = {
+			name = "type"
+			position = { x = 8 y = 2 }
+			spriteType = "GFX_starbase_outliner"
+			frame = 0
+		#	scale = 0.95
+		}
+
+		instantTextBoxType = {
+			name = "name"
+			font = "cg_16b"
+			text = "0"
+			position = { x = 46 y = 3 }
+			maxWidth = 127
+			maxHeight = @text_max_height
+			fixedSize = yes
+			orientation = "UPPER_LEFT"
+			format = left
+			text_color_code = "E"
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType = {
+			name = "starbase_type"
+			font = "cg_16b"
+			text = "0"
+			position = { x = 46 y = @text_bottom_y }
+			maxWidth = 132
+			maxHeight = @text_max_height
+			fixedSize = yes
+			orientation = "UPPER_LEFT"
+			format = left
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "system"
+			font = "cg_16b"
+			text = ""
+			position = { x = -145 y = 3 }
+			maxWidth = 65
+			maxHeight = @text_max_height
+			fixedSize = yes
+			orientation = "UPPER_RIGHT"
+			format = right
+		}
+
+		instantTextBoxType = {
+			name = "military_power"
+			position = { x = -138 y = 20 }
+			font = "cg_16b"
+			maxWidth = 58
+			maxHeight = @text_max_height
+			fixedSize = yes
+			format = right
+			orientation = "UPPER_RIGHT"
+		}
+		
+		containerWindowType = {
+			name = "starbase_status_container"
+			size = { width = 45 height = 15 }
+			position = { x = -25 y = 20 }	
+		
+			gridBoxType = {
+				name = "starbase_status_list"
+				slotSize = { width = 15 height = 15 }
+				max_slots_horizontal = 2
+				max_slots_vertical = 1
+				format = "UPPER_RIGHT"
+			}	
+		}		
+
+		containerWindowType = {
+			name = "constructions"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+			orientation = upper_left
+			moveable = no
+
+			OverlappingElementsBoxType = {
+				name = "box"
+				position = { x = 40 y = 20 }
+				size = { x = 240 y = 30 }
+				spacing = 15.0
+				format = left
+			}
+		}
+	}
+
+	containerWindowType = {
+		name = "outliner_member_starbase_construction_entry_window"
+		size = { width = 65 height = 22 }
+		position = { x = 0 y = 0 }
+
+		iconType = {
+			name = "shipyard"
+			position = { x = 0 y = -2 }
+			spriteType = "GFX_ship_class_small"
+			frame = 3
+			scale = 0.8
+		}
+
+		iconType = {
+			name = "module"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_building_icon"
+		}
+
+		iconType = {
+			name = "building"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_building_icon"
+		}
+
+		iconType = {
+			name = "defense"
+			position = { x = -5 y = -7 }
+			spriteType = "GFX_army_icons"
+			frame = 1
+			scale = 0.85
+		}
+
+		iconType = {
+			name = "upgrade"
+			position = { x = 2 y = 1 }
+			spriteType = "GFX_spaceport_upgrade"
+			scale = 0.47
+		}
+
+		overlappingElementsBoxType = {
+			name = "progress_bars"
+			position = { x = 18 y = 3 }
+			size = { x = 200 y = 30 }
+			spacing = 2.0
+			format = left
+		}
+	}
+
+	containerWindowType = {
+		name = "outliner_member_starbase_construction_entry_progress_bar_window"
+		# Should be as wide as the largest progress bar
+		size = { width = 50 height = 50 }
+		position = { x = 0 y = 0 }
+
+		@x_pos = 0
+		@y_pos = 0
+
+		iconType = {
+			name = "progress_bar_1"
+			position = { x = @x_pos y = @y_pos }
+			spriteType = "GFX_outliner_starbase_construction_progressbar_1"
+		}
+		iconType = {
+			name = "progress_bar_2"
+			position = { x = @x_pos y = @y_pos }
+			spriteType = "GFX_outliner_starbase_construction_progressbar_2"
+		}
+		iconType = {
+			name = "progress_bar_3"
+			position = { x = @x_pos y = @y_pos }
+			spriteType = "GFX_outliner_starbase_construction_progressbar_3"
+		}
+		iconType = {
+			name = "progress_bar_4"
+			position = { x = @x_pos y = @y_pos }
+			spriteType = "GFX_outliner_starbase_construction_progressbar_4"
+		}
+		iconType = {
+			name = "progress_bar_5"
+			position = { x = @x_pos y = @y_pos }
+			spriteType = "GFX_outliner_starbase_construction_progressbar_5"
+		}
+		iconType = {
+			name = "progress_bar_6"
+			position = { x = @x_pos y = @y_pos }
+			spriteType = "GFX_outliner_starbase_construction_progressbar_6"
+		}
+	}
+	
+	containerWindowType = {
+		name = "planet_or_starbase_status_entry"
+		size = { width = 15 height = 15 }
+		position = { x = 215 y = 0 }
+		moveable = no
+
+		iconType = {
+			name = "status"
+			spriteType = "GFX_outliner_status"
+			alwaysTransparent = no
+		}		
 	}
 }

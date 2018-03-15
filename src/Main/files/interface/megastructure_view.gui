@@ -137,19 +137,20 @@ guiTypes = {
 		instantTextBoxType = {
 			name = "production_header"
 			font = "cg_16b"
-			position = { x = 150 y = 310 }
-			maxWidth = 280
+			position = { x = 128 y = 300 }
+			maxWidth = 316
 			maxHeight = 30
 			fixedSize = yes
 			#alwaysTransparent = yes
 			text = "PRODUCTION"
-			format = center
+			format = centre
 		}
+		
 		gridBoxType = {
 			name = "production"
-			position = { x = 150 y = 327 }
-			size = { width = 50% height = 60 }
-			slotSize = { width = 50 height = 20 }
+			position = { x = 128 y = 321 }
+			size = { width = 316 height = 30 }
+			slotSize = { width = 77 height = 20 }
 			max_slots_horizontal = 3
 			format = CENTERED_UP
 		}
@@ -157,18 +158,18 @@ guiTypes = {
 		instantTextBoxType = {
 			name = "maintenance_header"
 			font = "cg_16b"
-			position = { x = -70 y = 410 }
-			maxWidth = 280
+			position = { x = 380 y = 300 }
+			maxWidth = 166
 			maxHeight = 30
 			fixedSize = yes
 			#alwaysTransparent = yes
 			text = "MAINTENANCE"
-			format = center
+			format = centre
 		}
 		gridBoxType = {
 			name = "maintenance"
-			position = { x = -70 y = 427 }
-			size = { width = 50% height = 60 }
+			position = { x = 390 y = 321 }
+			size = { width = 120 height = 30 }
 			slotSize = { width = 50 height = 20 }
 			max_slots_horizontal = 3
 			format = CENTERED_UP
@@ -182,7 +183,7 @@ guiTypes = {
 			instantTextBoxType = {
 				name = "title"
 				font = "malgun_goth_24"
-				position = { x = 25 y = 5 }
+				position = { x = 25 y = 12 }
 				maxWidth = 520
 				maxHeight = 20
 				format = centre
@@ -255,18 +256,20 @@ guiTypes = {
 	}
 	containerWindowType = {
 		name = "megastructure_production_entry"
-		#background = {
-		#}
-		size = { width = 50 height = 20 }
+		background = {
+			name = "planet_view_module_spaceport_orbital_entry_background"
+			spriteType = "GFX_interface_list_light"
+		}
+		size = { width = 75 height = 30 }
 		instantTextBoxType = {
 			name = "text"
 			font = "cg_16b"
-			position = { x = -50 y = 0 }
-			maxWidth = 150
-			maxHeight = 20
+			position = { x = 0 y = 5 }
+			maxWidth = 75
+			maxHeight = 30
 			format = center
 			fixedSize = yes
-			alwaysTransparent = no
+			alwaysTransparent = yes
 			text = ""
 		}
 	}

@@ -17,7 +17,7 @@ spriteTypes = {
 	corneredTileSpriteType = {
 		name = "GFX_interface_list_light_nodown"
 		textureFile = "gfx/interface/tiles/interface_list_light.dds"
-		borderSize = { x=8 y=8 }
+		borderSize = { x=14 y=14 }
 		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
 	}
 
@@ -127,6 +127,26 @@ spriteTypes = {
 		textureFile1 = "gfx/interface/progressbars/queue_progressbar.dds"
 		textureFile2 = "gfx/interface/progressbars/queue_progressbar_empty.dds"
 		size = { x = 193 y = 14 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_queue_progressbar_325"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/queue_progressbar_325.dds"
+		textureFile2 = "gfx/interface/progressbars/queue_progressbar_empty_325.dds"
+		size = { x = 325 y = 14 }
+		effectFile = "gfx/FX/progress_startend.lua"
+	}
+
+	progressbartype = {
+		name = "GFX_queue_progressbar_229"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/queue_progressbar_229.dds"
+		textureFile2 = "gfx/interface/progressbars/queue_progressbar_empty_229.dds"
+		size = { x = 229 y = 14 }
 		effectFile = "gfx/FX/progress_startend.lua"
 	}
 
@@ -819,6 +839,11 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_starbase_background"
+		textureFile = "gfx/interface/planetview/spacehangar.dds"
+	}
+
+	spriteType = {
 		name = "GFX_planet_view_pop"
 		textureFile = "gfx/interface/icons/pop.dds"
 	}
@@ -892,6 +917,47 @@ spriteTypes = {
 		}
 	}
 
+#	spriteType = {
+#		name = "GFX_button_animated_110_34"
+#		texturefile = "gfx/interface/buttons/button_110_animated.dds"
+#		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+#		noOfFrames = 3
+#		animation = {
+#			animationmaskfile = "gfx/interface/buttons/button_142_animated_mask.dds"
+#			animationtexturefile = "gfx/interface/buttons/button_142_animated_texture.dds"
+#			animationrotation = 180.0
+#			animationlooping = yes
+#			animationtime = 40.0
+#			animationdelay = 0.0
+#			animationblendmode = "overlay"       #add, multiply, overlay
+#			animationtype = "scrolling"      #scrolling, rotating, pulsing
+#			animationrotationoffset = { x = 0.0 y = 0.0 }
+#			animationtexturescale = { x = 1.0 y = 1.0 }
+#			animationframes = { 1 2 3 }
+#		}
+#	}
+
+	spriteType = {
+		name = "GFX_standard_button_180_34_button"
+		texturefile = "gfx/interface/buttons/button_180_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_180_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_180_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 40.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+		hitbox_margin = { x=11 y=11 }
+	}
+
 	spriteType = {
 		name = "GFX_standard_button_142_34_button"
 		texturefile = "gfx/interface/buttons/button_142_animated.dds"
@@ -941,6 +1007,26 @@ spriteTypes = {
 		noOfFrames = 3
 		animation = {
 			animationmaskfile = "gfx/interface/buttons/button_230_34_animated_mask.dds"
+			animationtexturefile = "gfx/interface/buttons/button_142_animated_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 60.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_standard_button_240_34_button"
+		texturefile = "gfx/interface/buttons/button_240_34_animated.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/buttons/button_240_34_animated_mask.dds"
 			animationtexturefile = "gfx/interface/buttons/button_142_animated_texture.dds"
 			animationrotation = 180.0
 			animationlooping = yes

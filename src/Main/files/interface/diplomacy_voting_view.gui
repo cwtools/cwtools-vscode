@@ -258,22 +258,43 @@ guiTypes = {
 			format = center
 		}
 		
+		# Duplicated in incoming_diplomacy_view_action_war_peace
 		containerWindowType = {
-			name = "demands"
+			name = "war_goal"
 			position = { x = 425 y = 150 }
 			size = { width = 390 height = 310 }
-			
+
 			background = {
-				name = "demands_background"
+				name = "war_goal_background"
 				spriteType = "GFX_tiles_dark_area_cut_8"
 			}
-				
-			smoothListBoxType = {
-				name = "demands"
-				size = { x = 380 y = 290 }
-				position = { x = 10 y = 10 }
-				scrollbartype = "standardlistbox_slider"
-				#autohide_scrollbar = no
+
+			instantTextBoxType={
+				name = "war_goal_name"
+				position = { x = 84 y = 0 }
+				maxWidth = 221
+				maxHeight = 42
+				fixedSize = yes
+				font = "malgun_goth_24"
+				multiline = no
+				vertical_alignment = center
+				format = center
+			}
+
+			iconType = {
+				name = "war_goal_icon"
+				position = { x = 25 y = 25 }
+				centerPosition = yes
+				spriteType = "GFX_alliance_vote_status"
+			}
+
+			instantTextBoxType={
+				name = "war_goal_desc"
+				position = { x = 10 y = 50 }
+				maxWidth = 369
+				maxHeight = 190
+				font = "cg_16b"
+				scrollbartype = "standardtext_slider"
 			}
 		}
 	}

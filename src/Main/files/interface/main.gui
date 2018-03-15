@@ -42,20 +42,32 @@ guiTypes = {
 	positionType = {
 		name = "maingui_lower_topbar_size"
 		# width less than x increase size with y
-		position = { x = 1365 y = 220 }
+		position = { x = 1399 y = 220 }
 	}
 
 	### TOPBAR FOR MUSICPLAYER
 	containerWindowType = {
 		name = "maingui_lower_topbar"
-		position = { x=-120 y=34 }
-		size = { width=120 height=36 }
+		position = { x=-170 y=34 }
+		size = { width=170 height=36 }
 		orientation = upper_right
 
 		background = {
 			name ="background"
 			quadTextureSprite = "GFX_topbar_background_cutoff"
 			position = { x= 0 y = 0 }
+		}
+
+		containerWindowType = {
+			name = "topbar_bar_res"
+			size = { width = 260 height = 25 }
+			position = { x = 26 y = 6 }
+
+			background = {
+				name = "topbar_bar_03"
+				spriteType = "GFX_topbar_bar_03"
+				alwaysTransparent = yes
+			}
 		}
 
 		####################
@@ -67,6 +79,18 @@ guiTypes = {
 			orientation = upper_right
 			position = { x= -96 y = 0 }
 			clipping = no
+
+			containerWindowType = {
+				name = "topbar_bar_04"
+				size = { width = 102 height = 25 }
+				position = { x = -10 y = 6 }
+
+					background = {
+						name = "topbar_bar_03"
+						spriteType = "GFX_topbar_bar_03"
+						alwaysTransparent = yes
+					}
+			}
 
 			#background = {
 			#	name = "Background"
@@ -113,7 +137,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "strategic_resources"
 			size = { width = 60 height = 20 }
-			position = { x = 0 y = 0 }
+			position = { x = 190 y = 0 }
 
 			buttonType = {
 				name = "strategic_resources_hitbox"
@@ -144,7 +168,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "system_cap"
 			size = { width = 60 height = 20 }
-			position = { x = 60 y = 0 }
+			position = { x = 0 y = 0 }
 
 			buttonType = {
 				name = "system_cap_hitbox"
@@ -175,7 +199,7 @@ guiTypes = {
 		containerWindowType = {
 			name = "navy_size"
 			size = { width = 60 height = 20 }
-			position = { x = 120 y = 0 }
+			position = { x = 60 y = 0 }
 
 			buttonType = {
 				name = "navy_size_hitbox"
@@ -202,6 +226,37 @@ guiTypes = {
 				alwaysTransparent = yes
 			}
 		}
+		
+		containerWindowType = {
+			name = "starbase_capacity"
+			size = { width = 65 height = 20 }
+			position = { x = 130 y = 0 }
+
+			buttonType = {
+				name = "starbase_capacity_hitbox"
+				spriteType = "GFX_invisible"
+				size = { x = 60 y = 35 }
+				position = { x = 0 y = -8 }
+			}
+
+			iconType = {
+				name = "starbase_capacity_icon"
+				spriteType = "GFX_station_icon"
+				position = { x = 0 y = 0 }
+				tooltip_mode_enabled = yes
+				alwaysTransparent = yes
+			}
+		
+			instantTextBoxType={
+				name = "starbase_capacity_text"
+				font = "cg_16b"
+				position = { x = 21 y = 0 }
+				maxWidth = 70
+				maxHeight = 16
+				text = "5 / 10"
+				alwaysTransparent = yes
+			}
+		}		
 	}
 
 	containerWindowType = {
@@ -272,17 +327,6 @@ guiTypes = {
 		}
 
 		containerWindowType = {
-			name = "topbar_bar_05"
-			size = { width = 212 height = 25 }
-			position = { x = 941 y = 13 }
-
-				background = {
-					name = "topbar_bar_05"
-					spriteType = "GFX_topbar_bar_03"
-				}
-		}
-
-		containerWindowType = {
 			name = "topbar_buttons"
 			size = { width = 20 height = 0 }
 			position = { x = 85 y = -9 }
@@ -304,6 +348,18 @@ guiTypes = {
 			position = { x= 290 y = 0 }
 			size = { width=200 height=200 }
 			Orientation = UPPER_LEFT
+
+			containerWindowType = {
+				name = "topbar_bar_05"
+				size = { width = 260 height = 25 }
+				position = { x = 651 y = 13 }
+
+					background = {
+						name = "topbar_bar_03"
+						spriteType = "GFX_topbar_bar_03"
+						alwaysTransparent = yes
+					}
+			}
 
 			iconType = {
 				name = "energy_icon"
@@ -682,13 +738,6 @@ guiTypes = {
 			maxWidth = 350
 			fixedsize = yes
 			alwaysTransparent = yes
-		}
-
-		iconType = {
-			name = "warning_icon"
-			orientation = UPPER_RIGHT
-			position = { x = -27 y = 3 }
-			spriteType = "GFX_failure_risk_icon"
 		}
 	}
 

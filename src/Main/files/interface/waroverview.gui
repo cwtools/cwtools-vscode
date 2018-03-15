@@ -2,7 +2,7 @@ guiTypes = {
 
 	# Box which holds all small icons, one for each war
 	containerWindowType = {
-		name = "waricon_box"
+		name = "waroverview_list"
 		position = { x = 0 y = -80 }
 		size = { width = 80 height = 100 }
 		moveable = no
@@ -19,17 +19,34 @@ guiTypes = {
 
 	# ENTRY for who you are at war with in the lower right of the main view
 	containerWindowType = {
-		name = "waricon"
+		name = "waroverview_list_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 80 height = 40 }
 		moveable = no
 		orientation = upper_left
 
 		buttonType = {
-			name = "at_war_with_bg"
+			name = "enemy_flag_button"
 			spriteType = "GFX_at_war_with_bg"
 			position = { x= -24 y = -43}
 			orientation = "UPPER_LEFT"
+		}
+
+		iconType = {
+			name = "their_war_exhaustion_progress"
+			spriteType = "GFX_waroverview_icon_progress_enemies"
+			frame = 6
+			centerPosition = yes
+			position = { x = 18 y = -1 }
+			alwaysTransparent = yes
+		}
+		iconType = {
+			name = "our_war_exhaustion_progress"
+			spriteType = "GFX_waroverview_icon_progress_allies"
+			frame = 6
+			centerPosition = yes
+			position = { x = 16 y = -1 }
+			alwaysTransparent = yes
 		}
 
 		iconType = {
@@ -40,22 +57,29 @@ guiTypes = {
 		}
 
 		instantTextBoxType = {
-			name = "our_war_score"
-			position = { x = -18 y = 22 }
-			textureFile = ""
+			name = "their_war_exhaustion"
+			position = { x = 18 y = 19 }
 			font = "cg_16b"
-			borderSize = {x = 0 y = 0}
-			text = "-100%"
-			maxWidth = 80
+			maxWidth = 40
 			maxHeight = 20
-			format = centre
+			format = center
+			fixedSize = yes
+			alwaysTransparent = yes
+		}
+		instantTextBoxType = {
+			name = "our_war_exhaustion"
+			position = { x = -24 y = -38 }
+			font = "cg_16b"
+			maxWidth = 40
+			maxHeight = 20
+			format = center
 			fixedSize = yes
 			alwaysTransparent = yes
 		}
 	}
 
 	@WAROVERVIEW_W = 960
-	@WAROVERVIEW_H = 592
+	@WAROVERVIEW_H = 640
 
 	# War Overview Window
 	containerWindowType = {
@@ -63,953 +87,1214 @@ guiTypes = {
 		orientation = center
 		origo = center
 		moveable = yes
-		clipping = no
 		size = { width = @WAROVERVIEW_W height = @WAROVERVIEW_H }
-		position = { x=0 y=0 }
-
+		
 		background = {
-			name = "waroverview_hitbox"
-			quadTextureSprite = "GFX_invisible"
-		}
-
-		buttonType = {
-			name = "waroverview_background"
-			size = { x = @WAROVERVIEW_W y = @WAROVERVIEW_H }
-			spriteType = "GFX_tile_large_bg"
-			alwaysTransparent = yes
-		}
-
-		containerWindowType = {
-			name = "start_screen_frame_bg"
-			position = { x=-332 y=-160 }
-			size = { width = 666 height = 322 }
-			orientation = center
-		}
-
-		buttonType =	{
-			name = "waroverview_close"
-			position = { x=-45 y=16 }
-			spriteType ="GFX_close"
-			orientation = "UPPER_RIGHT"
-			shortcut = "ESCAPE"
-		}
-
-		instantTextBoxType = {
-			name = "war_name"
-			position = { x = 19 y = 5 }
-			textureFile = ""
-			font = "malgun_goth_24"
-			borderSize = {x = 0 y = 0}
-			text = ""
-			maxWidth = 459
-			maxHeight = 24
-			fixedSize = yes
+			name = "background"
+			quadTextureSprite = "GFX_tile_large_bg"
 		}
 
 		iconType = {
-			name = "long_line"
+			name = "hex_bg"
+			spriteType = "GFX_hex_bg"
+			position = { x = -12 y = -12 }
+			alwaysTransparent = yes
+		}
+		iconType = {
+			name = "header_line"
 			quadTextureSprite = "GFX_line_long"
 			position = { x = 5 y = 25 }
 			alwaysTransparent = yes
 		}
 
 		instantTextBoxType = {
+			name = "war_name"
+			position = { x = 13 y = 5 }
+			textureFile = ""
+			font = "malgun_goth_24"
+			borderSize = { x = 0 y = 0 }
+			maxWidth = 459
+			maxHeight = 24
+			fixedSize = yes
+			alwaysTransparent = yes
+		}
+
+		buttonType = {
+			name = "close"
+			position = { x = -45 y = 16 }
+			spriteType ="GFX_close"
+			orientation = "UPPER_RIGHT"
+			shortcut = "ESCAPE"
+		}
+
+		iconType = {
+			name = "illustration"
+			quadTextureSprite = "GFX_waroverview_war_illustration"
+			position = { x = -150 y = 85 }
+		#	scale = 0.75
+			alwaysTransparent = yes
+			orientation = center_up
+		}
+
+		iconType = {
+			name = "fade"
+			quadTextureSprite = "GFX_waroverview_war_illustration_fade"
+			position = { x = -150 y = 85 }
+		#	scale = 0.75
+			alwaysTransparent = yes
+			orientation = center_up
+		}
+
+		iconType = {
+			name = "frame"
+			quadTextureSprite = "GFX_waroverview_war_illustration_frame"
+			position = { x = -150 y = 85 }
+		#	scale = 0.75
+			alwaysTransparent = yes
+			orientation = center_up
+		}
+
+		instantTextBoxType = {
 			name = "war_start_date"
-			position = { x = 0 y = 80 }
+			position = { x = 0 y = 260 }
 			textureFile = ""
 			font = "cg_16b"
-			borderSize = {x = 0 y = 0}
-			text = "Start year: 2200"
 			maxWidth = @WAROVERVIEW_W
 			maxHeight = 24
 			fixedSize = yes
 			format = center
+			alwaysTransparent = yes
 		}
 
-		### WAR PROGRESS BAR ###
-
+		# left side
 		containerWindowType = {
-			name = "war_score"
+			name = "left_side"
+			position = { x = 10 y = 37 }
+			size = { width = 470 height = 420 }
+
+			instantTextBoxType = {
+				name = "header"
+				position = { x = -10 y = 3 }
+				font = "malgun_goth_24"
+				maxWidth = 200
+				maxHeight = 50
+				fixedSize = yes
+				format = right
+				vertical_alignment = center
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = "participants"
+				position = { x = 0 y = 45 }
+				size = { width = 305 height = 200 }
+				
+				background = {
+					name = "background"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+
+				smoothListBoxType = {
+					name = "list"
+					position = { x = 0 y = 3 }
+					size = { x = 305 y = 0 } # see waroverview_side_participants_list_size_with_button/waroverview_side_participants_list_size_without_button
+
+					scrollbarType = "standardlistbox_slider"
+					offset = { x = -10 y = 0 }
+				}
+
+				buttonType = {
+					name = "set_war_goal"
+					spriteType = "GFX_standard_button_200_34_button"
+					position = { x = -112 y = -52 }
+					orientation = center_down
+					borderSize = { x = 12 y = 12 }
+					font = "cg_16b"
+					text = "SET_WAR_GOAL"
+				}
+			}
+
+			containerWindowType = {
+				name = "war_exhaustion_stats"
+				size = { width = 155 height = 168 }
+				position = { x = 0 y = 250 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+
+				iconType = {
+					name = "progressbar"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar"
+					position = { x = 7 y = 14 }
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SUM_TOOLTIP"
+				}
+				iconType = {
+					name = "progressbar_marker"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar_glow"
+					centerPosition = yes
+					position = { x = 7 y = 33 }
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "war_exhaustion_header_label"
+					position = { x = 7 y = 5 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = center
+					text = "WAROVERVIEW_WAR_EXHAUSTION_HEADER_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_HEADER_TOOLTIP"
+				}
+				
+				instantTextBoxType = {
+					name = "sum_label"
+					position = { x = 7 y = 45 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SUM_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SUM_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "sum_value"
+					position = { x = -40 y = 45 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+				
+				instantTextBoxType = {
+					name = "war_exhaustion_details_label"
+					position = { x = 7 y = 65 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = center
+					text = "WAROVERVIEW_WAR_EXHAUSTION_DETAILS_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_DETAILS_TOOLTIP"
+				}
+
+				instantTextBoxType = {
+					name = "passive_label"
+					position = { x = 7 y = 85 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ATTRITION_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ATTRITION_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "passive_value"
+					position = { x = -40 y = 85 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "ships_label"
+					position = { x = 7 y = 105 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SHIPS_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SHIPS_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "ships_value"
+					position = { x = -40 y = 105 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "armies_label"
+					position = { x = 7 y = 125 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ARMIES_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ARMIES_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "armies_value"
+					position = { x = -40 y = 125 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "static_label"
+					position = { x = 7 y = 145 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_DESTRUCTION_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_DESTRUCTION_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "static_value"
+					position = { x = -40 y = 145 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+			}
+				
+			containerWindowType = {
+				name = "occupation_stats"
+				size = { width = 155 height = 48 }
+				position = { x = 0 y = 420 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}	
+
+				iconType = {
+					name = "progressbar"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar"
+					position = { x = 7 y = 14 }
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_OCCUPATION_TOOLTIP"
+				}
+				iconType = {
+					name = "progressbar_marker"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar_glow"
+					centerPosition = yes
+					position = { x = 7 y = 33 }
+					alwaystransparent = yes
+				}				
+			
+				instantTextBoxType = {
+					name = "occupation_label"
+					position = { x = 7 y = 5 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_OCCUPATION_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_OCCUPATION_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "occupation_value"
+					position = { x = -40 y = 5 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}				
+			}
+		}
+
+		# right side
+		containerWindowType = {
+			name = "right_side"
+			position = { x = -10 y = 37 }
+			size = { width = 305 height = 420 }
+			origo = upper_right
+			orientation = upper_right
+
+			instantTextBoxType = {
+				name = "header"
+				position = { x = -190 y = 3 }
+				orientation = upper_right
+				font = "malgun_goth_24"
+				maxWidth = 200
+				maxHeight = 50
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
+				alwaysTransparent = yes
+			}
+
+			containerWindowType = {
+				name = "participants"
+				position = { x = 0 y = 45 }
+				size = { width = 305 height = 200 }
+
+				background = {
+					name = "background"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+
+				smoothListBoxType = {
+					name = "list"
+					position = { x = 0 y = 3 }
+					size = { x = 305 y = 0 } # see waroverview_side_participants_list_size_with_button/waroverview_side_participants_list_size_without_button
+
+					scrollbarType = "standardlistbox_slider"
+					offset = { x = -10 y = 0 }
+				}
+			}
+
+			containerWindowType = {
+				name = "war_exhaustion_stats"
+				size = { width = 155 height = 168 }
+				position = { x = 0 y = 250 }
+				origo = upper_right
+				orientation = upper_right
+
+				background = {
+					name = "background"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+
+				iconType = {
+					name = "progressbar"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar"
+					position = { x = 7 y = 14 }
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SUM_TOOLTIP"
+				}
+				iconType = {
+					name = "progressbar_marker"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar_glow"
+					centerPosition = yes
+					position = { x = 7 y = 33 }
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "war_exhaustion_header_label"
+					position = { x = 7 y = 5 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = center
+					text = "WAROVERVIEW_WAR_EXHAUSTION_HEADER_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_HEADER_TOOLTIP"
+				}
+
+				instantTextBoxType = {
+					name = "sum_label"
+					position = { x = 7 y = 45 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SUM_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SUM_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "sum_value"
+					position = { x = -40 y = 45 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "war_exhaustion_details_label"
+					position = { x = 7 y = 65 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = center
+					text = "WAROVERVIEW_WAR_EXHAUSTION_DETAILS_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_DETAILS_TOOLTIP"
+				}
+
+				instantTextBoxType = {
+					name = "passive_label"
+					position = { x = 7 y = 85 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ATTRITION_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ATTRITION_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "passive_value"
+					position = { x = -40 y = 85 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "ships_label"
+					position = { x = 7 y = 105 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SHIPS_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_SHIPS_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "ships_value"
+					position = { x = -40 y = 105 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "armies_label"
+					position = { x = 7 y = 125 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ARMIES_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_ARMIES_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "armies_value"
+					position = { x = -40 y = 125 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "static_label"
+					position = { x = 7 y = 145 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_DESTRUCTION_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_DESTRUCTION_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "static_value"
+					position = { x = -40 y = 145 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}
+			}
+				
+			containerWindowType = {
+				name = "occupation_stats"
+				size = { width = 155 height = 48 }
+				position = { x = 0 y = 420 }
+				origo = upper_right
+				orientation = upper_right				
+
+				background = {
+					name = "background"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}	
+
+				iconType = {
+					name = "progressbar"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar"
+					position = { x = 7 y = 14 }
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_OCCUPATION_TOOLTIP"
+				}
+				iconType = {
+					name = "progressbar_marker"
+					spriteType = "GFX_waroverview_war_exhaustion_stats_progressbar_glow"
+					centerPosition = yes
+					position = { x = 7 y = 33 }
+					alwaystransparent = yes
+				}				
+			
+				instantTextBoxType = {
+					name = "occupation_label"
+					position = { x = 7 y = 5 }
+					font = "cg_16b"
+					maxWidth = 143
+					maxHeight = 30
+					fixedSize = yes
+					format = left
+					text = "WAROVERVIEW_WAR_EXHAUSTION_STAT_OCCUPATION_HEADER"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_STAT_OCCUPATION_TOOLTIP"
+				}
+				instantTextBoxType = {
+					name = "occupation_value"
+					position = { x = -40 y = 5 }
+					orientation = upper_right
+					font = "cg_16b"
+					maxWidth = 35
+					maxHeight = 30
+					fixedSize = yes
+					format = right
+					text_color_code = "H"
+					alwaystransparent = yes
+				}				
+			}	
+		}
+
+		# war status bar
+		containerWindowType = {
+			name = "war_exhaustion"
 			orientation = center_up
 			origo = center_up
 			moveable = no
 			clipping = no
-			size = { width = @WAROVERVIEW_W height = 60 }
-			position = { x = 0 y = 35 }
+			size = { width = 541 height = 60 }
+			position = { x = 0 y = 37 }
 
-			instantTextBoxType = {
-				name = "left_label"
-				position = { x = -20 y = 18 }
-				font = "malgun_goth_24"
-				text = "???"
-				maxWidth = 240
-				maxHeight = 24
-				fixedSize = yes
-				format = center
+			iconType = {
+				name = "progressbar_left"
+				spriteType = "GFX_waroverview_relative_war_exhaustion_progressbar"
+				position = { x = 0 y = 10 }
+				pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_PROGRESSBAR_TOOLTIP"
 			}
-
-			instantTextBoxType = {
-				name = "right_label"
-				position = { x = 725 y = 18 }
-				font = "malgun_goth_24"
-				text = "???"
-				maxWidth = 240
-				maxHeight = 24
-				fixedSize = yes
-				format = center
+			iconType = {
+				name = "progressbar_right"
+				spriteType = "GFX_waroverview_relative_war_exhaustion_progressbar"
+				position = { x = 300 y = 10 }
+				pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_PROGRESSBAR_TOOLTIP"
 			}
 
 			iconType = {
-				name ="progressbar"
-				spriteType = "GFX_fleet_combat_progressbar"
-				orientation = center
-				centerPosition = yes
-				pdx_tooltip = "WAROVERVIEW_PROGRESSBAR_TOOLTIP"
-			}
-
-			iconType = {
-				name = "progressbar_center"
+				name = "progressbar_marker"
 				spriteType = "GFX_fleet_combat_progress_bar_glow"
-				orientation = center
 				centerPosition = yes
-				position = { x = 0 y = 0 }
+				position = { x = 0 y = 28 }
 				alwaystransparent = yes
 			}
-		}
-
-		### STATUS TAB ###
-
-		containerWindowType = {
-			name = "status_tab"
-			position = { x = 170 y = 0 }
-			size = { width = 275 height = 200 }
-			moveable = no
-			orientation = upper_left
 
 			containerWindowType = {
-				name = "left_side"
-				position = { x = -160 y = 100 }
-				size = { width = 470 height = 420 }
+				name = "war_icon"
+				position = { x = 1 y = -12 }
+				size = { width = 85 height = 85 }
+				orientation = center_up
+				origo = center_up
 
-				containerWindowType = {
-					name = "list_box"
-					position = { x = 0 y = 0 }
-					size = { width = 470 height = 220 }
-
-					background = {
-						name = "list_bg"
-						spriteType = "GFX_tiles_dark_area_cut_8"
-					}
-
-					listBoxType = {
-						name = "list"
-						position = { x = 10 y = 7 }
-						size = { x=440 y=210 }
-						scrollbarType = "standardlistbox_slider"
-					}
-				}
-
-				containerWindowType = {
-					name = "text_box"
-					size = { width = 150 height = 110 }
-					position = { x = 0 y = 225 }
-
-					background = {
-						name = "text_box_bg"
-						spriteType = "GFX_tiles_dark_area_cut_8"
-					}
-
-					instantTextBoxType = {
-						name = "warscore"
-						position = { x = 10 y = 7 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_WARSCORE_TOOLTIP"
-					}
-
-					instantTextBoxType = {
-						name = "occupation"
-						position = { x = 10 y = 27 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_OCCUPATION_WARSCORE_TOOLTIP"
-					}
-
-					instantTextBoxType = {
-						name = "blockade"
-						position = { x = 10 y = 47 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_BLOCKADE_WARSCORE_TOOLTIP"
-					}
-
-					instantTextBoxType = {
-						name = "ship_kills"
-						position = { x = 10 y = 67 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_SPACE_BATTLES_WARSCORE_TOOLTIP"
-					}
-					
-					instantTextBoxType = {
-						name = "wargoals"
-						position = { x = 10 y = 87 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_WARGOALS_WARSCORE_TOOLTIP"
-					}
-				}
-			}
-
-			containerWindowType = {
-				name = "right_side"
-				position = { x = 315 y = 100 }
-				size = { width = 470 height = 420 }
-
-				containerWindowType = {
-					name = "list_box"
-					position = { x = 0 y = 0 }
-					size = { width = 470 height = 220 }
-
-					background = {
-						name = "list_bg"
-						spriteType = "GFX_tiles_dark_area_cut_8"
-					}
-
-					listBoxType = {
-						name = "list"
-						position = { x = 10 y = 7 }
-						size = { x=440 y=210 }
-						scrollbarType = "standardlistbox_slider"
-					}
-				}
-
-				containerWindowType = {
-					name = "text_box"
-					size = { width = 150 height = 110 }
-					position = { x = 320 y = 225 }
-
-					background = {
-						name = "text_box_bg"
-						spriteType = "GFX_tiles_dark_area_cut_8"
-					}
-
-					instantTextBoxType = {
-						name = "warscore"
-						position = { x = 10 y = 7 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_WARSCORE_TOOLTIP"
-					}
-
-					instantTextBoxType = {
-						name = "occupation"
-						position = { x = 10 y = 27 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_OCCUPATION_WARSCORE_TOOLTIP"
-					}
-
-					instantTextBoxType = {
-						name = "blockade"
-						position = { x = 10 y = 47 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_BLOCKADE_WARSCORE_TOOLTIP"
-					}
-
-					instantTextBoxType = {
-						name = "ship_kills"
-						position = { x = 10 y = 67 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_SPACE_BATTLES_WARSCORE_TOOLTIP"
-					}
-					
-					instantTextBoxType = {
-						name = "wargoals"
-						position = { x = 10 y = 87 }
-						textureFile = ""
-						font = "cg_16b"
-						text = "INFO_ATTACKERS"
-						maxWidth = 230
-						maxHeight = 96
-						fixedSize = no
-						format = left
-						pdx_tooltip = "WAROVERVIEW_WARGOALS_WARSCORE_TOOLTIP"
-					}
-				}
-			}
-
-			containerWindowType = {
-				name = "text_box_summary"
-				size = { width = 637 height = 250 }
-				position = { x = -6 y = 325 }
-
-					background = {
-						name = "leader_frame"
-						spriteType = "GFX_tiles_dark_area_cut_8"
-					}
-			}
-
-			containerWindowType = {
-				name = "waroverview_battle_entries"
-				position = { x = -26 y = 230 }
-				size = { width = 540 height = 250 }
-				moveable = no
-				orientation = center
-
-				buttonType={
-					name = "encounter_button"
-					spriteType = "GFX_standard_button_200_24"
-					position = { x = -123 y = -4 }
-					Orientation = UPPER_LEFT
-				}
-
-				buttonType={
-					name = "combatants_button"
-					spriteType = "GFX_button_116_24"
-					position = { x = 82 y = -11 }
-					Orientation = UPPER_LEFT
-				}
-
-				buttonType={
-					name = "location_button"
-					spriteType = "GFX_button_116_24"
-					position = { x = 203 y = -11 }
-					Orientation = UPPER_LEFT
-				}
-
-				buttonType={
-					name = "score_button"
-					spriteType = "GFX_button_75_24"
-					position = { x = 324 y = -11 }
-					Orientation = UPPER_LEFT
-				}
-
-				buttonType={
-					name = "result_button"
-					spriteType = "GFX_button_75_24"
-					position = { x = 404 y = -11 }
-					Orientation = UPPER_LEFT
-				}
-
-				instantTextBoxType = {
-					name = "encounter_label"
-					position = { x = -100 y = 5 }
-					font = "cg_16b"
-					text = "ENCOUNTER"
-					pdx_tooltip = "BATTLE_DESC"
-					maxWidth = 155
-					fixedSize = yes
-					format = left
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "combatants_label"
-					position = { x = 94 y = 5 }
-					font = "cg_16b"
-					text = "COMBATANTS"
-					pdx_tooltip = "BATTLE_DESC"
-					maxWidth = 115
-					fixedSize = yes
-					format = center
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "location_label"
-					position = { x = 202 y = 5 }
-					font = "cg_16b"
-					text = "LOCATION"
-					pdx_tooltip = "BATTLE_DESC"
-					maxWidth = 145
-					fixedSize = yes
-					format = center
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "score_label"
-					position = { x = 344 y = 5 }
-					font = "cg_16b"
-					borderSize = { x = 0 y = 0 }
-					text = "SCORE"
-					pdx_tooltip = "BATTLE_DESC"
-					maxWidth = 60
-					fixedSize = yes
-					format = center
-					alwaysTransparent = yes
-				}
-
-				instantTextBoxType = {
-					name = "result_label"
-					position = { x = 428 y = 5 }
-					font = "cg_16b"
-					text = "RESULT"
-					pdx_tooltip = "BATTLE_DESC"
-					maxWidth = 50
-					fixedSize = yes
-					format = center
-					alwaysTransparent = yes
-				}
-
-				smoothListBoxType = {
-					name = "battles"
-					position = { x = -115 y = 32 }
-					orientation = "UPPER_LEFT"
-					size = { x = 610 y = 205 }
-					scrollbarType = "standardlistbox_slider"
-				}
-			}
-		}
-
-		
-
-		### NEGOTIATE TAB ###
-
-		containerWindowType = {
-			name = "negotiate_tab"
-			position = { x = 0 y = 0 }
-			size = { width = @WAROVERVIEW_W height = @WAROVERVIEW_H }
-			moveable = no
-			orientation = upper_left
-
-			@DEMANDS_LIST_W = 310
-			@DEMANDS_LIST_H = 450
-
-			### OUR DEMANDS ###
-
-			containerWindowType = {
-				name = "our_demands"
-				orientation = upper_left
-				size = { width = @DEMANDS_LIST_W height = @DEMANDS_LIST_H }
-				position = { x = 11 y = 130 }
-				clipping = no
-
-				background = {
-					name = "bg"
-					spriteType = "GFX_tiles_dark_area_cut_8"
-				}
-
-				instantTextBoxType = {
-					name = "our_demands_title"
-					format = center
-					orientation = center_up
-					multiline = no
-					maxWidth = 300
-					position = { x = -150 y = -25 }
-					font = "cg_16b"
-					text = "OUR_DEMANDS"
-					alwaysTransparent = yes
-				}
-
-				smoothListboxType = {
-					name = "our_demands_list"
-					size = { x = @DEMANDS_LIST_W y = @DEMANDS_LIST_H }
-					position = { x = 5 y = 5 }
-					scrollbartype = "standardlistbox_slider"
+				iconType = {
+					name = "enemy_flag_button"
+					spriteType = "GFX_at_war_with_bg"
+					pdx_tooltip = "WAROVERVIEW_WAR_EXHAUSTION_PROGRESSBAR_TOOLTIP"
 				}
 
 				buttonType = {
-					name = "set_demands"
-					quadTextureSprite = "GFX_standard_button_142_34_button"
-					position = { x = 75 y = 45 }
-					buttonText = "SET_DEMANDS"
-					buttonFont = "cg_16b"
-				}
-			}
-
-			### THEIR DEMANDS ###
-
-			containerWindowType = {
-				name = "their_demands"
-				orientation = upper_right
-				size = { width = @DEMANDS_LIST_W height = @DEMANDS_LIST_H }
-				position = { x = -320 y = 130 }
-				clipping = no
-
-				background = {
-					name = "bg"
-					spriteType = "GFX_tiles_dark_area_cut_8"
-				}
-
-				instantTextBoxType = {
-					name = "their_demands_title"
-					format = center
-					orientation = center_up
-					multiline = no
-					maxWidth = 300
-					position = { x = -150 y = -25 }
-					font = "cg_16b"
-					text = "THEIR_DEMANDS"
+					name = "enemy_flag"
+					quadTextureSprite = "GFX_empire_flag_32"
+					position = { x = 24 y = 25 }
 					alwaysTransparent = yes
 				}
 
-				smoothListboxType = {
-					name = "their_demands_list"
-					size = { x = @DEMANDS_LIST_W y = @DEMANDS_LIST_H }
-					position = { x = 5 y = 5 }
-					scrollbartype = "standardlistbox_slider"
+				instantTextBoxType = {
+					name = "their_war_exhaustion"
+					position = { x = 40 y = 5 }
+					font = "cg_16b"
+					maxWidth = 40
+					maxHeight = 20
+					format = center
+					fixedSize = yes
+					alwaysTransparent = yes
+				}
+				instantTextBoxType = {
+					name = "our_war_exhaustion"
+					position = { x = 0 y = 5 }
+					font = "cg_16b"
+					maxWidth = 40
+					maxHeight = 20
+					format = center
+					fixedSize = yes
+					alwaysTransparent = yes
 				}
 			}
+		}
 
-			### SEND OFFER ###
+		# battle log
+		containerWindowType = {
+			name = "battle_log"
+			position = { x = 0 y = 287 }
+			size = { width = 620 height = 218 }
+			moveable = no
+			orientation = center_up
+			origo = center_up
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+			}
 
 			buttonType = {
-				name = "send_offer"
-				quadTextureSprite = "GFX_standard_button_200_34_button"
-				position = { x = 366 y = 310 }
-				buttonText = "SEND_DEMANDS"
-				buttonFont = "cg_16b"
-				clicksound = "confirmation"
+				name = "header_encounter"
+				spriteType = "GFX_standard_button_200_24"
+				position = { x = -6 y = 1 }
+				borderSize = { x = 20 y = 12 }
+				buttonText = "ENGAGEMENT"
+				pdx_tooltip = "BATTLE_DESC"
+				font = "cg_16b"
+				format = left
 			}
-			
-			containerWindowType = {
-				name = "our_warscore_box"
-				size = { width = 77 height = 90 }
-				position = { x = 85 y = 20 }
-				
-				instantTextBoxType = {
-					name = "warscore_label"
-					font = "cg_16b"
-					text = "CURRENT_WARSCORE"
-					position = { x = 378 y = 135 }
-					maxWidth = 170
-					maxHeight = 20
-					Orientation = "UPPER_LEFT"
-					format = center
-				}
-				
-				iconType = {
-					name = "warscore_bg"
-					position = { x = 400 y = 155 }
-					spriteType = "GFX_value_slot"
-				}
-				
-				instantTextBoxType = {
-					name = "warscore_amount"
-					font = "cg_16b"
-					text = "55%"
-					position = { x = 378 y = 162 }
-					maxWidth = 170
-					maxHeight = 20
-					Orientation = "UPPER_LEFT"
-					format = center
-				}
+
+			buttonType = {
+				name = "header_combatants"
+				spriteType = "GFX_button_116_24"
+				position = { x = 198 y = -6 }
+				borderSize = { x = 12 y = 12 }
+				buttonText = "COMBATANTS"
+				pdx_tooltip = "BATTLE_DESC"
+				font = "cg_16b"
+				format = center
+			}
+
+			buttonType = {
+				name = "header_location"
+				spriteType = "GFX_button_116_24"
+				position = { x = 318 y = -6 }
+				borderSize = { x = 12 y = 12 }
+				buttonText = "LOCATION"
+				pdx_tooltip = "BATTLE_DESC"
+				font = "cg_16b"
+				format = center
+			}
+
+			buttonType = {
+				name = "header_result"
+				spriteType = "GFX_button_164_24"
+				position = { x = 438 y = -6 }
+				borderSize = { x = 12 y = 12 }
+				buttonText = "RESULT"
+				pdx_tooltip = "BATTLE_DESC"
+				font = "cg_16b"
+				format = center
+			}
+
+			smoothListBoxType = {
+				name = "list"
+				position = { x = 2 y = 32 }
+				size = { x = 620 y = 181 }
+				scrollbarType = "standardlistbox_slider"
+				offset = { x = -15 y = 0 }
+			}
+		}
+
+		# offer peace
+		containerWindowType = {
+			name = "offer_peace"
+			position = { x = 10 y = -48 }
+			size = { width = 940 height = 83 }
+			orientation = LOWER_LEFT
+			origo = LOWER_LEFT
+			clipping = no
+
+			background = {
+				name = "background"
+				spriteType = "GFX_tiles_dark_area_cut_8"
+			}
+
+			instantTextBoxType = {
+				name = "header"
+				position = { x = 10 y = 1 }
+				font = "malgun_goth_24"
+				text = "WAROVERVIEW_OFFER_PEACE"
+				maxWidth = 920
+				maxHeight = 30
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				alwaysTransparent = yes
 			}
 
 			containerWindowType = {
-				name = "sum_box"
-				size = { width = 77 height = 90 }
-				position = { x = -50 y = 20 }
-				
-				instantTextBoxType = {
-					name = "sum_label"
-					font = "cg_16b"
-					text = "CURRENT_DEMAND_SUM"
-					position = { x = 378 y = 135 }
-					maxWidth = 170
-					maxHeight = 20
-					Orientation = "UPPER_LEFT"
-					format = center
-				}
-				
-				iconType = {
-					name = "sum_bg"
-					position = { x = 400 y = 155 }
-					spriteType = "GFX_value_slot"
-				}
-				
-				instantTextBoxType = {
-					name = "sum_amount"
-					font = "cg_16b"
-					text = "55%"
-					position = { x = 378 y = 162 }
-					maxWidth = 170
-					maxHeight = 20
-					Orientation = "UPPER_LEFT"
-					format = center
-				}
-			}
-
-			### AI DIPLOMACY ###
-
-			containerWindowType = {
-				name = "ai_acceptance"
-				position = { x = 415 y = 280 }
-				size = { width = 126 height = 30 }
-				clipping = no
+				name = "force_demands"
+				position = { x = 7 y = 26 }
+				size = { width = 291 height = 50 }
 
 				background = {
 					name = "background"
-					spriteType = "GFX_value_slot"
+					quadTextureSprite = "GFX_hotjoinview_country_entry"
+					clicksound = "ui_select"
+				}
+
+				buttonType = {
+					name = "selected"
+					size = { x = 291 y = 50 }
+					position = { x = 0 y = 0 }
+					spriteType = "GFX_hotjoinview_country_entry_special"
+					clicksound = "ui_deselect"
+				}
+
+				iconType = {
+					name = "war_goal_icon"
+					position = { x = 23 y = 25 }
+					centerPosition = yes
+					spriteType = "GFX_alliance_vote_status"
 					alwaysTransparent = yes
 				}
 
 				instantTextBoxType = {
-					name = "title"
-					format = center
-					orientation = center_up
-					multiline = no
-					maxWidth = 400
-					position = { x = -200 y = -20 }
+					name = "label"
+					position = { x = 40 y = 5 }
+					maxWidth = 171
+					maxHeight = 40
+					fixedSize = yes
+					format = left
+					vertical_alignment = center
 					font = "cg_16b"
-					text = "AI_ACCEPTANCE"
+					text = "WAROVERVIEW_FORCE_DEMANDS"
 					alwaysTransparent = yes
 				}
 
-				instantTextBoxType={
-					name = "value"
-					format = center
-					orientation = center_up
-					multiline = no
-					maxWidth = 126
-					maxHeight = 20
-					position = { x = -63 y = 7 }
+				instantTextBoxType = {
+					name = "ai_acceptance_value"
+					position = { x = 210 y = 5 }
+					maxWidth = 40
+					maxHeight = 40
+					fixedSize = yes
+					format = right
+					vertical_alignment = center
 					font = "cg_16b"
-					text = "100%"
 				}
 
 				iconType = {
-					name = "should_accept"
-					position = { x = 130 y = -5 }
-					spriteType = "GFX_alliance_vote_status"
-					frame = 2 # BEWARE CODE SWITCHES THIS BETWEEN 2/3.
+					name = "ai_acceptance_icon"
+					position = { x = 252 y = 9 }
+					scale = 0.8
+					spriteType = "GFX_ai_acceptance"
 				}
 			}
 
-			instantTextBoxType={
-				name = "decline_cost"
-				format = center
-				orientation = center_up
-				maxWidth = 150
-				maxHeight = 10
-				position = { x = -75 y = 210 }
+			containerWindowType = {
+				name = "status_quo"
+				position = { x = 325 y = 26 }
+				size = { width = 291 height = 50 }
+
+				background = {
+					name = "background"
+					quadTextureSprite = "GFX_hotjoinview_country_entry"
+					clicksound = "ui_select"
+				}
+
+				buttonType = {
+					name = "selected"
+					size = { x = 291 y = 50 }
+					position = { x = 0 y = 0 }
+					spriteType = "GFX_hotjoinview_country_entry_special"
+					clicksound = "ui_deselect"
+				}
+
+				iconType = {
+					name = "war_goal_icon"
+					position = { x = 5 y = 8 }
+					spriteType = "GFX_diplomacy_status_truce"
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "label"
+					position = { x = 40 y = 5 }
+					maxWidth = 171
+					maxHeight = 40
+					fixedSize = yes
+					format = left
+					vertical_alignment = center
+					font = "cg_16b"
+					text = "WAROVERVIEW_STATUS_QUO"
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "ai_acceptance_value"
+					position = { x = 210 y = 5 }
+					maxWidth = 40
+					maxHeight = 40
+					fixedSize = yes
+					format = right
+					vertical_alignment = center
+					font = "cg_16b"
+				}
+
+				iconType = {
+					name = "ai_acceptance_icon"
+					position = { x = 252 y = 9 }
+					scale = 0.8
+					spriteType = "GFX_ai_acceptance"
+				}
+			}
+			
+			# TEMPORARY TODO [MAW] remove this when no longer needed #
+			instantTextBoxType = {
+				name = "temp_wargoal_ours"
+				position = { x = 13 y = 0 }
+				maxWidth = 171
+				maxHeight = 40
+				fixedSize = yes
+				format = left
+				vertical_alignment = center
 				font = "cg_16b"
-				text = "They must pay X to decline"
+				text = "Humiliation"
+				text_color_code = "Y"
+			}				
+			
+			# TEMPORARY TODO [MAW] remove this when no longer needed #
+			instantTextBoxType = {
+				name = "temp_wargoal_theirs"
+				position = { x = 755 y = 0 }
+				maxWidth = 171
+				maxHeight = 40
+				fixedSize = yes
+				format = right
+				vertical_alignment = center
+				font = "cg_16b"
+				text = "Humiliation"
+				text_color_code = "Y"
+			}		
+
+			containerWindowType = {
+				name = "surrender"
+				position = { x = 643 y = 26 }
+				size = { width = 291 height = 50 }
+
+				background = {
+					name = "background"
+					quadTextureSprite = "GFX_hotjoinview_country_entry"
+					clicksound = "ui_select"
+				}
+
+				buttonType = {
+					name = "selected"
+					size = { x = 291 y = 50 }
+					position = { x = 0 y = 0 }
+					spriteType = "GFX_hotjoinview_country_entry_special"
+					clicksound = "ui_deselect"
+				}
+
+				iconType = {
+					name = "war_goal_icon"
+					position = { x = 23 y = 25 }
+					centerPosition = yes
+					spriteType = "GFX_alliance_vote_status"
+					alwaysTransparent = yes
+				}
+					
+				instantTextBoxType = {
+					name = "label"
+					position = { x = 40 y = 5 }
+					maxWidth = 171
+					maxHeight = 40
+					fixedSize = yes
+					format = left
+					vertical_alignment = center
+					font = "cg_16b"
+					text = "WAROVERVIEW_SURRENDER"
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType = {
+					name = "ai_acceptance_value"
+					position = { x = 210 y = 5 }
+					maxWidth = 40
+					maxHeight = 40
+					fixedSize = yes
+					format = right
+					vertical_alignment = center
+					font = "cg_16b"
+				}
+
+				iconType = {
+					name = "ai_acceptance_icon"
+					position = { x = 252 y = 9 }
+					scale = 0.8
+					spriteType = "GFX_ai_acceptance"
+				}
 			}
 
+			instantTextBoxType = {
+				name = "description"
+				position = { x = -250 y = 80 }
+				font = "cg_16b"
+				maxWidth = 500
+				maxHeight = 50
+				fixedSize = yes
+				format = center
+				vertical_alignment = center
+				orientation = center_up
+				alwaysTransparent = yes
+			}
 
-		}
-
-		########################
-		# THE TABS
-		########################
-
-		@tabhight=-2
-
-		buttonType = {
-			name = "tab_status"
-			quadTextureSprite = "GFX_tab_1_inactive"
-			position = { x= -20 y = @tabhight }
-			font = "cg_16b"
-			buttonText = "STATUS"
-			buttonFont = "cg_16b"
-			orientation = "LOWER_LEFT"
-			clicksound = "tab_click"
-		}
-
-		buttonType = {
-			name = "tab_status_active"
-			quadTextureSprite = "GFX_tab_1_active"
-			position = { x= -20 y = @tabhight }
-			font = "cg_16b"
-			buttonText = "STATUS"
-			buttonFont = "cg_16b"
-			orientation = "LOWER_LEFT"
-		}
-
-		buttonType = {
-			name = "tab_negotiate"
-			quadTextureSprite = "GFX_tab_2_inactive"
-			position = { x= 109 y = @tabhight }
-			font = "cg_16b"
-			buttonText = "NEGOTIATE"
-			buttonFont = "cg_16b"
-			orientation = "LOWER_LEFT"
-			clicksound = "tab_click"
-		}
-
-		buttonType = {
-			name = "tab_negotiate_active"
-			quadTextureSprite = "GFX_tab_2_active"
-			position = { x= 109 y = @tabhight }
-			font = "cg_16b"
-			buttonText = "NEGOTIATE"
-			buttonFont = "cg_16b"
-			orientation = "LOWER_LEFT"
+			buttonType = {
+				name = "send"
+				spriteType = "GFX_standard_button_200_34_button"
+				position = { x = -212 y = -6 }
+				orientation = LOWER_RIGHT
+				borderSize = { x = 12 y = 12 }
+				font = "cg_16b"
+				text = "WAROVERVIEW_SEND_OFFER"
+			}
 		}
 	}
 
+	positionType = {
+		name = "waroverview_side_participants_list_size_with_button"
+		position = { x = 305 y = 155 }
+	}
+	positionType = {
+		name = "waroverview_side_participants_list_size_without_button"
+		position = { x = 305 y = 194 }
+	}
+
+	# war participant entry (left)
 	containerWindowType = {
-		name = "waroverview_empire_entry"
+		name = "waroverview_participant_entry_left"
 		position = { x = 0 y = 0 }
-		size = { width = 275 height = 38 }
-		moveable = no
-		orientation = center
+		size = { width = 305 height = 38 }
+
+		buttonType = {	# just to capture the tooltip
+			name = "background"
+			size = { x = 305 y = 38 }
+			spriteType = "GFX_tiled_window_transparent"
+			no_clicksound = yes
+		}
 
 		buttonType = {
-			name = "empire_icon"
+			name = "frame"
+			position = { x = -2 y = -4 }
+			size = { x = 307 y = 46 }
+			spriteType = "GFX_tiles_frame_light"
+			clicksound = "ui_deselect"
+		}
+
+		buttonType = {
+			name = "flag"
 			quadTextureSprite = "GFX_empire_flag_32"
-			position = { x = -5 y = 0 }
-			orientation = "UPPER_LEFT"
+			position = { x = 268 y = 3 }
 		}
 
 		instantTextBoxType = {
-			name = "empire_name"
-			position = { x = 30 y = 8 }
-			textureFile = ""
+			name = "name"
+			position = { x = 40 y = 0 }
+			maxWidth = 225
+			maxHeight = 38
+			fixedSize = yes
+			format = right
+			vertical_alignment = center
 			font = "cg_16b"
 			text_color_code = "E"
-			borderSize = { x = 0 y = 0 }
-			text = ""
-			maxWidth = 380
-			maxHeight = 20
-			fixedSize = yes
-			format = left
+			alwaysTransparent = yes
 		}
-	}
-
-	containerWindowType = {
-		name = "waroverview_demand_entry"
-		position = { x = 0 y = 0 }
-		size = { width = 520 height = 50 }
-		moveable = no
-		orientation = center
 
 		iconType = {
-			name = "demand_background"
-			spriteType = "GFX_war_demand_background"
-			position = { x = -4 y = -4 }
+			name = "type"
+			position = { x = 22 y = 18 }
+			centerPosition = yes
+			spriteType = "GFX_diplomacy_status_federation"
 		}
+	}
+	# war participant entry (right)
+	containerWindowType = {
+		name = "waroverview_participant_entry_right"
+		position = { x = 0 y = 0 }
+		size = { width = 305 height = 38 }
 
-		instantTextBoxType = {
-			name = "demand_text"
-			position = { x = 8 y = 4 }
-			textureFile = ""
-			font = "cg_16b"
-			borderSize = { x = 0 y = 0 }
-			text = "RELEASE_VASSAL"
-			maxWidth = 200
-			maxHeight = 40
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
+		buttonType = {	# just to capture the tooltip
+			name = "background"
+			size = { x = 305 y = 38 }
+			spriteType = "GFX_tiled_window_transparent"
+			no_clicksound = yes
 		}
 
 		buttonType = {
-			name = "country"
+			name = "frame"
+			position = { x = -2 y = -4 }
+			size = { x = 307 y = 46 }
+			spriteType = "GFX_tiles_frame_light"
+		}
+
+		buttonType = {
+			name = "flag"
 			quadTextureSprite = "GFX_empire_flag_32"
-			position = { x = 215 y = 4 }
-			frame = 1
+			position = { x = 4 y = 3 }
 		}
 
 		instantTextBoxType = {
-			name = "influence_cost"
-			position = { x = 270 y = 12 }
-			textureFile = ""
-			font = "cg_16b"
-			borderSize = { x = 0 y = 0 }
-			text = ""
-			maxWidth = 275
-			maxHeight = 40
+			name = "name"
+			position = { x = 40 y = 0 }
+			maxWidth = 225
+			maxHeight = 38
 			fixedSize = yes
 			format = left
+			vertical_alignment = center
+			font = "cg_16b"
+			text_color_code = "E"
 			alwaysTransparent = yes
 		}
 
 		iconType = {
-			name = "button_for"
-			spriteType = "GFX_war_demand_vote_background"
-			position = { x = 313 y = 0 }
-		}
-
-		overlappingElementsBoxType = {
-			name = "for"
-			position = { x = 314 y = 4 }
-			size = { x = 100 y = 36 }
-			spacing = 0
-			format = right
-			orientation = "UPPER_LEFT"
-		}
-
-		iconType = {
-			name = "button_against"
-			spriteType = "GFX_war_demand_vote_background"
-			position = { x = 415 y = 0 }
-		}
-
-		overlappingElementsBoxType = {
-			name = "against"
-			position = { x = 418 y = 4 }
-			size = { x = 100 y = 36 }
-			spacing = 0
-			format = left
-			orientation = "UPPER_LEFT"
+			name = "type"
+			position = { x = 280 y = 18 }
+			centerPosition = yes
+			spriteType = "GFX_diplomacy_status_federation"
 		}
 	}
 
+	# country shield in the battle log
 	containerWindowType = {
-		name = "waroverview_voter_entry"
+		name = "waroverview_battle_log_participant_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 32 height = 32 }
 		moveable = no
 		orientation = center
 
 		buttonType = {
-			name = "country"
-			quadTextureSprite = "GFX_empire_flag_32"
-			position = { x = 0 y = 0 }
-		}
-	}
-
-	containerWindowType = {
-		name = "waroverview_country_entry"
-		position = { x = 0 y = 0 }
-		size = { width = 32 height = 32 }
-		moveable = no
-		orientation = center
-
-		buttonType = {
-			name = "country"
+			name = "flag"
 			quadTextureSprite = "GFX_empire_flag_32"
 			position = { x = 0 y = 0 }
 			scale = 0.7
 		}
 	}
 
+	# battle log row
 	containerWindowType = {
 		name = "waroverview_battle_entry"
-		position = { x = -60 y = 0 }
-		size = { width = 580 height = 40 }
-		moveable = no
+		size = { width = 620 height = 39 }
+
+		background = {
+			name = "background"
+			spriteType = "GFX_tiled_window_transparent"
+		}
 
 		buttonType = {
-			name = "background"
+			name = "frame"
 			spriteType = "GFX_tiles_frame_light"
-			size = { x = 612 y = 45 }
-			position = { x= -1 y = -2 }
+			size = { x = 618 y = 45 }
+			position = { x = -1 y = -2 }
+			alwaysTransparent = yes
 		}
 
 		instantTextBoxType = {
 			name = "encounter"
-			position = { x = 12 y = 5 }
+			position = { x = 12 y = 0 }
 			font = "cg_16b"
 			text = "ENCOUNTER"
-			maxWidth = 200
-			maxHeight = 30
+			maxWidth = 190
+			maxHeight = 40
 			fixedSize = yes
 			format = left
 			vertical_alignment = center
-		}
-
-		instantTextBoxType = {
-			name = "location"
-			position = { x = 340 y = 12 }
-			font = "cg_16b"
-			text = "LOCATION"
-			maxWidth = 130
-			maxHeight = 40
-			fixedSize = yes
-			format = left
-		}
-
-		instantTextBoxType = {
-			name = "score"
-			position = { x = 465 y = 12 }
-			font = "cg_16b"
-			text = "SCORE"
-			maxWidth = 50
-			maxHeight = 40
-			fixedSize = yes
-			format = center
-		}
-
-		instantTextBoxType = {
-			name = "result"
-			position = { x = 543 y = 12 }
-			font = "cg_16b"
-			text = "RESULT"
-			maxWidth = 50
-			maxHeight = 40
-			fixedSize = yes
-			format = center
+			alwaysTransparent = yes
 		}
 
 		overlappingElementsBoxType = {
-			name = "winners"
-			position = { x = 170 y = 10 }
-			size = { x = 80 y = 36 }
+			name = "left_side"
+			position = { x = 212 y = 10 }
+			size = { x = 53 y = 36 }
 			spacing = 0
 			format = right
 			orientation = "UPPER_LEFT"
 		}
-
 		instantTextBoxType = {
 			name = "vs"
-			position = { x = 243 y = 12 }
+			position = { x = 257 y = 12 }
 			font = "cg_16b"
 			text = "VS"
-			maxWidth = 15
+			maxWidth = 20
 			maxHeight = 40
 			fixedSize = yes
-			format = left
+			format = center
+			alwaysTransparent = yes
 		}
-
 		overlappingElementsBoxType = {
-			name = "losers"
-			position = { x = 260 y = 10 }
-			size = { x = 40 y = 36 }
+			name = "right_side"
+			position = { x = 280 y = 10 }
+			size = { x = 53 y = 36 }
 			spacing = 0
 			format = left
 			orientation = "UPPER_LEFT"
+		}
+
+		instantTextBoxType = {
+			name = "location"
+			position = { x = 326 y = 0 }
+			font = "cg_16b"
+			text = "LOCATION"
+			maxWidth = 120
+			maxHeight = 40
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "result"
+			position = { x = 448 y = -1 }
+			font = "cg_16b"
+			text = "RESULT"
+			maxWidth = 164
+			maxHeight = 42
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
 		}
 	}
 }

@@ -627,24 +627,6 @@ guiTypes = {
 			}
 
 			instantTextBoxType={
-				name = "ftl_method_label"
-				font = "malgun_goth_24"
-				position = { x = 50 y = -185 }
-				maxWidth = 446
-				maxHeight = 20
-				text = "SPECIES_SELECTION_FTL_METHOD_LABEL"
-				text_color_code = "E"
-			}
-
-			instantTextBoxType={
-				name = "ftl_method"
-				font = "malgun_goth_24"
-				position = { x = 230 y = -185 }
-				maxWidth = 446
-				maxHeight = 20
-			}
-
-			instantTextBoxType={
 				name = "ethics_label"
 				font = "malgun_goth_24"
 				position = { x = -150 y = -130 }
@@ -1115,35 +1097,6 @@ guiTypes = {
 				orientation = "UPPER_LEFT"
 			}
 
-			# Starting Weapons
-			instantTextBoxType = {
-				name = "pick_starting_weapons_label"
-				position = { x = -310 y = 120 }
-				font = "malgun_goth_24"
-				maxWidth = 204
-				maxHeight = 52
-				alwaysTransparent = yes
-				text = "STARTING_WEAPONS"
-				orientation = "UPPER_LEFT"
-			}
-
-			buttonType = {
-				name = "pick_starting_weapons"
-				position = { x = -99 y = 121 }
-				quadTextureSprite ="GFX_dropdown_button_104"
-			}
-
-			instantTextBoxType = {
-				name = "pick_starting_weapons_text"
-				position = { x = -90  y = 120 }
-				font = "malgun_goth_24"
-				maxWidth = 204
-				maxHeight = 52
-				alwaysTransparent = yes
-				orientation = "UPPER_LEFT"
-			}
-
-
 			# Dropdown lists have to be last to overlap previous elements
 			listboxType = {
 				name = "pick_ftl_method_list"
@@ -1156,14 +1109,6 @@ guiTypes = {
 			listboxType = {
 				name = "pick_name_list_list"
 				position = { x = -100  y = 95 }
-				size = { x = 204 y = 400 }
-				scrollbarType = "standardlistbox_slider"
-				alwaystransparent = yes
-			}
-
-			listboxType = {
-				name = "pick_starting_weapons_list"
-				position = { x = -100  y = 125 }
 				size = { x = 204 y = 400 }
 				scrollbarType = "standardlistbox_slider"
 				alwaystransparent = yes

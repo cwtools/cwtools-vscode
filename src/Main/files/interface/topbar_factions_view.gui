@@ -409,7 +409,7 @@ guiTypes = {
 		}		
 		
 		@demands_w = 306
-		@demands_h = 240
+		@demands_h = 246 # formerly 240
 		
 		containerWindowType = {
 			name = "demands"
@@ -453,6 +453,8 @@ guiTypes = {
 				position = { x = 0 y = 40 }
 				size = { x = @demands_w y = @demands_h }
 				spacing = -10
+				scrollbartype = "standardlistbox_slider"
+				autohide_scrollbar = yes
 			}
 		}		
 	}

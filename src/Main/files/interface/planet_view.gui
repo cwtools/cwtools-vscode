@@ -38,7 +38,7 @@ guiTypes = {
 	# moves planet_name and colony_rename_button if screen height is low
 	positionType = {
 		name = "planet_name_small_resolution_pos"
-		position = { x = 65 y = -3 }
+		position = { x = 13 y = -3 }
 	}
 
 	positionType = {
@@ -126,12 +126,6 @@ guiTypes = {
 		buttonType = {
 			name = "move_capital"
 			quadTextureSprite = "GFX_fleet_action_button_move_capital"
-			position = { x = 412 y = 8 }
-		}
-
-		buttonType = {
-			name = "rallypoint"
-			quadTextureSprite = "GFX_rallypoint_toggle_off"
 			position = { x = 447 y = 8 }
 		}
 
@@ -301,18 +295,6 @@ guiTypes = {
 			name = "healthbar"
 			spriteType = "GFX_infra_progressbar"
 			position = { x = 53 y = 45 }
-		}
-
-		instantTextBoxType = {
-			name = "info"
-			font = "cg_16b"
-			position = { x = 125 y = 70 }
-			maxWidth = 300
-			maxHeight = 100
-			fixedSize = yes
-			format = center
-			orientation = upper_left
-			#alwaysTransparent = yes
 		}
 	}
 
@@ -1467,7 +1449,7 @@ guiTypes = {
 		}
 
 		# Control Buttons
-
+		
 		buttonType = {
 			name = "embark_all_button"
 			quadTextureSprite = "GFX_button_150_24"
@@ -1486,7 +1468,7 @@ guiTypes = {
 			position = { x = -11 y = -32  }
 			orientation = lower_left
 			font = "cg_16b"
-			text = "PLANET_VIEW_LAND_ALL"
+			text = "PLANET_VIEW_ATTACK"
 			clicksound = click_land_all
 			shortCut = "t"
 		}
@@ -1494,9 +1476,9 @@ guiTypes = {
 		# Planetary fortifications
 
 		instantTextBoxType = {
-			name = "planet_fortifications"
+			name = "planet_health"
 			font = "cg_16b"
-			text = "PLANET_FORTIFICATIONS_INFO"
+			text = "PLANET_DAMAGE_INFO"
 			position = { x = -105 y = -50 }
 			maxWidth = 200
 			fixedSize = yes
@@ -1506,10 +1488,34 @@ guiTypes = {
 		}
 		
 		instantTextBoxType = {
-			name = "planet_armies"
+			name = "combat_width"
 			font = "cg_16b"
 			text = "PLANET_ARMIES_INFO"
+			position = { x = -105 y = -30 }
+			maxWidth = 200
+			fixedSize = yes
+			format = center
+			orientation = center_down
+			#alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "garrison_power"
+			font = "cg_16b"
+			text = "Garrison Power: 12"
 			position = { x = -105 y = -10 }
+			maxWidth = 200
+			fixedSize = yes
+			format = center
+			orientation = center_down
+			#alwaysTransparent = yes
+		}
+
+		instantTextBoxType = {
+			name = "invader_power"
+			font = "cg_16b"
+			text = "Invader Strength 12"
+			position = { x = -105 y = 10 }
 			maxWidth = 200
 			fixedSize = yes
 			format = center
@@ -1546,7 +1552,7 @@ guiTypes = {
 
 		buttonType = {
 			name = "toggle_ground_support"
-			quadTextureSprite = "GFX_fleet_order_button_ground_support_soft"
+			quadTextureSprite = "GFX_fleet_order_button_ground_support_selective"
 			position = { x = -109 y = -30 }
 			orientation = lower_right
 			clicksound = outliner_click_tab
@@ -2519,13 +2525,12 @@ guiTypes = {
 			position = { x = -5 y = 0 }
 		}
 
-
 		instantTextBoxType = {
 			name = "tile_description_label"
 			font = "cg_16b"
 			text = "TERRAIN_DETAILS_HEADER"
 			position = { x = 12 y = 12 }
-			maxWidth = 344
+			maxWidth = 110
 			maxHeight = 40
 			fixedSize = yes
 			format = left
@@ -2538,19 +2543,19 @@ guiTypes = {
 		iconType = {
 			name = "icon"
 			spriteType = "GFX_tile_background"
-			position = { x = 13 y = 34 }
+			position = { x = 13 y = 55 }
 		}
 
 		iconType = {
 			name = "tile_blocker_clearable"
-			position = { x = 13 y = 34 }
+			position = { x = 13 y = 55 }
 			spriteType = "GFX_tile_frame_blocker_clearable"
 			alwaysTransparent = yes
 		}
 
 		iconType = {
 			name = "tile_blocker"
-			position = { x = 13 y = 34 }
+			position = { x = 13 y = 55 }
 			spriteType = "GFX_tile_frame_blocker"
 			alwaysTransparent = yes
 		}
@@ -2558,7 +2563,7 @@ guiTypes = {
 		# Tile Output
 		iconType = {
 			name = "output_bar"
-			position = { x = 13 y = 112 }
+			position = { x = 13 y = 133 }
 			spriteType = "GFX_tile_output"
 			#alwaysTransparent = yes
 		}
@@ -2566,8 +2571,7 @@ guiTypes = {
 		overlappingElementsBoxType = {
 			name = "output_box"
 			size = { x = 98 y = 0 }
-			position = { x = 13 y = 112 }
-			orientation = upper_left
+			position = { x = 13 y = 133 }
 			spacing = 0
 			format = center
 		}
@@ -2575,7 +2579,7 @@ guiTypes = {
 		iconType = {
 			name = "frame"
 			spriteType = "GFX_tile_frame"
-			position = { x = 12 y = 33 }
+			position = { x = 12 y = 54 }
 			alwaysTransparent = yes
 		}
 
@@ -2663,192 +2667,6 @@ guiTypes = {
 			name = "city_frame"
 			spriteType = "GFX_city_frame"
 			position = { x = -4 y = 9 }
-		}
-	}
-
-	# Spaceport
-	containerWindowType = {
-		name = "planet_view_module_spaceport_unconstructed"
-		size = { width = @module_width height = 330 }
-		clipping = yes
-
-		background = {
-			name = "planet_view_module_spaceport_unconstructed_background"
-			spriteType = "GFX_tiles_frame"
-		}
-
-		instantTextBoxType = {
-			name = "title"
-			font = "malgun_goth_24"
-			text = "PLANETVIEW_SPACEPORT_TITLE"
-			position = { x = -100 y = 5 }
-			maxWidth = 200
-			maxHeight = 40
-			fixedSize = yes
-			format = center
-			orientation = center_up
-		}
-
-		instantTextBoxType = {
-			name = "description"
-			font = "cg_16b"
-			text = "PLANETVIEW_SPACEPORT_DESCRIPTION"
-			position = { x = -200 y = 40 }
-			maxWidth = 400
-			maxHeight = 200
-			fixedSize = yes
-			format = center
-			orientation = center_up
-			alwaysTransparent = yes
-		}
-
-		instantTextBoxType = {
-			name = "constructing_orbital_main_weapon"
-			font = "malgun_goth_24"
-			text = "SELECT_INITIAL_MODULE"
-			position = { x = 0 y = -210 }
-			maxWidth = @module_width
-			maxHeight = 20
-			Orientation = "LOWER_LEFT"
-			format = center
-			text_color_code = "G"
-		}
-
-		overlappingElementsBoxType = {
-			name = "modules"
-			position = { x = 18 y = -185}
-			size = { x = 500 y = 0 }
-			format = center
-			spacing = 2
-			orientation = "LOWER_LEFT"
-		}
-
-		buttonType = {
-			name = "build"
-			quadTextureSprite = "GFX_button_animated_265_80"
-			position = { x = 110 y = -130  }
-			orientation = center_down
-			font = "malgun_goth_24"
-			buttonText = "BUILD_SPACEPORT"
-			clicksound = planet_view_menu_slide
-			shortcut = "b"
-			orientation = "LOWER_LEFT"
-		}
-
-		instantTextBoxType = {
-			name = "cost"
-			font = "cg_16b"
-			text = "COST"
-			position = { x = -200 y = -40 }
-			maxWidth = 400
-			maxHeight = 200
-			fixedSize = yes
-			format = center
-			orientation = center_down
-			alwaysTransparent = yes
-		}
-
-	}
-
-	# Unconstructed spaceport module entry
-	containerWindowType = {
-		name = "planet_view_selectable_module_entry"
-		size = { width = 55 height = 55 }
-
-		iconType = {
-			name = "icon"
-			spriteType = "GFX_spaceport_modules"
-			#position = { x = -3 y = -3 }
-			tooltip_mode_enabled = yes
-		}
-
-		iconType = {
-			name = "production_error"
-			spriteType = "GFX_disabled_building"
-			position = { x = 30 y = 30 }
-			scale = 0.75
-			tooltip_mode_enabled = yes
-		}
-
-		containerWindowType = {
-			name = "selected_overlay"
-			position = { x = 3 y = 3 }
-			size = { width = 52 height = 52 }
-
-			background = {
-				name = "drop_area_background"
-				quadTextureSprite = "GFX_drop_area_green"
-				alwaysTransparent = yes
-			}
-		}
-	}
-
-	# Spaceport under construction
-	containerWindowType = {
-		name = "planet_view_module_spaceport_under_construction"
-		size = { width = @module_width height = 330 }
-
-		background = {
-			name = "planet_view_module_spaceport_under_construction_background"
-			spriteType = "GFX_tiles_frame"
-		}
-
-		instantTextBoxType = {
-			name = "constructing_orbital_label"
-			font = "malgun_goth_24"
-			text = "CONSTRUCTING_ORBITAL"
-			position = { x = 10 y = 25 }
-			maxWidth = 525
-			maxHeight = 20
-			Orientation = "UPPER_LEFT"
-			format = center
-		}
-
-		instantTextBoxType = {
-			name = "progresstext"
-			font = "cg_16b"
-			text = ""
-			position = { x = -200 y = 70 }
-			maxWidth = 400
-			maxHeight = 200
-			fixedSize = yes
-			format = center
-			orientation = center_up
-			alwaysTransparent = yes
-		}
-
-		iconType = {
-			name = "progressbar"
-			spriteType = "GFX_infra_progressbar"
-			orientation = center_up
-			position = { x = -216 y = 130 }
-		}
-
-		instantTextBoxType = {
-			name = "constructing_orbital_initial_module"
-			font = "malgun_goth_24"
-			text = "INITIAL_MODULE"
-			position = { x = 0 y = 150 }
-			maxWidth = @module_width
-			maxHeight = 20
-			orientation = "UPPER_LEFT"
-			format = center
-		}
-
-		iconType = {
-			name = "module"
-			spriteType = "GFX_spaceport_modules"
-			position = { x = -29 y = 180 }
-			orientation = center_up
-		}
-
-		buttonType = {
-			name = "cancel"
-			quadTextureSprite = "GFX_button_animated_265_80"
-			position = { x = -159 y = -110  }
-			orientation = center_down
-			font = "malgun_goth_24"
-			text = "CANCEL"
 		}
 	}
 
@@ -2963,131 +2781,7 @@ guiTypes = {
 			text_color_code = "E"
 		}
 	}
-
-	# Spaceport Panel Module Current
-	containerWindowType = {
-		name = "planet_view_modules_panel_current"
-		size = { width = @tile_info_module_width height = 100 }
-
-		background = {
-			name = "orbitals_background"
-			spriteType = "GFX_tiles_frame"
-		}
-
-		iconType = {
-			name = "icon"
-			spriteType = "GFX_spaceport_modules"
-			position = { x = 5 y = 5 }
-		}
-
-		instantTextBoxType={
-			name = "name"
-			font = "cg_16b"
-			text = "NAME"
-			position = { x = 60 y = 5 }
-			orientation = upper_left
-			maxWidth = 210
-			maxHeight = 20
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
-			text_color_code = "H"
-		}
-
-		instantTextBoxType={
-			name = "desc"
-			font = "cg_16b"
-			text = "DESC"
-			position = { x = 60 y = 25 }
-			orientation = upper_left
-			maxWidth = 210
-			maxHeight = 100
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
-			text_color_code = "E"
-		}
-	}
-
-	# Spaceport Panel Module Buildables
-	containerWindowType = {
-		name = "planet_view_modules_panel_buildables"
-		size = { width = @tile_info_module_width height = 100 }
-		show_sound = "planet_view_menu_slide"
-
-		background = {
-			name = "orbitals_background"
-			spriteType = "GFX_tiles_frame"
-		}
-
-		smoothListBoxType = {
-			name = "entries"
-			position = { x = 5 y = 5 }
-			orientation = upper_left
-			size = { x = 307 y = 90 }
-			borderSize = { x = 0 y = 0 }
-			scrollbartype = "standardlistbox_slider"
-			autohide_scrollbar = no
-			spacing = 5
-		}
-	}
-
-	# Spaceport Panel Module Buildables Entry
-	containerWindowType = {
-		name = "planet_view_modules_panel_buildables_entry"
-		size = { width = 305 height = 60 }
-
-		background = {
-			name = "orbitals_background"
-			spriteType = "GFX_tiles_frame"
-			clicksound = queing_spaceport_module
-		}
-
-		iconType = {
-			name = "icon"
-			spriteType = "GFX_spaceport_modules"
-			position = { x = 1 y = 1 }
-			alwaysTransparent = yes
-			tooltip_mode_enabled = yes
-		}
-
-		instantTextBoxType={
-			name = "name"
-			font = "cg_16b"
-			text = "NAME"
-			text_color_code = "H"
-			position = { x = 60 y = 5 }
-			orientation = upper_left
-			maxWidth = 240
-			maxHeight = 20
-			fixedSize = yes
-			format = centre
-			alwaysTransparent = yes
-			text_color_code = "H"
-		}
-
-		instantTextBoxType={
-			name = "desc"
-			font = "cg_16b"
-			text = "DESC"
-			position = { x = 60 y = 28 }
-			orientation = upper_left
-			maxWidth = 240
-			maxHeight = 80
-			fixedSize = yes
-			format = centre
-			alwaysTransparent = yes
-		}
-
-		iconType = {
-			name = "missing_resources"
-			orientation = UPPER_RIGHT
-			position = { x = -38 y = 25 }
-			spriteType = "GFX_missing_resources_icon"
-			tooltip_mode_enabled = yes
-		}
-	}
-
+	
 	# Spaceport
 	containerWindowType = {
 		name = "planet_view_module_spaceport"
@@ -3097,34 +2791,6 @@ guiTypes = {
 		containerWindowType = {
 			name = "topbar"
 			size = { width = @module_width height = 80 }
-
-			buttonType = {
-				name = "info_button"
-				spriteType = "GFX_standard_button_142_34_button"
-				position = { x = -10 y = -5 }
-				font = "malgun_goth_24"
-				buttonText = "DETAILS"
-				oversound = menu_over_01
-			}
-
-			buttonType = {
-				name = "dismantle_button"
-				spriteType = "GFX_standard_button_142_34_button"
-				position = { x = -10 y = 35 }
-				font = "malgun_goth_24"
-				buttonText = "DISMANTLE"
-				oversound = menu_over_01
-			}
-
-			gridBoxType = {
-				name = "modules"
-				position = { x = 160 y = 7 }
-				slotSize = { width = 54 height = 54 }
-				format = "UPPER_LEFT"
-				#max_slots_horizontal = 0
-				#max_slots_vertical = 1
-				#size = { width = 516 height = 52 }
-			}
 		}
 
 		# Orbitals
@@ -3397,8 +3063,8 @@ guiTypes = {
 			name = "tile_description_label"
 			font = "cg_16b"
 			text = "TILE_DESCRIPTION_POP"
-			position = { x = 17 y = 12 }
-			maxWidth = 344
+			position = { x = 12 y = 12 }
+			maxWidth = 110
 			maxHeight = 40
 			fixedSize = yes
 			format = left
@@ -4018,7 +3684,7 @@ guiTypes = {
 		buttonType = {
 			name = "icon_frame"
 			spriteType = "GFX_tiles_frame_light"
-			size = { x = 100 y = 100 }
+			size = { x = 110 y = 100 }
 			alwaysTransparent = yes
 		}
 
@@ -4134,7 +3800,7 @@ guiTypes = {
 		buttonType = {
 			name = "icon_frame"
 			spriteType = "GFX_tiles_frame_light"
-			size = { x = 100 y = 100 }
+			size = { x = 110 y = 100 }
 			alwaysTransparent = yes
 		}
 
@@ -4988,7 +4654,7 @@ guiTypes = {
 
 			smoothListboxType = {
 				name = "entries"
-				size = { x = 220 y = 125  }
+				size = { x = 220 y = 126  }
 				position = { x = 5 y = 8 }
 				scrollbarType = "standardlistbox_slider"
 				borderSize = { x = 0 y = 0 }
@@ -5059,7 +4725,6 @@ guiTypes = {
 		background = {
 			name = "armies_current_entry_background"
 			quadTextureSprite = "GFX_dark_area_cut"
-			clicksound = click_army_select
 		}
 
 		iconType = {
@@ -5111,6 +4776,15 @@ guiTypes = {
 			text = "Species"
 			text_color_code = "E"
 		}
+		
+		buttonType = {
+			name = "inspect_army"
+			quadTextureSprite = "GFX_fleetview_inspect_army"
+			position = { x = 183 y = 18 }
+			Orientation = "UPPER_LEFT"
+			buttonFont = "cg_16b"
+			clicksound = click_army_select
+		}	
 	}
 
 	containerWindowType = {
@@ -5236,8 +4910,8 @@ guiTypes = {
 		instantTextBoxType={
 			name = "cost"
 			font = "cg_16b"
-			position = { x = 258 y = 10 }
-			maxWidth = 60
+			position = { x = 222 y = 10 }
+			maxWidth = 100
 			fixedSize = yes
 			format = right
 		}
@@ -5250,6 +4924,7 @@ guiTypes = {
 			fixedSize = yes
 			format = right
 			text = "ACTIVE_GREEN"
+			alwaysTransparent = yes
 		}
 
 		buttonType = {
@@ -5295,30 +4970,6 @@ guiTypes = {
 			text_color_code = "E"
 		}
 
-		instantTextBoxType={
-			name = "planet_label"
-			font = "cg_16b"
-			position = { x = 85 y = 52 }
-			maxWidth = 288
-			maxHeight = 22
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
-			text = "PLANET_CAP"
-		}
-
-		instantTextBoxType={
-			name = "planet"
-			font = "cg_16b"
-			position = { x = 85 y = 68 }
-			maxWidth = 288
-			maxHeight = 22
-			fixedSize = yes
-			format = left
-			alwaysTransparent = yes
-			text_color_code = "E"
-		}
-
 		containerWindowType = {
 			name = "portrait_window"
 			position = { x = 12 y = 12 }
@@ -5353,7 +5004,7 @@ guiTypes = {
 			font = "cg_16b"
 		}
 	}
-		
+			
 
 	containerWindowType = {
 		name = "create_vassal_window"
@@ -5405,11 +5056,83 @@ guiTypes = {
 			alwaysTransparent = yes
 		}
 
+		instantTextBoxType={
+			name = "empire_name_label"
+			font = "malgun_goth_24"
+			position = { x = 19 y = 96 }
+			maxWidth = 288
+			maxHeight = 22
+			fixedSize = yes
+			format = left
+			text = "CREATE_VASSAL_NAME"
+			alwaysTransparent = yes
+			text_color_code = "E"
+		}	
+
+		buttonType = {
+			name = "empire_name_bg"
+			position = { x = 74 y = 96 }
+			size = { x = 280 y = 28 }
+			spriteType = "GFX_tiles_dark_area_cut_8"
+			alwaysTransparent = yes
+		}			
+		
+		editBoxType = {
+			name = "empire_name"
+			position = { x = 84 y = 96 }
+			size = { x = 270 y = 24 }
+			font = "malgun_goth_24"
+			max_characters = 30
+		}
+
+		instantTextBoxType = {
+			name = "randomize_label"
+			position = { x = 350 y = 70 }
+			font = "malgun_goth_24"
+			maxWidth = 100
+			maxHeight = 52
+			format = center
+			orientation = "UPPER_LEFT"
+			text = "FE_RANDOMIZE"
+			tooltip_mode_enabled = yes
+		}		
+
+		buttonType = {
+			name = "randomize"
+			spriteType = "GFX_checkbox_20_20_01"
+			position = { x = 385 y = 95 }
+			orientation = "UPPER_LEFT"
+		}
+
+		instantTextBoxType={
+			name = "planet"
+			font = "malgun_goth_24"
+			position = { x = 19 y = 43 }
+			maxWidth = 288
+			maxHeight = 22
+			fixedSize = yes
+			format = left
+			alwaysTransparent = yes
+			text_color_code = "E"
+		}	
+
+		instantTextBoxType={
+			name = "system"
+			font = "malgun_goth_24"
+			position = { x = 19 y = 68 }
+			maxWidth = 288
+			maxHeight = 22
+			fixedSize = yes
+			format = left
+			alwaysTransparent = yes
+			text_color_code = "E"
+		}			
+
 		smoothListboxType = {
 			name = "list"
-			position = { x = 15 y = 60 }
+			position = { x = 15 y = 125 }
 			backGround=""
-			size = { x=437 y=385 }
+			size = { x=437 y=320 }
 			scrollbartype = "standardlistbox_slider"
 			borderSize = { x = 0 y = 0 }
 			orientation = "UPPER_LEFT"

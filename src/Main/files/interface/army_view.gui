@@ -1,9 +1,9 @@
 guiTypes = {
 	containerWindowType = {
 		name = "army_view"
-		position = { x = 0 y = 0 }
-		size = { width = 490 height = 220 }
-		orientation = upper_left
+		size = { width = 400 height = 220 }
+		orientation = center
+		origo = center
 		moveable = yes
 		clipping = no
 		
@@ -16,7 +16,7 @@ guiTypes = {
 		iconType = {
 			name = "title_line"
 			spriteType = "GFX_line"
-			position = { x = 3 y = 22 }
+			position = { x = 3 y = 28 }
 			alwaysTransparent = yes
 		}
 		
@@ -30,7 +30,7 @@ guiTypes = {
 		buttonType = {
 			name = "close"
 			quadTextureSprite = "GFX_close"
-			position = { x = -45 y = 12 }
+			position = { x = -40 y = 8 }
 			Orientation = "UPPER_RIGHT"
 			shortCut = "ESCAPE"
 			clicksound = "back_click"
@@ -40,15 +40,22 @@ guiTypes = {
 		buttonType = {
 			name = "disband"
 			quadTextureSprite = "GFX_fleet_disband"
-			position = { x= -68 y = 20 }
+			position = { x= -63 y = 20 }
 			Orientation = "UPPER_RIGHT"
 			buttonFont = "cg_16b"
 		}
 
+		buttonType = {
+			name = "army_rename_button"
+			quadTextureSprite = "gfx_transparency_button"
+			position = { x = 30 y = 5 }
+			size = { x = 200 y = 25 }
+		}		
+		
 		iconType = {
 			name = "army_icon"
 			spriteType = "GFX_army_icons"
-			position = { x = 10 y = 0 }
+			position = { x = 0 y = 0 }
 			frame = 2
 		}
 
@@ -56,7 +63,7 @@ guiTypes = {
 			name = "name"
 			font = "malgun_goth_24"
 			text = "-"
-			position = { x = 40 y = 7 }
+			position = { x = 35 y = 5 }
 			maxWidth = 300
 			maxHeight = 20
 			fixedSize = yes
@@ -190,7 +197,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "ARMY_VIEW_DMG"
 			appendtext = ":"
-			position = { x = @army_view_lables y = 130 }
+			position = { x = @army_view_lables y = 115 }
 			maxWidth = 150
 			maxHeight = 20
 			fixedSize = yes
@@ -202,7 +209,7 @@ guiTypes = {
 			name = "damage"
 			font = "cg_16b"
 			text = "-"
-			position = { x = @army_view_value y = 130 }
+			position = { x = @army_view_value y = 115 }
 			maxWidth = @army_view_value_width
 			maxHeight = 20
 			fixedSize = yes
@@ -210,13 +217,65 @@ guiTypes = {
 			orientation = "UPPER_LEFT"
 			text_color_code = "Y"
 		}
+		
+		instantTextBoxType = {
+			name = "morale_damage_label"
+			font = "cg_16b"
+			text = "ARMY_VIEW_MORALE_DMG"
+			appendtext = ":"
+			position = { x = @army_view_lables y = 130 }
+			maxWidth = 150
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		instantTextBoxType = {
+			name = "morale_damage"
+			font = "cg_16b"
+			text = "-"
+			position = { x = @army_view_value y = 130 }
+			maxWidth = @army_view_value_width
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+			orientation = "UPPER_LEFT"
+			text_color_code = "Y"
+		}		
 
+		instantTextBoxType = {
+			name = "collateral_damage_label"
+			font = "cg_16b"
+			text = "ARMY_VIEW_COLLATERAL_DMG"
+			appendtext = ":"
+			position = { x = @army_view_lables y = 145 }
+			maxWidth = 150
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+			orientation = "UPPER_LEFT"
+		}
+		
+		instantTextBoxType = {
+			name = "collateral_damage"
+			font = "cg_16b"
+			text = "-"
+			position = { x = @army_view_value y = 145 }
+			maxWidth = @army_view_value_width
+			maxHeight = 20
+			fixedSize = yes
+			format = right
+			orientation = "UPPER_LEFT"
+			text_color_code = "Y"
+		}				
+		
 		instantTextBoxType = {
 			name = "health_label"
 			font = "cg_16b"
 			text = "ARMY_VIEW_HEALTH"
 			appendtext = ":"
-			position = { x = @army_view_lables y = 145 }
+			position = { x = @army_view_lables y = 160 }
 			maxWidth = 100
 			maxHeight = 20
 			fixedSize = yes
@@ -228,7 +287,7 @@ guiTypes = {
 			name = "health"
 			font = "cg_16b"
 			text = "-"
-			position = { x = @army_view_value y = 145 }
+			position = { x = @army_view_value y = 160 }
 			maxWidth = @army_view_value_width
 			maxHeight = 20
 			fixedSize = yes
@@ -242,7 +301,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "ARMY_VIEW_MORALE"
 			appendtext = ":"
-			position = { x = @army_view_lables y = 160 }
+			position = { x = @army_view_lables y = 175 }
 			maxWidth = 150
 			maxHeight = 20
 			fixedSize = yes
@@ -254,7 +313,7 @@ guiTypes = {
 			name = "morale"
 			font = "cg_16b"
 			text = "-"
-			position = { x = @army_view_value y = 160 }
+			position = { x = @army_view_value y = 175 }
 			maxWidth = @army_view_value_width
 			maxHeight = 20
 			fixedSize = yes
@@ -268,7 +327,7 @@ guiTypes = {
 			font = "cg_16b"
 			text = "ARMY_VIEW_MAINTENANCE"
 			appendtext = ":"
-			position = { x = @army_view_lables y = 175 }
+			position = { x = @army_view_lables y = 190 }
 			maxWidth = 100
 			maxHeight = 20
 			fixedSize = yes
@@ -280,114 +339,13 @@ guiTypes = {
 			name = "maintenance"
 			font = "cg_16b"
 			text = "-"
-			position = { x = @army_view_value y = 175 }
+			position = { x = @army_view_value y = 190 }
 			maxWidth = @army_view_value_width
 			maxHeight = 20
 			fixedSize = yes
 			format = right
 			orientation = "UPPER_LEFT"
 			text_color_code = "Y"
-		}
-		
-	
-		## Attachments
-	
-		containerWindowType = {
-			name = "army_info_box2"
-			size = { width = 100 height = 85 }
-			position = { x = 380 y = 50 }
-			
-				background = {
-					name = "army_info2"
-					spriteType = "GFX_tiles_dark_area_cut_8"
-					alwaysTransparent = yes
-				}
-		}
-
-		containerWindowType = {
-			name = "army_attachments_container"
-			size = { width = 84 height = 84 }
-			position = { x = 410 y = 80 }
-			
-			gridBoxType = {
-				name = "attachments"
-				slotSize = { width = 40 height = 40 }
-				max_slots_horizontal = 2
-				max_slots_vertical = 2
-				format = "UPPER_LEFT"
-			}
-		}
-		
-		instantTextBoxType = {
-			name = "attachements_label"
-			font = "cg_16b"
-			text = "ARMY_ATTACHMENTS"
-			position = { x = 380 y = 55 }
-			maxWidth = 100
-			maxHeight = 20
-			fixedSize = yes
-			format = centre
-			orientation = "UPPER_LEFT"
-			text_color_code = "H"
-			appendtext = ":"
-		}
-
-		containerWindowType = {
-			name = "possible_attachments_window"
-			position = { x = 494 y = 0 }
-		#	position = { x = 235 y = 225 }
-			size = { width = 360 height = 220 }
-			orientation = upper_left
-			moveable = no
-			#verticalScrollBar = "right_vertical_slider"
-			
-			background = {
-				name = "possible_attachments_background"
-				quadTextureSprite = "GFX_tile_outliner_bg"
-			}
-			
-			iconType = {
-				name = "hex_bg"
-				spriteType = "GFX_hex_bg"
-				position = { x = -10 y = -12 }
-				alwaysTransparent = yes
-			}
-
-			buttonType = {
-				name = "close"
-				quadTextureSprite = "GFX_close"
-				position = { x = -45 y = 12 }
-				Orientation = "UPPER_RIGHT"
-				shortCut = "ESCAPE"
-				pdx_tooltip = "CLOSE_TITLE"
-				clicksound = "back_click"
-			}
-		
-			iconType = {
-				name = "icon_energy"
-				spriteType = "GFX_line"
-				position = { x = 0 y = 22 }
-			}
-
-			instantTextBoxType = {
-				name = "header"
-				font = "malgun_goth_24"
-				text = "ARMY_ATTACHMENTS_ATTACH"
-				position = { x = 9 y = 5 }
-				maxWidth = 218
-				maxHeight = 20
-				fixedSize = yes
-				format = left
-				orientation = "UPPER_LEFT"
-			}
-			
-			gridBoxType = {
-				position = { x = 9 y = 70 }
-				name = "attachments"
-				slotSize = { width = 40 height = 40 }
-				max_slots_horizontal = 8
-				format = "UPPER_LEFT"
-			}
 		}
 
 		# Leader area
@@ -509,29 +467,5 @@ guiTypes = {
 				format = left
 			}
 		}		
-	}
-	
-	# ARMY ATTACHMENT ENTRY
-	containerWindowType = {
-		name = "army_attachment_entry"
-		size = { width = 40 height = 40 }
-		
-		background = {
-			name = "army_attachment_entry_background"
-			spriteType = "GFX_army_attachment_slot"
-			clicksound = click_army_menu
-		}		
-		
-		iconType = {
-			name = "icon"
-			position = { x = 2 y = 2 }
-			quadTextureSprite = "GFX_army_attachment"
-			alwaysTransparent = yes
-		}
-		
-		iconType = {
-			name = "lock"
-			spriteType = "GFX_army_attachment_slot_lock"
-		}
 	}
 }

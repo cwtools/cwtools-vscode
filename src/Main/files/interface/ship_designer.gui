@@ -439,9 +439,9 @@ guiTypes = {
 				}
 
 				instantTextBoxType={
-					name = "combat_speed"
+					name = "speed"
 					font = "cg_16b"
-					text = "SHIP_STAT_COMBAT_SPEED"
+					text = "SHIP_STAT_SPEED"
 					position = { x= @label_x y= 325 }
 					maxWidth = 160
 					maxHeight = 20
@@ -450,7 +450,7 @@ guiTypes = {
 				}
 
 				instantTextBoxType={
-					name = "combat_speed_value"
+					name = "speed_value"
 					font = "cg_16b"
 					text = ""
 					position = { x= @value_x y= 325 }
@@ -1001,15 +1001,27 @@ guiTypes = {
 			position = { x= 207 y = @type_icon_y }
 		}
 		iconType = {
-			name ="aux_icon"
+			name ="titanic_icon"
 			spriteType = "GFX_component_slot_icons"
 			frame = 7
+			position = { x= 207 y = @type_icon_y }
+		}
+		iconType = {
+			name ="planet_killer_icon"
+			spriteType = "GFX_component_slot_icons"
+			frame = 8
+			position = { x= 207 y = @type_icon_y }
+		}
+		iconType = {
+			name ="aux_icon"
+			spriteType = "GFX_component_slot_icons"
+			frame = 9
 			position = { x= 129 y = @type_icon_y }
 		}
 		iconType = {
 			name ="strike_craft_icon"
 			spriteType = "GFX_component_slot_icons"
-			frame = 9
+			frame = 11
 			position = { x= 207 y = @type_icon_y }
 		}
 	}

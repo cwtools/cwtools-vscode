@@ -202,11 +202,6 @@ spriteTypes = {
 		}
 	}
 
-
-
-
-
-
 	spriteType = {
 		name = "GFX_fleet_order_button_ground_support_armageddon"
 		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_armageddon_action.dds"
@@ -226,10 +221,10 @@ spriteTypes = {
 			animationframes = { 1 2 3 }
 		}
 	}
-
+	
 	spriteType = {
-		name = "GFX_fleet_order_button_ground_support_full"
-		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_full_action.dds"
+		name = "GFX_fleet_order_button_ground_support_indiscriminate"
+		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_indiscriminate_action.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
 		animation = {
@@ -246,10 +241,10 @@ spriteTypes = {
 			animationframes = { 1 2 3 }
 		}
 	}
-
+	
 	spriteType = {
-		name = "GFX_fleet_order_button_ground_support_limited"
-		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_limited_action.dds"
+		name = "GFX_fleet_order_button_ground_support_raiding"
+		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_raiding_action.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
 		animation = {
@@ -265,11 +260,11 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 			animationframes = { 1 2 3 }
 		}
-	}
+	}	
 
 	spriteType = {
-		name = "GFX_fleet_order_button_ground_support_soft"
-		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_soft_action.dds"
+		name = "GFX_fleet_order_button_ground_support_selective"
+		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_selective_action.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
 		animation = {
@@ -308,8 +303,28 @@ spriteTypes = {
 	}
 
 	spriteType = {
-		name = "GFX_fleet_order_button_ground_support_full_selected"
-		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_full_selected.dds"
+		name = "GFX_fleet_order_button_ground_support_indiscriminate_selected"
+		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_indiscriminate_selected.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+	
+	spriteType = {
+		name = "GFX_fleet_order_button_ground_support_raiding_selected"
+		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_raiding_selected.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
 		animation = {
@@ -328,28 +343,8 @@ spriteTypes = {
 	}
 
 	spriteType = {
-		name = "GFX_fleet_order_button_ground_support_limited_selected"
-		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_limited_selected.dds"
-		effectFile = "gfx/FX/buttonstate.lua"
-		noOfFrames = 3
-		animation = {
-			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
-			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
-			animationrotation = 180.0
-			animationlooping = yes
-			animationtime = 12.0
-			animationdelay = 0.0
-			animationblendmode = "overlay"       #add, multiply, overlay
-			animationtype = "scrolling"      #scrolling, rotating, pulsing
-			animationrotationoffset = { x = 0.0 y = 0.0 }
-			animationtexturescale = { x = 1.0 y = 1.0 }
-			animationframes = { 1 2 3 }
-		}
-	}
-
-	spriteType = {
-		name = "GFX_fleet_order_button_ground_support_soft_selected"
-		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_soft_selected.dds"
+		name = "GFX_fleet_order_button_ground_support_selective_selected"
+		texturefile = "gfx/interface/fleet_view/fleet_task_ground_support_selective_selected.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
 		animation = {
@@ -508,12 +503,12 @@ spriteTypes = {
 		name = "GFX_fleet_disband"
 		texturefile = "gfx/interface/icons/delete.dds"
 	}
-
+	
 	spriteType = {
 		name = "GFX_building_icon"
 		texturefile = "gfx/interface/icons/building_icon.dds"
 	}
-
+	
 	spriteType = {
 		name = "GFX_fleetview_focus"
 		texturefile = "gfx/interface/fleet_view/fleet_action_button_focus_on.dds"
@@ -560,24 +555,28 @@ spriteTypes = {
 		noOfFrames = 3
 	}
 	
+	# Unused
 	spriteType = {
 		name = "GFX_rallypoint_toggle_off"
 		texturefile = "gfx/interface/fleet_view/GFX_rallypoint_toggle_off.dds"
 		noOfFrames = 3
 	}
 
+	# Unused
 	spriteType = {
 		name = "GFX_rallypoint_toggle_on"
 		texturefile = "gfx/interface/fleet_view/GFX_rallypoint_toggle_on.dds"
 		noOfFrames = 3
 	}
 	
+	# Unused
 	spriteType = {
 		name = "GFX_rallypoint_toggle_off_large"
 		texturefile = "gfx/interface/fleet_view/GFX_rallypoint_toggle_off_large.dds"
 		noOfFrames = 3
 	}
 
+	# Unused
 	spriteType = {
 		name = "GFX_rallypoint_toggle_on_large"
 		texturefile = "gfx/interface/fleet_view/GFX_rallypoint_toggle_on_large.dds"
@@ -825,6 +824,26 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_fleet_action_button_reinforce"
+		texturefile = "gfx/interface/fleet_view/fleet_action_button_reinforce.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"
+			animationtype = "scrolling"
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
 		name = "GFX_fleet_order_button_merge"
 		texturefile = "gfx/interface/fleet_view/fleet_action_button_merge_fleet.dds"
 		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
@@ -945,6 +964,46 @@ spriteTypes = {
 	}
 	
 	spriteType = {
+		name = "GFX_fleet_action_button_jump"
+		texturefile = "gfx/interface/fleet_view/fleet_action_button_jump.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+	
+	spriteType = {
+		name = "GFX_fleet_action_button_jump_selected"
+		texturefile = "gfx/interface/fleet_view/fleet_action_button_jump_selected.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
 		name = "GFX_fleet_order_button_follow_friendlies_off"
 		texturefile = "gfx/interface/fleet_view/fleet_action_button_take_point.dds"
 		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
@@ -1042,6 +1101,20 @@ spriteTypes = {
 			animationtexturescale = { x = 1.0 y = 1.0 }
 			animationframes = { 1 2 3 }
 		}
+	}
+
+	spriteType = {
+		name = "GFX_fleet_manager_plus"
+		texturefile = "gfx/interface/buttons/fleet_manager_plus.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+	}
+
+	spriteType = {
+		name = "GFX_fleet_manager_minus"
+		texturefile = "gfx/interface/buttons/fleet_manager_minus.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
 	}
 
 	spriteType = {
@@ -1143,6 +1216,46 @@ spriteTypes = {
 			animationframes = { 1 2 3 }
 		}
 	}
+	
+	spriteType = {
+		name = "GFX_delete_template_button"
+		texturefile = "gfx/interface/fleet_view/delete_template_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_fleet_manager_button"
+		texturefile = "gfx/interface/fleet_view/fleet_manager_button.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
 
 	spriteType = {
 		name = "GFX_fleetview_destroy_fleet_large"
@@ -1203,6 +1316,26 @@ spriteTypes = {
 			animationframes = { 1 2 3 }
 		}
 	}
+	
+	spriteType = {
+		name = "GFX_fleetview_inspect_army"
+		texturefile = "gfx/interface/fleet_view/fleet_action_inspect_army.dds"
+		effectFile = "gfx/FX/buttonstate_onlydisable.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/standard_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/standard_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}	
 
 	spriteType = {
 		name = "GFX_fleetview_inspect_ship"
@@ -1389,6 +1522,46 @@ spriteTypes = {
 	spriteType = {
 		name = "GFX_fleet_order_auto_explore_selected"
 		texturefile = "gfx/interface/fleet_view/fleet_task_auto_explore_selected.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_fleet_order_blow_up_planet_action"
+		texturefile = "gfx/interface/fleet_view/fleet_task_blow_up_planet_action.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_fleet_order_blow_up_planet_selected"
+		texturefile = "gfx/interface/fleet_view/fleet_task_blow_up_planet_selected.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
 		animation = {
@@ -1792,7 +1965,7 @@ spriteTypes = {
 	}
 
 	spriteType = {
-		name = "GFX_fleet_order_button_build_outpost_station"
+		name = "GFX_fleet_order_button_build_starbase_station"
 		texturefile = "gfx/interface/fleet_view/fleet_task_build_outpost_action.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
@@ -1812,7 +1985,7 @@ spriteTypes = {
 	}
 
 	spriteType = {
-		name = "GFX_fleet_order_button_build_outpost_station_selected"
+		name = "GFX_fleet_order_button_build_starbase_station_selected"
 		texturefile = "gfx/interface/fleet_view/fleet_task_build_outpost_selected.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
 		noOfFrames = 3
@@ -1972,6 +2145,46 @@ spriteTypes = {
 	}
 
 	spriteType = {
+		name = "GFX_fleet_order_button_destroy_planet"
+		texturefile = "gfx/interface/fleet_view/fleet_task_special_project_action.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
+		name = "GFX_fleet_order_button_destroy_planet_selected"
+		texturefile = "gfx/interface/fleet_view/fleet_task_special_project_selected.dds"
+		effectFile = "gfx/FX/buttonstate.lua"
+		noOfFrames = 3
+		animation = {
+			animationmaskfile = "gfx/interface/fleet_view/fleet_task_button_mask.dds"
+			animationtexturefile = "gfx/interface/fleet_view/action_button_texture.dds"
+			animationrotation = 180.0
+			animationlooping = yes
+			animationtime = 12.0
+			animationdelay = 0.0
+			animationblendmode = "overlay"       #add, multiply, overlay
+			animationtype = "scrolling"      #scrolling, rotating, pulsing
+			animationrotationoffset = { x = 0.0 y = 0.0 }
+			animationtexturescale = { x = 1.0 y = 1.0 }
+			animationframes = { 1 2 3 }
+		}
+	}
+
+	spriteType = {
 		name = "GFX_fleet_order_button_build_megastructure_selected"
 		texturefile = "gfx/interface/fleet_view/fleet_order_button_build_megastructure_selected.dds"
 		effectFile = "gfx/FX/buttonstate.lua"
@@ -1997,10 +2210,21 @@ spriteTypes = {
 		colortwo = { 1.0 1.0 1.0 }
 		textureFile1 = "gfx/interface/progressbars/fleet_health_full.dds"
 		textureFile2 = "gfx/interface/progressbars/fleet_empty.dds"
-		size = { x = 10 y = 40 }
+		size = { x = 7 y = 40 }
 		effectFile = "gfx/FX/progress.lua"
 		horizontal = no
 	}
+
+	progressbarType = {
+		name = "GFX_fleet_view_armor"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/fleet_armor_full.dds"
+		textureFile2 = "gfx/interface/progressbars/fleet_empty.dds"
+		size = { x = 7 y = 40 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = no
+	}	
 
 	progressbarType = {
 		name = "GFX_fleet_view_shields"
@@ -2008,7 +2232,7 @@ spriteTypes = {
 		colortwo = { 1.0 1.0 1.0 }
 		textureFile1 = "gfx/interface/progressbars/fleet_shields_full.dds"
 		textureFile2 = "gfx/interface/progressbars/fleet_empty.dds"
-		size = { x = 10 y = 40 }
+		size = { x = 7 y = 40 }
 		effectFile = "gfx/FX/progress.lua"
 		horizontal = no
 	}	
@@ -2019,7 +2243,18 @@ spriteTypes = {
 		colortwo = { 1.0 1.0 1.0 }
 		textureFile1 = "gfx/interface/progressbars/fleet_health_full.dds"
 		textureFile2 = "gfx/interface/progressbars/fleet_empty.dds"
-		size = { x = 7 y = 40 }
+		size = { x = 5 y = 40 }
+		effectFile = "gfx/FX/progress.lua"
+		horizontal = no
+	}
+
+	progressbarType = {
+		name = "GFX_fleet_view_armor_2"
+		color = { 1.0 1.0 1.0 }
+		colortwo = { 1.0 1.0 1.0 }
+		textureFile1 = "gfx/interface/progressbars/fleet_armor_full.dds"
+		textureFile2 = "gfx/interface/progressbars/fleet_empty.dds"
+		size = { x = 5 y = 40 }
 		effectFile = "gfx/FX/progress.lua"
 		horizontal = no
 	}
@@ -2030,7 +2265,7 @@ spriteTypes = {
 		colortwo = { 1.0 1.0 1.0 }
 		textureFile1 = "gfx/interface/progressbars/fleet_shields_full.dds"
 		textureFile2 = "gfx/interface/progressbars/fleet_empty.dds"
-		size = { x = 7 y = 40 }
+		size = { x = 5 y = 40 }
 		effectFile = "gfx/FX/progress.lua"
 		horizontal = no
 	}
@@ -2076,12 +2311,21 @@ spriteTypes = {
 		textureFile = "gfx/interface/fleet_view/unknown_fleet_neutral.dds"
 	}
 	
+	spriteType = {
+		name = "GFX_fleet_manager_fleet_bg"
+		textureFile = "gfx/interface/fleet_view/fleet_manager_fleet_bg.dds"
+	}
+	
 	#Arrows exclusively for buttons with dropdown effect
 	spriteType = {
 		name = "GFX_dropdown_indicator"
 		textureFile = "gfx/interface/icons/dropdown_indicator.dds"
 		noOfFrames = 2
 	}
-	
-	
+
+	spriteType = {
+		name = "GFX_fleet_view_upgradable_design"
+		textureFile = "gfx/interface/outliner/outliner_upgradable_design.dds"
+		noOfFrames = 2
+	}
 }

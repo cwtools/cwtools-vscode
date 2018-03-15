@@ -103,123 +103,127 @@ guiTypes = {
 							spriteType = "GFX_tiles_dark_area_cut_8"
 						}
 				}
-				
-				
-				iconType = {
-					name = "info_bg_03"
-					position = { x = 83 y = 264 }
-					quadTextureSprite = "GFX_value_slot_short"
-				}
 
-				iconType = {
-					name = "info_bg_04"
-					quadTextureSprite = "GFX_value_slot_short"
-					position = { x = 83 y = 301 }
-				}
 
-				iconType = {
-					name = "colonies_icon"
-					quadTextureSprite = "GFX_colonies"
-					position = { x =84 y = 267 }
-					pdx_tooltip = "ZOOM_TO_PLANET"
-				}
-				
-				instantTextBoxType={
-					name = "colonies"
-					font = "cg_16b"
-					maxWidth = 30
-					position = { x = 143 y = 271 }
-					format = RIGHT
-				}
-
-				iconType = {
-					name = "population_icon"
-					quadTextureSprite = "GFX_population"
-					position = { x = 89 y = 299 }
-					pdx_tooltip = "ZOOM_TO_PLANET"
-				}
-
-				instantTextBoxType={
-					name = "population"
-					font = "cg_16b"
-					maxWidth = 30
-					position = { x = 144 y = 309 }
-					format = RIGHT
-				}
-				
 				containerWindowType = {
-					name = "attitude_window"
-					position = { x=193 y= 301 }
-					size = { width = 154 height = 30 }
+					name = "diplo_stats"
+					position = { x = 83 y = 231 }
 
-					backGround ={
-						name = "background"
-						quadTextureSprite = "GFX_invisible"
-						position = { x = 0 y = 0 }
+					# planets
+					containerWindowType = {
+						name = "planets"
+						position = { x = 0 y = 33 }
+						size = { width = 94 height = 30 }
+
+						background = {
+							name = "background"
+							spriteType = "GFX_value_slot_short"
+						}
+
+						iconType = {
+							name = "icon"
+							spriteType = "GFX_colonies"
+							position = { x = 0 y = 3 }
+							alwaysTransparent = yes
+						}
+
+						instantTextBoxType = {
+							name = "label"
+							font = "cg_16b"
+							maxWidth = 60
+							position = { x = 30 y = 7 }
+							format = right
+							alwaysTransparent = yes
+						}
 					}
 
-					iconType = {
-						name = "bg_img"
-						quadTextureSprite = "GFX_value_slot"
-						position = { x = 0 y = 0 }
-						alwaystransparent = yes
+					# pops
+					containerWindowType = {
+						name = "pops"
+						position = { x = 0 y = 70 }
+						size = { width = 94 height = 30 }
+
+						background = {
+							name = "background"
+							spriteType = "GFX_value_slot_short"
+						}
+
+						iconType = {
+							name = "icon"
+							spriteType = "GFX_population"
+							position = { x = 5 y = -1 }
+							alwaysTransparent = yes
+						}
+
+						instantTextBoxType = {
+							name = "label"
+							font = "cg_16b"
+							maxWidth = 60
+							position = { x = 30 y = 7 }
+							format = right
+							alwaysTransparent = yes
+						}
 					}
 
-					instantTextBoxType={
-						name = "attitude"
-						font = "cg_16b"
-						format = right
-						multiline = no
-						maxWidth = 110
-						position = { x = 12 y = 7 }
-						text = "TEST"
-						alwaystransparent = yes
-					}
-
-					iconType = {
-						name = "attitude_icon"
-						quadTextureSprite = "GFX_attitude"
-						position = { x = 5 y = 5 }
-						alwaystransparent = yes
-					}
-				}
-				
-				containerWindowType = {
-					name = "power_window"
-					position = { x=193 y= 264 }
-					size = { width = 154 height = 30 }
-
-					backGround ={
-						name = "background"
-						quadTextureSprite = "GFX_invisible"
-						position = { x = 0 y = 0 }
-					}
-
-					iconType = {
-						name = "bg_img"
-						quadTextureSprite = "GFX_value_slot"
-						position = { x = 0 y = 0 }
-						alwaystransparent = yes
-					}
-
-					instantTextBoxType={
+					# power
+					containerWindowType = {
 						name = "power"
-						font = "cg_16b"
-						format = right
-						multiline = no
-						maxWidth = 110
-						position = { x = 12 y = 7 }
-						text = "TEST"
-						alwaystransparent = yes
+						position = { x = 110 y = 33 }
+						size = { width = 154 height = 30 }
+
+						background = {
+							name = "background"
+							spriteType = "GFX_value_slot"
+						}
+
+						iconType = {
+							name = "icon"
+							spriteType = "GFX_relative_power_icon"
+							position = { x = 3 y = 3 }
+							alwaysTransparent = yes
+						}
+
+						instantTextBoxType = {
+							name = "label"
+							font = "cg_16b"
+							maxWidth = 100
+							maxHeight = 20
+							position = { x = 21 y = 7 }
+							format = right
+							alwaysTransparent = yes
+						}
 					}
 
-					iconType = {
-						name = "power_icon"
-						quadTextureSprite = "GFX_relative_power_icon"
-						position = { x = 4 y = 3 }
-						alwaystransparent = yes
+					# attitude
+					containerWindowType = {
+						name = "attitude"
+						position = { x = 110 y = 70 }
+						size = { width = 154 height = 30 }
+
+						background = {
+							name = "background"
+							spriteType = "GFX_value_slot"
+						}
+
+						iconType = {
+							name = "icon"
+							spriteType = "GFX_attitude"
+							position = { x = 5 y = 5 }
+							alwaysTransparent = yes
+						}
+
+						instantTextBoxType = {
+							name = "label"
+							font = "cg_16b"
+							maxWidth = 100
+							maxHeight = 20
+							position = { x = 21 y = 7 }
+							format = right
+							alwaysTransparent = yes
+						}
 					}
 				}
+
 				
 				OverlappingElementsBoxType = {
 					name = "selected_empire_ethics_icons"
@@ -251,7 +255,7 @@ guiTypes = {
 					name = "selected_empire_government_type"
 					font = "cg_16b"
 					position = { x = 28 y = 219	}
-					maxWidth = 180
+					maxWidth = 200
 					maxHeight = 32
 					format = LEFT
 					text_color_code = "E"
@@ -261,7 +265,7 @@ guiTypes = {
 					name = "selected_empire_personality_type"
 					font = "cg_16b"
 					position = { x = 28 y = 236	}
-					maxWidth = 190
+					maxWidth = 200
 					maxHeight = 32
 					text = "Despicable Neutrals"
 					format = left
@@ -298,21 +302,21 @@ guiTypes = {
 				
 				containerWindowType = {
 					name = "detailed_diplomacy_window"
-					size = { width = 285 height = 188}
-					position = { x = 25 y = 360 }
+					size = { width = 285 height = 218}
+					position = { x = 25 y = 340 }
 					clipping = yes
 
 					iconType = {
 						name = "value_slot_2"
 						spriteType = "GFX_value_slot_2"
-						position = { x = -4 y = 33 }
+						position = { x = -4 y = 32 }
 						alwaystransparent = yes
 					}
 					
 					iconType = {
 						name = "value_slot_3"
 						spriteType = "GFX_value_slot_2"
-						position = { x = -4 y = 150					}
+						position = { x = -4 y = 144	}
 						alwaystransparent = yes
 					}
 
@@ -320,7 +324,7 @@ guiTypes = {
 						name = "diplomatic_status"
 						font = "malgun_goth_24"
 						text = "DIPLO_STATUS"
-						position = { x = 0 y = 0 }
+						position = { x = 0 y = 3 }
 						maxWidth = 250
 						maxHeight = 32
 						format = LEFT
@@ -328,8 +332,8 @@ guiTypes = {
 
 					smoothListboxType = {
 						name = "detailed_diplomacy_list"
-						position = { x = 5 y = 31 }
-						size = { x = 280 y = 156 }
+						position = { x = 5 y = 32 }
+						size = { x = 280 y = 184 }
 						scrollbarType = "standardlistbox_slider"
 					}
 				}
@@ -339,10 +343,10 @@ guiTypes = {
 					font = "cg_16b"
 					spriteType = "GFX_standard_button_142_34_button"
 					buttonText = "GALAXY_VIEW_EMPIRE_DIPLOMACY"
-					position = { x = 155 y = 550 }
+					position = { x = 155 y = 556 }
 				}
 			}
-			
+
 			containerWindowType = {
 				name = "empire_profile_minimalist"
 			
@@ -383,8 +387,6 @@ guiTypes = {
 					position = { x = 155 y = 550 }
 				}
 			}
-
-
 
 			containerWindowType = {
 				name = "empire_list"
@@ -511,10 +513,10 @@ guiTypes = {
 			buttonType={
 				name = "status"
 				font = "cg_16b"
-				spriteType = "GFX_galactic_object_button"
-				#spriteType = "GFX_button_150_24"
+				#spriteType = "GFX_galactic_object_button"
+				spriteType = "GFX_button_164_24"
 				buttonText = "GALAXY_VIEW_EMPIRE_STATUS"
-				position = { x = 656 y = 40 }
+				position = { x = 656 y = 33 }
 				pdx_tooltip = "GALAXY_VIEW_SORT_DIPLOMACY"
 			}
 
@@ -523,7 +525,7 @@ guiTypes = {
 				font = "cg_16b"
 				spriteType = "GFX_button_150_24"
 				buttonText = "RELATIVE_POWER"
-				position = { x = 927 y = @sort_button_height }
+				position = { x = 823 y = @sort_button_height }
 				pdx_tooltip = "GALAXY_VIEW_SORT_POWER"
 			}
 
@@ -532,8 +534,17 @@ guiTypes = {
 				font = "cg_16b"
 				spriteType = "GFX_button_150_24"
 				buttonText = "GALAXY_VIEW_EMPIRE_ALLIANCE_FEDERATION"
-				position = { x = 1080 y = @sort_button_height }
+				position = { x = 976 y = @sort_button_height }
 				pdx_tooltip = "GALAXY_VIEW_SORT_ALLIANCE_OR_FEDERATION"
+			}
+
+			buttonType={
+				name = "war_status"
+				font = "cg_16b"
+				spriteType = "GFX_button_95_24"
+				buttonText = "GALAXY_VIEW_EMPIRE_WAR_STATUS"
+				position = { x = 1128 y = @sort_button_height }
+				pdx_tooltip = "GALAXY_VIEW_SORT_WAR_STATUS"
 			}
 
 		
@@ -622,10 +633,10 @@ guiTypes = {
 
 		OverlappingElementsBoxType = {
 			name = "diplomacy_icons"
-			position = { x = 370 y = 9 }
-			size = { x = 250 y = 40 }
+			position = { x = 330 y = 9 }
+			size = { x = 150 y = 40 }
 			format = left
-			spacing = 10.0
+			spacing = 12.0
 		}
 
 		# RELATIVE POWER
@@ -633,13 +644,13 @@ guiTypes = {
 		iconType = {
 			name = "power_background"
 			quadTextureSprite = "GFX_info_background_125"
-			position = { x = 630 y = 8 }
+			position = { x = 520 y = 8 }
 		}
 
 		iconType = {
 			name = "power_icon"
 			quadTextureSprite = "GFX_relative_power_icon"
-			position = { x = 605 y = 11 }
+			position = { x = 495 y = 11 }
 		}
 
 		instantTextBoxType={
@@ -647,9 +658,9 @@ guiTypes = {
 			font = "cg_16b"
 			maxWidth = 110
 			maxHeight = 16
-			position = { x = 625 y = 15 }
+			position = { x = 526 y = 15 }
 			text = "Relative Power"
-			format = RIGHT
+			format = center
 		}
 
 		# FEDERATION
@@ -657,12 +668,22 @@ guiTypes = {
 		instantTextBoxType={
 			name = "alliance_federation"
 			font = "cg_16b"
-			position = { x = 748 y = 7 }
+			position = { x = 645 y = 7 }
 			maxWidth = 150
 			maxHeight = 30
 			format = center
 			vertical_alignment = center
 		}
+
+		# WAR STATUS
+
+		iconType ={
+			name ="war_status_icon"
+			quadTextureSprite = "GFX_diplomacy_status_war"
+			position = { x = 832 y = 7 }
+			scale = 0.9
+		}
+
 	}
 
 	containerWindowType = {
@@ -691,7 +712,7 @@ guiTypes = {
 
 	containerWindowType = {
 		name = "selected_empire_detailed_diplomacy_entry"
-		size = { width=210 height=38 }
+		size = { width=210 height=34 }
 
 		iconType ={
 			name ="diplomacy_type_icon"
