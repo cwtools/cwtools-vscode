@@ -1,7 +1,40 @@
-# 0.3.4
+# 0.4.0
 * Add OSX support
 * Update embedded interface to 2.0
-
+* Significantly improve performance for large mods
+* Add effect and trigger validation for:
+    * Anomalies
+    * Armies
+    * Ascension perks
+    * Bombardment stances
+    * Buildable pops
+    * Buildings
+    * Bypasses
+    * Casus belli
+    * Diplomatic actions
+    * Edicts
+    * Ethics
+    * Mandates
+    * Megastructures
+    * Observation stations
+    * Personalities
+    * Policies
+    * Pop faction types
+    * Ship sizes
+    * Solar system initializers
+    * Species rights
+    * Starbase buildings
+    * Starbase modules
+    * Starbase types
+    * Start screen messages
+    * Subjects
+    * System types
+    * Technology
+    * Terraform
+    * Tradition categories
+    * Traditions
+    * Traits
+    * War goals
 # 0.3.3
 * Fix bug with scope usage through prev
 * Add simple scope commands to autocomplete
