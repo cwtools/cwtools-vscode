@@ -142,7 +142,7 @@ type Server(send : BinaryWriter) =
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
                 eprintfn "%A" languages                
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla, experimental)
                 gameObj <- Some game
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
@@ -203,6 +203,12 @@ type Server(send : BinaryWriter) =
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
+                                {item with documentation = Some (DocMarkup ("markdown", content))}
+                            | :? ScriptedEffect as se ->
+                                let desc = se.Name.Replace("_", "\\_")
+                                let comments = se.Comments.Replace("_", "\\_")
+                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some (DocMarkup ("markdown", content))}
                             | e ->
                                 let desc = "_" + e.Name.Replace("_", "\\_") + "_"

@@ -1,3 +1,22 @@
+# 0.4.1
+* Add (experimental) modifier existence and scope checking for:
+    * Buildings
+    * Agendas
+    * Ascension perks
+    * Component templates
+    * Edicts
+    * Ethics
+    * Governments
+    * Policies
+    * Ship sizes
+    * Species rights
+    * Starbase buildings
+    * Starbase modules
+    * Strategic resources
+    * Technologies
+    * Tradition categories
+    * Traditions
+    * Traits
 # 0.4.0
 * Add OSX support
 * Update embedded interface to 2.0
