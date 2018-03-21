@@ -1,3 +1,6 @@
+# 0.4.2
+* Add (experimental) event_target checking (hidden behind experimental flag)
+* Add tooltip info for scripted_effects/triggers (taken from comments above definition)
 # 0.4.1
 * Add (experimental) modifier existence and scope checking for:
     * Buildings
