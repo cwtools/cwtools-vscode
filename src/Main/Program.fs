@@ -22,6 +22,11 @@ open System
 
 let private TODO() = raise (Exception "TODO")
 
+type LintRequestMsg =
+    | UpdateRequest of VersionedTextDocumentIdentifier
+    | WorkComplete of unit
+
+
 type Server(send : BinaryWriter) = 
     let send = send
     let docs = DocumentStore()
@@ -71,7 +76,8 @@ type Server(send : BinaryWriter) =
                         message = error
                     }
         (file, result)
-    let lint (doc: Uri): Async<unit> = 
+
+    let lint (doc: Uri) (shallowAnalyze : bool) : Async<unit> = 
         async {
             let name = 
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
@@ -83,13 +89,17 @@ type Server(send : BinaryWriter) =
             let parserErrors = match parsed with
                                 |Success(_,_,_) -> []
                                 |Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
-            let valErrors = match gameObj with
-                                |None -> []
-                                |Some game ->
-                                    let results = game.UpdateFile name
-                                    results |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
-            eprintfn "%A" parserErrors
-            match parserErrors @ valErrors with
+            let errors = 
+                match shallowAnalyze with
+                |true -> parserErrors
+                |false ->
+                    parserErrors @
+                    match gameObj with
+                        |None -> []
+                        |Some game ->
+                            let results = game.UpdateFile name
+                            results |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
+            match errors with
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
             | x -> x
                     |> List.map parserErrorToDiagnostics
@@ -107,6 +117,40 @@ type Server(send : BinaryWriter) =
             //     for error in checkResults.Errors do 
             //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
         }
+
+    let lintAgent = 
+        MailboxProcessor.Start(
+            (fun agent ->
+            let analyze (file : VersionedTextDocumentIdentifier) =
+                let task = new Task((fun () -> lint (file.uri) false |> Async.RunSynchronously; agent.Post (WorkComplete ())))
+                task.Start() 
+            let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier>) =
+                async{
+                    let! msg = agent.Receive()
+                    match msg, inprogress with
+                    | UpdateRequest ur, false ->
+                        analyze ur
+                        return! loop true state
+                    | UpdateRequest ur, true ->
+                        if Map.containsKey ur.uri.LocalPath state && (Map.find ur.uri.LocalPath state) |> (fun {VersionedTextDocumentIdentifier.version = v} -> v < ur.version)
+                        then
+                            return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
+                        else
+                            return! loop inprogress state
+                    | WorkComplete _, _ ->
+                        if Map.isEmpty state
+                        then
+                            return! loop false state
+                        else
+                            let key, next = state |> Map.pick (fun k v -> (k, v) |> function | (k, v) -> Some (k, v))
+                            let newstate = state |> Map.remove key
+                            analyze next
+                            return! loop true newstate
+                }
+            loop false Map.empty
+            )
+        )
+        
 
     let rec replaceFirst predicate value = function
         | [] -> []
@@ -276,12 +320,12 @@ type Server(send : BinaryWriter) =
 
         member this.DidOpenTextDocument(p: DidOpenTextDocumentParams): unit = 
             docs.Open p
-            lint p.textDocument.uri |> Async.RunSynchronously
+            lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams): unit = 
             docs.Change p
-            lint p.textDocument.uri |> Async.RunSynchronously
+            lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
         member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = ()
-            //lint p.textDocument.uri |> Async.RunSynchronously
+            //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument})
         member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams): list<TextEdit> = TODO()
         member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit = ()
         member this.DidCloseTextDocument(p: DidCloseTextDocumentParams): unit = 
@@ -291,7 +335,7 @@ type Server(send : BinaryWriter) =
                 eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
                 if change.uri.AbsolutePath.EndsWith ".fsproj" then
                     projects.UpdateProjectFile change.uri 
-                lint change.uri |> Async.RunSynchronously
+                    //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
         member this.Completion(p: TextDocumentPositionParams): CompletionList = 
             let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
             match gameObj with

@@ -1,3 +1,6 @@
+# 0.4.3
+* Improve responsiveness of validation when make rapid changes (by only checking the latest version of a file not every changed version)
+* Add scripted_effect event_target checking (still behind experimental setting)
 # 0.4.2
 * Add (experimental) event_target checking (hidden behind experimental flag)
 * Add tooltip info for scripted_effects/triggers (taken from comments above definition)
