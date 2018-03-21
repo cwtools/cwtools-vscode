@@ -1,3 +1,6 @@
+# 0.4.4
+* Add file "ignore" list to filter filenames that won't return validation errors
+* Stop validation "random_names" as it's so non-standard
 # 0.4.3
 * Improve responsiveness of validation when make rapid changes (by only checking the latest version of a file not every changed version)
 * Add scripted_effect event_target checking (still behind experimental setting)

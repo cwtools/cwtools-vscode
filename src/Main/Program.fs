@@ -44,6 +44,7 @@ type Server(send : BinaryWriter) =
     let mutable experimental : bool = false
 
     let mutable ignoreCodes : string list = []
+    let mutable ignoreFiles : string list = []
     let (|TrySuccess|TryFailure|) tryResult =  
         match tryResult with
         | true, value -> TrySuccess value
@@ -77,6 +78,17 @@ type Server(send : BinaryWriter) =
                     }
         (file, result)
 
+    let sendDiagnostics s =
+        let diagnosticFilter (f, d) =
+            match (f, d) with
+            | _, {code = Some code} when List.contains code ignoreCodes -> false
+            | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
+            | _, _ -> true
+        s |>  List.groupBy fst
+            |> List.map ((fun (f, rs) -> f, rs |> List.filter (diagnosticFilter)) >>
+                (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
+            |> List.iter (fun f -> LanguageServer.sendNotification send f)
+
     let lint (doc: Uri) (shallowAnalyze : bool) : Async<unit> = 
         async {
             let name = 
@@ -103,10 +115,7 @@ type Server(send : BinaryWriter) =
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
             | x -> x
                     |> List.map parserErrorToDiagnostics
-                    |> List.groupBy fst
-                    |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>
-                        (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
-                    |> List.iter (fun f -> LanguageServer.sendNotification send f)
+                    |> sendDiagnostics
             //let compilerOptions = projects.FindProjectOptions doc |> Option.defaultValue emptyCompilerOptions
             // let! parseResults, checkAnswer = checker.ParseAndCheckFileInProject(name, version, source, projectOptions)
             // for error in parseResults.Errors do 
@@ -196,10 +205,11 @@ type Server(send : BinaryWriter) =
                 let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, p, 0)
                 parserErrors @ valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
-                    |> List.groupBy fst
-                    |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>
-                        (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
-                    |> List.iter (fun f -> LanguageServer.sendNotification send f)
+                    |> sendDiagnostics
+                    // |> List.groupBy fst
+                    // |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>
+                    //     (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
+                    // |> List.iter (fun f -> LanguageServer.sendNotification send f)
             with
                 | :? System.Exception as e -> eprintfn "%A" e
             
@@ -314,6 +324,13 @@ type Server(send : BinaryWriter) =
                       |> List.ofArray
                 | _ -> []
             ignoreCodes <- newIgnoreCodes
+            let newIgnoreFiles = 
+                match p.settings.Item("cwtools").Item("errors").Item("ignorefiles") with
+                | JsonValue.Array o ->
+                    o |> Array.choose (function |JsonValue.String s -> Some s |_ -> None)
+                      |> List.ofArray
+                | _ -> []
+            ignoreFiles <- newIgnoreFiles
             eprintfn "New configuration %s" (p.ToString())
             let task = new Task((fun () -> processWorkspace(rootUri)))
             task.Start()
