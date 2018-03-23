@@ -1,3 +1,5 @@
+# 0.4.5
+* Improve event\_target checking to handle loops (still behind experimental setting)
 # 0.4.4
 * Add file "ignore" list to filter filenames that won't return validation errors
 * Stop validation "random_names" as it's so non-standard
