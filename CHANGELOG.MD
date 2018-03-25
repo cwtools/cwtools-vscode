@@ -1,3 +1,5 @@
+# 0.4.6
+* Fix bug with event\_target check when you reference an event that doesn't exist
 # 0.4.5
 * Improve event\_target checking to handle loops (still behind experimental setting)
 # 0.4.4
