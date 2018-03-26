@@ -1,3 +1,6 @@
+# 0.4.8
+* Add localisation checking for war goals
+* Add localisation checking for custom\_tooltip everywhere
 # 0.4.7
 * Correctly validate effects/triggers inside if, while and event_targets
 # 0.4.6
