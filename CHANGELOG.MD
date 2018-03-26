@@ -1,3 +1,5 @@
+# 0.4.7
+* Correctly validate effects/triggers inside if, while and event_targets
 # 0.4.6
 * Fix bug with event\_target check when you reference an event that doesn't exist
 # 0.4.5
