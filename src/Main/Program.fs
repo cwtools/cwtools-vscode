@@ -357,8 +357,9 @@ type Server(send : BinaryWriter) =
             let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
             match gameObj with
             |Some game ->
+                let extraKeywords = ["yes"; "no";]
                 let eventIDs = game.References.EventIDs
-                let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames
+                let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
                 let items = names |> List.map (fun e -> {defaultCompletionItem with label = e})
                 let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                 {isIncomplete = false; items = items @ variables}

@@ -1,3 +1,35 @@
+# 0.4.9
+* Add yes/no to autocomplete
+* Add weights checking for
+    * Event options
+    * Agendas
+    * Anomalies
+    * Ascension perks
+    * Bombardment stances
+    * Buildings
+    * Component templates
+    * Country Customization
+    * Country types
+    * Deposits
+    * Edicts
+    * Ethics
+    * Governments
+    * Megastructures
+    * Observatation station missions
+    * Personalities
+    * Planet modifiers
+    * Policies
+    * Pop faction types
+    * Section templates
+    * Species rights
+    * Starbase buildings
+    * Starbase modules
+    * Starbase types
+    * Technologies
+    * Terraform
+    * Tile blocks
+    * Traditions
+    * War goals
 # 0.4.8
 * Add localisation checking for war goals
 * Add localisation checking for custom\_tooltip everywhere
