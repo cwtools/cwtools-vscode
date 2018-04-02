@@ -6,6 +6,7 @@ open System
 open System.IO
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open CWTools.Parser
+open CWTools.Parser.Types
 open CWTools.Common
 open CWTools.Common.STLConstants
 open CWTools.Games

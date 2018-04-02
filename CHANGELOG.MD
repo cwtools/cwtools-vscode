@@ -1,3 +1,7 @@
+# 0.4.11
+* Add localisation checking for opinion modifiers
+* Fix localisation checking for war goals
+* Check modifiers for opinion modifiers
 # 0.4.10
 * Significant performance improvements
 * Display syntax errors immediately while validation is ongoing
