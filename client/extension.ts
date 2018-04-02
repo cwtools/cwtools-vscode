@@ -73,15 +73,22 @@ export function activate(context: ExtensionContext) {
 	defaultClient = client;
 	console.log("client init")
 	client.registerProposedFeatures();
-	let notification = new NotificationType<boolean, void>('loadingBar');
+	interface loadingBarParams { enable : boolean; value : string }
+	let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
 	interface CreateVirtualFile { uri : string; fileContent : string }
 	let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
 	let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 	let status : Disposable;
 	client.onReady().then(() => {
-		client.onNotification(notification, (param : any) =>{
-			if(param.value){
-				status = window.setStatusBarMessage("Loading files...");
+		client.onNotification(loadingBarNotification, (param: loadingBarParams) =>{
+			if(param.enable){
+				if (status !== undefined) {
+					status.dispose();
+				}
+				status = window.setStatusBarMessage(param.value);
+			}
+			else if(!param.enable){
+				status.dispose();
 			}
 			else if(status !== undefined){
 				status.dispose();

@@ -643,7 +643,8 @@ type PublishDiagnosticsParams = {
     diagnostics : Diagnostic list
     }
 type LoadingBarParams = {
-    value : bool
+    enable : bool
+    value : string
 }
 type CreateVirtualFileParams = {
     uri : Uri

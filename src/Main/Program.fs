@@ -172,7 +172,7 @@ type Server(send : BinaryWriter) =
         [1 .. count - 1] |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '/' (out |> List.ofSeq)) |> Array.ofList |> String )
         out
     let processWorkspace (uri : option<Uri>) =
-        LanguageServer.sendNotification send (LoadingBar {value = true})
+        LanguageServer.sendNotification send (LoadingBar {value = "Loading project..."; enable = true})
         match uri with
         |Some u -> 
             let path = 
@@ -197,15 +197,21 @@ type Server(send : BinaryWriter) =
                 eprintfn "%A" languages                
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla, experimental)
                 gameObj <- Some game
+                let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, p, 0)
+                parserErrors
+                    |> List.map parserErrorToDiagnostics
+                    |> sendDiagnostics
+
+                LanguageServer.sendNotification send (LoadingBar {value = "Validating files..."; enable = true})
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
                 let locErrors = game.LocalisationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
 
-                //eprintfn "%A" game.ValidationErrors
-                let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, p, 0)
-                parserErrors @ valErrors @ locErrors
+                valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
+
+                //eprintfn "%A" game.ValidationErrors
                     // |> List.groupBy fst
                     // |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>
                     //     (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
@@ -214,7 +220,7 @@ type Server(send : BinaryWriter) =
                 | :? System.Exception as e -> eprintfn "%A" e
             
         |None -> ()
-        LanguageServer.sendNotification send (LoadingBar {value = false})
+        LanguageServer.sendNotification send (LoadingBar {value = ""; enable = false})
 
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
         async { 

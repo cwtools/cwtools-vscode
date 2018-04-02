@@ -1,3 +1,6 @@
+# 0.4.10
+* Significant performance improvements
+* Display syntax errors immediately while validation is ongoing
 # 0.4.9
 * Add yes/no to autocomplete
 * Add weights checking for
