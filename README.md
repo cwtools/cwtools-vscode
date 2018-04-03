@@ -1,14 +1,22 @@
 # [CWTools-VSCode: Paradox Language Services](https://marketplace.visualstudio.com/items/tboby.cwtools-vscode)
 **Paradox Language Features for Visual Studio Code**
 # Disclaimer
-This extension is still in very early alpha, it may not work, it may stop working at any time. 
+This extension is still in preview, it may not work, it may stop working at any time. 
 **Make backups of your mod files.**
 # Features
 * Immediate highlighting of syntax errors
-* Checks the scopes effects/triggers/modifiers are used in
-* Tooltip giving quick info on effects/triggers
-* Localisation checking for almost all common/events/interface
-* Checks interface files for valid sprites and graphics files
+* Autocomplete triggers, effects and modifiers, providing descriptions when available
+* A wide range of validators for common, interface, and events, checking
+    * That required localisation keys are defined
+    * Existence of effects/triggers/modifiers
+    * Scope context for used effects/triggers/modifiers
+    * Usage of scripted effects/triggers
+    * Correct entries for weights/AI_chance/etc
+    * That event\_targets are saved before they're used
+    * That referenced sprites and graphics files exist
+    * and a number of other specific validators
+* "Code actions" to generate .yml for missing localisation
+* Tooltips providing effect documentation
 
 # Usage
 1. Install this extension
