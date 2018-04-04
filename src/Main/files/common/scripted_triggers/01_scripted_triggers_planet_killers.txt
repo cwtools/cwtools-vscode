@@ -72,23 +72,30 @@ can_destroy_planet_with_PLANET_KILLER_CRACKER = {
 			}
 			custom_tooltip = {
 				text = not_barren_molten_frozen_toxic_test_fire
-				AND = {
-					OR = {
-						NOT = { exists = owner }
-						AND = {
-							exists = owner
-							owner = {
-								is_same_value = from.owner
-							}
-						}
+				NOT = { exists = owner }
+				OR = {
+					NOT = { exists = space_owner }
+					AND = {
+						exists = space_owner
+						space_owner = { is_same_value = from.owner }
 					}
-					OR = {
-						is_planet_class = pc_barren
-						is_planet_class = pc_barren_cold
-						is_planet_class = pc_frozen
-						is_planet_class = pc_molten
-						is_planet_class = pc_toxic
-					}
+				}
+				OR = {
+					is_planet_class = pc_barren
+					is_planet_class = pc_barren_cold
+					is_planet_class = pc_frozen
+					is_planet_class = pc_molten
+					is_planet_class = pc_toxic
+					is_planet_class = pc_desert				
+					is_planet_class = pc_tropical
+					is_planet_class = pc_arid
+					is_planet_class = pc_continental
+					is_planet_class = pc_ocean
+					is_planet_class = pc_tundra
+					is_planet_class = pc_arctic
+					is_planet_class = pc_alpine
+					is_planet_class = pc_savannah
+					is_planet_class = pc_gaia						
 				}
 			}
 		}
@@ -98,7 +105,10 @@ can_destroy_planet_with_PLANET_KILLER_CRACKER = {
 can_destroy_planet_with_PLANET_KILLER_SHIELDER = {
 	custom_tooltip = {
 		fail_text = is_not_a_habitable_planet_or_megastructure
-		is_a_habitable_planet_megastructure = yes
+		OR = {
+			is_a_habitable_planet_megastructure = yes
+			is_planet_class = pc_ai
+		}
 	}
 	custom_tooltip = {
 		fail_text = is_not_hostile_or_primitive
@@ -172,7 +182,10 @@ can_destroy_planet_with_PLANET_KILLER_NEUTRON = {
 	}
 	custom_tooltip = {
 		fail_text = is_unpopulated
-		num_pops > 0
+		OR = {
+			num_pops > 0
+			is_planet_class = pc_infested
+		}
 	}
 }
 
@@ -322,6 +335,7 @@ is_a_planet_megastructure = {
 is_a_habitable_planet_megastructure = {
 	OR = {
 		is_planet_class = pc_nuked
+		is_planet_class = pc_infested
 		habitable_planet = yes
 		habitable_structure = yes
 	}

@@ -1,0 +1,571 @@
+############################
+#
+# Anomaly Failure Events
+#
+############################
+
+namespace = anomaly_failure
+
+# ROOT = ship scope
+# FROM = planet scope
+
+# Dangerous Waves (Asteroid)
+ship_event = {
+	id = anomaly_failure.2500
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2500.desc"
+	picture = GFX_evt_mining_station
+	location = FROMFROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Debris Field (Asteroid)
+ship_event = {
+	id = anomaly_failure.2501
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2501.desc"
+	picture = GFX_evt_mining_station
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Lush planet (Habitable)
+ship_event = {
+	id = anomaly_failure.2502
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2502.desc"
+	picture = GFX_evt_medieval_alien_civilization
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Monolith museum (Uninhabitable)
+ship_event = {
+	id = anomaly_failure.2503
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2503.desc"
+	picture = GFX_evt_city_ruins
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Molten planet (derelict star chart)
+ship_event = {
+	id = anomaly_failure.2504
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2504.desc"
+	picture = GFX_evt_dead_city
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Abandoned Playground Fail
+# Nothing happens
+ship_event = {
+	id = anomaly_failure.2535
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2535.desc"
+	picture = GFX_evt_dead_city
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# Familiar Shrine Fail
+# Nothing Happens
+ship_event = {
+	id = anomaly_failure.2540
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2540.desc"
+	picture = GFX_evt_in_the_dark
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# What Music They Make Fail
+# Nothing happens
+ship_event = {
+	id = anomaly_failure.2545
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2545.desc"
+	picture = GFX_evt_landing_ship
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# Below Zro Fail
+# Nothing happens
+ship_event = {
+	id = anomaly_failure.2550
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2550.desc"
+	picture = GFX_evt_gas_giant
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# Illicit Matter Fail
+# Nothing happens
+ship_event = {
+	id = anomaly_failure.2555
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2555.desc"
+	picture = GFX_evt_mining_station
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# Purple Rain Fail
+# Nothing happens
+ship_event = {
+	id = anomaly_failure.2560
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2560.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = FROMFROM
+
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+	}
+}
+
+# Dangerous Waves Crit (Asteroid)
+# Scientist killed
+ship_event = {
+	id = anomaly_failure.2600
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.2600.desc"
+	picture = GFX_evt_mining_station
+	location = FROMFROM
+	
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = { kill_leader = { type = scientist show_notification = no } }
+
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Debris Field Crit (Asteroid)
+# Ship destroyed, scientist lives
+ship_event = {
+	id = anomaly_failure.2601
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.2601.desc"
+	picture = GFX_evt_mining_station
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	option = {
+		name = UNFORTUNATE
+		hidden_effect = {
+			leader = { unassign_leader = this }
+		}
+		fleet = { destroy_fleet = this }
+	}
+}
+
+# Lush planet Crit (Habitable)
+# Spawn spacefaring organic hostiles
+ship_event = {
+	id = anomaly_failure.2602
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.2602.desc"
+	picture = GFX_evt_medieval_alien_civilization
+	show_sound = event_red_alert
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		hidden_effect = {
+			create_country = {
+				name = "NAME_Angered_Tiyanki"
+				type = faction
+			}
+			last_created_country = {
+				establish_communications_no_message = root.owner
+				FROM = {
+					create_fleet = {
+						name = "NAME_Angered_Tiyanki"
+						effect = {
+							set_owner = PREVPREV
+							create_ship = {
+								name = "NAME_Tiyanki_Bull"
+								design = "NAME_Tiyanki_Bull"
+							}
+							create_ship = {
+								name = "NAME_Tiyanki_Cow"
+								design = "NAME_Tiyanki_Cow"
+							}
+							set_location = PREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 300
+						}
+					}
+				}				
+			}
+		}
+	}
+
+	option = {
+		name = BATTLESTATIONS
+	}
+}
+
+# Monolith museum Crit (Uninhabitable)
+# Spawn defense drones
+ship_event = {
+	id = anomaly_failure.2603
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.2603.desc"
+	picture = GFX_evt_city_ruins
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		hidden_effect = {
+			create_country = {
+				name = "NAME_982nd_Drone_Wing"
+				type = faction
+			}
+			last_created_country = {
+				FROM = {
+					create_fleet = {
+						name = "NAME_982nd_Drone_Wing"
+						effect = {
+							set_owner = PREVPREV
+							create_ship = {
+								name = "NAME_Red_One"
+								design = "NAME_Dagger"
+							}
+							create_ship = {
+								name = "NAME_Red_Two"
+								design = "NAME_Dagger"
+							}
+							set_location = PREV
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = BATTLESTATIONS
+	}
+}
+
+# Molten planet Crit (derelict star chart)
+# Scientist dies and ship destroyed
+ship_event = {
+	id = anomaly_failure.2604
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.2604.desc"
+	picture = GFX_evt_dead_city
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Abandoned Playground Crit Fail
+# Scientist dies
+ship_event = {
+	id = anomaly_failure.2635
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2635.desc"
+	picture = GFX_evt_dead_city
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = { kill_leader = { type = scientist show_notification = no } }
+
+	option = {
+		name = OK
+	}
+}
+
+# Familiar Shrine Crit Fail
+# Scientist has a real bad time
+ship_event = {
+	id = anomaly_failure.2640
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2640.desc"
+	picture = GFX_evt_in_the_dark
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	option = {
+		name = UNFORTUNATE
+		# NEGATIVE SCIENTIST TRAIT ADDED
+	}
+}
+
+# What Music They Make Crit Fail
+# SCIENTIST AND SHIP DESTROYED
+ship_event = {
+	id = anomaly_failure.2645
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2645.desc"
+	picture = GFX_evt_landing_ship
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# Below Zro Fail
+# SCIENTIST AND SHIP DESTROYED
+ship_event = {
+	id = anomaly_failure.2650
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2650.desc"
+	picture = GFX_evt_gas_giant
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# Illicit Matter Crit Fail
+# Smugglers spawn
+ship_event = {
+	id = anomaly_failure.2655
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2655.desc"
+	picture = GFX_evt_federation_fleet
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		hidden_effect = {
+			create_country = {
+				name = "NAME_Dark_Matter_Smugglers"
+				type = faction
+			}
+			last_created_country = {
+				FROM = {
+					create_fleet = {
+						name = "NAME_Dark_Matter_Smugglers"
+						effect = {
+							set_owner = PREVPREV
+							create_ship = {
+								name = "NAME_Subatomic"
+								design = "NAME_Dagger"
+							}
+							create_ship = {
+								name = "NAME_Hot_Neutrino"
+								design = "NAME_Ravager"
+							}
+							set_location = PREV
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = BATTLESTATIONS
+	}
+}
+
+# Purple Rain Fail
+# Scientist dies
+ship_event = {
+	id = anomaly_failure.2660
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2660.desc"
+	picture = GFX_evt_alien_nature
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+	}
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Generic Crit Fail
+# SCIENTIST AND SHIP DESTROYED
+ship_event = {
+	id = anomaly_failure.2665
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.2665.desc"
+	picture = GFX_evt_atmospheric_entry
+	show_sound = event_alien_signal
+	location = FROMFROM
+
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+# Crystal Manufactory and asteroid smash into sun
+ship_event = {
+	id = anomaly_failure.2670
+	title = "DISC_FAILURE"
+	desc = anomaly_failure.2670.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_solar_fusion
+	location = fromfrom
+
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			random_system_ambient_object = {
+				limit = { has_ambient_object_flag = manufactory }
+				destroy_ambient_object = this
+			}
+			random_system_planet = {
+				limit = { is_star = yes }
+				save_event_target_as = thestar
+			}
+		}
+		create_country = {
+			name = " "
+			type = ambient
+		}
+		last_created_country = {
+			create_fleet = {
+				name = " "
+				effect = {
+					set_owner = prev
+					create_ship = {
+						name = ""
+						design = "NAME_Abandoned_Manufactory"
+					}
+					set_location = {
+						target = fromfrom
+						distance = 10
+						angle = random
+					}
+					set_fleet_stance = passive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 0
+					queue_actions = {
+						move_to = event_target:thestar
+						effect = {
+							id = manufactory.1.sunTest
+							destroy_fleet = this
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = anomaly_failure.2670.a
+		custom_tooltip = anomaly_failure.2670.a.tooltip
+		leader = { add_trait = leader_trait_expertise_computing }
+	}
+}

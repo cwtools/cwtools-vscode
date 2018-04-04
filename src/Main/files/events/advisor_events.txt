@@ -1,0 +1,716 @@
+############################
+#
+# Advisor Events
+#
+# Written by Henrik Eklund
+#
+############################
+
+namespace = advisor
+
+# Advisor Introduction
+country_event = {
+	id = advisor.1
+	title = advisor.1.name
+	auto_select = yes
+
+	# Good day, Mister President
+	desc = {
+		text = advisor.1.desc_01
+		show_sound = generic_democratic_male_intro
+		trigger = {
+			has_government = gov_representative_democracy
+			NOT = { leader = { gender = female } }
+		}
+	}
+	
+	# Good day, Madame President
+	desc = {
+		text = advisor.1.desc_02
+		show_sound = generic_democratic_female_intro
+		trigger = {
+			has_government = gov_representative_democracy
+			leader = { gender = female }
+		}
+	}
+	
+	# Good day, High Commissioner
+	desc = {
+		text = advisor.1.desc_03
+		show_sound = democratic_commissioner_intro
+		trigger = {
+			has_government = gov_plutocratic_oligarchy
+		}
+	}
+
+	# Good day, Executor
+	desc = {
+		text = advisor.1.desc_04
+		show_sound = autocratic_exceutor_intro
+		trigger = {
+			has_government = gov_constitutional_dictatorship
+		}
+	}
+
+	# Good day, Lord Protector
+	#desc = {
+	#	text = advisor.1.desc_05
+	#	show_sound = autocratic_protector_intro
+	#	trigger = {
+	#		has_government = gov_enlightened_dictatorship
+	#	}
+	#}
+
+	# Good day, Chief Executive
+	desc = {
+		text = advisor.1.desc_06
+		show_sound = generic_plutocratic_intro
+		trigger = {
+			has_government = gov_megacorporation
+		}
+	}
+	
+	# Your Imperial Majesty
+	desc = {
+		text = advisor.1.desc_07
+		show_sound = generic_autocratic_intro
+		trigger = {
+			OR = {
+				has_government = gov_despotic_empire
+				has_government = gov_feudal_empire
+				has_government = gov_star_empire
+				has_government = gov_martial_empire
+				has_government = gov_martial_dictatorship
+				has_government = gov_celestial_empire
+				has_government = gov_divine_empire
+			}
+		}
+	}
+	
+	# Peace be with you, Prime Minister
+	desc = {
+		text = advisor.1.desc_08
+		show_sound = democratic_pacifist_intro
+		trigger = {
+			has_government = gov_moral_democracy
+		}
+	}
+	
+	# Peace be with you, Coordinator
+	desc = {
+		text = advisor.1.desc_09
+		show_sound = plutocratic_pacifist_intro
+		trigger = {
+			has_government = gov_irenic_bureaucracy
+		}
+	}
+	
+	# Peace be with you, Your Majesty
+	desc = {
+		text = advisor.1.desc_10
+		show_sound = autocratic_pacifist_intro
+		trigger = {
+			OR = {
+				has_government = gov_irenic_monarchy
+				has_government = gov_enlightened_monarchy
+				has_government = gov_elective_monarchy
+			}
+		}
+	}
+
+	# Peace be with you, Serene Protector
+	desc = {
+		text = advisor.1.desc_11
+		show_sound = pacifist_serene_protector_intro
+		trigger = {
+			has_government = gov_irenic_dictatorship
+		}
+	}
+	
+	# Greetings, Chancellor
+	desc = {
+		text = advisor.1.desc_12
+		show_sound = democratic_materialist_intro
+		trigger = {
+			has_government = gov_direct_democracy
+		}
+	}
+	
+	# Greetings, Director
+	desc = {
+		text = advisor.1.desc_13
+		show_sound = plutocratic_materialist_intro
+		trigger = {
+			has_government = gov_science_directorate
+		}
+	}
+	
+	# Greetings, Overlord
+	desc = {
+		text = advisor.1.desc_14
+		show_sound = autocratic_materialist_intro
+		trigger = {
+			has_government = gov_despotic_hegemony
+		}
+	}
+
+	# Greetings, Primus
+	desc = {
+		text = advisor.1.desc_15
+		show_sound = materialist_primus_intro
+		trigger = {
+			has_government = gov_illuminated_autocracy
+		}
+	}
+
+	# Greetings, Primarch
+	desc = {
+		text = advisor.1.desc_16
+		show_sound = materialist_primarch_intro
+		trigger = {
+			has_government = gov_totalitarian_regime
+		}
+	}
+
+	# Greetings, Overseer
+	desc = {
+		text = advisor.1.desc_17
+		show_sound = materialist_overseer_intro
+		trigger = {
+			has_government = gov_technocratic_dictatorship
+		}
+	}
+
+	# Greetings, First Speaker
+	desc = {
+		text = advisor.1.desc_18
+		show_sound = materialist__first_spearker_intro
+		trigger = {
+			has_government = gov_rational_consensus
+		}
+	}
+
+	# Greetings, Chairman
+	desc = {
+		text = advisor.1.desc_19
+		show_sound = materialist_chairman_intro
+		trigger = {
+			OR = {
+				has_government = gov_executive_committee
+				has_government = gov_trade_league
+			}
+			NOT = { leader = { gender = female } }
+		}
+	}
+	
+	# Greetings, Chairwoman
+	desc = {
+		text = advisor.1.desc_20
+		show_sound = materialist_chairwoman_intro
+		trigger = {
+			OR = {
+				has_government = gov_executive_committee
+				has_government = gov_trade_league
+			}
+			leader = { gender = female }
+		}
+	}
+	
+	# Welcome, Consul
+	desc = {
+		text = advisor.1.desc_21
+		show_sound = democratic_militarists_intro
+		trigger = {
+			has_government = gov_citizen_republic
+		}
+	}
+	
+	# Welcome, Archon
+	desc = {
+		text = advisor.1.desc_22
+		show_sound = plutocratic_militarists_intro
+		trigger = {
+			has_government = gov_military_junta
+		}
+	}
+
+	# Welcome, Commissary-General
+	desc = {
+		text = advisor.1.desc_23
+		show_sound = militarist_commissary_intro
+		trigger = {
+			has_government = gov_military_commissariat
+		}
+	}
+
+	# Welcome, Imperator
+	desc = {
+		text = advisor.1.desc_24
+		show_sound = militarist_imperator_intro
+		trigger = {
+			has_government = gov_martial_dictatorship
+			NOT = { leader = { gender = female } }
+		}
+	}
+	
+	# Welcome, Imperatrix
+	desc = {
+		text = advisor.1.desc_25
+		show_sound = militarist_imperatrix_intro
+		trigger = {
+			has_government = gov_martial_dictatorship
+			leader = { gender = female }
+		}
+	}
+	
+	# Welcome, Grand Marshal
+	desc = {
+		text = advisor.1.desc_26
+		show_sound = autocratic_militarists_intro
+		trigger = {
+			has_government = gov_military_dictatorship
+		}
+	}
+	
+	# Welcome, Strategos
+	desc = {
+		text = advisor.1.desc_27
+		show_sound = militarist_strategos_intro
+		trigger = {
+			has_government = gov_citizen_stratocracy
+		}
+	}
+
+	# Welcome, Warlord
+	desc = {
+		text = advisor.1.desc_28
+		show_sound = militarist_warlord_intro
+		trigger = {
+			has_government = gov_war_council
+		}
+	}
+
+	# Welcome, Clan Speaker
+	desc = {
+		text = advisor.1.desc_29
+		show_sound = militarist_clan_speaker_intro
+		trigger = {
+			has_government = gov_assembly_of_clans
+		}
+	}
+
+	# Blessings upon you, Your Holiness
+	desc = {
+		text = advisor.1.desc_30
+		show_sound = spiritualists_intro
+		trigger = {
+			OR = {
+				has_government = gov_theocratic_monarchy
+				has_government = gov_theocratic_dictatorship
+				has_government = gov_theocratic_oligarchy
+				has_government = gov_theocratic_republic
+				has_government = gov_holy_tribunal
+				has_government = gov_megachurch
+			}
+		}
+	}
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		is_advisor_active = no
+		is_tutorial_level > 0
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+	}
+	
+	immediate = {
+		set_advisor_active = yes
+		country_event = { id = advisor.26 days = 220 }
+		capital_scope = {
+			solar_system = {
+				every_system_planet = {
+					prevent_anomaly = yes
+				}
+				random_system_planet = {
+					limit = {
+						is_capital = no
+						is_ringworld = no
+						is_asteroid = no
+						is_star = no
+						NOT = { is_planet_class = pc_gas_giant }
+					}
+					prevent_anomaly = no
+					add_anomaly = TUTORIAL_CAT
+					set_planet_flag = tutorial_anomaly_planet
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = advisor.1.a
+		custom_tooltip = full_tutorial
+		hidden_effect = {
+			country_event = { id = advisor.2 }
+			set_tutorial_level = full
+			set_country_flag = tutorial_level_picked
+		}
+	}
+	option = {
+		name = advisor.1.b
+		custom_tooltip = tips_only
+		hidden_effect = {
+			country_event = { id = advisor.3 }
+			set_tutorial_level = medium
+			set_country_flag = tutorial_level_picked
+		}
+	}
+	option = {
+		name = advisor.1.c
+		sound = "no_tut_advior"
+		custom_tooltip = no_tutorial
+		trigger = { has_country_flag = recycled_vir }
+		hidden_effect = {
+			set_tutorial_level = none
+			set_country_flag = tutorial_level_picked
+			capital_scope = {
+				solar_system = {
+					random_system_planet = {
+						limit = {
+							has_planet_flag = tutorial_anomaly_planet
+						}
+						prevent_anomaly = yes
+						remove_planet_flag = tutorial_anomaly_planet
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = advisor.1.c
+		sound = "no_tut_advior"
+		custom_tooltip = recycle_vir
+		custom_tooltip = no_tutorial
+		trigger = { NOT = { has_country_flag = recycled_vir } }
+		hidden_effect = {
+			add_minerals = 2
+			set_tutorial_level = none
+			set_country_flag = tutorial_level_picked
+			capital_scope = {
+				solar_system = {
+					random_system_planet = {
+						limit = {
+							has_planet_flag = tutorial_anomaly_planet
+						}
+						prevent_anomaly = yes
+						remove_planet_flag = tutorial_anomaly_planet
+					}
+				}
+			}
+		}
+	}
+}
+
+# Full Tutorial
+country_event = {
+	id = advisor.2
+	title = advisor.2.name
+	desc = advisor.2.desc
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	show_sound = full_tut_advisor
+	
+	option = {
+		name = advisor.2.a
+		hidden_effect = {
+			set_country_flag = advisor_tips
+			set_advisor_active = yes
+			country_event = { id = tutorial.1 }
+		}
+	}
+}
+
+# Limited Tutorial
+country_event = {
+	id = advisor.3
+	title = advisor.3.name
+	desc = advisor.3.desc
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	show_sound = limited_tut_advisor
+	
+	option = {
+		name = advisor.2.a
+		hidden_effect = {
+			set_country_flag = advisor_tips
+			set_country_flag = no_tutorial_windows
+			set_advisor_active = yes
+		}
+	}
+}
+
+# First Discovery
+ship_event = {
+	id = advisor.10
+	title = advisor.10.name
+	desc = advisor.10.desc
+	show_sound = event_first_discovery_advisor
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		owner = {
+			is_ai = no
+			NOT = { is_tutorial_level = 0 }
+			NOT = { has_country_flag = advisor_discovery_found }
+		}
+		FROM = { has_anomaly = yes }
+	}
+	
+	immediate = {
+		owner = { set_country_flag = advisor_discovery_found }
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Potential Colony
+ship_event = {
+	id = advisor.15
+	title = advisor.15.name
+	desc = advisor.15.desc
+	show_sound = event_potential_colony_advisor
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		owner = {
+			is_ai = no
+			NOT = { is_tutorial_level = 0 }
+			NOT = { has_country_flag = advisor_potential_colony }
+			num_owned_planets = 1
+		}
+		FROM = { 
+			is_ideal_planet_class = {
+				who = root.owner
+				status = yes
+			}
+			is_colony = no
+		}
+	}
+		
+	immediate = {
+		owner = { set_country_flag = advisor_potential_colony }
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# First Colony
+planet_event = {
+	id = advisor.17
+	title = advisor.17.name
+	desc = advisor.17.desc
+	show_sound = event_first_colony_advisor
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		owner = {
+			NOT = { is_tutorial_level = 0 }
+			NOT = { has_country_flag = advisor_colonization_begun }
+		}
+	}
+	
+	immediate = {
+		owner = { set_country_flag = advisor_colonization_begun }
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Negative Income
+country_event = {
+	id = advisor.20
+	title = advisor.20.name
+	desc = advisor.20.desc
+	show_sound = event_negative_income_advisor
+	
+	is_advisor_event = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { is_tutorial_level = 0 }
+		NOT = { has_country_flag = advisor_losing_energy }
+		running_balance < -1
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	immediate = {
+		set_country_flag = advisor_losing_energy
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Survey Reminder (HIDDEN)
+ship_event = {
+	id = advisor.25
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		owner = {
+			is_ai = no
+			NOT = { is_tutorial_level = 0 }
+			NOT = { has_country_flag = advisor_surveyed_world }
+		}
+	}
+	
+	immediate = {
+		owner = { set_country_flag = advisor_surveyed_world }
+	}
+}
+
+# Surveying
+country_event = {
+	id = advisor.26
+	title = advisor.26.name
+	desc = advisor.26.desc
+	show_sound = event_surverying_advisor
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { is_tutorial_level = 0 }
+		NOT = { has_country_flag = advisor_surveyed_world }
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# First Contact
+country_event = {
+	id = advisor.27
+	title = advisor.27.name
+	
+	# Xenophobe
+	desc = {
+		text = advisor.27.desc_01
+		show_sound = event_first_contact_xenophobe_advisor
+		trigger = {
+			OR = {
+				has_ethic = "ethic_xenophobe"
+				has_ethic = "ethic_fanatic_xenophobe"
+			}
+		}
+	}
+	
+	# Xenophile
+	desc = {
+		text = advisor.27.desc_02
+		show_sound = event_first_contact_xenophile_advisor
+		trigger = {
+			OR = {
+				has_ethic = "ethic_xenophile"
+				has_ethic = "ethic_fanatic_xenophile"
+			}
+		}
+	}
+	
+	# Neutral
+	desc = {
+		text = advisor.27.desc_03
+		show_sound = event_first_contact_neutral_advisor
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = "ethic_xenophobe"
+					has_ethic = "ethic_fanatic_xenophobe"
+					has_ethic = "ethic_xenophile"
+					has_ethic = "ethic_fanatic_xenophile"
+				}
+			}
+		}
+	}
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { is_tutorial_level = 0 }
+		NOT = { has_country_flag = advisor_first_contact }
+		FROM = {
+			NOT = {
+				is_country_type = fallen_empire
+				#is_country_type = tiyanki
+				is_country_type = amoeba
+				is_country_type = crystal
+				is_country_type = drone
+				is_country_type = cloud
+			}
+		}
+	}
+	
+	immediate = {
+		set_country_flag = advisor_first_contact
+	}
+	
+	option = {
+		name = OK
+	}
+}
+
+# Fallen Empire
+country_event = {
+	id = advisor.28
+	title = advisor.28.name
+	desc = advisor.28.desc
+	show_sound = event_fallen_empire_advisor
+	
+	is_advisor_event = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { is_tutorial_level = 0 }
+		NOT = { has_country_flag = advisor_fallen_empire }
+		FROM = { 
+			OR = {
+				is_country_type = fallen_empire 
+				is_country_type = awakened_fallen_empire 
+			}
+		}
+	}
+	
+	immediate = {
+		set_country_flag = advisor_fallen_empire
+	}
+	
+	option = {
+		name = OK
+	}
+}

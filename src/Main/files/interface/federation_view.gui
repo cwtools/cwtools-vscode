@@ -41,7 +41,7 @@ guiTypes = {
 		buttonType = {
 			name = "federation_rename_button"
 			spriteType = "GFX_invisible"
-			position = { x = -390 y = 5 }
+			position = { x = -320 y = 5 }
 			size = { x = 300 y = 25 }
 			orientation = center_up
 		}
@@ -74,7 +74,7 @@ guiTypes = {
 			name = "leader_desc"
 			font = "cg_16b"
 			position = { x = 140 y = 65 }
-			maxwidth = 330
+			maxwidth = 450
 		}
 
 		containerWindowType = {
@@ -479,8 +479,10 @@ guiTypes = {
 			name = "name"
 			font = "cg_16b"
 			maxWidth = 250
+			maxHeight = 25
 			position = { x = 50 y = @entry_info_height }
 			alwaysTransparent = yes
+			fixedSize = yes
 		}
 
 		instantTextBoxType={
@@ -560,7 +562,7 @@ guiTypes = {
 			position = { x = 305 y = @entry_info_height }
 			font = "cg_16b"
 			text = "10/10"
-			maxWidth = 60
+			maxWidth = 70
 			maxHeight = 15
 			fixedSize = yes
 		}

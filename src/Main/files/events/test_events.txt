@@ -1,0 +1,410 @@
+#########################################
+#
+# Henrik's Test Events
+#
+#########################################
+
+namespace = henrik
+
+fleet_event = {
+	id = henrik.1
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		solar_system = {
+			create_species = {
+				name = "NAME_Unbidden"
+				class = EXD
+				portrait = exd1
+				traits = random
+			}
+			create_country = {
+				name = root.owner
+				type = "extradimensional"
+				species = last_created
+				name_list = "Extradimensional"
+				effect = { set_country_flag = unbidden }
+				flag = {
+					icon= {
+						category = "special"
+						file = "extradimensional_01.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"indigo"
+						"blue"
+						"null"
+						"null"
+					}
+				}
+				effect = {
+					set_graphical_culture = extra_dimensional_01
+					save_global_event_target_as = extradimensionals
+					every_playable_country = {
+						establish_communications_no_message = prev
+					}
+				}
+			}
+			if = {
+				limit = { exists = starbase }
+				starbase = { fleet = { destroy_fleet = this } }
+			}
+			create_starbase = {
+				size = starbase_outpost
+				owner = event_target:extradimensionals
+			}
+		}
+	}
+}
+
+fleet_event = {
+	id = henrik.2
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		solar_system = {
+			create_species = {
+				name = "NAME_Unbidden"
+				class = EXD
+				portrait = exd1
+				traits = random
+			}
+			create_country = {
+				name = "NAME_Unbidden"
+				type = "extradimensional"
+				species = last_created
+				name_list = "Extradimensional"
+				effect = { set_country_flag = unbidden }
+				flag = {
+					icon= {
+						category = "special"
+						file = "extradimensional_01.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"indigo"
+						"blue"
+						"null"
+						"null"
+					}
+				}
+				effect = {
+					set_graphical_culture = extra_dimensional_01
+					save_global_event_target_as = extradimensionals
+					every_playable_country = {
+						establish_communications_no_message = prev
+					}
+				}
+			}
+			if = {
+				limit = { exists = starbase }
+				starbase = { fleet = { destroy_fleet = this } }
+			}
+			create_starbase = {
+				size = starbase_citadel
+				owner = event_target:extradimensionals
+			}
+		}
+	}
+}
+
+fleet_event = { # advance primitives in system
+	id = henrik.3
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					exists = owner
+					owner = { is_country_type = primitive }
+				}
+				owner = { country_event = { id = primitive.16 } }
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = henrik.4
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		owner = {
+			country_event = { id = primitive.14 }
+			country_event = { id = primitive.16 days = 5 }
+		}
+	}
+}
+
+country_event = {
+	id = henrik.5
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		random_owned_fleet = {
+			save_event_target_as = FollowFleet
+		}
+		every_owned_fleet = {
+			auto_follow_fleet = {
+				target = event_target:FollowFleet
+				attack_fleet = no
+			}
+		}
+	}
+}
+
+country_event = {
+	id = henrik.6
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		every_owned_fleet = {
+			auto_move_to_planet = {
+				target = root.capital_scope
+				clear_auto_move_on_arrival = no
+			}
+		}
+	}
+}
+
+country_event = {
+	id = henrik.7
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		every_owned_fleet = {
+			limit = { has_auto_move_target = yes }
+			remove_auto_move_target = yes
+		}
+	}
+}
+
+country_event = {
+	id = henrik.8
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		give_technology = {
+			tech = tech_destroyers
+			message = no
+		}
+		give_technology = {
+			tech = tech_cruisers
+			message = no
+		}
+		give_technology = {
+			tech = tech_battleships
+			message = no
+		}
+		give_technology = {
+			tech = tech_titans
+			message = no
+		}
+	}
+}
+
+planet_event = {
+	id = henrik.9
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		starbase = { fleet = { destroy_fleet = this } }
+	}
+}
+
+country_event = {
+	id = henrik.10
+	title = "whoa"
+	desc = "how many"
+	picture = GFX_evt_tropical
+
+	trigger = { always = no }
+
+
+	option = {
+		name = country.200.desc
+		trigger = {
+			any_owned_leader = {
+				#count < 2 # DOES NOT WORK
+				leader_class = scientist
+			}
+		}
+	}
+	option = {
+		name = country.200.a
+	}
+}
+
+country_event = {
+	id = henrik.11
+	title = "CB Check"
+	desc = "What's the Casus Belli situation?"
+
+	picture = GFX_evt_tropical
+
+	trigger = { always = no }
+
+	option = {
+		name = "Ain't no CBs."
+		trigger = {
+			NOR = {
+				any_playable_country = { # no one has CB on player
+					has_casus_belli = {
+						target = root
+					}
+				}
+				any_playable_country = { # player has CB on no one
+					root = {
+						has_casus_belli = {
+							target = prev
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "Yes, I have a CB on someone. Check tooltip."
+
+		trigger = {
+			any_playable_country = {
+				root = {
+					has_casus_belli = {
+						target = prev
+					}
+				}
+			}
+		}
+
+		random_playable_country = {
+			limit = {
+				root = {
+					has_casus_belli = {
+						target = prev
+					}
+				}
+			}
+			set_country_flag = CB!
+		}
+	}
+
+	option = {
+		name = "Yes, someone has a CB on me. Check tooltip."
+
+		trigger = {
+			any_playable_country = {
+				has_casus_belli = {
+					target = root
+				}
+			}
+		}
+
+		random_playable_country = {
+			limit = {
+				has_casus_belli = {
+					target = root
+				}
+			}
+			set_country_flag = CB_on_player!
+		}
+	}
+
+	option = {
+		name = "Yes, I have an Animosity CB on someone. Check tooltip."
+
+		trigger = {
+			any_playable_country = {
+				root = {
+					has_casus_belli = {
+						target = prev
+					}
+				}
+			}
+		}
+
+		random_playable_country = {
+			limit = {
+				root = {
+					has_casus_belli = {
+						target = prev
+						type = cb_humiliation
+					}
+				}
+			}
+			set_country_flag = Animosity_CB!
+		}
+	}
+}
+
+
+country_event = {
+	id = henrik.12
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		random_country = {
+			limit = { 
+				NOT = { is_same_value = root } 
+			}
+			save_event_target_as = target
+		}
+		establish_communications_no_message = event_target:target
+	}
+}
+
+planet_event = {
+	id = henrik.13
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		#spawn_megastructure_destruction_effect = yes
+	}
+}
+
+planet_event = {
+	id = henrik.134
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		create_message = { 
+			type = BYPASS_EXPLORED
+			localization = BYPASS_EXPLORED_MESSAGE
+			days = 30 
+			target = root
+			variable = { type = name localization = SYSTEM1 scope = root } 
+			variable = { type = name localization = SYSTEM2 scope = root } 
+		}
+	}
+}

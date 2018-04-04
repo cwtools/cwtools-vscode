@@ -1,0 +1,1035 @@
+############################
+#
+# Anomaly Events
+#
+# Written by Henrik Eklund
+#
+############################
+
+namespace = anomaly
+
+@tier1influencecontact = 7
+@tier1influencecontactxenophile = 8
+@tier1influencecontactmin = 20
+@tier1influencecontactmax = 80
+
+@tier2influencecontact = 10
+@tier2influencecontactxenophile = 12
+@tier2influencecontactmin = 40
+@tier2influencecontactmax = 100
+
+@tier1materialreward = 6
+@tier1materialmin = 100
+@tier1materialmax = 500
+@tier2materialreward = 12
+@tier2materialmin = 150
+@tier2materialmax = 1000
+@tier3materialreward = 18
+@tier3materialmin = 250
+@tier3materialmax = 1500
+@tier4materialreward = 24
+@tier4materialmin = 350
+@tier4materialmax = 2000
+@tier5materialreward = 48
+@tier5materialmin = 700
+@tier5materialmax = 4000
+
+@tier1influencereward = 6
+@tier1influencemin = 40
+@tier1influencemax = 100
+@tier2influencereward = 12
+@tier2influencemin = 80
+@tier2influencemax = 175
+@tier3influencereward = 18
+@tier3influencemin = 125
+@tier3influencemax = 250
+@tier4influencereward = 24
+@tier4influencemin = 150
+@tier4influencemax = 300
+@tier5influencereward = 36
+@tier5influencemin = 250
+@tier5influencemax = 500
+@tier6influencereward = 48
+@tier6influencemin = 300
+@tier6influencemax = 600
+
+@tier1researchreward = 6
+@tier1researchmin = 60
+@tier1researchmax = 150
+@tier2researchreward = 12
+@tier2researchmin = 90
+@tier2researchmax = 250
+@tier3researchreward = 18
+@tier3researchmin = 120
+@tier3researchmax = 350
+@tier4researchreward = 24
+@tier4researchmin = 150
+@tier4researchmax = 500
+@tier5researchreward = 48
+@tier5researchmin = 300
+@tier5researchmax = 1000
+
+
+# ROOT = ship scope
+# FROM = planet scope
+
+### GAS GIANT CIVILIZATION ###
+
+# Gas Giant Signal
+ship_event = {
+	id = anomaly.5000
+	title = "anomaly.5000.name"
+	desc = "anomaly.5000.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			FROM = {
+				set_planet_flag = tollok_rong
+			}
+		}
+	}
+			
+	option = {
+		name = anomaly.5000.a
+		enable_special_project = {
+			name = "GAS_GIANT_SIGNAL"
+			location = FROM
+		}
+	}
+	option = {
+		name = anomaly.5000.b
+	}
+}
+
+# Special Project Completed
+ship_event = {
+	id = anomaly.5001
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5001.desc"
+	picture = GFX_evt_physics_research
+	show_sound = event_alien_signal
+	location = FROMFROMFROM
+	
+	is_triggered_only = yes
+
+	immediate = { 
+		owner = { country_event = { id = story.6 days = 30 } } 
+	}
+			
+	option = {
+		name = "ONSCREEN"
+		owner = {
+			country_event = { id = anomaly.5003 }
+		}
+		hidden_effect = {
+			random_planet = {
+				limit = { has_planet_flag = tollok_rong }
+				set_name = "NAME_Tollok_Rong"
+			}
+		}
+	}
+}
+
+# Special Project Failed
+country_event = {
+	id = anomaly.5002
+	title = "PROJECT_FAILURE"
+	desc = "anomaly.5002.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = FROMFROMFROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Incoming Transmission
+country_event = {
+	id = anomaly.5003
+	title = "anomaly.5003.name"
+	desc = "anomaly.5003.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+
+	immediate = {
+		save_event_target_as = MyCountry
+	}
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	option = {
+		name = anomaly.5003.a
+		response_text = anomaly.5003.a.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = anomaly.5003.b
+		response_text = anomaly.5003.b.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = anomaly.5003.c
+		response_text = anomaly.5003.c.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = anomaly.5003.d
+		response_text = anomaly.5003.d.response
+		closest_system = {
+			limit = {
+				OR = {
+					has_owner = no
+					owner = { is_same_value = root }
+				}
+				any_planet = { is_planet_class = pc_gas_giant }
+			}
+			min_steps = 1
+			random_system_planet = {
+				limit = { is_planet_class = pc_gas_giant }
+				hidden_effect = {
+					set_planet_flag = baldarak
+					save_event_target_as = baldarak_planet
+					orbital_deposit_tile = { clear_deposits = yes }
+				}
+				enable_special_project = {
+					name = "GAS_GIANT_RELOCATION"
+					location = this
+					owner = root
+				}
+			}
+		}
+	}
+	option = {
+		name = anomaly.5003.e
+		response_text = anomaly.5003.e.response
+	}
+}
+
+# Special Project Completed
+ship_event = {
+	id = anomaly.5004
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5004.desc"
+	picture = GFX_evt_federation_fleet
+	show_sound = event_ship_thrusters
+	location = FROMFROMFROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = anomaly.5004.a
+		hidden_effect = {
+			owner = {
+				country_event = { id = anomaly.5006 }
+			}
+			random_planet = {
+				limit = { has_planet_flag = baldarak }
+				surveyed = {
+					set_surveyed = yes
+					surveyor = root.owner
+				}
+				set_name = "NAME_Baldarak"
+				add_modifier = {
+					modifier = "gas_giant_civ"
+					days = -1
+				}
+			}
+		}
+		random_planet = {
+			limit = { has_planet_flag = baldarak }
+			orbital_deposit_tile = {
+				add_deposit = d_enormous1_society_deposit
+			}
+		}
+	}
+}
+
+# Special Project Failed
+country_event = {
+	id = anomaly.5005
+	title = "PROJECT_FAILURE"
+	desc = "anomaly.5005.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = FROMFROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Incoming Transmission
+country_event = {
+	id = anomaly.5006
+	title = TRANSMISSION
+	desc = "anomaly.5006.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_country_flag = baldarak_settled
+		}
+	}
+	
+	option = {
+		name = anomaly.5006.a
+		trigger = {
+			species = { NOT = { is_species = "Baldarak" } }
+		}		
+		response_text = anomaly.5006.a.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = anomaly.5006.a.2
+		trigger = {
+			species = { is_species = "Baldarak" }
+		}		
+		response_text = anomaly.5006.a.2.response	
+		is_dialog_only = yes
+	}
+	option = {
+		name = anomaly.5006.b
+		response_text = anomaly.5006.b.response
+	}
+}
+
+# New Colony
+country_event = {
+	id = anomaly.5007
+	title = "anomaly.5007.name"
+	desc = "anomaly.5007.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = baldarak_settled
+		NOT = { has_country_flag = new_baldarak_colony_request }
+	}
+		
+	mean_time_to_happen = {
+		months = 240
+	}
+	
+	immediate = {
+		set_country_flag = new_baldarak_colony_request
+		save_event_target_as = MyCountry
+	}
+	
+	option = {
+		name = anomaly.5007.a
+		response_text = anomaly.5007.a.response
+		capital_scope = {
+			closest_system = {
+				limit = {
+					OR = {
+						has_owner = no
+						owner = { is_same_value = root }
+					}
+					any_planet = { 
+						is_planet_class = pc_gas_giant
+						NOT = { 
+							has_planet_flag = baldarak 
+							has_planet_flag = tollok_rong
+						}
+					}
+				}
+				min_steps = 1
+				random_system_planet = {
+					limit = { 
+						is_planet_class = pc_gas_giant
+						NOT = { 
+							has_planet_flag = baldarak 
+							has_planet_flag = tollok_rong
+						}
+					}
+					hidden_effect = {
+						set_planet_flag = new_baldarak
+						orbital_deposit_tile = { clear_deposits = yes }
+						save_event_target_as = NewBaldarak
+					}
+					enable_special_project = {
+						name = "GAS_GIANT_COLONY"
+						location = event_target:NewBaldarak
+						owner = event_target:MyCountry
+					}
+				}
+			}
+		}
+	}			
+
+	option = {
+		name = anomaly.5007.b
+		response_text = anomaly.5007.b.response
+	}
+}
+
+# Special Project Completed
+ship_event = {
+	id = anomaly.5008
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5008.desc"
+	picture = GFX_evt_federation_fleet
+	show_sound = event_ship_thrusters
+	location = FROMFROMFROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		hidden_effect = {
+			owner = {
+				set_country_flag = new_baldarak_settled
+			}
+		}
+	}
+			
+	option = {
+		name = anomaly.5008.a
+		random_planet = {
+			limit = { has_planet_flag = new_baldarak }
+			hidden_effect = {
+				set_name = "NAME_New_Baldarak"
+				surveyed = {
+					set_surveyed = yes
+					surveyor = root.owner
+				}
+				add_modifier = {
+					modifier = "gas_giant_colony"
+					days = -1
+				}
+			}
+			orbital_deposit_tile = {
+				add_deposit = d_immense_society_deposit
+			}	
+		}
+	}
+}
+
+# Chabky Raddh
+country_event = {
+	id = anomaly.5009
+	title = "anomaly.5009.name"
+	desc = "anomaly.5009.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_settled
+		NOT = { has_country_flag = chabky_raddh }
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_country_flag = chabky_raddh
+		}
+	}
+		
+	mean_time_to_happen = {
+		months = 220
+	}
+	
+	option = {
+		name = anomaly.5009.a
+		response_text = anomaly.5009.a.response
+	}
+	option = {
+		name = anomaly.5009.b
+		response_text = anomaly.5009.b.response
+		random_planet = {
+			limit = { 
+				has_planet_flag = baldarak
+			}
+			enable_special_project = {
+				name = "GAS_GIANT_LOST_CHABKY"
+				location = this
+				owner = root
+			}
+		}
+	}
+}
+
+# Special Project Completed
+ship_event = {
+	id = anomaly.5010
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5010.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_airlock
+	location = fromfrom
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = anomaly.5010.a
+		hidden_effect = {
+			owner = {
+				set_country_flag = chabky_raddh_done
+			}
+		}
+	}
+}
+
+# Lost Contact
+country_event = {
+	id = anomaly.5011
+	title = "anomaly.5011.name"
+	desc = "anomaly.5011.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_settled
+		has_country_flag = chabky_raddh_done
+		NOT = { has_country_flag = new_baldarak_contact_lost }
+	}
+	
+	immediate = {
+		hidden_effect = {
+			set_country_flag = new_baldarak_contact_lost
+		}
+	}
+		
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	option = {
+		name = anomaly.5011.a
+		response_text = anomaly.5011.a.response
+		random_planet = {
+			limit = { 
+				has_planet_flag = new_baldarak
+			}
+			enable_special_project = {
+				name = "GAS_GIANT_LOST_CONTACT"
+				location = this
+				owner = root
+			}
+		}
+	}
+	option = {
+		name = anomaly.5011.b
+		response_text = anomaly.5011.b.response
+	}
+}
+
+# Special Project Completed
+ship_event = {
+	id = anomaly.5012
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5012.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_radio_chatter
+	location = fromfrom
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		owner = {
+			set_country_flag = new_baldarak_revolutionary_front
+		}
+	}
+			
+	option = {
+		name = anomaly.5012.a
+		hidden_effect = {
+			owner = {
+				country_event = { id = anomaly.5013 }
+			}
+		}
+	}
+}
+
+# New Baldarak Revolutionary Front
+country_event = {
+	id = anomaly.5013
+	title = "anomaly.5013.name"
+	desc = "anomaly.5013.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	option = {
+		name = anomaly.5013.a
+		response_text = anomaly.5013.a.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = anomaly.5013.b
+		response_text = anomaly.5013.b.response
+		random_planet = {
+			limit = { 
+				has_planet_flag = baldarak
+			}
+			enable_special_project = {
+				name = "GAS_GIANT_REVOLT"
+				location = this
+				owner = root
+			}
+		}
+	}
+	option = {
+		name = anomaly.5013.c
+		response_text = anomaly.5013.c.response
+		hidden_effect = {
+			country_event = { id = anomaly.5014 days = 35 random = 40 }
+		}
+	}
+}
+
+# Baldarak Responds
+country_event = {
+	id = anomaly.5014
+	title = "anomaly.5014.name"
+	desc = "anomaly.5014.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	option = {
+		name = anomaly.5014.a
+		response_text = anomaly.5014.a.response
+		random_planet = {
+			limit = { 
+				has_planet_flag = new_baldarak
+			}
+			enable_special_project = {
+				name = "GAS_GIANT_OCCUPATION"
+				location = this
+				owner = root
+			}
+		}
+	}
+	option = {
+		name = anomaly.5014.b
+		response_text = anomaly.5014.b.response
+	}
+}
+
+# Special Project Completed (Revolutionaries land on Baldarak)
+ship_event = {
+	id = anomaly.5015
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5015.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_airlock
+	location = FROMFROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = anomaly.5015.a
+		hidden_effect = {
+			owner = {
+				country_event = { id = anomaly.5016 days = 35 random = 40 }
+			}
+		}
+	}
+}
+
+# Revolutionaries Seize Control
+country_event = {
+	id = anomaly.5016
+	title = "anomaly.5016.name"
+	desc = "anomaly.5016.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	immediate = {
+		set_country_flag = baldarak_revolution_1
+	}
+	
+	option = {
+		name = anomaly.5016.a
+	}
+}
+
+# Baldarak Announcement 1
+country_event = {
+	id = anomaly.5017
+	title = "anomaly.5017.name"
+	desc = "anomaly.5017.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = baldarak_revolution_1
+		NOT = { has_country_flag = baldarak_revolution_2 }
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		set_country_flag = baldarak_revolution_2
+		random_planet = {
+			limit = { has_planet_flag = baldarak }
+			set_name = "NAME_Fotangia"
+		}
+		random_planet = {
+			limit = { has_planet_flag = new_baldarak }
+			set_name = "NAME_Chabkymak"
+		}
+	}
+	
+	option = {
+		name = "INTERESTING"
+	}
+	option = {
+		name = anomaly.5017.b
+		hidden_effect = {
+			set_country_flag = dathnak_blocked
+		}
+	}
+}
+
+# Baldarak Announcement 2
+country_event = {
+	id = anomaly.5018
+	title = "anomaly.5017.name"
+	desc = "anomaly.5018.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = baldarak_revolution_2
+		NOT = { 
+			has_country_flag = baldarak_revolution_3 
+			has_country_flag = dathnak_blocked
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		set_country_flag = baldarak_revolution_3
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+	option = {
+		name = anomaly.5017.b
+		hidden_effect = {
+			set_country_flag = dathnak_blocked
+		}
+	}
+}
+
+# Baldarak Announcement 3
+country_event = {
+	id = anomaly.5019
+	title = "anomaly.5017.name"
+	desc = "anomaly.5019.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = baldarak_revolution_3
+		NOT = { 
+			has_country_flag = baldarak_revolution_4
+			has_country_flag = dathnak_blocked
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		set_country_flag = baldarak_revolution_4
+		random_planet = {
+			limit = { has_planet_flag = baldarak }
+			set_name = "NAME_Baldarak"
+		}
+		random_planet = {
+			limit = { has_planet_flag = new_baldarak }
+			set_name = "NAME_New_Baldarak"
+		}
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Special Project Completed (Expeditionary Force lands on New Baldarak)
+ship_event = {
+	id = anomaly.5020
+	title = "PROJECT_COMPLETE"
+	desc = "anomaly.5020.desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_airlock
+	location = FROMFROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = anomaly.5020.a
+		hidden_effect = {
+			owner = {
+				country_event = { id = anomaly.5021 days = 35 random = 40 }
+			}
+		}
+	}
+}
+
+# Expeditionary Force Seizes Control
+country_event = {
+	id = anomaly.5021
+	title = "anomaly.5021.name"
+	desc = "anomaly.5021.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	immediate = {
+		set_country_flag = new_baldarak_occupation_1
+	}
+	
+	option = {
+		name = anomaly.5021.a
+	}
+}
+
+# New Baldarak Announcement 1
+country_event = {
+	id = anomaly.5022
+	title = "anomaly.5022.name"
+	desc = "anomaly.5022.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_occupation_1
+		NOT = { has_country_flag = new_baldarak_occupation_2 }
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		set_country_flag = new_baldarak_occupation_2
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+	option = {
+		name = anomaly.5017.b
+	}
+}
+
+# New Baldarak Announcement 2
+country_event = {
+	id = anomaly.5023
+	title = "anomaly.5022.name"
+	desc = "anomaly.5023.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_occupation_2
+		NOT = { has_country_flag = new_baldarak_occupation_3 }
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		set_country_flag = new_baldarak_occupation_3
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+	option = {
+		name = anomaly.5017.b
+	}
+}
+
+# New Baldarak Announcement 3
+country_event = {
+	id = anomaly.5024
+	title = "anomaly.5017.name"
+	desc = "anomaly.5024.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_occupation_3
+		NOT = { has_country_flag = new_baldarak_occupation_4 }
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	immediate = {
+		set_country_flag = new_baldarak_occupation_4
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Baldarak Science Academy
+country_event = {
+	id = anomaly.5025
+	title = "anomaly.5025.name"
+	desc = "anomaly.5025.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_settled
+		NOT = { 
+			has_country_flag = new_baldarak_contact_lost
+			has_country_flag = baldarak_science_academy
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	immediate = {
+		set_country_flag = baldarak_science_academy
+	}
+	
+	option = {
+		name = anomaly.5025.a
+		add_monthly_resource_mult = {
+			resource = physics_research
+			value = @tier3researchreward
+			min = @tier3researchmin
+			max = @tier3researchmax
+		}
+	}
+}
+
+# Spring Cleaning
+country_event = {
+	id = anomaly.5026
+	title = "anomaly.5026.name"
+	desc = "anomaly.5026.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		has_country_flag = new_baldarak_settled
+		NOT = { 
+			has_country_flag = new_baldarak_contact_lost
+			has_country_flag = baldarak_spring_cleaning
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 320
+	}
+	
+	immediate = {
+		set_country_flag = baldarak_spring_cleaning
+	}
+	
+	option = {
+		name = anomaly.5026.a
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = @tier1materialreward
+			min = @tier1materialmin
+			max = @tier1materialmax
+		}
+	}
+}

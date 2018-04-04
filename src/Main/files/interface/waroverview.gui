@@ -32,49 +32,53 @@ guiTypes = {
 			orientation = "UPPER_LEFT"
 		}
 
-		iconType = {
-			name = "their_war_exhaustion_progress"
-			spriteType = "GFX_waroverview_icon_progress_enemies"
-			frame = 6
-			centerPosition = yes
-			position = { x = 18 y = -1 }
-			alwaysTransparent = yes
-		}
-		iconType = {
-			name = "our_war_exhaustion_progress"
-			spriteType = "GFX_waroverview_icon_progress_allies"
-			frame = 6
-			centerPosition = yes
-			position = { x = 16 y = -1 }
+		iconType ={
+			name ="war_status_icon"
+			quadTextureSprite = "GFX_diplomacy_status_war"
+			position = { x = 2 y = -15 }
+			scale = 0.9
 			alwaysTransparent = yes
 		}
 
 		iconType = {
 			name = "enemy_flag"
 			quadTextureSprite = "GFX_empire_flag_32"
-			position = { x = 0 y = -18 }
+			position = { x = 28 y = -18 }
 			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "our_flag"
+			quadTextureSprite = "GFX_empire_flag_32"
+			position = { x = -28 y = -18 }
+			alwaysTransparent = yes
+		}
+
+		iconType = {
+			name = "their_surrender_progress"
+			spriteType = "GFX_waroverview_icon_enemy_surrender_progress"
+			frame = 3
+			centerPosition = yes
+			position = { x = 15 y = 23 }
 		}
 
 		instantTextBoxType = {
 			name = "their_war_exhaustion"
-			position = { x = 18 y = 19 }
+			position = { x = 25 y = 15 }
 			font = "cg_16b"
 			maxWidth = 40
 			maxHeight = 20
 			format = center
 			fixedSize = yes
-			alwaysTransparent = yes
 		}
 		instantTextBoxType = {
 			name = "our_war_exhaustion"
-			position = { x = -24 y = -38 }
+			position = { x = -31 y = 15 }
 			font = "cg_16b"
 			maxWidth = 40
 			maxHeight = 20
 			format = center
 			fixedSize = yes
-			alwaysTransparent = yes
 		}
 	}
 

@@ -1,0 +1,1119 @@
+############################
+#
+# Anomaly Failure Events
+#
+# Written by Henrik Eklund
+#
+############################
+
+namespace = anomaly_failure
+
+# ROOT = ship scope
+# FROM = planet scope
+
+# Crashed Ship (Asteroid)
+ship_event = {
+	id = anomaly_failure.1
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.1.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Unknown Origin (Asteroid)
+ship_event = {
+	id = anomaly_failure.2
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.2.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Covered in Debris (Asteroid)
+ship_event = {
+	id = anomaly_failure.3
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.3.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Energy Emissions (Asteroid)
+ship_event = {
+	id = anomaly_failure.4
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.4.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Docking Hatch (Asteroid)
+ship_event = {
+	id = anomaly_failure.5
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.5.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Asteroid Collision (Asteroid)
+ship_event = {
+	id = anomaly_failure.6
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.6.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Abandoned Station (Asteroid)
+ship_event = {
+	id = anomaly_failure.7
+	title = "DISC_FAILURE"
+	desc = {
+		trigger = { owner = { NOT = { has_authority = auth_machine_intelligence } } }
+		text = anomaly_failure.7.desc
+	}
+	desc = {
+		trigger = {	owner = { has_authority = auth_machine_intelligence } }
+		text = anomaly_failure.7.desc.mach
+	}
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Life Signs (Asteroid)
+ship_event = {
+	id = anomaly_failure.8
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.8.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Atmospheric Object (Gas Giant)
+ship_event = {
+	id = anomaly_failure.9
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.9.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Promising Moon (Gas Giant)
+ship_event = {
+	id = anomaly_failure.10
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.10.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Life Signs (Gas Giant)
+ship_event = {
+	id = anomaly_failure.11
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.11.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Atmospheric Storms (Gas Giant)
+ship_event = {
+	id = anomaly_failure.12
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.12.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Aerostat Structures (Gas Giant)
+ship_event = {
+	id = anomaly_failure.13
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.13.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Cargo Pod (Gas Giant)
+ship_event = {
+	id = anomaly_failure.14
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.14.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Space Debris (Gas Giant)
+ship_event = {
+	id = anomaly_failure.15
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.15.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Massive Impact (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.16
+	title = "DISC_FAILURE"
+	desc = {
+		trigger = { owner = { NOT = { has_authority = auth_machine_intelligence } } }
+		text = anomaly_failure.16.desc
+	}
+	desc = {
+		trigger = {	owner = { has_authority = auth_machine_intelligence } }
+		text = anomaly_failure.16.desc.mach
+	}
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Unusual Energy Readings (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.17
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.17.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Weak Signal (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.18
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.18.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Asteroid in Orbit (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.19
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.19.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Solar Sailer (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.20
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.20.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Life Signs (Toxic, Frozen, Barren Planets)
+ship_event = {
+	id = anomaly_failure.21
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.21.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Space Station (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.22
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.22.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Signs of Battle (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.23
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.23.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_airlock
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Automated Shipyard (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.24
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.24.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Formerly Inhabited (Toxic Planet)
+ship_event = {
+	id = anomaly_failure.25
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.25.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Surface Writing (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.26
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.26.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Surface Beacon (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.27
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.27.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_alien_signal
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Strange Mountain Formation (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.28
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.28.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Unidentified Object (Uninhabitable Planet)
+ship_event = {
+	id = anomaly_failure.29
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.29.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Gas Giant Signal (Gas Giant)
+ship_event = {
+	id = anomaly_failure.30
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.30.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_alien_signal
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Gas Giant Ship (Gas Giant)
+ship_event = {
+	id = anomaly_failure.31
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.31.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_scanner
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Terminal Orbit (Gas Giant)
+ship_event = {
+	id = anomaly_failure.32
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.32.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "OK"
+	}
+}
+
+# Signs of Vultaum Activity
+ship_event = {
+	id = anomaly_failure.33
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.33.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Signs of Yuht Activity
+ship_event = {
+	id = anomaly_failure.34
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.34.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Signs of First League Activity
+ship_event = {
+	id = anomaly_failure.35
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.35.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Signs of Irassian Activity
+ship_event = {
+	id = anomaly_failure.36
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.36.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Signs of Irassian Activity
+ship_event = {
+	id = anomaly_failure.37
+	title = "DISC_FAILURE"
+	desc = "anomaly_failure.37.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_thrusters
+	location = FROM
+	
+	is_triggered_only = yes
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+
+# Asteroid Critical Failure I (Scientist Dies)
+ship_event = {
+	id = anomaly_failure.400
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.400.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		kill_leader = {
+			type = scientist
+			show_notification = no
+		}
+	}	
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Asteroid Critical Failure II (Scientist and Science Ship Destroyed)
+ship_event = {
+	id = anomaly_failure.401
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.401.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Asteroid Critical Failure III (Science Ship Destroyed)
+ship_event = {
+	id = anomaly_failure.402
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.402.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "UNFORTUNATE"
+		hidden_effect = {
+			leader = { unassign_leader = this }
+		}
+		fleet = { destroy_fleet = this }
+	}
+}
+
+# Asteroid Critical Failure IV (Creature Nest)
+ship_event = {
+	id = anomaly_failure.403
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.403.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_air_raid_siren # Should be Red Alert
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_Hostile_Creatures"
+			type = faction
+		}
+		last_created_country = {
+			establish_communications_no_message = root.owner
+			create_fleet = {
+				name = "NAME_Hostile_Creatures" 
+				effect = {
+					set_owner = last_created_country
+					create_ship = {
+						name = "NAME_Nellie"
+						design = "NAME_Large_Space_Organism_Orange"
+					}
+					create_ship = {
+						name = "NAME_Old_Chomper"
+						design = "NAME_Large_Space_Organism_Orange"
+					}
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+		}
+	}
+			
+	option = {
+		name = "BATTLESTATIONS"
+		custom_tooltip = creature_nest
+	}
+}
+
+# Asteroid Critical Failure V (Dormant Drones)
+ship_event = {
+	id = anomaly_failure.404
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.404.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_air_raid_siren # Should be Red Alert
+	location = FROM
+	
+	is_triggered_only = yes
+	auto_opens = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_Ancient_Drones"
+			type = faction
+		}
+		last_created_country = {
+			create_fleet = {
+				name = "NAME_Ancient_Drones"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_RX-2324"
+						design = "NAME_Dagger"
+					}
+					create_ship = {
+						name = "NAME_GRN-664"
+						design = "NAME_Dagger"
+					}
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+			establish_communications_no_message = root.owner
+		}
+	}
+	
+	option = {
+		name = "BATTLESTATIONS"
+		custom_tooltip = dormant_drones
+	}
+}
+
+# Asteroid Critical Failure VI (Pirate Outpost)
+ship_event = {
+	id = anomaly_failure.405
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.405.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_air_raid_siren # Should be Red Alert
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_Pirate_Scum"
+			type = faction
+		}
+		last_created_country = {
+			create_fleet = {
+				name = "NAME_Pirate_Scum"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_Comet_Sighted"
+						design = "NAME_Dagger"
+					}
+					create_ship = {
+						name = "NAME_Inconspicuous_Asteroid"
+						design = "NAME_Dagger"
+					}
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+			establish_communications_no_message = root.owner
+		}
+	}
+	
+	option = {
+		name = "BATTLESTATIONS"
+		custom_tooltip = pirate_outpost
+	}
+}
+
+# Gas Giant Critical Failure I (Scientist Dies)
+ship_event = {
+	id = anomaly_failure.900
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.900.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Gas Giant Critical Failure II (Scientist and Science Ship Destroyed)
+ship_event = {
+	id = anomaly_failure.901
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.901.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Gas Giant Critical Failure III (Science Ship Destroyed)
+ship_event = {
+	id = anomaly_failure.902
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.902.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+	auto_opens = yes
+
+	immediate = {
+		fleet = { destroy_fleet = this }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Gas Giant Critical Failure IV (Smuggler Rendezvous)
+ship_event = {
+	id = anomaly_failure.903
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.903.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_air_raid_siren # Should be Red Alert
+	location = FROM
+	
+	is_triggered_only = yes
+	auto_opens = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_Smugglers"
+			type = faction
+		}
+		last_created_country = {
+			create_fleet = {
+				name = "NAME_Smugglers"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_Homewrecker"
+						design = "NAME_Dagger"
+					}
+					create_ship = {
+						name = "NAME_Holier_Than_Thou"
+						design = "NAME_Dagger"
+					}
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+			establish_communications_no_message = root.owner
+		}
+	}
+	
+	option = {
+		name = BATTLESTATIONS
+		custom_tooltip = smuggler_rendezvous
+	}
+}
+
+# Uninhabitable Planet Critical Failure I (Scientist Dies)
+ship_event = {
+	id = anomaly_failure.1400
+	title = "DISC_CRITICAL_FAILURE"
+	desc = {
+		trigger = { owner = { NOT = { has_authority = auth_machine_intelligence } } }
+		text = anomaly_failure.1400.desc
+	}
+	desc = {
+		trigger = {	owner = { has_authority = auth_machine_intelligence } }
+		text = anomaly_failure.1400.desc.mach
+	}
+	picture = GFX_evt_mining_station
+	show_sound = event_laboratory_sound # Should be Life Support
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"	
+	}
+}
+
+# Uninhabitable Planet Critical Failure II (Scientist and Science Ship Destroyed)
+ship_event = {
+	id = anomaly_failure.1401
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.1401.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		kill_leader = { type = scientist show_notification = no }
+		fleet = { destroy_fleet = this }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Uninhabitable Planet Critical Failure III (Science Ship Destroyed)
+ship_event = {
+	id = anomaly_failure.1402
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.1402.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_explosion
+	location = FROM
+	
+	is_triggered_only = yes
+
+	immediate = {
+		fleet = { destroy_fleet = this }
+	}
+			
+	option = {
+		name = "UNFORTUNATE"
+	}
+}
+
+# Uninhabitable Planet Critical Failure IV (Pirate Anchorage)
+ship_event = {
+	id = anomaly_failure.1403
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.1403.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_air_raid_siren # Should be Red Alert
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_Pirate_Flotilla"
+			type = faction
+		}
+		last_created_country = {
+			create_fleet = {
+				name = "NAME_Pirate_Flotilla"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_My_First_Ship_II"
+						design = "NAME_Dagger"
+					}
+					create_ship = {
+						name = "NAME_Butterfingers"
+						design = "NAME_Ravager"
+					}
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+			establish_communications_no_message = root.owner
+		}
+	}
+	
+	option = {
+		name = "BATTLESTATIONS"
+		custom_tooltip = pirate_anchorage
+	}
+}
+
+# Uninhabitable Planet Critical Failure V (Mating Ground)
+ship_event = {
+	id = anomaly_failure.1404
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.1404.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_red_alert
+	location = FROM
+	
+	is_triggered_only = yes
+	auto_opens = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_Angry_Couple"
+			type = faction
+		}
+		last_created_country = {
+			establish_communications_no_message = root.owner
+			create_fleet = {
+				name = "NAME_Angry_Couple"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_Alpha_Male"
+						design = "NAME_Tiyanki_Bull"
+					}
+					create_ship = {
+						name = "NAME_Alpha_Female"
+						design = "NAME_Tiyanki_Cow"
+					}
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 300
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+		}
+	}
+	
+	option = {
+		name = "BATTLESTATIONS"
+		custom_tooltip = mating_ground
+	}
+}
+
+# Uninhabitable Planet Critical Failure VI (Ancient Combat Drones)
+ship_event = {
+	id = anomaly_failure.1405
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.1405.desc"
+	picture = GFX_evt_mining_station
+	show_sound = event_air_raid_siren # Should be Red Alert
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		create_country = {
+			name = "NAME_607th_Drone_Wing"
+			type = faction
+		}
+		last_created_country = {
+			establish_communications_no_message = root.owner
+			create_fleet = {
+				name = "NAME_607th_Drone_Wing"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_Red_One"
+						design = "NAME_Dagger"
+					}
+					create_ship = {
+						name = "NAME_Red_Two"
+						design = "NAME_Dagger"
+					}
+					set_location = from
+				}
+			}
+			set_faction_hostility = { set_hostile = yes }
+		}
+	}
+	
+	option = {
+		name = "BATTLESTATIONS"
+		custom_tooltip = combat_drones
+	}
+}

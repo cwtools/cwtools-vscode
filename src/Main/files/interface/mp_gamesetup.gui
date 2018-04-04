@@ -1040,12 +1040,67 @@ guiTypes = {
 							position = { x = 30 y = 120 }
 						}
 					}
-				}			
+				}
+
+				# Difficulty
+				containerWindowType = {
+					name = "difficulty"
+					position = { x = 0 y = 480 }
+					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
+
+					instantTextBoxType = {
+						name = "difficulty_label"
+						position = { x = 10 y = 4 }
+						font = "cg_16b"
+						maxWidth = 204
+						maxHeight = 52	
+						alwaysTransparent = yes
+						orientation = "UPPER_LEFT"
+						text = "FE_DIFFICULTY"
+						pdx_tooltip = "FE_DIFFICULTY_TOOLTIP"
+					}
+					
+					instantTextBoxType={
+						name = "value"
+						font = "malgun_goth_24"
+						text = "DIFFICULTY_NORMAL"
+						position = { x = 195 y = 0 }
+						maxWidth = 204
+						maxHeight = 35
+						fixedSize = yes
+						format = center
+					}
+					
+					spinnerType = {
+						id = "galaxy_difficulty_spinner"
+						name = "galaxy_difficulty_spinner"	
+						leftbutton = "spinner_upButton"
+						rightbutton = "spinner_downButton"
+						size = { x = 204 y = 30 }
+						position = { x = 195 y = 0 }
+						priority = 100			
+						borderSize = { x = 16 y = 16 }	
+						horizontal = 1
+						maxValue = 100
+						startValue = 0
+							
+						guiButtonType = {
+							name = "spinner_upButton"
+							quadTextureSprite = "scrollbar_leftbutton"
+							position = { x=30 y =0}	
+						}
+						guiButtonType = {
+							name = "spinner_downButton"
+							quadTextureSprite = "scrollbar_rightbutton"
+							position = { x = 30 y = 120 }	
+						}		
+					}
+				}					
 				
 				# Aggressiveness
 				containerWindowType = {
 					name = "aggressiveness"
-					position = { x = 0 y = 480 }
+					position = { x = 0 y = 520 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {
@@ -1096,61 +1151,6 @@ guiTypes = {
 						}		
 					}
 				}
-
-				# Difficulty
-				containerWindowType = {
-					name = "difficulty"
-					position = { x = 0 y = 520 }
-					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
-
-					instantTextBoxType = {
-						name = "difficulty_label"
-						position = { x = 10 y = 4 }
-						font = "cg_16b"
-						maxWidth = 204
-						maxHeight = 52	
-						alwaysTransparent = yes
-						orientation = "UPPER_LEFT"
-						text = "FE_DIFFICULTY"
-						pdx_tooltip = "FE_DIFFICULTY_TOOLTIP"
-					}
-					
-					instantTextBoxType={
-						name = "value"
-						font = "malgun_goth_24"
-						text = "DIFFICULTY_NORMAL"
-						position = { x = 195 y = 0 }
-						maxWidth = 204
-						maxHeight = 35
-						fixedSize = yes
-						format = center
-					}
-					
-					spinnerType = {
-						id = "galaxy_difficulty_spinner"
-						name = "galaxy_difficulty_spinner"	
-						leftbutton = "spinner_upButton"
-						rightbutton = "spinner_downButton"
-						size = { x = 204 y = 30 }
-						position = { x = 195 y = 0 }
-						priority = 100			
-						borderSize = { x = 16 y = 16 }	
-						horizontal = 1
-						maxValue = 100
-						startValue = 0
-							
-						guiButtonType = {
-							name = "spinner_upButton"
-							quadTextureSprite = "scrollbar_leftbutton"
-							position = { x=30 y =0}	
-						}
-						guiButtonType = {
-							name = "spinner_downButton"
-							quadTextureSprite = "scrollbar_rightbutton"
-							position = { x = 30 y = 120 }	
-						}		
-					}
-				}	
 			
 				# Advanced empires near player
 				containerWindowType = {

@@ -1,0 +1,144 @@
+############################
+#
+# Refugee Events
+#
+# Written by Martin Anward
+#
+############################
+
+namespace = refugees
+
+# Refugees Arrive (new species)
+pop_event = {
+	id = refugees.1
+	title = refugees.1.name	
+	picture = GFX_evt_unknown_ships
+	location = root
+	
+	desc = {
+		text = refugees.1.desc.1
+		trigger = {
+			event_target:RefugeeEscapedFrom = { 
+				root = {
+					OR = {
+						NOT = { has_citizenship_type = { type = citizenship_purge country = prev } }
+						has_purge_type = { type = purge_displacement country = prev }
+					}				
+				}
+			}
+		}
+	}
+	desc = {
+		text = refugees.1.desc.2
+		trigger = {
+			event_target:RefugeeEscapedFrom = { 
+				root = {
+					has_citizenship_type = { type = citizenship_purge country = prev }
+					NOT = { has_purge_type = { type = purge_displacement country = prev } }
+				}
+			}
+		}
+	}		
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = refugees.1.a
+	}
+}
+
+# Pops being displaced or purged are randomly removed over time
+pop_event = {
+	id = refugees.2
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	trigger = {
+		exists = owner
+		owner = { is_country_type = default }
+		is_robot_pop = no
+		OR = {
+			pop_can_live_on_planet = no
+			has_citizenship_type = { type = citizenship_purge }
+			is_pre_sapient_livestock = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 50
+		modifier = {
+			factor = 2
+			is_pre_sapient_livestock = yes
+		}		
+		modifier = {
+			factor = 2
+			has_purge_type = { type = purge_neutering }
+		}
+		modifier = {
+			factor = 0.25
+			has_purge_type = { type = purge_displacement }
+		}
+		modifier = {
+			factor = 0.25
+			has_purge_type = { type = purge_normal }
+		}		
+		modifier = {
+			factor = 0.1
+			pop_can_live_on_planet = no
+			planet = { is_planet_class = pc_machine }
+		}			
+	}
+	
+	immediate = {
+		kill_pop = yes
+	}
+}
+
+# Pop escapes purges into welcoming arms of refugee-takers
+pop_event = {
+	id = refugees.3
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	trigger = {
+		exists = owner
+		owner = { is_country_type = default }
+		has_citizenship_type = { type = citizenship_purge }
+		NOT = { has_purge_type = { type = purge_displacement } }		
+		is_valid_refugee_pop = yes
+	}
+	
+	mean_time_to_happen = {
+		years = 50
+	}
+	
+	immediate = {
+		refugee_pop_effect = yes
+	}
+}
+
+# Pop is made refugee (triggered)
+pop_event = {
+	id = refugees.4
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = {
+				is_valid_refugee_pop = yes								
+			}
+			refugee_pop_effect = yes
+			else = {
+				kill_pop = yes
+			}
+		}		
+	}
+}

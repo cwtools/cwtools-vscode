@@ -383,76 +383,108 @@ create_pirate_fleet = {
 					}
 				}
 
-
 				assign_leader = last_created_leader
 				set_location = event_target:pirate_home
 				set_fleet_stance = aggressive
 				set_aggro_range_measure_from = self
 				set_aggro_range = 150
-				
-				queue_actions = {
-					repeat = {
-						find_closest_system = {
-							trigger = {
-								id = "pirate.50.trigger.1"
-								NOT = { 
-									has_star_flag = hostile_system 
-									is_same_value = event_target:capital_system
+
+				# retroactively convert any ship pirate_homes to planet
+				# only needed for 2.0.2 beta
+				if = {
+					limit = {
+						exists = event_target:pirate_home
+						NOT = {
+							event_target:pirate_home = {
+								solar_system = {
+									any_planet = {
+										is_same_value = prevprev
+									}
 								}
-								any_planet = {
+							}
+						}
+					}
+					event_target:pirate_home = {
+						fleet = {
+							orbit = {
+								save_event_target_as = pirate_home
+							}
+						}
+					}
+				}
+
+				# don't do things if targets don't exist!
+				if = {
+					limit = {
+						exists = event_target:pirate_target
+						exists = event_target:pirate_home
+					}
+					queue_actions = {
+						repeat = {
+							find_closest_system = {
+								trigger = {
+									id = "pirate.50.trigger.1"
+									exists = event_target:pirate_target
+									NOT = { 
+										has_star_flag = hostile_system 
+										is_same_value = event_target:capital_system
+									}
+									any_planet = {
+										OR = {
+											has_mining_station = yes
+											has_research_station = yes
+										}
+										exists = controller
+										controller = { is_same_value = event_target:pirate_target }
+									}
+									#distance = {
+									#	source = PREV
+									#	max_distance = 100
+									#	min_distance = 20
+									#}
+								}
+								found_system = {
+									move_to = THIS
+								}	
+							}
+							find_closest_planet = {
+								trigger = {
+									id = "pirate.50.trigger.2"
 									OR = {
 										has_mining_station = yes
 										has_research_station = yes
 									}
-									exists = controller
-									controller = { is_same_value = event_target:pirate_target }
 								}
-								distance = {
-									source = PREV
-									max_distance = 100
-									min_distance = 20
-								}
-							}
-							found_system = {
-								move_to = THIS
-							}	
-						}
-						find_closest_planet = {
-							trigger = {
-								id = "pirate.50.trigger.2"
-								OR = {
-									has_mining_station = yes
-									has_research_station = yes
+								found_planet = {
+									orbit_planet = THIS
+									wait = {
+										duration = 20
+									}
 								}
 							}
-							found_planet = {
-								orbit_planet = THIS
-								wait = {
-									duration = 20
+							find_random_system = {
+								trigger = {
+									id = "pirate.50.trigger.3"
+									exists = event_target:pirate_home
+									any_planet = {
+										is_same_value = event_target:pirate_home
+									}
 								}
+								found_system = {
+									move_to = THIS
+								}	
 							}
-						}
-						find_random_system = {
-							trigger = {
-								id = "pirate.50.trigger.3"
-								any_planet = {
-									is_planet = event_target:pirate_home
+							find_closest_planet = {
+								trigger = {
+									id = "pirate.50.trigger.4"
+									is_same_value = event_target:pirate_home
 								}
-							}
-							found_system = {
-								move_to = THIS
-							}	
-						}
-						find_closest_planet = {
-							trigger = {
-								id = "pirate.50.trigger.4"
-								is_planet = event_target:pirate_home
-							}
-							found_planet = {
-								orbit_planet = THIS
-								wait = {
-									duration = 200
-									random = 150
+								found_planet = {
+									orbit_planet = THIS
+									wait = {
+										duration = 200
+										random = 150
+									}
 								}
 							}
 						}

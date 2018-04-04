@@ -866,10 +866,7 @@ has_total_war_cb = {
 			OR = {
 				is_country_type = awakened_fallen_empire
 				has_valid_civic = civic_hive_devouring_swarm
-				AND = {
-					has_technology = "tech_colossus"
-					is_rival = from
-				}		
+				has_valid_civic = civic_machine_assimilator	
 				AND = {
 					has_valid_civic = civic_machine_terminator
 					from = {
@@ -892,22 +889,16 @@ has_total_war_cb = {
 				is_country_type = awakened_fallen_empire
 				has_valid_civic = civic_fanatic_purifiers
 				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_machine_assimilator
 				has_valid_civic = civic_machine_terminator				
-				AND = {
-					is_rival = root
-					has_technology = "tech_colossus"
-				}	
 			}
 			from = {
 				OR = {
 					is_country_type = awakened_fallen_empire
 					has_valid_civic = civic_fanatic_purifiers
 					has_valid_civic = civic_hive_devouring_swarm
-					has_valid_civic = civic_machine_terminator		
-					AND = {
-						is_rival = root
-						has_technology = "tech_colossus"
-					}					
+					has_valid_civic = civic_machine_assimilator
+					has_valid_civic = civic_machine_terminator							
 				}	
 			}		
 		}
@@ -1046,5 +1037,84 @@ is_homicidal = {
 		has_valid_civic = civic_fanatic_purifiers
 		has_valid_civic = civic_machine_terminator
 		has_valid_civic = civic_hive_devouring_swarm
+	}
+}
+
+has_subjugation_req = {
+	OR = {
+		has_tradition = tr_domination_adopt
+		has_valid_civic = civic_inwards_perfection
+		has_valid_civic = civic_machine_terminator
+		has_valid_civic = civic_fanatic_purifiers
+		has_valid_civic = civic_hive_devouring_swarm
+	}
+}
+
+has_active_xuracorp_trade = {
+	OR = {
+		has_modifier = enclave_mineral_trade_1_xur
+		has_modifier = enclave_mineral_trade_2_xur
+		has_modifier = enclave_mineral_trade_3_xur
+		has_modifier = enclave_energy_trade_1_xur
+		has_modifier = enclave_energy_trade_2_xur
+		has_modifier = enclave_energy_trade_3_xur
+		has_modifier = enclave_mineral_food_trade_1_xur
+		has_modifier = enclave_mineral_food_trade_2_xur
+		has_modifier = enclave_mineral_food_trade_3_xur
+		has_modifier = enclave_energy_food_trade_1_xur
+		has_modifier = enclave_energy_food_trade_2_xur
+		has_modifier = enclave_energy_food_trade_3_xur
+		has_modifier = enclave_food_minerals_trade_1_xur
+		has_modifier = enclave_food_minerals_trade_2_xur
+		has_modifier = enclave_food_minerals_trade_3_xur
+		has_modifier = enclave_food_energy_trade_1_xur
+		has_modifier = enclave_food_energy_trade_2_xur
+		has_modifier = enclave_food_energy_trade_3_xur
+	}
+}
+
+has_active_riggan_trade = {
+	OR = {
+		has_modifier = enclave_mineral_trade_1_rig
+		has_modifier = enclave_mineral_trade_2_rig
+		has_modifier = enclave_mineral_trade_3_rig
+		has_modifier = enclave_energy_trade_1_rig
+		has_modifier = enclave_energy_trade_2_rig
+		has_modifier = enclave_energy_trade_3_rig
+		has_modifier = enclave_mineral_food_trade_1_rig
+		has_modifier = enclave_mineral_food_trade_2_rig
+		has_modifier = enclave_mineral_food_trade_3_rig
+		has_modifier = enclave_energy_food_trade_1_rig
+		has_modifier = enclave_energy_food_trade_2_rig
+		has_modifier = enclave_energy_food_trade_3_rig
+		has_modifier = enclave_food_minerals_trade_1_rig
+		has_modifier = enclave_food_minerals_trade_2_rig
+		has_modifier = enclave_food_minerals_trade_3_rig
+		has_modifier = enclave_food_energy_trade_1_rig
+		has_modifier = enclave_food_energy_trade_2_rig
+		has_modifier = enclave_food_energy_trade_3_rig
+	}
+}
+
+has_active_muutagan_trade = {
+	OR = {
+		has_modifier = enclave_mineral_trade_1_mut
+		has_modifier = enclave_mineral_trade_2_mut
+		has_modifier = enclave_mineral_trade_3_mut
+		has_modifier = enclave_energy_trade_1_mut
+		has_modifier = enclave_energy_trade_2_mut
+		has_modifier = enclave_energy_trade_3_mut
+		has_modifier = enclave_mineral_food_trade_1_mut
+		has_modifier = enclave_mineral_food_trade_2_mut
+		has_modifier = enclave_mineral_food_trade_3_mut
+		has_modifier = enclave_energy_food_trade_1_mut
+		has_modifier = enclave_energy_food_trade_2_mut
+		has_modifier = enclave_energy_food_trade_3_mut
+		has_modifier = enclave_food_minerals_trade_1_mut
+		has_modifier = enclave_food_minerals_trade_2_mut
+		has_modifier = enclave_food_minerals_trade_3_mut
+		has_modifier = enclave_food_energy_trade_1_mut
+		has_modifier = enclave_food_energy_trade_2_mut
+		has_modifier = enclave_food_energy_trade_3_mut
 	}
 }

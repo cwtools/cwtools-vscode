@@ -1,0 +1,187 @@
+
+@tributeallow1 = 250
+
+@tributeallow2 = 500
+
+@tributeallow3 = 1000
+
+@tributeallow4 = 1500
+
+@tributeallow5 = 2000
+
+@tributeallow6 = 2500
+
+@tributeallowraided1 = 500
+
+@tributeallowraided2 = 1000
+
+@tributeallowraided3 = 2000
+
+@tributeallowraided4 = 3000
+
+@tributeallowraided5 = 4000
+
+@tributeallowraided6 = 5000
+
+
+determine_energy_tribute = {
+	if = {
+		limit = { has_country_flag = marauder_tribute_1@event_target:raiding_marauder }
+		energy >= @tributeallow1
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_2@event_target:raiding_marauder }
+		energy >= @tributeallow2
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_3@event_target:raiding_marauder }
+		energy >= @tributeallow3
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_4@event_target:raiding_marauder }
+		energy >= @tributeallow4
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_5@event_target:raiding_marauder }
+		energy >= @tributeallow5
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_6@event_target:raiding_marauder }
+		energy >= @tributeallow6
+	}
+}
+
+determine_mineral_tribute = {
+	if = {
+		limit = { has_country_flag = marauder_tribute_1@event_target:raiding_marauder }
+		minerals >= @tributeallow1
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_2@event_target:raiding_marauder }
+		minerals >= @tributeallow2
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_3@event_target:raiding_marauder }
+		minerals >= @tributeallow3
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_4@event_target:raiding_marauder }
+		minerals >= @tributeallow4
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_5@event_target:raiding_marauder }
+		minerals >= @tributeallow5
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_6@event_target:raiding_marauder }
+		minerals >= @tributeallow6
+	}
+}
+
+determine_food_tribute = {
+	if = {
+		limit = { has_country_flag = marauder_tribute_1@event_target:raiding_marauder }
+		food >= @tributeallow1
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_2@event_target:raiding_marauder }
+		food >= @tributeallow2
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_3@event_target:raiding_marauder }
+		food >= @tributeallow3
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_4@event_target:raiding_marauder }
+		food >= @tributeallow4
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_5@event_target:raiding_marauder }
+		food >= @tributeallow5
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_6@event_target:raiding_marauder }
+		food >= @tributeallow6
+	}
+}
+
+determine_energy_tribute_raided = {
+	if = {
+		limit = { has_country_flag = marauder_tribute_1@event_target:marauder_country }
+		energy >= @tributeallowraided1
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_2@event_target:marauder_country }
+		energy >= @tributeallowraided2
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_3@event_target:marauder_country }
+		energy >= @tributeallowraided3
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_4@event_target:marauder_country }
+		energy >= @tributeallowraided4
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_5@event_target:marauder_country }
+		energy >= @tributeallowraided5
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_6@event_target:marauder_country }
+		energy >= @tributeallowraided6
+	}
+}
+
+determine_mineral_tribute_raided = {
+	if = {
+		limit = { has_country_flag = marauder_tribute_1@event_target:marauder_country }
+		minerals >= @tributeallowraided1
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_2@event_target:marauder_country }
+		minerals >= @tributeallowraided2
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_3@event_target:marauder_country }
+		minerals >= @tributeallowraided3
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_4@event_target:marauder_country }
+		minerals >= @tributeallowraided4
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_5@event_target:marauder_country }
+		minerals >= @tributeallowraided5
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_6@event_target:marauder_country }
+		minerals >= @tributeallowraided6
+	}
+}
+
+determine_food_tribute_raided = {
+	if = {
+		limit = { has_country_flag = marauder_tribute_1@event_target:marauder_country }
+		food >= @tributeallowraided1
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_2@event_target:marauder_country }
+		food >= @tributeallowraided2
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_3@event_target:marauder_country }
+		food >= @tributeallowraided3
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_4@event_target:marauder_country }
+		food >= @tributeallowraided4
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_5@event_target:marauder_country }
+		food >= @tributeallowraided5
+	}
+	if = {
+		limit = { has_country_flag = marauder_tribute_6@event_target:marauder_country }
+		food >= @tributeallowraided6
+	}
+}

@@ -1,0 +1,61 @@
+############################
+#
+# Pretender Events
+#
+# Written by Henrik Eklund
+#
+############################
+
+namespace = pretender
+
+### Ruler Dies Without Heir
+country_event = {
+	id = pretender.1
+	title = "pretender.1.name"
+	picture = GFX_evt_throne_room
+	show_sound = event_conversation
+	
+	is_triggered_only = yes
+	hide_window = yes
+	
+	trigger = {
+		from = {
+			is_same_value = root.leader
+		}
+		NOT = { exists = heir }
+		has_authority = auth_imperial
+		#OR = {
+		#	has_government = despotic_empire
+		#	has_government = star_empire
+		#	has_government = divine_mandate
+		#	has_government = transcendent_empire
+		#	has_government = despotic_hegemony
+		#	has_government = ai_overlordship
+		#	has_government = enlightened_monarchy
+		#	has_government = irenic_monarchy
+		#	has_government = stagnated_ascendancy
+		#	has_government = awakened_ascendancy
+		#	has_government = military_order
+		#	has_government = machine_consciousness
+		#	has_government = curator_government
+		#	has_government = trader_government
+		#	has_government = artist_government
+		#}
+	}
+	
+	immediate = {
+		# Install a new leader
+		create_leader = {
+			type = ruler
+			species = owner_main_species
+			name = random
+			traits = {}
+		}
+		assign_leader = last_created_leader
+	}
+
+	#option = {
+	#	name = "UNFORTUNATE"
+	#	custom_tooltip = pretender.1.tooltip
+	#}
+}

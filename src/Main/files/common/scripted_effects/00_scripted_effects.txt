@@ -4911,26 +4911,99 @@ generate_start_buildings_and_blockers = {
 }
 
 reset_start_buildings_and_blockers_post_apoc = { #Selectively resets necessary tiles for Post-Apoc Civic users. Relies on "generate_start_buildings_and_blockers" and game_start.32
+	# Find capitol and buildings, and then remove them
+	# this is needed because planet's deposits were re-rolled after
+	every_tile = {
+		limit = { has_building = yes }
+		remove_building = yes
+	}
+	# Set up a new capitol and nearby buildings
 	random_tile = {
-		limit = { has_building = "building_capital_1" }
+		limit = { has_blocker = no has_building = no num_adjacent_tiles > 3 }
+		if = {
+			limit = {
+				owner = { has_authority = auth_machine_intelligence }
+			}
+			set_building = "building_machine_capital_1"
+			else = {
+				set_building = "building_capital_1"
+			}
+		}
 		set_deposit = d_energy_deposit
 		random_neighboring_tile = {
-			limit = { has_building = "building_hydroponics_farm_1" }
-			clear_deposits = yes
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_hydroponics_farm_1"
+			set_deposit = d_farmland_deposit						
 		}
 		random_neighboring_tile = {
-			limit = { has_building = "building_hydroponics_farm_1" }
-			clear_deposits = yes
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_hydroponics_farm_1"
+			set_deposit = d_farmland_deposit						
+		}
+		random_neighboring_tile = {
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_power_plant_1"
+			set_deposit = d_rich_energy_deposit
+		}
+		random_neighboring_tile = {
+			limit = { has_blocker = no has_building = no }
+			set_building = "building_mining_network_1"
+			set_deposit = d_rich_mineral_deposit
 		}
 	}
+	
+	# Add the lab
+	# has pop = yes to make sure they use the tiles that were first generated for this task
 	random_tile = {
-		limit = { has_building = "building_basic_science_lab_1" }
-		clear_deposits = yes
-		remove_building = yes
-		set_building = "building_hydroponics_farm_1"
-	}		
+		limit = { has_blocker = no has_building = no has_pop = yes  }
+		set_building = "building_basic_science_lab_1"
+		random_list = {
+			33 = {
+				set_deposit = d_engineering_deposit										
+			}
+			33 = { 
+				set_deposit = d_society_deposit											
+			}
+			33 = { 
+				set_deposit = d_physics_deposit											
+			}					
+		}	
+	}	
+
+	# Add mine and power plant
+	# has pop = yes to make sure they use the tiles that were first generated for this task
 	random_tile = {
-		limit = { has_deposit = "d_engineering_deposit" has_building = no }
+		limit = { has_blocker = no has_building = no has_pop = yes }
+		set_building = "building_mining_network_1"
+		set_deposit = d_mineral_deposit
+	}
+	random_tile = {
+		limit = { has_blocker = no has_building = no has_pop = yes  }
+		set_building = "building_power_plant_1"
+		set_deposit = d_rich_energy_deposit
+	}	
+	
+	# Move pops to tiles
+	every_tile = {
+		limit = { has_building = yes has_pop = no }
+		
+		save_event_target_as = needs_worker	
+		planet = {
+			random_pop = {
+				limit = { tile = { has_building = no } }
+
+				resettle_pop = {
+					pop = this
+					tile = event_target:needs_worker
+				}
+			
+			}		
+		}
+	}
+	
+	# Add blockers
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
 		if = {
 			limit = { 
 				owner = { has_civic = civic_machine_terminator }
@@ -4939,10 +5012,11 @@ reset_start_buildings_and_blockers_post_apoc = { #Selectively resets necessary t
 			else = {
 				set_blocker = "tb_bomb_crater"
 			}
-		}	
-	}
-	random_tile = {
-		limit = { has_deposit = "d_society_deposit" has_building = no }
+		}
+        set_deposit = d_engineering_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no  }
 		if = {
 			limit = { 
 				owner = { has_civic = civic_machine_terminator }
@@ -4951,10 +5025,24 @@ reset_start_buildings_and_blockers_post_apoc = { #Selectively resets necessary t
 			else = {
 				set_blocker = "tb_bomb_crater"
 			}
-		}	
-	}
-	random_tile = {
-		limit = { has_deposit = "d_physics_deposit" has_building = no }		
+		}
+        set_deposit = d_society_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+		if = {
+			limit = { 
+				owner = { has_civic = civic_machine_terminator }
+			}
+			set_blocker = "tb_former_battlefield"
+			else = {
+				set_blocker = "tb_bomb_crater"
+			}
+		}
+        set_deposit = d_physics_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
 		if = {
 			limit = { 
 				owner = { has_civic = civic_machine_terminator }
@@ -4963,10 +5051,11 @@ reset_start_buildings_and_blockers_post_apoc = { #Selectively resets necessary t
 			else = {
 				set_blocker = "tb_radioactive_wasteland"
 			}
-		}	
-	}
-	random_tile = {
-		limit = { has_deposit = "d_rich_energy_deposit" has_building = no }
+		}
+        set_deposit = d_rich_energy_deposit
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
 		if = {
 			limit = { 
 				owner = { has_civic = civic_machine_terminator }
@@ -4976,125 +5065,22 @@ reset_start_buildings_and_blockers_post_apoc = { #Selectively resets necessary t
 				set_blocker = "tb_radioactive_wasteland"
 			}
 		}
-	}
-	random_tile = {
-		limit = { has_deposit = "d_rich_farmland_deposit" has_building = no }
-		random_list = {
-			33 = {
-				set_deposit = d_engineering_deposit
+        set_deposit = d_rich_mineral_deposit        
+    }
+    random_tile = {
+        limit = { has_blocker = no has_building = no has_pop = no }
+		if = {
+			limit = { 
+				owner = { has_civic = civic_machine_terminator }
 			}
-			33 = {
-				set_deposit = d_society_deposit
+			set_blocker = "tb_exterminators_ruins"
+			set_deposit = d_rich_energy_deposit	
+			else = {
+				set_blocker = "tb_radioactive_wasteland"
+				set_deposit = d_rich_farmland_deposit
 			}
-			33 = {
-				set_deposit = d_physics_deposit
-			}
-		}
-	}
-	random_tile = { #turns one farm tile into empty tile
-		limit = {
-			OR = {
-				has_deposit = "d_farmland_deposit"
-				has_deposit = "d_rich_farmland_deposit"
-				has_deposit = "d_mineral_food_deposit"
-				has_deposit = "d_rich_food_mineral_deposit"
-				has_deposit = "d_vast_farmland_deposit"
-				has_deposit = "d_immense_farmland_deposit"
-			}
-		}
-		clear_deposits = yes
-	}
-	every_tile = {
-		limit = { has_deposit = "d_farmland_deposit" }
-		clear_deposits = yes
-		random_list = {
-			35 = {
-				set_deposit = d_energy_deposit
-			}
-			35 = {
-				set_deposit = d_mineral_deposit
-			}
-		}
-	}
-	every_tile = {
-		limit = {
-			OR = {
-				has_deposit = "d_rich_farmland_deposit"
-				has_deposit = "d_mineral_food_deposit"
-				has_deposit = "d_rich_food_mineral_deposit"
-			}
-		}
-		clear_deposits = yes
-		random_list = {
-			10 = {
-				set_deposit = d_rich_engineering_deposit
-			}
-			10 = {
-				set_deposit = d_rich_society_deposit
-			}
-			10 = {
-				set_deposit = d_rich_physics_deposit
-			}
-			35 = {
-				set_deposit = d_rich_energy_deposit
-			}
-			35 = {
-				set_deposit = d_rich_mineral_deposit
-			}
-		}
-	}
-	every_tile = {
-		limit = { has_deposit = "d_vast_farmland_deposit" }
-		clear_deposits = yes
-		random_list = {
-			10 = {
-				set_deposit = d_vast_engineering_deposit
-			}
-			10 = {
-				set_deposit = d_vast_society_deposit
-			}
-			10 = {
-				set_deposit = d_vast_physics_deposit
-			}
-			35 = {
-				set_deposit = d_vast_energy_deposit
-			}
-			35 = {
-				set_deposit = d_vast_mineral_deposit
-			}
-		}
-	}
-	every_tile = {
-		limit = { has_deposit = "d_immense_farmland_deposit" }
-		clear_deposits = yes
-		random_list = {
-			10 = {
-				set_deposit = d_immense_engineering_deposit
-			}
-			10 = {
-				set_deposit = d_immense_society_deposit
-			}
-			10 = {
-				set_deposit = d_immense_physics_deposit
-			}
-			35 = {
-				set_deposit = d_immense_energy_deposit
-			}
-			35 = {
-				set_deposit = d_immense_mineral_deposit
-			}
-		}
-	}
-	IF = { #ensures at least one empty tile, if no farm tile was generated to nuke
-		limit = { any_tile = { NOT = { has_deposit = no } } }
-		random_tile = {
-			limit = { has_blocker = no has_building = no has_deposit = yes }
-			clear_deposits = yes
-		}
-		else = {
-			#do nothing
-		}
-	}
+		}        	      
+    }
 }
 
 reset_start_buildings_and_blockers_life_seeded = { #Selectively resets necessary tiles for Life-Seeded Civic users. Is triggered after "generate_start_buildings_and_blockers" by game_start.34
@@ -5944,7 +5930,7 @@ create_medium_marauder_auxiliaries = {
 		traits = { trait = random_trait }
 	}
 	create_fleet = {
-		name = "NAME_Marauder_Auxiliary_Fleet"
+		name = "NAME_Horde_Auxiliary_Fleet"
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
@@ -6011,7 +5997,7 @@ create_large_marauder_auxiliaries = {
 		traits = { trait = random_trait }
 	}
 	create_fleet = {
-		name = "NAME_Marauder_Auxiliary_Fleet"
+		name = "NAME_Horde_Auxiliary_Fleet"
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
@@ -6077,7 +6063,7 @@ create_very_large_marauder_auxiliaries = {
 	}
 	last_created_leader = { set_age = 37 }
 	create_fleet = {
-		name = "NAME_Marauder_Auxiliary_Fleet"
+		name = "NAME_Horde_Auxiliary_Fleet"
 		effect = {
 			set_owner = event_target:raider_khanate
 			set_fleet_flag = horde_auxuliaries
@@ -7749,7 +7735,6 @@ fire_warning_sign = {
 }
 
 fallen_empire_humiliate_effect = {
-	custom_tooltip = fallen_empire_humiliate_effect_tooltip
 	hidden_effect = {
 		add_modifier = { modifier = humiliated days = 3600 }
 		end_rivalry = event_target:fallen_empire_humiliator
@@ -8203,5 +8188,174 @@ spawn_ringworld_nanobot_effect = {
 		
 		entity_scale_to_size = yes
 		scale = 0.10
+	}
+}
+
+remove_xuracorp_trades = {
+	remove_modifier = enclave_mineral_trade_1_xur
+	remove_modifier = enclave_mineral_trade_2_xur
+	remove_modifier = enclave_mineral_trade_3_xur
+	remove_modifier = enclave_energy_trade_1_xur
+	remove_modifier = enclave_energy_trade_2_xur
+	remove_modifier = enclave_energy_trade_3_xur
+	remove_modifier = enclave_mineral_food_trade_1_xur
+	remove_modifier = enclave_mineral_food_trade_2_xur
+	remove_modifier = enclave_mineral_food_trade_3_xur
+	remove_modifier = enclave_energy_food_trade_1_xur
+	remove_modifier = enclave_energy_food_trade_2_xur
+	remove_modifier = enclave_energy_food_trade_3_xur
+	remove_modifier = enclave_food_minerals_trade_1_xur
+	remove_modifier = enclave_food_minerals_trade_2_xur
+	remove_modifier = enclave_food_minerals_trade_3_xur
+	remove_modifier = enclave_food_energy_trade_1_xur
+	remove_modifier = enclave_food_energy_trade_2_xur
+	remove_modifier = enclave_food_energy_trade_3_xur
+}
+
+remove_riggan_trades = {
+	remove_modifier = enclave_mineral_trade_1_rig
+	remove_modifier = enclave_mineral_trade_2_rig
+	remove_modifier = enclave_mineral_trade_3_rig
+	remove_modifier = enclave_energy_trade_1_rig
+	remove_modifier = enclave_energy_trade_2_rig
+	remove_modifier = enclave_energy_trade_3_rig
+	remove_modifier = enclave_mineral_food_trade_1_rig
+	remove_modifier = enclave_mineral_food_trade_2_rig
+	remove_modifier = enclave_mineral_food_trade_3_rig
+	remove_modifier = enclave_energy_food_trade_1_rig
+	remove_modifier = enclave_energy_food_trade_2_rig
+	remove_modifier = enclave_energy_food_trade_3_rig
+	remove_modifier = enclave_food_minerals_trade_1_rig
+	remove_modifier = enclave_food_minerals_trade_2_rig
+	remove_modifier = enclave_food_minerals_trade_3_rig
+	remove_modifier = enclave_food_energy_trade_1_rig
+	remove_modifier = enclave_food_energy_trade_2_rig
+	remove_modifier = enclave_food_energy_trade_3_rig
+}
+
+remove_muutagan_trades = {
+	remove_modifier = enclave_mineral_trade_1_mut
+	remove_modifier = enclave_mineral_trade_2_mut
+	remove_modifier = enclave_mineral_trade_3_mut
+	remove_modifier = enclave_energy_trade_1_mut
+	remove_modifier = enclave_energy_trade_2_mut
+	remove_modifier = enclave_energy_trade_3_mut
+	remove_modifier = enclave_mineral_food_trade_1_mut
+	remove_modifier = enclave_mineral_food_trade_2_mut
+	remove_modifier = enclave_mineral_food_trade_3_mut
+	remove_modifier = enclave_energy_food_trade_1_mut
+	remove_modifier = enclave_energy_food_trade_2_mut
+	remove_modifier = enclave_energy_food_trade_3_mut
+	remove_modifier = enclave_food_minerals_trade_1_mut
+	remove_modifier = enclave_food_minerals_trade_2_mut
+	remove_modifier = enclave_food_minerals_trade_3_mut
+	remove_modifier = enclave_food_energy_trade_1_mut
+	remove_modifier = enclave_food_energy_trade_2_mut
+	remove_modifier = enclave_food_energy_trade_3_mut
+}
+
+add_leader_traits_after_modification = {
+	if = {
+		limit = { 
+			species = { 
+				has_trait = trait_erudite 
+				NOR = {
+					has_trait = trait_cybernetic 
+					has_trait = trait_psionic 
+					has_trait = trait_latent_psionic					
+				}
+			} 
+		}
+		if = {
+			limit = { 
+				leader_class = admiral 
+				NOT = { has_trait = leader_trait_admiral_erudite } 
+			}
+			add_trait = leader_trait_admiral_erudite
+			add_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				leader_class = general 
+				NOT = { has_trait = leader_trait_general_erudite } 
+			}
+			add_trait = leader_trait_general_erudite
+			add_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				leader_class = governor 
+				NOT = { has_trait = leader_trait_governor_erudite } 
+			}
+			add_trait = leader_trait_governor_erudite
+			add_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				leader_class = scientist 
+				NOT = { has_trait = leader_trait_scientist_erudite } 
+			}
+			add_trait = leader_trait_scientist_erudite
+			add_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				leader_class = ruler 
+				NOT = { has_trait = leader_trait_ruler_erudite } 
+			}
+			add_trait = leader_trait_ruler_erudite
+			add_ruler_trait = leader_trait_ruler_erudite
+
+		}
+	}
+}
+
+remove_leader_traits_after_modification = {
+	if = {
+		limit = { 
+			species = { 	
+				OR = {
+					NOT = { has_trait = trait_erudite } 
+					has_trait = trait_cybernetic 
+					has_trait = trait_psionic 
+					has_trait = trait_latent_psionic									
+				}				
+			} 
+		}
+		if = {
+			limit = { 
+				has_trait = leader_trait_admiral_erudite 
+			}
+			remove_trait = leader_trait_admiral_erudite
+			remove_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				has_trait = leader_trait_general_erudite 
+			}
+			remove_trait = leader_trait_general_erudite
+			remove_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				has_trait = leader_trait_governor_erudite 
+			}
+			remove_trait = leader_trait_governor_erudite
+			remove_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				has_trait = leader_trait_scientist_erudite 
+			}
+			remove_trait = leader_trait_scientist_erudite
+			remove_ruler_trait = leader_trait_ruler_erudite
+		}
+		if = {
+			limit = { 
+				has_trait = leader_trait_ruler_erudite
+			}
+			remove_trait = leader_trait_ruler_erudite
+			remove_ruler_trait = leader_trait_ruler_erudite
+		}		
 	}
 }

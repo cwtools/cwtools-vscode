@@ -1,0 +1,1903 @@
+############################
+#
+# Fallen Empire 'Awakening' Events
+#
+# Written by Martin Anward
+#
+############################
+
+namespace = fallen_machine_empire
+
+# Machine Fallen Empire - Awakening
+country_event = {
+	id = fallen_machine_empire.1
+	title = OK
+	desc = OK
+
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {	
+		set_country_type = awakened_fallen_empire
+		
+		if = {
+			limit = {
+				has_country_flag = fallen_machine_empire_awaken_1
+			}
+			change_government = {
+				civics = {
+					civic = civic_awakened_machine
+					civic = civic_final_defense_protocols
+				}
+			}			
+		}
+		
+		if = {
+			limit = {
+				has_country_flag = fallen_machine_empire_awaken_2
+			}
+			change_government = {
+				civics = {
+					civic = civic_awakened_machine
+					civic = civic_malfunctioning_custodian
+				}
+			}			
+			
+		}		
+
+		# Changing country type resets resources, so give them full stores
+		add_minerals = 20000
+		add_energy = 5000
+		add_influence = 1000
+
+		# Add some more fleet
+		country_event = { id = fallen_empires.13 }
+
+		# Establish communications
+		every_country = {
+			limit = {
+				OR = {
+					is_country_type = default
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+				}
+				NOT = { has_communications = root }
+			}
+
+			establish_communications_no_message = root
+		}
+		
+		root = { save_event_target_as = awakened_machine_empire }
+		
+		# Notify players
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			country_event = { id = fallen_machine_empire.2 }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.2
+	title = fallen_machine_empire.2.name
+	location = event_target:awakened_machine_empire.capital_scope
+	
+	diplomatic = yes
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		portrait = event_target:awakened_machine_empire
+		planet_background = event_target:awakened_machine_empire
+		graphical_culture = event_target:awakened_machine_empire
+		city_level = event_target:awakened_machine_empire
+		room = event_target:awakened_machine_empire.ruler
+	}
+	
+	desc = {
+		text = fallen_machine_empire.2.desc_01
+		trigger = {
+			event_target:awakened_machine_empire = {
+				has_country_flag = fallen_machine_empire_awaken_1
+			}
+		}
+	}
+	
+	desc = {
+		text = fallen_machine_empire.2.desc_02
+		trigger = {
+			event_target:awakened_machine_empire = {
+				has_country_flag = fallen_machine_empire_awaken_2
+			}
+		}
+	}
+	
+	option = {
+		trigger = {
+			event_target:awakened_machine_empire = {
+				has_country_flag = fallen_machine_empire_awaken_1
+			}
+		}	
+		name = fallen_machine_empire.2.a
+	}
+	
+	option = {
+		trigger = {
+			event_target:awakened_machine_empire = {
+				has_country_flag = fallen_machine_empire_awaken_2
+			}
+		}	
+		name = fallen_machine_empire.2.b
+	}
+}
+
+# Machine Fallen Empire - Shutdown
+country_event = {
+	id = fallen_machine_empire.3
+	title = OK
+	desc = OK
+
+	hide_window = yes
+
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_civic = civic_malfunctioning_custodian }
+	}
+
+	immediate = {
+		set_country_flag = silence_destroy_event
+		
+		every_owned_fleet = {
+			limit = {
+				OR = {
+					is_ship_class = shipclass_constructor
+					is_ship_class = shipclass_transport
+					is_ship_class = shipclass_military_station
+					is_ship_class = shipclass_military
+				}			
+			}
+			delete_fleet = this
+		}
+
+		every_owned_fleet = {
+			limit = {
+				OR = {
+					is_ship_class = shipclass_military_station
+				}			
+			}
+			destroy_fleet = this
+		}		
+	
+		every_owned_planet = {
+			destroy_colony = yes
+		}
+		
+		# Notify players
+		every_country = {
+			limit = {
+				is_ai = no
+			}
+			country_event = { id = fallen_machine_empire.4 }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.4
+	title = "fallen_machine_empire.4.name"
+	desc = "fallen_machine_empire.4.desc"
+	show_sound = event_default
+	picture = GFX_evt_fallen_empire
+	is_triggered_only = yes
+	option = {
+		name = OK
+	}
+}
+
+# Task 1: Allow inoculations (biological)
+country_event = {
+	id = fallen_machine_empire.10
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 100
+	}
+	
+	trigger = {
+		NOT = { has_authority = auth_machine_intelligence }
+		is_mechanical_empire = no
+		is_country_type = default
+		NOT = { has_country_flag = fe_machine_task_1 }
+		is_at_war = no
+		
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root		
+			NOT = { has_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } }
+			NOT = { has_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } }
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_machine_task_1
+	
+		random_country = {
+			limit = { 
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root		
+				NOT = { has_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } }
+				NOT = { has_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } }				
+			}
+			
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.11 } }			
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.11
+	title = fallen_machine_empire.11.name
+	desc = fallen_machine_empire.11.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.11.a
+		ai_chance = {
+			factor = 90
+			modifier = {
+				factor = 2
+				has_ethic = ethic_xenophile
+			}			
+			modifier = {
+				factor = 10
+				has_ethic = ethic_fanatic_xenophile
+			}					
+			modifier = {
+				factor = 0.1
+				has_ethic = ethic_xenophobe
+			}
+			modifier = {
+				factor = 0.01
+				has_ethic = ethic_fanatic_xenophobe
+			}		
+			modifier = {
+				factor = 0.5
+				fleet_power > 10000
+			}
+		}		
+		
+		custom_tooltip = fallen_machine_empire.11.tooltip
+		custom_tooltip = fallen_machine_empire_happy_tooltip
+		
+		if = {
+			limit = {
+				OR = {
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+				}				
+			}
+			add_modifier = { modifier = machine_empire_inoculations_xenophobe days = -1 }
+		}		
+		if = {
+			limit = {
+				NOR = {
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+				}				
+			}
+			add_modifier = { modifier = machine_empire_inoculations days = -1 }
+		}	
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } } }
+	}
+	
+	option = {
+		name = fallen_machine_empire.11.b
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}		
+		custom_tooltip = fallen_machine_empire_unhappy_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } } }
+	}
+	option = {
+		name = fallen_machine_empire.11.c
+		trigger = {
+			NOR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe					
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}		
+		custom_tooltip = fallen_machine_empire_unhappy_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } } }
+	}
+}
+
+# Inoculations - bad
+country_event = {
+	id = fallen_machine_empire.12
+	title = fallen_machine_empire.12.name
+	desc = fallen_machine_empire.12.desc
+	picture = GFX_evt_genetic_modification
+	
+	desc = {
+		trigger = { has_ethic = ethic_gestalt_consciousness }
+		text = fallen_machine_empire.12.desc.b
+	}
+	
+	trigger = {
+		OR = {
+			has_modifier = machine_empire_inoculations
+			has_modifier = machine_empire_inoculations_xenophobe
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+		modifier = {
+			factor = 0.66
+			has_country_flag = fallen_machine_empire_awaken_2
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_modifier = machine_empire_inoculations }
+			remove_modifier = machine_empire_inoculations
+		}
+		if = {
+			limit = { has_modifier = machine_empire_inoculations_xenophobe }
+			remove_modifier = machine_empire_inoculations_xenophobe
+		}
+	}
+	
+	option = {
+		name = fallen_machine_empire.12.a		
+		add_modifier = { 
+			modifier = machine_empire_mutations
+			days = 3600
+		}		
+	}
+}
+
+# Inoculations - good
+country_event = {
+	id = fallen_machine_empire.13
+	title = fallen_machine_empire.13.name
+	desc = fallen_machine_empire.13.desc
+	picture = GFX_evt_genetic_modification
+	
+	desc = {
+		trigger = { has_ethic = ethic_gestalt_consciousness }
+		text = fallen_machine_empire.13.desc.b
+	}	
+	
+	trigger = {
+		OR = {
+			has_modifier = machine_empire_inoculations
+			has_modifier = machine_empire_inoculations_xenophobe
+		}
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+		modifier = {
+			factor = 0.66
+			has_country_flag = fallen_machine_empire_awaken_1
+		}		
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_modifier = machine_empire_inoculations }
+			remove_modifier = machine_empire_inoculations
+		}
+		if = {
+			limit = { has_modifier = machine_empire_inoculations_xenophobe }
+			remove_modifier = machine_empire_inoculations_xenophobe
+		}		
+	}
+	
+	option = {
+		name = fallen_machine_empire.13.a
+		add_modifier = { 
+			modifier = machine_empire_health_boost
+			days = -1
+		}		
+	}
+}
+
+# Task 2: Allow code changes (synthetic)
+country_event = {
+	id = fallen_machine_empire.20
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 100
+	}
+	
+	trigger = {
+		OR = {
+			has_authority = auth_machine_intelligence
+			is_mechanical_empire = yes
+		}
+		is_country_type = default
+		NOT = { has_country_flag = fe_machine_task_2 }
+		is_at_war = no
+		
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root	
+			NOT = { has_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } }
+			NOT = { has_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } }			
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_machine_task_2
+	
+		random_country = {
+			limit = { 
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root		
+				NOT = { has_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } }
+				NOT = { has_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } }				
+			}
+			
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.21 } }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.21
+	title = fallen_machine_empire.21.name
+	desc = fallen_machine_empire.21.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.21.a
+		ai_chance = {
+			factor = 75
+		}		
+		
+		custom_tooltip = fallen_machine_empire.21.tooltip
+		custom_tooltip = fallen_machine_empire_happy_tooltip	
+	
+		add_modifier = { modifier = machine_empire_code_rewrite days = -1 }		
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } } }
+	}
+	
+	option = {
+		name = fallen_machine_empire.21.b
+		ai_chance = {
+			factor = 25
+		}		
+		custom_tooltip = fallen_machine_empire_unhappy_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } } }
+	}
+}
+
+# Code changes - bad
+country_event = {
+	id = fallen_machine_empire.22
+	title = fallen_machine_empire.22.name
+	desc = fallen_machine_empire.22.desc
+	picture = GFX_evt_robot_assembly_plant
+	
+	trigger = {
+		has_modifier = machine_empire_code_rewrite
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+		modifier = {
+			factor = 0.66
+			has_country_flag = fallen_machine_empire_awaken_2
+		}
+	}
+	
+	immediate = {
+		remove_modifier = machine_empire_code_rewrite
+	}
+	
+	option = {
+		name = fallen_machine_empire.22.a		
+		add_modifier = { 
+			modifier = machine_empire_code_bugs
+			days = 3600
+		}		
+	}
+}
+
+# Code changes - good
+country_event = {
+	id = fallen_machine_empire.23
+	title = fallen_machine_empire.23.name
+	desc = fallen_machine_empire.23.desc
+	picture = GFX_evt_robot_assembly_plant
+	
+	trigger = {
+		has_modifier = machine_empire_code_rewrite
+	}
+	
+	mean_time_to_happen = {
+		years = 10
+		modifier = {
+			factor = 0.66
+			has_country_flag = fallen_machine_empire_awaken_1
+		}
+	}
+	
+	immediate = {
+		remove_modifier = machine_empire_code_rewrite
+	}
+	
+	option = {
+		name = fallen_machine_empire.23.a
+		add_modifier = { 
+			modifier = machine_empire_code_improvements
+			days = -1
+		}		
+	}
+}
+
+# Task 3: Provide worker units (machine)
+country_event = {
+	id = fallen_machine_empire.30
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 50
+	}
+	
+	trigger = {
+		num_pops > 10
+		has_authority = auth_machine_intelligence
+		is_country_type = default
+		NOT = { has_country_flag = fe_machine_task_3 }
+		is_at_war = no
+		
+		any_owned_planet = {
+			num_pops > 1
+			any_owned_pop = {
+				has_trait = trait_machine_unit
+				is_growing = no			
+			}
+		}	
+		
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root	
+			NOT = { has_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } }
+			NOT = { has_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } }			
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_machine_task_3
+		
+		random_owned_planet = {
+			limit = {
+				num_pops > 1
+				any_owned_pop = {
+					has_trait = trait_machine_unit
+					is_growing = no
+				}
+			}
+			save_event_target_as = FallenEmpireTaskPlanet
+		}	
+	
+		random_country = {
+			limit = { 
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root		
+				NOT = { has_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } }
+				NOT = { has_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } }				
+			}
+			
+			capital_scope = { 
+				save_event_target_as = FallenEmpireTaskPlanetTarget
+			}		
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.31 } }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.31
+	title = fallen_machine_empire.31.name
+	desc = fallen_machine_empire.31.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.31.a
+		ai_chance = {
+			factor = 75
+		}		
+		
+		custom_tooltip = fallen_machine_empire.31.tooltip
+		custom_tooltip = fallen_machine_empire_happy_tooltip	
+	
+		hidden_effect = {
+			event_target:FallenEmpireTaskPlanetTarget = {
+				random_pop = {
+					limit = {
+						has_trait = trait_machine_unit
+						is_growing = no
+					}
+					kill_pop = yes
+				}
+			}
+			event_target:FallenEmpireTaskPlanet = {
+				random_pop = {
+					limit = {
+						has_trait = trait_machine_unit
+						is_growing = no
+					}
+					resettle_pop = { pop = this planet = event_target:FallenEmpireTaskPlanetTarget }
+				}
+			}	
+		}	
+			
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_accepted_fallen_empire_request } } }
+	}
+	
+	option = {
+		name = fallen_machine_empire.31.b
+		ai_chance = {
+			factor = 25
+		}		
+		custom_tooltip = fallen_machine_empire_unhappy_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_request } } }
+	}
+}
+
+# Task 4: Attack a specific empire
+country_event = {
+	id = fallen_machine_empire.40
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 100	
+
+		modifier = {
+			factor = 0.5
+			has_authority = auth_machine_intelligence			
+		}
+	}
+	
+	trigger = {		
+		is_ai = no
+		is_country_type = default	
+		is_subject = no	
+		NOR = {
+			has_valid_civic = civic_machine_terminator
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_fanatic_purifiers
+		}	
+		NOT = { has_authority = auth_machine_intelligence }
+		NOT = { has_country_flag = fe_task_given }
+		NOT = { has_global_flag = fe_task_attack_empire_active }	
+		is_at_war = no
+		
+		NOT = { has_policy_flag = no_wars }
+
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root	
+			NOR = {
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+				has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+			}
+			
+			any_country = {
+				is_country_type = default
+				root = { is_rival = prev }
+				OR = {
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request is_reverse = yes }
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task is_reverse = yes }
+					has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task is_reverse = yes }
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_task_given
+	
+		random_country = {
+			limit = { 
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root	
+				NOR = {
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+					has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+				}
+				
+				any_country = {
+					is_country_type = default
+					root = { is_rival = prev }
+					OR = {
+						has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request is_reverse = yes }
+						has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task is_reverse = yes }
+						has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task is_reverse = yes }
+					}
+				}
+			}
+			
+			random_country = {	
+				limit = {
+					root = { is_rival = prev }
+					OR = {
+						has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request is_reverse = yes }
+						has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task is_reverse = yes }
+						has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task is_reverse = yes }
+					}		
+				}
+				
+				save_event_target_as = FallenEmpireTaskTarget
+			}			
+			
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.41 } }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.41
+	title = fallen_machine_empire.41.name
+	desc = fallen_machine_empire.41.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.41.a
+		ai_chance = {
+			factor = 90				
+		}		
+		
+		begin_event_chain = {
+			event_chain = fe_attack_empire_task_chain
+			target = root
+		}
+		
+		hidden_effect = {
+			set_global_flag = fe_task_attack_empire_active
+			set_country_flag = fe_task_attack_empire
+			set_timed_country_flag = { flag = fe_task_attack_empire_timer days = 7200 }
+			event_target:FallenEmpireTaskOrigin = { set_country_flag = fe_task_attack_empire_origin }
+			event_target:FallenEmpireTaskTarget = { set_country_flag = fe_task_attack_empire_target }
+		}
+		hidden_effect = { remove_country_flag = fe_task_given }
+	}
+	option = {
+		name = fallen_machine_empire.41.b
+		ai_chance = {
+			factor = 10
+		}		
+		custom_tooltip = fallen_machine_empire_unhappy_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_task } } }
+		hidden_effect = { remove_country_flag = fe_task_given }
+	}
+}
+
+# Success
+country_event = {
+	id = fallen_machine_empire.42
+	title = fallen_machine_empire.42.name
+	desc = fallen_machine_empire.42.desc
+	
+	trigger = {
+		has_global_flag = fe_task_attack_empire_active
+		has_country_flag = fe_task_attack_empire
+		is_at_war = yes
+		any_country = {
+			has_country_flag = fe_task_attack_empire_target
+			is_at_war_with = root
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_attack_empire_active
+		random_country = {
+			limit = { has_country_flag = fe_task_attack_empire_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		random_country = {
+			limit = { has_country_flag = fe_task_attack_empire_target }
+			save_event_target_as = FallenEmpireTaskTarget
+		}	
+		end_event_chain = fe_attack_empire_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.42.a
+		custom_tooltip = fallen_machine_empire_happy_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_completed_fallen_empire_task } } }		
+		hidden_effect = {
+			every_country = {
+				remove_country_flag = fe_task_attack_empire
+				remove_country_flag = fe_task_attack_empire_origin
+				remove_country_flag = fe_task_attack_empire_target
+			}
+		}
+	}
+}
+
+# Failure - timer ran out
+country_event = {
+	id = fallen_machine_empire.43
+	title = fallen_machine_empire.43.name
+	desc = fallen_machine_empire.43.desc
+	
+	trigger = {
+		has_global_flag = fe_task_attack_empire_active
+		has_country_flag = fe_task_attack_empire
+		NOT = { has_country_flag = fe_task_attack_empire_timer }
+		is_at_war = no
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_attack_empire_active
+		random_country = {
+			limit = { has_country_flag = fe_task_attack_empire_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		random_country = {
+			limit = { has_country_flag = fe_task_attack_empire_target }
+			save_event_target_as = FallenEmpireTaskTarget
+		}	
+		end_event_chain = fe_attack_empire_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.43.a
+		custom_tooltip = fallen_machine_empire_unhappy_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_failed_fallen_empire_task } } }		
+		hidden_effect = {
+			remove_global_flag = fe_task_attack_empire_active
+			every_country = {
+				remove_country_flag = fe_task_attack_empire
+				remove_country_flag = fe_task_attack_empire_origin
+				remove_country_flag = fe_task_attack_empire_target
+			}
+		}
+	}
+}
+
+# Failure - a country involved is no longer valid
+country_event = {
+	id = fallen_machine_empire.44	
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = fe_task_attack_empire_active
+		OR = {
+			NOT = { any_country = { has_country_flag = fe_task_attack_empire } }
+			NOT = { any_country = { has_country_flag = fe_task_attack_empire_origin } }
+			NOT = { any_country = { has_country_flag = fe_task_attack_empire_target } }
+			any_country = {
+				has_country_flag = fe_task_attack_empire_origin
+				OR = {
+					NOT = {	is_country_type = fallen_empire }
+					any_country = {
+						has_country_flag = fe_task_attack_empire
+						is_at_war_with = prev
+					}
+				}			
+			}			
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_attack_empire_active
+		hidden_effect = {
+			remove_global_flag = fe_task_attack_empire_active
+			every_country = {
+				if = {
+					limit = { has_country_flag = fe_task_attack_empire }
+					end_event_chain = fe_attack_empire_task_chain
+				}
+				remove_country_flag = fe_task_attack_empire
+				remove_country_flag = fe_task_attack_empire_origin
+				remove_country_flag = fe_task_attack_empire_target
+			}
+		}
+	}
+}
+
+# Task 5: Colonize a planet
+country_event = {
+	id = fallen_machine_empire.50
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 200	
+
+		modifier = {
+			factor = 0.5
+			has_authority = auth_machine_intelligence			
+		}
+	}
+	
+	trigger = {		
+		is_ai = no
+		is_country_type = default	
+		is_subject = no	
+		NOR = {
+			has_valid_civic = civic_machine_terminator
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_fanatic_purifiers
+		}	
+		NOT = { has_authority = auth_machine_intelligence }
+		NOT = { has_country_flag = fe_task_given }
+		NOT = { has_global_flag = fe_task_colonize_planet_active }	
+		is_at_war = no
+		
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root	
+			NOR = {
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+				has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+			}
+		}
+
+		any_system = {
+			OR = {
+				is_within_borders_of = root
+				is_neighbor_of = root
+			}
+			any_planet = {
+				is_colony = no
+				can_colonize = { who = root status = yes }
+			}
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_task_given
+	
+		random_planet = {	
+			limit = {
+				is_colony = no
+				can_colonize = { who = root status = yes }				
+				solar_system = {
+					OR = {
+						is_within_borders_of = root
+						is_neighbor_of = root
+					}					
+				}
+			}
+			
+			save_event_target_as = FallenEmpireTaskTarget
+		}	
+		
+		random_country = {
+			limit = {
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root	
+				NOR = {
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+					has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+				}			
+			}			
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.51 } }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.51
+	title = fallen_machine_empire.51.name
+	desc = fallen_machine_empire.51.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.51.a
+		ai_chance = {
+			factor = 90					
+		}		
+		
+		begin_event_chain = {
+			event_chain = fe_colonize_planet_task_chain
+			target = root
+		}
+		
+		hidden_effect = {
+			set_global_flag = fe_task_colonize_planet_active
+			set_country_flag = fe_task_colonize_planet
+			set_timed_country_flag = { flag = fe_task_colonize_planet_timer days = 7200 }
+			event_target:FallenEmpireTaskOrigin = { set_country_flag = fe_task_colonize_planet_origin }
+			event_target:FallenEmpireTaskTarget = { set_planet_flag = fe_task_colonize_planet_target }
+		}
+		hidden_effect = { remove_country_flag = fe_task_given }
+	}
+	option = {
+		name = fallen_machine_empire.51.b
+		ai_chance = {
+			factor = 10
+		}		
+		custom_tooltip = fallen_machine_empire_unhappy_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_refused_fallen_empire_task } } }
+		hidden_effect = { remove_country_flag = fe_task_given }
+	}
+}
+
+# Success
+country_event = {
+	id = fallen_machine_empire.52
+	title = fallen_machine_empire.52.name
+	desc = fallen_machine_empire.52.desc
+	
+	trigger = {
+		has_global_flag = fe_task_colonize_planet_active
+		has_country_flag = fe_task_colonize_planet
+		any_system = {
+			any_planet = {
+				has_planet_flag = fe_task_colonize_planet_target
+				is_colony = yes
+				is_owned_by = root
+				num_pops > 4
+			}		
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_colonize_planet_active
+		random_country = {
+			limit = { has_country_flag = fe_task_colonize_planet_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		every_planet = {
+			limit = { has_planet_flag = fe_task_colonize_planet_target }
+			save_event_target_as = FallenEmpireTaskTarget
+		}
+		end_event_chain = fe_colonize_planet_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.52.a
+		custom_tooltip = fallen_machine_empire_happy_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_completed_fallen_empire_task } } }		
+		hidden_effect = {
+			every_country = {
+				remove_country_flag = fe_task_colonize_planet
+				remove_country_flag = fe_task_colonize_planet_origin
+			}
+			every_planet = {
+				remove_planet_flag = fe_task_colonize_planet_target		
+			}	
+		}
+	}
+}
+
+# Failure - timer ran out
+country_event = {
+	id = fallen_machine_empire.53
+	title = fallen_machine_empire.53.name
+	desc = fallen_machine_empire.53.desc
+	
+	trigger = {
+		has_global_flag = fe_task_colonize_planet_active
+		has_country_flag = fe_task_colonize_planet
+		NOT = {
+			any_system = {
+				any_planet = {
+					is_colony = yes
+					has_planet_flag = fe_task_colonize_planet_target
+					is_owned_by = root
+				}		
+			}		
+		}
+		OR = {
+			NOT = { has_country_flag = fe_task_colonize_planet_timer }
+			any_system = {
+				any_planet = {
+					is_colony = yes
+					has_planet_flag = fe_task_colonize_planet_target
+					NOT = { is_owned_by = root }
+				}		
+			}	
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_colonize_planet_active
+		random_country = {
+			limit = { has_country_flag = fe_task_colonize_planet_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		every_planet = {
+			limit = { has_planet_flag = fe_task_colonize_planet_target }
+			save_event_target_as = FallenEmpireTaskTarget
+		}	
+		end_event_chain = fe_colonize_planet_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.53.a
+		custom_tooltip = fallen_machine_empire_unhappy_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_failed_fallen_empire_task } } }		
+		hidden_effect = {
+			remove_global_flag = fe_task_colonize_planet_active
+			every_country = {
+				remove_country_flag = fe_task_colonize_planet
+				remove_country_flag = fe_task_colonize_planet_origin
+			}
+			every_planet = {
+				remove_planet_flag = fe_task_colonize_planet_target		
+			}	
+		}
+	}
+}
+
+# Failure - a country involved is no longer valid
+country_event = {
+	id = fallen_machine_empire.54	
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = fe_task_colonize_planet_active
+		OR = {
+			NOT = { any_country = { has_country_flag = fe_task_colonize_planet } }
+			NOT = { any_country = { has_country_flag = fe_task_colonize_planet_origin } }
+			any_country = {
+				has_country_flag = fe_task_colonize_planet_origin
+				OR = {
+					NOT = {	is_country_type = fallen_empire }
+					any_country = {
+						has_country_flag = fe_task_colonize_planet
+						is_at_war_with = prev
+					}
+				}			
+			}			
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_colonize_planet_active
+		hidden_effect = {
+			remove_global_flag = fe_task_colonize_planet_active
+			every_country = {
+				if = {
+					limit = { has_country_flag = fe_task_colonize_planet }
+					end_event_chain = fe_colonize_planet_task_chain
+				}
+				remove_country_flag = fe_task_colonize_planet
+				remove_country_flag = fe_task_colonize_planet_origin
+			}
+			every_planet = {
+				remove_planet_flag = fe_task_colonize_planet_target		
+			}	
+		}
+	}
+}
+
+# Demand 1: Stop waging wars
+country_event = {
+	id = fallen_machine_empire.60
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 100	
+
+		modifier = {
+			factor = 0.75
+			has_authority = auth_machine_intelligence			
+		}
+		
+		modifier = {
+			factor = 3.0
+			OR = {
+				has_valid_civic = civic_machine_terminator
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_fanatic_purifiers				
+			}
+		}
+		
+		modifier = {
+			factor = 0.5
+			any_country = {
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root	
+				has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+			}
+		}
+	}
+	
+	trigger = {		
+		is_ai = no
+		is_country_type = default	
+		is_subject = no
+		NOT = { has_authority = auth_machine_intelligence }
+		NOT = { has_country_flag = fe_task_given }
+		NOT = { has_global_flag = fe_task_no_wars_active }	
+		is_at_war = no
+		
+		NOR = {
+			has_country_flag = fe_task_no_wars
+			has_country_flag = fe_task_no_colonies
+		}
+		
+		NOT = { has_policy_flag = no_wars }
+
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root	
+			OR = {
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+				has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+				root = { has_valid_civic = civic_machine_terminator }
+				root = { has_valid_civic = civic_hive_devouring_swarm }
+				root = { has_valid_civic = civic_fanatic_purifiers }
+			}	
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_task_given
+	
+		random_country = {
+			limit = { 
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root	
+				OR = {
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+					has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+					root = { has_valid_civic = civic_machine_terminator }
+					root = { has_valid_civic = civic_hive_devouring_swarm }
+					root = { has_valid_civic = civic_fanatic_purifiers }
+				}	
+			}
+			
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.61 } }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.61
+	title = fallen_machine_empire.61.name
+	desc = fallen_machine_empire.61.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.61.a	
+		
+		begin_event_chain = {
+			event_chain = fe_no_wars_task_chain
+			target = root
+		}
+		
+		hidden_effect = {
+			set_global_flag = fe_task_no_wars_active
+			set_country_flag = fe_task_no_wars
+			set_timed_country_flag = { flag = fe_task_no_wars_timer days = 7200 }
+			event_target:FallenEmpireTaskOrigin = { set_country_flag = fe_task_no_wars_origin }
+		}
+		hidden_effect = { remove_country_flag = fe_task_given }
+	}
+}
+
+# Success
+country_event = {
+	id = fallen_machine_empire.62
+	title = fallen_machine_empire.62.name
+	desc = fallen_machine_empire.62.desc
+	
+	trigger = {
+		has_global_flag = fe_task_no_wars_active
+		has_country_flag = fe_task_no_wars
+		NOT = { has_country_flag = fe_task_no_wars_timer }
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_no_wars_active
+		random_country = {
+			limit = { has_country_flag = fe_task_no_wars_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		end_event_chain = fe_no_wars_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.62.a
+		custom_tooltip = fallen_machine_empire_happy_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_completed_fallen_empire_task } } }		
+		hidden_effect = {
+			every_country = {
+				remove_country_flag = fe_task_no_wars
+				remove_country_flag = fe_task_no_wars_origin
+			}
+		}
+	}
+}
+
+# Failure
+country_event = {
+	id = fallen_machine_empire.63
+	title = fallen_machine_empire.63.name
+	desc = fallen_machine_empire.63.desc
+	
+	trigger = {
+		has_global_flag = fe_task_no_wars_active
+		has_country_flag = fe_task_no_wars
+		has_country_flag = fe_task_no_wars_timer
+		is_at_war = yes
+		any_war = {
+			is_war_participant = { who = root side = attackers }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_no_wars_active
+		random_country = {
+			limit = { has_country_flag = fe_task_no_wars_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		end_event_chain = fe_no_wars_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.63.a
+		custom_tooltip = fallen_machine_empire_angry_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_angered_fallen_machine_empire } } }		
+		hidden_effect = {
+			remove_global_flag = fe_task_no_wars_active
+			every_country = {
+				remove_country_flag = fe_task_no_wars
+				remove_country_flag = fe_task_no_wars_origin
+			}
+		}
+	}
+}
+
+# Failure - a country involved is no longer valid
+country_event = {
+	id = fallen_machine_empire.64	
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = fe_task_no_wars_active
+		OR = {
+			NOT = { any_country = { has_country_flag = fe_task_no_wars } }
+			NOT = { any_country = { has_country_flag = fe_task_no_wars_origin } }
+			any_country = {
+				has_country_flag = fe_task_no_wars_origin
+				OR = {
+					NOT = {	is_country_type = fallen_empire }
+					any_country = {
+						has_country_flag = fe_task_no_wars
+						is_at_war_with = prev
+					}
+				}			
+			}			
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_no_wars_active
+		hidden_effect = {
+			remove_global_flag = fe_task_no_wars_active
+			every_country = {
+				if = {
+					limit = { has_country_flag = fe_task_no_wars }
+					end_event_chain = fe_no_wars_task_chain
+				}
+				remove_country_flag = fe_task_no_wars
+				remove_country_flag = fe_task_no_wars_origin
+			}
+		}
+	}
+}
+
+
+# Demand 2: Stop colonizing planets
+country_event = {
+	id = fallen_machine_empire.70
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	mean_time_to_happen = {
+		years = 100	
+
+		modifier = {
+			factor = 0.75
+			has_authority = auth_machine_intelligence			
+		}
+		
+		modifier = {
+			factor = 3.0
+			OR = {
+				has_valid_civic = civic_machine_terminator
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_fanatic_purifiers				
+			}
+		}
+		
+		modifier = {
+			factor = 0.5
+			any_country = {
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root	
+				has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+			}
+		}
+	}
+	
+	trigger = {		
+		is_ai = no
+		is_country_type = default	
+		is_subject = no
+		NOT = { has_authority = auth_machine_intelligence }
+		NOT = { has_country_flag = fe_task_given }
+		NOT = { has_global_flag = fe_task_no_colonies_active }	
+		NOT = {
+			any_owned_planet = {
+				is_under_colonization = yes
+			}		
+		}
+		
+		end_game_years_passed < 0
+		
+		NOR = {
+			has_country_flag = fe_task_no_wars
+			has_country_flag = fe_task_no_colonies
+		}
+
+		any_country = {
+			is_valid_fallen_empire_for_task = yes
+			has_authority = auth_machine_intelligence
+			is_enigmatic_to = root
+			has_communications = root	
+			OR = {
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+				has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+				has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+				root = { has_valid_civic = civic_machine_terminator }
+				root = { has_valid_civic = civic_hive_devouring_swarm }
+				root = { has_valid_civic = civic_fanatic_purifiers }
+			}	
+		}
+	}
+	
+	immediate = {
+		set_country_flag = fe_task_given
+	
+		random_country = {
+			limit = { 
+				is_valid_fallen_empire_for_task = yes
+				has_authority = auth_machine_intelligence
+				is_enigmatic_to = root
+				has_communications = root	
+				OR = {
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_request }
+					has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task }
+					has_opinion_modifier = { who = prev modifier = opinion_failed_fallen_empire_task }
+					root = { has_valid_civic = civic_machine_terminator }
+					root = { has_valid_civic = civic_hive_devouring_swarm }
+					root = { has_valid_civic = civic_fanatic_purifiers }
+				}	
+			}
+			
+			save_event_target_as = FallenEmpireTaskOrigin
+			root = { country_event = { id = fallen_machine_empire.71 } }
+		}
+	}
+}
+
+country_event = {
+	id = fallen_machine_empire.71
+	title = fallen_machine_empire.71.name
+	desc = fallen_machine_empire.71.desc
+	
+	is_triggered_only = yes
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.71.a	
+		
+		begin_event_chain = {
+			event_chain = fe_no_colonies_task_chain
+			target = root
+		}
+		
+		hidden_effect = {
+			set_global_flag = fe_task_no_colonies_active
+			set_country_flag = fe_task_no_colonies
+			set_timed_country_flag = { flag = fe_task_no_colonies_timer days = 3600 }
+			event_target:FallenEmpireTaskOrigin = { set_country_flag = fe_task_no_colonies_origin }
+		}
+		hidden_effect = { remove_country_flag = fe_task_given }
+	}
+}
+
+# Success
+country_event = {
+	id = fallen_machine_empire.72
+	title = fallen_machine_empire.72.name
+	desc = fallen_machine_empire.72.desc
+	
+	trigger = {
+		has_global_flag = fe_task_no_colonies_active
+		has_country_flag = fe_task_no_colonies
+		NOT = { has_country_flag = fe_task_no_colonies_timer }
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_no_colonies_active
+		random_country = {
+			limit = { has_country_flag = fe_task_no_colonies_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		end_event_chain = fe_no_colonies_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.72.a
+		custom_tooltip = fallen_machine_empire_happy_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_completed_fallen_empire_task } } }		
+		hidden_effect = {
+			every_country = {
+				remove_country_flag = fe_task_no_colonies
+				remove_country_flag = fe_task_no_colonies_origin
+			}
+		}
+	}
+}
+
+# Failure
+country_event = {
+	id = fallen_machine_empire.73
+	title = fallen_machine_empire.73.name
+	desc = fallen_machine_empire.73.desc
+	
+	trigger = {
+		has_global_flag = fe_task_no_colonies_active
+		has_country_flag = fe_task_no_colonies
+		has_country_flag = fe_task_no_colonies_timer
+		any_owned_planet = {
+			is_under_colonization = yes
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_no_colonies_active
+		random_country = {
+			limit = { has_country_flag = fe_task_no_colonies_origin }
+			save_event_target_as = FallenEmpireTaskOrigin
+		}
+		end_event_chain = fe_no_colonies_task_chain
+	}
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:FallenEmpireTaskOrigin
+		planet_background = event_target:FallenEmpireTaskOrigin
+		graphical_culture = event_target:FallenEmpireTaskOrigin
+		city_level = event_target:FallenEmpireTaskOrigin
+		room = event_target:FallenEmpireTaskOrigin.ruler
+	}
+	
+	option = {
+		name = fallen_machine_empire.73.a
+		custom_tooltip = fallen_machine_empire_angry_task_tooltip
+		hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_angered_fallen_machine_empire } } }		
+		hidden_effect = {
+			remove_global_flag = fe_task_no_colonies_active
+			every_country = {
+				remove_country_flag = fe_task_no_colonies
+				remove_country_flag = fe_task_no_colonies_origin
+			}
+		}
+	}
+}
+
+# Failure - a country involved is no longer valid
+country_event = {
+	id = fallen_machine_empire.74	
+	title = OK
+	desc = OK
+	
+	hide_window = yes
+	
+	trigger = {
+		has_global_flag = fe_task_no_colonies_active
+		OR = {
+			NOT = { any_country = { has_country_flag = fe_task_no_colonies } }
+			NOT = { any_country = { has_country_flag = fe_task_no_colonies_origin } }
+			any_country = {
+				has_country_flag = fe_task_no_colonies_origin
+				OR = {
+					NOT = {	is_country_type = fallen_empire }
+					any_country = {
+						has_country_flag = fe_task_no_colonies
+						is_at_war_with = prev
+					}
+				}			
+			}			
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 10
+	}
+	
+	immediate = {
+		remove_global_flag = fe_task_no_colonies_active
+		hidden_effect = {
+			remove_global_flag = fe_task_no_colonies_active
+			every_country = {
+				if = {
+					limit = { has_country_flag = fe_task_no_colonies }
+					end_event_chain = fe_no_colonies_task_chain
+				}
+				remove_country_flag = fe_task_no_colonies
+				remove_country_flag = fe_task_no_colonies_origin
+			}
+		}
+	}
+}

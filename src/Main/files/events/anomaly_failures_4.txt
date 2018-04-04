@@ -1,0 +1,31 @@
+############################
+#
+# anomaly Failure Events
+#
+############################
+
+namespace = anomaly_failure
+
+# ROOT = ship scope
+# FROM = planet scope
+
+# Lethal Tropical Wildlife
+ship_event = {
+	id = anomaly_failure.6000
+	title = "anomaly.6000.name"
+	desc = "anomaly_failure.6000.desc"
+	picture = GFX_evt_alien_nature
+	location = ROOT
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "anomaly_failure.4000.a"
+		custom_tooltip = "anomaly_failure.4000.a.tooltip"
+		hidden_effect = {
+			leader = {
+				add_trait = "leader_trait_paranoid"
+			}
+		}
+	}
+}

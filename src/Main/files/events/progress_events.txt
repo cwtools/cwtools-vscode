@@ -1,0 +1,885 @@
+############################
+#
+# Progress Events
+#
+# Written by Henrik Eklund
+#
+############################
+
+namespace = progress
+
+@tier1influencecontact = 7
+@tier1influencecontactxenophile = 8
+@tier1influencecontactmin = 20
+@tier1influencecontactmax = 80
+
+@tier2influencecontact = 10
+@tier2influencecontactxenophile = 12
+@tier2influencecontactmin = 40
+@tier2influencecontactmax = 100
+
+@tier1materialreward = 6
+@tier1materialmin = 100
+@tier1materialmax = 500
+@tier2materialreward = 12
+@tier2materialmin = 150
+@tier2materialmax = 1000
+@tier3materialreward = 18
+@tier3materialmin = 250
+@tier3materialmax = 1500
+@tier4materialreward = 24
+@tier4materialmin = 350
+@tier4materialmax = 2000
+@tier5materialreward = 48
+@tier5materialmin = 700
+@tier5materialmax = 4000
+
+@tier1influencereward = 6
+@tier1influencemin = 40
+@tier1influencemax = 100
+@tier2influencereward = 12
+@tier2influencemin = 80
+@tier2influencemax = 175
+@tier3influencereward = 18
+@tier3influencemin = 125
+@tier3influencemax = 250
+@tier4influencereward = 24
+@tier4influencemin = 150
+@tier4influencemax = 300
+@tier5influencereward = 36
+@tier5influencemin = 250
+@tier5influencemax = 500
+@tier6influencereward = 48
+@tier6influencemin = 300
+@tier6influencemax = 600
+
+@tier1researchreward = 6
+@tier1researchmin = 60
+@tier1researchmax = 150
+@tier2researchreward = 12
+@tier2researchmin = 90
+@tier2researchmax = 250
+@tier3researchreward = 18
+@tier3researchmin = 120
+@tier3researchmax = 350
+@tier4researchreward = 24
+@tier4researchmin = 150
+@tier4researchmax = 500
+@tier5researchreward = 48
+@tier5researchmin = 300
+@tier5researchmax = 1000
+
+## Home System Surveyed
+#country_event = {
+#	id = progress.1
+#	title = "progress.1.name"
+#	desc = "progress.1.desc"
+#	picture = GFX_evt_satellite_in_orbit
+#	
+#	trigger = {
+#		is_ai = no
+#		NOT = { has_country_flag = surveyed_home_system }
+#		NOT = {
+#			capital_scope = {
+#				solar_system = {
+#					any_planet = {
+#						is_surveyed = {
+#							who = ROOT
+#							status = no
+#						}
+#					}
+#				}
+#			}
+#		}
+#	}
+#	
+#	mean_time_to_happen = {
+#		days = 1
+#	}
+#	
+#	immediate = {
+#		set_country_flag = surveyed_home_system
+#		capital_scope = {
+#			solar_system = { save_event_target_as = home_system }
+#		}
+#	}
+#
+#	option = {
+#		name = "progress.1.a"
+#		end_event_chain = "survey_home_system"
+#		add_physics_research = 200
+#		hidden_effect = {
+#			country_event = { id = progress.8 days = 20 random = 5 }
+#		}
+#	}
+#}
+
+# Discovery of Alien Life
+ship_event = {
+	id = progress.2
+	title = "progress.2.name"
+	desc = {
+		trigger = { owner = { NOT = { has_authority = auth_machine_intelligence } } }
+		text = "progress.2.desc"
+	}
+	desc = {
+		trigger = {
+			owner = {
+				AND = {
+					has_authority = auth_machine_intelligence
+					NOT = {
+						has_civic = civic_machine_terminator
+						has_civic = civic_machine_servitor
+						has_civic = civic_machine_assimilator
+					}
+				}
+			}
+		}
+		text = "progress.2.desc.mach"
+	}
+	desc = {
+		trigger = { owner = { has_civic = civic_machine_terminator } }
+		text = "progress.2.desc.term"
+	}
+	desc = {
+		trigger = { owner = { has_civic = civic_machine_servitor } }
+		text = "progress.2.desc.serv"
+	}
+	desc = {
+		trigger = { owner = { has_civic = civic_machine_assimilator } }
+		text = "progress.2.desc.assim"
+	}
+	picture = GFX_evt_alien_planet
+	location = from
+	show_sound = event_alien_nature
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		owner = {
+			is_ai = no
+			NOT = {
+				has_country_flag = first_alien_life
+				has_country_flag = Story1
+				has_country_flag = Story2
+				has_country_flag = Story3
+				has_country_flag = Story4
+				has_country_flag = Story5
+				has_country_flag = Story6
+				has_country_flag = Story7
+				has_country_flag = Story8
+			}
+		}
+		FROM = {
+			has_owner = no
+			OR = {
+				is_planet_class = pc_desert
+				is_planet_class = pc_tropical
+				is_planet_class = pc_arid
+				is_planet_class = pc_continental
+				is_planet_class = pc_ocean
+				is_planet_class = pc_tundra
+				is_planet_class = pc_arctic
+				is_planet_class = pc_alpine
+				is_planet_class = pc_savannah
+				is_planet_class = pc_gaia
+			}
+		}
+	}
+	
+	immediate = {
+		owner = { set_country_flag = first_alien_life }
+	}
+
+	option = {
+		trigger = { owner = { NOT = { has_authority = auth_machine_intelligence } } }
+		name = "progress.2.a"
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+		hidden_effect = {
+			owner = {
+				if = {
+					limit = {
+						from = {
+							any_tile = {
+								has_blocker = "tb_dangerous_wildlife"
+							}
+						}
+					}
+					country_event = { id = story.3 days = 30 }
+				}
+				if = {
+					limit = {
+						from = {
+							NOT = {
+								any_tile = {
+									has_blocker = "tb_dangerous_wildlife"
+								}
+							}
+						}
+					}
+					country_event = { id = story.1 days = 30 }
+				}
+			}
+		}
+	}
+	option = {
+		trigger = {
+			owner = {
+				AND = {
+					has_authority = auth_machine_intelligence
+					NOT = {
+						has_civic = civic_machine_terminator
+						has_civic = civic_machine_servitor
+						has_civic = civic_machine_assimilator
+					}
+				}
+			}
+		}
+		name = "progress.2.a.mech"
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+		hidden_effect = {
+			owner = {
+				if = {
+					limit = {
+						from = {
+							any_tile = {
+								has_blocker = "tb_dangerous_wildlife"
+							}
+						}
+					}
+					country_event = { id = story.3 days = 30 }
+				}
+				if = {
+					limit = {
+						from = {
+							NOT = {
+								any_tile = {
+									has_blocker = "tb_dangerous_wildlife"
+								}
+							}
+						}
+					}
+					country_event = { id = story.1 days = 30 }
+				}
+			}
+		}
+	}
+	option = {
+		trigger = { owner = { has_civic = civic_machine_terminator } }
+		name = "progress.2.a.term"
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+		hidden_effect = {
+			owner = {
+				if = {
+					limit = {
+						from = {
+							any_tile = {
+								has_blocker = "tb_dangerous_wildlife"
+							}
+						}
+					}
+					country_event = { id = story.3 days = 30 }
+				}
+				if = {
+					limit = {
+						from = {
+							NOT = {
+								any_tile = {
+									has_blocker = "tb_dangerous_wildlife"
+								}
+							}
+						}
+					}
+					country_event = { id = story.1 days = 30 }
+				}
+			}
+		}
+	}
+	option = {
+		trigger = { owner = { has_civic = civic_machine_servitor } }
+		name = "progress.2.a.serv"
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+		hidden_effect = {
+			owner = {
+				if = {
+					limit = {
+						from = {
+							any_tile = {
+								has_blocker = "tb_dangerous_wildlife"
+							}
+						}
+					}
+					country_event = { id = story.3 days = 30 }
+				}
+				if = {
+					limit = {
+						from = {
+							NOT = {
+								any_tile = {
+									has_blocker = "tb_dangerous_wildlife"
+								}
+							}
+						}
+					}
+					country_event = { id = story.1 days = 30 }
+				}
+			}
+		}
+	}
+	option = {
+		trigger = { owner = { has_civic = civic_machine_assimilator } }
+		name = "progress.2.a.assim"
+		owner = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+		hidden_effect = {
+			owner = {
+				if = {
+					limit = {
+						from = {
+							any_tile = {
+								has_blocker = "tb_dangerous_wildlife"
+							}
+						}
+					}
+					country_event = { id = story.3 days = 30 }
+				}
+				if = {
+					limit = {
+						from = {
+							NOT = {
+								any_tile = {
+									has_blocker = "tb_dangerous_wildlife"
+								}
+							}
+						}
+					}
+					country_event = { id = story.1 days = 30 }
+				}
+			}
+		}
+	}
+}
+
+# First Colony
+planet_event = {
+	id = progress.3
+	title = "progress.3.name"
+	picture = GFX_evt_big_landing_ship
+
+	desc = { # Continental
+		text = progress.3.desc_01
+		trigger = { 
+			is_planet_class = pc_continental 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Ocean
+		text = progress.3.desc_02
+		trigger = { 
+			is_planet_class = pc_ocean 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Desert
+		text = progress.3.desc_03
+		trigger = { 
+			is_planet_class = pc_desert 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Tropical
+		text = progress.3.desc_04
+		trigger = { 
+			is_planet_class = pc_tropical 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Arid
+		text = progress.3.desc_05
+		trigger = { 
+			is_planet_class = pc_arid 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Tundra
+		text = progress.3.desc_06
+		trigger = { 
+			is_planet_class = pc_tundra 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Arctic
+		text = progress.3.desc_07
+		trigger = { 
+			is_planet_class = pc_arctic 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Savanna
+		text = progress.3.desc_08
+		trigger = { 
+			is_planet_class = pc_savannah 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Alpine
+		text = progress.3.desc_09
+		trigger = { 
+			is_planet_class = pc_alpine 
+			NOT = { owner = { has_authority = auth_machine_intelligence } }
+		}
+	}
+	desc = { # Machine Empires
+		text = progress.3.desc_10
+		trigger = { owner = { has_authority = auth_machine_intelligence } }
+	}
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOR = {
+			is_planet_class = pc_gaia
+			is_planet_class = pc_habitat
+			is_planet_class = pc_ringworld_habitable
+		}
+		owner = {
+			NOT = { has_country_flag = first_colony }
+			num_owned_planets < 3
+		}
+	}
+
+	immediate = {
+		owner = {
+			set_country_flag = first_colony
+		}
+	}
+
+	option = {
+		name = "progress.3.a"
+		owner = {
+			#end_event_chain = "establish_colony"
+			add_monthly_resource_mult = {
+				resource = engineering_research
+				value = @tier1researchreward
+				min = @tier1researchmin
+				max = @tier1researchmax
+			}
+		}
+	}
+}
+
+# First Contact (Normal Empire)
+country_event = {
+	id = progress.4
+	title = "progress.4.name"
+	picture = GFX_evt_news_room
+	
+	desc = {
+		text = progress.4.desc_01
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+					has_ethic = ethic_gestalt_consciousness
+				}
+			}
+		}
+	}
+	desc = { # Xenophile
+		text = progress.4.desc_02
+		trigger = { 
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}
+	}
+	desc = { # Xenophobe
+		text = progress.4.desc_03
+		trigger = { 
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	desc = { # Gestalt Consciousness
+		text = progress.4.desc_04
+		trigger = { 
+			has_ethic = ethic_gestalt_consciousness
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { has_country_flag = first_contact_event }
+		event_target:contact_empire = { 
+			NOT = {
+				is_country_type = fallen_empire
+				is_country_type = awakened_fallen_empire
+				#is_country_type = tiyanki
+				is_country_type = amoeba
+				is_country_type = crystal
+				is_country_type = drone
+				is_country_type = cloud
+			}
+			is_primitive = no
+		}
+	}
+	
+	immediate = {
+		set_country_flag = first_contact_event
+	}
+
+	option = {
+		name = "progress.4.a"
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+				}
+			}
+		}
+	}
+	option = {
+		name = "progress.4.b"
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}	
+	}
+	option = {
+		name = "progress.4.c"
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	option = {
+		name = "progress.4.d"
+		trigger = { 
+			has_authority = auth_hive_mind
+			NOT = { has_government = "gov_devouring_swarm" }
+		}
+	}
+	option = {
+		name = "progress.4.e"
+		trigger = { 
+			has_authority = auth_machine_intelligence
+			NOT = { has_government = "gov_machine_terminator" }
+		}
+	}
+	option = {
+		name = "progress.4.f"
+		trigger = { 
+			has_government = "gov_devouring_swarm"
+		}
+	}
+	option = {
+		name = "progress.4.g"
+		trigger = { 
+			has_government = "gov_machine_terminator"
+		}
+	}
+}
+
+# First Contact (Primitive)
+country_event = {
+	id = progress.5
+	title = "progress.4.name"
+	picture = GFX_evt_news_room
+	
+	desc = {
+		text = progress.5.desc_01
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+				}
+			}
+		}
+	}
+	desc = { # Xenophile
+		text = progress.5.desc_02
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}	
+	}
+	desc = { # Xenophobe
+		text = progress.5.desc_03
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	desc = { # Gestalt Consciousness
+		text = progress.5.desc_04
+		trigger = { 
+			has_ethic = ethic_gestalt_consciousness
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { has_country_flag = first_contact_event }
+		event_target:contact_empire = { is_primitive = yes }
+	}
+	
+	immediate = {
+		set_country_flag = first_contact_event
+	}
+
+	option = {
+		name = "progress.4.a"
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+				}
+			}
+		}
+	}
+	option = {
+		name = "progress.5.b"
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}	
+	}
+	option = {
+		name = "progress.5.c"
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	option = {
+		name = "progress.4.d"
+		trigger = { 
+			has_authority = auth_hive_mind
+			NOT = { has_government = "gov_devouring_swarm" }
+		}
+	}
+	option = {
+		name = "progress.4.e"
+		trigger = { 
+			has_authority = auth_machine_intelligence
+			NOT = { has_government = "gov_machine_terminator" }
+		}
+	}
+	option = {
+		name = "progress.4.f"
+		trigger = { 
+			has_government = "gov_devouring_swarm"
+		}
+	}
+	option = {
+		name = "progress.4.g"
+		trigger = { 
+			has_government = "gov_machine_terminator"
+		}
+	}
+}
+
+# First Contact (Fallen Empire)
+country_event = {
+	id = progress.6
+	title = "progress.4.name"
+	picture = GFX_evt_news_room
+	
+	desc = {
+		text = progress.6.desc_01
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+				}
+			}
+		}
+	}
+	desc = { # Xenophile
+		text = progress.6.desc_02
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}
+	}
+	desc = { # Xenophobe
+		text = progress.6.desc_03
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	desc = { # Gestalt Consciousness
+		text = progress.6.desc_04
+		trigger = { 
+			has_ethic = ethic_gestalt_consciousness
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		is_ai = no
+		NOT = { has_country_flag = first_contact_event }
+		event_target:contact_empire = { is_country_type = fallen_empire }
+	}
+	
+	immediate = {
+		set_country_flag = first_contact_event
+	}
+
+	option = {
+		name = "progress.4.a"
+		trigger = {
+			NOT = {
+				OR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_xenophobe
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_xenophile
+					has_ethic = ethic_fanatic_xenophile
+				}
+			}
+		}
+	}
+	option = {
+		name = "progress.6.b"
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}	
+	}
+	option = {
+		name = "progress.6.c"
+		trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	option = {
+		name = "progress.4.d"
+		trigger = { 
+			has_authority = auth_hive_mind
+			NOT = { has_government = "gov_devouring_swarm" }
+		}
+	}
+	option = {
+		name = "progress.4.e"
+		trigger = { 
+			has_authority = auth_machine_intelligence
+			NOT = { has_government = "gov_machine_terminator" }
+		}
+	}
+	option = {
+		name = "progress.4.f"
+		trigger = { 
+			has_government = "gov_devouring_swarm"
+		}
+	}
+	option = {
+		name = "progress.4.g"
+		trigger = { 
+			has_government = "gov_machine_terminator"
+		}
+	}
+}
+
+planet_event = {
+	id = progress.7
+	
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = {		
+		owner = {
+			NOT = { has_country_flag = first_colony }
+			num_owned_planets > 2
+		}
+	}
+	
+	immediate = {
+		owner = {
+			set_country_flag = first_colony
+		}
+	}
+}

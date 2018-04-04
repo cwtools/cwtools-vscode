@@ -1,0 +1,833 @@
+############################################
+###   SCRIPTED LOCALIZATION FOR FRENCH   ###
+###      Scripted by Nicolas Fouqué      ###
+############################################
+
+###############################
+###   Rulers / Dirigeants   ###
+###############################
+#Ex.: "Our ruler is [x] King/Queen Someone XIV" => "Notre dirigeant est [le] roi Machin XIV / [l']empereur Machin XIV / [la] reine Machine XIV / [l']impératrice Machine XIV." (lower case / minuscule)
+defined_text = {
+	name = GetLeLaLDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+			}
+		}
+		localization_key = FRLOC_le
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_la
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_l
+	}
+}
+#Ex.: "[X] King/Queen Someone XIV is our ruler." => "[Le] roi Machin XIV est notre dirigeant. / [La] reine Machine XIV est notre dirigeante." (upper case / majuscule)
+defined_text = {
+	name = GetLeLaLDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+			}
+		}
+		localization_key = FRLOC_Le
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_La
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_L
+	}
+}
+
+
+
+#Ex.: "Someone XIV is [the] ruler of this empire." => "Machin XIV est [le] dirigeant de cet empire. / Machine XIV est [la] dirigeante de cet empire." (lower case / minuscule)
+defined_text = {
+	name = GetLeLaFDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_le
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_la
+	}
+}
+#Ex.: "[The] ruler of this empire is Someone XIV." => "[Le] dirigeant de cet empire c'est Machin XIV. / [La] dirigeante de cet empire c'est Machine XIV." (upper case / majuscule)
+defined_text = {
+	name = GetLeLaFDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Le
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_La
+	}
+}
+
+
+
+#Ex.: "We are the servants [of the] King/Emperor/Queen/Empress Someone XIV." => "Nous sommes les serviteurs [du] roi Machin XIV / [de l']empereur Machin XIV / [de la] reine Machine XIV / [de l']impératrice Machine XIV." (lower case / minuscule)
+defined_text = {
+	name = GetDuDelaDelDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+			}
+		}
+		localization_key = FRLOC_du
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_dela
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_del
+	}
+}
+#Ex.: "[From] King/Emperor/Queen/Empress Someone XIV came the best news." => "[Du] roi Machin XIV / [De l']empereur Machin XIV / [De la] reine Machine XIV / [De l']impératrice Machine XIV est venue la bonne nouvelle." (upper case / majuscule)
+defined_text = {
+	name = GetDuDelaDelDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+			}
+		}
+		localization_key = FRLOC_Du
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_Dela
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Del
+	}
+}
+
+
+
+#Ex.: "We are the servants [of the] very wise King/Queen Someone XIV." => "Nous sommes les serviteurs [du] très sage roi Machin XIV / [de la] très sage reine Machine XIV." (lower case / minuscule)
+defined_text = {
+	name = GetDuDelaFDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_du
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_dela
+	}
+}
+#Ex.: "[From] King Someone XIV came the best news." => "[Du] roi Machin XIV / [De la] reine Machine XIV est venue la bonne nouvelle." (upper case / majuscule)
+defined_text = {
+	name = GetDuDelaFDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Du
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Dela
+	}
+}
+
+
+
+#Ex.: "We'll report that [to] King/Queen Someone XIV." => "Nous le rapporterons [au] roi Machin XIV / [à l']empereur Machin XIV / [à la] reine Machine XIV / [à l']impératrice Machine XIV." (lower case / minuscule)
+defined_text = {
+	name = GetAuAlaAlDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+			}
+		}
+		localization_key = FRLOC_au
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_ala
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_al
+	}
+}
+#Ex.: "Deliverance belongs [to] King/Queen Someone XIV." => "[Au] roi Machin XIV / [À l'] empereur Machin XIV / [À la] reine Machine XIV / [À l']impératrice Machine XIV appartient le salut." (upper case / majuscule)
+defined_text = {
+	name = GetAuAlaAlDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+			}
+		}
+		localization_key = FRLOC_Au
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_Ala
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Al
+	}
+}
+
+
+
+#Ex.: "We'll report that [to] the wise King/Queen Someone XIV." => "Nous le rapporterons [au] sage roi Machin XIV / [au] sage empereur Machin XIV / [à la] sage reine Machine XIV / [à la] sage impératrice Machine XIV." (lower case / minuscule)
+defined_text = {
+	name = GetAuAlaFDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_au
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_ala
+	}
+}
+#Ex.: "Deliverance belongs [to] the wise King/Queen Someone XIV." => "[Au] sage roi Machin XIV / [Au] sage empereur Machin XIV / [À la] sage reine Machine XIV / [À la] sage impératrice Machine XIV appartient le salut." (upper case / majuscule)
+defined_text = {
+	name = GetAuAlaFDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Au
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Ala
+	}
+}
+
+
+
+#Ex.: "It falls to you [as] ruler..." => "C'est à vous, en tant [que] roi/reine... / C'est à vous, en tant [qu'empereur/impératrice]..." (lower case / minuscule)
+defined_text = {
+	name = GetQueQuDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_que
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_qu
+	}
+}
+#Ex.: "It falls to you [as] ruler..." => "C'est à vous, en tant [que] roi/reine... / C'est à vous, en tant [qu'empereur/impératrice]..." (lower case / minuscule)
+defined_text = {
+	name = GetQueQuDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+			}
+		}
+		localization_key = FRLOC_Que
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_vow = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Qu
+	}
+}
+
+
+
+#Ex.: "Our elected ruler" => "Notre dirigeant(e) élu(e)"
+defined_text = {
+	name = GetXEDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_XX
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_e
+	}
+}
+
+
+
+#Ex.: "Someone XIV is our [current] ruler." => "Machin XIV est notre actu[el] dirigeant. / Machine XIV est notre actu[elle] dirigeante." (lower case / minuscule)
+defined_text = {
+	name = GetElElleDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_el
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_elle
+	}
+}
+
+
+
+#Ex.: "[Esteemed] King Someone XIV..." => "Très ch[er] roi Machin XIV... / Très ch[ère] reine Machine XIV..." (lower case / minuscule)
+defined_text = {
+	name = GetErEreDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_er
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_ere
+	}
+}
+
+
+
+#Ex.: "May King/Queen Someone XIV stay a [master/mistress] of his/her lesser." => "Puisse le roi Machin XIV rester le maître[x] de ses inférieurs. / Puisse la reine Machine XIV rester la maître[sse] de ses inférieurs."
+defined_text = {
+	name = GetXSseDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_XX
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_sse
+	}
+}
+
+
+
+#Ex.: "Is King/Queen Someone XIV a simple [servant]?" => "Le roi Machin XIV serait-il un simple [serviteur] ? / La reine Machine XIV serait-elle une simple [servante] ?" (lower case / minuscule)
+defined_text = {
+	name = GetServiteurServanteDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_serviteur
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_servante
+	}
+}
+
+
+
+#Ex.: "Peace be with you, [Mister/Madam] Prime Minister" => "La paix soit avec vous, [Monsieur] le Premier Ministre / [Madame] le Premier Ministre" (lower case / minuscule)
+defined_text = {
+	name = GetMonsieurMadameDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_monsieur
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_madame
+	}
+}
+
+
+
+#Ex.: "The empire and [their] King Someone XIV..." => "L'empire et [son] roi Machin XIV... / L'empire et [sa] reine Machine XIV..." (lower case / minuscule)
+defined_text = {
+	name = GetSonSaDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_son
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_sa
+	}
+}
+#Ex.: "[Their] King Someone XIV led the empire to defeat." => "[Son] roi Machin XIV / [Sa] reine Machine XIV a mené l'empire à la défaite." (upper case / majuscule)
+defined_text = {
+	name = GetSonSaDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Son
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Sa
+	}
+}
+
+
+
+#Ex.: "Maybe this is too late yet, but [he]/[she] still did not take any decision. (= King/Queen Someone XIV)" => "Il est peut-être déjà trop tard, mais [il]/[elle] n'a toujours pas pris de décision. (= le roi Machin XIV / la reine Machine XIV)" (lower case / minuscule)
+defined_text = {
+	name = GetIlElleDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_il
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_elle
+	}
+}
+#Ex.: "[He]/[She] decided it. (= King/Queen Someone XIV)" => "[Il]/[Elle] en a décidé ainsi. (= le roi Machin XIV / la reine Machine XIV)" (upper case / majuscule)
+defined_text = {
+	name = GetIlElleDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Il
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Elle
+	}
+}
+
+
+
+#Ex.: "It's still uprovend [if he/she] is a male or female alien. (= King/Queen Someone XIV)" => "On ne sait pas encore très bien [s'il]/[si elle] est un alien mâle ou femelle. (= le roi Machin XIV / la reine Machine XIV)" (lower case / minuscule)
+defined_text = {
+	name = GetSilSielleDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_sil
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_sielle
+	}
+}
+#Ex.: "[If he/she] wishes so, the empire would support him/her. (= King/Queen Someone XIV)" => "[S'il]/[Si elle] le veut, l'empire le soutiendra. (= le roi Machin XIV / la reine Machine XIV)" (upper case / majuscule)
+defined_text = {
+	name = GetSilSielleDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Sil
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Sielle
+	}
+}
+
+
+
+#Ex.: "It's [him]/[her] who decided it. (= King/Queen Someone XIV)" => "C'est [lui]/[elle] qui en a décidé ainsi. (= le roi Machin XIV / la reine Machine XIV)" (lower case / minuscule)
+defined_text = {
+	name = GetLuiElleDir
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_lui
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_elle
+	}
+}
+#Ex.: "[Him]/[Her] who decided it, may he/she...? (= King/Queen Someone XIV)" => "[Lui]/[Elle] qui en a décidé ainsi, est-il/elle même capable de... ? (= le roi Machin XIV / la reine Machine XIV)" (upper case / majuscule)
+defined_text = {
+	name = GetLuiElleDirCap
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_masc_cons = yes
+				frloc_rulers_strange_angloalien_masc_cons = yes
+				frloc_rulers_masc_vow = yes
+			}
+		}
+		localization_key = FRLOC_Lui
+	}
+	text = {
+		trigger = {
+			OR = {
+				frloc_rulers_fem_cons = yes
+				frloc_rulers_strange_angloalien_fem_cons = yes
+				frloc_rulers_fem_vow = yes
+				frloc_rulers_strange_angloalien_fem_vow = yes
+			}
+		}
+		localization_key = FRLOC_Elle
+	}
+}
+
+
+
+###################################
+###   Traditions / Traditions   ###
+###################################
+
+defined_text = {
+	name = GetDiplomacyTraditionNameArticle
+	text = {
+		trigger = {
+			owner = {
+				OR = {
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_inwards_perfection
+					has_authority = auth_hive_mind
+				}
+			}
+		}
+		localization_key = FRLOC_d
+	}
+	text = {
+		trigger = {
+			owner = {
+				NOR = {
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_inwards_perfection
+					has_authority = auth_hive_mind
+					has_authority = auth_machine_intelligence
+				}
+			}
+		}
+		localization_key = FRLOC_de
+	}
+}

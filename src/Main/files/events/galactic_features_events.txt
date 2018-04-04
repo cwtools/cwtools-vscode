@@ -1,0 +1,2373 @@
+#########################################
+#
+# Galactic Features Events
+#
+# Written by Henrik Eklund
+#
+#########################################
+
+namespace = galactic_features
+@tier1influencecontact = 7
+@tier1influencecontactxenophile = 8
+@tier1influencecontactmin = 20
+@tier1influencecontactmax = 80
+
+@tier2influencecontact = 10
+@tier2influencecontactxenophile = 12
+@tier2influencecontactmin = 40
+@tier2influencecontactmax = 100
+
+@tier1materialreward = 6
+@tier1materialmin = 100
+@tier1materialmax = 500
+@tier2materialreward = 12
+@tier2materialmin = 150
+@tier2materialmax = 1000
+@tier3materialreward = 18
+@tier3materialmin = 250
+@tier3materialmax = 1500
+@tier4materialreward = 24
+@tier4materialmin = 350
+@tier4materialmax = 2000
+@tier5materialreward = 48
+@tier5materialmin = 700
+@tier5materialmax = 4000
+
+@tier1influencereward = 6
+@tier1influencemin = 40
+@tier1influencemax = 100
+@tier2influencereward = 12
+@tier2influencemin = 80
+@tier2influencemax = 175
+@tier3influencereward = 18
+@tier3influencemin = 125
+@tier3influencemax = 250
+@tier4influencereward = 24
+@tier4influencemin = 150
+@tier4influencemax = 300
+@tier5influencereward = 36
+@tier5influencemin = 250
+@tier5influencemax = 500
+@tier6influencereward = 48
+@tier6influencemin = 300
+@tier6influencemax = 600
+
+@tier1researchreward = 6
+@tier1researchmin = 60
+@tier1researchmax = 150
+@tier2researchreward = 12
+@tier2researchmin = 90
+@tier2researchmax = 250
+@tier3researchreward = 18
+@tier3researchmin = 120
+@tier3researchmax = 350
+@tier4researchreward = 24
+@tier4researchmin = 150
+@tier4researchmax = 500
+@tier5researchreward = 48
+@tier5researchmin = 300
+@tier5researchmax = 1000
+
+### Guardians of Zanaam
+ship_event = {
+	id = galactic_features.2
+	title = "galactic_features.2.name"
+	desc = "galactic_features.2.desc"
+	
+	diplomatic = yes
+	
+	is_triggered_only = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	trigger = {
+		FROM = { has_star_flag = guardians_of_zanaam }
+		owner = {
+			NOT = { has_country_flag = guardians_zanaam }
+		}
+		NOT = { has_global_flag = guardians_zanaam_destroyed }
+	}
+	
+	immediate = {
+		owner = { set_country_flag = guardians_zanaam }
+		random_country = {
+			limit = {
+				is_country_type = faction
+				has_country_flag = zanaam_country
+			}
+			establish_contact = { who = root.owner location = root.solar_system }
+			establish_communications_no_message = root.owner
+		}
+	}
+	
+	option = {
+		name = "galactic_features.2.a"
+	}
+}
+
+# Guardians destroyed
+country_event = {
+	id = galactic_features.3
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = guardians_zanaam_destroyed }
+		FROMFROM = { has_fleet_flag = zanaam_fleet }
+	}
+	
+	immediate = {
+		set_global_flag = guardians_zanaam_destroyed
+	}
+}
+
+# Medieval Civilization
+country_event = {
+	id = galactic_features.101
+	title = "primitive.1.name"
+	desc = "galactic_features.101.desc"
+	picture = GFX_evt_medieval_alien_civilization
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Industrial Civilization
+country_event = {
+	id = galactic_features.102
+	title = "primitive.1.name"
+	desc = "galactic_features.102.desc"
+	picture = GFX_evt_metropolis
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Early Space Age Civilization
+country_event = {
+	id = galactic_features.103
+	title = "primitive.1.name"
+	desc = "galactic_features.103.desc"
+	picture = GFX_evt_metropolis
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Nuclear Wasteland
+ship_event = {
+	id = galactic_features.104
+	title = "anomaly.670.name"
+	desc = "galactic_features.104.desc"
+	picture = GFX_evt_city_ruins
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		create_species = {
+			name = "NAME_Cockroach"
+			plural = "Cockroaches"
+			class = "ART"
+			portrait = pre_art11
+			traits = {
+				ideal_planet_class = "pc_nuked"
+				trait = trait_adaptive
+				trait = random_presapient_trait
+			}
+			homeworld = FROM
+			sapient = no
+		}
+		FROM = {
+			best_tile_for_pop = {
+				create_pop = { species = last_created }
+			}
+			best_tile_for_pop = {
+				create_pop = { species = last_created }
+			}
+			best_tile_for_pop = {
+				create_pop = { species = last_created }
+			}
+		}
+		owner = { set_country_flag = found_presapients }
+	}
+	
+	option = {
+		name = INTERESTING
+	}
+}
+
+# Shielded World (Fallen Empire)
+ship_event = {
+	id = galactic_features.300
+	title = "galactic_features.300"
+	desc = "galactic_features.300.desc"
+	picture = GFX_evt_ship_in_orbit
+	location = FROM
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			is_planet_class = pc_shielded
+			has_planet_flag = fallen_shield_world
+		}
+	}
+	
+	option = {
+		name = "galactic_features.300.a"
+		from = {
+			enable_special_project = {
+				name = "FALLEN_SHIELD_PROJECT"
+				location = this
+				owner = root.owner
+			}
+		}
+	}
+	option = {
+		name = "galactic_features.300.b"
+	}
+}
+
+# Mothballed Fleet
+ship_event = {
+	id = galactic_features.301
+	title = "galactic_features.301"
+	desc = "galactic_features.301.desc"
+	picture = GFX_evt_federation_fleet
+	location = FROMFROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			random_list = {
+				50 = { change_pc = pc_barren }
+				50 = { change_pc = pc_barren_cold }
+			}
+			reset_planet = yes
+		}
+	}
+	
+	option = {
+		name = "galactic_features.301.a"
+		hidden_effect = {
+			owner = {
+				create_fleet = {
+					effect = {
+						while = {
+							count = 4
+							create_ship = {
+								name = random
+								design = "NAME_Beta"
+								graphical_culture = "fallen_empire_01"
+							}
+						}
+						while = {
+							count = 6
+							create_ship = {
+								name = random
+								design = "NAME_Gamma"
+								graphical_culture = "fallen_empire_01"
+							}
+						}
+						set_owner = root.owner
+						set_location = FROMFROM
+					}
+				}
+			}
+		}
+	}
+}
+
+# Tech Vault
+ship_event = {
+	id = galactic_features.302
+	title = "galactic_features.302"
+	desc = "galactic_features.302.desc"
+	picture = GFX_evt_outpost
+	location = FROMFROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = fallen_empire
+				has_country_flag = fallen_empire_1
+			}
+			save_event_target_as = fallen_empire
+		}
+		FROMFROM = { 
+			random_list = {
+				50 = { change_pc = pc_barren }
+				50 = { change_pc = pc_barren_cold }
+			}
+			reset_planet = yes
+		}
+	}
+	
+	option = {
+		name = "galactic_features.302.a"
+		owner = {
+  			add_monthly_resource_mult = {
+  				resource = engineering_research
+  				value = @tier5researchreward
+  				min = @tier5researchmin
+  			}
+  		}
+	}
+}
+
+# Isolated Hut
+ship_event = {
+	id = galactic_features.303
+	title = "galactic_features.303"
+	desc = "galactic_features.303.desc"
+	picture = GFX_evt_alien_planet
+	location = FROMFROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		FROMFROM = {
+			save_event_target_as = shield_planet
+			random_list = {
+				1 = { change_pc = pc_gaia }
+				1 = { change_pc = pc_tropical }
+				1 = { change_pc = pc_arid }
+				1 = { change_pc = pc_continental }
+				1 = { change_pc = pc_ocean }
+				1 = { change_pc = pc_tundra }
+				1 = { change_pc = pc_arctic }
+				1 = { change_pc = pc_alpine }
+				1 = { change_pc = pc_savannah }
+				1 = { change_pc = pc_desert }
+			}
+			reroll_planet = yes
+		}
+	}
+	
+	option = {
+		name = "galactic_features.303.a"
+		hidden_effect = {
+			owner = {
+				country_event = { id = galactic_features.304 }
+			}
+		}
+	}
+}
+
+# The Admiral
+country_event = {
+	id = galactic_features.304
+	title = "TRANSMISSION"
+	desc = "galactic_features.304.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		portrait = event_target:fallen_4_species
+		planet_background = event_target:shield_planet
+		city_level = event_target:shield_planet
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "galactic_features.304.a"
+		response_text = "galactic_features.304.a.response"
+		is_dialog_only = yes
+	}
+	option = {
+		name = "galactic_features.304.b"
+		response_text = "galactic_features.304.b.response"
+		is_dialog_only = yes
+	}
+	option = {
+		name = "galactic_features.304.c"
+		response_text = "galactic_features.304.c.response"
+		hidden_effect = {
+			create_leader = {
+				type = admiral
+				species = event_target:fallen_4_species
+				name = "NAME_Tuborek"
+				skill = 10
+				traits = {
+					trait = leader_trait_gale_speed
+					trait = leader_trait_fleet_logistician
+					trait = leader_trait_resilient
+				}
+				event_leader = yes	# prevents this leader from leading factions and winning elections
+			}
+			last_created_leader = {
+				set_age = 65
+			}
+		}
+	}
+	option = {
+		name = "galactic_features.304.d"
+		response_text = "galactic_features.304.d.response"
+		hidden_effect = { event_target:shield_planet = { change_pc = pc_shielded } }
+	}
+}
+
+# Freedom
+ship_event = {
+	id = galactic_features.305
+	title = "galactic_features.305"
+	desc = {
+		trigger = { owner = { NOT = { has_authority = auth_machine_intelligence } } }
+		text = "galactic_features.305.desc"
+	}
+	desc = {
+		trigger = { owner = { has_authority = auth_machine_intelligence } }
+		text = galactic_features.305.desc.mech
+	}
+	picture = GFX_evt_alien_planet
+	location = FROMFROM
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		random_country = {
+			limit = {
+				is_country_type = fallen_empire
+				has_country_flag = fallen_empire_1
+			}
+			save_event_target_as = fallen_empire
+		}
+		FROMFROM = { 
+			random_list = {
+				50 = { change_pc = pc_barren }
+				50 = { change_pc = pc_barren_cold }
+			}
+			reset_planet = yes
+		}
+		
+		create_country = {
+			name = "NAME_Old_One"
+			type = cloud
+		}
+		last_created_country = {
+			create_fleet = {
+				name = "NAME_Exiled_One"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_XELMAGGUS"
+						design = "NAME_Cloud_Entity"
+					}
+					set_location = FROMFROM
+			
+					queue_actions = {
+						repeat = {
+							find_random_system = {
+								trigger = {
+									id = "galactic_features.305.trigger.1"
+									has_planet_class = "pc_gas_giant"
+									distance = {
+										source = FROMFROM
+										max_distance = 200
+										min_distance = 100
+									}
+								}
+								found_system = {
+									move_to = THIS
+								}	
+							}
+							find_closest_planet = {
+								trigger = {
+									id = "galactic_features.305.trigger.2"
+									is_planet_class = "pc_gas_giant"
+								}
+								found_planet = {
+									orbit_planet = THIS
+									wait = {
+										duration = 200
+										random = 150
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			create_fleet = {
+				name = "NAME_Exiled_One"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_XILNIAK"
+						design = "NAME_Cloud_Entity"
+					}
+					set_location = FROMFROM
+			
+					queue_actions = {
+						repeat = {
+							find_random_system = {
+								trigger = {
+									id = "galactic_features.305.trigger.3"
+									has_planet_class = "pc_gas_giant"
+									distance = {
+										source = FROMFROMFROM
+										max_distance = 200
+										min_distance = 100
+									}
+								}
+								found_system = {
+									move_to = THIS
+								}	
+							}
+							find_closest_planet = {
+								trigger = {
+									id = "galactic_features.305.trigger.4"
+									is_planet_class = "pc_gas_giant"
+								}
+								found_planet = {
+									orbit_planet = THIS
+									wait = {
+										duration = 200
+										random = 150
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			create_fleet = {
+				name = "NAME_Exiled_One"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_XADRA"
+						design = "NAME_Cloud_Entity"
+					}
+					set_location = FROMFROM
+			
+					queue_actions = {
+						repeat = {
+							find_random_system = {
+								trigger = {
+									id = "galactic_features.305.trigger.5"
+									has_planet_class = "pc_gas_giant"
+									distance = {
+										source = FROMFROM
+										max_distance = 200
+										min_distance = 100
+									}
+								}
+								found_system = {
+									move_to = THIS
+								}	
+							}
+							find_closest_planet = {
+								trigger = {
+									id = "galactic_features.305.trigger.6"
+									is_planet_class = "pc_gas_giant"
+								}
+								found_planet = {
+									orbit_planet = THIS
+									wait = {
+										duration = 200
+										random = 150
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			create_fleet = {
+				name = "NAME_Exiled_One"
+				effect = {
+					set_owner = PREV
+					create_ship = {
+						name = "NAME_XUNIA"
+						design = "NAME_Cloud_Entity"
+					}
+					set_location = FROMFROM
+			
+					queue_actions = {
+						repeat = {
+							find_random_system = {
+								trigger = {
+									id = "galactic_features.305.trigger.7"
+									has_planet_class = "pc_gas_giant"
+									distance = {
+										source = FROMFROM
+										max_distance = 200
+										min_distance = 100
+									}
+								}
+								found_system = {
+									move_to = THIS
+								}	
+							}
+							find_closest_planet = {
+								trigger = {
+									id = "galactic_features.305.trigger.8"
+									is_planet_class = "pc_gas_giant"
+								}
+								found_planet = {
+									orbit_planet = THIS
+									wait = {
+										duration = 200
+										random = 150
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "galactic_features.305.a"
+	}
+}
+
+# The Sanctuary
+ship_event = {
+	id = galactic_features.350
+	title = "galactic_features.350"
+	desc = "galactic_features.350.desc"
+	picture = GFX_evt_star_chart
+	location = ROOT
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = { 
+			has_star_flag = sanctuary_system
+			any_ship_in_system = {
+				fleet = { has_fleet_flag = sanctuary_core }
+			}
+			any_planet = {
+				exists = owner
+				owner = { is_country_type = primitive }
+			}
+		}
+		NOT = { owner = { has_country_flag = sanctuary_system_visited } }
+		
+	}
+	
+	immediate = {
+		owner = { set_country_flag = sanctuary_system_visited }
+	}
+	
+	option = {
+		name = "ONSCREEN"
+		hidden_effect = {
+			owner = { country_event = { id = galactic_features.351 } }
+		}
+	}
+	option = {
+		name = "galactic_features.350.b"
+	}
+}
+
+# Sanctuary Transmission
+country_event = {
+	id = galactic_features.351
+	title = "TRANSMISSION"
+	desc = "galactic_features.351.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = "galactic_features.351.a"
+		response_text = "galactic_features.351.a.response"
+		is_dialog_only = yes
+	}
+	option = {
+		name = "galactic_features.351.b"
+		response_text = "galactic_features.351.b.response"
+		is_dialog_only = yes
+	}
+	option = {
+		name = "galactic_features.351.c"
+		response_text = "galactic_features.351.c.response"
+	}
+}
+
+# If Void Cloud fleet destroys two fleets, a new Void Cloud is created
+country_event = {
+	id = galactic_features.360
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = from
+		is_country_type = cloud
+	}
+
+	immediate = {
+		from = { save_event_target_as = notify_country }
+		fromfrom = {
+			solar_system = {
+				random_system_planet = {
+					limit = { is_star = yes }
+					save_event_target_as = parent_cloud
+				}
+			}
+			if = {
+				limit = {
+					check_variable = { 
+						which = "cloud_strength" 
+						value < 1
+			 		}
+			 	}
+			 	set_variable = {
+			 		which = "cloud_strength"
+			 		value = 1
+			 	}
+			 	else = {
+					change_variable = {
+						which = "cloud_strength"
+						value = 1
+					}
+			 		if = {
+			 			limit = {
+			 				check_variable = {
+			 					which = "cloud_strength"
+			 					value = 2
+			 				}
+			 			}
+			 			random_list = {
+			 				25 = {
+			 					create_fleet = {
+			 						name = "NAME_Effluvial_Offspring"
+				 					effect = {
+				 						set_owner = root
+				 						create_ship = {
+				 							name = "NAME_SHAB"
+				 							design = "NAME_Cloud_Entity"
+				 						}
+				 						set_location = event_target:parent_cloud
+				 					}
+				 				}
+			 					event_target:notify_country = { country_event = { id = galactic_features.361 } }
+			 				}
+			 				25 = {
+			 					create_fleet = {
+			 						name = "NAME_Effluvial_Offspring"
+				 					effect = {
+				 						set_owner = root
+				 						create_ship = {
+				 							name = "NAME_TAHA"
+				 							design = "NAME_Cloud_Entity"
+				 						}
+				 						set_location = event_target:parent_cloud
+				 					}
+				 				}
+			 					event_target:notify_country = { country_event = { id = galactic_features.361 } }
+			 				}
+			 				25 = {
+			 					create_fleet = {
+			 						name = "NAME_Effluvial_Offspring"
+				 					effect = {
+				 						set_owner = root
+				 						create_ship = {
+				 							name = "NAME_TANT"
+				 							design = "NAME_Cloud_Entity"
+				 						}
+				 						set_location = event_target:parent_cloud
+				 					}
+				 				}
+			 					event_target:notify_country = { country_event = { id = galactic_features.361 } }
+			 				}
+			 				25 = {
+			 					create_fleet = {
+			 						name = "NAME_Effluvial_Offspring"
+				 					effect = {
+				 						set_owner = root
+				 						create_ship = {
+				 							name = "NAME_KASH"
+				 							design = "NAME_Cloud_Entity"
+				 						}
+				 						set_location = event_target:parent_cloud
+				 					}
+				 				}
+			 					event_target:notify_country = { country_event = { id = galactic_features.361 } }
+			 				}
+			 			}
+			 			change_variable = {
+			 				which = "cloud_strength"
+			 				value = -2
+			 			}
+			 		}
+			 	}
+			}
+		}
+	}
+}
+
+# Void Cloud reproduction notification event
+country_event = {
+	id = galactic_features.361
+	title = galactic_features.361.name
+	desc = galactic_features.361.desc
+	picture = GFX_evt_wormhole
+	location = fromfromfrom
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_ai = no
+		is_country_type = default
+		has_communications = from
+	}
+
+	option = {
+		name = galactic_features.361.a
+		trigger = {
+			OR = {
+				has_ethic = ethic_fanatic_pacifist
+				NOT = {
+					has_ethic = ethic_fanatic_pacifist
+					has_ethic = ethic_fanatic_militarist
+					has_ethic = ethic_fanatic_xenophobe
+					has_ethic = ethic_fanatic_xenophile
+					has_ethic = ethic_fanatic_spiritualist
+					has_ethic = ethic_fanatic_materialist
+					has_authority = auth_machine_intelligence
+				}
+			}
+		}
+	}
+
+	option = {
+		name = galactic_features.361.a.milit
+		trigger = {	has_ethic = ethic_fanatic_militarist }
+	}
+
+	option = {
+		name = galactic_features.361.a.phobe
+		trigger = { OR = { has_ethic = ethic_fanatic_xenophobe has_civic = civic_machine_terminator } }
+	}
+
+	option = {
+		name = galactic_features.361.a.phile
+		trigger = { has_ethic = ethic_fanatic_xenophile }
+	}
+
+	option = {
+		name = galactic_features.361.a.spiri
+		trigger = { has_ethic = ethic_fanatic_spiritualist }
+	}
+
+	option = {
+		name = galactic_features.361.a.mater
+		trigger = {
+			OR = {
+				has_ethic = ethic_fanatic_materialist
+				AND = {
+					has_authority = auth_machine_intelligence
+					NOT = { has_civic = civic_machine_terminator }
+				}
+			}
+		}
+	}
+}
+
+# Space Monster respawn
+event = {
+	id = galactic_features.362
+	hide_window = yes
+
+	is_triggered_only = yes
+ 
+	immediate = {
+		random_system = {
+			limit = {
+				has_star_flag = blue_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = { is_star = no }
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Blue"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 150
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = blue2_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+			
+			random_system_planet = {
+				limit = {
+					is_star = no
+				}
+				save_event_target_as = blue2_trigger_1
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					NOT = {
+						is_same_value = event_target:blue2_trigger_1
+					}
+				}
+				save_event_target_as = blue2_trigger_2
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					NOT = {
+						is_same_value = event_target:blue2_trigger_1
+						is_same_value = event_target:blue2_trigger_2
+					}
+				}
+				save_event_target_as = blue2_trigger_3
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Blue"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 150
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Blue"
+							}
+							set_location = event_target:blue2_trigger_2
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 150
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Blue"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Blue"
+							}
+							set_location = event_target:blue2_trigger_1
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 150
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = green_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+				}
+				save_event_target_as = green_trigger_1
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:green_trigger_1
+					}
+				}
+				save_event_target_as = green_trigger_2
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:green_trigger_1
+						is_same_value = event_target:green_trigger_2
+					}
+				}
+				save_event_target_as = green_trigger_3
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 100
+							queue_actions = {
+								repeat = {
+									find_closest_planet = {
+										trigger = {
+											id = "greenC.x1.trigger.1"
+											is_planet = event_target:green_trigger_1
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC.x1.trigger.2"
+											is_planet = event_target:green_trigger_2
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC.x1.trigger.3"
+											is_planet = event_target:green_trigger_3
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = green2_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = {
+					is_star = no
+				}
+				save_event_target_as = green2_trigger_1
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					NOT = {
+						is_same_value = event_target:green2_trigger_1
+					}
+				}
+				save_event_target_as = green2_trigger_2
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					NOT = {
+						is_same_value = event_target:green2_trigger_1
+						is_same_value = event_target:green2_trigger_2
+					}
+				}
+				save_event_target_as = green2_trigger_3
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					save_event_target_as = green2_owner
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Iota"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Mu"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							set_location = event_target:green2_trigger_3
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 40
+							queue_actions = {
+								repeat = {
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x1.trigger.1"
+											is_planet = event_target:green2_trigger_1
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x1.trigger.2"
+											is_planet = event_target:green2_trigger_2
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x1.trigger.3"
+											is_planet = event_target:green2_trigger_3
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Iota"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Mu"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							set_location = event_target:green2_trigger_1
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 40
+							queue_actions = {
+								repeat = {
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x2.trigger.2"
+											is_planet = event_target:green2_trigger_2
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x2.trigger.3"
+											is_planet = event_target:green2_trigger_3
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x2.trigger.1"
+											is_planet = event_target:green2_trigger_1
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Iota"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							create_ship = {
+								name = "NAME_Mu"
+								design = "NAME_Small_Crystal_Entity_Green"
+							}
+							set_location = event_target:green2_trigger_2
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 40
+							queue_actions = {
+								repeat = {
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x3.trigger.3"
+											is_planet = event_target:green2_trigger_3
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x3.trigger.1"
+											is_planet = event_target:green2_trigger_1
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+									find_closest_planet = {
+										trigger = {
+											id = "greenC2.x3.trigger.2"
+											is_planet = event_target:green2_trigger_2
+										}
+										found_planet = {
+											orbit_planet = THIS
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = red_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+				}
+				save_event_target_as = red_trigger_1
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:red_trigger_1
+					}
+				}
+				save_event_target_as = red_trigger_2
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:red_trigger_1
+						is_same_value = event_target:red_trigger_2
+					}
+				}
+				save_event_target_as = red_trigger_3
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:red_trigger_1
+						is_same_value = event_target:red_trigger_2
+						is_same_value = event_target:red_trigger_3
+					}
+				}
+				save_event_target_as = red_trigger_4
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					save_event_target_as = red_crystals
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							set_location = event_target:red_trigger_1
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 40
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 30
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							set_location = event_target:red_trigger_2
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 40
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							set_location = event_target:red_trigger_3
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 30
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Alpha"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							set_location = event_target:red_trigger_4
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = red2_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+				}
+				save_event_target_as = red2_trigger_1
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:red2_trigger_1
+					}
+				}
+				save_event_target_as = red2_trigger_2
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:red2_trigger_1
+						is_same_value = event_target:red2_trigger_2
+					}
+				}
+				save_event_target_as = red2_trigger_3
+			}
+			random_system_planet = {
+				limit = {
+					is_star = no
+					is_moon = no
+					NOT = {
+						is_same_value = event_target:red2_trigger_1
+						is_same_value = event_target:red2_trigger_2
+						is_same_value = event_target:red2_trigger_3
+					}
+				}
+				save_event_target_as = red2_trigger_4
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					save_event_target_as = red2_crystals
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Omicron"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Kappa"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Lambda"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Tau"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							set_location = event_target:red2_trigger_1
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 100
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Omicron"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Kappa"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Lambda"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Tau"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							set_location = event_target:red2_trigger_2
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 100
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Omicron"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Kappa"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Lambda"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Tau"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							set_location = event_target:red2_trigger_3
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 100
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Entity"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Alpha"
+								design = "NAME_Large_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Omicron"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Kappa"
+								design = "NAME_Medium_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Lambda"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							create_ship = {
+								name = "NAME_Tau"
+								design = "NAME_Small_Crystal_Entity_Red"
+							}
+							set_location = event_target:red2_trigger_4
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 100
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 9999
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = elite_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = crystal }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+			
+			random_system_planet = {
+				limit = { is_star = yes }
+				create_crystal_country = yes
+				event_target:crystal_country = {
+					save_event_target_as = elite1_owner
+					create_fleet = {
+						name = "NAME_Crystalline_Elites"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Red_Elite"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Blue_Elite"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Yellow_Elite"
+							}
+							create_ship = {
+								name = "NAME_Beta"
+								design = "NAME_Large_Crystal_Entity_Blue_Elite"
+							}
+							create_ship = {
+								name = "NAME_Gamma"
+								design = "NAME_Medium_Crystal_Entity_Yellow_Elite"
+							}
+							create_ship = {
+								name = "NAME_Psi"
+								design = "NAME_Small_Crystal_Entity_Red_Elite"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 500
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Elites"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Yellow_Elite"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Red_Elite"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Blue_Elite"
+							}
+							create_ship = {
+								name = "NAME_Beta"
+								design = "NAME_Large_Crystal_Entity_Red_Elite"
+							}
+							create_ship = {
+								name = "NAME_Gamma"
+								design = "NAME_Medium_Crystal_Entity_Yellow_Elite"
+							}
+							create_ship = {
+								name = "NAME_Psi"
+								design = "NAME_Small_Crystal_Entity_Blue_Elite"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 500
+						}
+					}
+					create_fleet = {
+						name = "NAME_Crystalline_Elites"
+						effect = {
+							set_owner = event_target:crystal_country
+							create_ship = {
+								name = "NAME_Delta"
+								design = "NAME_Large_Crystal_Entity_Blue_Elite"
+							}
+							create_ship = {
+								name = "NAME_Epsilon"
+								design = "NAME_Medium_Crystal_Entity_Red_Elite"
+							}
+							create_ship = {
+								name = "NAME_Omega"
+								design = "NAME_Small_Crystal_Entity_Yellow_Elite"
+							}
+							create_ship = {
+								name = "NAME_Beta"
+								design = "NAME_Large_Crystal_Entity_Yellow_Elite"
+							}
+							create_ship = {
+								name = "NAME_Gamma"
+								design = "NAME_Medium_Crystal_Entity_Blue_Elite"
+							}
+							create_ship = {
+								name = "NAME_Psi"
+								design = "NAME_Small_Crystal_Entity_Red_Elite"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 500
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = void_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = cloud }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = { is_star = no }
+				create_cloud_country = yes
+				event_target:cloud_country = {
+					set_aggro_range = 500
+					create_fleet = {
+						name = "NAME_Void_Cloud"
+						effect = {
+							set_owner = event_target:cloud_country
+							create_ship = {
+								name = "NAME_XUUL"
+								design = "NAME_Cloud_Entity"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 500
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = void2_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = cloud }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = { is_star = yes }
+				save_event_target_as = voidhome_star
+				create_cloud_country = yes
+				event_target:cloud_country = {
+					save_event_target_as = voidhome_owner
+					create_fleet = {
+						name = "NAME_Abyssal_Host"
+						effect = {
+							set_owner = event_target:cloud_country
+							create_ship = {
+								name = "NAME_YAQU"
+								design = "NAME_Cloud_Entity"
+							}
+							create_ship = {
+								name = "NAME_SHAR"
+								design = "NAME_Cloud_Entity"
+							}
+							create_ship = {
+								name = "NAME_APED"
+								design = "NAME_Cloud_Entity"
+							}
+							create_ship = {
+								name = "NAME_HAPI"
+								design = "NAME_Cloud_Entity"
+							}
+							set_location = event_target:voidhome_star
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 150
+						}
+					}
+					create_fleet = {
+						name = "NAME_Chasmal_Horde"
+						effect = {
+							set_owner = event_target:cloud_country
+							create_ship = {
+								name = "NAME_ANED"
+								design = "NAME_Cloud_Entity"
+							}
+							create_ship = {
+								name = "NAME_DJER"
+								design = "NAME_Cloud_Entity"
+							}
+							create_ship = {
+								name = "NAME_SEME"
+								design = "NAME_Cloud_Entity"
+							}
+							create_ship = {
+								name = "NAME_MERN"
+								design = "NAME_Cloud_Entity"
+							}
+							set_location = event_target:voidhome_star
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 150
+						}
+					}
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = amoeba_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = amoeba }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = { is_star = no }
+				create_amoeba_country = yes
+				event_target:amoeba_country = {
+					create_fleet = {
+						name = "NAME_Space_Amoeba"
+						effect = {
+							set_owner = event_target:amoeba_country
+							create_ship = {
+								name = "NAME_Ortus"
+								design = "NAME_Large_Space_Organism_Orange"
+							}
+							create_ship = {
+								name = "NAME_Oriens"
+								design = "NAME_Large_Space_Organism_Orange"
+							}
+							create_ship = {
+								name = "NAME_Cortus"
+								design = "NAME_Large_Space_Organism_Orange"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 100
+						}
+					}
+				}
+			}
+		}
+
+
+		random_system = {
+			limit = {
+				has_star_flag = amoeba2_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = amoeba }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = { is_star = no }
+				save_event_target_as = grazing_grounds
+				create_amoeba_country = yes
+				event_target:amoeba_country = {
+					create_fleet = {
+						name = "NAME_Space_Amoeba"
+						effect = {
+							set_owner = event_target:amoeba_country
+							random_list = {
+								10 = {
+									set_fleet_flag = empire_visitor
+								}
+								20 = {
+									set_fleet_flag = tiyanki_hunter
+								}
+								70 = {
+									set_fleet_flag = empty_system
+								}
+							}
+							create_ship = {
+								name = "NAME_Ortus"
+								design = "NAME_Great_Space_Organism"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 20
+
+							if = {
+								limit = { has_fleet_flag = empire_visitor }
+								#queue_actions = {
+								#	repeat = {
+								#		find_random_system = {
+								#			trigger = {
+								#				id = amoeba.x3.trigger.1
+								#				any_planet = { is_capital = yes }
+								#			}
+								#			found_system = {
+								#				move_to = this
+								#			}
+								#		}
+								#		find_closest_planet = {
+								#			trigger = {
+								#				id = amoeba.x3.trigger.2
+								#				is_star = yes
+								#			}
+								#			found_planet = {
+								#				orbit_planet = this
+								#				wait = {
+								#					duration = 30
+								#					random = 10
+								#				}
+								#			}
+								#		}
+								#		find_random_system = {
+								#			trigger = {
+								#				id = amoeba.x3.trigger.3
+								#				closest_system = {
+								#					any_planet = {
+								#						is_planet = event_target:grazing_grounds
+								#					}
+								#				}
+								#			}
+								#		}
+								#		find_closest_planet = {
+								#			trigger = {
+								#				id = amoeba.x3.trigger.4
+								#				is_planet = event_target:grazing_grounds
+								#			}
+								#			found_planet = {
+								#				orbit_planet = this
+								#				wait = {
+								#					duration = 400
+								#					random = 150
+								#				}
+								#			}
+								#		}
+								#	}
+								#}
+								#else = {
+								#	if = {
+								#		limit = { has_fleet_flag = tiyanki_hunter }
+								#		save_event_target_as = hunting_amoeba
+								#		queue_actions = {
+								#			repeat = {
+								#				find_random_system = {
+								#					trigger = {
+								#						id = amoeba.x2.trigger.1
+								#						closest_system = {
+								#							any_ship_in_system = {
+								#								is_ship_size = space_whale_3
+								#								# hunt calves
+								#							}
+								#						}
+								#					}
+								#					found_system = {
+								#						move_to = this
+								#					}
+								#				}
+								#				find_closest_planet = {
+								#					trigger = {
+								#						id = amoeba.x2.trigger.2
+								#						is_star = yes
+								#					}
+								#					found_planet = {
+								#						effect = { 
+								#							id = amoeba.x2.effect.1
+								#							event_target:hunting_amoeba = { set_aggro_range = 500 }
+								#						}
+								#						orbit_planet = this
+								#						wait = {
+								#							duration = 300
+								#							random = 10
+								#						}
+								#					}
+								#				}
+								#				find_random_system = {
+								#					trigger = {
+								#						id = amoeba.x2.trigger.3
+								#						closest_system = {
+								#							any_planet = {
+								#								is_planet = event_target:grazing_grounds
+								#							}
+								#						}
+								#					}
+								#					found_system = {
+								#						move_to = this
+								#					}
+								#				}
+								#				find_closest_planet = {
+								#					trigger = {
+								#						id = amoeba.x2.trigger.4
+								#						is_planet = event_target:grazing_grounds
+								#					}
+								#					found_planet = {
+								#						effect = { 
+								#							id = amoeba.x2.effect.2
+								#							event_target:hunting_amoeba = { set_aggro_range = 40 }
+								#						}
+								#						orbit_planet = this
+								#						wait = {
+								#							duration = 400
+								#							random = 150
+								#						}
+								#					}
+								#				}
+								#			}
+								#		}
+								#		else = {
+								#			queue_actions = {
+								#				repeat = {
+								#					find_random_system = {
+								#						trigger = {
+								#							id = amoeba.x1.trigger.1
+								#							closest_system = {
+								#								NOT = { has_star_flag = hostile_system }
+								#							}
+								#						}
+								#						found_system = {
+								#							move_to = this
+								#						}
+								#					}
+								#					find_closest_planet = {
+								#						trigger = {
+								#							id = amoeba.x1.trigger.2
+								#							is_star = yes
+								#						}
+								#						found_planet = {
+								#							orbit_planet = this
+								#							wait = {
+								#								duration = 100
+								#								random = 50
+								#							}
+								#						}
+								#					}
+								#					find_random_system = {
+								#						trigger = {
+								#							id = amoeba.x1.trigger.3
+								#							closest_system = {
+								#								any_planet = {
+								#									is_planet = event_target:grazing_grounds
+								#								}
+								#							}
+								#						}
+								#					}
+								#					find_closest_planet = {
+								#						trigger = {
+								#							id = amoeba.x1.trigger.4
+								#							is_planet = event_target:grazing_grounds
+								#						}
+								#						found_planet = {
+								#							orbit_planet = this
+								#							wait = {
+								#								duration = 300
+								#								random = 50
+								#							}
+								#						}
+								#					}
+								#				}
+								#			}
+								#		}
+								#	}
+								#}
+							}
+						}
+					}
+				}
+			}
+		}
+
+
+		random_system = {
+			limit = {
+				has_star_flag = drone_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = drone }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			random_system_planet = {
+				limit = { has_deposit_for = shipclass_mining_station }
+				create_drone_country = yes
+				event_target:drone_country = {
+					save_event_target_as = mining_drones
+					set_graphical_culture = ancient_drone_01
+					create_fleet = {
+						name = "NAME_Ancient_Mining_Drones"
+						effect = {
+							set_owner = event_target:drone_country
+							create_ship = {
+								name = "NAME_Drone_2432-D"
+								design = "NAME_Ancient_Mining_Drone"
+							}
+							create_ship = {
+								name = "NAME_Drone_7731-A"
+								design = "NAME_Ancient_Mining_Drone"
+							}
+							create_ship = {
+								name = "NAME_Drone_4119-X"
+								design = "NAME_Ancient_Combat_Drone"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 150
+							queue_actions = {
+								repeat = {
+									wait = {
+										duration = 999
+										random = 10
+									}
+								}
+							}
+						}
+					}
+				}
+				create_mining_station = {
+					owner = event_target:mining_drones
+				}
+			}
+		}
+
+		random_system = {
+			limit = {
+				has_star_flag = drone2_system
+				NOT = {
+					any_ship_in_system = {
+						exists = owner
+						owner = { is_country_type = drone }
+					}
+					any_country = {
+						intel_level = {
+							level > low
+							system = prev
+						}
+					}
+				}
+			}
+
+			every_system_planet = {
+				limit = { has_deposit_for = shipclass_mining_station }
+				create_drone_country = yes
+				event_target:drone_country = {
+					save_event_target_as = mining_drones2
+					set_graphical_culture = ancient_drone_01
+					create_fleet = {
+						name = "NAME_Ancient_Mining_Drones"
+						effect = {
+							set_owner = event_target:drone_country
+							create_ship = {
+								name = "NAME_Drone_1832-D"
+								design = "NAME_Ancient_Mining_Drone"
+							}
+							create_ship = {
+								name = "NAME_Drone_0931-F"
+								design = "NAME_Ancient_Combat_Drone"
+							}
+							create_ship = {
+								name = "NAME_Drone_1119-X"
+								design = "NAME_Ancient_Combat_Drone"
+							}
+							set_location = PREVPREV
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = return_point
+							set_aggro_range = 200
+						}
+					}
+				}
+				create_mining_station = {
+					owner = event_target:mining_drones2
+				}
+			}
+		}
+	}
+}

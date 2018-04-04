@@ -1365,78 +1365,14 @@ guiTypes = {
 					navUp = "num_fallen_empires_slider"
 					navDown = "aggressiveness_spinner"
 				}
-			}			
-			
-			# Aggressiveness
-			containerWindowType = {
-				name = "aggressiveness"
-				position = { x = 72 y = 485 }
+			}	
 
-				instantTextBoxType = {
-					name = "aggressiveness_label"
-					position = { x = -20 y = 0 }
-					font = "malgun_goth_24"
-					maxWidth = 204
-					maxHeight = 52
-					orientation = "UPPER_LEFT"
-					text = "FE_AGGRESSIVENESS"
-					pdx_tooltip = "FE_AGGRESSIVENESS_TOOLTIP"
-					tooltip_mode_enabled = yes
-				}
-
-				instantTextBoxType={
-					name = "value"
-					font = "malgun_goth_24"
-					text = "AGGRESSIVENESS_NORMAL"
-					position = { x = 790 y = 0 }
-					maxWidth = 220
-					maxHeight = 35
-					fixedSize = yes
-					format = center
-				}
-
-				spinnerType = {
-					id = "aggressiveness_spinner"
-					name = "aggressiveness_spinner"
-					leftbutton = "spinner_upButton"
-					rightbutton = "spinner_downButton"
-					size = {x = 307 y = 30 }
-					position = {x= 747 y =0}
-					priority = 100
-					borderSize = {x =16 y = 16}
-					horizontal = 1
-					maxValue = 100
-					startValue = 0
-
-					guiButtonType = {
-						name = "spinner_upButton"
-						quadTextureSprite = "scrollbar_leftbutton"
-						position = { x=30 y =0}
-					}
-					guiButtonType = {
-						name = "spinner_downButton"
-						quadTextureSprite = "scrollbar_rightbutton"
-						position = { x=30 y =0}
-					}
-					
-					overlay = {
-						name = "selected_overlay"
-						spriteType = "GFX_glow_tile_orange_no_padding"
-						overSprite = "GFX_glow_tile_line"					
-						position = { x = @spinnerOverlayPosX y = @spinnerOverlayPosY }
-						size = { x = @spinnerOverlaySizeX y = @spinnerOverlaySizeY }
-					}
-
-					navUp = "num_habitable_worlds_slider"
-					navDown = "galaxy_difficulty_spinner"
-				}
-			}
 
 			# Difficulty
 			containerWindowType = {
 				id = "difficulty"
 				name = "difficulty"
-				position = { x = 72 y = 525 }
+				position = { x = 72 y = 485 }
 
 				instantTextBoxType = {
 					name = "difficulty_label"
@@ -1495,6 +1431,71 @@ guiTypes = {
 
 					navUp = "aggressiveness_spinner"
 					navDown = "galaxy_ftl_spinner"
+				}
+			}			
+			
+			# Aggressiveness
+			containerWindowType = {
+				name = "aggressiveness"
+				position = { x = 72 y = 525 }
+
+				instantTextBoxType = {
+					name = "aggressiveness_label"
+					position = { x = -20 y = 0 }
+					font = "malgun_goth_24"
+					maxWidth = 204
+					maxHeight = 52
+					orientation = "UPPER_LEFT"
+					text = "FE_AGGRESSIVENESS"
+					pdx_tooltip = "FE_AGGRESSIVENESS_TOOLTIP"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType={
+					name = "value"
+					font = "malgun_goth_24"
+					text = "AGGRESSIVENESS_NORMAL"
+					position = { x = 790 y = 0 }
+					maxWidth = 220
+					maxHeight = 35
+					fixedSize = yes
+					format = center
+				}
+
+				spinnerType = {
+					id = "aggressiveness_spinner"
+					name = "aggressiveness_spinner"
+					leftbutton = "spinner_upButton"
+					rightbutton = "spinner_downButton"
+					size = {x = 307 y = 30 }
+					position = {x= 747 y =0}
+					priority = 100
+					borderSize = {x =16 y = 16}
+					horizontal = 1
+					maxValue = 100
+					startValue = 0
+
+					guiButtonType = {
+						name = "spinner_upButton"
+						quadTextureSprite = "scrollbar_leftbutton"
+						position = { x=30 y =0}
+					}
+					guiButtonType = {
+						name = "spinner_downButton"
+						quadTextureSprite = "scrollbar_rightbutton"
+						position = { x=30 y =0}
+					}
+					
+					overlay = {
+						name = "selected_overlay"
+						spriteType = "GFX_glow_tile_orange_no_padding"
+						overSprite = "GFX_glow_tile_line"					
+						position = { x = @spinnerOverlayPosX y = @spinnerOverlayPosY }
+						size = { x = @spinnerOverlaySizeX y = @spinnerOverlaySizeY }
+					}
+
+					navUp = "num_habitable_worlds_slider"
+					navDown = "galaxy_difficulty_spinner"
 				}
 			}
 
