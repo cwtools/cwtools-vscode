@@ -93,15 +93,17 @@ type Server(send : BinaryWriter) =
     let lint (doc: Uri) (shallowAnalyze : bool) : Async<unit> = 
         async {
             let name = 
-                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
                 then doc.LocalPath.Substring(1)
                 else doc.LocalPath            
             let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
             let source = docs.GetText doc |> Option.defaultWith (notFound doc)
             let parsed = CKParser.parseString source name
-            let parserErrors = match parsed with
-                                |Success(_,_,_) -> []
-                                |Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
+            let parserErrors = 
+                match source, parsed with
+                | x, _ when x.EndsWith(".yml") -> []
+                | _, Success(_,_,_) -> []
+                | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
             let errors = 
                 match shallowAnalyze with
                 |true -> parserErrors
@@ -177,7 +179,7 @@ type Server(send : BinaryWriter) =
         match uri with
         |Some u -> 
             let path = 
-                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
                 then u.LocalPath.Substring(1)
                 else u.LocalPath
             try
@@ -300,7 +302,7 @@ type Server(send : BinaryWriter) =
                             change = TextDocumentSyncKind.Full }
                     completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                     codeActionProvider = true
-                    executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"]} } }
+                    executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"]} } }
         member this.Initialized(): unit = 
             ()
         member this.Shutdown(): unit = 
@@ -351,7 +353,8 @@ type Server(send : BinaryWriter) =
         member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = ()
             //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument})
         member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams): list<TextEdit> = TODO()
-        member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit = ()
+        member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit =
+            lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = 0})
         member this.DidCloseTextDocument(p: DidCloseTextDocumentParams): unit = 
             docs.Close p
         member this.DidChangeWatchedFiles(p: DidChangeWatchedFilesParams): unit = 
@@ -425,6 +428,12 @@ type Server(send : BinaryWriter) =
                                    |> List.rev
                     let text = String.Join(Environment.NewLine,keys)
                     let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
+                    LanguageServer.sendNotification send notif
+                | {command = "outputerrors"; arguments = _} ->
+                    let errors = game.LocalisationErrors @ game.ValidationErrors
+                    let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> let p = Position.UnConv pos in sprintf "%s, %O, %O, %s, %O, \"%s\"" p.StreamName p.Line p.Column code sev error)
+                    let text = String.Join(Environment.NewLine, (texts))
+                    let notif = CreateVirtualFile { uri = Uri "cwtools://errors.csv"; fileContent = text }
                     LanguageServer.sendNotification send notif
                 |_ -> ()
             |None -> ()

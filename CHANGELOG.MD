@@ -1,3 +1,13 @@
+# 0.4.14
+* Add validation of $refs$ in localisation
+* Add validation of [commands] in localisation
+* Add a command to create a .csv of all errors
+    To use, press ctrl-shift-p, then "write all errors"
+# 0.4.13
+* Revert a change to localisation parsing
+# 0.4.12
+* Update to stellaris 2.0.2
+* Check for ambiguous use of NOT operators
 # 0.4.11
 * Add localisation checking for opinion modifiers
 * Fix localisation checking for war goals

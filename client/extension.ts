@@ -59,13 +59,16 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for F# documents
-		documentSelector: [{scheme: 'file', language: 'paradox'}],
+		documentSelector: [{scheme: 'file', language: 'paradox'}, {scheme: 'file', language: 'yaml'}],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'cwtools',
 			// Notify the server about file changes to F# project files contain in the workspace
 			
-			fileEvents: workspace.createFileSystemWatcher(path.join(workspace.workspaceFolders[0].uri.fsPath, '**/{events, common}/**/*.txt'))
+			fileEvents: [
+				workspace.createFileSystemWatcher(path.join(workspace.workspaceFolders[0].uri.fsPath, '**/{events, common}/**/*.txt')),
+				workspace.createFileSystemWatcher(path.join(workspace.workspaceFolders[0].uri.fsPath, '**/{localisation, localisation_synced}/**/*.yml'))
+			]
 		}
 	}
 	
