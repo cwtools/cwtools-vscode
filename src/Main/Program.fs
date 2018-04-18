@@ -100,7 +100,7 @@ type Server(send : BinaryWriter) =
             let source = docs.GetText doc |> Option.defaultWith (notFound doc)
             let parsed = CKParser.parseString source name
             let parserErrors = 
-                match source, parsed with
+                match name, parsed with
                 | x, _ when x.EndsWith(".yml") -> []
                 | _, Success(_,_,_) -> []
                 | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
