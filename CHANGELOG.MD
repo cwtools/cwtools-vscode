@@ -1,3 +1,8 @@
+# 0.4.17
+* Add temporary error for 2.0.2 bug with after
+* Add validation of ship designs, check that section slot type and component type match (behind experimental flag)
+* Warn if tech has no effect (and has weight > 0)
+* Fix .yml parsing bug
 # 0.4.14
 * Add validation of $refs$ in localisation
 * Add validation of [commands] in localisation
