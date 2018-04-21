@@ -1,0 +1,201 @@
+particle={
+	name="scourge_projectile_effect"
+	subsystem={
+		name="mist"
+		max_amount=180
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius=0.400
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 90.000 }
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/polar_swirl_3.dds"
+			x=2
+			y=2
+			shader="ParticleAdditive"
+		}
+		color={
+			x=220.000
+			y=255.000
+			z=180.000
+			alpha=150.000,alpha_fade
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 90.000 10.000 }
+		velocity={ 3.000 0.000 }
+		life={ 0.400 0.100 }
+		emission=400.000
+		size=5.000,shrink
+		rotation={ 0.000 180.000 }
+		rotation_speed=0.000
+	}
+	subsystem={
+		name="mist_dark"
+		max_amount=180
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius=1.000
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 90.000 }
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud_low_alpha.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=120.000
+			y=150.000
+			z=100.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 90.000 10.000 }
+		velocity={ 0.000 0.000 }
+		life={ 0.600 0.300 }
+		emission=250.000
+		size=10.000,grow
+		rotation={ 0.000 180.000 }
+		rotation_speed=0.000
+	}
+	subsystem={
+		name="core"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=220.000
+			y=255.000
+			z=180.000
+			alpha=50.000,alpha_fade
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 90.000 0.000 }
+		velocity={ 0.000 0.000 }
+		life={ 0.100 0.050 }
+		emission=400.000
+		size=10.000,shrink
+		rotation={ 0.000 180.000 }
+		rotation_speed=0.000
+	}
+	subsystem={
+		name="gibs_green"
+		max_amount=140
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius=0.200
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 90.000 }
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/blood_splat1.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=220.000
+			y=255.000
+			z=180.000
+			alpha=20.000,alpha_fade
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 90.000 10.000 }
+		velocity={ 0.000 0.000 }
+		life={ 0.400 0.100 }
+		emission=250.000
+		size=7.000,shrink
+		rotation={ 0.000 180.000 }
+		rotation_speed=0.000
+	}
+	animation={
+		name="alpha_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.082 0.859 0.535 1.000 0.741 0.266 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.461 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shrink"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

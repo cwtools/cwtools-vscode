@@ -1,0 +1,136 @@
+entity = {
+	name = "npf_01_broken_turret_small_entity"
+	pdxmesh = "npf_01_broken_turret_small_mesh"
+}
+
+entity = {
+	name = "npf_01_broken_large_turret_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+}
+
+
+entity = {
+	name = "npf_01_broken_turret_energy_torpedo_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_turret_torpedo_entity"
+	pdxmesh = "npf_01_broken_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_turret_missile_large_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_turret_missile_medium_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_turret_missile_small_entity"
+	pdxmesh = "npf_01_broken_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_large_kinetic_gun_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_medium_kinetic_gun_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_small_kinetic_gun_entity"
+	pdxmesh = "npf_01_broken_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_turret_point_defence_entity"
+	pdxmesh = "npf_01_broken_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_large_laser_gun_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_medium_laser_gun_entity"
+	pdxmesh = "npf_01_broken_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_broken_small_laser_gun_entity"
+	pdxmesh = "npf_01_broken_turret_small_mesh"
+	scale = 1.0
+}
+
+
+entity = {
+	name = "npf_01_broken_npc_warship_01_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	cull_radius = 10.0
+}
+
+entity = {
+	name = "npf_01_broken_npc_warship_01_hull_entity"
+	pdxmesh = "npf_01_broken_npc_warship_01_mesh"
+	
+	scale = 0.8
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" }
+}
+
+entity = {
+	name = "npf_01_broken_npc_warship_01_hull_entity2"
+	pdxmesh = "npf_01_broken_npc_warship_01_mesh"
+
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" }
+	#	attach = { large_gun_01	 			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_02 	 		= "npf_01_broken_large_turret_entity" }
+	#	attach = { small_gun_01 	 		= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_02 	 		= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_03 	 		= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_04_l  			= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_04_r  			= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_05_l  			= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_05_r  			= "npf_01_broken_turret_small_entity" }
+	#	attach = { large_gun_03_l  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_03_r  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_04_l  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_04_r  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_05_l  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_05_r  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_06_l  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_06_r  			= "npf_01_broken_large_turret_entity" }
+	#	attach = { large_gun_07 	 		= "npf_01_broken_large_turret_entity" }
+	#	attach = { small_gun_08 	 		= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_09 	 		= "npf_01_broken_turret_small_entity" }
+	#	attach = { small_gun_10 	 		= "npf_01_broken_turret_small_entity" }
+
+		
+		scale = 2.5
+
+}
+
+animation = {
+	name = "npf_01_broken_npc_warship_01_idle_animation"
+	file = "npf_01_broken_npc_warship_01_idle.anim"
+}

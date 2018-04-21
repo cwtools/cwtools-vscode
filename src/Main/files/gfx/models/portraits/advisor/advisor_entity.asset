@@ -1,0 +1,34 @@
+entity = {
+	name = "advisor_entity"
+	pdxmesh = "advisor_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"	animation = "idle" chance = 2.0 looping = yes next_state = idle }
+	#state = { name = "idle"	animation = "special_1" chance = 1.0 looping = yes next_state = idle }
+	#state = { name = "idle"		animation = "special_2" chance = 1.0 looping = yes next_state = idle }
+	#state = { name = "idle"	animation = "special_3" chance = 1.0 looping = yes next_state = idle 
+	#	event = { time = 0 node = "engine_small_01" particle = "mammalian_01_1_45_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+	#	event = { time = 0 node = "engine_small_02" particle = "mammalian_01_1_45_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+	#}
+	scale = 4
+}
+
+animation = {
+		name = "advisor_idle_animation"
+		file = "advisor_idle.anim"
+}
+
+animation = {
+		name = "advisor_special_1_animation"
+		file = "advisor_special_1.anim"
+}
+
+animation = {
+		name = "advisor_special_2_animation"
+		file = "advisor_special_2.anim"
+}
+
+animation = {
+		name = "advisor_special_3_animation"
+		file = "advisor_special_3.anim"
+}

@@ -1,0 +1,107 @@
+particle={
+	name="dimensional_titan_muzzle_windup"
+	subsystem={
+		name="core_small"
+		max_amount=60
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=150.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+			x=-4.000
+		}
+		duration=-1.000
+		velocity=10.000
+		life=0.400
+		emission=20.000
+		size={ 40.000,shrink 5.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="core_large"
+		max_amount=60
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=150.000
+			z=255.000
+			alpha=50.000,fade_alpha
+		}
+		position={
+			x=-4.000
+		}
+		duration=-1.000
+		velocity=10.000
+		life=0.400
+		emission=20.000
+		size=100.000,shrink
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.229 1.000 0.606 0.164 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shrink"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 0.336 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

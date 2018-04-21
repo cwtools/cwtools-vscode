@@ -1,0 +1,1122 @@
+
+@exd_bloom_factor = 4
+@exd_dissolve_h = 0.75
+
+###################################################################################
+###																				###
+###									WEAPONS										###
+###																				###
+###################################################################################
+
+entity = {
+	name = "extra_dimensional_01_turret_energy_torpedo_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_turret_torpedo_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_turret_missile_large_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_turret_missile_medium_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_turret_missile_small_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_large_kinetic_gun_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_medium_kinetic_gun_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_small_kinetic_gun_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_turret_point_defence_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_large_laser_gun_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_medium_laser_gun_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_small_laser_gun_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+entity = {
+	name = "extra_dimensional_01_medium_probe_lightning_weapon_entity"
+	locator = { name = "turret_muzzle_01" 	position = { 0 0 0 } }
+}
+
+###################################################################################
+###																				###
+###									COMBAT SHIPS								###
+###																				###
+###################################################################################
+
+entity = {
+	name = "extra_dimensional_01_large_ship_ed_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	scale = 0.8
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_warship_large_entity"
+	pdxmesh = "extra_dimensional_01_warship_large_mesh"
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_battleship_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_moving_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_moving_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_moving_03" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_moving_04" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+	}
+	
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 particle = "ed_purple_large_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_ship_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_ship_death" } }
+	}
+	
+	#locator = { name = "large_gun_01" position = { 0 0 0 } }
+	#locator = { name = "large_gun_02" position = { 0 0 0 } }
+	#locator = { name = "large_gun_03" position = { 0 0 0 } }
+	
+	#locator = { name = "large_gun_01_l" position = { 0 0 0 } }
+	#locator = { name = "large_gun_01_r" position = { 0 0 0 } }		
+	#locator = { name = "large_gun_02_l" position = { 0 0 0 } }
+	#locator = { name = "large_gun_02_r" position = { 0 0 0 } }	
+	#locator = { name = "large_gun_03_l" position = { 0 0 0 } }
+	#locator = { name = "large_gun_03_r" position = { 0 0 0 } }
+	
+
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+	scale = 0.75
+}
+
+entity = {
+	name = "extra_dimensional_01_small_ship_ed_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	scale = 0.7
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_warship_small_entity"
+	pdxmesh = "extra_dimensional_01_warship_small_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_corvette_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+	}
+	
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_ship_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_ship_death" } }
+	}
+	
+	#locator = { name = "medium_gun_01" position = { 0 0 0 } }
+	#locator = { name = "medium_gun_02" position = { 0 0 0 } }
+	#locator = { name = "medium_gun_03" position = { 0 0 0 } }		
+	
+	#locator = { name = "medium_gun_01_l" position = { 0 0 0 } }
+	#locator = { name = "medium_gun_02_l" position = { 0 0 0 } }
+	#locator = { name = "medium_gun_03_l" position = { 0 0 0 } }	
+	#locator = { name = "medium_gun_01_r" position = { 0 0 0 } }
+	#locator = { name = "medium_gun_02_r" position = { 0 0 0 } }
+	#locator = { name = "medium_gun_03_r" position = { 0 0 0 } }
+
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+	scale = 0.5
+}
+
+entity = {
+	name = "extra_dimensional_01_medium_ship_ed_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	scale = 1.0
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+		name = "extra_dimensional_01_warship_medium_entity"
+		pdxmesh = "extra_dimensional_01_warship_medium_mesh"
+		locator = { name = "part1" }
+		scale = 1.0
+		
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 node = "ship_effect" particle = "extra_dimensional_small_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_01" particle = "extradimensional_01_def_exhaust_idle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_02" particle = "extradimensional_01_def_exhaust_idle" keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_corvette_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 node = "ship_effect" particle = "extra_dimensional_small_def_ship_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_01" particle = "extradimensional_01_def_exhaust_moving" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_02" particle = "extradimensional_01_def_exhaust_moving" keep_particle = yes trigger_once = yes }
+	}
+
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_ship_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_ship_death" } }
+	}
+		
+		game_data = {
+			uv_animation_speed 		= 0.2
+			uv_animation_direction 	= { 0.0 0.02 }
+			bloom_factor = @exd_bloom_factor
+		}
+	
+}
+
+###################################################################################
+###																				###
+###								SMALL SHIPS										###
+###																				###
+###################################################################################
+
+
+entity = {
+	name = "extra_dimensional_01_bomber_entity"
+	pdxmesh = "fallen_empire_01_fighter_mesh"
+	scale = 0.8
+}
+
+entity = {
+	name = "extra_dimensional_01_droppod_entity"
+	pdxmesh = "fallen_empire_01_fighter_mesh"
+	scale = 0.8
+}
+
+entity = {
+	name = "extra_dimensional_01_fighter_entity"
+	pdxmesh = "fallen_empire_01_fighter_mesh"
+	scale = 0.8
+}
+
+
+###################################################################################
+###																				###
+###								CIVILIAN SHIPS									###
+###																				###
+###################################################################################
+
+entity = {
+	name = "extra_dimensional_01_construction_ship_ed_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+		size = 5
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_constructor_ed_entity"
+	pdxmesh = "extra_dimensional_01_civilian_mesh"
+	#locator = { name = "test" 	position = { 0 0 -100 } }
+	locator = { name = "bow_node" 	position = { 0 0 -30 } }
+		
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		#event = { time = 0 node = test particle = "ed_purple_anchor_construction_effect"	keep_particle = yes trigger_once = yes }
+		#event = { time = 0 node = test particle = "ed_purple_construction_effect"	keep_particle = yes trigger_once = yes }
+		#event = { time = 0 node = "bow_node" particle = "ed_purple_construction_ship_effect"	keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_starship_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "working"						state_time = 5		looping = no	next_state = working_looping 
+		event = { time = 0 node = "bow_node" particle = "ed_purple_construction_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_starship_hum" } }
+	}
+	state = { name = "working_looping"				state_time = 5
+		event = { time = 0 node = "bow_node" particle = "ed_purple_construction_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_starship_hum" } }
+	}
+	
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 particle = "ed_purple_large_dissolve_effect"	keep_particle = yes trigger_once = yes }
+	}
+	
+	locator = { name = "part1" }
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	scale = 0.6
+}
+
+
+
+
+entity = {
+	name = "extra_dimensional_01_colonizer_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_colony_ship_entity"
+	pdxmesh = "extra_dimensional_01_civilian_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_starship_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+	}
+	
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 node = "root" particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		
+	}
+	
+	locator = { name = "part1" }
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	scale = 0.75
+}
+
+entity = {
+	name = "extra_dimensional_01_science_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_science_ship_entity"
+	pdxmesh = "extra_dimensional_01_warship_small_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_starship_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_large_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+	}
+	
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 node = "root" particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_ship_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_ship_death" } }
+	}
+	
+	locator = { name = "part1" }
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+	scale = 0.75
+}
+
+
+entity = {
+	name = "extra_dimensional_01_transport_entity"
+	pdxmesh = "extra_dimensional_01_ship_frame_mesh"
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle"			animation = "idle" }
+	state = { name = "moving"		animation = "idle" }
+	state = { name = "death"		animation = "death" looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_transport_ship_entity"
+	pdxmesh = "extra_dimensional_01_civilian_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_idle"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_starship_hum" } }
+	}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_ship_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "extradimensional_01_def_exhaust_moving"	keep_particle = yes trigger_once = yes }
+	}
+	
+	state = { name = "death"		state_time = 5 
+		event = { time = 0 node = "root" particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_ship_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_ship_death" } }
+	}
+	
+	locator = { name = "part1" }
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	scale = 0.6
+}
+
+
+###################################################################################
+###																				###
+###									STATIONS									###
+###																				###
+###################################################################################
+
+@exd_small_station = 1.0
+@exd_large_station = 1.0
+
+entity = {
+	name = "extra_dimensional_01_orbital_station_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "part2" 	position = { 0 0 0 } }
+	locator = { name = "part3" 	position = { 0 0 0 } }
+	locator = { name = "part4" 	position = { 0 0 0 } }
+	locator = { name = "part5" 	position = { 0 0 0 } }
+	locator = { name = "part6" 	position = { 0 0 0 } }
+	locator = { name = "part7" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+}
+
+entity = {
+	name = "extra_dimensional_01_orbital_station_core_entity"
+	pdxmesh = "extra_dimensional_01_station_large_mesh"	
+	locator = { name = "medium_gun_01" position = { 0 0 0 } }
+	locator = { name = "medium_gun_02" position = { 0 0 0 } }
+	locator = { name = "small_gun_01" position = { 0 0 0 } }
+	locator = { name = "small_gun_02" position = { 0 0 0 } }
+	locator = { name = "small_gun_03" position = { 0 0 0 } }
+	locator = { name = "small_gun_04" position = { 0 0 0 } }
+	scale = @exd_large_station
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}	
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+entity = {
+	name = "extra_dimensional_01_starbase_exd_entity"
+	pdxmesh = "extra_dimensional_01_anchor_station_mesh"	
+	#scale = @exd_large_station
+	locator = { name = "death_locator" 	position = { 0 -10 0 } rotation = { 0 90 0 } }
+	
+	default_state = "idle"
+	state = { name = "idle"		animation = "idle"
+		event = { time = 0 node = "top" particle = "extra_dimensional_large_def_station_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_1" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_2" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_3" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_4" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_5" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_6" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_7" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "arm_8" particle = "extra_dimensional_anchor_station_lightning_effect"	keep_particle = yes trigger_once = yes }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+	}
+	state = { name = "death"		animation = "idle"		animation_blend_time = 5
+		event = { time = 0 node = "death_locator" particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_station_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_station_death" } }
+	}
+	
+	scale = 5
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	
+	attach = { portal = "extra_dimensional_01_anchor_station_portal_entity" }
+}
+
+entity = {
+	name = "extra_dimensional_01_anchor_station_portal_entity"
+	pdxmesh = "extra_dimensional_01_anchor_station_portal_mesh"	
+	#scale = @exd_large_station
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_anchor_station_portal_effect"	keep_particle = yes trigger_once = yes }
+	##	start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+	}
+	
+	game_data = {
+		uv_animation_speed 		= -0.3
+		uv_animation_direction 	= { 0.06 0.09 }
+		bloom_factor = 1.6
+	}
+}
+
+# CIVILIAN
+
+entity = {
+	name = "extra_dimensional_01_mining_station_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+}
+
+entity = {
+	name = "extra_dimensional_01_mining_station_core_entity"
+	pdxmesh = "extra_dimensional_01_station_small_mesh"
+	scale = @exd_small_station
+
+	locator = { name = "part1" 			position = { 0 0 0 } }
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5            
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}	
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+entity = {
+	name = "extra_dimensional_01_research_station_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+}
+
+entity = {
+	name = "extra_dimensional_01_research_station_core_entity"
+	pdxmesh = "extra_dimensional_01_station_small_mesh"
+	scale = @exd_small_station
+	
+	locator = { name = "part1" 			position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5            
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}	
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+entity = {
+	name = "extra_dimensional_01_wormhole_station_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+}
+
+entity = {
+	name = "extra_dimensional_01_wormhole_station_core_entity"
+	pdxmesh = "extra_dimensional_01_station_small_mesh"
+	scale = @exd_small_station
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5            
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}	
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+entity = {
+	name = "extra_dimensional_01_observation_station_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+}
+
+entity = {
+	name = "extra_dimensional_01_observation_station_core_entity"
+	pdxmesh = "extra_dimensional_01_station_small_mesh"
+	scale = @exd_small_station
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5            
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+# MILITARY
+
+entity = {
+	name = "extra_dimensional_01_military_station_large_ed_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 7 }
+	state = { name = "death" state_time = 7 looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_military_station_large_core_entity"
+	pdxmesh = "extra_dimensional_01_station_large_mesh"	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "root" 	position = { 0 0 0 } }
+	locator = { name = "death_locator" 	position = { 0 0 0 } rotation = { 45 0 0 } }
+	
+	locator = { name = "medium_gun_01" position = { 0 0 0 } }
+	locator = { name = "medium_gun_02" position = { 0 0 0 } }
+	locator = { name = "small_gun_01" position = { 0 0 0 } }
+	locator = { name = "small_gun_02" position = { 0 0 0 } }
+	locator = { name = "small_gun_03" position = { 0 0 0 } }
+	locator = { name = "small_gun_04" position = { 0 0 0 } }
+	scale = @exd_large_station
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_large_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}
+	
+	state = { name = "death"		state_time = 5		looping = no
+		event = { time = 0 node = "death_locator" particle = "ed_purple_large_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_station_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_station_death" } }
+	}	
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+entity = {
+	name = "extra_dimensional_01_military_station_small_ed_entity"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.75 1.0 0.75 1.0 }
+ 	}
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 7 }
+	state = { name = "death" state_time = 7 looping = no }
+}
+
+entity = {
+	name = "extra_dimensional_01_military_station_small_core_entity"
+	pdxmesh = "extra_dimensional_01_station_small_mesh"	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "root" 	position = { 0 0 0 } }
+	locator = { name = "death_locator" 	position = { 0 -2 0 } rotation = { 35 0 0 } }
+	scale = @exd_small_station
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_mining_station_signals" } }
+		}
+	state = { name = "moving"		state_time = 5            
+		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death"		state_time = 5            
+		event = { time = 0 node = "death_locator" particle = "ed_purple_medium_dissolve_effect"	keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "extra_dimensional_station_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_extra_dimensional_station_death" } }
+	}	
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+##################         	 CONSTRUCTION ENTITIES           ########################
+
+entity = {
+	name = "extra_dimensional_01_starbase_exd_construction_entity"
+	#pdxmesh = "extra_dimensional_01_anchor_station_mesh"	
+	#scale = @exd_large_station
+	locator = { name = "death_locator" 	position = { 0 -10 0 } rotation = { 0 90 0 } }
+	
+	default_state = "idle"
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5 #animation = "idle" 
+		event = { time = 0 particle = "ed_purple_anchor_construction_effect"	keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 0.6
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	
+	#attach = { portal = "extra_dimensional_01_anchor_station_portal_entity" }
+}
+
+entity = {
+	name = "extra_dimensional_02_starbase_exd_construction_entity"
+	#pdxmesh = "extra_dimensional_01_anchor_station_mesh"	
+	#scale = @exd_large_station
+	locator = { name = "death_locator" 	position = { 0 -10 0 } rotation = { 0 90 0 } }
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5 #animation = "idle" 
+		event = { time = 0 particle = "ed_green_anchor_construction_effect"	keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 0.6
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	
+	#attach = { portal = "extra_dimensional_01_anchor_station_portal_entity" }
+}
+
+entity = {
+	name = "extra_dimensional_03_starbase_exd_construction_entity"
+	#pdxmesh = "extra_dimensional_01_anchor_station_mesh"	
+	#scale = @exd_large_station
+	locator = { name = "death_locator" 	position = { 0 -10 0 } rotation = { 0 90 0 } }
+	
+	default_state = "idle"
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5 #animation = "idle" 
+		event = { time = 0 particle = "ed_orange_anchor_construction_effect"	keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 0.6
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.09 }
+		bloom_factor = @exd_bloom_factor
+	}
+	
+	#attach = { portal = "extra_dimensional_01_anchor_station_portal_entity" }
+}
+
+entity = {
+	name = "extra_dimensional_01_military_station_large_ed_construction_entity"
+	#pdxmesh = "extra_dimensional_01_station_large_mesh"	
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "ed_purple_construction_effect"	keep_particle = yes trigger_once = yes }	}
+	
+	
+	scale = @exd_large_station
+}
+
+entity = {
+	name = "extra_dimensional_02_military_station_large_ed_construction_entity"
+	#pdxmesh = "extra_dimensional_01_station_large_green_mesh"	
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "ed_green_construction_effect"	keep_particle = yes trigger_once = yes }	}
+		
+	
+	scale = @exd_large_station
+}
+
+entity = {
+	name = "extra_dimensional_03_military_station_large_ed_construction_entity"
+	#pdxmesh = "extra_dimensional_01_station_large_orange_mesh"	
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "ed_orange_construction_effect"	keep_particle = yes trigger_once = yes }	}
+			
+	
+	scale = @exd_large_station
+}
+
+
+entity = {
+	name = "extra_dimensional_01_military_station_small_ed_construction_entity"
+	#pdxmesh = "extra_dimensional_01_station_small_mesh"	
+	
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "ed_purple_construction_effect"	keep_particle = yes trigger_once = yes }	}
+	
+	
+	scale = @exd_small_station
+}
+
+entity = {
+	name = "extra_dimensional_02_military_station_small_ed_construction_entity"
+	#pdxmesh = "extra_dimensional_01_station_small_green_mesh"	
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "ed_green_construction_effect"	keep_particle = yes trigger_once = yes }	}
+	
+	
+	scale = @exd_small_station
+}
+
+entity = {
+	name = "extra_dimensional_03_military_station_small_ed_construction_entity"
+	#pdxmesh = "extra_dimensional_01_station_small_orange_mesh"	
+
+	default_state = "idle"
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "ed_orange_construction_effect"	keep_particle = yes trigger_once = yes }	}
+	
+	
+	scale = @exd_small_station
+}
+
+#entity = {
+#	name = "extra_dimensional_01_mi_entity"
+#	pdxmesh = "extra_dimensional_01_station_small_green_mesh"
+#	scale = @exd_small_station
+#
+#	default_state = "idle"
+#	state = { name = "idle"		state_time = 5
+#		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }	}
+#	state = { name = "moving"		state_time = 5            
+#		event = { time = 0 particle = "extra_dimensional_small_def_station_effect"	keep_particle = yes trigger_once = yes }
+#	}
+#	
+#	game_data = {
+#		uv_animation_speed 		= 0.2
+#		uv_animation_direction 	= { 0.0 0.02 }
+#		bloom_factor = @exd_bloom_factor
+#	}
+#}
+#
+##green
+#entity = {
+#	name = "extra_dimensional_01_science_station_green_entity"
+#	pdxmesh = "extra_dimensional_01_station_small_green_mesh"
+#	scale = @exd_small_station
+#	
+#	game_data = {
+#		uv_animation_speed 		= 0.2
+#		uv_animation_direction 	= { 0.0 0.02 }
+#		bloom_factor = @exd_bloom_factor
+#	}
+#}
+#orange
+entity = {
+	name = "extra_dimensional_01_science_station_orange_entity"
+	pdxmesh = "extra_dimensional_01_station_small_orange_mesh"
+	scale = @exd_small_station
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+entity = {
+	name = "extra_dimensional_01_terraform_station_entity"
+	pdxmesh = "extra_dimensional_01_station_small_mesh"
+	scale = @exd_small_station
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+#green
+entity = {
+	name = "extra_dimensional_01_terraform_station_core_green_entity"
+	pdxmesh = "extra_dimensional_01_station_small_green_mesh"
+	scale = @exd_small_station
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+#orange
+entity = {
+	name = "extra_dimensional_01_terraform_station_core_orange_entity"
+	pdxmesh = "extra_dimensional_01_station_small_orange_mesh"
+	scale = @exd_small_station
+	
+	game_data = {
+		uv_animation_speed 		= 0.2
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = @exd_bloom_factor
+	}
+}
+
+
+### SPECIAL
+
+# Dimensional Portal
+entity = {
+	name = "extra_dimensional_01_dimensional_portal_ed_entity"
+	scale = 1
+	
+	locator = {
+		name = "root"
+	}
+	locator = {
+		name = "part1"
+	}
+}
+
+# Dimensional Portal
+entity = {
+	name = "extra_dimensional_01_dimensional_portal_core_entity"
+	pdxmesh = "portal_mesh"
+	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	default_state = idle
+	state = { name = "idle"		animation = "idle"		animation_blend_time = 0.3
+		start_event = { trigger_once = yes sound = { soundeffect = "ex_dimensional_portal_idle" } }
+	
+		event = { time = 0 node = "root2" particle = "portal_inner_effect_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "clock_12_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ex_dimensional_portal_thunder" } }
+		event = { time = 0 node = "clock_3_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ex_dimensional_portal_thunder" } }
+		event = { time = 0 node = "clock_6_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ex_dimensional_portal_thunder" } }
+		event = { time = 0 node = "clock_9_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ex_dimensional_portal_thunder" } }
+	}
+	
+	#game_data = {
+	#	uv_animation_speed 		= 0.25
+	#	uv_animation_direction 	= { 0.0 -1.0 }
+	#}
+	
+	scale = 30.0
+}
+

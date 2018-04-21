@@ -1,0 +1,66 @@
+objectTypes = {
+
+	pdxmesh = {
+		name = "enclave_station_frame_mesh"
+		file = "gfx/models/ships/other/enclave_station_frame.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"		type = "enclave_station_frame_idle_animation" }
+		animation = { id = "death"		type = "enclave_station_frame_death_animation" }
+
+		meshsettings = {
+			name = "pPlaneShape1"
+			index = 0
+			texture_diffuse = "enclave_station_blue_diffuse.dds"
+			texture_normal = "enclave_station_normal.dds"
+			texture_specular = "enclave_station_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+
+	pdxmesh = {
+		name = "enclave_station_artist_mesh"
+		file = "gfx/models/ships/other/enclave_station_artist.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface13Shape"
+			index = 0
+			texture_diffuse = "enclave_station_purple_diffuse.dds"
+			texture_normal = "enclave_station_normal.dds"
+			texture_specular = "enclave_station_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "enclave_station_curator_mesh"
+		file = "gfx/models/ships/other/enclave_station_curator.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface13Shape"
+			index = 0
+			texture_diffuse = "enclave_station_blue_diffuse.dds"
+			texture_normal = "enclave_station_normal.dds"
+			texture_specular = "enclave_station_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "enclave_station_trader_mesh"
+		file = "gfx/models/ships/other/enclave_station_trader.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface13Shape"
+			index = 0
+			texture_diffuse = "enclave_station_green_diffuse.dds"
+			texture_normal = "enclave_station_normal.dds"
+			texture_specular = "enclave_station_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+}

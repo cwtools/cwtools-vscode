@@ -1,0 +1,61 @@
+#entity = {
+#	name = "frontend_background_entity"
+#	
+#	locator = { name = "loc" position = { 0.0 0.025 0.0 } }
+#	
+#	attach = { loc = "frontend_background_attached_entity" }
+#	
+#}
+
+entity = {
+	name = "frontend_background_attached_entity"
+	pdxmesh = "frontend_background_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"		animation = "idle" 
+		event = { time = 0 node = "station_interior_lights_1" particle = "frontend_interior_light" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "station_interior_lights_2" particle = "frontend_interior_light" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "station_interior_lights_3" particle = "frontend_interior_light" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "station_interior_lights_4" particle = "frontend_interior_light" keep_particle = yes trigger_once = yes }
+	
+		event = { time = 0 node = "station_exterior_lights_1" particle = "frontend_exterior_light" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "station_exterior_lights_2" particle = "frontend_exterior_light" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "station_exterior_lights_3" particle = "frontend_exterior_light" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "station_exterior_lights_4" particle = "frontend_exterior_light" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "space_locator_1" particle = "frontend_space_dust" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 80.6 node = "ship_1" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 183.4 node = "ship_1" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 353.9 node = "ship_1" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 483.3 node = "ship_1" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 91.8 node = "ship_2" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 358.4 node = "ship_2" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 98.6 node = "ship_3" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 166.6 node = "ship_3" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 286.6 node = "ship_3" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 433.2 node = "ship_3" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 163.0 node = "ship_4" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 429.7 node = "ship_4" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 63.6 node = "ship_5" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 187.9 node = "ship_5" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 334.3 node = "ship_5" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 454.5 node = "ship_5" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 0.8 node = "ship_6" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 147.4 node = "ship_6" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 267.4 node = "ship_6" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 414.0 node = "ship_6" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 29.6 node = "ship_7" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 106.8 node = "ship_7" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 248.7 node = "ship_7" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 373.4 node = "ship_7" particle = "frontend_ship_trail" keep_particle = yes  }
+		event = { time = 515.3 node = "ship_7" particle = "frontend_ship_trail" keep_particle = yes  }
+	}
+	
+	scale = 1.05
+}
+
+animation = {
+	name = "frontend_background_idle_animation"
+	file = "frontend_background_idle.anim"
+}

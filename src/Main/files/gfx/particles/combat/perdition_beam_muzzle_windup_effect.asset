@@ -1,0 +1,111 @@
+particle={
+	name="perdition_beam_muzzle_windup_effect"
+	subsystem={
+		name="flare"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud_3.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=200.000
+			z=150.000
+			alpha=150.000,fade_alpha
+		}
+		position={
+			x=-1.000
+		}
+		duration=-1.000
+		velocity_yaw=180.000
+		velocity=2.000
+		life=0.700
+		emission=10.000
+		size={ 8.000,shrink 3.000 }
+		particle_yaw=90.000
+		particle_pitch=90.000
+		rotation={ 90.000 180.000 }
+	}
+	subsystem={
+		name="streaks"
+		max_amount=5
+		slave_particles=0
+		emitter_type="box"
+		box_emitter_z={ 0.000 0.200 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/rain.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=200.000
+			z=150.000
+			alpha=100.000,fade_alpha
+		}
+		position={
+		}
+		duration=-1.000
+		life=0.700
+		emission=5.000
+		size=10.000,shrink
+		particle_yaw={ -90.000 5.000 }
+		particle_pitch=90.000
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.829 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shrink"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 0.188 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

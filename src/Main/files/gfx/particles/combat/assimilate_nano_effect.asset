@@ -1,0 +1,176 @@
+particle={
+	name="assimilate_nano_effect"
+	subsystem={
+		name="base"
+		max_amount=120
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=150.000
+			y=180.000
+			z=255.000
+			alpha=150.000,fade_alpha
+		}
+		position={
+		}
+		duration=-1.000
+		life={ 2.000 0.000 }
+		emission=50.000
+		size={ 10.000,shrink 7.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	subsystem={
+		name="glow"
+		max_amount=100
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000,R
+			y=255.000,G
+			z=255.000,B
+			alpha=25.000,fade_alpha
+		}
+		position={
+		}
+		duration=-1.000
+		life={ 2.000 0.000 }
+		emission=50.000
+		size=13.000,shrink
+		particle_yaw=0.000
+		particle_pitch=0.000
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="grains"
+		max_amount=200
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/rain.dds"
+			x=2
+			y=2
+			shader="ParticleAdditive"
+		}
+		color={
+			x=150.000
+			y=200.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		duration=-1.000
+		life={ 2.000 0.000 }
+		emission=80.000
+		size=13.000,shrink
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.379 1.000 0.665 1.000 0.862 0.133 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shrink"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 0.484 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="R"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.125 0.338 0.156 0.709 0.586 1.000 0.625 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="G"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.484 0.515 0.711 1.000 0.500 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="B"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

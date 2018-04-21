@@ -5,7 +5,7 @@
     "description": "Paradox Interactive scripting file support using CWTools",
     "author": "Dayshine",
     "license": "MIT",
-    "version": "0.4.17",
+    "version": "0.4.18",
     "preview": true,
     "publisher": "tboby",
     "qna": "https://forum.paradoxplaza.com/forum/index.php?threads/tool-cwtools-a-mod-validating-extension-for-vs-code.1066033/",
@@ -71,7 +71,7 @@
                         ]
                     },
                     "default": [
-                        "english"
+                        "English"
                     ],
                     "description": "The list of languages to validate localisation for.",
                     "uniqueItems": true
@@ -119,13 +119,16 @@
                 "extensions": [
                     "txt",
                     "gui",
-                    "gfx"
+                    "gfx",
+                    "asset"
                 ],
                 "configuration": "./language-configuration.json",
                 "filenamePatterns": [
                     "**/stellaris/**/*.txt",
                     "**/stellaris/**/*.gui",
-                    "**/stellaris/**/*.gfx"
+                    "**/stellaris/**/*.gfx",
+                    "**/stellaris/**/*.asset"
+
                 ]
             }
         ],

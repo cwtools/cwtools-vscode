@@ -1,0 +1,29 @@
+entity = {
+	name = "shroud_01_portrait_entity"
+	pdxmesh = "shroud_01_portrait_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+		start_event = { trigger_once = yes sound { soundeffect = "incoming_diplomatic_shroud_amb" } }
+		event = { time = 0 node = "joint1" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }
+		event = { time = 0 node = "joint2" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }
+		event = { time = 0 node = "joint3" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }
+		event = { time = 0 node = "joint4" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }
+		
+		event = { time = 0 node = "joint4" particle = "shroud_right_cloud_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "joint2" particle = "shroud_left_cloud_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "joint3" particle = "shroud_middle_cloud_effect" keep_particle = yes trigger_once = yes }
+		
+	}
+	
+	game_data = {
+		uv_animation_speed 		= 0.035
+		uv_animation_direction 	= { 0.0 -1.0 }
+	}
+}
+
+animation = {
+	name = "shroud_01_portrait_idle"
+	file = "shroud_01_portrait_idle.anim"
+}

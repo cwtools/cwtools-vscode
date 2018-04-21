@@ -1,0 +1,371 @@
+particle = {
+	name = "kinetic_artillery_old_file"
+	
+
+
+	
+# Fire burst
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/fire03.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x = 0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 3 2 }
+		velocity_pitch = { 0 10 }
+		velocity_yaw =  { 0 10 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { 0 0 }
+		
+		life = { 0.5 0.3 }
+		size = { 0.4,grow 0.1 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 225 }
+			g = { 225 }
+			b = { 225 }
+			alpha = { 150,alpha_fade }
+		}
+		
+		#Forces
+		force = drag
+	}
+	
+# Smoke explosion
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200
+		local_space = yes
+		#sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAlphaBlend"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/cloud.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x = 0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.25
+		emission = { 100 }
+	
+		velocity = { 10 4 }
+		velocity_pitch = { 0 7 }
+		velocity_yaw =  { 0 7 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { -50 0 }
+		
+		life = { 0.5 0.3 }
+		size = { 1.8,grow2 0.3 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 100 }
+			g = { 100 }
+			b = { 100 }
+			alpha = { 50,alpha_fade }
+		}
+		
+		#Forces
+		force = drag
+	}
+	
+
+	
+# Smoke explosion Add
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200
+		local_space = yes
+		#sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/cloud.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x = 0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.25
+		emission = { 100 }
+	
+		velocity = { 10 4 }
+		velocity_pitch = { 0 7 }
+		velocity_yaw =  { 0 7 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { -50 0 }
+		
+		life = { 0.5 0.3 }
+		size = { 1.8,grow2 0.3 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 100 }
+			g = { 100 }
+			b = { 100 }
+			alpha = { 12,alpha_fade }
+		}
+		
+		#Forces
+		force = drag
+	}
+	
+# Flame explosion
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/cloud.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x = 0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 12 4 }
+		velocity_pitch = { 0 15 }
+		velocity_yaw =  { 0 15 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { -100 0 }
+		
+		life = { 0.5 0 }
+		size = { 1.8,grow2 0.3 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 255 }
+			g = { 100 }
+			b = { 50 }
+			alpha = { 10,alpha_fade }
+		}
+		
+		#Forces
+		force = drag
+	}
+
+# Laser flare large
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 2
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flare.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x =	0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 0.4 0.1 }
+		velocity_pitch = { 0 5 }
+		velocity_yaw =  { 0 5 }
+		
+		rotation = { 0 0 }
+		rotation_speed_roll = { 0 0 }
+		
+		life = { 0.18 0.02 }
+		size = { 2,grow2 0.05 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 255 }
+			g = { 100 }
+			b = { 50 }
+			alpha = { 50,alpha_fade }
+		}
+		
+		#Forces
+		#force = point,chaos
+	}
+	
+# ANIMATIONS
+	
+	animation = {
+		time = "life"
+		name = "alpha_fade"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	0
+			0.2	1
+			0.7	1
+			1 	0 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "grow"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	0.8
+			1 	1 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "grow2"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	0.3
+			1 	1 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "shrink"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	1
+			1 	0.2 
+		}
+	}
+	
+# FORCES
+	
+	force = {
+		type = "friction"
+		name = "drag"
+		amount = 4.0 #,delayed_force
+		
+	}
+	
+	force = {
+		type = "point"
+		name = "point"
+		position = { 0 0 -0.7 }
+		amount = -30
+	}
+	
+	force = {
+		type = "turbulence"
+		name = "chaos"
+		amount = 6.0
+	}
+}
+
+

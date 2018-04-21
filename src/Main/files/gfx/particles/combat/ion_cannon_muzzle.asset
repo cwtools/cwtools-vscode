@@ -1,0 +1,279 @@
+particle={
+	name="ion_cannon_muzzle_effect"
+	subsystem={
+		name="glow_white"
+		max_amount=5
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=51.000
+			y=89.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		start=0.000
+		duration=0.100
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		life={ 3.000 0.500 }
+		emission=40.000
+		size=25.000
+		particle_yaw=-90.000
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 0.000 }
+	}
+	subsystem={
+		name="shockwave"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/bubble.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=51.000
+			y=89.000
+			z=255.000
+			alpha=25.000,shockwave_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		life=0.600
+		emission=200.000
+		size=100.000,shockwave_grow
+		particle_yaw=-90.000
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 0.000 }
+	}
+	subsystem={
+		name="rings"
+		max_amount=5
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/halo.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=51.000
+			y=89.000
+			z=255.000
+			alpha=255.000,rings_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity=100.000
+		life={ 0.800 0.000 }
+		emission=200.000
+		size=25.000,grow
+		particle_yaw=0.000
+		particle_pitch={ 0.000 0.000 }
+		rotation={ 0.000 0.000 }
+	}
+	subsystem={
+		name="flare_wide"
+		max_amount=20
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/flare_wide_thin.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=51.000
+			y=89.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		start=0.000
+		duration=0.100
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		life=0.600
+		emission=100.000
+		size=100.000,shockwave_grow
+		particle_pitch={ 0.000 180.000 }
+	}
+	subsystem={
+		name="gunsmoke"
+		max_amount=100
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=yes
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=51.000
+			y=110.000
+			z=255.000
+			alpha=100.000,smoke_alpha
+		}
+		position={
+		}
+		start=1.000
+		duration=0.100
+		velocity_pitch={ 0.000 20.000 }
+		velocity_yaw={ 0.000 20.000 }
+		velocity={ 2.000 1.000 }
+		life={ 5.000 0.500 }
+		emission=1000.000
+		size={ 15.000,smoke_grow 10.000 }
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.074 1.000 0.524 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.617 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="rings_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.400 0.883 0.809 0.078 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shockwave_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.588 0.195 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shockwave_grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="smoke_grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.336 0.509 0.523 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="smoke_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.197 1.000 0.506 1.000 0.765 0.148 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

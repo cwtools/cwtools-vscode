@@ -1,0 +1,142 @@
+particle={
+	name="cloud_entity_arm_big_effect"
+	subsystem={
+		name="texture_details"
+		max_amount=5
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius=2.000
+		sphere_emitter_yaw={ 0.000 180.000 }
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/rain.dds"
+			x=2
+			y=2
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=180.000
+			z=220.000
+			alpha={ 100.000,fade_alpha 0.000 }
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity=0.500
+		life={ 1.000 0.300 }
+		emission={ 15.000 1.000 }
+		size={ 10.000 3.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 20.000 10.000 }
+	}
+	subsystem={
+		name="arm_cloud"
+		max_amount=6
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=180.000
+			z=220.000
+			alpha=10.000,fade_alpha
+		}
+		position={
+		}
+		duration=-1.000
+		life=1.000
+		emission=5.000
+		size={ 30.000,grow 18.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 20.000 10.000 }
+	}
+	subsystem={
+		name="lightning"
+		max_amount=2
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius=2.000
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/lightning_spark.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=220.000
+			y=220.000
+			z=255.000
+			alpha={ 150.000,fade_alpha 20.000 }
+		}
+		position={
+		}
+		duration=-1.000
+		life={ 0.200 0.200 }
+		emission={ 1.000 1.000 }
+		size={ 8.000,grow 8.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 20.000 10.000 }
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.312 0.938 0.721 0.898 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.469 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

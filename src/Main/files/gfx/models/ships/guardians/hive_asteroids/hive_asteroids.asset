@@ -1,0 +1,133 @@
+# Small belt asteriod 01
+entity = {
+	name = "hive_asteroid_01_entity"
+	pdxmesh = "hive_asteroid_01_mesh"
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}
+	
+}
+
+# Small belt asteriod 02
+entity = {
+	name = "hive_asteroid_02_entity"
+	pdxmesh = "hive_asteroid_02_mesh"
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}
+	
+	
+}
+
+# Small belt asteriod 03
+entity = {
+	name = "hive_asteroid_03_entity"
+	pdxmesh = "hive_asteroid_03_mesh"
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+}
+
+# Small belt asteriod 03 Planet version
+entity = {
+	name = "hive_asteroid_planet_01_entity"
+	pdxmesh = "hive_asteroid_03_mesh"
+	
+		meshsettings = {
+			name = "hive_asteroid_03Shape"
+			index = 0
+			shader = "PdxMeshPlanet"
+		}
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+}
+
+# Fighter 1
+entity = {
+	name = "hive_asteroid_04_entity"
+	pdxmesh = "hive_asteroid_04_mesh"
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+	
+	scale = 1.5
+}
+# Fighter 2
+entity = {
+	name = "hive_asteroid_05_entity"
+	pdxmesh = "hive_asteroid_05_mesh"
+
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+		
+	scale = 1.2
+}
+
+entity = {
+	name = "hive_asteroid_06_entity"
+#	pdxmesh = "asteroid_01_mesh"
+	pdxmesh = "hive_asteroid_06_mesh"
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+	
+}
+
+entity = {
+	name = "hive_asteroid_entity"
+	locator = { name = "part1"			position = {  0 0 0	} }
+	
+	locator = { name = "target_locator_0"			position = {  0 -100 0	} }
+	
+	cull_radius = 100000
+	game_data = {
+		size = 30
+	}
+}
+
+# Large hive asteriod with holes in it. 
+entity = {
+	name = "hive_asteroid_base_entity"
+	pdxmesh = "hive_asteroid_06_offset_mesh"
+	
+		default_state = "idle"
+		state = { name = "idle" state_time = 5
+			start_event = { trigger_once = yes sound = { soundeffect = "hive_asteroid_idle" } }
+		}
+	
+	scale = 20.0
+
+	
+	game_data = {
+		size = 10
+	}
+}

@@ -1,0 +1,20 @@
+objectTypes = {
+	pdxmesh = {
+		name = "plantoid_01_colossus_mesh"
+		file = "gfx/models/ships/colossus/plantoid_01/plantoid_01_colossus.mesh"
+
+		animation = { id = "idle"		type = "plantoid_01_colossus_idle_animation" }
+		animation = { id = "open"		type = "plantoid_01_colossus_open_animation" }
+		animation = { id = "opening"	type = "plantoid_01_colossus_opening_animation" }
+		animation = { id = "closing"	type = "plantoid_01_colossus_closing_animation" }
+		
+		meshsettings = {
+			name = "ship_meshShape"
+			index = 0
+			texture_diffuse = "plantoid_01_colossus_diffuse.dds"
+			texture_normal = "plantoid_01_colossus_normal.dds"
+			texture_specular = "plantoid_01_colossus_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

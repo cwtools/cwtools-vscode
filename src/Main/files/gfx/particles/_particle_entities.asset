@@ -1,0 +1,367 @@
+entity = {
+	name = "explosion_particle_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "large_ship_explosion_particle"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "amb_super_explosion" }
+		}
+	}
+}
+
+entity = {
+	name = "yellow_sun_grow_particle_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "yellow_sun_grow_particle"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "red_sun_grow_particle_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "red_sun_grow_particle"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "blue_sun_grow_particle_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "blue_sun_grow_particle"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "planet_heat_up_particle_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "planet_heat_up_particle"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_planet_heatup" }
+		}
+	}
+}
+
+entity = {
+	name = "stellarite_remnant_particle_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "stellarite_remnant_effect"
+			trigger_once = yes
+			keep_particle = yes
+			#sound = { soundeffect = "stellarites_planet_heatup" }
+		}
+	}
+	
+	scale = 3
+}
+
+entity = {
+	name = "dimensional_horror_spawn_particle_entity"
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			particle = "wormhole_open_particle"
+			trigger_once = yes
+			keep_particle = yes
+		}
+	}
+	
+	scale = 30
+}
+
+entity = {
+	name = "dimensional_horror_energy_particle_entity"
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			particle = "cloud_entity_arm_big_particle"
+			trigger_once = yes
+			keep_particle = yes
+		}
+	}
+	
+	scale = 3
+}
+
+entity = {
+	name = "megastructure_habitat_destruction_explosion_entity"
+	scale = 1
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "habitat_explosion_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_ringworld_destruction_explosion_entity"
+	scale = 1.0
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "ringworld_explosion_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_habitat_neutron_entity"
+	scale = 0.7
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "habitat_neutron_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_ringworld_neutron_entity"
+	scale = 0.3
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "ringworld_neutron_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_habitat_god_ray_entity"
+	scale = 0.3
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "habitat_god_ray_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_ringworld_god_ray_entity"
+	scale = 0.3
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "ringworld_god_ray_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_habitat_nanobot_entity"
+	scale = 0.8
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "habitat_nanobot_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}
+
+entity = {
+	name = "megastructure_ringworld_nanobot_entity"
+	scale = 0.4
+
+	locator = {
+		name = "root"
+	}
+	
+	default_state = "idle"
+	state = {
+		name = "idle"
+		state_time = 1
+		event = {
+			time = 0
+			#node = "root"
+			particle = "ringworld_nanobot_effect"
+			trigger_once = yes
+			keep_particle = yes
+			sound = { soundeffect = "stellarites_star_expand" }
+		}
+	}
+}

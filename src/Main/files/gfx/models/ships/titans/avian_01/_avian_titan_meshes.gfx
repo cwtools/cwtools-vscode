@@ -1,0 +1,53 @@
+objectTypes = {
+
+	pdxmesh = {
+		name = "avian_01_titan_frame_mesh"
+		file = "gfx/models/ships/titans/avian_01/avian_01_titan_frame.mesh"
+		
+		animation = { id = "idle"						type = "arthropoid_01_titan_frame_idle_animation" }
+		animation = { id = "death"						type = "arthropoid_01_titan_frame_death_animation" }
+		
+	}
+	
+	pdxmesh = {
+		name = "avian_01_titan_bow_mesh"
+		file = "gfx/models/ships/titans/avian_01/avian_01_titan_bow.mesh"
+
+		meshsettings = {
+			name = "avian_titan_bowShape"
+			index = 0
+			texture_diffuse = "avian_01_titan_diffuse.dds"
+			texture_normal = "avian_01_titan_normal.dds"
+			texture_specular = "avian_01_titan_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "avian_01_titan_mid_mesh"
+		file = "gfx/models/ships/titans/avian_01/avian_01_titan_mid.mesh"
+
+		meshsettings = {
+			name = "avian_titan_midShape"
+			index = 0
+			texture_diffuse = "avian_01_titan_diffuse.dds"
+			texture_normal = "avian_01_titan_normal.dds"
+			texture_specular = "avian_01_titan_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "avian_01_titan_stern_mesh"
+		file = "gfx/models/ships/titans/avian_01/avian_01_titan_stern.mesh"
+
+		meshsettings = {
+			name = "avian_titan_sternShape"
+			index = 0
+			texture_diffuse = "avian_01_titan_diffuse.dds"
+			texture_normal = "avian_01_titan_normal.dds"
+			texture_specular = "avian_01_titan_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

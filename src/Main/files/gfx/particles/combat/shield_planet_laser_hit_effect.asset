@@ -1,0 +1,268 @@
+particle={
+	name="shield_planet_laser_hit_effect"
+	subsystem={
+		name="clouds"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/gradient_circle2.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=170.000
+			y=230.000
+			z=255.000
+			alpha=50.000,alpha_fade
+		}
+		position={
+			x=-6.000
+			y=0.000
+		}
+		duration=-1.000
+		velocity_pitch=-90.000
+		velocity_yaw=0.000
+		velocity={ 0.000 2.000 }
+		life=2.000
+		emission=5.000
+		size=50.000,shrink
+		particle_yaw={ 0.000 7.000 }
+		particle_pitch={ 0.000 7.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="hexagon_pulsating"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=yes
+		texture={
+			file="gfx/particles/hexagon_2.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=200.000
+			z=255.000
+			alpha=255.000,hexagon_alpha
+		}
+		position={
+			x=-6.000
+			y=0.000
+		}
+		duration=-1.000
+		velocity_pitch=180.000
+		velocity_yaw=0.000
+		velocity=0.000
+		life=2.000
+		emission=0.500
+		size=40.000,hexagon_size
+		particle_yaw=0.000
+		particle_pitch=0.000
+		rotation=30.000
+		force=gravity
+	}
+	subsystem={
+		name="glow"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=150.000
+			y=200.000
+			z=255.000
+			alpha=50.000,alpha_fade
+		}
+		position={
+			x=-6.000
+			y=0.000
+		}
+		duration=-1.000
+		velocity_pitch=-90.000
+		velocity_yaw=0.000
+		velocity={ 0.000 2.000 }
+		life=2.000
+		emission=5.000
+		size=20.000,shrink
+		particle_yaw={ 0.000 7.000 }
+		particle_pitch={ 0.000 7.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="hexagon"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=yes
+		texture={
+			file="gfx/particles/hexagon_2.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=200.000
+			z=255.000
+			alpha=50.000,alpha_fade
+		}
+		position={
+			x=-6.000
+			y=0.000
+		}
+		duration=-1.000
+		velocity_pitch=-90.000
+		velocity_yaw=0.000
+		velocity={ 0.000 0.000 }
+		life=2.000
+		emission=5.000
+		size=20.000
+		particle_yaw={ 0.000 0.000 }
+		particle_pitch={ 0.000 0.000 }
+		rotation={ 30.000 0.000 }
+	}
+	subsystem={
+		name="clouds_2"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=150.000
+			y=200.000
+			z=255.000
+			alpha=50.000,alpha_fade
+		}
+		position={
+			x=-8.000
+			y=0.000
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw=90.000
+		velocity={ 5.000 3.000 }
+		life={ 3.000 1.000 }
+		emission=15.000
+		size=20.000,grow
+		particle_yaw={ 0.000 7.000 }
+		particle_pitch={ 0.000 7.000 }
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="alpha_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.447 1.000 0.794 0.156 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shrink"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 0.133 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="hexagon_size"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.484 0.224 0.859 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="hexagon_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.571 0.742 0.803 0.141 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.188 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="gravity"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 0.000 1.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

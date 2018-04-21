@@ -1,0 +1,161 @@
+particle = {
+	name = "explosion"
+	
+
+	
+# Halo (shockwave)
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 1
+		
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/bubble.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x = 0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		start = 0				
+		duration = 0.1
+		emission = { 1000 }
+	
+		velocity = { 0 }
+		velocity_pitch = { 20 0 }
+		velocity_yaw =  { 0 180 }
+		
+		rotation = { spin 180 }
+		
+		life = { 0.8  }
+		size = { 0,flash_size }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 255 }
+			g = { 200 }
+			b = { 100 }
+			alpha = { 200,flash_fade }
+		}
+	}
+	
+	# Spawn
+	# System
+	# Life
+	# Life_abs
+
+	animation = {
+		time = "life_abs"
+		name = "spin"
+		start = 0
+		duration = 7
+		repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 2
+		curve = { 
+			0 0 
+			1 1 
+		}
+	}
+	
+	animation = {
+		time = "life_abs"
+		name = "spin2"
+		start = 0
+		duration = 7
+		repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 4
+		curve = { 
+			0 0 
+			1 1 
+		}
+	}
+
+
+
+	
+	animation = {
+		time = "life"
+		name = "flash_size"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "ABS" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 4
+		curve = { 
+			0 0
+			0.25 0.8
+			0.75 0.9
+			1 1
+		}
+	}	
+	
+	animation = {
+		time = "life"
+		name = "flash_fade"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 1
+			1 0 
+		}
+	}
+
+	animation = {
+		time = "life"
+		name = "glowy_bit_fade"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 0.7
+			0.75 1
+			1 0 
+		}
+	}	
+		# planar
+		# turbulence
+		# friction
+		# vortex
+		# point
+		
+		
+		
+
+
+	
+	force = {
+		type = "friction"
+		name = "drag2"
+		amount = 2.0 #,delayed_force
+		
+	}
+	
+
+
+	
+	
+}
+
+

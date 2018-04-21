@@ -1,0 +1,163 @@
+entity = {
+	name = "dimensional_horror_entity"
+	pdxmesh = "locator_mesh"
+	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+  
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 4.0
+		ship_color = hsv { 0.68 0.5 0.5 1.0 }
+ 	}
+  
+	cull_radius = 10.0
+  
+}
+
+entity = {
+	name = "dimensional_horror_hull_entity"
+	pdxmesh = "dimensional_horror_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" animation_blend_time = 0
+		event = { trigger_once = yes sound = { soundeffect = "dimensional_horror_idle" } }
+	}
+	state = { name = "combat_idle" animation = "idle" animation_blend_time = 0
+		event = { trigger_once = yes sound = { soundeffect = "dimensional_horror_idle" } }
+	}
+	state = { name = "attack" animation = "attack" animation_blend_time = 0.65 looping = no next_state = "combat_idle"
+	#	event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+	#	event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { sound = { soundeffect = "dimensional_horror_attack_roar" } }
+		event = { sound = { soundeffect = "distance_dimensional_horror_attack_roar" } }
+	}
+	state = { name = "death" animation = "death" animation_blend_time = 0.5 looping = no
+		event = { sound = { soundeffect = "dimensional_horror_death" } }
+		event = { sound = { soundeffect = "distance_dimensional_horror_death" } }
+	}
+	
+	attach = { root = "dimensional_horror_portal_entity" }
+	scale = 0.8
+	attach = { root = "dimensional_horror_portal_rings_entity" }
+}
+
+entity = {
+	name = "dimensional_horror_portal_entity"
+	pdxmesh = "dimensional_horror_portal_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+		event = { time = 0 particle = "dimensional_horror_portal_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "dimensional_horror_portal_thunder" } }
+		event = { trigger_once = yes sound = { soundeffect = "dimensional_horror_portal" } }
+	}
+}
+
+entity = {
+	name = "dimensional_horror_portal_rings_entity"
+	pdxmesh = "dimensional_horror_portal_rings_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	event = { time = 0 node = "portal_1" particle = "dimensional_horror_portal_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = {
+		uv_animation_speed   = 0.1
+		uv_animation_direction  = { 0.4 0.4 }
+	}
+}
+
+############
+# WEAPONS
+############
+
+entity = {
+	name = "dimensional_horror_appendage_entity"
+	pdxmesh = "dimensional_horror_appendage_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "attack" looping = no
+		event = { time = 0 node = "portal_locator" particle = "dimensional_horror_appendage_effect" keep_particle = yes trigger_once = yes }
+		event = { sound = { soundeffect = "dimensional_horror_tentacle_attack" } }
+		event = { sound = { soundeffect = "distance_dimensional_horror_tentacle_attack" } }
+	}
+	scale = 0.3
+}
+
+entity = {
+	name = "dimensional_titan_laser_windup_entity"
+	
+	default_state = "attack"
+	get_state_from_parent = no
+	state = {
+		name = "attack" looping = yes state_time = 0.1
+		event = { trigger_once = yes sound = { soundeffect = "dimensional_horror_windup" } }
+	
+		event = { time = 0.0 use_parent_nodes = yes node = large_gun_01 particle = "dimensional_titan_muzzle_windup" trigger_once = yes keep_particle = yes }
+	}
+}
+
+entity = {
+	name = "dimensional_titan_laser_muzzle_entity"
+	pdxmesh = "locator_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 7.0 looping = no
+		event = { time = 0 particle = "dimensional_titan_muzzle_particle" keep_particle = yes }
+		
+		event = { trigger_once = yes sound = { soundeffect = "dimensional_horror_laser_attack" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_dimensional_horror_laser_attack" } }
+		
+	}
+}
+
+entity = {
+	name = "dimensional_titan_laser_hit_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 2 looping = no
+		event = { particle = "dimensional_titan_hit_effect" keep_particle = yes #sound = { soundeffect = titan_laser_hit }
+		}
+		#start_event = { trigger_once = yes sound = { soundeffect = "distance_tachyon_lance_hit" } }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+entity = {
+	name = "dimensional_titan_laser_shield_hit_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle"
+	state = { name = "idle" 
+		start_event = { particle = "dimensional_titan_hit_effect" sound = { soundeffect = shield_hit } }
+		start_event = { particle = "titan_laser_shield_hit_effect" }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_shield_hit" } } 
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+animation = {
+	name = "dimensional_horror_idle_animation"
+	file = "dimensional_horror_idle.anim"
+}
+
+animation = {
+	name = "dimensional_horror_attack_animation"
+	file = "dimensional_horror_attack.anim"
+}
+
+animation = {
+	name = "dimensional_horror_death_animation"
+	file = "dimensional_horror_death.anim"
+}
+
+animation = {
+	name = "dimensional_horror_appendage_attack_animation"
+	file = "dimensional_horror_appendage_attack.anim"
+}
+
+animation = {
+	name = "dimensional_horror_portal_idle_animation"
+	file = "dimensional_horror_portal_idle.anim"
+}

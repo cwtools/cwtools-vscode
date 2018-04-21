@@ -1,0 +1,137 @@
+particle={
+	name="construction_bot_welding_effect"
+	subsystem={
+		name="welding_sparks"
+		max_amount=100
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/tiny_flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=220.000
+			z=255.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+		}
+		duration=1.500
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 0.000 90.000 }
+		velocity={ 4.000 1.000 }
+		life={ 0.300 0.100 }
+		emission=100.000
+		size={ 0.100,size_anim 0.300 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=25.000
+	}
+	subsystem={
+		name="welding_flare_big"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=220.000
+			z=255.000
+			alpha=5.000,alpha_fade
+		}
+		position={
+		}
+		duration=1.500
+		life={ 0.300 0.300 }
+		emission=100.000
+		size={ 10.000 0.500 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="welding_flare"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=220.000
+			z=255.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+		}
+		duration=1.500
+		life={ 0.300 0.300 }
+		emission=100.000
+		size={ 1.000 1.000 }
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="alpha_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.303 0.266 0.535 1.000 0.741 0.266 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="size_anim"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.852 0.853 0.859 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

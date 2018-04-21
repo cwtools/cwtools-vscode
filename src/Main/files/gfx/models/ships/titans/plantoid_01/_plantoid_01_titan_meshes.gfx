@@ -1,0 +1,106 @@
+objectTypes = {
+	pdxmesh = {
+		name = "plantoid_01_titan_frame_mesh"
+		file = "gfx/models/ships/titans/plantoid_01/plantoid_01_titan_frame.mesh"
+		
+		animation = { id = "idle"						type = "arthropoid_01_titan_frame_idle_animation" }
+		animation = { id = "death"						type = "arthropoid_01_titan_frame_death_animation" }
+		
+	}	
+	
+	pdxmesh = {
+		name = "plantoid_01_titan_bow_mesh"
+		file = "gfx/models/ships/titans/plantoid_01/plantoid_01_titan_bow.mesh"
+
+		meshsettings = {
+			name = "polySurface05Shape"
+			index = 0
+			texture_diffuse = "plantoid_01_panels_large_diffuse.dds"
+			texture_normal = "plantoid_01_panels_large_normal.dds"
+			texture_specular = "plantoid_01_panels_large_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "polySurface05Shape"
+			index = 1
+			texture_diffuse = "plantoid_01_panels_diffuse.dds"
+			texture_normal = "plantoid_01_panels_normal.dds"
+			texture_specular = "plantoid_01_panels_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "polySurface05Shape"
+			index = 2
+			texture_diffuse = "plantoid_01_titan_diffuse.dds"
+			texture_normal = "plantoid_01_titan_normal.dds"
+			texture_specular = "plantoid_01_titan_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "plantoid_01_titan_mid_mesh"
+		file = "gfx/models/ships/titans/plantoid_01/plantoid_01_titan_mid.mesh"
+
+		meshsettings = {
+			name = "plantoid_titan_mid_lp1Shape"
+			index = 0
+			texture_diffuse = "plantoid_01_titan_diffuse.dds"
+			texture_normal = "plantoid_01_titan_normal.dds"
+			texture_specular = "plantoid_01_titan_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "plantoid_titan_mid_lp1Shape"
+			index = 1
+			texture_diffuse = "plantoid_01_panels_diffuse.dds"
+			texture_normal = "plantoid_01_panels_normal.dds"
+			texture_specular = "plantoid_01_panels_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "plantoid_titan_mid_lp1Shape"
+			index = 2
+			texture_diffuse = "plantoid_01_panels_diffuse.dds"
+			texture_normal = "plantoid_01_panels_normal.dds"
+			texture_specular = "plantoid_01_panels_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "plantoid_01_titan_stern_mesh"
+		file = "gfx/models/ships/titans/plantoid_01/plantoid_01_titan_stern.mesh"
+
+		meshsettings = {
+			name = "plantoid_titan_bow_lp3Shape"
+			index = 0
+			texture_diffuse = "plantoid_01_titan_diffuse.dds"
+			texture_normal = "plantoid_01_titan_normal.dds"
+			texture_specular = "plantoid_01_titan_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "plantoid_titan_bow_lp3Shape"
+			index = 1
+			texture_diffuse = "plantoid_01_panels_diffuse.dds"
+			texture_normal = "plantoid_01_panels_normal.dds"
+			texture_specular = "plantoid_01_panels_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "plantoid_titan_bow_lp3Shape"
+			index = 2
+			texture_diffuse = "plantoid_01_panels_diffuse.dds"
+			texture_normal = "plantoid_01_panels_normal.dds"
+			texture_specular = "plantoid_01_panels_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

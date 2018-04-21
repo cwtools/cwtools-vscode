@@ -1,0 +1,80 @@
+entity = {
+	name = "avian_01_titan_entity"
+	pdxmesh = "avian_01_titan_frame_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_titan_ship_hum_01" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_titan_ship_hum_02" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_titan_ship_hum_03" } }	
+	}
+
+	state = { name = "moving" animation = "idle"
+		event =  { trigger_once = yes sound = { soundeffect = "moving_out_titan" } }
+	}
+	state = { name = "death" animation = "death" looping = no 
+		event = { time = 2.5 node = "explosion_locator_01" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ship_explosion" } }
+		event = { time = 3.5 node = "explosion_locator_02" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ship_explosion" } }
+		event = { time = 5.5 node = "explosion_locator_03" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ship_explosion" } }
+		event = { time = 7.5 node = "explosion_locator_04" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ship_explosion" } }
+		event = { time = 9.5 node = "explosion_locator_05" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "ship_explosion" } }
+		event = { time = 12.5 node = "ship_main" particle = "dreadnought_explosion_particle" keep_particle = yes trigger_once = yes sound = { soundeffect = "amb_titan_ship_death" } }
+	}
+	
+	#attach = { part1 = "avian_01_titan_bow_entity" }
+	#attach = { part2 = "avian_01_titan_mid_entity" }
+	#attach = { part3 = "avian_01_titan_stern_entity" }
+	
+	scale = 1.25
+}
+
+entity = {
+	name = "avian_01_titan_bow_entity"
+	pdxmesh = "avian_01_titan_bow_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+		start_event = { node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" state_time = 5 looping = no }
+}
+
+entity = {
+	name = "avian_01_titan_mid_entity"
+	pdxmesh = "avian_01_titan_mid_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+		start_event = { node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" state_time = 5 looping = no }
+}
+
+entity = {
+	name = "avian_01_titan_stern_entity"
+	pdxmesh = "avian_01_titan_stern_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+		start_event = { node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		start_event = { node = "engine_large_01" particle = "avian_01_3_0_exhaust_oblong_idle_particle" keep_particle = yes trigger_once = yes }
+		start_event = { node = "engine_large_02" particle = "avian_01_3_0_exhaust_oblong_idle_particle" keep_particle = yes trigger_once = yes }
+		start_event = { node = "engine_large_03" particle = "avian_01_3_0_exhaust_oblong_idle_particle" keep_particle = yes trigger_once = yes }
+		start_event = { node = "engine_large_04" particle = "avian_01_3_0_exhaust_oblong_idle_particle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" state_time = 5
+		start_event = { node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		start_event = { node = "engine_large_01" particle = "avian_01_3_0_ship_exhaust_oblong_moving_particle" keep_particle = yes trigger_once = yes }
+		start_event = { node = "engine_large_02" particle = "avian_01_3_0_ship_exhaust_oblong_moving_particle" keep_particle = yes trigger_once = yes }
+		start_event = { node = "engine_large_03" particle = "avian_01_3_0_ship_exhaust_oblong_moving_particle" keep_particle = yes trigger_once = yes }
+		start_event = { node = "engine_large_04" particle = "avian_01_3_0_ship_exhaust_oblong_moving_particle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" state_time = 5 looping = no }
+}

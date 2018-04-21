@@ -1,0 +1,181 @@
+particle={
+	name="proj_pd_hit_effect"
+	subsystem={
+		name="smoke"
+		max_amount=6
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/fire05.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=255.000
+			y=220.000
+			z=180.000
+			alpha=5.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity=20.000
+		life=1.000
+		emission=50.000
+		size={ 5.000,grow 3.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+		force=drag
+	}
+	subsystem={
+		name="sparks"
+		max_amount=6
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=220.000
+			z=180.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		velocity=20.000
+		life=0.300
+		emission=50.000
+		size=0.280
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="glow_intense"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/gradient_circle2.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=150.000
+			z=50.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity=8.000
+		life=0.150
+		emission=50.000
+		size=4.500,grow
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+		force=drag
+	}
+	subsystem={
+		name="glow"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=220.000
+			z=180.000
+			alpha=5.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity=8.000
+		life=0.300
+		emission=50.000
+		size=70.000,grow
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+		force=drag
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.644 0.859 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.477 1.000 1.000 
+		}
+		op="MUL"
+		time="life_abs"
+	}
+	force={
+		type="friction"
+		name="drag"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 0.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=10.000
+	}
+}

@@ -1,0 +1,230 @@
+entity = {
+	name = "fallen_empire_03_colossus_entity"
+	pdxmesh = "fallen_empire_01_colossus_frame_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" }
+	state = { name = "moving" animation = "idle" }
+	state = { name = "working" animation = "idle" }
+	state = { name = "death" animation = "closed_death" looping = no 
+		event = { time = 8.86 node = "frame_ship" particle = "dreadnought_explosion_particle" sound = { soundeffect = ship_destroyed } }
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"death" = 0
+				"working" = 0
+			}
+		}
+	}
+	state = { name = "death" animation = "opened_death" looping = no 
+		event = { time = 6.56 node = "frame_ship" particle = "dreadnought_explosion_particle" sound = { soundeffect = ship_destroyed } }
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"death" = 0
+				"working" = 100
+			}
+		}
+	}
+	
+	locator = { name = "part1" position = { -50 0 0 } }
+	locator = { name = "part3" position = { -50 0 0 } }
+	
+	#attach = { frame_ship = "fallen_empire_01_colossus_ship_entity" }
+}
+
+entity = {
+	name = "fallen_empire_03_colossus_ship_entity"
+	pdxmesh = "fallen_empire_03_colossus_mesh"
+	
+	default_state = "idle"
+	# Actual idle state when being in idle/moving.
+	state = { name = "idle" animation = "idle" looping = no next_state = "idle" animation_blend_time = 5
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"death" = 0
+				"working" = 100
+				"working_looping" = 0
+			}
+		}
+		start_event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_idle" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_energy_field" } }
+		
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_06" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "planet_killer_gun_01" particle = "fallen_empire_03_colossus_core_effect" keep_particle = yes trigger_once = yes }
+	}
+	# Idle state when going from opened state to idle. 
+	state = { name = "idle" animation = "closing" looping = no next_state = "idle" 
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"death" = 0
+				"working" = 0
+				"working_looping" = 100
+			}
+		}
+		event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_closing" stop_on_state_change = yes } }
+		
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_06" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "planet_killer_gun_01" particle = "fallen_empire_03_colossus_core_effect" keep_particle = yes trigger_once = yes }
+	
+		event = { time = 0 node = "root" particle = "fallen_empire_03_colossus_energy_start_effect" keep_particle = yes trigger_once = yes }
+	}
+	# Actual moving state if going from idle/moving.
+	state = { name = "moving" animation = "idle" looping = yes next_state = "moving"
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"death" = 0
+				"working" = 100
+				"working_looping" = 0
+			}
+		}
+		event = { trigger_once = yes sound = { soundeffect = "moving_out_colossus" } }
+		
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_06" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "planet_killer_gun_01" particle = "fallen_empire_03_colossus_core_effect" keep_particle = yes trigger_once = yes }
+	}
+	# Moving state if going from open/working, uses closing animation.
+	state = { name = "moving" animation = "closing" looping = no next_state = "moving"
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"death" = 0
+				"working" = 0
+				"working_looping" = 100
+			}
+		}
+		event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_closing" stop_on_state_change = yes } }
+		
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_06" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "planet_killer_gun_01" particle = "fallen_empire_03_colossus_core_effect" keep_particle = yes trigger_once = yes }
+	
+		event = { time = 0 node = "root" particle = "fallen_empire_03_colossus_energy_start_effect" keep_particle = yes trigger_once = yes }
+	}
+	# Opened state, going after "working".
+	state = { name = "working_looping" animation = "open" 
+		event = { time = 0	id = "beam_start" }
+	
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_06" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "planet_killer_gun_01" particle = "fallen_empire_03_colossus_core_effect" keep_particle = yes trigger_once = yes }
+			
+		event = { time = 0 node = "large_shield_mid_effect_1" particle = "fallen_empire_03_colossus_shield_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_shield_mid_effect_2" particle = "fallen_empire_03_colossus_shield_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "large_shield_mid_effect_3" particle = "fallen_empire_03_colossus_shield_effect" keep_particle = yes trigger_once = yes }
+	
+	}
+	# Opening state, goes into "working_looping" state when done.
+	state = { name = "working" animation = "opening" looping = no next_state = "working_looping" 
+		event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_opening" stop_on_state_change = yes } }
+	
+		event = { time = 1000 id = "beam_start" } #will never fire, but lets the game know that an event with this ID exists
+	
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_06" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "planet_killer_gun_01" particle = "fallen_empire_03_colossus_core_effect" keep_particle = yes trigger_once = yes }
+	}
+	# Closed death state.
+	state = { name = "death" animation = "idle" looping = no
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 100
+				"death" = 0
+				"working" = 0
+				"working_looping" = 0
+			}
+		}
+		event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_death" stop_on_state_change = yes } }
+
+		event = { time = 0.0 node = "explosion_locator_01" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 3.0 node = "explosion_locator_02" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 4.0 node = "explosion_locator_03" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 6.0 node = "explosion_locator_04" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 8.0 node = "explosion_locator_05" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+	}
+	# Opened death state.
+	state = { name = "death" animation = "opened_death" looping = no animation_blend_time = 2
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 0
+				"death" = 0
+				"working" = 100
+				"working_looping" = 100
+			}
+		}
+		event = { trigger_once = yes sound = { soundeffect = "fallen_empire_colossus_death" stop_on_state_change = yes } }
+		
+		event = { time = 0.0 node = "explosion_locator_01" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 3.0 node = "explosion_locator_02" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 4.0 node = "explosion_locator_03" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 6.0 node = "explosion_locator_04" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+		event = { time = 8.0 node = "explosion_locator_05" particle = "ship_explosion_particle" sound = { soundeffect = "ship_destroyed" } keep_particle = yes trigger_once = yes }
+	}
+	
+	#locator = { name = "planet_killer_gun_01" position = { 0 0 0 } } # Actual locator in mesh.
+	
+	attach = { energy_source = "fallen_empire_03_colossus_energy_entity" }
+}
+
+entity = {
+	name = "fallen_empire_03_colossus_energy_entity"
+	pdxmesh = "fallen_empire_03_colossus_energy_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" }
+	state = { name = "working_looping" animation = "idle" 
+		event = { time = 0 node = "root" particle = "fallen_empire_03_colossus_energy_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "root" particle = "fallen_empire_03_colossus_energy_start_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = {
+		uv_animation_speed   = 0.2
+		uv_animation_direction  = { 0.0 1.0 }
+		bloom_factor = 0.85
+	}
+	
+}

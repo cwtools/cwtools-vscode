@@ -1,0 +1,79 @@
+particle={
+	name="colossus_hatch_smoke_effect"
+	subsystem={
+		name="smoke_lingering"
+		max_amount=40
+		slave_particles=0
+		emitter_type="box"
+		box_emitter_z={ 0.000 2.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=120.000
+			y=120.000
+			z=120.000
+			alpha=20.000,smoke_fade
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch=0.000
+		velocity_yaw={ 0.000 45.000 }
+		velocity={ 5.000 2.000 }
+		life={ 3.000 1.500 }
+		emission=1500.000
+		size={ 6.000,grow 4.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 20.000 0.000 }
+		force=drag
+	}
+	animation={
+		name="smoke_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.118 0.961 0.394 0.945 0.574 0.172 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.109 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="friction"
+		name="drag"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 0.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

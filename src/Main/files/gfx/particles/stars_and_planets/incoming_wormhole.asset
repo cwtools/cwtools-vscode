@@ -1,0 +1,333 @@
+particle={
+	name="incoming_wormhole_file"
+	subsystem={
+		name="dust"
+		max_amount=85
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 7.000 0.200 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 0.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=100.000
+			y=100.000
+			z=100.000
+			alpha=255.000,flash_fade
+		}
+		position={
+			x=0.000
+			y=1.000
+			z=0.000
+		}
+		start=0.000
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 0.000 0.000 }
+		life={ 8.000 0.000 }
+		emission=10.000
+		size={ 0.100 0.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ -50.000 0.000 }
+		force=point,orbit
+	}
+	subsystem={
+		name="clouds_ring"
+		max_amount=85
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 6.000 2.000 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 0.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=190.000
+			y=214.000
+			z=100.000
+			alpha=5.000,flash_fade
+		}
+		position={
+			x=0.000
+			y=2.000
+			z=0.000
+		}
+		start=0.000
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 0.000 0.000 }
+		life={ 8.000 0.000 }
+		emission=10.000
+		size={ 8.000,decrease 4.000 }
+		particle_yaw={ 0.000 0.000 }
+		particle_pitch={ 90.000 0.000 }
+		rotation={ 0.000,0.000 0.000,180.000 }
+		rotation_speed={ -20.000 0.000 }
+		force=point,orbit
+	}
+	subsystem={
+		name="event_horizon_smoke"
+		max_amount=100
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 1.500 0.000 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 0.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=190.000
+			y=214.000
+			z=0.000
+			alpha=7.000,flash_fade
+		}
+		position={
+			x=0.000
+			y=0.120
+			z=0.000
+		}
+		start=0.000
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ -90.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 0.200 0.000 }
+		life={ 1.000 0.000 }
+		emission=100.000
+		size={ 2.000,decrease 0.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ -20.000 0.000 }
+		force=inner_orbit,point_inner
+	}
+	subsystem={
+		name="vortex"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/polar_swirl_3.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=190.000
+			y=214.000
+			z=0.000
+			alpha=150.000,flash_fade
+		}
+		position={
+			x=0.000
+			y=0.500
+			z=0.000
+		}
+		start=0.000
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ -90.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 0.025 0.000 }
+		life={ 8.000 0.000 }
+		emission=100.000
+		size={ 20.000,decrease 0.000 }
+		particle_yaw={ 0.000 0.000 }
+		particle_pitch={ 90.000 0.000 }
+		rotation={ 0.000,0.000 0.000,180.000 }
+		rotation_speed={ -20.000 0.000 }
+	}
+	subsystem={
+		name="star_dust_flare"
+		max_amount=10
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 6.000 2.000 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 0.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=190.000
+			y=214.000
+			z=0.000
+			alpha=255.000,flash_fade
+		}
+		position={
+			x=0.000
+			y=0.200
+			z=0.000
+		}
+		start=0.000
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 0.000 0.000 }
+		life={ 1.500 0.000 }
+		emission=2.000
+		size={ 0.100 0.100 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ -20.000 0.000 }
+		force=point_light_dots,orbit_light_dots
+	}
+	animation={
+		name="flash_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.200 1.000 0.600 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="decrease"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 1.000 0.250 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="point"
+		name="point"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-0.150
+	}
+	force={
+		type="point"
+		name="point_light_dots"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-0.400
+	}
+	force={
+		type="spin"
+		name="orbit"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-0.200
+	}
+	force={
+		type="spin"
+		name="orbit_light_dots"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-0.600
+	}
+	force={
+		type="spin"
+		name="inner_orbit"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-0.500
+	}
+	force={
+		type="point"
+		name="point_inner"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-1.500
+	}
+}

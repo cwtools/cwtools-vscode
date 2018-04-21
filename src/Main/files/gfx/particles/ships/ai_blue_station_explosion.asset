@@ -1,0 +1,456 @@
+particle={
+	name="ai_blue_station_explosion"
+	subsystem={
+		name="fire_wave"
+		max_amount=20
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud_4.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=200.000
+			z=255.000
+			alpha=255.000,fire_fade
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 10.000 10.000 }
+		life={ 0.300 0.200 }
+		emission=500.000
+		size={ 25.000,grow 2.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 10.000 0.000 }
+	}
+	subsystem={
+		name="smoke"
+		max_amount=150
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=80.000
+			y=80.000
+			z=100.000
+			alpha=25.000,smoke_fade
+		}
+		position={
+		}
+		start=0.000
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 50.000 10.000 }
+		life={ 3.000 0.500 }
+		emission=500.000
+		size={ 30.000,grow 15.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 20.000 0.000 }
+		force=drag
+	}
+	subsystem={
+		name="sparks_size_decrease"
+		max_amount=20
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/fire03_des.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=0.000
+			y=75.000
+			z=150.000
+			alpha=200.000
+		}
+		position={
+		}
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 50.000 10.000 }
+		life={ 0.500 0.100 }
+		emission=1500.000
+		size={ 10.000,spark_size 1.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=30.000
+	}
+	subsystem={
+		name="flare_stay_core"
+		max_amount=20
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=50.000
+			y=90.000
+			z=150.000
+			alpha=255.000,flare_stay_fade
+		}
+		position={
+		}
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life={ 2.000 1.000 }
+		emission=1500.000
+		size={ 6.000 3.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="black"
+		max_amount=5
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/blackness.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=120.000
+			y=120.000
+			z=255.000
+			alpha=150.000,flare_stay_fade
+		}
+		position={
+		}
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life={ 2.000 1.000 }
+		emission=1500.000
+		size=0.400
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="shockwave_fire"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/fire04.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=180.000
+			y=200.000
+			z=255.000
+			alpha=150.000,fire_fade
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life={ 0.400 0.200 }
+		emission=1500.000
+		size={ 20.000,shockwave_grow 10.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="shockwave_2_thin"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/bubble.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=150.000
+			y=170.000
+			z=255.000
+			alpha=15.000,fire_fade
+		}
+		position={
+		}
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life=1.000
+		emission=1500.000
+		size=100.000,shockwave_grow
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="shockwave"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/blast.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=180.000
+			z=255.000
+			alpha=150.000,fire_fade
+		}
+		position={
+		}
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life=0.300
+		emission=1500.000
+		size=100.000,shockwave_grow
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="start_blast"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/star_zoom.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=150.000
+			y=200.000
+			z=255.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life={ 0.300 0.100 }
+		emission=100.000
+		size={ 50.000,start_blast_grow 10.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="flare_background"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=150.000
+			y=200.000
+			z=255.000
+			alpha=25.000,alpha_fade
+		}
+		position={
+		}
+		duration=0.150
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 0.000 0.000 }
+		life=0.500
+		emission=1500.000
+		size=80.000
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="fire_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.394 1.000 0.497 0.258 0.785 0.063 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="smoke_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.118 0.961 0.394 0.945 0.574 0.172 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="spark_size"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.477 0.068 0.422 0.194 0.203 0.476 0.070 1.000 0.016 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shockwave_grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.109 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="alpha_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.341 0.984 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="start_blast_grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.109 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="flare_stay_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.150 0.922 0.188 0.477 0.253 0.859 0.315 0.414 0.418 0.734 0.603 0.320 0.829 0.563 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="friction"
+		name="drag"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 0.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

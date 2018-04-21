@@ -1,0 +1,54 @@
+	#	entity = {
+	#		name = "crystal_station_large_rings_entity"
+	#		pdxmesh = "crystal_station_large_rings_mesh"
+	#	}
+
+entity = {
+	name = "crystal_station_large_rings_Z_entity"
+	pdxmesh = "crystal_station_large_rings_Z_mesh"
+}
+
+entity = {
+	name = "crystal_station_large_base_entity"
+	pdxmesh = "crystal_station_large_base_mesh"
+}
+
+entity = {
+	name = "crystal_station_large_rings_X_entity"
+	pdxmesh = "crystal_station_large_rings_X_mesh"
+}
+
+animation = {
+	name = "crystal_station_large_frame_idle_animation"
+	file = "crystal_station_large_idle.anim"
+}
+
+animation = {
+	name = "crystal_station_large_frame_death_animation"
+	file = "crystal_station_large_death.anim"
+}
+
+entity = {
+	name = "crystal_station_large_entity"
+	pdxmesh = "crystal_station_large_frame_mesh"
+
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5.0 animation = "idle_animation"
+		event = { time = 0 particle = "energy_core_effect2" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "amb_large_crystal_station_idle" } }
+	}
+	
+	state = { name = "death" animation = "death_animation" looping = no animation_blend_time = 10
+		event = { time = 0.0 particle = "energy_core2_expand_on_death" keep_particle = yes trigger_once = yes }
+		event = { time = 1.9 particle = "crystal_station_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "amb_large_crystal_station_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_amb_large_crystal_station_death" } }
+	}
+	
+	attach = { main = "crystal_station_large_base_entity" }
+	attach = { main = "crystal_station_large_rings_X_entity" }
+	attach = { main = "crystal_station_large_rings_Z_entity" }
+	scale = 1.4
+}

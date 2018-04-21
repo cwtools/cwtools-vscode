@@ -1,0 +1,63 @@
+particle={
+	name="titan_laser_muzzle_windup_effect"
+	subsystem={
+		name="flare"
+		max_amount=20
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=50.000
+			y=190.000
+			z=255.000
+			alpha=100.000,fade_alpha
+		}
+		position={
+			x=2.000
+		}
+		duration=-1.000
+		life=0.700
+		emission=10.000
+		size=15.000
+		particle_yaw=90.000
+		particle_pitch=90.000
+		rotation={ 90.000 0.000 }
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.829 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

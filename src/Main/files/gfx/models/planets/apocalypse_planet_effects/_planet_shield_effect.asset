@@ -1,0 +1,155 @@
+
+
+######
+# PLANET
+######
+entity = {
+	name = "planet_shield_effect_entity"
+	pdxmesh = "planet_shield_effect_mesh"
+	
+	#get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+		start_event = { node = root particle = "planet_shield_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = { 
+		bloom_factor = 1.2 
+		uv_animation_speed 		= 2
+		uv_animation_direction 	= { 0.0 -0.02 }
+	}
+	
+	locator = { name = "root" position = { 0 0 0 } }
+	
+	scale = 1.15
+	
+}
+
+entity = {
+	name = "planet_shield_alpha_override_effect_entity"
+	pdxmesh = "planet_shield_alpha_override_effect_mesh"
+	
+	#get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+		start_event = { node = root particle = "planet_shield_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = { 
+		bloom_factor = 1.2 
+		uv_animation_speed 		= 2
+		uv_animation_direction 	= { 0.0 -0.02 }
+	}
+	
+	locator = { name = "root" position = { 0 0 0 } }
+	
+	scale = 1.15
+}
+
+######
+# RINGWORLD
+######
+entity = {
+	name = "ringworld_shield_effect_entity"
+	pdxmesh = "ringworld_shield_effect_mesh"
+	
+	#get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+	}
+	
+	game_data = { 
+		bloom_factor = 1.2 
+		uv_animation_speed 		= 2
+		uv_animation_direction 	= { 0.0 -0.02 }
+	}
+	
+	locator = { name = "root" position = { 0 0 0 } }
+	
+	scale = 1
+	
+}
+
+entity = {
+	name = "ringworld_shield_alpha_override_effect_entity"
+	pdxmesh = "ringworld_shield_alpha_override_effect_mesh"
+	
+	#get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+	}
+	
+	game_data = { 
+		bloom_factor = 1.2 
+		uv_animation_speed 		= 2
+		uv_animation_direction 	= { 0.0 -0.02 }
+	}
+	
+	locator = { name = "root" position = { 0 0 0 } }
+	
+	scale = 1
+}
+
+######
+# HABITAT
+######
+entity = {
+	name = "habitat_shield_effect_entity"
+	pdxmesh = "planet_shield_effect_mesh"
+	
+	#get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+		start_event = { node = root particle = "planet_shield_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = { 
+		bloom_factor = 1.2 
+		uv_animation_speed 		= 2
+		uv_animation_direction 	= { 0.0 -0.02 }
+	}
+	
+	locator = { name = "root" position = { 0 0 0 } }
+	
+	scale = 6
+	
+}
+
+entity = {
+	name = "habitat_shield_alpha_override_effect_entity"
+	pdxmesh = "planet_shield_alpha_override_effect_mesh"
+	
+	#get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+	#	start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+		start_event = { node = root particle = "planet_shield_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = { 
+		bloom_factor = 1.2 
+		uv_animation_speed 		= 2
+		uv_animation_direction 	= { 0.0 -0.02 }
+	}
+	
+	locator = { name = "root" position = { 0 0 0 } }
+	
+	scale = 6
+}

@@ -1,0 +1,69 @@
+particle={
+	name="stellarite_body_effect"
+	subsystem={
+		name="Surface_fire"
+		max_amount=100
+		slave_particles=0
+		sort="depth"
+		emitter_type="box"
+		box_emitter_x={ 0.000 14.000 }
+		box_emitter_y={ 0.000 8.000 }
+		box_emitter_z={ 0.000 8.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=220.000
+			z=180.000
+			alpha=255.000,fade_in_out
+		}
+		position={
+		}
+		start=0.000
+		duration=-1.000
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		life=1.000
+		emission=40.000
+		size=2.000
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 0.000 0.000 }
+		force=chaos
+	}
+	animation={
+		name="fade_in_out"
+		start=0.000
+		duration=1.000
+		repeat=yes
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.400 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="turbulence"
+		name="chaos"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=8.000
+	}
+}

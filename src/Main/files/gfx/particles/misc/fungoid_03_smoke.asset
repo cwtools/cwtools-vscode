@@ -1,0 +1,109 @@
+particle={
+	name="fungoid_03_smoke"
+	subsystem={
+		name="blue_smoke"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/cloud_3.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=180.000
+			y=240.000
+			z=255.000
+			alpha=25.000,fire_fade
+		}
+		position={
+		}
+		duration=0.500
+		velocity_pitch=90.000
+		velocity_yaw=0.000
+		velocity={ 1.500 0.000 }
+		life={ 2.000 1.000 }
+		emission=30.000
+		size={ 8.000,shockwave_grow 3.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="spores"
+		max_amount=10
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/rain.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=180.000
+			y=240.000
+			z=255.000
+			alpha=255.000,fire_fade
+		}
+		position={
+		}
+		duration=0.500
+		velocity_pitch=90.000
+		velocity_yaw=0.000
+		velocity={ 1.500 0.000 }
+		life={ 2.000 1.000 }
+		emission=10.000
+		size={ 3.000,shockwave_grow 3.000 }
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="fire_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.094 0.844 0.524 0.867 0.635 0.398 0.794 0.141 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="shockwave_grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.273 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

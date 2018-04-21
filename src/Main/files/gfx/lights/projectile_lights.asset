@@ -1,0 +1,129 @@
+light = {
+	name = "explosion_light"
+	
+	color = { 
+		r = { 0.8 }
+		g = { 0.6 }
+		b = { 0.4 }
+	}
+	
+	intensity = fade
+	radius = 10
+	falloff = 50
+	duration = 0.25
+	
+	position = { x = 0 y = 2 z = 0 }
+	
+	
+	animation = {
+		name = "fade"
+		start = 0
+		duration = 0.25
+		repeat = no
+		op = "ABS" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 10
+		curve = { 
+			0	0 
+			0.2	2
+			1	0.1
+		}
+	}	
+}
+
+light = {
+	name = "energy_torpedoes_explosion_light"
+	
+	color = { 
+		r = { 0.2 }
+		g = { 0.5 }
+		b = { 1.0 }
+	}
+	
+	intensity = 20,fade
+	radius = 200
+	falloff = 50
+	duration = 0.25
+	
+	position = { x = 0 y = 2 z = 0 }
+	
+	
+	animation = {
+		name = "fade"
+		start = 0
+		duration = 0.25
+		repeat = no
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0	1
+			1	0
+		}
+	}	
+}
+
+light = {
+	name = "red_laser_light"
+	
+	color = { 
+		r = { 1.0 }
+		g = { 0.4 }
+		b = { 0.4 }
+	}
+	
+	intensity = 200
+	radius = 5
+	falloff = 0
+	
+	position = { x = 0 y = 0 z = 0 }
+	
+	
+	animation = {
+		name = "fade"
+		start = 0
+		duration = 0.85
+		repeat = no
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0	1
+			1	0
+		}
+	}	
+}
+
+
+light = {
+	name = "projectile_light"
+	
+	color = { 
+		r = { 1.0 }
+		g = { 0.6 }
+		b = { 0.1 }
+	}
+	
+	intensity = blink
+	radius = 10
+	falloff = 2
+	
+	position = { x = 0 y = 0 z = 0 }
+	
+	
+	animation = {
+		name = "blink"
+		start = 0
+		duration = 0.25
+		repeat = yes
+		op = "ABS" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 10
+		curve = { 
+			0	0 
+			0.5	0.5
+			1	0
+		}
+	}	
+}
+

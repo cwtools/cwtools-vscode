@@ -1,0 +1,30 @@
+objectTypes = {
+	pdxmesh = {
+		name = "stellarite_mesh"
+		file = "gfx/models/ships/guardians/stellarite/stellarite.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"		type = "stellarite_idle_animation" }
+		animation = { id = "moving"		type = "stellarite_moving_animation" }
+		animation = { id = "death"		type = "stellarite_death_animation" }
+		animation = { id = "attack"		type = "stellarite_attack_animation" }
+
+		meshsettings = {
+			name = "MembraneShape"
+			index = 0
+			texture_diffuse = "stellarite_membrane_diffuse.dds"
+			texture_normal = "stellarite_normal.dds"
+			texture_specular = "stellarite_specular.dds"
+			shader = "PdxMeshExtraDimensionalShip"
+		}
+
+		meshsettings = {
+			name = "BodyShape"
+			index = 0
+			texture_diffuse = "stellarite_diffuse.dds"
+			texture_normal = "stellarite_normal.dds"
+			texture_specular = "stellarite_specular.dds"
+			shader = "PdxMeshExtraDimensionalShip"
+		}
+	}
+}

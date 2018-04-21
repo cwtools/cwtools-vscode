@@ -1,0 +1,47 @@
+objectTypes = {
+
+	pdxmesh = {
+		name = "blue_white_star_icon_mesh"
+		file = "gfx/models/galaxy_map/blue_white_star_icon.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+	}
+	
+	pdxmesh = {
+		name = "black_hole_icon_mesh"
+		file = "gfx/models/galaxy_map/black_hole_icon.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+	}	
+	
+	pdxmesh = {
+		name = "neutron_star_icon_mesh"
+		file = "gfx/models/galaxy_map/neutron_star_icon.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+	}	
+	
+	pdxmesh = {
+		name = "pulsar_icon_mesh"
+		file = "gfx/models/galaxy_map/pulsar_icon.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+	}
+	
+	pdxmesh = {
+		name = "circle_area_mesh"
+		file = "gfx/models/galaxy_map/circle_area.mesh"
+		scale = 1.0
+		cull_distance = 99999999.0f
+
+		meshsettings = {
+			name = "pCylinderShape1"
+			index = 0
+			texture_diffuse = "gradient.dds"
+			texture_normal = "nonormal.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshCircleGradient"
+		}
+	}
+	
+}

@@ -1,0 +1,100 @@
+entity = {
+	name = "pirate_01_galleon_entity"
+	pdxmesh = "locator_mesh"
+	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "explosion" 	position = { 0 -15 -50 } }
+    
+	cull_radius = 10.0
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5 }
+	state = { name = "moving" state_time = 5 }
+	state = { name = "death" state_time = 8.9 looping = no
+		event = { time = 8.8 node = "explosion" particle = "dreadnought_explosion_particle" keep_particle = yes }
+	}
+	
+	game_data = {
+		size = 30
+	}
+}
+
+
+entity = {
+	name = "pirate_01_galleon_hull_entity"
+	pdxmesh = "pirate_01_galleon_mesh"
+	scale = 2.7
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle"
+		start_event = { trigger_once = yes sound = { soundeffect = "pirate_battleship_idle" } }
+		event = { time = 0 node = "engine_medium_07" particle = "pirate_01_3_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_05" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_06" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "engine_medium_08" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_09" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_010" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_011" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_012" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_013" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_014" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_015" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_016" particle = "pirate_01_1_0_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "idle"
+		event = { time = 0 node = "engine_medium_07" particle = "pirate_01_3_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_05" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_06" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "engine_medium_08" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_09" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_010" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_011" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_012" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_013" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_014" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_015" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_016" particle = "pirate_01_1_0_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no
+	#	start_event = { trigger_once = yes sound = { soundeffect = "pirate_battleship_idle" } }
+		event = { time = 0.0 node = "explosion1" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_large" } }
+		event = { time = 1.6 node = "explosion2" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 2.0 node = "explosion3" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 2.6 node = "explosion4" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 3.1 node = "explosion5" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_large" } }
+		event = { time = 3.7 node = "explosion6" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 4.0 node = "explosion7" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 4.3 node = "explosion8" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_small" } }
+		event = { time = 5.6 node = "explosion9" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "station_explosion_large" } }
+		event = { time = 6.0 node = "explosion10" particle = "ship_explosion_particle" keep_particle = yes sound = { soundeffect = "ship_destroyed_big_explosion" } }
+	}
+}
+
+entity = {
+	name = "pirate_01_galleon_destroyed_entity"
+	pdxmesh = "pirate_01_galleon_destroyed_mesh"
+	scale = 2.7
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5 }
+}
+
+animation = {
+	name = "pirate_01_galleon_idle_animation"
+	file = "pirate_01_galleon_idle.anim"
+}
+
+animation = {
+	name = "pirate_01_galleon_death_animation"
+	file = "pirate_01_galleon_death.anim"
+}

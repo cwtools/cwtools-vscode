@@ -1,0 +1,212 @@
+particle={
+	name="proton_torpedoes_file"
+	subsystem={
+		name="flare"
+		max_amount=25
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/cloud_4.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=255.000
+			z=200.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		start=0.000
+		duration=0.100
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 0.000 0.000 }
+		life={ 0.400 0.200 }
+		emission=200.000
+		size={ 8.000,grow 0.000 }
+		particle_yaw={ 0.000 10.000 }
+		particle_pitch={ 0.000 10.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 50.000 0.000 }
+	}
+	subsystem={
+		name="muzzle_flash"
+		max_amount=25
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/muzzle_flash.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=255.000
+			z=200.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		start=0.000
+		duration=0.100
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 18.000 0.000 }
+		life={ 0.200 0.000 }
+		emission=200.000
+		size={ 10.000,grow 0.000 }
+		particle_yaw={ -90.000 0.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 0.000 }
+	}
+	subsystem={
+		name="flames_forward_big"
+		max_amount=25
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/cloud_3.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=255.000
+			z=200.000
+			alpha=10.000,alpha_fade
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		start=0.000
+		duration=0.100
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity={ 12.000 0.000 }
+		life={ 0.400 0.000 }
+		emission=200.000
+		size={ 15.000,grow 0.000 }
+		particle_yaw={ 90.000 10.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 0.000 }
+	}
+	subsystem={
+		name="sparks"
+		max_amount=25
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/cloud_3.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=255.000
+			z=255.000
+			alpha=255.000,alpha_fade
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		start=0.000
+		duration=0.100
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 25.000 }
+		velocity_yaw={ 0.000 25.000 }
+		velocity={ 12.000 10.000 }
+		life={ 0.400 0.000 }
+		emission=200.000
+		size={ 1.000,grow 0.000 }
+		particle_yaw={ 90.000 10.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 0.000 }
+	}
+	animation={
+		name="alpha_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.235 0.906 0.394 0.578 0.541 0.148 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.055 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

@@ -1,0 +1,29 @@
+objectTypes = {
+	pdxmesh = {
+		name = "reptilian_01_colossus_mesh"
+		file = "gfx/models/ships/colossus/reptilian_01/reptilian_01_colossus.mesh"
+		
+		animation = { id = "idle"		type = "reptilian_01_colossus_idle_animation" }
+		animation = { id = "open"		type = "reptilian_01_colossus_open_animation" }
+		animation = { id = "opening"	type = "reptilian_01_colossus_opening_animation" }
+		animation = { id = "closing"	type = "reptilian_01_colossus_closing_animation" }
+		
+		meshsettings = {
+			name = "polySurface101Shape"
+			index = 0
+			texture_diffuse = "reptilian_01_colossus_diffuse.dds"
+			texture_normal = "reptilian_01_colossus_normal.dds"
+			texture_specular = "reptilian_01_colossus_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "polySurface101Shape"
+			index = 1
+			texture_diffuse = "reptilian_01_colossus_glass_diffuse.dds"
+			texture_normal = "reptilian_01_colossus_glass_normal.dds"
+			texture_specular = "reptilian_01_colossus_glass_specular.dds"
+			shader = "AlphaBlendNoDepth"
+		}
+	}
+}

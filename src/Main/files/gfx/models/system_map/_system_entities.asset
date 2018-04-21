@@ -1,0 +1,191 @@
+entity = {
+	name = "navigation_arrow_entity"
+	pdxmesh = "navigation_arrow_mesh"
+	scale = 60.0
+}
+
+entity = {
+	name = "portal_entity"
+	pdxmesh = "portal_mesh"
+	
+	default_state = idle
+	state = { name = "idle"		animation = "idle"		animation_blend_time = 0.3
+		event = { time = 0 node = "root" particle = "portal_inner_effect_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "clock_12_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "clock_3_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "clock_6_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "clock_9_locator" particle = "portal_effect_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 3.0
+}
+
+entity = {
+	name = "project_tracker_system_effect_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "project_tracker_system_effect_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 2.0
+}
+
+entity = {
+	name = "project_tracker_galaxy_effect_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "project_tracker_galaxy_effect_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "planet_notification_red_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 2
+		event = { time = 0 particle = "planet_notification_red_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "planet_notification_yellow_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 2
+		event = { time = 0 particle = "planet_notification_yellow_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "planet_notification_green_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 2
+		event = { time = 0 particle = "planet_notification_green_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "galaxy_notification_red_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 2
+		event = { time = 0 particle = "galaxy_notification_red_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "galaxy_notification_yellow_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 2
+		event = { time = 0 particle = "galaxy_notification_yellow_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "galaxy_notification_green_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 2
+		event = { time = 0 particle = "galaxy_notification_green_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "move_arrow_target_entity"
+	cull_radius = 50.0
+	
+	default_state = idle
+	state = { name = "idle"		state_time = 5
+		event = { time = 0 particle = "project_tracker_galaxy_effect_particle" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "space_mine_entity"
+	pdxmesh = "space_mine_mesh"
+	
+	cull_radius = 50000000.0
+	
+	default_state = idle	
+	state = { name = "idle"	animation = "rotate" 
+		event = { time = 0 particle = "minefield_mine_effect" keep_particle = yes trigger_once = yes }
+	}
+	scale = 1.5
+}
+
+entity = {
+	name = "mine_field_small_entity"
+	pdxmesh = "mine_field_small_mesh"
+	cull_radius = 5000000.0
+		
+		
+	scale = 2.0
+	
+		attach = { locator_01 = "space_mine_entity" }
+		attach = { locator_02 = "space_mine_entity" }
+		attach = { locator_03 = "space_mine_entity" }
+		attach = { locator_04 = "space_mine_entity" }
+		attach = { locator_05 = "space_mine_entity" }
+		attach = { locator_06 = "space_mine_entity" }
+		attach = { locator_07 = "space_mine_entity" }
+		attach = { locator_08 = "space_mine_entity" }
+		attach = { locator_09 = "space_mine_entity" }
+		attach = { locator_10 = "space_mine_entity" }
+		attach = { locator_11 = "space_mine_entity" }
+		attach = { locator_12 = "space_mine_entity" }
+		attach = { locator_13 = "space_mine_entity" }
+		attach = { locator_14 = "space_mine_entity" }
+		attach = { locator_15 = "space_mine_entity" }
+		attach = { locator_16 = "space_mine_entity" }
+		attach = { locator_17 = "space_mine_entity" }
+		attach = { locator_18 = "space_mine_entity" }
+		attach = { locator_19 = "space_mine_entity" }
+		attach = { locator_20 = "space_mine_entity" }
+	
+}
+
+entity = {
+	name = "construction_slot_GUI_entity"
+	pdxmesh = "construction_slot_GUI_mesh"
+	cull_radius = 250.0
+	default_state = "rotate"
+	state = { name = "rotate" animation = "rotate" }
+	scale = 0.9
+}
+
+entity = {
+	name = "fleet_selection_GUI_entity"
+	pdxmesh = "fleet_selection_GUI_mesh"
+	cull_radius = 250.0
+	default_state = "rotate"
+	state = { name = "rotate" animation = "rotate" }
+	scale = 0.9
+}

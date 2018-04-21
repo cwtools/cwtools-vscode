@@ -1,0 +1,969 @@
+objectTypes = {
+
+	
+	########################################################################
+	########														########
+	########					Test stuff							########
+	########														########
+	########################################################################
+			
+#	pdxmesh = {
+#		name = "mammalian_01_missile_mesh"
+#		file = "gfx/models/ships/mammalian_01/mammalian_01_missile_medium.mesh"
+#		scale = 1
+#		meshsettings = {
+#			shader = "PdxMeshShip"
+#			
+#		}
+#	}
+		
+	#######  Turrets  #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_projectile_large_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_projectile_large.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_projectile_medium_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_projectile_medium.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_medium_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_medium_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_projectile_small_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_projectile_small.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_small_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_small_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_missile_large_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_missile_large.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_missile_medium_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_missile_medium.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_medium_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_medium_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_missile_small_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_missile_small.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_small_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_small_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_turret_point_defence_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_point_defence.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_small_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_small_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	#######  corvette frame  #######
+	
+	#pdxmesh = {
+	#	name = "mammalian_01_corvette_frame_mesh"
+	#	file = "gfx/models/ships/mammalian_01/mammalian_01_corvette_frame.mesh"
+	#			animation = { id = "idle"			type = "mammalian_01_corvette_frame_idle_animation" }
+	#			animation = { id = "death"			type = "mammalian_01_corvette_frame_death_animation" }
+	#			animation = { id = "attack"			type = "mammalian_01_corvette_frame_idle_animation" }				
+	#	scale = 1.0
+	#}
+	
+	#######  corvette sections  #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_corvette_M1S1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_corvette_M1S1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		
+		#Mipmap tweaking
+		#texture_diffuse = "512x512.dds"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_corvette_S3_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_corvette_S3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			
+		#Mipmap tweaking
+		#texture_diffuse = "512x512.dds"
+		}
+	}	
+	
+		pdxmesh = {
+		name = "mammalian_01_corvette_S1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_corvette_S1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			
+		#Mipmap tweaking
+		#texture_diffuse = "512x512.dds"
+		}
+	}	
+	
+	
+	
+	#######  destroyer frame  #######
+	
+	#pdxmesh = {
+	#	name = "mammalian_01_destroyer_frame_mesh"
+	#	file = "gfx/models/ships/mammalian_01/mammalian_01_destroyer_frame.mesh"
+	#			animation = { id = "idle"			type = "mammalian_01_destroyer_frame_idle_animation" }
+	#			animation = { id = "death"			type = "mammalian_01_destroyer_frame_death_animation" }
+	#			animation = { id = "attack"			type = "mammalian_01_destroyer_frame_idle_animation" }				
+	#	scale = 1.0
+	#}
+	
+	#######  destroyer bow sections  #######	
+
+	pdxmesh = {
+		name = "mammalian_01_destroyer_bow_L1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_destroyer_bow_L1.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface8Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_destroyer_diffuse.dds"
+			texture_normal = "mammalian_01_destroyer_normal.dds"
+			texture_specular = "mammalian_01_destroyer_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_destroyer_bow_M1S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_destroyer_bow_M1S2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface58Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_destroyer_diffuse.dds"
+			texture_normal = "mammalian_01_destroyer_normal.dds"
+			texture_specular = "mammalian_01_destroyer_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_destroyer_bow_S3_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_destroyer_bow_S3.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "mammalian_01_destroyer_diffuse.dds"
+			texture_normal = "mammalian_01_destroyer_normal.dds"
+			texture_specular = "mammalian_01_destroyer_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	#######  destroyer stern sections  #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_destroyer_stern_S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_destroyer_stern_S2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "mammalian_01_destroyer_diffuse.dds"
+			texture_normal = "mammalian_01_destroyer_normal.dds"
+			texture_specular = "mammalian_01_destroyer_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_destroyer_stern_M1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_destroyer_stern_M1.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "mammalian_01_destroyer_diffuse.dds"
+			texture_normal = "mammalian_01_destroyer_normal.dds"
+			texture_specular = "mammalian_01_destroyer_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	
+	#######  cruiser frame  #######
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_frame_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_frame.mesh"
+				animation = { id = "idle"			type = "mammalian_01_cruiser_frame_idle_animation" }
+				animation = { id = "death"			type = "mammalian_01_cruiser_frame_death_animation" }
+				animation = { id = "death2"			type = "mammalian_01_cruiser_frame_death2_animation" }
+				animation = { id = "death3"			type = "mammalian_01_cruiser_frame_death3_animation" }
+				animation = { id = "attack"			type = "mammalian_01_cruiser_frame_idle_animation" }				
+				animation = { id = "moving"			type = "mammalian_01_cruiser_frame_idle_animation" }				
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+	
+	#######  cruiser bow sections  #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_bow_L1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_bow_L1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_cruiser_bow_M1S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_bow_M1S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_bow_M2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_bow_M2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+		
+	#######  cruiser mid sections  #######			
+		
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_mid_S2HB_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_mid_S2HB.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_mid_L1M1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_mid_L1M1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+				
+	pdxmesh = {
+		name = "mammalian_01_cruiser_mid_M3_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_mid_M3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}		
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_mid_M2S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_mid_M2S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+	
+	#######  cruiser stern sections  #######	
+		
+	pdxmesh = {
+		name = "mammalian_01_cruiser_stern_M1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_stern_M1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_cruiser_stern_S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_cruiser_stern_S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}		
+	
+	
+	
+	#######  Battleship frame  #######
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_frame_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_frame.mesh"
+				animation = { id = "idle"			type = "mammalian_01_battleship_frame_idle_animation" }
+				animation = { id = "death"			type = "mammalian_01_battleship_frame_death_animation" }
+				animation = { id = "death2"			type = "mammalian_01_battleship_frame_death2_animation" }
+				animation = { id = "death3"			type = "mammalian_01_battleship_frame_death3_animation" }
+		#		animation = { id = "attack"			type = "mammalian_01_battleship_frame_idle_animation" }				
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	#######  Battleship bow sections  #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_bow_L1M1S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_L1M1S2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1300Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_bow_L1S4_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_L1S4.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface1303Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}	
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_bow_L2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_L2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1301Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_bow_M1S2SHB_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_M1S2SHB.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1302Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+		pdxmesh = {
+		name = "mammalian_01_battleship_bow_M2S4_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_M2S4.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1293Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_bow_M3S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_M3S2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1299Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+
+		
+
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_bow_XL1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_bow_XL1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+		#texture_diffuse = "2x2.dds"
+		}
+	}	
+		
+	#######  Battleship mid sections  #######			
+		
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_mid_L1M4_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_mid_L1M4.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1296Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	
+		pdxmesh = {
+		name = "mammalian_01_battleship_mid_L2M2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_mid_L2M2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1292Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}	
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_mid_L2S4_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_mid_L2S4.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1291Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_mid_L3_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_mid_L3.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1290Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_mid_M4SHB_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_mid_M4SHB.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1297Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_battleship_mid_S4LHB_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_mid_S4LHB.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1298Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+				
+		
+	#######  Battleship stern sections  #######	
+		
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_stern_L1_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_stern_L1.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "mammalian_battleshio_stern_01Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_stern_M1S2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_stern_M1S2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1295Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}	
+
+	pdxmesh = {
+		name = "mammalian_01_battleship_stern_M2_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_stern_M2.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "mammalian_battleship_stern_m2Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_battleship_stern_S4_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_battleship_stern_S4.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "rigg:polySurface1294Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+
+	
+	#######  civilian frame  #######
+	
+	####### small ships  #######	
+	pdxmesh = {
+		name = "mammalian_01_bomber_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_bomber.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_launcher_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_launcher.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+		pdxmesh = {
+		name = "mammalian_01_fighter_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_fighter.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	####### stations #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_terraforming_station_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_terraforming_station.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_main.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"			type = "mammalian_01_orbital_station_main_idle_animation" }			
+		animation = { id = "death"			type = "mammalian_01_orbital_station_main_death_animation" }
+		
+		meshsettings = {
+			name = "pasted__polySurface322Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_stations_diffuse.dds"
+			texture_normal = "mammalian_01_stations_normal.dds"
+			texture_specular = "mammalian_01_stations_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "pasted__polySurface322Shape"
+			index = 1
+			texture_diffuse = "mammalian_01_corvette_diffuse.dds"
+			texture_normal = "mammalian_01_corvette_normal.dds"
+			texture_specular = "mammalian_01_corvette_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_frame_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_frame.mesh"
+		scale = 1.0
+	}		
+			
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_assemblyyard_section_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_assemblyyard_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_hangarbay_section_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_hangarbay_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_refinery_section_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_refinery_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_science_section_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_science_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_orbital_station_habitat_section_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_orbital_station_habitat_section.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "module_bodyShape"
+			index = 0
+			texture_diffuse = "mammalian_01_station_habitat_module_diffuse.dds"
+			texture_normal = "mammalian_01_station_habitat_module_normal.dds"
+			texture_specular = "mammalian_01_station_habitat_module_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		meshsettings = {
+			name = "module_bodyShape"
+			index = 1
+			texture_diffuse = "mammalian_01_station_habitat_module_diffuse.dds"
+			texture_normal = "mammalian_01_station_habitat_module_normal.dds"
+			texture_specular = "mammalian_01_station_habitat_module_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_science_station_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_science_station.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"			type = "mammalian_01_science_station_idle_animation" }				
+		animation = { id = "death"			type = "mammalian_01_science_station_death_animation" }				
+		
+		
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_military_station_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	
+	
+	
+	pdxmesh = {
+		name = "mammalian_01_military_station_large_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station_large.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_military_station_medium_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station_medium.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_military_station_small_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station_small.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "mammalian_01_military_station_section_heavy_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station_section_heavy.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface30Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_stations_diffuse.dds"
+			texture_normal = "mammalian_01_stations_normal.dds"
+			texture_specular = "mammalian_01_stations_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "polySurfaceShape1"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_military_station_section_medium_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station_section_medium.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface30Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_stations_diffuse.dds"
+			texture_normal = "mammalian_01_stations_normal.dds"
+			texture_specular = "mammalian_01_stations_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "polySurfaceShape3"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+
+	pdxmesh = {
+		name = "mammalian_01_military_station_section_light_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_military_station_section_light.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface30Shape"
+			index = 0
+			texture_diffuse = "mammalian_01_stations_diffuse.dds"
+			texture_normal = "mammalian_01_stations_normal.dds"
+			texture_specular = "mammalian_01_stations_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "mammalian_01_battleship_diffuse.dds"
+			texture_normal = "mammalian_01_battleship_normal.dds"
+			texture_specular = "mammalian_01_battleship_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+
+	
+	pdxmesh = {
+		name = "mammalian_01_mining_station_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_mining_station.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	####### civilian ships  #######	
+	
+	pdxmesh = {
+		name = "mammalian_01_science_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_science.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			#Mipmap tweaking
+		#texture_diffuse = "512x512.dds"
+		}
+		
+		scale = 2.8
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_construction_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_construction.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"						type = "mammalian_01_construction_idle_animation" }
+		animation = { id = "working"					type = "mammalian_01_construction_working_animation" }
+		animation = { id = "working_looping"			type = "mammalian_01_construction_working_looping_animation" }
+		
+		#meshsettings = {
+			#shader = "PdxMeshShip"
+			#Mipmap tweaking
+		#texture_diffuse = "1x512.dds"
+		#}
+	}
+	
+	pdxmesh = {
+		name = "mammalian_01_construction_window_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_construction_window.mesh"
+		scale = 1.0
+	}
+	
+	
+	pdxmesh = {
+		name = "mammalian_01_transport_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_transport.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+		pdxmesh = {
+		name = "mammalian_01_colony_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_colony.mesh"
+		scale = 1.0
+			#meshsettings = {
+			#shader = "PdxMeshShip"
+			#Mipmap tweaking
+		#texture_diffuse = "1x1.dds"
+		#}	
+	}
+	
+}
+
+

@@ -1,0 +1,489 @@
+objectTypes = {
+
+	
+	########################################################################
+	########														########
+	########					Test stuff							########
+	########														########
+	########################################################################
+			
+#	pdxmesh = {
+#		name = "humanoid_01_missile_mesh"
+#		file = "gfx/models/ships/humanoid_01/humanoid_01_missile_medium.mesh"
+#		scale = 1
+#		meshsettings = {
+#			shader = "PdxMeshShip"
+#			
+#		}
+#	}
+		
+	#######  Turrets  #######	
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_projectile_small_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_projectile_small.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_projectile_medium_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_projectile_medium.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_projectile_large_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_projectile_large.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_point_defence_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_point_defence.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_missile_small_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_missile_small.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_missile_medium_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_missile_medium.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_turret_missile_large_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_turret_missile_large.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	#######  corvette frame  #######
+	
+	# No frame needed, copies from molluscoid.
+	
+	#######  corvette sections  #######	
+	
+	pdxmesh = {
+		name = "humanoid_01_corvette_S3_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_corvette_S3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		
+		#Mipmap tweaking
+		#texture_diffuse = "512x512.dds"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_corvette_M1S1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_corvette_m1_s1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		
+		#Mipmap tweaking
+		#texture_diffuse = "512x512.dds"
+		}
+	}
+	
+	
+	
+	#######  destroyer frame  #######
+	
+	# No frame needed, copies from molluscoid.
+	
+	#######  destroyer bow sections  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_destroyer_bow_L1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_destroyer_bow_L1.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_destroyer_bow_M1S2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_destroyer_bow_M1S2.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_destroyer_bow_S3_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_destroyer_bow_S3.mesh"
+	}
+	
+	#######  destroyer stern sections  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_destroyer_stern_S2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_destroyer_stern_S2.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_destroyer_stern_M1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_destroyer_stern_M1.mesh"
+	}
+	
+	#######  cruiser frame  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_cruiser_frame_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_frame.mesh"
+				animation = { id = "idle"			type = "humanoid_01_cruiser_frame_idle_animation" }
+				animation = { id = "death"			type = "humanoid_01_cruiser_frame_death_animation" }
+				animation = { id = "death2"			type = "humanoid_01_cruiser_frame_death2_animation" }
+				animation = { id = "death3"			type = "humanoid_01_cruiser_frame_death3_animation" }
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			
+			#Mipmap tweaking
+			#texture_diffuse = "1x1.dds"
+		}
+	}
+	
+	#######  cruiser bow sections  #######
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_bow_M2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_bow_M2.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_bow_M1S2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_bow_M1S2.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_bow_L1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_bow_L1.mesh"
+	}
+	
+	#######  cruiser mid sections  #######
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_mid_M3_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_mid_M3.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_mid_M2S2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_mid_M2S2.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_mid_S2HB_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_mid_S2HB.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_mid_L1M1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_mid_L1M1.mesh"
+	}
+	
+	#######  cruiser stern sections  #######
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_stern_M1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_stern_M1.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_cruiser_stern_S2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_cruiser_stern_S2.mesh"
+	}
+	
+	
+	
+	#######  Battleship frame  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_frame_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_frame.mesh"
+				animation = { id = "idle"			type = "humanoid_01_battleship_frame_idle_animation" }
+				animation = { id = "death"			type = "humanoid_01_battleship_frame_death_animation" }
+				animation = { id = "death2"			type = "humanoid_01_battleship_frame_death2_animation" }
+				animation = { id = "death3"			type = "humanoid_01_battleship_frame_death3_animation" }
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	#######  Battleship bow sections  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_bow_M1S2SHB_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_bow_M1S2SHB.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_battleship_bow_L1M1S2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_bow_L1M1S2.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_battleship_bow_L2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_bow_L2.mesh"
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_battleship_bow_XL1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_bow_XL1.mesh"
+	}
+
+	#######  Battleship mid sections  #######
+
+	pdxmesh = {
+		name = "humanoid_01_battleship_mid_L3_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_mid_L3.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_mid_L2M2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_mid_L2M2.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_mid_S4LHB_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_mid_S4LHB.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_mid_M4SHB_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_mid_M4SHB.mesh"
+	}
+	
+	#######  Battleship stern sections  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_stern_M2_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_stern_M2.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_battleship_stern_L1_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_battleship_stern_L1.mesh"
+	}
+	
+	#######  civilian frame  #######
+	
+	pdxmesh = {
+		name = "humanoid_01_construction_ship_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_construction_ship.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"				type = "humanoid_01_construction_ship_idle_animation" }
+		animation = { id = "working_looping"	type = "humanoid_01_construction_ship_working_looping_animation" }
+		animation = { id = "working"			type = "humanoid_01_construction_ship_working_animation" }
+
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_construction_forcefield_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_construction_forcefield.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_science_ship_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_science_ship.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_science_ship_sphere_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_science_ship_sphere.mesh"
+		scale = 1.0
+
+		animation = { id = "idle"			type = "humanoid_01_science_ship_sphere_idle_animation" }
+
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_transport_ship_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_transport_ship.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_colony_ship_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_colony_ship.mesh"
+		scale = 1.0
+		#meshsettings = {
+		#	shader = "PdxMeshShip"
+		#}
+	}
+	
+	####### small ships  #######	
+	
+	pdxmesh = {
+		name = "humanoid_01_bomber_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_bomber.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_droppod_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_droppod.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+		pdxmesh = {
+		name = "humanoid_01_fighter_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_fighter.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	####### stations #######
+
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_frame_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_frame.mesh"
+		scale = 1.0
+	}
+
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_science_section_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_science_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_refinery_section_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_refinery_section.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_hangarbay_section_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_hangarbay_section.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_assemblyyard_section_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_assemblyyard_section.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_habitat_section_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_habitat_section.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "humanoid_01_orbital_station_hydroponics_section_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_orbital_station_hydroponics_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_mining_station_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_mining_station.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_research_station_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_research_station.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_military_station_large_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_military_station_large.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_military_station_medium_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_military_station_medium.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_military_station_small_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_military_station_small.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_military_station_section_heavy_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_military_station_section_heavy.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_military_station_section_medium_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_military_station_section_medium.mesh"
+	}
+	
+	pdxmesh = {
+		name = "humanoid_01_military_station_section_light_mesh"
+		file = "gfx/models/ships/humanoid_01/humanoid_01_military_station_section_light.mesh"
+	}
+	
+	####### civilian ships  #######
+
+}

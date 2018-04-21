@@ -1,0 +1,318 @@
+particle = {
+	name = "axis_file"
+
+	# SMOKE
+	subsystem = {
+	
+	
+	
+#	  emitter_type = "sphere" #"box" #"point" #"sphere"
+#	  sphere_emitter_radius = { 10 1 }
+#	  sphere_emitter_yaw = { 0 90 }
+#	  sphere_emitter_pitch = { 0 90 }
+#	  
+#	  #box_emitter_x = { 15 5 }
+#	  #box_emitter_y = { 0 1 }
+#	  #box_emitter_z = { 0 10 }
+#	  
+#	  velocity_yaw =  { 0 0 }
+#	  velocity_pitch = { 0 0 }  flipped   90 = -90     -90 = 90
+#
+#	  emitter_yaw = { 0 0 }    flipped   90 = -90     -90 = 90
+#	  emitter_pitch = { 0 0 }  flipped   90 = -90     -90 = 90
+	
+	
+	
+	
+
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200
+		
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAlphaBlend"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/fire02.dds"  
+			x = 1	
+			y = 1	
+		}
+		
+		position 		= {	x = -0.45 y = 0.5 z = 1.2 }
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		start = { 0 }				
+		duration = -1
+		emission = { 6 }
+		
+		velocity = { 10.4 }
+		velocity_pitch = { 0 0 }
+		velocity_yaw =  { 0 180 }
+		
+		rotation = { 0,spin 180 }
+	
+		life = { 12 2 }
+		size = { 3,fire_size 0.5  }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+
+		color = { 
+			r = { 230 }
+			g = { 230 }
+			b = { 230 }
+			alpha = { 25,fire_fade } 
+		}
+
+
+
+
+
+		# Forces
+		force = gravity, chaos
+	}	
+
+		# X AXIS
+		subsystem = {
+	
+
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200 #200
+		
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flame.dds"  
+			x = 2	
+			y = 2	
+		}
+		
+		position = { 	x = 0.0	y = 0.0	z = 0.0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }	
+		
+		start = { 0 }				
+		duration = -1
+
+		emission = { 100 3 }
+		
+		velocity = { 200 }
+		velocity_pitch = { 0 0 }
+		velocity_yaw =  { -90 0 }
+		
+		rotation = { 180 }
+
+		life = { 1.0 }
+		size = { 0.5 0  }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+
+		color = { 
+			r = { 255 }
+			g = { 0 }
+			b = { 0 }
+			alpha = { 255 }
+		}
+
+		
+
+
+		# Forces
+		#force = chaos
+	}	
+
+		# Y AXIS
+		subsystem = {
+	
+
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200 #200
+		
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flame.dds"  
+			x = 2	
+			y = 2	
+		}
+		
+		position		 = { x = 0.0	y = 0.0	z = 0.0 }
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		start = { 0 }				
+		duration = -1
+		emission = { 100 3 }
+		
+		velocity = { 2000 }
+		velocity_pitch = { 90 0 }
+		velocity_yaw =  { 0 0 }
+		
+		rotation = { 180 }
+
+		life = { 1 }
+		size = { 0.5 0  }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+
+		color = { 
+			r = { 0 }
+			g = { 255 }
+			b = { 0 }
+			alpha = { 255 }
+		}
+
+
+		# Forces
+		#force = chaos
+	}	
+
+		# Z AXIS
+		subsystem = {
+	
+
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200 #200
+		
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flame.dds"  
+			x = 2	
+			y = 2	
+		}
+		
+		position 		= { x = 0.0 y = 0.0 z = 0.0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		start = { 0 }				
+		duration = -1
+		emission = { 100 3 }
+
+		velocity = { 20000 }		
+		velocity_pitch = { 0 0 }
+		velocity_yaw =  { 0 0 }
+		
+		rotation = { 180 }
+		
+
+		life = { 1 }
+		size = { 0.5 0  }
+		rotation = { 60 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+
+		color = { 
+			r = { 0 }
+			g = { 0 }
+			b = { 255 }
+			alpha = { 255,fire_fade }
+		}
+
+
+
+
+		# Forces
+		#force = chaos
+	}	
+
+
+	
+# Bloom
+
+
+
+
+
+
+	animation = {
+		time = "life"
+		name = "fire_fade"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 0
+			0.2	1
+			0.4 1
+			1 0 
+		}
+	}	
+	
+	animation = {
+		time = "life"
+		name = "spin"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 0.5
+		curve = { 
+			0 0
+			1 1 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "fire_size"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 3
+		curve = { 
+			0 0
+			1 1
+		}
+	}
+	
+	force = {
+		type = "planar"
+		name = "gravity"
+		direction = { 0.0 -1 0.0 }
+		amount = 0.05
+	}
+	
+		force = {
+		type = "turbulence"
+		name = "chaos"
+		amount = 0.0
+	}
+	
+	#force = {
+	#	type = "vortex"
+	#	name = "spin"
+	#	position = { 0 0 0}
+	#	direction = { 0.1 0.5 0.1 }
+	#	amount = 5
+	#	yaw = 90
+	#}
+	
+}
+
+

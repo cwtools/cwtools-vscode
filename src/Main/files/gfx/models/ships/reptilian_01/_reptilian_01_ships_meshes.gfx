@@ -1,0 +1,769 @@
+objectTypes = {
+
+	
+	########################################################################
+	########														########
+	########					Test stuff							########
+	########														########
+	########################################################################
+	
+#	pdxmesh = {
+#		name = "test_fighter_mesh"
+#		file = "gfx/models/test_fighter.mesh"
+#		scale = 1.0
+#	}	
+	
+		
+#	pdxmesh = {
+#		name = "reptilian_01_missile_mesh"
+#		file = "gfx/models/ships/reptilian_01/reptilian_01_missile_medium.mesh"
+#		scale = 1
+#		meshsettings = {
+#			shader = "PdxMeshShip"
+#		}
+#	}
+		
+	#	pdxmesh = {
+	#		name = "one_part_ship_frame_mesh"
+	#		file = "gfx/models/ships/reptilian_01/one_part_ship_frame.mesh"
+	#				animation = { id = "idle"			type = "one_part_ship_frame_idle_animation" }
+	#				animation = { id = "death"			type = "one_part_ship_frame_death_animation" }
+	#		scale = 1.0
+	#	}
+		
+	#	pdxmesh = {
+	#		name = "two_part_ship_frame_mesh"
+	#		file = "gfx/models/ships/reptilian_01/two_part_ship_frame.mesh"
+	#				animation = { id = "idle"			type = "two_part_ship_frame_idle_animation" }
+	#				animation = { id = "death"			type = "two_part_ship_frame_death_animation" }
+	#		scale = 1.0
+	#	}
+		
+	#	pdxmesh = {
+	#		name = "two_part_ship_front_mesh"
+	#		file = "gfx/models/ships/reptilian_01/two_part_ship_front.mesh"
+	#		scale = 1.0
+	#	}
+	
+	#	pdxmesh = {
+	#		name = "two_part_ship_back_mesh"
+	#		file = "gfx/models/ships/reptilian_01/two_part_ship_back.mesh"
+	#		scale = 1.0
+	#	}	
+	
+	#	pdxmesh = {
+	#		name = "turret_mesh"
+	#		file = "gfx/models/ships/reptilian_01/turret.mesh"
+	#		scale = 1.0
+	#	}
+		
+	#######  Civilian Ships  #######
+	
+	pdxmesh = {
+		name = "reptilian_01_science_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_science.mesh"
+		scale = 1.5
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+		
+	pdxmesh = {
+		name = "reptilian_01_construction_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_construction.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"						type = "reptilian_01_construction_idle_animation" }
+		animation = { id = "working"					type = "reptilian_01_construction_working_start_animation" }
+		animation = { id = "working_looping"			type = "reptilian_01_construction_working_looping_animation" }
+
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#	}
+	}	
+			
+	pdxmesh = {
+		name = "reptilian_01_colony_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_colony.mesh"
+		scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#	}
+	}	
+				
+	pdxmesh = {
+		name = "reptilian_01_transport_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_transport.mesh"
+		scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#	}
+	}	
+	
+	
+	#######  Turrets  #######	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_projectile_large_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_projectile_large.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_projectile_medium_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_projectile_medium.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_medium_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_medium_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_projectile_small_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_projectile_small.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_small_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_small_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_missile_large_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_missile_large.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_large_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_large_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_missile_medium_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_missile_medium.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_medium_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_medium_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_missile_small_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_missile_small.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_small_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_small_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_turret_point_defence_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_turret_point_defence.mesh"
+		#	animation = { id = "idle"		type = "turret_projectile_small_idle_animation" }
+		#	animation = { id = "attack"		type = "turret_projectile_small_attack_animation" }	
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	
+	#######  missile  ########
+	
+	#	pdxmesh = {
+	#		name = "missilerig_mesh"
+	#		file = "gfx/models/ships/reptilian_01/missilerig.mesh"
+	#				animation = { id = "idle" type = "missilerig_idle_animation" }
+	#				animation = { id = "launch" type = "missilerig_launch_animation" }
+	#		scale = 1.0
+	#	}
+		
+	#######  escorts  ########
+	
+		pdxmesh = {
+			name = "reptilian_01_bomber_mesh"
+			file = "gfx/models/ships/reptilian_01/reptilian_01_bomber.mesh"
+    
+			scale = 1.0
+		}
+		pdxmesh = {
+			name = "reptilian_01_fighter_mesh"
+			file = "gfx/models/ships/reptilian_01/reptilian_01_fighter.mesh"
+    
+			scale = 1.0
+		}
+		pdxmesh = {
+			name = "reptilian_01_droppod_mesh"
+			file = "gfx/models/ships/reptilian_01/reptilian_01_droppod.mesh"
+    
+			scale = 1.0
+		}
+	
+	#######  corvette frame  #######
+	
+	#pdxmesh = {
+	#	name = "reptilian_01_corvette_frame_mesh"
+	#	file = "gfx/models/ships/reptilian_01/reptilian_01_corvette_frame.mesh"
+	#			animation = { id = "idle"			type = "reptilian_01_corvette_frame_idle_animation" }
+	#			animation = { id = "death"			type = "reptilian_01_corvette_frame_death_animation" }
+	#			animation = { id = "attack"			type = "reptilian_01_corvette_frame_idle_animation" }				
+	#	scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#	}
+	#}
+	
+	#######  corvette sections  #######	
+	
+	pdxmesh = {
+		name = "reptilian_01_corvette_test_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_corvette_s1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_corvette_M1S1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_corvette_M1S1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_corvette_S3_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_corvette_S3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_corvette_S1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_corvette_s1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+
+	
+	
+	
+	#######  destroyer frame  #######
+	
+	#pdxmesh = {
+	#	name = "reptilian_01_destroyer_frame_mesh"
+	#	file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer_frame.mesh"
+	#			animation = { id = "idle"			type = "reptilian_01_destroyer_frame_idle_animation" }
+	#			animation = { id = "death"			type = "reptilian_01_destroyer_frame_death_animation" }
+	#			animation = { id = "attack"			type = "reptilian_01_destroyer_frame_idle_animation" }				
+	#	scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#	}
+	#}
+	
+	pdxmesh = {
+		name = "reptilian_01_destroyer_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer.mesh"			
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	#######  destroyer bow sections  #######	
+	
+	pdxmesh = {
+		name = "reptilian_01_destroyer_bow_L1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer_bow_L1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_destroyer_bow_M1S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer_bow_M1S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_destroyer_bow_S3_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer_bow_S3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	#######  destroyer stern sections  #######	
+		
+	pdxmesh = {
+		name = "reptilian_01_destroyer_stern_S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer_stern_S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_destroyer_stern_M1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_destroyer_stern_M1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	
+	#######  cruiser frame  #######
+	
+	#pdxmesh = {
+	#	name = "reptilian_01_cruiser_frame_mesh"
+	#	file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_frame.mesh"
+	#		animation = { id = "idle"			type = "reptilian_01_cruiser_frame_idle_animation" }
+	#		animation = { id = "death"			type = "reptilian_01_cruiser_frame_death_animation" }
+	#		animation = { id = "death2"			type = "reptilian_01_cruiser_frame_death2_animation" }				
+	#		animation = { id = "death3"			type = "reptilian_01_cruiser_frame_death3_animation" }				
+	#	scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#	}
+	#}
+	
+	#######  cruiser bow sections  #######	
+	
+	pdxmesh = {
+		name = "reptilian_01_cruiser_bow_L1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_bow_L1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_cruiser_bow_M1S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_bow_M1S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_cruiser_bow_M2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_bow_M2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	#######  cruiser mid sections  #######			
+		
+	
+	pdxmesh = {
+		name = "reptilian_01_cruiser_mid_S2HB_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_mid_S2HB.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_cruiser_mid_L1M1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_mid_L1M1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+				
+	pdxmesh = {
+		name = "reptilian_01_cruiser_mid_M3_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_mid_M3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}		
+	
+	pdxmesh = {
+		name = "reptilian_01_cruiser_mid_M2S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_mid_M2S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	#######  cruiser stern sections  #######	
+		
+	pdxmesh = {
+		name = "reptilian_01_cruiser_stern_S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_stern_S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}		
+	
+	pdxmesh = {
+		name = "reptilian_01_cruiser_stern_M1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_cruiser_stern_M1.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface582Shape"
+			index = 0
+			texture_diffuse = "reptilian_01_cruiser_diffuse.dds"
+			texture_normal = "reptilian_01_cruiser_normal.dds"
+			texture_specular = "reptilian_01_cruiser_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+
+
+	
+	
+	
+	#######  Battleship frame  #######
+	
+	pdxmesh = {
+		name = "reptilian_01_battleship_frame_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_frame.mesh"
+				animation = { id = "idle"			type = "reptilian_01_battleship_frame_idle_animation" }
+				animation = { id = "death"			type = "reptilian_01_battleship_frame_death_animation" }
+				animation = { id = "death2"			type = "reptilian_01_battleship_frame_death2_animation" }
+				animation = { id = "death3"			type = "reptilian_01_battleship_frame_death3_animation" }
+				animation = { id = "attack"			type = "reptilian_01_battleship_frame_idle_animation" }				
+		scale = 1.0
+		#	meshsettings = {
+		#		shader = "PdxMeshShip"
+		#	}
+	}
+	
+	#######  Battleship bow sections  #######	
+	
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_L1M1S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_L1M1S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_L1S4_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_L1S4.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_L2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_L2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_M1S2SHB_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_M1S2SHB.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_M2S4_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_M2S4.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_M3S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_M3S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_battleship_bow_XL1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_bow_XL1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+		
+	#######  Battleship mid sections  #######			
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_mid_L2S4_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_mid_L2S4.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_mid_L1M4_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_mid_L1M4.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_mid_L2M2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_mid_L2M2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_mid_L3_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_mid_L3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_mid_M4SHB_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_mid_M4SHB.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_mid_S4LHB_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_mid_S4LHB.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+		
+	#######  Battleship stern sections  #######	
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_stern_L1_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_stern_L1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_battleship_stern_M1S2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_stern_M1S2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}		
+		
+	pdxmesh = {
+		name = "reptilian_01_battleship_stern_m2_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_stern_M2.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_battleship_stern_S4_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_battleship_stern_S4.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	#######  Stations  #######	
+	
+	
+pdxmesh = {
+		name = "reptilian_01_science_station_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_science_station.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_mining_station_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_mining_station.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_terraforming_station_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_terraforming_station.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_large_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_large.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_medium_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_medium.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_small_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_small.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_section_heavy_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_section_heavy.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_section_medium_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_section_medium.mesh"
+		scale = 1.0
+	}	
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_section_light_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_section_light.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_frame_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station_frame.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_science_section_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station_science_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_assemblyyard_section_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station_assemblyyard_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_hangar_section_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station_hangar_section.mesh"
+		scale = 1.0
+	}
+
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_refinery_section_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station_refinery_section.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_orbital_station_habitat_section_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_orbital_station_habitat_section.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "module_bodyShape"
+			index = 0
+			texture_diffuse = "reptilian_01_orbital_station_habitat_module_diffuse.dds"
+			texture_normal = "reptilian_01_orbital_station_habitat_module_normal.dds"
+			texture_specular = "reptilian_01_orbital_station_habitat_module_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "module_bodyShape"
+			index = 1
+			texture_diffuse = "reptilian_01_orbital_station_habitat_module_diffuse.dds"
+			texture_normal = "reptilian_01_orbital_station_habitat_module_normal.dds"
+			texture_specular = "reptilian_01_orbital_station_habitat_module_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_small_test_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_small_test.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_medium_test_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_medium_test.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "reptilian_01_military_station_large_test_mesh"
+		file = "gfx/models/ships/reptilian_01/reptilian_01_military_station_large_test.mesh"
+		scale = 1.0
+	}
+}
+
+	

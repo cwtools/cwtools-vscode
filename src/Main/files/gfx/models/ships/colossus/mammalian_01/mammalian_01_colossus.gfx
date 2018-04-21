@@ -1,0 +1,48 @@
+objectTypes = {
+	pdxmesh = {
+		name = "mammalian_01_colossus_mesh"
+		file = "gfx/models/ships/colossus/mammalian_01/mammalian_01_colossus.mesh"
+		
+		animation = { id = "idle"			type = "mammalian_01_colossus_idle_animation" }
+		animation = { id = "open"			type = "mammalian_01_colossus_open_animation" }
+		animation = { id = "opening"		type = "mammalian_01_colossus_opening_animation" }
+		animation = { id = "closing"		type = "mammalian_01_colossus_closing_animation" }
+		
+		meshsettings = {
+			name = "ship_meshShape"
+			index = 0
+			texture_diffuse = "mammalian_01_colossus_diffuse.dds"
+			texture_normal = "mammalian_01_colossus_normal.dds"
+			texture_specular = "mammalian_01_colossus_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_colossus_rings_mesh"
+		file = "gfx/models/ships/colossus/mammalian_01/mammalian_01_colossus_rings.mesh"
+		
+		animation = { id = "idle"			type = "mammalian_01_colossus_rings_idle_animation" }
+		
+		meshsettings = {
+			name = "rings_meshShape"
+			index = 0
+			texture_diffuse = "mammalian_01_colossus_diffuse.dds"
+			texture_normal = "mammalian_01_colossus_normal.dds"
+			texture_specular = "mammalian_01_colossus_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_colossus_sphere_contents_mesh"
+		file = "gfx/models/ships/colossus/mammalian_01/mammalian_01_colossus_sphere_contents.mesh"
+		
+		animation = { id = "idle"			type = "mammalian_01_colossus_sphere_idle_animation" }
+	}
+		
+	pdxmesh = {
+		name = "mammalian_01_colossus_sphere_mesh"
+		file = "gfx/models/ships/colossus/mammalian_01/mammalian_01_colossus_sphere.mesh"
+	}
+}

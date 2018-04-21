@@ -1,0 +1,191 @@
+entity = {
+	name = "npf_01_dirty_turret_small_entity"
+	pdxmesh = "npf_01_dirty_turret_small_mesh"
+}
+
+entity = {
+	name = "npf_01_dirty_large_turret_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+}
+
+
+entity = {
+	name = "npf_01_dirty_turret_energy_torpedo_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_turret_torpedo_entity"
+	pdxmesh = "npf_01_dirty_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_turret_missile_large_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_turret_missile_medium_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_turret_missile_small_entity"
+	pdxmesh = "npf_01_dirty_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_large_kinetic_gun_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_medium_kinetic_gun_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_small_kinetic_gun_entity"
+	pdxmesh = "npf_01_dirty_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_turret_point_defence_entity"
+	pdxmesh = "npf_01_dirty_turret_small_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_large_laser_gun_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_medium_laser_gun_entity"
+	pdxmesh = "npf_01_dirty_large_turret_mesh"
+	scale = 1.0
+}
+
+entity = {
+	name = "npf_01_dirty_small_laser_gun_entity"
+	pdxmesh = "npf_01_dirty_turret_small_mesh"
+	scale = 1.0
+}
+
+
+entity = {
+	name = "npf_01_dirty_npc_warship_01_entity"
+	pdxmesh = "locator_mesh"
+	locator = { name = "part1" 	position = { 0 0 0 } }
+	locator = { name = "explosion" 	position = { 0 -15 -50 } }
+	cull_radius = 10.0
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5 }
+	state = { name = "moving" state_time = 5 }
+	state = { name = "death" state_time = 8.9 looping = no
+		event = { time = 8.8 node = "explosion" particle = "dreadnought_explosion_particle" keep_particle = yes }
+	}
+}
+
+entity = {
+	name = "npf_01_dirty_npc_warship_01_hull_entity"
+	pdxmesh = "npf_01_dirty_npc_warship_01_mesh"
+	
+	scale = 2.5
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle"
+		start_event = { trigger_once = yes sound = { soundeffect = "dreadnaught_idle" } }
+		
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		#event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "engine_large_01" particle = "mammalian_01_3_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_05" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_06" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "engine_medium_07" particle = "mammalian_01_2_35_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_01" particle = "mammalian_01_1_45_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_02" particle = "mammalian_01_1_45_exhaust_idle_particle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "idle"
+	#	start_event = { trigger_once = yes sound = { soundeffect = "dreadnaught_idle" } }
+	
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		#event = { time = 0 node = "light_locator_02" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "engine_large_01" particle = "mammalian_01_3_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_01" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_02" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_03" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_04" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_05" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_medium_06" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "engine_medium_07" particle = "mammalian_01_2_35_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_01" particle = "mammalian_01_1_45_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "engine_small_02" particle = "mammalian_01_1_45_ship_exhaust_moving_particle" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no
+		event = { time = 0.0 node = "explosion1" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 1.4 node = "explosion2" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 2.0 node = "explosion3" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 2.8 node = "explosion4" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 3.4 node = "explosion5" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 3.8 node = "explosion6" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 4.4 node = "explosion7" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 5.0 node = "explosion8" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 5.6 node = "explosion9" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 6.0 node = "explosion10" particle = "ship_explosion_particle" keep_particle = yes trigger_once = yes }
+	}
+}
+
+entity = {
+	name = "npf_01_dirty_npc_warship_01_hull_entity2"
+#	pdxmesh = "stellarite_mesh"
+	pdxmesh = "npf_01_dirty_npc_warship_01_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" }	
+		attach = { large_gun_01	 			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_02 	 		= "npf_01_dirty_large_turret_entity" }
+		attach = { small_gun_01 	 		= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_02 	 		= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_03 	 		= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_04_l  			= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_04_r  			= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_05_l  			= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_05_r  			= "npf_01_dirty_turret_small_entity" }
+		attach = { large_gun_03_l  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_03_r  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_04_l  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_04_r  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_05_l  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_05_r  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_06_l  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_06_r  			= "npf_01_dirty_large_turret_entity" }
+		attach = { large_gun_07 	 		= "npf_01_dirty_large_turret_entity" }
+		attach = { small_gun_08 	 		= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_09 	 		= "npf_01_dirty_turret_small_entity" }
+		attach = { small_gun_10 	 		= "npf_01_dirty_turret_small_entity" }
+
+		
+		scale = 2.5
+
+}

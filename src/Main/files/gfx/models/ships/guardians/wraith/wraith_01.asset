@@ -1,0 +1,263 @@
+entity = {
+	name = "wraith_01_blue_entity"
+	pdxmesh = "locator_mesh"
+	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+  
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 6.0
+		ship_color = hsv { 0.55 1.0 0.75 1.0 }
+ 	}
+  
+	cull_radius = 10.0
+  
+}
+
+entity = {
+	name = "wraith_01_red_entity"
+	pdxmesh = "locator_mesh"
+	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+  
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.02 1.0 0.75 1.0 }
+ 	}
+  
+	cull_radius = 10.0
+  
+}
+
+entity = {
+	name = "wraith_01_yellow_entity"
+	pdxmesh = "locator_mesh"
+	
+	locator = { name = "part1" 	position = { 0 0 0 } }
+  
+	game_data = {
+  		raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.09 1.0 0.75 1.0 }
+ 	}
+  
+	cull_radius = 10.0
+  
+}
+
+@wraithScale = 0.75
+
+entity = {
+	name = "wraith_01_blue_section_entity"
+	pdxmesh = "wraith_01_blue_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		start_event = { trigger_once = yes sound = { soundeffect = "wraith_idle"  } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_01" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_02" stop_on_state_change = yes } }
+		
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "moving" 
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { sound = { soundeffect = "wraith_moving" } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_01" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_02" stop_on_state_change = yes } }
+		
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no
+		event = { trigger_once = yes sound = { soundeffect = "wraith_death" } }
+	}
+
+	scale = @wraithScale
+	# XL weapon windup locator names: xl_windup_01-064
+}
+
+entity = {
+	name = "wraith_01_red_section_entity"
+	pdxmesh = "wraith_01_red_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { trigger_once = yes sound = { soundeffect = "wraith_idle"  } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_01" } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_02" } }
+		
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "moving" 
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { trigger_once = yes sound = { soundeffect = "wraith_moving" } }
+		
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_red_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no
+		event = { trigger_once = yes sound = { soundeffect = "wraith_death" } }
+	}
+	
+	
+	scale = @wraithScale
+	# XL weapon windup locator names: xl_windup_01-064
+}
+
+entity = {
+	name = "wraith_01_yellow_section_entity"
+	pdxmesh = "wraith_01_yellow_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		
+		start_event = { trigger_once = yes sound = { soundeffect = "wraith_idle"  } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_01" } }
+		event = { trigger_once = yes sound = { soundeffect = "wraith_spark_02" } }
+		
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "moving" 
+		event = { time = 0 node = "ship_main" particle = "wraith_body_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { trigger_once = yes sound = { soundeffect = "wraith_moving" } }
+		
+		event = { time = 0 node = "tentacle_locator_01" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_02" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_03" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "tentacle_locator_04" particle = "wraith_tentacle_electricity_yellow_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no
+		event = { trigger_once = yes sound = { soundeffect = "wraith_death" } }
+	}
+	
+		
+#	game_data = {
+#  		raytrace_projectiles = no
+#  		dissolve_on_death = 10.0
+#		ship_color = hsv { 0.05 1.0 0.5 1.0 }
+# 	}
+	
+	scale = @wraithScale
+	# XL weapon windup locator names: xl_windup_01-064
+}
+
+entity = {
+	name = "wraith_01_arc_emitter_windup_entity"
+	
+	get_state_from_parent = no
+	state = {
+		name = "attack" looping = yes state_time = 0.8
+		event = { trigger_once = yes sound = { soundeffect = "wraith_windup" } }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_01 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_02 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_03 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_04 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_05 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_06 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_07 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_08 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_09 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_010 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_011 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_012 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_013 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_014 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_015 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_016 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_017 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_018 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_019 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_020 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_021 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_022 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_023 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_024 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_025 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_026 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_027 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_028 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_029 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_030 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_031 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_032 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_033 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_034 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_035 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_036 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_037 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_038 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_039 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_040 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_041 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_042 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_043 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_044 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_045 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_046 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_047 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_048 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_049 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_050 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_051 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_052 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_053 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_054 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_055 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_056 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_windup_057 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.1 use_parent_nodes = yes node = xl_windup_058 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.2 use_parent_nodes = yes node = xl_windup_059 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.3 use_parent_nodes = yes node = xl_windup_060 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.4 use_parent_nodes = yes node = xl_windup_061 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.5 use_parent_nodes = yes node = xl_windup_062 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.6 use_parent_nodes = yes node = xl_windup_063 particle = "arc_emitter_windup_effect" }
+		event = { time = 0.7 use_parent_nodes = yes node = xl_windup_064 particle = "arc_emitter_windup_effect" }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_gun_01 particle = "arc_emitter_muzzle_windup_effect" trigger_once = yes keep_particle = yes }
+	}
+}
+
+animation = {
+		name = "wraith_01_idle_animation"
+		file = "wraith_01_idle.anim"
+	}
+	
+	animation = {
+		name = "wraith_01_moving_animation"
+		file = "wraith_01_moving.anim"
+	}
+	
+	animation = {
+		name = "wraith_01_death_animation"
+		file = "wraith_01_death.anim"
+	}

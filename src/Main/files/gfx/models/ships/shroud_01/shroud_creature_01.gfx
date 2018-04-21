@@ -1,0 +1,47 @@
+objectTypes = {
+	pdxmesh = {
+		name = "shroud_creature_01_mesh"
+		file = "gfx/models/ships/shroud_01/shroud_creature_01.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"					type = "shroud_creature_01_idle_animation" }
+		animation = { id = "death"					type = "shroud_creature_01_death_animation" }
+
+	}
+	
+	pdxmesh = {
+		name = "shroud_creature_clouds_01_mesh"
+		file = "gfx/models/ships/shroud_01/shroud_creature_clouds_01.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"					type = "shroud_creature_01_idle_animation" }
+		animation = { id = "death"					type = "shroud_creature_01_death_animation" }
+    
+	}
+	
+	pdxmesh = {
+		name = "shroud_creature_corrupted_clouds_01_mesh"
+		file = "gfx/models/ships/shroud_01/shroud_creature_clouds_01.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"					type = "shroud_creature_01_idle_animation" }
+		animation = { id = "death"					type = "shroud_creature_01_death_animation" }
+		
+		meshsettings = {
+			name = "ringsShape"
+			texture_diffuse = "shroud_creature_animated_texture_1_corrupted.dds"
+		}
+		
+		meshsettings = {
+			name = "center_sphere_meshShape"
+			texture_diffuse = "shroud_creature_animated_texture_1_corrupted.dds"
+		}
+		
+		meshsettings = {
+			texture_diffuse = "shroud_creature_animated_texture_2_corrupted.dds"
+		}
+	
+	}
+	
+	
+}

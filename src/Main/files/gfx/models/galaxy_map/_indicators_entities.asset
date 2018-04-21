@@ -1,0 +1,37 @@
+entity = {
+	name = "incoming_ship_entity"
+	cull_radius = 50.0
+	
+	default_state = "start"
+	state = { name = "start" state_time = 6	
+		event = { time = 0.0 particle = "warp_in_particle" keep_particle = no trigger_once = yes }
+		#event = { trigger_once = yes sound = { soundeffect = "ftl_warp_progress_ship" } }
+	}
+	state = { name = "stop" state_time = 3 looping = no
+		#event = { time = 0.0 particle = "warp_in_stop_particle" keep_particle = yes trigger_once = yes }
+		#event = { trigger_once = yes sound = { soundeffect = "ftl_warp_incoming_ship" } }
+	}
+	scale = 3.0
+}
+
+#entity = { 
+#	name = "wormhole_incoming_entity"
+#	pdxmesh = "incoming_wormhole_mesh"
+#	
+#	default_state = "start"
+#	state = { name = "start" animation = "scale"	animation_speed = 1.0 looping = no next_state = "looping"
+#		event = { time = 0 particle = "wormhole_open_particle" trigger_once = yes keep_particle = yes }
+#		start_event = { trigger_once = yes sound = { soundeffect = "ftl_wormhole_incoming_ship" } }
+#	}
+#	state = { name = "looping" animation = "idle"	animation_speed = 1.0
+#		event = { time = 0 particle = "incoming_wormhole_particle" trigger_once = yes keep_particle = yes }
+#		#start_event = { trigger_once = yes sound = { soundeffect = "incoming_wormhole" } }
+#	}
+#	state = { name = "stop" animation = "close"	animation_speed = 0.6 animation_blend_time = 0.3
+#		#event = { time = 0 particle = "incoming_wormhole_particle" trigger_once = yes keep_particle = yes }
+#		event = { time = 0 sound = { soundeffect = "ftl_wormhole_close_ship" } }
+#	}
+#	
+#	#scale = 10.0 #reduced size to match ships better
+#	scale = 8.0
+#}

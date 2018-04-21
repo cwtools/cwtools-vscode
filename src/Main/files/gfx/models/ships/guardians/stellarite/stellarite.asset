@@ -1,0 +1,229 @@
+entity = {
+	name = "stellarite_ship_entity"
+	#pdxmesh = "locator_mesh"
+	
+	locator = { name = "part1" }
+	
+	#default_state = "idle"
+	#state = { name = "idle" state_time = 6 }
+	#state = { name = "moving" state_time = 6 }
+	#state = { name = "death" state_time = 3 looping = no }
+
+  	#game_data = {	
+	#  	raytrace_projectiles = no
+  	#	dissolve_on_death = 3.0
+	#	ship_color = hsv { 0.55 1.0 0.75 1.0 }    
+	#}
+	cull_radius = 10.0
+}
+
+entity = {
+	name = "stellarite_entity"
+	pdxmesh = "locator_mesh"
+	cull_radius = 10.0
+	
+	locator = { name = "part1" }
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 6 }
+	state = { name = "moving" state_time = 6 }
+	state = { name = "death" state_time = 3 looping = no }
+    
+  	game_data = {
+		size = 30.0	
+	  	raytrace_projectiles = no
+  		dissolve_on_death = 3.0
+		ship_color = hsv { 0.11 1.0 0.75 1.0 }    
+	}
+	
+	scale = 3
+}
+
+entity = {
+	name = "stellarite_ship_section_entity"
+	pdxmesh = "stellarite_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" animation_blend_time = 1 
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
+		start_event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_drone" } }
+	}
+	state = { name = "moving" animation = "idle" animation_blend_time = 1 
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
+		
+	}
+	state = { name = "death" animation = "death" animation_blend_time = 1 looping = no
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_death" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_death" } }
+	}
+	
+	state = { name = "combat_moving" animation = "idle" animation_blend_time = 2 
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
+		
+	}
+	
+	state = { name = "attack" animation = "attack" animation_blend_time = 0.45 looping = no 
+		event = { time = 0 node = "body_locator" particle = "stellarite_body_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "core_location" particle = "stellarite_core_effect" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_breath" stop_on_state_change = yes } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_idle_breath" stop_on_state_change = yes } }
+		start_event = { trigger_once = yes sound = { soundeffect = "stellarites_idle_drone" } }
+	}
+	
+	scale = 0.5
+
+	game_data = {
+		uv_animation_speed 		= 10.0
+		uv_animation_direction 	= { 0.0 0.02 }
+		bloom_factor = 2
+	}
+}
+
+############
+# WEAPONS
+############
+
+entity = {
+	name = "stellarite_titan_laser_windup_entity"
+	
+	default_state = "attack"
+	get_state_from_parent = no
+	state = {
+		name = "attack" looping = yes state_time = 0.1
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_windup_beam" } }
+	
+		event = { time = 0.0 use_parent_nodes = yes node = xl_gun_01 particle = "stellarite_titan_muzzle_windup" trigger_once = yes keep_particle = yes }
+	}
+}
+
+entity = {
+	name = "stellarite_titan_laser_muzzle_entity"
+	pdxmesh = "locator_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 7.0 looping = no
+		event = { time = 0 particle = "stellarite_titan_muzzle_particle" keep_particle = yes }
+		
+		event = { trigger_once = yes sound = { soundeffect = "stellarites_fire_beam" } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarites_fire_beam" } }
+		
+	}
+}
+
+entity = {
+	name = "stellarite_plasma_muzzle_entity"
+	pdxmesh = "locator_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 3 looping = no
+		event = { time = 0 particle = "stellarite_plasma_muzzle_particle" keep_particle = yes sound = { soundeffect = stellarite_attack_plasma } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_stellarite_attack_plasma" } }
+	}
+}
+
+entity = {
+	name = "stellarite_plasma_projectile_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle" 
+	state = { name = "idle" 
+		event = { time = 0 particle = "stellarite_plasma_projectile_particle" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+	}
+	scale = 1.0
+}
+
+entity = {
+	name = "stellarite_missile_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle" 
+	state = { name = "idle" 
+		event = { time = 0 particle = "stellarite_missile_particle" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+	}
+	scale = 1.0
+}
+
+entity = {
+	name = "stellarite_titan_laser_hit_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 2 looping = no
+		event = { particle = "stellarite_titan_hit_effect" keep_particle = yes #sound = { soundeffect = titan_laser_hit }
+		}
+		#start_event = { trigger_once = yes sound = { soundeffect = "distance_tachyon_lance_hit" } }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+entity = {
+	name = "stellarite_plasma_hit_entity"
+	cull_radius = 1.0
+	default_state = "idle"
+	state = { name = "idle" 
+		start_event = { particle = "stellarite_plasma_hit_effect" }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+entity = {
+	name = "stellarite_titan_laser_shield_hit_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle"
+	state = { name = "idle" 
+		start_event = { particle = "stellarite_titan_hit_effect" sound = { soundeffect = shield_hit } }
+		start_event = { particle = "titan_laser_shield_hit_effect" }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_shield_hit" } } 
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+entity = {
+	name = "stellarite_plasma_shield_hit_entity"
+	cull_radius = 1.0
+	default_state = "idle"
+	state = { name = "idle" 
+		event = { time = 0.0 particle = stellarite_plasma_hit_effect }
+		start_event = { particle = projectile_large_shield_hit_effect sound = { soundeffect = shield_hit } }
+		start_event = { trigger_once = yes sound = { soundeffect = "distance_shield_hit" } } 
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+animation = {
+	name = "stellarite_idle_animation"
+	file = "stellarite_idle.anim"
+}
+
+animation = {
+	name = "stellarite_moving_animation"
+	file = "stellarite_moving.anim"
+}
+
+animation = {
+	name = "stellarite_death_animation"
+	file = "stellarite_death.anim"
+}
+
+animation = {
+	name = "stellarite_attack_animation"
+	file = "stellarite_attack.anim"
+}

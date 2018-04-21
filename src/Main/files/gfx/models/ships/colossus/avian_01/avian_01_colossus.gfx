@@ -1,0 +1,31 @@
+objectTypes = {
+	pdxmesh = {
+		name = "avian_01_colossus_mesh"
+		file = "gfx/models/ships/colossus/avian_01/avian_01_colossus.mesh"
+		
+		animation = { id = "idle"			type = "avian_01_colossus_idle_animation" }
+		animation = { id = "open"			type = "avian_01_colossus_open_animation" }
+		animation = { id = "opening"		type = "avian_01_colossus_opening_animation" }
+		animation = { id = "closing"		type = "avian_01_colossus_closing_animation" }
+		animation = { id = "closed_death"	type = "avian_01_colossus_closed_death_animation" }
+		animation = { id = "opened_death"	type = "avian_01_colossus_opened_death_animation" }
+		
+		meshsettings = {
+			name = "pSphereShape3"
+			index = 0
+			texture_diffuse = "avian_01_colossus_diffuse.dds"
+			texture_normal = "avian_01_colossus_normal.dds"
+			texture_specular = "avian_01_colossus_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "avian_01_colossus_frame_mesh"
+		file = "gfx/models/ships/colossus/avian_01/avian_01_colossus_frame.mesh"
+		
+		animation = { id = "idle"			type = "avian_01_colossus_frame_idle_animation" }
+		animation = { id = "closed_death"	type = "avian_01_colossus_frame_closed_death_animation" }
+		animation = { id = "opened_death"	type = "avian_01_colossus_frame_opened_death_animation" }
+	}
+}

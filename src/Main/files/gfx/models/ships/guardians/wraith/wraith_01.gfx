@@ -1,0 +1,85 @@
+objectTypes = {
+	pdxmesh = {
+		name = "wraith_01_blue_mesh"
+		file = "gfx/models/ships/guardians/wraith/wraith_01.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"			type = "wraith_01_idle_animation" }
+		animation = { id = "moving"			type = "wraith_01_moving_animation" }
+		animation = { id = "death"			type = "wraith_01_death_animation" }
+
+		meshsettings = {
+			name = "arm_Shape3"
+			index = 0
+			texture_diffuse = "wraith_diffuse.dds"
+			texture_normal = "wraith_normal.dds"
+			texture_specular = "wraith_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "flakesShape"
+			index = 0
+			texture_diffuse = "wraith_fins_diffuse.dds"
+			texture_normal = "wraith_fins_normal.dds"
+			texture_specular = "wraith_fins_specular.dds"
+			shader = "PdxMeshAlphaAdditive"
+		}
+	}
+	
+	pdxmesh = {
+		name = "wraith_01_red_mesh"
+		file = "gfx/models/ships/guardians/wraith/wraith_01.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"			type = "wraith_01_idle_animation" }
+		animation = { id = "moving"			type = "wraith_01_moving_animation" }
+		animation = { id = "death"			type = "wraith_01_death_animation" }
+
+		meshsettings = {
+			name = "arm_Shape3"
+			index = 0
+			texture_diffuse = "wraith_red_diffuse.dds"
+			texture_normal = "wraith_normal.dds"
+			texture_specular = "wraith_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "flakesShape"
+			index = 0
+			texture_diffuse = "wraith_fins_red_diffuse.dds"
+			texture_normal = "wraith_fins_normal.dds"
+			texture_specular = "wraith_fins_specular.dds"
+			shader = "PdxMeshAlphaAdditive"
+		}
+	}
+	
+	pdxmesh = {
+		name = "wraith_01_yellow_mesh"
+		file = "gfx/models/ships/guardians/wraith/wraith_01.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"			type = "wraith_01_idle_animation" }
+		animation = { id = "moving"			type = "wraith_01_moving_animation" }
+		animation = { id = "death"			type = "wraith_01_death_animation" }
+
+		meshsettings = {
+			name = "arm_Shape3"
+			index = 0
+			texture_diffuse = "wraith_yellow_diffuse.dds"
+			texture_normal = "wraith_normal.dds"
+			texture_specular = "wraith_specular.dds"
+			shader = "AlphaBlend_00"
+		}
+
+		meshsettings = {
+			name = "flakesShape"
+			index = 0
+			texture_diffuse = "wraith_fins_yellow_diffuse.dds"
+			texture_normal = "wraith_fins_normal.dds"
+			texture_specular = "wraith_fins_specular.dds"
+			shader = "PdxMeshAlphaAdditive"
+		}
+	}
+}

@@ -1,0 +1,68 @@
+objectTypes = {
+
+	##################################################################
+	######														######
+	######						Stars							######
+	######														######
+	##################################################################
+	
+	pdxmesh = {
+		name = "star_mesh"
+		file = "gfx/models/planets/base_star.mesh"
+		animation = { id = "idle"	type = "base_star_idle_animation" }
+		scale = 1
+		cull_distance = 99999999.0f
+	}
+	
+	pdxmesh = {
+		name = "neutron_star_mesh"
+		file = "gfx/models/planets/neutron_star.mesh"
+		animation = { id = "idle"	type = "neutron_star_idle_animation" }
+		scale = 1
+		cull_distance = 99999999.0f
+	}	
+	pdxmesh = {
+		name = "pulsar_mesh"
+		file = "gfx/models/planets/pulsar.mesh"
+		animation = { id = "idle"	type = "pulsar_idle_animation" }
+		scale = 1
+		cull_distance = 99999999.0f
+	}
+	
+	pdxmesh = {
+		name = "neutron_outbursts_mesh"
+		file = "gfx/models/planets/neutron_outbursts.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+		meshsettings = {
+			shader = PdxMeshAlphaAdditiveAnimateUVNoDissolve
+		}
+	}
+	
+	pdxmesh = {
+		name = "pulsar_outbursts_mesh"
+		file = "gfx/models/planets/pulsar_outbursts.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+		meshsettings = {
+			shader = PdxMeshAlphaAdditiveAnimateUVNoDissolve
+		}
+	}
+	
+	pdxmesh = {
+		name = "incoming_wormhole_mesh"
+		file = "gfx/models/planets/black_hole.mesh"
+		animation = { id = "idle"	type = "black_hole_rotation_animation" }
+		animation = { id = "scale"	type = "black_hole_scale_animation" }
+		animation = { id = "close"	type = "black_hole_close_animation" }
+		cull_distance = 999999999.0f
+		scale = 10
+		
+		meshsettings = {
+			texture_diffuse = "incoming_wormhole_diffuse.dds"
+		}
+	}
+	
+	
+	
+}

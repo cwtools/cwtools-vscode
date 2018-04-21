@@ -1,0 +1,333 @@
+particle = {
+	name = "focused_arc_emitter_file"
+	
+
+
+	
+# Laser base
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 1
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flare.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x =	-0.02	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 0 0 }
+		velocity_pitch = { 0 5 }
+		velocity_yaw =  { 0 5 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { 0 0 }
+		
+		life = { 1.8 0 }
+		size = { 1.3,plasma 0 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 180 }
+			g = { 180 }
+			b = { 255 }
+			alpha = { 255 }
+		}
+		
+		#Forces
+		#force = point,chaos
+	}
+	
+# Lightning release
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 200
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/lightning_spark.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x =	-0.2	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "sphere" #"box" #"point" #"sphere"
+		sphere_emitter_radius = { 0.5 0.4 }
+		sphere_emitter_pitch = { 0 180 }
+		sphere_emitter_yaw = { 0 180 }
+
+		start = 1.8				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 0 0 }
+		velocity_pitch = { 0 5 }
+		velocity_yaw =  { 0 5 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { 0 0 }
+		
+		life = { 0.25 0.25 }
+		size = { 0.4 0.3 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 180 }
+			g = { 180 }
+			b = { 255 }
+			alpha = { 100,lightning_fade }
+		}
+		
+		#Forces
+		#force = point,chaos
+	}
+
+# Burst release
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 1
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flare.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x =	-0.02	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 1.8				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 1 0 }
+		velocity_pitch = { 0 5 }
+		velocity_yaw =  { 0 5 }
+		
+		rotation = { 0 180 }
+		rotation_speed_roll = { 0 0 }
+		
+		life = { 0.25 0 }
+		size = { 3.3,grow 0 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 180 }
+			g = { 180 }
+			b = { 255 }
+			alpha = { 200,alpha_fade }
+		}
+		
+		#Forces
+		#force = point,chaos
+	}	
+
+# Laser flare large
+	subsystem = {
+    
+		# values that can be curves or values, with or without variation
+		# always local time
+		
+		# fixed values, cannot be curves, cannot add variation
+		max_amount = 1
+		local_space = yes
+		sort = "depth" 
+		#invert = yes
+		texture = {
+			shader = "ParticleAdditive"   #ParticleAdditive   #ParticleAlphaBlend 
+			file = "gfx/particles/flare.dds"   
+			#x = 2	
+			#y = 2	
+		}
+		
+		position = { 	x =	0	y = 0	z = 0	}
+		emitter_yaw 	= { 0 0 }  
+		emitter_pitch 	= { 0 0 }
+		
+		emitter_type = "point" #"box" #"point" #"sphere"
+		#sphere_emitter_radius = { 0.05 0 }
+		#sphere_emitter_pitch = { 0 180 }
+		#sphere_emitter_yaw = { 90 0 }
+
+		start = 0				
+		duration = 0.1
+		emission = { 100 }
+	
+		velocity = { 0 0 }
+		velocity_pitch = { 0 5 }
+		velocity_yaw =  { 0 5 }
+		
+		rotation = { 0 0 }
+		rotation_speed_roll = { 0 0 }
+		
+		life = { 2 0 }
+		size = { 5.8,grow 0 }
+	
+		# values that can be curves or values, with or without variation
+		# 'spawn'/'system'/'particle' time is valid
+    
+		color = { 
+			r = { 180 }
+			g = { 180 }
+			b = { 255 }
+			alpha = { 10,alpha_fade }
+		}
+		
+		#Forces
+		#force = point,chaos
+	}
+	
+# ANIMATIONS
+	
+	animation = {
+		time = "life"
+		name = "alpha_fade"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	0
+			0.2	1
+			0.5	1
+			1 	0 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "lightning_fade"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	0
+			0.2	1
+			0.5	0
+			0.7	1
+			1 	0 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "grow"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	0.8
+			1 	1 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "plasma"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 		0.1
+			0.95	1
+			1 		0 
+		}
+	}
+	
+	animation = {
+		time = "life"
+		name = "shrink"
+		start = 0
+		duration = 1
+		#repeat = yes
+		op = "MUL" # "MUL"/"ADD"/"ABS"
+		minValue = 0
+		maxValue = 1
+		curve = { 
+			0 	1
+			1 	0.2 
+		}
+	}
+	
+# FORCES
+	
+	force = {
+		type = "friction"
+		name = "drag2"
+		amount = 2.0 #,delayed_force
+		
+	}
+	
+	force = {
+		type = "point"
+		name = "point"
+		position = { 0 0 -0.7 }
+		amount = -30
+	}
+	
+	force = {
+		type = "turbulence"
+		name = "chaos"
+		amount = 6.0
+	}
+}
+
+

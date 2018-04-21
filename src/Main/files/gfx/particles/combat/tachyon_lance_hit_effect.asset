@@ -1,0 +1,328 @@
+particle={
+	name="tachyon_lance_hit_effect"
+	subsystem={
+		name="burn_1"
+		max_amount=40
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/fire_08.dds"
+			x=2
+			y=2
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=255.000
+			z=255.000
+			alpha=100.000,burn_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.700
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		life={ 0.700 0.400 }
+		emission=20.000
+		size={ 2.000,grow 1.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 0.000 25.000 }
+	}
+	subsystem={
+		name="burn_2"
+		max_amount=40
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/fire03_des.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=175.000
+			z=100.000
+			alpha=50.000,burn_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.700
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		life={ 0.700 0.400 }
+		emission=20.000
+		size={ 2.000,grow 1.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=25.000
+	}
+	subsystem={
+		name="burn_bloom"
+		max_amount=40
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=50.000
+			y=175.000
+			z=255.000
+			alpha=100.000,burn_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.700
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		life=0.250
+		emission=20.000
+		size={ 8.000,grow 0.500 }
+		rotation={ 0.000 0.000 }
+	}
+	subsystem={
+		name="hull_splinter"
+		max_amount=200
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=200.000
+			y=200.000
+			z=200.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.100
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		velocity={ 6.000 2.000 }
+		life={ 0.300 0.100 }
+		emission=200.000
+		size={ 0.500,grow 0.300 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="smoke"
+		max_amount=200
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=150.000
+			y=150.000
+			z=150.000
+			alpha=40.000,fade_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.100
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		velocity={ 4.000 3.000 }
+		life={ 0.700 0.300 }
+		emission=200.000
+		size=5.000
+		rotation={ 0.000 180.000 }
+		rotation_speed=25.000
+	}
+	subsystem={
+		name="fire"
+		max_amount=400
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/fire_07.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=50.000
+			y=175.000
+			z=255.000
+			alpha=50.000,fade_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.100
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		velocity={ 3.000 1.000 }
+		life={ 0.300 0.100 }
+		emission=500.000
+		size={ 3.000,grow 1.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="shockwave"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=50.000
+			y=175.000
+			z=255.000
+			alpha=100.000,fade_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.100
+		velocity_pitch=0.000
+		velocity_yaw=180.000
+		life=0.400
+		emission=200.000
+		size=30.000,grow
+		rotation={ 0.000 180.000 }
+		rotation_speed=25.000
+	}
+	subsystem={
+		name="burn_flare"
+		max_amount=40
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/flare.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=255.000
+			y=180.000
+			z=100.000
+			alpha=25.000,burn_alpha
+		}
+		position={
+		}
+		start=0.100
+		duration=0.700
+		velocity_pitch={ 0.000 90.000 }
+		velocity_yaw={ 180.000 90.000 }
+		life={ 0.700 0.400 }
+		emission=20.000
+		size={ 4.000,grow 1.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=25.000
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.665 0.766 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.422 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="burn_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.171 1.000 0.518 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

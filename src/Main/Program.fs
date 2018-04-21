@@ -172,7 +172,7 @@ type Server(send : BinaryWriter) =
     let fixEmbeddedFileName (s : string) =
         let count = (Seq.filter ((=) '.') >> Seq.length) s
         let mutable out = "//" + s
-        [1 .. count - 1] |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '/' (out |> List.ofSeq)) |> Array.ofList |> String )
+        [1 .. count - 1] |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '\\' (out |> List.ofSeq)) |> Array.ofList |> String )
         out
     let processWorkspace (uri : option<Uri>) =
         LanguageServer.sendNotification send (LoadingBar {value = "Loading project..."; enable = true})
@@ -189,7 +189,7 @@ type Server(send : BinaryWriter) =
                                 |> Array.toList |> List.map (fun f -> f, "")
                 let docspath = "Main.files.trigger_docs_2.0.2.txt"
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
-                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events"))
+                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"

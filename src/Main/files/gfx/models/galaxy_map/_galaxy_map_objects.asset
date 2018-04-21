@@ -1,0 +1,29 @@
+
+entity = {
+	name = "default_galaxy_center_entity"
+	#pdxmesh = "black_hole_rings_mesh"
+	
+	cull_radius = 1000
+	default_state = "idle"
+	state = { name = "idle" state_time = 30 looping = yes
+		#event = { time = 0 particle = "galaxy_center_particle" trigger_once = yes keep_particle = yes }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_galaxy_map_01" } } 
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_galaxy_map_02" } } 
+	}
+	
+	#game_data = {
+	#	uv_animation_speed   = -0.025
+	#	uv_animation_direction  = { 0.4 0.4 }
+	#}
+	
+	scale = 15
+}
+
+entity = {
+	name = "circle_area_entity"
+	pdxmesh = "circle_area_mesh"
+	scale = 1.069
+	game_data = {
+		shader_type = aura
+	}
+}

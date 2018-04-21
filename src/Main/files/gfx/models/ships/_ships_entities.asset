@@ -1,0 +1,4229 @@
+@corvette_scale = 1.00
+@destroyer_scale = 1.0
+@cruiser_scale = 2.5
+@battleship_scale = 1.0
+@missile_scale = 1.0
+@transport_scale = 1.25
+@colonizer_scale = 1.0
+@science_scale = 1.0
+@constructor_scale = 2.0
+
+	@mamcruiser_scale = 1.0
+	@mamdestroyer_scale = 1.0
+	@mamcorvette_scale = 1.0
+
+	@artcruiser_scale = 1.0
+	@artdestroyer_scale = 1.0
+	@artcorvette_scale = 1.0
+	@artbattleship_scale = 1.0
+
+	@molcorvette_scale = 1.0
+	@molcruiser_scale = 0.9
+	@moldestroyer_scale = 1.0
+	@molbattleship_scale = 0.95
+ 
+
+	@avibattleship_scale = 1.1
+	@avicruiser_scale = 1.0
+	@avicorvette_scale = 1.0
+	
+	@funcruiser_scale = 1.00
+	
+#	@mamcruiser_scale = 2.5
+#	@molcruiser_scale = 2.5
+#	@artdestroyer_scale = 2.5
+#	@avicruiser_scale = 2.5
+#	@artcruiser_scale = 2.5
+
+entity = {
+	name = "empty_section_entity"
+	scale = 1
+	
+	locator = {
+		name = "root"
+	}
+}
+
+#entity = { name = "extra_dimensional_01_empty_section_entity" clone = "empty_section_entity" }
+
+
+
+entity = {
+	name = "test_arthropoid_01_battleship_01_entity"
+	pdxmesh = "arthropoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "arthropoid_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "arthropoid_01_battleship_stern_L1_entity" }
+	#scale = 0.5
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_arthropoid_01_battleship_02_entity"
+	pdxmesh = "arthropoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "arthropoid_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "arthropoid_01_battleship_stern_M1S2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_arthropoid_01_battleship_03_entity"
+	pdxmesh = "arthropoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_battleship_bow_L2_entity" }
+	attach = { part2 = "arthropoid_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "arthropoid_01_battleship_stern_M2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_arthropoid_01_battleship_04_entity"
+	pdxmesh = "arthropoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "arthropoid_01_battleship_mid_L3_entity" }
+	attach = { part3 = "arthropoid_01_battleship_stern_L1_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_arthropoid_01_battleship_05_entity"
+	pdxmesh = "arthropoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "arthropoid_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "arthropoid_01_battleship_stern_M1S2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_arthropoid_01_battleship_06_entity"
+	pdxmesh = "arthropoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "arthropoid_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "arthropoid_01_battleship_stern_M2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+
+
+
+
+entity = {
+	name = "test_arthropoid_01_cruiser_entity"
+	pdxmesh = "arthropoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "arthropoid_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "arthropoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @artcruiser_scale
+}
+
+entity = {
+	name = "test_arthropoid_02_cruiser_entity"
+	pdxmesh = "arthropoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "arthropoid_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "arthropoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @artcruiser_scale
+}
+
+entity = {
+	name = "test_arthropoid_03_cruiser_entity"
+	pdxmesh = "arthropoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "arthropoid_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "arthropoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @artcruiser_scale
+}
+
+entity = {
+	name = "test_arthropoid_04_cruiser_entity"
+	pdxmesh = "arthropoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "arthropoid_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "arthropoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @artcruiser_scale
+}
+
+
+entity = {
+	name = "test_arthropoid_01_science_entity"
+	pdxmesh = "arthropoid_01_science_mesh"
+    scale = 1.0
+}
+
+entity = {
+	name = "test_arthropoid_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "arthropoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @artdestroyer_scale
+}
+
+
+entity = {
+	name = "test_arthropoid_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "arthropoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @artdestroyer_scale
+}
+
+
+entity = {
+	name = "test_arthropoid_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "arthropoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @artdestroyer_scale
+}
+
+
+entity = {
+	name = "test_arthropoid_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "arthropoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @artdestroyer_scale
+}
+
+
+
+entity = {
+	name = "test_arthropoid_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @artcorvette_scale
+}
+
+entity = {
+	name = "test_arthropoid_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @artcorvette_scale
+}
+
+
+
+
+
+entity = {
+	name = "test_molluscoid_01_battleship_01_entity"
+	pdxmesh = "molluscoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "molluscoid_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "molluscoid_01_battleship_stern_L1_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_molluscoid_01_battleship_02_entity"
+	pdxmesh = "molluscoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "molluscoid_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "molluscoid_01_battleship_stern_M1S2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_molluscoid_01_battleship_03_entity"
+	pdxmesh = "molluscoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_battleship_bow_L2_entity" }
+	attach = { part2 = "molluscoid_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "molluscoid_01_battleship_stern_M2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_molluscoid_01_battleship_04_entity"
+	pdxmesh = "molluscoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "molluscoid_01_battleship_mid_L3_entity" }
+	attach = { part3 = "molluscoid_01_battleship_stern_L1_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_molluscoid_01_battleship_05_entity"
+	pdxmesh = "molluscoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "molluscoid_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "molluscoid_01_battleship_stern_M1S2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+entity = {
+	name = "test_molluscoid_01_battleship_06_entity"
+	pdxmesh = "molluscoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "molluscoid_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "molluscoid_01_battleship_stern_M2_entity" }
+	
+	#scale = 1
+	scale = @molbattleship_scale
+}
+
+
+
+
+
+entity = {
+	name = "test_molluscoid_01_cruiser_entity"
+	pdxmesh = "molluscoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "molluscoid_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "molluscoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @molcruiser_scale
+}
+
+entity = {
+	name = "test_molluscoid_02_cruiser_entity"
+	pdxmesh = "molluscoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "molluscoid_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "molluscoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @molcruiser_scale
+}
+
+entity = {
+	name = "test_molluscoid_03_cruiser_entity"
+	pdxmesh = "molluscoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "molluscoid_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "molluscoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @molcruiser_scale
+}
+
+entity = {
+	name = "test_molluscoid_04_cruiser_entity"
+	pdxmesh = "molluscoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "molluscoid_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "molluscoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @molcruiser_scale
+}
+
+
+entity = {
+	name = "test_molluscoid_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "molluscoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @moldestroyer_scale
+}
+
+
+entity = {
+	name = "test_molluscoid_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "molluscoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @moldestroyer_scale
+}
+
+
+entity = {
+	name = "test_molluscoid_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "molluscoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @moldestroyer_scale
+}
+
+
+entity = {
+	name = "test_molluscoid_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "molluscoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @moldestroyer_scale
+}
+
+
+entity = {
+	name = "test_molluscoid_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @molcorvette_scale
+}
+
+entity = {
+	name = "test_molluscoid_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @molcorvette_scale
+}
+
+
+
+
+
+
+entity = {
+	name = "test_avian_01_battleship_01_entity"
+	pdxmesh = "avian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "avian_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "avian_01_battleship_stern_L1_entity" }
+	
+	#scale = 1
+	scale = @avibattleship_scale
+}
+
+entity = {
+	name = "test_avian_01_battleship_02_entity"
+	pdxmesh = "avian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "avian_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "avian_01_battleship_stern_M1S2_entity" }
+	
+	#scale = 1
+	scale = @avibattleship_scale
+}
+
+entity = {
+	name = "test_avian_01_battleship_03_entity"
+	pdxmesh = "avian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_battleship_bow_L2_entity" }
+	attach = { part2 = "avian_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "avian_01_battleship_stern_M2_entity" }
+	
+	#scale = 1
+	scale = @avibattleship_scale
+}
+
+entity = {
+	name = "test_avian_01_battleship_04_entity"
+	pdxmesh = "avian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "avian_01_battleship_mid_L3_entity" }
+	attach = { part3 = "avian_01_battleship_stern_L1_entity" }
+	
+	#scale = 1
+	scale = @avibattleship_scale
+}
+
+entity = {
+	name = "test_avian_01_battleship_05_entity"
+	pdxmesh = "avian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "avian_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "avian_01_battleship_stern_M1S2_entity" }
+	
+	#scale = 1
+	scale = @avibattleship_scale
+}
+
+entity = {
+	name = "test_avian_01_battleship_06_entity"
+	pdxmesh = "avian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "avian_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "avian_01_battleship_stern_M2_entity" }
+	
+	#scale = 1
+	scale = @avibattleship_scale
+}
+
+
+
+
+
+entity = {
+	name = "test_avian_01_cruiser_entity"
+	pdxmesh = "avian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "avian_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "avian_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @avicruiser_scale
+}
+
+entity = {
+	name = "test_avian_02_cruiser_entity"
+	pdxmesh = "avian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "avian_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "avian_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @avicruiser_scale
+}
+
+entity = {
+	name = "test_avian_03_cruiser_entity"
+	pdxmesh = "avian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "avian_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "avian_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @avicruiser_scale
+}
+
+entity = {
+	name = "test_avian_04_cruiser_entity"
+	pdxmesh = "avian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "avian_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "avian_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @avicruiser_scale
+}
+
+
+entity = {
+	name = "test_avian_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "avian_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_avian_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "avian_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_avian_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "avian_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_avian_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "avian_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+
+entity = {
+	name = "test_avian_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @avicorvette_scale
+}
+
+entity = {
+	name = "test_avian_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @avicorvette_scale
+}
+
+entity = {
+	name = "test_avian_03_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_corvette_S1_entity" }
+	
+	#scale = 1
+	scale = @avicorvette_scale
+}
+
+
+
+
+
+@mambs = 0.95
+
+
+entity = {
+	name = "test_mammalian_01_battleship_01_entity"
+	pdxmesh = "mammalian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "mammalian_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "mammalian_01_battleship_stern_L1_entity" }
+	
+	scale = @mambs
+}
+
+entity = {
+	name = "test_mammalian_01_battleship_02_entity"
+	pdxmesh = "mammalian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "mammalian_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "mammalian_01_battleship_stern_M1S2_entity" }
+	
+	scale = @mambs
+}
+
+entity = {
+	name = "test_mammalian_01_battleship_03_entity"
+	pdxmesh = "mammalian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_battleship_bow_L2_entity" }
+	attach = { part2 = "mammalian_01_battleship_mid_L2M2_entity" }
+	#attach = { part3 = "mammalian_01_battleship_stern_M2_entity" }
+	
+	scale = @mambs
+}
+
+entity = {
+	name = "test_mammalian_01_battleship_04_entity"
+	pdxmesh = "mammalian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "mammalian_01_battleship_mid_L3_entity" }
+	attach = { part3 = "mammalian_01_battleship_stern_L1_entity" }
+	
+	scale = @mambs
+}
+
+entity = {
+	name = "test_mammalian_01_battleship_05_entity"
+	pdxmesh = "mammalian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "mammalian_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "mammalian_01_battleship_stern_M1S2_entity" }
+	
+	scale = @mambs
+}
+
+entity = {
+	name = "test_mammalian_01_battleship_06_entity"
+	pdxmesh = "mammalian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "mammalian_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "mammalian_01_battleship_stern_M2_entity" }
+	
+	scale = @mambs
+}
+
+
+
+
+
+entity = {
+	name = "test_mammalian_01_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "mammalian_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "mammalian_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @mamcruiser_scale
+}
+
+entity = {
+	name = "test_mammalian_02_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "mammalian_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "mammalian_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @mamcruiser_scale
+}
+
+entity = {
+	name = "test_mammalian_03_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "mammalian_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "mammalian_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @mamcruiser_scale
+}
+
+entity = {
+	name = "test_mammalian_04_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "mammalian_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "mammalian_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @mamcruiser_scale
+}
+
+
+entity = {
+	name = "test_mammalian_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "mammalian_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @mamdestroyer_scale
+}
+
+
+entity = {
+	name = "test_mammalian_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "mammalian_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @mamdestroyer_scale
+}
+
+
+entity = {
+	name = "test_mammalian_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "mammalian_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @mamdestroyer_scale
+}
+
+
+entity = {
+	name = "test_mammalian_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "mammalian_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @mamdestroyer_scale
+}
+
+entity = {
+	name = "test_mammalian_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @mamcorvette_scale
+}
+
+entity = {
+	name = "test_mammalian_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_corvette_S1_entity" }
+	
+	#scale = 1
+	scale = @mamcorvette_scale
+}
+
+entity = {
+	name = "test_mammalian_03_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @mamcorvette_scale
+}
+
+entity = {
+	name = "test_mammalian_01_science_entity"
+	pdxmesh = "mammalian_01_science_mesh"
+    scale = 1.0
+}
+
+entity = {
+	name = "test_mammalian_01_transport_entity"
+	pdxmesh = "mammalian_01_transport_mesh"
+    scale = 1.0
+}
+
+entity = {
+	name = "mammalian_01_military_station_small_test_entity"
+	pdxmesh = "mammalian_01_military_station_small_mesh"	
+	
+	attach = { part1	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part2	= "mammalian_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.2
+}
+
+entity = {
+	name = "mammalian_01_military_station_medium_test_entity"
+	pdxmesh = "mammalian_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part2	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part3	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part4	= "mammalian_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.2
+}
+entity = {
+	name = "mammalian_01_military_station_large_test_entity"
+	pdxmesh = "mammalian_01_military_station_large_mesh"	
+	
+	attach = { part1	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part2	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part3	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part4	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part5	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part6	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part7	= "mammalian_01_military_station_section_heavy_entity" }
+	attach = { part8	= "mammalian_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 1.2
+}
+
+
+entity = {
+	name = "avian_01_military_station_small_test_entity"
+	pdxmesh = "avian_01_military_station_small_mesh"	
+	
+	attach = { part1	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part2	= "avian_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.00
+}
+
+entity = {
+	name = "avian_01_military_station_medium_test_entity"
+	pdxmesh = "avian_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part2	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part3	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part4	= "avian_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.00
+}
+entity = {
+	name = "avian_01_military_station_large_test_entity"
+	pdxmesh = "avian_01_military_station_large_mesh"	
+	
+	attach = { part1	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part2	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part3	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part4	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part5	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part6	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part7	= "avian_01_military_station_section_heavy_entity" }
+	attach = { part8	= "avian_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 1.00
+}
+
+
+entity = {
+	name = "fungoid_01_military_station_small_test_entity"
+	pdxmesh = "fungoid_01_military_station_small_mesh"	
+	
+	attach = { part1	= "fungoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "fungoid_01_military_station_section_light_entity" }
+
+	cull_radius = 1000
+	scale = 1.00
+}
+
+entity = {
+	name = "fungoid_01_military_station_medium_test_entity"
+	pdxmesh = "fungoid_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "fungoid_01_military_station_section_light_entity" }
+	attach = { part2	= "fungoid_01_military_station_section_medium_entity" }
+	attach = { part3	= "fungoid_01_military_station_section_light_entity" }
+	attach = { part4	= "fungoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.00
+}
+entity = {
+	name = "fungoid_01_military_station_large_test_entity"
+	pdxmesh = "fungoid_01_military_station_large_mesh"	
+	
+	attach = { part1	= "fungoid_01_military_station_section_light_entity" }
+	attach = { part2	= "fungoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "fungoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "fungoid_01_military_station_section_medium_entity" }
+	attach = { part5	= "fungoid_01_military_station_section_heavy_entity" }
+	attach = { part6	= "fungoid_01_military_station_section_light_entity" }
+	attach = { part7	= "fungoid_01_military_station_section_heavy_entity" }
+	attach = { part8	= "fungoid_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 1.00
+}
+
+
+entity = {
+	name = "molluscoid_01_military_station_small_test_entity"
+	pdxmesh = "molluscoid_01_military_station_small_mesh"	
+	
+	attach = { part1	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "molluscoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 0.9
+}
+
+entity = {
+	name = "molluscoid_01_military_station_medium_test_entity"
+	pdxmesh = "molluscoid_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "molluscoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 0.9
+}
+entity = {
+	name = "molluscoid_01_military_station_large_test_entity"
+	pdxmesh = "molluscoid_01_military_station_large_mesh"	
+	
+	attach = { part1	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part5	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part6	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part7	= "molluscoid_01_military_station_section_heavy_entity" }
+	attach = { part8	= "molluscoid_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 0.9
+}
+
+
+entity = {
+	name = "arthropoid_01_military_station_small_test_entity"
+	pdxmesh = "arthropoid_01_military_station_small_mesh"	
+	
+	attach = { part1	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "arthropoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.25
+}
+
+entity = {
+	name = "arthropoid_01_military_station_medium_test_entity"
+	pdxmesh = "arthropoid_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "arthropoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.25
+}
+entity = {
+	name = "arthropoid_01_military_station_large_test_entity"
+	pdxmesh = "arthropoid_01_military_station_large_mesh"	
+	
+	attach = { part1	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part5	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part6	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part7	= "arthropoid_01_military_station_section_heavy_entity" }
+	attach = { part8	= "arthropoid_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 1.25
+}
+
+entity = {
+	name = "plantoid_01_military_station_small_test_entity"
+	pdxmesh = "plantoid_01_military_station_small_mesh"	
+	
+	attach = { part1	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "plantoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.25
+}
+
+entity = {
+	name = "plantoid_01_military_station_medium_test_entity"
+	pdxmesh = "plantoid_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "plantoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.25
+}
+entity = {
+	name = "plantoid_01_military_station_large_test_entity"
+	pdxmesh = "plantoid_01_military_station_large_mesh"	
+	
+	attach = { part1	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part5	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part6	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part7	= "plantoid_01_military_station_section_heavy_entity" }
+	attach = { part8	= "plantoid_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 1.25
+}
+
+@funscale = 0.8
+
+entity = {
+	name = "test_fungoid_01_battleship_01_entity"
+	pdxmesh = "fungoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "fungoid_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "fungoid_01_battleship_stern_L1_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_fungoid_01_battleship_02_entity"
+	pdxmesh = "fungoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "fungoid_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "fungoid_01_battleship_stern_M1S2_entity" }
+	
+	scale = @funscale
+	
+}
+
+entity = {
+	name = "test_fungoid_01_battleship_03_entity"
+	pdxmesh = "fungoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_battleship_bow_L2_entity" }
+	attach = { part2 = "fungoid_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "fungoid_01_battleship_stern_M2_entity" }
+	
+	scale = @funscale
+
+}
+
+entity = {
+	name = "test_fungoid_01_battleship_04_entity"
+	pdxmesh = "fungoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "fungoid_01_battleship_mid_L3_entity" }
+	attach = { part3 = "fungoid_01_battleship_stern_L1_entity" }
+	
+	scale = @funscale
+	
+}
+
+entity = {
+	name = "test_fungoid_01_battleship_05_entity"
+	pdxmesh = "fungoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "fungoid_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "fungoid_01_battleship_stern_M1S2_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_fungoid_01_battleship_06_entity"
+	pdxmesh = "fungoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "fungoid_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "fungoid_01_battleship_stern_M2_entity" }
+	
+	scale = @funscale
+
+}
+
+
+
+
+
+entity = {
+	name = "test_fungoid_01_cruiser_entity"
+	pdxmesh = "fungoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "fungoid_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "fungoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_fungoid_02_cruiser_entity"
+	pdxmesh = "fungoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "fungoid_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "fungoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_fungoid_03_cruiser_entity"
+	pdxmesh = "fungoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "fungoid_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "fungoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_fungoid_04_cruiser_entity"
+	pdxmesh = "fungoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "fungoid_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "fungoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+@fungdestroyer_scale = 0.9
+
+entity = {
+	name = "test_fungoid_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "fungoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_fungoid_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "fungoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_fungoid_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "fungoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_fungoid_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "fungoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_fungoid_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+entity = {
+	name = "test_fungoid_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+entity = {
+	name = "test_fungoid_03_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_corvette_S1_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+
+
+
+entity = {
+	name = "test_reptilian_01_battleship_01_entity"
+	pdxmesh = "reptilian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "reptilian_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "reptilian_01_battleship_stern_L1_entity" }
+
+}
+
+entity = {
+	name = "test_reptilian_01_battleship_02_entity"
+	pdxmesh = "reptilian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "reptilian_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "reptilian_01_battleship_stern_M1S2_entity" }
+}
+
+entity = {
+	name = "test_reptilian_01_battleship_03_entity"
+	pdxmesh = "reptilian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_battleship_bow_L2_entity" }
+	attach = { part2 = "reptilian_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "reptilian_01_battleship_stern_M2_entity" }
+}
+
+entity = {
+	name = "test_reptilian_01_battleship_04_entity"
+	pdxmesh = "reptilian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "reptilian_01_battleship_mid_L3_entity" }
+	attach = { part3 = "reptilian_01_battleship_stern_L1_entity" }
+}
+
+entity = {
+	name = "test_reptilian_01_battleship_05_entity"
+	pdxmesh = "reptilian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "reptilian_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "reptilian_01_battleship_stern_M1S2_entity" }
+}
+
+entity = {
+	name = "test_reptilian_01_battleship_06_entity"
+	pdxmesh = "reptilian_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "reptilian_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "reptilian_01_battleship_stern_M2_entity" }
+}
+
+
+
+
+
+entity = {
+	name = "test_reptilian_01_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "reptilian_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "reptilian_01_cruiser_stern_M1_entity" }
+	
+	scale = 1
+	#scale = @cruiser_scale
+}
+
+entity = {
+	name = "test_reptilian_02_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "reptilian_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "reptilian_01_cruiser_stern_M1_entity" }
+	
+	scale = 1
+	#scale = @cruiser_scale
+}
+
+entity = {
+	name = "test_reptilian_03_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "reptilian_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "reptilian_01_cruiser_stern_S2_entity" }
+	
+	scale = 1
+	#scale = @cruiser_scale
+}
+
+entity = {
+	name = "test_reptilian_04_cruiser_entity"
+	pdxmesh = "mammalian_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "reptilian_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "reptilian_01_cruiser_stern_S2_entity" }
+	
+	scale = 1
+	#scale = @cruiser_scale
+}
+
+
+entity = {
+	name = "test_reptilian_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "reptilian_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_reptilian_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "reptilian_01_destroyer_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_reptilian_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "reptilian_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_reptilian_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "reptilian_01_destroyer_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @destroyer_scale
+}
+
+
+entity = {
+	name = "test_reptilian_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_corvette_S3_entity" }
+	
+}
+
+entity = {
+	name = "test_reptilian_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_corvette_M1S1_entity" }
+
+}
+
+
+
+
+entity = {
+	name = "test_plantoid_01_battleship_01_entity"
+	pdxmesh = "plantoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "plantoid_01_battleship_mid_L2S4_entity" }
+	attach = { part3 = "plantoid_01_battleship_stern_L1_entity" }
+	
+	scale = 1 #@funscale
+}
+
+entity = {
+	name = "test_plantoid_01_battleship_02_entity"
+	pdxmesh = "plantoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_battleship_bow_L1S4_entity" }
+	attach = { part2 = "plantoid_01_battleship_mid_L1M4_entity" }
+	attach = { part3 = "plantoid_01_battleship_stern_M1S2_entity" }
+	
+	scale = @funscale
+	
+}
+
+entity = {
+	name = "test_plantoid_01_battleship_03_entity"
+	pdxmesh = "plantoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_battleship_bow_L2_entity" }
+	attach = { part2 = "plantoid_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "plantoid_01_battleship_stern_M2_entity" }
+	
+	scale = @funscale
+
+}
+
+entity = {
+	name = "test_plantoid_01_battleship_04_entity"
+	pdxmesh = "plantoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "plantoid_01_battleship_mid_L3_entity" }
+	attach = { part3 = "plantoid_01_battleship_stern_L1_entity" }
+	
+	scale = @funscale
+	
+}
+
+entity = {
+	name = "test_plantoid_01_battleship_05_entity"
+	pdxmesh = "plantoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_battleship_bow_M2S4_entity" }
+	attach = { part2 = "plantoid_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "plantoid_01_battleship_stern_M1S2_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_plantoid_01_battleship_06_entity"
+	pdxmesh = "plantoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_battleship_bow_M3S2_entity" }
+	attach = { part2 = "plantoid_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "plantoid_01_battleship_stern_M2_entity" }
+	
+	scale = @funscale
+
+}
+
+
+entity = {
+	name = "test_plantoid_01_cruiser_entity"
+	pdxmesh = "plantoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "plantoid_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "plantoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_plantoid_02_cruiser_entity"
+	pdxmesh = "plantoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "plantoid_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "plantoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_plantoid_03_cruiser_entity"
+	pdxmesh = "plantoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "plantoid_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "plantoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_plantoid_04_cruiser_entity"
+	pdxmesh = "plantoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "plantoid_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "plantoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+
+
+entity = {
+	name = "test_plantoid_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "plantoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_plantoid_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "plantoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_plantoid_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "plantoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_plantoid_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "plantoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_plantoid_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+entity = {
+	name = "test_plantoid_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+entity = {
+	name = "test_plantoid_03_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_corvette_S1_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+#HUMANOID#
+entity = {
+	name = "test_humanoid_01_battleship_01_entity"
+	pdxmesh = "humanoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_battleship_bow_L1M1S2_entity" }
+	attach = { part2 = "humanoid_01_battleship_mid_L2M2_entity" }
+	attach = { part3 = "humanoid_01_battleship_stern_L1_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_humanoid_01_battleship_02_entity"
+	pdxmesh = "humanoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_battleship_bow_L2_entity" }
+	attach = { part2 = "humanoid_01_battleship_mid_L3_entity" }
+	attach = { part3 = "humanoid_01_battleship_stern_M2_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_humanoid_01_battleship_03_entity"
+	pdxmesh = "humanoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_battleship_bow_M1S2SHB_entity" }
+	attach = { part2 = "humanoid_01_battleship_mid_M4SHB_entity" }
+	attach = { part3 = "humanoid_01_battleship_stern_L1_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_humanoid_01_battleship_04_entity"
+	pdxmesh = "humanoid_01_battleship_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_battleship_bow_XL1_entity" }
+	attach = { part2 = "humanoid_01_battleship_mid_S4LHB_entity" }
+	attach = { part3 = "humanoid_01_battleship_stern_M2_entity" }
+	
+	scale = @funscale
+}
+
+entity = {
+	name = "test_humanoid_01_cruiser_entity"
+	pdxmesh = "humanoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_cruiser_bow_L1_entity" }
+	attach = { part2 = "humanoid_01_cruiser_mid_S2HB_entity" }
+	attach = { part3 = "humanoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_humanoid_02_cruiser_entity"
+	pdxmesh = "humanoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "humanoid_01_cruiser_mid_L1M1_entity" }
+	attach = { part3 = "humanoid_01_cruiser_stern_M1_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_humanoid_03_cruiser_entity"
+	pdxmesh = "humanoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_cruiser_bow_M2_entity" }
+	attach = { part2 = "humanoid_01_cruiser_mid_M3_entity" }
+	attach = { part3 = "humanoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+entity = {
+	name = "test_humanoid_04_cruiser_entity"
+	pdxmesh = "humanoid_01_cruiser_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_cruiser_bow_M1S2_entity" }
+	attach = { part2 = "humanoid_01_cruiser_mid_M2S2_entity" }
+	attach = { part3 = "humanoid_01_cruiser_stern_S2_entity" }
+	
+	#scale = 1
+	scale = @funcruiser_scale
+}
+
+
+
+entity = {
+	name = "test_humanoid_01_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "humanoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_humanoid_02_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_destroyer_bow_M1S2_entity" }
+	attach = { part2 = "humanoid_01_destroyer_stern_M1_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_humanoid_03_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_destroyer_bow_L1_entity" }
+	attach = { part2 = "humanoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_humanoid_04_destroyer_entity"
+	pdxmesh = "molluscoid_01_destroyer_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_destroyer_bow_S3_entity" }
+	attach = { part2 = "humanoid_01_destroyer_stern_S2_entity" }
+	
+	#scale = 0.5
+	scale = @fungdestroyer_scale
+}
+
+
+entity = {
+	name = "test_humanoid_01_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_corvette_S3_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+entity = {
+	name = "test_humanoid_02_corvette_entity"
+	pdxmesh = "molluscoid_01_corvette_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "humanoid_01_corvette_M1S1_entity" }
+	
+	#scale = 1
+	scale = @corvette_scale
+}
+
+entity = {
+	name = "humanoid_01_military_station_small_test_entity"
+	pdxmesh = "humanoid_01_military_station_small_mesh"	
+	
+	attach = { part1	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "humanoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.2
+}
+
+entity = {
+	name = "humanoid_01_military_station_medium_test_entity"
+	pdxmesh = "humanoid_01_military_station_medium_mesh"	
+	
+	attach = { part1	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "humanoid_01_military_station_section_heavy_entity" }
+
+	cull_radius = 1000
+	scale = 1.2
+}
+entity = {
+	name = "humanoid_01_military_station_large_test_entity"
+	pdxmesh = "humanoid_01_military_station_large_mesh"	
+	
+	attach = { part1	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part2	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part3	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part4	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part5	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part6	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part7	= "humanoid_01_military_station_section_heavy_entity" }
+	attach = { part8	= "humanoid_01_military_station_section_heavy_entity" }
+	
+	cull_radius = 1000
+	scale = 1.2
+}
+
+
+
+entity = {
+	name = "test_s1_ships_entity"
+	
+		locator = { name = "s1_01_Battleship" 		position = { 235  	0 	0 	} }
+		locator = { name = "s1_02_Battleship" 		position = { 215  	0 	0 	} }
+		locator = { name = "s1_03_Battleship" 		position = { 195  	0 	0 	} }
+		locator = { name = "s1_04_Battleship" 		position = { 175 	0 	0 	} }
+		locator = { name = "s1_05_Battleship" 		position = { 155 	0 	0 	} }
+		locator = { name = "s1_06_Battleship" 		position = { 135  	0 	0 	} }
+		locator = { name = "s1_01_Cruiser" 			position = { 115 	0 	-3 	} }
+		locator = { name = "s1_02_Cruiser" 			position = { 100 	0 	-3 	} }
+		locator = { name = "s1_03_Cruiser" 			position = { 85	 	0 	-3 	} }
+		locator = { name = "s1_04_Cruiser" 			position = { 70 	0 	-3 	} }
+		locator = { name = "s1_01_Destroyer" 		position = { 57 	0 	-7 	} }
+		locator = { name = "s1_02_Destroyer" 		position = { 45 	0 	-5 	} }
+		locator = { name = "s1_03_Destroyer" 		position = { 33 	0 	-8 	} }
+		locator = { name = "s1_04_Destroyer" 		position = { 21 	0 	-6 	} }
+		locator = { name = "s1_01_Corvette" 		position = { 10 	0 	-8 	} }
+		locator = { name = "s1_02_Corvette" 		position = { 2 		0 	-8 	} }
+		locator = { name = "s1_civ_colonization" 	position = { 7 		0 	20	} }
+		locator = { name = "s1_civ_construction" 	position = { 28 	0 	23	} }	
+		locator = { name = "s1_civ_transport"	 	position = { 48 	0 	21	} }
+		locator = { name = "s1_civ_science" 		position = { 64 	0 	23	} }		
+				
+		attach = { s1_01_Battleship 	= "test_arthropoid_01_battleship_01_entity" }
+		attach = { s1_02_Battleship 	= "test_arthropoid_01_battleship_02_entity" }
+		attach = { s1_03_Battleship 	= "test_arthropoid_01_battleship_03_entity" }
+		attach = { s1_04_Battleship 	= "test_arthropoid_01_battleship_04_entity" }		
+		attach = { s1_05_Battleship 	= "test_arthropoid_01_battleship_05_entity" }
+		attach = { s1_06_Battleship 	= "test_arthropoid_01_battleship_06_entity" }
+		attach = { s1_01_Cruiser 		= "test_arthropoid_02_cruiser_entity" }
+		attach = { s1_02_Cruiser 		= "test_arthropoid_01_cruiser_entity" }
+		attach = { s1_03_Cruiser 		= "test_arthropoid_04_cruiser_entity" }
+		attach = { s1_04_Cruiser 		= "test_arthropoid_03_cruiser_entity" }
+		attach = { s1_01_Destroyer 		= "test_arthropoid_01_destroyer_entity" }
+		attach = { s1_02_Destroyer 		= "test_arthropoid_02_destroyer_entity" }
+		attach = { s1_03_Destroyer 		= "test_arthropoid_03_destroyer_entity" }
+		attach = { s1_04_Destroyer 		= "test_arthropoid_04_destroyer_entity" }
+		attach = { s1_01_Corvette 		= "test_arthropoid_01_corvette_entity" }
+		attach = { s1_02_Corvette 		= "test_arthropoid_02_corvette_entity" }
+		attach = { s1_civ_science 		= "arthropoid_01_science_ship_entity" }
+		attach = { s1_civ_transport 	= "arthropoid_01_transport_ship_entity" }
+		attach = { s1_civ_construction 	= "arthropoid_01_construction_ship_entity" }
+		attach = { s1_civ_colonization 	= "arthropoid_01_colony_ship_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_s2_ships_entity"
+	#pdxmesh = "avian_01_missile_mesh"
+	
+		locator = { name = "s2_01_Battleship" 		position = { -235  	0 	4 	} }
+		locator = { name = "s2_02_Battleship" 		position = { -215  	0 	4	} }
+		locator = { name = "s2_03_Battleship" 		position = { -195  	0 	4 	} }
+		locator = { name = "s2_04_Battleship" 		position = { -175 	0 	4 	} }
+		locator = { name = "s2_05_Battleship" 		position = { -155 	0 	4 	} }
+		locator = { name = "s2_06_Battleship" 		position = { -135  	0 	4 	} }
+		locator = { name = "s2_01_Cruiser" 			position = { -115 	0 	-3 	} }
+		locator = { name = "s2_02_Cruiser" 			position = { -100 	0 	-3 	} }
+		locator = { name = "s2_03_Cruiser" 			position = { -85	0 	-3 	} }
+		locator = { name = "s2_04_Cruiser" 			position = { -70 	0 	-3 	} }
+		locator = { name = "s2_01_Destroyer" 		position = { -57 	0 	-5 	} }
+		locator = { name = "s2_02_Destroyer" 		position = { -45 	0 	-5 	} }
+		locator = { name = "s2_03_Destroyer" 		position = { -33 	0 	-5 	} }
+		locator = { name = "s2_04_Destroyer" 		position = { -21 	0 	-5 	} }
+		locator = { name = "s2_01_Corvette" 		position = { -10 	0 	-8 	} }
+		locator = { name = "s2_02_Corvette" 		position = { -2 	0 	-8 	} }
+		locator = { name = "s2_civ_colonization" 	position = { -7 	0 	20	} }
+		locator = { name = "s2_civ_construction" 	position = { -28 	0 	23	} }		
+		locator = { name = "s2_civ_transport"	 	position = { -48 	0 	21	} }								
+		locator = { name = "s2_civ_science" 		position = { -64 	0 	23	} }		
+		
+		attach = { s2_01_Battleship 	= "test_molluscoid_01_battleship_01_entity" }
+		attach = { s2_02_Battleship 	= "test_molluscoid_01_battleship_02_entity" }
+		attach = { s2_03_Battleship 	= "test_molluscoid_01_battleship_03_entity" }
+		attach = { s2_04_Battleship 	= "test_molluscoid_01_battleship_04_entity" }		
+		attach = { s2_05_Battleship 	= "test_molluscoid_01_battleship_05_entity" }
+		attach = { s2_06_Battleship 	= "test_molluscoid_01_battleship_06_entity" }
+		attach = { s2_01_Cruiser 		= "test_molluscoid_01_cruiser_entity" }
+		attach = { s2_02_Cruiser 		= "test_molluscoid_02_cruiser_entity" }
+		attach = { s2_03_Cruiser 		= "test_molluscoid_03_cruiser_entity" }
+		attach = { s2_04_Cruiser 		= "test_molluscoid_04_cruiser_entity" }
+		attach = { s2_01_Destroyer 		= "test_molluscoid_01_destroyer_entity" }
+		attach = { s2_02_Destroyer 		= "test_molluscoid_02_destroyer_entity" }
+		attach = { s2_03_Destroyer 		= "test_molluscoid_03_destroyer_entity" }
+		attach = { s2_04_Destroyer 		= "test_molluscoid_04_destroyer_entity" }
+		attach = { s2_01_Corvette 		= "test_molluscoid_01_corvette_entity" }
+		attach = { s2_02_Corvette 		= "test_molluscoid_02_corvette_entity" }
+		attach = { s2_civ_science 		= "molluscoid_01_science_ship_entity" }
+		attach = { s2_civ_transport 	= "molluscoid_01_transport_ship_entity" }
+		attach = { s2_civ_construction 	= "molluscoid_01_construction_ship_entity" }
+		attach = { s2_civ_colonization 	= "molluscoid_01_colony_ship_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_s3_ships_entity"
+	#pdxmesh = "avian_01_missile_mesh"
+	
+		locator = { name = "s3_01_Battleship" 		position = { 235  	0 	-5 	} }
+		locator = { name = "s3_02_Battleship" 		position = { 215  	0 	-5 	} }
+		locator = { name = "s3_03_Battleship" 		position = { 195  	0 	-5 	} }
+		locator = { name = "s3_04_Battleship" 		position = { 175 	0 	-5 	} }
+		locator = { name = "s3_05_Battleship" 		position = { 155 	0 	-5 	} }
+		locator = { name = "s3_06_Battleship" 		position = { 135  	0 	-5 	} }
+		locator = { name = "s3_01_Cruiser" 			position = { 115 	0 	4 	} }
+		locator = { name = "s3_02_Cruiser" 			position = { 100 	0 	4 	} }
+		locator = { name = "s3_03_Cruiser" 			position = { 85	 	0 	4 	} }
+		locator = { name = "s3_04_Cruiser" 			position = { 70 	0 	4 	} }
+		locator = { name = "s3_01_Destroyer" 		position = { 57 	0 	7 	} }
+		locator = { name = "s3_02_Destroyer" 		position = { 45 	0 	7 	} }
+		locator = { name = "s3_03_Destroyer" 		position = { 33 	0 	7 	} }
+		locator = { name = "s3_04_Destroyer" 		position = { 21 	0 	7 	} }
+		locator = { name = "s3_01_Corvette" 		position = { 10 	0 	11 	} }
+		locator = { name = "s3_02_Corvette" 		position = { 2 		0 	11 	} }
+		locator = { name = "s1_03_Corvette" 		position = { -8 	0 	11 	} }
+		locator = { name = "s3_civ_colonization" 	position = { 7 		0 	-20	} }
+		locator = { name = "s3_civ_construction" 	position = { 28 	0 	-23	} }
+		locator = { name = "s3_civ_transport"	 	position = { 48 	0 	-21	} }		
+		locator = { name = "s3_civ_science" 		position = { 64 	0 	-23	} }
+		
+		attach = { s3_01_Battleship 	= "test_avian_01_battleship_01_entity" }
+		attach = { s3_02_Battleship 	= "test_avian_01_battleship_02_entity" }
+		attach = { s3_03_Battleship 	= "test_avian_01_battleship_03_entity" }
+		attach = { s3_04_Battleship 	= "test_avian_01_battleship_04_entity" }		
+		attach = { s3_05_Battleship 	= "test_avian_01_battleship_05_entity" }
+		attach = { s3_06_Battleship 	= "test_avian_01_battleship_06_entity" }
+		attach = { s3_01_Cruiser 		= "test_avian_01_cruiser_entity" }
+		attach = { s3_02_Cruiser 		= "test_avian_02_cruiser_entity" }
+		attach = { s3_03_Cruiser 		= "test_avian_03_cruiser_entity" }
+		attach = { s3_04_Cruiser 		= "test_avian_04_cruiser_entity" }
+		attach = { s3_01_Destroyer 		= "test_avian_01_destroyer_entity" }
+		attach = { s3_02_Destroyer 		= "test_avian_02_destroyer_entity" }
+		attach = { s3_03_Destroyer 		= "test_avian_03_destroyer_entity" }
+		attach = { s3_04_Destroyer 		= "test_avian_04_destroyer_entity" }
+		attach = { s3_01_Corvette 		= "test_avian_01_corvette_entity" }
+		attach = { s3_02_Corvette 		= "test_avian_02_corvette_entity" }
+		attach = { s1_03_Corvette 		= "test_avian_03_corvette_entity" }
+		attach = { s3_civ_science 		= "avian_01_science_ship_entity" }
+		attach = { s3_civ_transport 	= "avian_01_transport_ship_entity" }
+		attach = { s3_civ_construction 	= "avian_01_construction_ship_entity" }
+		attach = { s3_civ_colonization 	= "avian_01_colony_ship_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_s4_ships_entity"
+	#pdxmesh = "mammalian_01_missile_mesh"
+	
+		locator = { name = "s4_01_Battleship" 		position = { -235  	0 	-5 	} }
+		locator = { name = "s4_02_Battleship" 		position = { -215  	0 	-5 	} }
+		locator = { name = "s4_03_Battleship" 		position = { -195  	0 	-5 	} }
+		locator = { name = "s4_04_Battleship" 		position = { -175 	0 	-5 	} }
+		locator = { name = "s4_05_Battleship" 		position = { -155 	0 	-5 	} }
+		locator = { name = "s4_06_Battleship" 		position = { -135  	0 	-5 	} }
+		locator = { name = "s4_01_Cruiser" 			position = { -115 	0 	3 	} }
+		locator = { name = "s4_02_Cruiser" 			position = { -100 	0 	3 	} }
+		locator = { name = "s4_03_Cruiser" 			position = { -85	0 	3 	} }
+		locator = { name = "s4_04_Cruiser" 			position = { -70 	0 	3 	} }
+		locator = { name = "s4_01_Destroyer" 		position = { -57 	0 	5 	} }
+		locator = { name = "s4_02_Destroyer" 		position = { -45 	0 	5 	} }
+		locator = { name = "s4_03_Destroyer" 		position = { -33 	0 	5 	} }
+		locator = { name = "s4_04_Destroyer" 		position = { -21 	0 	5 	} }
+		locator = { name = "s4_01_Corvette" 		position = { -10 	0 	8 	} }
+		locator = { name = "s4_02_Corvette" 		position = { -2 	0 	8 	} }
+		locator = { name = "s4_civ_colonization" 	position = { -7 	0 	-20	} }		
+		locator = { name = "s4_civ_construction" 	position = { -28 	0 	-23	} }		
+		locator = { name = "s4_civ_transport"	 	position = { -48 	0 	-21	} }		
+		locator = { name = "s4_civ_science" 		position = { -64 	0 	-23	} }		
+		
+		attach = { s4_01_Battleship 	= "test_mammalian_01_battleship_01_entity" }
+		attach = { s4_02_Battleship 	= "test_mammalian_01_battleship_02_entity" }
+		attach = { s4_03_Battleship 	= "test_mammalian_01_battleship_03_entity" }
+		attach = { s4_04_Battleship 	= "test_mammalian_01_battleship_04_entity" }		
+		attach = { s4_05_Battleship 	= "test_mammalian_01_battleship_05_entity" }
+		attach = { s4_06_Battleship 	= "test_mammalian_01_battleship_06_entity" }
+		attach = { s4_01_Cruiser 		= "test_mammalian_01_cruiser_entity" }
+		attach = { s4_02_Cruiser 		= "test_mammalian_02_cruiser_entity" }
+		attach = { s4_03_Cruiser 		= "test_mammalian_03_cruiser_entity" }
+		attach = { s4_04_Cruiser 		= "test_mammalian_04_cruiser_entity" }
+		attach = { s4_01_Destroyer 		= "test_mammalian_01_destroyer_entity" }
+		attach = { s4_02_Destroyer 		= "test_mammalian_02_destroyer_entity" }
+		attach = { s4_03_Destroyer 		= "test_mammalian_03_destroyer_entity" }
+		attach = { s4_04_Destroyer 		= "test_mammalian_04_destroyer_entity" }
+		attach = { s4_01_Corvette 		= "test_mammalian_01_corvette_entity" }
+		attach = { s4_02_Corvette 		= "test_mammalian_02_corvette_entity" }
+		attach = { s4_civ_science 		= "mammalian_01_science_ship_entity" }
+		attach = { s4_civ_transport 	= "mammalian_01_transport_ship_entity" }
+		attach = { s4_civ_construction 	= "mammalian_01_construction_ship_entity" }
+		attach = { s4_civ_colonization 	= "mammalian_01_colony_ship_entity" }
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_s5_ships_entity"
+	
+		locator = { name = "s5_01_Battleship" 		position = { 235  	0 	3 	} }
+		locator = { name = "s5_02_Battleship" 		position = { 215  	0 	3 	} }
+		locator = { name = "s5_03_Battleship" 		position = { 195  	0 	3 	} }
+		locator = { name = "s5_04_Battleship" 		position = { 175 	0 	3 	} }
+		locator = { name = "s5_05_Battleship" 		position = { 155 	0 	3 	} }
+		locator = { name = "s5_06_Battleship" 		position = { 135  	0 	3 	} }
+		locator = { name = "s5_01_Cruiser" 			position = { 115 	0 	3 	} }
+		locator = { name = "s5_02_Cruiser" 			position = { 100 	0 	3 	} }
+		locator = { name = "s5_03_Cruiser" 			position = { 85	 	0 	3 	} }
+		locator = { name = "s5_04_Cruiser" 			position = { 70 	0 	3 	} }
+		locator = { name = "s5_01_Destroyer" 		position = { 57 	0 	5 	} }
+		locator = { name = "s5_02_Destroyer" 		position = { 45 	0 	5 	} }
+		locator = { name = "s5_03_Destroyer" 		position = { 33 	0 	5 	} }
+		locator = { name = "s5_04_Destroyer" 		position = { 21 	0 	5 	} }
+		locator = { name = "s5_01_Corvette" 		position = { -8 	0 	8 	} }
+		locator = { name = "s5_02_Corvette" 		position = { 0 		0 	8 	} }
+		locator = { name = "s5_03_Corvette" 		position = {  8		0 	8 	} }
+		locator = { name = "s5_civ_transport"	 	position = { 48 	0 	-21	} }		
+		locator = { name = "s5_civ_construction" 	position = { 28 	0 	-23	} }
+		locator = { name = "s5_civ_colonization" 	position = { 0 		0 	-23 	} }
+		locator = { name = "s5_civ_science" 		position = { 64 	0 	-23	} }
+				
+		attach = { s5_01_Battleship 	= "test_fungoid_01_battleship_01_entity" }
+		attach = { s5_02_Battleship 	= "test_fungoid_01_battleship_02_entity" }
+		attach = { s5_03_Battleship 	= "test_fungoid_01_battleship_03_entity" }
+		attach = { s5_04_Battleship 	= "test_fungoid_01_battleship_04_entity" }		
+		attach = { s5_05_Battleship 	= "test_fungoid_01_battleship_05_entity" }
+		attach = { s5_06_Battleship 	= "test_fungoid_01_battleship_06_entity" }
+		attach = { s5_01_Cruiser 		= "test_fungoid_01_cruiser_entity" }
+		attach = { s5_02_Cruiser 		= "test_fungoid_02_cruiser_entity" }
+		attach = { s5_03_Cruiser 		= "test_fungoid_03_cruiser_entity" }
+		attach = { s5_04_Cruiser 		= "test_fungoid_04_cruiser_entity" }
+		attach = { s5_01_Destroyer 		= "test_fungoid_01_destroyer_entity" }
+		attach = { s5_02_Destroyer 		= "test_fungoid_02_destroyer_entity" }
+		attach = { s5_03_Destroyer 		= "test_fungoid_03_destroyer_entity" }
+		attach = { s5_04_Destroyer 		= "test_fungoid_04_destroyer_entity" }
+		attach = { s5_01_Corvette 		= "test_fungoid_01_corvette_entity" }
+		attach = { s5_02_Corvette 		= "test_fungoid_02_corvette_entity" }
+		attach = { s5_03_Corvette 		= "test_fungoid_03_corvette_entity" }
+		attach = { s5_civ_science 		= "fungoid_01_science_ship_entity" }
+		attach = { s5_civ_transport 	= "fungoid_01_transport_ship_entity" }
+		attach = { s5_civ_construction 	= "fungoid_01_construction_ship_entity" }
+		attach = { s5_civ_colonization 	= "fungoid_01_colony_ship_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_s6_ships_entity"
+	#pdxmesh = "reptilian_01_missile_mesh"
+	
+		locator = { name = "s6_01_Battleship" 		position = { -235  	0 	3 	} }
+		locator = { name = "s6_02_Battleship" 		position = { -215  	0 	3 	} }
+		locator = { name = "s6_03_Battleship" 		position = { -195  	0 	3 	} }
+		locator = { name = "s6_04_Battleship" 		position = { -175 	0 	3 	} }
+		locator = { name = "s6_05_Battleship" 		position = { -155 	0 	3 	} }
+		locator = { name = "s6_06_Battleship" 		position = { -135  	0 	3 	} }
+		locator = { name = "s6_01_Cruiser" 			position = { -115 	0 	3 	} }
+		locator = { name = "s6_02_Cruiser" 			position = { -100 	0 	3 	} }
+		locator = { name = "s6_03_Cruiser" 			position = { -85	0 	3 	} }
+		locator = { name = "s6_04_Cruiser" 			position = { -70 	0 	3 	} }
+		locator = { name = "s6_01_Destroyer" 		position = { -57 	0 	5 	} }
+		locator = { name = "s6_02_Destroyer" 		position = { -45 	0 	5 	} }
+		locator = { name = "s6_03_Destroyer" 		position = { -33 	0 	5 	} }
+		locator = { name = "s6_04_Destroyer" 		position = { -21 	0 	5 	} }
+		locator = { name = "s6_01_Corvette" 		position = { -10 	0 	8 	} }
+		locator = { name = "s6_02_Corvette" 		position = { -2 	0 	8 	} }
+		locator = { name = "s6_civ_transport"	 	position = { -50 	0 	-20 	} }
+		locator = { name = "s6_civ_construction" 	position = { -30 	0 	-20 	} }
+		locator = { name = "s6_civ_colonization" 	position = { -8		0 	-20 	} }
+		locator = { name = "s6_civ_science" 		position = { -75 	0 	-20 	} }	
+				
+		attach = { s6_01_Battleship 	= "test_reptilian_01_battleship_01_entity" }
+		attach = { s6_02_Battleship 	= "test_reptilian_01_battleship_02_entity" }
+		attach = { s6_03_Battleship 	= "test_reptilian_01_battleship_03_entity" }
+		attach = { s6_04_Battleship 	= "test_reptilian_01_battleship_04_entity" }		
+		attach = { s6_05_Battleship 	= "test_reptilian_01_battleship_05_entity" }
+		attach = { s6_06_Battleship 	= "test_reptilian_01_battleship_06_entity" }
+		attach = { s6_01_Cruiser 		= "test_reptilian_01_cruiser_entity" }
+		attach = { s6_02_Cruiser 		= "test_reptilian_02_cruiser_entity" }
+		attach = { s6_03_Cruiser 		= "test_reptilian_03_cruiser_entity" }
+		attach = { s6_04_Cruiser 		= "test_reptilian_04_cruiser_entity" }
+		attach = { s6_01_Destroyer 		= "test_reptilian_01_destroyer_entity" }
+		attach = { s6_02_Destroyer 		= "test_reptilian_02_destroyer_entity" }
+		attach = { s6_03_Destroyer 		= "test_reptilian_03_destroyer_entity" }
+		attach = { s6_04_Destroyer 		= "test_reptilian_04_destroyer_entity" }
+		attach = { s6_01_Corvette 		= "test_reptilian_01_corvette_entity" }
+		attach = { s6_02_Corvette 		= "test_reptilian_01_corvette_entity" }
+		attach = { s6_civ_science 		= "reptilian_01_science_ship_entity" }
+		attach = { s6_civ_transport 	= "reptilian_01_transport_ship_entity" }
+		attach = { s6_civ_construction 	= "reptilian_01_construction_ship_entity" }
+		attach = { s6_civ_colonization 	= "reptilian_01_colony_ship_entity" }
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_s7_ships_entity"
+	
+		locator = { name = "s5_01_Battleship" 		position = { 235  	0 	3 	} }
+		locator = { name = "s5_02_Battleship" 		position = { 215  	0 	3 	} }
+		locator = { name = "s5_03_Battleship" 		position = { 195  	0 	3 	} }
+		locator = { name = "s5_04_Battleship" 		position = { 175 	0 	3 	} }
+		locator = { name = "s5_05_Battleship" 		position = { 155 	0 	3 	} }
+		locator = { name = "s5_06_Battleship" 		position = { 135  	0 	3 	} }
+		locator = { name = "s5_01_Cruiser" 			position = { 115 	0 	3 	} }
+		locator = { name = "s5_02_Cruiser" 			position = { 100 	0 	3 	} }
+		locator = { name = "s5_03_Cruiser" 			position = { 85	 	0 	3 	} }
+		locator = { name = "s5_04_Cruiser" 			position = { 70 	0 	3 	} }
+		locator = { name = "s5_01_Destroyer" 		position = { 57 	0 	5 	} }
+		locator = { name = "s5_02_Destroyer" 		position = { 45 	0 	5 	} }
+		locator = { name = "s5_03_Destroyer" 		position = { 33 	0 	5 	} }
+		locator = { name = "s5_04_Destroyer" 		position = { 21 	0 	5 	} }
+		locator = { name = "s5_01_Corvette" 		position = { -8 	0 	8 	} }
+		locator = { name = "s5_02_Corvette" 		position = { 0 		0 	8 	} }
+		locator = { name = "s5_03_Corvette" 		position = {  8		0 	8 	} }
+		locator = { name = "s5_civ_transport"	 	position = { 48 	0 	-21	} }		
+		locator = { name = "s5_civ_construction" 	position = { 28 	0 	-23	} }
+		locator = { name = "s5_civ_colonization" 	position = { 0 		0 	-23 	} }
+		locator = { name = "s5_civ_science" 		position = { 64 	0 	-23	} }
+				
+		attach = { s5_01_Battleship 	= "test_plantoid_01_battleship_01_entity" }
+		attach = { s5_02_Battleship 	= "test_plantoid_01_battleship_02_entity" }
+		attach = { s5_03_Battleship 	= "test_plantoid_01_battleship_03_entity" }
+		attach = { s5_04_Battleship 	= "test_plantoid_01_battleship_04_entity" }		
+		attach = { s5_05_Battleship 	= "test_plantoid_01_battleship_05_entity" }
+		attach = { s5_06_Battleship 	= "test_plantoid_01_battleship_06_entity" }
+		attach = { s5_01_Cruiser 		= "test_plantoid_01_cruiser_entity" }
+		attach = { s5_02_Cruiser 		= "test_plantoid_02_cruiser_entity" }
+		attach = { s5_03_Cruiser 		= "test_plantoid_03_cruiser_entity" }
+		attach = { s5_04_Cruiser 		= "test_plantoid_04_cruiser_entity" }
+		attach = { s5_01_Destroyer 		= "test_plantoid_01_destroyer_entity" }
+		attach = { s5_02_Destroyer 		= "test_plantoid_02_destroyer_entity" }
+		attach = { s5_03_Destroyer 		= "test_plantoid_03_destroyer_entity" }
+		attach = { s5_04_Destroyer 		= "test_plantoid_04_destroyer_entity" }
+		attach = { s5_01_Corvette 		= "test_plantoid_01_corvette_entity" }
+		attach = { s5_02_Corvette 		= "test_plantoid_02_corvette_entity" }
+		attach = { s5_03_Corvette 		= "test_plantoid_03_corvette_entity" }
+		attach = { s5_civ_science 		= "plantoid_01_science_ship_entity" }
+		attach = { s5_civ_transport 	= "plantoid_01_transport_ship_entity" }
+		attach = { s5_civ_construction 	= "plantoid_01_construction_ship_entity" }
+		attach = { s5_civ_colonization 	= "plantoid_01_colony_ship_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+#HUMANOID#
+entity = {
+	name = "test_s8_ships_entity"
+	
+		locator = { name = "s8_01_Battleship" 		position = { 235  	0 	3 	} }
+		locator = { name = "s8_02_Battleship" 		position = { 215  	0 	3 	} }
+		locator = { name = "s8_03_Battleship" 		position = { 195  	0 	3 	} }
+		locator = { name = "s8_04_Battleship" 		position = { 175 	0 	3 	} }
+		locator = { name = "s8_05_Battleship" 		position = { 155 	0 	3 	} }
+		locator = { name = "s8_06_Battleship" 		position = { 135  	0 	3 	} }
+		locator = { name = "s8_01_Cruiser" 			position = { 115 	0 	3 	} }
+		locator = { name = "s8_02_Cruiser" 			position = { 100 	0 	3 	} }
+		locator = { name = "s8_03_Cruiser" 			position = { 85	 	0 	3 	} }
+		locator = { name = "s8_04_Cruiser" 			position = { 70 	0 	3 	} }
+		locator = { name = "s8_01_Destroyer" 		position = { 57 	0 	5 	} }
+		locator = { name = "s8_02_Destroyer" 		position = { 45 	0 	5 	} }
+		locator = { name = "s8_03_Destroyer" 		position = { 33 	0 	5 	} }
+		locator = { name = "s8_04_Destroyer" 		position = { 21 	0 	5 	} }
+		locator = { name = "s8_01_Corvette" 		position = { -8 	0 	8 	} }
+		locator = { name = "s8_02_Corvette" 		position = { 0 		0 	8 	} }
+		locator = { name = "s8_03_Corvette" 		position = {  8		0 	8 	} }
+		locator = { name = "s8_civ_transport"	 	position = { 48 	0 	-21	} }		
+		locator = { name = "s8_civ_construction" 	position = { 28 	0 	-23	} }
+		locator = { name = "s8_civ_colonization" 	position = { 0 		0 	-23 } }
+		locator = { name = "s8_civ_science" 		position = { 64 	0 	-23	} }
+				
+		attach = { s8_01_Battleship 	= "test_humanoid_01_battleship_01_entity" }
+		attach = { s8_02_Battleship 	= "test_humanoid_01_battleship_02_entity" }
+		attach = { s8_03_Battleship 	= "test_humanoid_01_battleship_03_entity" }
+		attach = { s8_04_Battleship 	= "test_humanoid_01_battleship_04_entity" }	
+		attach = { s8_01_Cruiser 		= "test_humanoid_01_cruiser_entity" }
+		attach = { s8_02_Cruiser 		= "test_humanoid_02_cruiser_entity" }
+		attach = { s8_03_Cruiser 		= "test_humanoid_03_cruiser_entity" }
+		attach = { s8_04_Cruiser 		= "test_humanoid_04_cruiser_entity" }
+		attach = { s8_01_Destroyer 		= "test_humanoid_01_destroyer_entity" }
+		attach = { s8_02_Destroyer 		= "test_humanoid_02_destroyer_entity" }
+		attach = { s8_03_Destroyer 		= "test_humanoid_03_destroyer_entity" }
+		attach = { s8_04_Destroyer 		= "test_humanoid_04_destroyer_entity" }
+		attach = { s8_01_Corvette 		= "test_humanoid_01_corvette_entity" }
+		attach = { s8_02_Corvette 		= "test_humanoid_02_corvette_entity" }
+		attach = { s8_civ_science 		= "humanoid_01_science_ship_entity" }
+		attach = { s8_civ_transport 	= "humanoid_01_transport_ship_entity" }
+		attach = { s8_civ_construction 	= "humanoid_01_construction_ship_entity" }
+		attach = { s8_civ_colonization 	= "humanoid_01_colony_ship_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "test_colonization_compare_entity"
+	
+		locator = { name = "pos1_s1_colony" 		position = { 0 		0 	0 	} }
+		locator = { name = "pos1_s2_colony" 		position = { 25		0 	0 	} }
+		locator = { name = "pos1_s3_colony" 		position = { 50		0 	0 	} }
+		locator = { name = "pos1_s4_colony" 		position = { 75		0 	0 	} }	
+		locator = { name = "pos2_s5_colony" 		position = { 100	0 	0 	} }
+		locator = { name = "pos2_s6_colony" 		position = { 125 	0 	0 	} }
+
+
+		attach = { pos1_s1_colony 		= "avian_01_colony_ship_entity" }
+		attach = { pos1_s2_colony 		= "mammalian_01_colony_ship_entity" }
+		attach = { pos1_s3_colony 		= "arthropoid_01_colony_ship_entity" }
+		attach = { pos1_s4_colony 		= "molluscoid_01_colony_ship_entity" }
+		attach = { pos2_s5_colony 		= "fungoid_01_colony_ship_entity" }	
+		attach = { pos2_s6_colony 		= "reptilian_01_colony_ship_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "test_guardians_compare_entity"
+	
+		locator = { name = "pos1_guardian_01" 		position = { 120	0 	-180 	} }
+		locator = { name = "pos1_guardian_02" 		position = { 375	0 	-100 	} }
+		locator = { name = "pos1_guardian_03" 		position = { 90	0 	0 	} }
+		locator = { name = "pos1_guardian_04" 		position = { 470	0 	-100 	} }	
+		locator = { name = "pos1_guardian_05" 		position = { 150	0 	0 	} }
+		locator = { name = "pos1_guardian_06" 		position = { 250 	0 	0 	} }
+		locator = { name = "pos1_guardian_07" 		position = { 340 	0 	0 	} }
+		locator = { name = "pos1_guardian_08" 		position = { 400 	0 	0 	} }
+		locator = { name = "pos1_guardian_09" 		position = { 470 	0 	0 	} }
+		locator = { name = "pos1_guardian_10" 		position = { 540 	0 	0 	} }
+		locator = { name = "pos1_guardian_11" 		position = { 585 	0 	0 	} }
+		locator = { name = "pos1_guardian_12" 		position = { 625 	0 	0 	} }
+		locator = { name = "pos1_guardian_13" 		position = { 675 	0 	0 	} }
+		locator = { name = "pos1_guardian_14" 		position = { 750 	0 	0 	} }
+		locator = { name = "pos1_guardian_15" 		position = { 700 	0 	100 	} }
+
+
+		attach = { pos1_guardian_01 		= "space_dragon_red_section_entity" }
+		attach = { pos1_guardian_02 		= "techno_sphere_test_entity" }
+		attach = { pos1_guardian_03 		= "pirate_01_galleon_hull_entity" }
+		attach = { pos1_guardian_04 		= "stellarite_ship_section_entity" }
+		attach = { pos1_guardian_05 		= "npf_01_npc_warship_01_hull_entity2" }
+		attach = { pos1_guardian_06 		= "drone_homebase_hull_entity" }
+		attach = { pos1_guardian_07 		= "hive_asteroid_base_entity" }
+		attach = { pos1_guardian_08 		= "wraith_01_blue_section_entity" }
+		attach = { pos1_guardian_09 		= "wraith_01_red_section_entity" }
+		attach = { pos1_guardian_10 		= "wraith_01_yellow_section_entity" }
+		attach = { pos1_guardian_11 		= "ancient_station_xs_hull_entity" }
+		attach = { pos1_guardian_12 		= "ancient_station_s_hull_entity" }
+		attach = { pos1_guardian_13 		= "ancient_station_m_hull_entity" }
+		attach = { pos1_guardian_14 		= "ancient_station_l_hull_entity" }
+		attach = { pos1_guardian_15 		= "ancient_station_xl_hull_entity" }	
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_science_compare_entity"
+	
+		locator = { name = "pos1_s1_science" 		position = { 5 		0 	0 	} }
+		locator = { name = "pos1_s2_science" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s3_science" 		position = { 35		0 	0 	} }
+		locator = { name = "pos1_s4_science" 		position = { 50		0 	0 	} }	
+		locator = { name = "pos2_s5_science" 		position = { 65		0 	0 	} }
+		locator = { name = "pos2_s6_science" 		position = { 80 	0 	0 	} }
+
+
+		attach = { pos1_s1_science 		= "avian_01_science_ship_entity" }
+		attach = { pos1_s2_science 		= "mammalian_01_science_ship_entity" }
+		attach = { pos1_s3_science 		= "arthropoid_01_science_ship_entity" }
+		attach = { pos1_s4_science 		= "molluscoid_01_science_ship_entity" }
+		attach = { pos2_s5_science 		= "fungoid_01_science_ship_entity" }	
+		attach = { pos2_s6_science 		= "reptilian_01_science_ship_entity" }
+
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_construction_compare_entity"
+	#pdxmesh = "reptilian_01_missile_mesh"
+	
+		locator = { name = "pos1_s1_construction" 		position = { 0 		0 	0 	} }
+		locator = { name = "pos1_s2_construction" 		position = { 25		0 	0 	} }
+		locator = { name = "pos1_s3_construction" 		position = { 50		0 	0 	} }
+		locator = { name = "pos1_s4_construction" 		position = { 75		0 	0 	} }	
+		locator = { name = "pos2_s5_construction" 		position = { 100	0 	0 	} }
+		locator = { name = "pos2_s6_construction" 		position = { 125 	0 	0 	} }
+		locator = { name = "pos2_ai_construction" 		position = { 150 	0 	0 	} }
+		locator = { name = "pos2_swarm_construction" 	position = { 175 	0 	0 	} }
+
+
+
+		attach = { pos1_s1_construction 		= "avian_01_construction_ship_entity" }
+		attach = { pos1_s2_construction 		= "mammalian_01_construction_ship_entity" }
+		attach = { pos1_s3_construction 		= "arthropoid_01_construction_ship_entity" }
+		attach = { pos1_s4_construction 		= "molluscoid_01_construction_ship_entity" }
+		attach = { pos2_s5_construction 		= "fungoid_01_construction_ship_entity" }	
+		attach = { pos2_s6_construction 		= "reptilian_01_construction_ship_entity" }		
+		attach = { pos2_ai_construction 		= "ai_01_construction_ship_ai_entity" }	
+		attach = { pos2_swarm_construction 		= "swarm_01_construction_ship_swarm_entity" }
+
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_transport_compare_entity"
+	#pdxmesh = "reptilian_01_missile_mesh"
+	
+		locator = { name = "pos1_s1_transport" 		position = { 5 		0 	0 	} }
+		locator = { name = "pos1_s2_transport" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s3_transport" 		position = { 35		0 	0 	} }
+		locator = { name = "pos1_s4_transport" 		position = { 50		0 	0 	} }	
+		locator = { name = "pos2_s5_transport" 		position = { 65		0 	0 	} }
+		locator = { name = "pos2_s6_transport" 		position = { 80 	0 	0 	} }
+
+
+		attach = { pos1_s1_transport 		= "avian_01_transport_ship_entity" }
+		attach = { pos1_s2_transport 		= "mammalian_01_transport_ship_entity" }
+		attach = { pos1_s3_transport 		= "arthropoid_01_transport_ship_entity" }
+		attach = { pos1_s4_transport 		= "molluscoid_01_transport_ship_entity" }
+		attach = { pos2_s5_transport 		= "fungoid_01_transport_ship_entity" }	
+		attach = { pos2_s6_transport 		= "reptilian_01_transport_entity" }
+
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "test_fighters_and_bombers_compare_entity"
+	
+		locator = { name = "pos1_s1_fighter" 		position = { 5 		0 	0 	} }
+		locator = { name = "pos1_s1_bomber" 		position = { 10		0 	0 	} }
+		locator = { name = "pos1_s1_droppod" 		position = { 15		0 	0 	} }	
+		locator = { name = "pos1_s2_fighter" 		position = { 20 	0 	0 	} }
+		locator = { name = "pos1_s2_bomber" 		position = { 25		0 	0 	} }
+		locator = { name = "pos1_s2_droppod" 		position = { 30		0 	0 	} }	
+		locator = { name = "pos1_s3_fighter" 		position = { 35 	0 	0 	} }
+		locator = { name = "pos1_s3_bomber" 		position = { 40		0 	0 	} }
+		locator = { name = "pos1_s3_droppod" 		position = { 45		0 	0 	} }	
+		locator = { name = "pos1_s4_fighter" 		position = { 50		0 	0 	} }
+		locator = { name = "pos1_s4_bomber" 		position = { 55		0 	0 	} }
+		locator = { name = "pos1_s4_droppod" 		position = { 60		0 	0 	} }	
+		locator = { name = "pos1_s5_fighter" 		position = { 65		0 	0 	} }
+		locator = { name = "pos1_s5_bomber" 		position = { 70		0 	0 	} }
+		locator = { name = "pos1_s5_droppod" 		position = { 75		0 	0 	} }	
+		locator = { name = "pos1_s6_fighter" 		position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s6_bomber" 		position = { 85		0 	0 	} }
+		locator = { name = "pos1_s6_droppod" 		position = { 90		0 	0 	} }
+
+
+		attach = { pos1_s1_fighter 		= "arthropoid_01_fighter_entity" }
+		attach = { pos1_s1_bomber 		= "arthropoid_01_bomber_entity" }
+		attach = { pos1_s1_droppod 		= "arthropoid_01_droppod_entity" }
+		attach = { pos1_s2_fighter 		= "molluscoid_01_fighter_entity" }
+		attach = { pos1_s2_bomber 		= "molluscoid_01_bomber_entity" }
+		attach = { pos1_s2_droppod 		= "molluscoid_01_droppod_entity" }
+		attach = { pos1_s3_fighter 		= "avian_01_fighter_entity" }
+		attach = { pos1_s3_bomber 		= "avian_01_bomber_entity" }
+		attach = { pos1_s3_droppod 		= "avian_01_droppod_entity" }
+		attach = { pos1_s4_fighter 		= "mammalian_01_fighter_entity" }
+		attach = { pos1_s4_bomber 		= "mammalian_01_bomber_entity" }
+		attach = { pos1_s4_droppod 		= "mammalian_01_droppod_entity" }
+		attach = { pos1_s5_fighter 		= "fungoid_01_fighter_entity" }
+		attach = { pos1_s5_bomber 		= "fungoid_01_bomber_entity" }
+		attach = { pos1_s5_droppod 		= "fungoid_01_droppod_entity" }
+		attach = { pos1_s6_fighter 		= "reptilian_01_bomber_entity" }
+		attach = { pos1_s6_bomber 		= "reptilian_01_droppod_entity" }
+		attach = { pos1_s6_droppod 		= "reptilian_01_fighter_entity" }
+
+
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "event_assets_01_entity"
+	
+		#large
+		locator = { name = "pos1_misc_00" 		position = { 0		0 	0 	} }
+		locator = { name = "pos1_misc_01" 		position = { 40		0 	0 	} }
+		locator = { name = "pos1_misc_02" 		position = { 80		0 	0 	} }
+		locator = { name = "pos1_misc_03" 		position = { 120	0 	0 	} }
+		locator = { name = "pos1_misc_04" 		position = { 160	0 	0 	} }
+		#small medium
+		locator = { name = "pos1_misc_05" 		position = { 40		0 	-33 } }
+		locator = { name = "pos1_misc_06" 		position = { 40		0 	-40 } }
+		locator = { name = "pos1_misc_07" 		position = { 80		0 	-33	} }
+		locator = { name = "pos1_misc_08" 		position = { 80		0 	-40	} }
+		locator = { name = "pos1_misc_09" 		position = { 120	0 	-33	} }	
+		locator = { name = "pos1_misc_10" 		position = { 120	0 	-40	} }	
+		locator = { name = "pos1_misc_11" 		position = { 160	0 	-33	} }
+		locator = { name = "pos1_misc_12" 		position = { 160	0 	-40	} }
+		
+		locator = { name = "pos1_misc_13" 		position = { 285	0 	0	} }
+		locator = { name = "pos1_misc_14" 		position = { 270	0 	0	} }
+		locator = { name = "pos1_misc_15" 		position = { 220	0 	0 	} }
+		
+		locator = { name = "pos1_misc_16" 		position = { 195	0 	80 	} }
+		locator = { name = "pos1_misc_17" 		position = { 240	0 	80 	} }
+		
+		
+		locator = { name = "pos1_misc_18" 		position = { 253	0 	0 	} }
+		locator = { name = "pos1_misc_19" 		position = { -25	0 	0 	} }
+
+		
+		locator = { name = "pos1_misc_20" 		position = { -90 	0 	-20 	} }
+		locator = { name = "pos1_misc_21" 		position = { -60	0 	-20 	} }
+		locator = { name = "pos1_misc_22" 		position = { -30 	0 	-20 	} }
+		locator = { name = "pos1_misc_23" 		position = { 0 		0 	-20 	} }
+		locator = { name = "pos1_misc_24" 		position = { 65 	0 	80 	} }
+		locator = { name = "pos1_misc_25" 		position = { 85 	0 	80 	} }
+		locator = { name = "pos1_misc_26" 		position = { 105 	0 	80 	} }
+		locator = { name = "pos1_misc_27" 		position = { 120 	0 	80 	} }
+		locator = { name = "pos1_misc_28" 		position = { 145 	0 	80 	} }
+		locator = { name = "pos1_misc_29" 		position = { 40 	0 	80 	} }
+		locator = { name = "pos1_misc_30" 		position = { 10 	0 	80 	} }
+		locator = { name = "pos1_misc_31" 		position = { -10 	0 	80 	} }
+
+
+		
+		attach = { pos1_misc_00				= "space_amoeba_entity" }
+		attach = { pos1_misc_01				= "space_amoeba_large_section_entity" }
+		attach = { pos1_misc_02				= "space_amoeba_large_section_dark_entity" }
+		attach = { pos1_misc_03				= "space_amoeba_large_section_bright_entity" }
+		attach = { pos1_misc_04				= "space_amoeba_large_darkwhite_entity" }
+		attach = { pos1_misc_05				= "space_amoeba_medium_entity" }
+		attach = { pos1_misc_06				= "space_amoeba_small_entity" }
+		attach = { pos1_misc_07				= "space_amoeba_medium_dark_entity" }
+		attach = { pos1_misc_08				= "space_amoeba_small_dark_entity" }
+		attach = { pos1_misc_09				= "space_amoeba_medium_green_entity" }
+		attach = { pos1_misc_10				= "space_amoeba_small_green_entity" }
+		attach = { pos1_misc_11				= "space_amoeba_medium_darkwhite_entity" }
+		attach = { pos1_misc_12				= "space_amoeba_small_darkwhite_entity" }
+		
+		attach = { pos1_misc_13				= "pirate_01_pirate_corvette_M1S1_entity" }
+		attach = { pos1_misc_14				= "pirates_destroyer01_1l_2s_entity" }
+		attach = { pos1_misc_15				= "pirate_01_pirate_base_entity" }
+
+		attach = { pos1_misc_16				= "station_generic_01_entity" }
+		attach = { pos1_misc_17				= "station_generic_01_damaged_entity" }
+	
+		attach = { pos1_misc_18				= "pirate_01_cruiser_hull_entity" }
+		attach = { pos1_misc_19				= "probe_entity" }
+
+		attach = { pos1_misc_20 			= "space_whale_section_entity" }
+		attach = { pos1_misc_21 			= "space_whale_red_section_entity" }
+		attach = { pos1_misc_22 			= "space_whale_albino_section_entity" }
+		attach = { pos1_misc_23 			= "space_whale_orange_section_entity" }
+		attach = { pos1_misc_24				= "ancient_destroyer_hull_entity" }
+		attach = { pos1_misc_25				= "ancient_corvette_hull_entity" }
+		attach = { pos1_misc_26				= "ancient_mining_drone_hull_entity" }
+		attach = { pos1_misc_27				= "probe_entity" }
+		attach = { pos1_misc_28				= "cylinder_entity" }
+		attach = { pos1_misc_29				= "ancient_drone_station_entity" }
+		attach = { pos1_misc_30				= "sensor_station_01_entity" }
+		attach = { pos1_misc_31				= "primitive_space_station_entity" }
+		
+		
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+
+entity = {
+	name = "event_assets_02_entity"
+
+	locator = { name = "pos1_misc_00" 		position = { -10 		0 	0 	} }
+	locator = { name = "pos1_misc_01" 		position = { 10 	0 	0 	} }
+	locator = { name = "pos1_misc_02" 		position = { 30 	0 	0 	} }
+	locator = { name = "pos1_misc_03" 		position = { 50 	0 	0 	} }
+	locator = { name = "pos1_misc_04" 		position = { 70 	0 	0 	} }
+	locator = { name = "pos1_misc_05" 		position = { 90 	0 	0 	} }
+	locator = { name = "pos1_misc_06" 		position = { 110 	0 	0 	} }
+	locator = { name = "pos1_misc_07" 		position = { 130 	0 	0 	} }
+	locator = { name = "pos1_misc_08" 		position = { 150 	0 	0 	} }
+	locator = { name = "pos1_misc_09" 		position = { 170 	0 	0 	} }
+	locator = { name = "pos1_misc_10" 		position = { 190 	0 	0 	} }
+	locator = { name = "pos1_misc_11" 		position = { 210 	0 	0 	} }
+	locator = { name = "pos1_misc_12" 		position = { 230 	0 	0 	} }
+	locator = { name = "pos1_misc_13" 		position = { 250 	0 	0 	} }
+	locator = { name = "pos1_misc_14" 		position = { 270 	0 	0 	} }
+	locator = { name = "pos1_misc_15" 		position = { 290 	0 	0 	} }
+	locator = { name = "pos1_misc_16" 		position = { 310 	0 	0 	} }
+	locator = { name = "pos1_misc_17" 		position = { 330 	0 	0 	} }
+	locator = { name = "pos1_misc_18" 		position = { 350 	0 	0 	} }
+	locator = { name = "pos1_misc_19" 		position = { 370 	0 	0 	} }
+	locator = { name = "pos1_misc_20" 		position = { 390 	0 	0 	} }
+	locator = { name = "pos1_misc_21" 		position = { 410 	0 	0 	} }
+	locator = { name = "pos1_misc_22" 		position = { 435 	0 	0 	} }
+	locator = { name = "pos1_misc_23" 		position = { 450 	0 	0 	} }
+	locator = { name = "pos1_misc_24" 		position = { 465 	0 	0 	} }
+	locator = { name = "pos1_misc_25" 		position = { 480 	0 	0 	} }
+	locator = { name = "pos1_misc_26" 		position = { 495 	0 	0 	} }
+	locator = { name = "pos1_misc_27" 		position = { 510 	0 	0 	} }
+	locator = { name = "pos1_misc_28" 		position = { 525 	0 	0 	} }
+	locator = { name = "pos1_misc_29" 		position = { 540 	0 	0 	} }
+
+	attach = { pos1_misc_00 			= "probe_entity" }
+	attach = { pos1_misc_01 			= "probe_entity" }
+	attach = { pos1_misc_02 			= "probe_entity" }
+	attach = { pos1_misc_03 			= "probe_entity" }
+	attach = { pos1_misc_04				= "probe_entity" }
+	attach = { pos1_misc_05				= "probe_entity" }
+	attach = { pos1_misc_06				= "probe_entity" }
+	attach = { pos1_misc_07				= "probe_entity" }
+	attach = { pos1_misc_08				= "probe_entity" }
+	attach = { pos1_misc_09				= "probe_entity" }
+	attach = { pos1_misc_10 			= "abandoned_wormhole_station_01_entity" }
+	attach = { pos1_misc_11 			= "eventship_09_entity" }
+	attach = { pos1_misc_12 			= "eventship_08_entity" }
+	attach = { pos1_misc_13				= "cargo_transport_containers_entity" }
+	attach = { pos1_misc_14				= "cargo_transport_tanker_entity" }
+	attach = { pos1_misc_15				= "ark_ship_entity" }
+	attach = { pos1_misc_16				= "abandoned_ship_entity" }
+	attach = { pos1_misc_17				= "eventship_07_entity" }
+	attach = { pos1_misc_18 			= "eventship_06_entity" }
+	attach = { pos1_misc_19 			= "eventship_05_entity" }
+	attach = { pos1_misc_20 			= "eventship_05_var1_entity" }
+	attach = { pos1_misc_21 			= "eventship_05_var2_entity" }
+	attach = { pos1_misc_22 			= "eventship_04_yellow_green_entity" }
+	attach = { pos1_misc_23 			= "eventship_04_red_entity" }
+	attach = { pos1_misc_24				= "eventship_04_green_entity" }
+	attach = { pos1_misc_25				= "eventship_04_yellow_entity" }
+	attach = { pos1_misc_26				= "eventship_04_blue_entity" }
+	attach = { pos1_misc_27				= "eventship_03_entity" }
+	attach = { pos1_misc_28				= "eventship_02_entity" }
+	attach = { pos1_misc_29				= "eventship_01_entity" }
+				
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+
+
+entity = {
+	name = "more_misc_entity"
+	
+		locator = { name = "pos1_misc_00" 		position = { 0		0 	80 	} }
+		locator = { name = "pos1_misc_01" 		position = { 30		0 	80 	} }
+		locator = { name = "pos1_misc_02" 		position = { 60		0 	80 	} }
+		locator = { name = "pos1_misc_03" 		position = { 90		0 	80 	} }
+		locator = { name = "pos1_misc_04" 		position = { 120	0 	80 	} }
+		locator = { name = "pos1_misc_05" 		position = { 150	0 	80 	} }
+		locator = { name = "pos1_misc_06" 		position = { 180	0 	80 	} }
+		locator = { name = "pos1_misc_07" 		position = { 210	0 	80 	} }
+		locator = { name = "pos1_misc_17" 		position = { 240	0 	80 	} }
+		                                                     
+		locator = { name = "pos1_misc_08" 		position = { 0		0 	130 	} }
+		locator = { name = "pos1_misc_09" 		position = { 30		0 	130 	} }	
+		locator = { name = "pos1_misc_10" 		position = { 60		0 	130 	} }	
+		locator = { name = "pos1_misc_11" 		position = { 90		0 	130 	} }
+		locator = { name = "pos1_misc_12" 		position = { 120	0 	130 	} }
+		locator = { name = "pos1_misc_13" 		position = { 150	0 	130 	} }
+		locator = { name = "pos1_misc_14" 		position = { 180	0 	130 	} }
+		locator = { name = "pos1_misc_15" 		position = { 210	0 	130 	} }
+		locator = { name = "pos1_misc_16" 		position = { 240	0 	130 	} }
+		
+		locator = { name = "pos1_misc_18" 		position = { 0		0 	0 	} }
+		locator = { name = "pos1_misc_19" 		position = { 30		0 	0 	} }
+		locator = { name = "pos1_misc_20" 		position = { 60		0 	0 	} }
+		locator = { name = "pos1_misc_21" 		position = { 90		0 	0 	} }
+		locator = { name = "pos1_misc_22" 		position = { 120	0 	0 	} }
+		locator = { name = "pos1_misc_23" 		position = { 150	0 	0 	} }
+		locator = { name = "pos1_misc_24" 		position = { 180	0 	0 	} }
+		locator = { name = "pos1_misc_25" 		position = { 210	0 	0 	} }
+		locator = { name = "pos1_misc_26" 		position = { 240	0 	0 	} }	
+
+
+		attach = { pos1_misc_00				= "crystal_ship_red_entity" }
+		attach = { pos1_misc_01				= "crystal_ship_red_elite_entity" }
+		attach = { pos1_misc_02				= "crystal_ship_green_entity" }
+		attach = { pos1_misc_03				= "crystal_ship_green_elite_entity" }
+		attach = { pos1_misc_04				= "crystal_ship_yellow_entity" }
+		attach = { pos1_misc_05				= "crystal_ship_yellow_elite_entity" }
+		attach = { pos1_misc_06				= "crystal_ship_blue_entity" }
+		attach = { pos1_misc_07				= "crystal_ship_blue_elite_entity" }
+		
+		attach = { pos1_misc_08				= "crystal_ship_small_red_entity" }
+		attach = { pos1_misc_09				= "crystal_ship_small_red_elite_entity" }
+		attach = { pos1_misc_10				= "crystal_ship_small_green_entity" }
+		attach = { pos1_misc_11				= "crystal_ship_small_green_elite_entity" }
+		attach = { pos1_misc_12				= "crystal_ship_small_yellow_entity" }
+		attach = { pos1_misc_13				= "crystal_ship_small_yellow_elite_entity" }
+		attach = { pos1_misc_14				= "crystal_ship_small_blue_entity" }
+		attach = { pos1_misc_15				= "crystal_ship_small_blue_elite_entity" }
+		attach = { pos1_misc_16				= "crystal_ship_small_entity" }
+		attach = { pos1_misc_17				= "crystal_ship_entity" }
+
+		attach = { pos1_misc_18				= "crystal_ship_large_red_entity" }
+		attach = { pos1_misc_19				= "crystal_ship_large_red_elite_entity" }
+		attach = { pos1_misc_20				= "crystal_ship_large_green_entity" }
+		attach = { pos1_misc_21				= "crystal_ship_large_green_elite_entity" }
+		attach = { pos1_misc_22				= "crystal_ship_large_yellow_entity" }
+		attach = { pos1_misc_23				= "crystal_ship_large_yellow_elite_entity" }
+		attach = { pos1_misc_24				= "crystal_ship_large_blue_entity" }
+		attach = { pos1_misc_25				= "crystal_ship_large_blue_elite_entity" }
+		attach = { pos1_misc_26				= "crystal_ship_large_entity" }
+		
+		
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "even_more_misc_entity"
+	
+		locator = { name = "pos1_misc_00" 		position = { 0		0 	0 	} }
+		locator = { name = "pos1_misc_01" 		position = { 40		0 	0 	} }
+		locator = { name = "pos1_misc_02" 		position = { 80		0 	0 	} }
+		locator = { name = "pos1_misc_03" 		position = { 120	0 	0 	} }
+		locator = { name = "pos1_misc_04" 		position = { 160	0 	0 	} }
+		locator = { name = "pos1_misc_05" 		position = { 200	0 	0 	} }
+		locator = { name = "pos1_misc_06" 		position = { 240	0 	0 	} }
+		locator = { name = "pos1_misc_07" 		position = { 280	0 	0 	} }
+		locator = { name = "pos1_misc_08" 		position = { 320	0 	0 	} }
+		#locator = { name = "pos1_misc_09" 		position = { 30		0 	60 	} }	
+		#locator = { name = "pos1_misc_10" 		position = { 60		0 	60 	} }	
+		#locator = { name = "pos1_misc_11" 		position = { 90		0 	60 	} }
+		#locator = { name = "pos1_misc_12" 		position = { 120	0 	60 	} }
+		#locator = { name = "pos1_misc_13" 		position = { 150	0 	60 	} }
+		#locator = { name = "pos1_misc_14" 		position = { 180	0 	60 	} }
+		#locator = { name = "pos1_misc_15" 		position = { 210	0 	60 	} }
+		#locator = { name = "pos1_misc_16" 		position = { 240	0 	60 	} }
+		#locator = { name = "pos1_misc_17" 		position = { 240	0 	0 	} }
+		#locator = { name = "pos1_misc_18" 		position = { 180	0 	0 	} }
+		#locator = { name = "pos1_misc_19" 		position = { 190	0 	0 	} }
+
+		
+
+
+		attach = { pos1_misc_00				= "crystal_ship_large_entity" }
+		attach = { pos1_misc_01				= "crystal_ship_large_blue_entity" }
+		attach = { pos1_misc_02				= "crystal_ship_large_blue_elite_entity" }
+		attach = { pos1_misc_03				= "crystal_ship_large_yellow_entity" }
+		attach = { pos1_misc_04				= "crystal_ship_large_yellow_elite_entity" }
+		attach = { pos1_misc_05				= "crystal_ship_large_green_entity" }
+		attach = { pos1_misc_06				= "crystal_ship_large_green_elite_entity" }
+		attach = { pos1_misc_07				= "crystal_ship_large_red_entity" }
+		attach = { pos1_misc_08				= "crystal_ship_large_red_elite_entity" }
+		#attach = { pos1_misc_09				= "crystal_ship_small_red_elite_entity" }
+		#attach = { pos1_misc_10				= "crystal_ship_small_green_entity" }
+		#attach = { pos1_misc_11				= "crystal_ship_small_green_elite_entity" }
+		#attach = { pos1_misc_12				= "crystal_ship_small_yellow_entity" }
+		#attach = { pos1_misc_13				= "crystal_ship_small_yellow_elite_entity" }
+		#attach = { pos1_misc_14				= "crystal_ship_small_blue_entity" }
+		#attach = { pos1_misc_15				= "crystal_ship_small_blue_elite_entity" }
+		#attach = { pos1_misc_16				= "crystal_ship_small_entity" }
+		#attach = { pos1_misc_17				= "crystal_ship_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+	#	entity = {
+	#		name = "all_ai_entity"
+	#		#pdxmesh = "reptilian_01_missile_mesh"
+	#		
+	#			locator = { name = "pos1_s1_transport" 		position = { 5 		0 	0 	} }
+	#			locator = { name = "pos1_s2_transport" 		position = { 20		0 	0 	} }
+	#			locator = { name = "pos1_s3_transport" 		position = { 35		0 	0 	} }
+	#			locator = { name = "pos1_s4_transport" 		position = { 50		0 	0 	} }	
+	#			locator = { name = "pos2_s5_transport" 		position = { 65		0 	0 	} }
+	#			locator = { name = "pos2_s6_transport" 		position = { 80 	0 	0 	} }
+    #
+    #
+	#			attach = { pos1_s1_transport 		= "avian_01_transport_ship_entity" }
+	#			attach = { pos1_s2_transport 		= "mammalian_01_transport_ship_entity" }
+	#			attach = { pos1_s3_transport 		= "arthropoid_01_transport_ship_entity" }
+	#			attach = { pos1_s4_transport 		= "molluscoid_01_transport_ship_entity" }
+	#			attach = { pos2_s5_transport 		= "fungoid_01_transport_ship_entity" }	
+	#			attach = { pos2_s6_transport 		= "reptilian_01_transport_entity" }
+    #
+    #
+    #
+	#		cull_radius = 1000
+	#		scale = 1.0
+	#	}
+
+
+entity = {
+	name = "arthropoid_01_orbital_habitat_full_entity"
+	pdxmesh = "arthropoid_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "arthropoid_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "arthropoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "arthropoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "arthropoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "arthropoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "arthropoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "arthropoid_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+	
+entity = {
+	name = "arthropoid_stations_test_entity"
+	
+		locator = { name = "pos1_s1_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s1_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s1_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s1_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s1_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s1_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s1_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s1_orbital_station_assemblyyard_section_entity" 		position = { -48	0 	-10	} }
+		locator = { name = "pos1_s1_orbital_station_hangarbay_section_entity" 			position = { -32 	0 	-10	} }
+		locator = { name = "pos1_s1_orbital_station_refinery_section_entity" 			position = { -16 	0 	-10	} }
+		locator = { name = "pos1_s1_orbital_station_science_section_entity" 			position = { 2 		0 	-10	} }
+		
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -50 	0 	30 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "arthropoid_01_orbital_habitat_full_entity" }
+		attach = { "pos1_s1_orbital_station" 		 		= "arthropoid_01_orbital_station_core_entity" }
+		attach = { "pos1_s1_terraforming_station" 			= "arthropoid_01_terraform_station_entity" }
+		attach = { "pos1_s1_mining_station" 		 		= "arthropoid_01_mining_station_entity" }
+		attach = { "pos1_s1_science_station" 		 		= "arthropoid_01_observation_station_entity" }
+		attach = { "pos1_s1_military_station_large" 		= "arthropoid_01_military_station_large_test_entity" }
+		attach = { "pos1_s1_military_station_medium" 		= "arthropoid_01_military_station_medium_test_entity" }
+		attach = { "pos1_s1_military_station_small"  		= "arthropoid_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s1_orbital_station_assemblyyard_section_entity"  	= "arthropoid_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s1_orbital_station_hangarbay_section_entity"  		= "arthropoid_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s1_orbital_station_refinery_section_entity"  		= "arthropoid_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s1_orbital_station_science_section_entity"  		= "arthropoid_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "molluscoid_01_orbital_habitat_full_entity"
+	pdxmesh = "molluscoid_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "molluscoid_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "molluscoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "molluscoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "molluscoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "molluscoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "molluscoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "molluscoid_01_orbital_station_habitat_section_entity" }
+	
+	scale = 0.8
+}
+
+entity = {
+	name = "molluscoid_stations_test_entity"
+	
+		locator = { name = "pos1_s2_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s2_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s2_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s2_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s2_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s2_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s2_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s2_orbital_station_assemblyyard_section_entity" 		position = { -48	0 	-10	} }
+		locator = { name = "pos1_s2_orbital_station_hangarbay_section_entity" 			position = { -32 	0 	-10	} }
+		locator = { name = "pos1_s2_orbital_station_refinery_section_entity" 			position = { -16 	0 	-10	} }
+		locator = { name = "pos1_s2_orbital_station_science_section_entity" 			position = { 2 		0 	-10	} }
+		
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -50 	0 	40 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "molluscoid_01_orbital_habitat_full_entity" }
+		attach = { "pos1_s2_orbital_station" 		 		= "molluscoid_01_orbital_station_core_entity" }
+		attach = { "pos1_s2_terraforming_station" 			= "molluscoid_01_terraform_station_entity" }
+		attach = { "pos1_s2_mining_station" 		 		= "molluscoid_01_mining_station_entity" }
+		attach = { "pos1_s2_science_station" 		 		= "molluscoid_01_observation_station_entity" }
+		attach = { "pos1_s2_military_station_large" 		= "molluscoid_01_military_station_large_test_entity" }
+		attach = { "pos1_s2_military_station_medium" 		= "molluscoid_01_military_station_medium_test_entity" }
+		attach = { "pos1_s2_military_station_small"  		= "molluscoid_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s2_orbital_station_assemblyyard_section_entity"  	= "molluscoid_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s2_orbital_station_hangarbay_section_entity"  		= "molluscoid_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s2_orbital_station_refinery_section_entity"  		= "molluscoid_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s2_orbital_station_science_section_entity"  		= "molluscoid_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "avian_01_orbital_habitat_full_entity"
+	pdxmesh = "arthropoid_01_orbital_station_frame_mesh"
+	
+	locator = { name = "part1" 		position = { 0 	0 	0 	} rotation = {	0		0	0	}	}
+	locator = { name = "part2" 		position = { 0 	0 	0 	} rotation = {	0		0	0	}	}
+	locator = { name = "part3" 		position = { 0 	0 	0 	} rotation = {	60		0	0	}	}
+	locator = { name = "part4" 		position = { 0 	0 	0 	} rotation = {	-60		0	0	}	}
+	locator = { name = "part5" 		position = { 0 	0 	0 	} rotation = {	180		0	0	}	}
+	locator = { name = "part6" 		position = { 0 	0 	0 	} rotation = {	-120	0	0	}	}
+	locator = { name = "part7" 		position = { 0 	0 	0 	} rotation = {	120		0	0	}	}
+	
+	attach = { "part1" 		 		= "avian_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "avian_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "avian_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "avian_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "avian_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "avian_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "avian_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+
+entity = {
+	name = "avian_stations_test_entity"
+	
+		locator = { name = "pos1_s3_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s3_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s3_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s3_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s3_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s3_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s3_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s3_orbital_station_assemblyyard_section_entity" 		position = { -48	0 	-10	} }
+		locator = { name = "pos1_s3_orbital_station_hangarbay_section_entity" 			position = { -32 	0 	-10	} }
+		locator = { name = "pos1_s3_orbital_station_refinery_section_entity" 			position = { -16 	0 	-10	} }
+		locator = { name = "pos1_s3_orbital_station_science_section_entity" 			position = { 2 	0 	-10	} }
+
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -60 	0 	25 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "avian_01_orbital_habitat_full_entity" }
+		attach = { "pos1_s3_orbital_station" 		 		= "avian_01_orbital_station_core_entity" }
+		attach = { "pos1_s3_terraforming_station" 			= "avian_01_terraform_station_entity" }
+		attach = { "pos1_s3_mining_station" 		 		= "avian_01_mining_station_entity" }
+		attach = { "pos1_s3_science_station" 		 		= "avian_01_observation_station_entity" }
+		attach = { "pos1_s3_military_station_large" 		= "avian_01_military_station_large_test_entity" }
+		attach = { "pos1_s3_military_station_medium" 		= "avian_01_military_station_medium_test_entity" }
+		attach = { "pos1_s3_military_station_small"  		= "avian_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s3_orbital_station_assemblyyard_section_entity"  	= "avian_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s3_orbital_station_hangarbay_section_entity"  		= "avian_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s3_orbital_station_refinery_section_entity"  		= "avian_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s3_orbital_station_science_section_entity"  		= "avian_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "mammalian_01_orbital_habitat_full_entity"
+	pdxmesh = "mammalian_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "mammalian_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "mammalian_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "mammalian_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "mammalian_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "mammalian_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "mammalian_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "mammalian_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+
+entity = {
+	name = "mammalian_01_orbital_station_entity2"
+	pdxmesh = "mammalian_01_orbital_station_frame_mesh"	
+			attach = { part1	= "mammalian_01_orbital_station_core_entity" }
+			attach = { part7	= "mammalian_01_orbital_station_assemblyyard_section_entity" }
+			attach = { part2	= "mammalian_01_orbital_station_hangarbay_section_entity" }
+			attach = { part3	= "mammalian_01_orbital_station_refinery_section_entity" }
+			attach = { part4	= "mammalian_01_orbital_station_science_section_entity" }
+			attach = { part5	= "mammalian_01_orbital_station_science_section_entity" }
+			attach = { part6	= "mammalian_01_orbital_station_science_section_entity" }
+	cull_radius = 1.0 
+}
+
+
+entity = {
+	name = "mammalian_stations_test_entity"
+	
+		locator = { name = "pos1_s4_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s4_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s4_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s4_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s4_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s4_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s4_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s4_orbital_station_assemblyyard_section_entity" 		position = { -45 	0 	-10	} }
+		locator = { name = "pos1_s4_orbital_station_hangarbay_section_entity" 			position = { -30 	0 	-10	} }
+		locator = { name = "pos1_s4_orbital_station_refinery_section_entity" 			position = { -15 	0 	-10	} }
+		locator = { name = "pos1_s4_orbital_station_science_section_entity" 			position = { -0 	0 	-10	} }
+
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -60 	0 	20 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "mammalian_01_orbital_habitat_full_entity" }
+		attach = { "pos1_s4_orbital_station" 		 		= "mammalian_01_orbital_station_core_entity" }
+		attach = { "pos1_s4_terraforming_station" 			= "mammalian_01_terraform_station_entity" }
+		attach = { "pos1_s4_mining_station" 		 		= "mammalian_01_mining_station_entity" }
+		attach = { "pos1_s4_science_station" 		 		= "mammalian_01_observation_station_entity" }
+		attach = { "pos1_s4_military_station_large" 		= "mammalian_01_military_station_large_test_entity" }
+		attach = { "pos1_s4_military_station_medium" 		= "mammalian_01_military_station_medium_test_entity" }
+		attach = { "pos1_s4_military_station_small"  		= "mammalian_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s4_orbital_station_assemblyyard_section_entity"  	= "mammalian_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s4_orbital_station_hangarbay_section_entity"  		= "mammalian_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s4_orbital_station_refinery_section_entity"  		= "mammalian_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s4_orbital_station_science_section_entity"  		= "mammalian_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+	
+	
+}
+
+entity = {
+	name = "fungoid_01_orbital_habitat_full_entity"
+	pdxmesh = "fungoid_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "fungoid_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "fungoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "fungoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "fungoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "fungoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "fungoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "fungoid_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "fungoid_01_orbital_station_entity2"
+	pdxmesh = "fungoid_01_orbital_station_frame_mesh"	
+			attach = { part1	= "fungoid_01_orbital_station_core_entity" }
+			attach = { part7	= "fungoid_01_orbital_station_assemblyyard_section_entity" }
+			attach = { part2	= "fungoid_01_orbital_station_hangarbay_section_entity" }
+			attach = { part3	= "fungoid_01_orbital_station_refinery_section_entity" }
+			attach = { part4	= "fungoid_01_orbital_station_science_section_entity" }
+			attach = { part5	= "fungoid_01_orbital_station_science_section_entity" }
+			attach = { part6	= "fungoid_01_orbital_station_science_section_entity" }
+	cull_radius = 1.0 
+}
+
+entity = {
+	name = "fungoid_stations_test_entity"
+	
+		locator = { name = "pos1_s5_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s5_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s5_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s5_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s5_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s5_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s5_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s5_orbital_station_assemblyyard_section_entity" 		position = { -40 	0 	-10	} }
+		locator = { name = "pos1_s5_orbital_station_hangarbay_section_entity" 			position = { -30 	0 	-10	} }
+		locator = { name = "pos1_s5_orbital_station_refinery_section_entity" 			position = { -20 	0 	-10	} }
+		locator = { name = "pos1_s5_orbital_station_science_section_entity" 			position = { -10 	0 	-10	} }
+
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -60 	0 	20 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "fungoid_01_orbital_habitat_full_entity" }
+		attach = { "pos1_s5_orbital_station" 		 		= "fungoid_01_orbital_station_core_entity" }
+		attach = { "pos1_s5_terraforming_station" 			= "fungoid_01_terraform_station_entity" }
+		attach = { "pos1_s5_mining_station" 		 		= "fungoid_01_mining_station_entity" }
+		attach = { "pos1_s5_science_station" 		 		= "fungoid_01_observation_station_entity" }
+		attach = { "pos1_s5_military_station_large" 		= "fungoid_01_military_station_large_test_entity" }
+		attach = { "pos1_s5_military_station_medium" 		= "fungoid_01_military_station_medium_test_entity" }
+		attach = { "pos1_s5_military_station_small"  		= "fungoid_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s5_orbital_station_assemblyyard_section_entity"  	= "fungoid_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s5_orbital_station_hangarbay_section_entity"  		= "fungoid_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s5_orbital_station_refinery_section_entity"  		= "fungoid_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s5_orbital_station_science_section_entity"  		= "fungoid_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+	
+	
+}
+
+entity = {
+	name = "reptilian_01_orbital_habitat_full_entity"
+	pdxmesh = "reptilian_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "reptilian_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "reptilian_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "reptilian_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "reptilian_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "reptilian_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "reptilian_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "reptilian_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "reptilian_stations_test_entity"
+	
+		locator = { name = "pos1_s6_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s6_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s6_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s6_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s6_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s6_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s6_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s6_orbital_station_assemblyyard_section_entity" 		position = { -40 	0 	-10	} }
+		locator = { name = "pos1_s6_orbital_station_hangar_section_entity" 				position = { -30 	0 	-10	} }
+		locator = { name = "pos1_s6_orbital_station_refinery_section_entity" 			position = { -20 	0 	-10	} }
+		locator = { name = "pos1_s6_orbital_station_science_section_entity" 			position = { -10 	0 	-10	} }
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -60 	0 	30 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "reptilian_01_orbital_habitat_full_entity" }
+		
+		attach = { "pos1_s6_orbital_station" 		 		= "reptilian_01_orbital_station_core_entity" }
+		attach = { "pos1_s6_terraforming_station" 			= "reptilian_01_terraform_station_entity" }
+		attach = { "pos1_s6_mining_station" 		 		= "reptilian_01_mining_station_entity" }
+		attach = { "pos1_s6_science_station" 		 		= "reptilian_01_observation_station_entity" }
+		attach = { "pos1_s6_military_station_large" 		= "reptilian_01_military_station_large_construction_entity" }
+		attach = { "pos1_s6_military_station_medium" 		= "reptilian_01_military_station_medium_construction_entity" }
+		attach = { "pos1_s6_military_station_small"  		= "reptilian_01_military_station_small_construction_entity" }
+		
+		attach = { "pos1_s6_orbital_station_assemblyyard_section_entity"  	= "reptilian_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s6_orbital_station_hangar_section_entity"  		= "reptilian_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s6_orbital_station_refinery_section_entity"  		= "reptilian_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s6_orbital_station_science_section_entity"  		= "reptilian_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+	
+	
+}
+
+entity = {
+	name = "plantoid_01_orbital_habitat_full_entity"
+	pdxmesh = "plantoid_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "plantoid_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "plantoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "plantoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "plantoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "plantoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "plantoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "plantoid_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+
+entity = {
+	name = "plantoid_stations_test_entity"
+	
+		locator = { name = "pos1_s7_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s7_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s7_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s7_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s7_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s7_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s7_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s7_orbital_station_assemblyyard_section_entity" 		position = { -40 	0 	-10	} }
+		locator = { name = "pos1_s7_orbital_station_hangar_section_entity" 				position = { -30 	0 	-10	} }
+		locator = { name = "pos1_s7_orbital_station_refinery_section_entity" 			position = { -20 	0 	-10	} }
+		locator = { name = "pos1_s7_orbital_station_science_section_entity" 			position = { -10 	0 	-10	} }
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -60 	0 	30 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "plantoid_01_orbital_habitat_full_entity" }
+
+		attach = { "pos1_s7_orbital_station" 		 		= "plantoid_01_orbital_station_core_entity" }
+		attach = { "pos1_s7_terraforming_station" 			= "plantoid_01_terraform_station_entity" }
+		attach = { "pos1_s7_mining_station" 		 		= "plantoid_01_mining_station_entity" }
+		attach = { "pos1_s7_science_station" 		 		= "plantoid_01_research_station_entity" }
+		attach = { "pos1_s7_military_station_large" 		= "plantoid_01_military_station_large_test_entity" }
+		attach = { "pos1_s7_military_station_medium" 		= "plantoid_01_military_station_medium_test_entity" }
+		attach = { "pos1_s7_military_station_small"  		= "plantoid_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s7_orbital_station_assemblyyard_section_entity"  	= "plantoid_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s7_orbital_station_hangar_section_entity"  		= "plantoid_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s7_orbital_station_refinery_section_entity"  		= "plantoid_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s7_orbital_station_science_section_entity"  		= "plantoid_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+	
+	
+}
+
+
+entity = {
+	name = "humanoid_01_orbital_habitat_full_entity"
+	pdxmesh = "humanoid_01_orbital_station_frame_mesh"
+	
+	attach = { "part1" 		 		= "humanoid_01_orbital_station_core_entity" }
+	
+	attach = { "part2" 		 		= "humanoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part3" 		 		= "humanoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part4" 		 		= "humanoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part5" 		 		= "humanoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part6" 		 		= "humanoid_01_orbital_station_habitat_section_entity" }
+	attach = { "part7" 		 		= "humanoid_01_orbital_station_habitat_section_entity" }
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "humanoid_stations_test_entity"
+	
+		locator = { name = "pos1_s8_orbital_station" 			position = { -20 	0 	10 	} }
+		locator = { name = "pos1_s8_terraforming_station" 		position = { 20		0 	0 	} }
+		locator = { name = "pos1_s8_mining_station" 			position = { 50		0 	0 	} }	
+		locator = { name = "pos1_s8_science_station" 			position = { 80 	0 	0 	} }
+		locator = { name = "pos1_s8_military_station_large" 	position = { 30		0 	30 	} }
+		locator = { name = "pos1_s8_military_station_medium" 	position = { 70		0 	30	} }	
+		locator = { name = "pos1_s8_military_station_small" 	position = { 95		0 	30	} }	
+		
+		locator = { name = "pos1_s8_orbital_station_assemblyyard_section_entity" 		position = { -40 	0 	-10	} }
+		locator = { name = "pos1_s8_orbital_station_hangar_section_entity" 				position = { -30 	0 	-10	} }
+		locator = { name = "pos1_s8_orbital_station_refinery_section_entity" 			position = { -20 	0 	-10	} }
+		locator = { name = "pos1_s8_orbital_station_science_section_entity" 			position = { -10 	0 	-10	} }
+		locator = { name = "pos1_s1_orbital_habitat" 			position = { -60 	0 	30 	} }
+	
+		attach = { "pos1_s1_orbital_habitat" 		 		= "humanoid_01_orbital_habitat_full_entity" }
+
+		attach = { "pos1_s8_orbital_station" 		 		= "humanoid_01_orbital_station_core_entity" }
+		attach = { "pos1_s8_terraforming_station" 			= "humanoid_01_terraform_station_entity" }
+		attach = { "pos1_s8_mining_station" 		 		= "humanoid_01_mining_station_entity" }
+		attach = { "pos1_s8_science_station" 		 		= "humanoid_01_research_station_entity" }
+		attach = { "pos1_s8_military_station_large" 		= "humanoid_01_military_station_large_test_entity" }
+		attach = { "pos1_s8_military_station_medium" 		= "humanoid_01_military_station_medium_test_entity" }
+		attach = { "pos1_s8_military_station_small"  		= "humanoid_01_military_station_small_test_entity" }
+		
+		attach = { "pos1_s8_orbital_station_assemblyyard_section_entity"  	= "humanoid_01_orbital_station_assemblyyard_section_entity" }
+		attach = { "pos1_s8_orbital_station_hangar_section_entity"  		= "humanoid_01_orbital_station_hangarbay_section_entity" }
+		attach = { "pos1_s8_orbital_station_refinery_section_entity"  		= "humanoid_01_orbital_station_refinery_section_entity" }
+		attach = { "pos1_s8_orbital_station_science_section_entity"  		= "humanoid_01_orbital_station_science_section_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+	
+	
+}
+
+entity = {
+	name = "science_stations_test_entity"
+	
+		locator = { name = "pos1_science_station_01" 	position = { 0 		0 	0 	} }
+		locator = { name = "pos1_science_station_02" 	position = { 20		0 	0 	} }
+		locator = { name = "pos1_science_station_03" 	position = { 40		0 	0 	} }	
+		locator = { name = "pos1_science_station_04" 	position = { 60 	0 	0 	} }
+		locator = { name = "pos1_science_station_05" 	position = { 80		0 	0 	} }
+		locator = { name = "pos1_science_station_06" 	position = { 100	0 	0	} }	
+
+
+		attach = { "pos1_science_station_01" 		= "arthropoid_01_observation_station_entity" }
+		attach = { "pos1_science_station_02" 		= "molluscoid_01_observation_station_entity" }
+		attach = { "pos1_science_station_03" 		= "avian_01_observation_station_entity" }
+		attach = { "pos1_science_station_04" 		= "mammalian_01_observation_station_entity" }
+	#	attach = { "pos1_science_station_05" 		= "mammalian_01_military_station_large_test_entity" }
+	#	attach = { "pos1_science_station_06" 		= "mammalian_01_military_station_medium_test_entity" }
+	
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "mining_station_test_entity"
+	
+		locator = { name = "pos1_mining_station_01" 	position = { 0 		0 	0 	} }
+		locator = { name = "pos1_mining_station_02" 	position = { 20		0 	0 	} }
+		locator = { name = "pos1_mining_station_03" 	position = { 40		0 	0 	} }	
+		locator = { name = "pos1_mining_station_04" 	position = { 60 	0 	0 	} }
+		locator = { name = "pos1_mining_station_05" 	position = { 80		0 	0 	} }
+		locator = { name = "pos1_mining_station_06" 	position = { 100	0 	0	} }	
+
+
+		attach = { "pos1_mining_station_01" 		= "arthropoid_01_mining_station_entity" }
+		attach = { "pos1_mining_station_02" 		= "molluscoid_01_mining_station_entity" }
+		attach = { "pos1_mining_station_03" 		= "avian_01_mining_station_entity" }
+		attach = { "pos1_mining_station_04" 		= "mammalian_01_mining_station_entity" }
+	#	attach = { "pos1_mining_station_05" 		= "mammalian_01_military_station_large_test_entity" }
+	#	attach = { "pos1_mining_station_06" 		= "mammalian_01_military_station_medium_test_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "terraforming_station_test_entity"
+	
+		locator = { name = "pos1_mining_station_01" 	position = { 0 		0 	0 	} }
+		locator = { name = "pos1_mining_station_02" 	position = { 20		0 	0 	} }
+		locator = { name = "pos1_mining_station_03" 	position = { 40		0 	0 	} }	
+		locator = { name = "pos1_mining_station_04" 	position = { 60 	0 	0 	} }
+		locator = { name = "pos1_mining_station_05" 	position = { 80		0 	0 	} }
+		locator = { name = "pos1_mining_station_06" 	position = { 100	0 	0	} }	
+
+
+		attach = { "pos1_mining_station_01" 		= "arthropoid_01_terraform_station_entity" }
+		attach = { "pos1_mining_station_02" 		= "molluscoid_01_terraform_station_entity" }
+		attach = { "pos1_mining_station_03" 		= "avian_01_terraform_station_entity" }
+		attach = { "pos1_mining_station_04" 		= "mammalian_01_terraform_station_entity" }
+	#	attach = { "pos1_mining_station_05" 		= "mammalian_01_military_station_large_test_entity" }
+	#	attach = { "pos1_mining_station_06" 		= "mammalian_01_military_station_medium_test_entity" }
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_fallen_empire_entity"
+	
+		locator = { name = "pos1_warship_small" 		position = { 0 		0 	0 	} }
+		locator = { name = "pos1_warship_large" 		position = { 25		0 	0 	} }
+		locator = { name = "pos1_civilian_ship" 		position = { 50		0 	0 	} }
+		locator = { name = "pos1_station_small" 		position = { 75		0 	0	} }
+		locator = { name = "pos1_station_large" 		position = { 110	0 	0	} }	
+		locator = { name = "pos1_fighter" 				position = { 135	0 	0	} }	
+		locator = { name = "pos1_transport" 			position = { 150	0 	0	} }	
+		locator = { name = "pos1_titan" 				position = { 175	0 	0	} }	
+		locator = { name = "pos2_warship_small" 		position = { 200	0 	0 	} }
+		locator = { name = "pos2_warship_large" 		position = { 225	0 	0 	} }
+		locator = { name = "pos2_civilian_ship" 		position = { 250	0 	0 	} }
+		locator = { name = "pos2_station_small" 		position = { 275	0 	0	} }
+		locator = { name = "pos2_station_large" 		position = { 300	0 	0	} }	
+		locator = { name = "pos2_fighter" 				position = { 325	0 	0	} }	
+		locator = { name = "pos2_transport" 			position = { 350	0 	0	} }	
+		locator = { name = "pos2_titan" 				position = { 375	0 	0	} }	
+		locator = { name = "pos3_warship_small" 		position = { 400 	0 	0 	} }
+		locator = { name = "pos3_warship_large" 		position = { 425	0 	0 	} }
+		locator = { name = "pos3_civilian_ship" 		position = { 450	0 	0 	} }
+		locator = { name = "pos3_station_small" 		position = { 475	0 	0	} }
+		locator = { name = "pos3_station_large" 		position = { 500	0 	0	} }	
+		locator = { name = "pos3_fighter" 				position = { 525	0 	0	} }	
+		locator = { name = "pos3_transport" 			position = { 550	0 	0	} }	
+		locator = { name = "pos3_titan" 				position = { 575	0 	0	} }	
+		locator = { name = "pos4_warship_small" 		position = { 600 	0 	0 	} }
+		locator = { name = "pos4_warship_large" 		position = { 625	0 	0 	} }
+		locator = { name = "pos4_civilian_ship" 		position = { 650	0 	0 	} }
+		locator = { name = "pos4_station_small" 		position = { 675	0 	0	} }
+		locator = { name = "pos4_station_large" 		position = { 700	0 	0	} }	
+		locator = { name = "pos4_fighter" 				position = { 725	0 	0	} }	
+		locator = { name = "pos4_transport" 			position = { 750	0 	0	} }	
+		locator = { name = "pos4_titan" 				position = { 775	0 	0	} }	
+
+		attach = { "pos1_warship_small" 				= "fallen_empire_01_construction_ship_entity" }
+		attach = { "pos1_warship_large" 	 			= "fallen_empire_01_warship_small_entity" }
+		attach = { "pos1_civilian_ship" 	 			= "fallen_empire_01_warship_large_entity" }
+		attach = { "pos1_station_small" 				= "fallen_empire_01_military_station_small_fallen_empire_entity" }
+		attach = { "pos1_station_large" 				= "fallen_empire_01_military_station_large_fallen_empire_entity" }
+		attach = { "pos1_fighter" 						= "fallen_empire_01_fighter_entity" }
+		attach = { "pos1_transport" 					= "fallen_empire_01_transport_ship_entity" }
+		attach = { "pos1_titan" 						= "fallen_empire_01_titan_entity" }
+
+
+		attach = { "pos2_warship_small" 				= "fallen_empire_02_construction_ship_entity" }
+		attach = { "pos2_warship_large" 	 			= "fallen_empire_02_warship_small_entity" }
+		attach = { "pos2_civilian_ship" 	 			= "fallen_empire_02_warship_large_entity" }
+		attach = { "pos2_station_small" 				= "fallen_empire_02_military_station_small_fallen_empire_entity" }
+		attach = { "pos2_station_large" 				= "fallen_empire_02_military_station_large_fallen_empire_entity" }
+		attach = { "pos2_fighter" 						= "fallen_empire_02_fighter_entity" }
+		attach = { "pos2_transport" 					= "fallen_empire_02_transport_ship_entity" }
+		attach = { "pos2_titan" 						= "fallen_empire_02_titan_entity" }
+
+
+		attach = { "pos3_warship_small" 				= "fallen_empire_03_construction_ship_entity" }
+		attach = { "pos3_warship_large" 	 			= "fallen_empire_03_warship_small_entity" }
+		attach = { "pos3_civilian_ship" 	 			= "fallen_empire_03_warship_large_entity" }
+		attach = { "pos3_station_small" 				= "fallen_empire_03_military_station_small_fallen_empire_entity" }
+		attach = { "pos3_station_large" 				= "fallen_empire_03_military_station_large_fallen_empire_entity" }
+		attach = { "pos3_fighter" 						= "fallen_empire_03_fighter_entity" }
+		attach = { "pos3_transport" 					= "fallen_empire_03_transport_ship_entity" }
+		attach = { "pos3_titan" 						= "fallen_empire_03_titan_entity" }
+
+
+		attach = { "pos4_warship_small" 				= "fallen_empire_04_construction_ship_entity" }
+		attach = { "pos4_warship_large" 	 			= "fallen_empire_04_warship_small_entity" }
+		attach = { "pos4_civilian_ship" 	 			= "fallen_empire_04_warship_large_entity" }
+		attach = { "pos4_station_small" 				= "fallen_empire_04_military_station_small_fallen_empire_entity" }
+		attach = { "pos4_station_large" 				= "fallen_empire_04_military_station_large_fallen_empire_entity" }
+		attach = { "pos4_fighter" 						= "fallen_empire_04_fighter_entity" }
+		attach = { "pos4_transport" 					= "fallen_empire_04_transport_ship_entity" }
+		attach = { "pos4_titan" 						= "fallen_empire_04_titan_entity" }
+
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "test_swarm_entity"
+	
+		locator = { name = "pos1_warship_small" 	position = { 0 		0 	0 	} }
+		locator = { name = "pos1_warship_large" 	position = { 25		0 	0 	} }
+		locator = { name = "pos1_civilian_ship" 	position = { 50		0 	0 	} }
+		locator = { name = "pos1_station_small" 	position = { 75		0 	0	} }
+		locator = { name = "pos1_station_large" 	position = { 110	0 	0	} }	
+		locator = { name = "pos1_fighter" 			position = { 135	0 	0	} }	
+		locator = { name = "pos1_queen" 			position = { 170	0 	-5	} }	
+		locator = { name = "pos2_queen" 			position = { 200	0 	-5	} }	
+		
+		attach = { "pos1_warship_small" 			= "swarm_01_warship_small_entity" }
+		attach = { "pos1_warship_large"  			= "swarm_01_warship_large_entity" }
+		attach = { "pos1_civilian_ship"  			= "swarm_01_construction_ship_swarm_entity" }
+		attach = { "pos1_station_small" 			= "swarm_01_mining_station_entity" }
+		attach = { "pos1_station_large" 			= "swarm_01_orbital_station_core_entity" }
+		attach = { "pos1_fighter" 					= "swarm_01_fighter_entity" }
+		attach = { "pos1_queen" 					= "swarm_01_queen_swarm_entity" }
+		attach = { "pos2_queen" 					= "swarm_02_queen_swarm_entity" }
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "test_ai_entity"
+	
+		locator = { name = "pos1_warship_small" 	position = { 0 		0 	0 	} }
+		locator = { name = "pos1_warship_large" 	position = { 25		0 	0 	} }
+		locator = { name = "pos1_civilian_ship" 	position = { 50		0 	0 	} }
+		locator = { name = "pos1_station_small" 	position = { 75		0 	0	} }
+		locator = { name = "pos1_station_large" 	position = { 110	0 	0	} }	
+		locator = { name = "pos1_fighter" 			position = { 135	0 	0	} }	
+		locator = { name = "pos1_core" 				position = { 170	0 	0	} }	
+
+		attach = { "pos1_warship_small" 			= "ai_01_warship_small_entity" }
+		attach = { "pos1_warship_large"  			= "ai_01_warship_large_entity" }
+		attach = { "pos1_civilian_ship"  			= "ai_01_construction_ship_ai_entity" }
+		attach = { "pos1_station_small" 			= "ai_01_mining_station_entity" }
+		attach = { "pos1_station_large" 			= "ai_01_orbital_station_core_entity" }
+		attach = { "pos1_fighter" 					= "ai_01_fighter_entity" }
+		attach = { "pos1_core" 						= "ai_01_core_ai_entity" }
+
+
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+entity = {
+	name = "test_exd_entity"
+	
+		locator = { name = "pos1_warship_small" 		position = { 0 		0 	0 	} }
+		locator = { name = "pos1_warship_orange_small" 	position = { 0 		0 	45 	} }
+		locator = { name = "pos1_warship_green_small" 	position = { 0 		0 	80 	} }
+		
+		locator = { name = "pos1_warship_medium" 		position = { 30 		0 	0 	} }
+		locator = { name = "pos1_warship_orange_medium"	position = { 30 		0 	45 	} }
+		locator = { name = "pos1_warship_green_medium" 	position = { 30 		0 	80 	} }
+		
+		locator = { name = "pos1_warship_large"		 	position = { 60		0 	0 	} }
+		locator = { name = "pos1_warship_orange_large" 	position = { 60		0 	45 	} }
+		locator = { name = "pos1_warship_green_large" 	position = { 60		0 	85 	} }
+		
+		locator = { name = "pos1_civilian_ship"		 	position = { 90		0 	0 	} }
+		locator = { name = "pos1_civilian_orange_ship" 	position = { 90		0 	45 	} }
+		locator = { name = "pos1_civilian_green_ship" 	position = { 90		0 	85 	} }
+		#new
+		locator = { name = "pos1_station_small" 		position = { 120	0 	0	} }
+		locator = { name = "pos1_station_orange_small" 	position = { 120	0 	45	} }
+		locator = { name = "pos1_station_green_small" 	position = { 120	0 	85	} }
+		
+		locator = { name = "pos1_station_large"		 	position = { 150	0 	0	} }	
+		locator = { name = "pos1_station_orange_large" 	position = { 150	0 	45	} }	
+		locator = { name = "pos1_station_green_large" 	position = { 150	0 	85	} }	
+		
+		locator = { name = "pos1_construction_station_large"		 	position = { 180	0 	0	} }	
+		locator = { name = "pos1_construction_station_orange_large" 	position = { 180	0 	45	} }	
+		locator = { name = "pos1_construction_station_green_large" 		position = { 180	0 	85	} }	
+		
+		locator = { name = "pos1_colony_ship_large"		 		position = { 210	0 	0	} }	
+		locator = { name = "pos1_colony_ship_orange_large" 		position = { 210	0 	45	} }	
+		locator = { name = "pos1_colony_ship_green_large" 		position = { 210	0 	85	} }			
+		#new
+		locator = { name = "pos1_science_ship_large"		 	position = { 240	0 	0	} }	
+		locator = { name = "pos1_science_ship_orange_large" 	position = { 240	0 	45	} }	
+		locator = { name = "pos1_science_ship_green_large" 		position = { 240	0 	85	} }		
+		
+		locator = { name = "pos1_transport_ship_large"		 	position = { 270	0 	0	} }	
+		locator = { name = "pos1_transport_ship_orange_large" 	position = { 270	0 	45	} }	
+		locator = { name = "pos1_transport_ship_green_large" 	position = { 270	0 	85	} }	
+
+		locator = { name = "pos1_mining_station_large"		 	position = { 300	0 	0	} }	
+		locator = { name = "pos1_mining_station_orange_large" 	position = { 300	0 	45	} }	
+		locator = { name = "pos1_mining_station_green_large" 	position = { 300	0 	85	} }		
+
+		locator = { name = "pos1_military_station_large"		 	position = { 330	0 	0	} }	
+		locator = { name = "pos1_military_station_orange_large" 	position = { 330	0 	45	} }	
+		locator = { name = "pos1_military_station_green_large" 	position = { 330	0 	85	} }
+		#new
+		locator = { name = "pos1_military_station_medium"		 	position = { 360	0 	0	} }	
+		locator = { name = "pos1_military_station_orange_medium" 	position = { 360	0 	45	} }	
+		locator = { name = "pos1_military_station_green_medium" 	position = { 360	0 	85	} }		
+		
+		locator = { name = "pos1_science_station_medium"		 	position = { 360	0 	0	} }	
+		locator = { name = "pos1_science_station_orange_medium" 	position = { 360	0 	45	} }	
+		locator = { name = "pos1_science_station_green_medium" 	position = { 360	0 	85	} }		
+		
+
+		attach = { "pos1_warship_small" 				= "extra_dimensional_01_warship_small_entity" }
+		attach = { "pos1_warship_orange_small" 			= "extra_dimensional_02_warship_small_entity" }
+		attach = { "pos1_warship_green_small" 			= "extra_dimensional_03_warship_small_entity" }
+
+		attach = { "pos1_warship_medium" 				= "extra_dimensional_01_warship_medium_entity" }
+		attach = { "pos1_warship_orange_medium" 		= "extra_dimensional_02_warship_medium_entity" }
+		attach = { "pos1_warship_green_medium" 			= "extra_dimensional_03_warship_medium_entity" }
+		
+		attach = { "pos1_warship_large"  				= "extra_dimensional_01_warship_large_entity" }
+		attach = { "pos1_warship_orange_large"			= "extra_dimensional_02_warship_large_entity" }
+		attach = { "pos1_warship_green_large"  			= "extra_dimensional_03_warship_large_entity" }
+				
+		attach = { "pos1_civilian_ship"  				= "extra_dimensional_01_constructor_ed_entity" }
+		attach = { "pos1_civilian_orange_ship"  		= "extra_dimensional_02_constructor_ed_entity" }
+		attach = { "pos1_civilian_green_ship"  			= "extra_dimensional_03_constructor_ed_entity" }
+		
+		attach = { "pos1_station_small" 				= "extra_dimensional_01_mining_station_core_entity" }
+		attach = { "pos1_station_orange_small" 			= "extra_dimensional_02_mining_station_core_entity" }
+		attach = { "pos1_station_green_small" 			= "extra_dimensional_03_mining_station_core_entity" }
+		
+		attach = { "pos1_station_large" 				= "extra_dimensional_01_orbital_station_core_entity" }
+		attach = { "pos1_station_orange_large" 			= "extra_dimensional_02_orbital_station_core_entity" }
+		attach = { "pos1_station_green_large" 			= "extra_dimensional_03_orbital_station_core_entity" }
+		
+		attach = { "pos1_construction_station_large" 				= "extra_dimensional_01_constructor_ed_entity" }
+		attach = { "pos1_construction_station_orange_large" 		= "extra_dimensional_02_constructor_ed_entity" }
+		attach = { "pos1_construction_station_green_large" 			= "extra_dimensional_03_constructor_ed_entity" }
+
+		attach = { "pos1_colony_ship_large" 			= "extra_dimensional_01_colony_ship_entity" }
+		attach = { "pos1_colony_ship_orange_large" 		= "extra_dimensional_02_colony_ship_entity" }
+		attach = { "pos1_colony_ship_green_large" 		= "extra_dimensional_03_colony_ship_entity" }
+
+		attach = { "pos1_science_ship_large" 			= "extra_dimensional_01_science_ship_entity" }
+		attach = { "pos1_science_ship_orange_large" 	= "extra_dimensional_02_science_ship_entity" }
+		attach = { "pos1_science_ship_green_large" 		= "extra_dimensional_03_science_ship_entity" }		
+	
+		attach = { "pos1_transport_ship_large" 			= "extra_dimensional_01_transport_ship_entity" }
+		attach = { "pos1_transport_ship_orange_large" 	= "extra_dimensional_02_transport_ship_entity" }
+		attach = { "pos1_transport_ship_green_large" 	= "extra_dimensional_03_transport_ship_entity" }		
+	
+		attach = { "pos1_mining_station_large" 			= "extra_dimensional_01_mining_station_core_entity" }
+		attach = { "pos1_mining_station_orange_large" 	= "extra_dimensional_02_mining_station_core_entity" }
+		attach = { "pos1_mining_station_green_large" 	= "extra_dimensional_03_mining_station_core_entity" }		
+		
+		attach = { "pos1_military_station_large" 			= "extra_dimensional_01_military_station_large_core_entity" }
+		attach = { "pos1_military_station_orange_large" 	= "extra_dimensional_02_military_station_large_core_entity" }
+		attach = { "pos1_military_station_green_large" 		= "extra_dimensional_03_military_station_large_core_entity" }		
+	
+		attach = { "pos1_military_station_medium" 			= "extra_dimensional_01_military_station_small_core_entity" }
+		attach = { "pos1_military_station_orange_medium" 	= "extra_dimensional_02_military_station_small_core_entity" }
+		attach = { "pos1_military_station_green_medium" 	= "extra_dimensional_03_military_station_small_core_entity" }		
+	
+		attach = { "pos1_science_station_medium" 			= "extra_dimensional_01_observation_station_core_entity" }
+		attach = { "pos1_science_station_orange_medium" 	= "extra_dimensional_02_observation_station_core_entity" }
+		attach = { "pos1_science_station_green_medium" 		= "extra_dimensional_03_observation_station_core_entity" }		
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+entity = {
+	name = "all_ships"
+	
+		locator = { name = "s1_ships" 						position = { 5  	0 	50 		} }
+		locator = { name = "s2_ships" 						position = { -15 	0 	50		} }
+		locator = { name = "s3_ships" 						position = { 5 		0 	0 		} }
+		locator = { name = "s4_ships" 						position = { -15  	0 	0 		} }		
+		locator = { name = "s5_ships" 						position = { 5  	0 	-60 	} }
+		locator = { name = "s6_ships" 						position = { -15  	0 	-60 	} }
+		locator = { name = "s7_ships" 						position = { 5  	0 	-120 	} }
+		locator = { name = "s8_ships" 						position = { 5  	0 	-180 	} }
+		
+		locator = { name = "all_figher_and_bombers" 		position = { 10  	0 	100 		} }
+		
+		locator = { name = "s1_stations" 					position = { 330  	0 	0 	} }
+		locator = { name = "s2_stations" 					position = { 330  	0 	-80 	} }
+		locator = { name = "s3_stations" 					position = { 330  	0 	-160 	} }
+		locator = { name = "s4_stations" 					position = { 330  	0 	-240 	} }
+		locator = { name = "s5_stations" 					position = { 330  	0 	-320 	} }
+		locator = { name = "s6_stations" 					position = { 330  	0 	-400 	} }
+		locator = { name = "s7_stations" 					position = { 330  	0 	-480 	} }
+		locator = { name = "s8_stations" 					position = { 330  	0 	-560 	} }
+		
+	#	locator = { name = "science_stations" 				position = { 500  	0 	-0 		} }
+	#	locator = { name = "mining_stations" 				position = { 500  	0 	-50 	} }
+	#	locator = { name = "terraforming_stations" 			position = { 500  	0 	-100 	} }
+			
+		locator = { name = "all_cruisers_order_ships"		position = { 0  	0 	90 	} }		
+
+		locator = { name = "event_ships_loc_01"			position = { -150  	0 	150 	} }	
+		locator = { name = "event_ships_loc_02"			position = { -450  	0 	280 	} }	
+		locator = { name = "more_misc_loc"				position = { -150  	0 	330 	} }	
+		
+		locator = { name = "colony_ships"				position = { 200  	0 	90 	} }
+		locator = { name = "transport_ships"			position = { 200  	0 	120 } }
+		locator = { name = "science_ships_ships"		position = { 200  	0 	150	} }
+		locator = { name = "construction_ships"			position = { 200  	0 	180	} }
+		locator = { name = "fallen_empire_all"			position = { 200  	0 	220	} }
+		locator = { name = "swarm_empire_all"			position = { 200  	0 	260	} }
+		locator = { name = "ai_empire_all"				position = { 200  	0 	300	} }
+		locator = { name = "exd_empire_all"				position = { 200  	0 	340	} }
+		
+		locator = { name = "guardians"			position = { 400  	0 	20 } }
+
+		
+		
+
+	
+	
+		attach = { s1_ships 	= "test_s1_ships_entity" }
+		attach = { s2_ships 	= "test_s2_ships_entity" }
+		attach = { s3_ships 	= "test_s3_ships_entity" }
+		attach = { s4_ships 	= "test_s4_ships_entity" }		
+		attach = { s5_ships 	= "test_s5_ships_entity" }
+		attach = { s6_ships 	= "test_s6_ships_entity" }
+		attach = { s7_ships 	= "test_s7_ships_entity" }
+		attach = { s8_ships 	= "test_s8_ships_entity" }
+		
+		attach = { all_figher_and_bombers 	= "test_fighters_and_bombers_compare_entity" }
+		attach = { event_ships_loc_01 		= "event_assets_01_entity" }
+		attach = { event_ships_loc_02 		= "event_assets_02_entity" }
+		attach = { more_misc_loc 			= "more_misc_entity" }
+		
+		
+		attach = { s1_stations 	= "arthropoid_stations_test_entity" }
+		attach = { s2_stations 	= "molluscoid_stations_test_entity" }
+		attach = { s3_stations 	= "avian_stations_test_entity" }
+		attach = { s4_stations 	= "mammalian_stations_test_entity" }
+		attach = { s5_stations 	= "fungoid_stations_test_entity" }
+		attach = { s6_stations 	= "reptilian_stations_test_entity" }
+		attach = { s7_stations 	= "plantoid_stations_test_entity" }
+		attach = { s8_stations 	= "humanoid_stations_test_entity" }
+		
+		attach = { guardians 	= "test_guardians_compare_entity" }
+		
+	#	attach = { science_stations 		= "science_stations_test_entity" }
+	#	attach = { mining_stations 			= "mining_station_test_entity" }
+	#	attach = { terraforming_stations 	= "terraforming_station_test_entity" }
+		
+		
+		attach = {	colony_ships		 	= "test_colonization_compare_entity" }
+		attach = {	transport_ships	 		= "test_transport_compare_entity" }
+		attach = {	science_ships_ships 	= "test_science_compare_entity" }
+		attach = {	construction_ships	 	= "test_construction_compare_entity" }
+		
+		attach = {	fallen_empire_all		= "test_fallen_empire_entity" }	
+		attach = {	swarm_empire_all		= "test_swarm_entity" }	
+		attach = {	ai_empire_all		 	= "test_ai_entity" }	
+		attach = {	exd_empire_all		 	= "test_exd_entity" }	
+	
+	cull_radius = 1000
+	scale = 1.0
+}
+
+
+
+	#	entity = {
+	#		name = "reptilian_01_spacestation_main_entity"
+	#		pdxmesh = "frozen_planet_03_mesh"
+	#		state = { name = "idle" animation = "idle" }
+	#	}
+
+################################################################################################################
+#### Titans ####################################################################################################
+################################################################################################################
+
+entity = {
+	name = "test_titans_entity"
+	
+	locator = { name = "titan_1"		position = { 30  	0		-7 	} }
+	locator = { name = "titan_2"		position = { 60  	0		0 	} }
+	locator = { name = "titan_3"		position = { 90  	0		0 	} }
+	locator = { name = "titan_4"		position = { 120  	0		0 	} }
+	locator = { name = "titan_5"		position = { 150  	0		0 	} }
+	locator = { name = "titan_6"		position = { 180  	0		0 	} }
+	locator = { name = "titan_7"		position = { 210  	0		0 	} }
+
+	attach = { titan_1 	= "test_avian_01_titan_ship_entity" }	
+	attach = { titan_2 	= "test_arthropoid_01_titan_ship_entity" }	
+	attach = { titan_3 	= "test_fungoid_01_titan_ship_entity" }	
+	attach = { titan_4 	= "test_mammalian_01_titan_ship_entity" }	
+	attach = { titan_5 	= "test_molluscoid_01_titan_ship_entity" }	
+	attach = { titan_6 	= "test_plantoid_01_titan_ship_entity" }	
+	attach = { titan_7 	= "test_reptilian_01_titan_ship_entity" }	
+
+	cull_radius = 1000
+
+	
+}
+
+
+entity = {
+	name = "test_avian_01_titan_ship_entity"
+	pdxmesh = "avian_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "avian_01_titan_bow_entity" }
+	attach = { part2 = "avian_01_titan_mid_entity" }
+	attach = { part3 = "avian_01_titan_stern_entity" }
+	
+	scale = 1.25
+
+}	
+
+entity = {
+	name = "test_arthropoid_01_titan_ship_entity"
+	pdxmesh = "arthropoid_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "arthropoid_01_titan_bow_entity" }
+	attach = { part2 = "arthropoid_01_titan_mid_entity" }
+	attach = { part3 = "arthropoid_01_titan_stern_entity" }
+	
+	scale = 1
+	
+}	
+
+entity = {
+	name = "test_reptilian_01_titan_ship_entity"
+	pdxmesh = "reptilian_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "reptilian_01_titan_bow_entity" }
+	attach = { part2 = "reptilian_01_titan_mid_entity" }
+	attach = { part3 = "reptilian_01_titan_stern_entity" }
+	
+	scale = 1
+
+}	
+
+entity = {
+	name = "test_mammalian_01_titan_ship_entity"
+	pdxmesh = "mammalian_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "mammalian_01_titan_bow_entity" }
+	attach = { part2 = "mammalian_01_titan_mid_entity" }
+	attach = { part3 = "mammalian_01_titan_stern_entity" }
+	
+	scale = 1
+
+}	
+
+entity = {
+	name = "test_molluscoid_01_titan_ship_entity"
+	pdxmesh = "molluscoid_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "molluscoid_01_titan_bow_entity" }
+	attach = { part2 = "molluscoid_01_titan_mid_entity" }
+	attach = { part3 = "molluscoid_01_titan_stern_entity" }
+	
+	scale = 1
+
+}	
+
+entity = {
+	name = "test_fungoid_01_titan_ship_entity"
+	pdxmesh = "fungoid_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "fungoid_01_titan_bow_entity" }
+	attach = { part2 = "fungoid_01_titan_mid_entity" }
+	attach = { part3 = "fungoid_01_titan_stern_entity" }
+	
+	scale = 1
+
+}	
+	
+entity = {
+	name = "test_plantoid_01_titan_ship_entity"
+	pdxmesh = "plantoid_01_titan_frame_mesh"
+	
+	default_state = "idle" 
+	state = { name = "idle" animation = "idle" animation_blend_time = 0.25 }
+	
+	attach = { part1 = "plantoid_01_titan_bow_entity" }
+	attach = { part2 = "plantoid_01_titan_mid_entity" }
+	attach = { part3 = "plantoid_01_titan_stern_entity" }
+	
+	scale = 1
+
+}		
+	
+	
+	

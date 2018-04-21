@@ -1,0 +1,148 @@
+entity = {
+	name = "frontend_background_entity"
+	
+	locator = { name = "loc" position = { 0.0 0.0 0.0 } } #position = { 0.0 0.025 0.0 }
+	
+	attach = { loc = "apocalypse_frontend_attached_entity" }
+	
+}
+
+entity = {
+	name = "apocalypse_frontend_attached_entity"
+	pdxmesh = "apocalypse_frontend_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle"		animation = "idle" 
+		start_event = { node = "corner_swirl" particle = "apocalypse_frontend_corner_swirl_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "stars_locator_01" particle = "apocalypse_frontend_stars_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "stars_locator_02" particle = "apocalypse_frontend_stars_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "ship_light_locator_01" particle = "apocalypse_frontend_ship_light_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "ship_light_locator_02" particle = "apocalypse_frontend_ship_light_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "ship_light_locator_03" particle = "apocalypse_frontend_ship_light_effect" keep_particle = yes trigger_once = yes }
+		start_event = { node = "ship_light_locator_04" particle = "apocalypse_frontend_ship_light_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	scale = 1.1
+	
+	attach = { planet_part_2 = "apocalypse_frontend_magma_entity" }
+	attach = { background = "apocalypse_frontend_crack_glow_2_entity" }
+	attach = { background = "apocalypse_frontend_crack_glow_entity" }
+	attach = { background = "apocalypse_frontend_gas_clouds_entity" }
+	attach = { background = "apocalypse_frontend_gas_clouds_2_entity" }
+	attach = { background = "apocalypse_frontend_gas_clouds_3_entity" }
+	attach = { background = "apocalypse_frontend_front_rocks_entity" }
+}
+
+entity = {
+	name = "apocalypse_frontend_gas_clouds_entity"
+	pdxmesh = "apocalypse_frontend_gas_clouds_mesh"
+	
+	get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = idle animation = "idle" animation_speed = 0.4
+	#	start_event = { node = "outburst_locator" particle = "apocalypse_frontend_gas_outburst_effect" keep_particle = yes trigger_once = yes }
+	}
+	
+	game_data = {
+		uv_animation_speed   = 0.01
+		uv_animation_direction  = { -1.0 0.0 }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "apocalypse_frontend_gas_clouds_2_entity"
+	pdxmesh = "apocalypse_frontend_gas_clouds_2_mesh"
+	
+	get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = idle animation = "idle" animation_speed = 0.5 }
+	
+	game_data = {
+		uv_animation_speed   = 0.005
+		uv_animation_direction  = { -1.0 0.0 }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "apocalypse_frontend_gas_clouds_3_entity"
+	pdxmesh = "apocalypse_frontend_gas_clouds_3_mesh"
+	
+	get_state_from_parent = no
+	
+	default_state = "idle"
+	state = { name = idle animation = "idle" animation_speed = 0.4 }
+	
+	game_data = {
+		uv_animation_speed   = 0.1
+		uv_animation_direction  = { -1.0 0.0 }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "apocalypse_frontend_crack_glow_entity"
+	pdxmesh = "apocalypse_frontend_crack_glow_mesh"
+	
+	game_data = {
+		uv_animation_speed   = 0.01
+		uv_animation_direction  = { 0.0 1.0 }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "apocalypse_frontend_crack_glow_2_entity"
+	pdxmesh = "apocalypse_frontend_crack_glow_2_mesh"
+	
+	game_data = {
+		uv_animation_speed   = 0.04
+		uv_animation_direction  = { 0.0 1.0 }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "apocalypse_frontend_magma_entity"
+	pdxmesh = "apocalypse_frontend_magma_mesh"
+	
+	game_data = {
+		uv_animation_speed   = 0.005
+		uv_animation_direction  = { -0.5 -1.0 }
+	}
+	
+	scale = 1.0
+}
+
+entity = {
+	name = "apocalypse_frontend_front_rocks_entity"
+	pdxmesh = "apocalypse_frontend_front_rocks_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" }
+	
+	scale = 1.0
+}
+
+animation = {
+	name = "apocalypse_frontend_idle_animation"
+	file = "apocalypse_frontend_idle.anim"
+}
+
+animation = {
+	name = "apocalypse_frontend_gas_clouds_idle_animation"
+	file = "apocalypse_frontend_gas_clouds_idle.anim"
+}
+
+animation = {
+	name = "apocalypse_frontend_front_rocks_idle_animation"
+	file = "apocalypse_frontend_front_rocks_idle.anim"
+}

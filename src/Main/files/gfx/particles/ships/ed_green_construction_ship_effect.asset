@@ -1,0 +1,237 @@
+particle={
+	name="ed_green_construction_ship_effect"
+	subsystem={
+		name="core"
+		max_amount=80
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=255.000
+			z=255.000
+			alpha={ 50.000,alpha_fade 50.000 }
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		life={ 0.500 0.000 }
+		emission=50.000
+		size={ 10.000 10.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="absorbs_left"
+		max_amount=200
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=yes
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=170.000
+			y=180.000
+			z=255.000
+			alpha=25.000
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch=45.000,velo_pitch
+		velocity_yaw=-90.000
+		velocity={ 40.000 0.000 }
+		life={ 2.700 0.000 }
+		emission=50.000
+		size={ 5.000 1.000 }
+		rotation={ 0.000 180.000 }
+		force=point
+	}
+	subsystem={
+		name="absorbs_right"
+		max_amount=200
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=yes
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=170.000
+			y=180.000
+			z=255.000
+			alpha=25.000
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch=45.000,velo_pitch
+		velocity_yaw=90.000
+		velocity={ 40.000 0.000 }
+		life={ 2.500 0.000 }
+		emission=50.000
+		size={ 5.000 1.000 }
+		rotation={ 0.000 180.000 }
+		force=point
+	}
+	subsystem={
+		name="absorbs"
+		max_amount=200
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/gradient_circle2.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=180.000
+			z=255.000
+			alpha=10.000
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 10.000 }
+		velocity_yaw={ 0.000 10.000 }
+		velocity={ 40.000 0.000 }
+		life={ 1.500 0.000 }
+		emission=50.000
+		size={ 10.000 5.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="absorbs_intense"
+		max_amount=100
+		slave_particles=0
+		sort="depth"
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=no
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/digital_pattern.dds"
+			x=2
+			y=2
+			shader="ParticleAdditive"
+		}
+		color={
+			x=100.000
+			y=255.000
+			z=255.000
+			alpha=255.000
+		}
+		position={
+			x=0.000
+			y=0.000
+			z=0.000
+		}
+		duration=-1.000
+		emitter_yaw={ 0.000 0.000 }
+		emitter_pitch={ 0.000 0.000 }
+		velocity_pitch={ 0.000 10.000 }
+		velocity_yaw={ 0.000 10.000 }
+		velocity={ 40.000 0.000 }
+		life={ 1.500 0.000 }
+		emission=10.000
+		size={ 1.000 0.500 }
+		rotation={ 0.000 180.000 }
+	}
+	animation={
+		name="alpha_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.085 1.000 0.129 0.164 0.365 0.859 0.644 0.188 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="velo_pitch"
+		start=0.000
+		duration=1.000
+		repeat=yes
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 1.000 0.491 0.000 1.000 1.000 
+		}
+		op="MUL"
+		time="spawn"
+	}
+	force={
+		type="point"
+		name="point"
+		position={
+			-20.000 0.000 0.000 
+		}
+		direction={
+			0.000 0.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-50.000
+	}
+}

@@ -1,0 +1,76 @@
+objectTypes = {
+	pdxmesh = {
+		name = "pirate_01_galleon_mesh"
+		file = "gfx/models/ships/guardians/pirate_galleon/pirate_01_galleon.mesh"
+		scale = 1.15
+		
+		animation = { id = "idle"		type = "pirate_01_galleon_idle_animation" }
+		animation = { id = "death"		type = "pirate_01_galleon_death_animation" }
+
+		meshsettings = {
+			name = "polySurfaceShape1408"
+			index = 0
+			texture_diffuse = "pirate_corvette_01_diffuse.dds"
+			texture_normal = "pirate_corvette_01_normal.dds"
+			texture_specular = "pirate_corvette_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+
+		meshsettings = {
+			name = "polySurfaceShape1408"
+			index = 1
+			texture_diffuse = "pirate_01_destroyer_diffuse.dds"
+			texture_normal = "pirate_01_destroyer_normal.dds"
+			texture_specular = "pirate_01_destroyer_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+
+		meshsettings = {
+			name = "polySurface1083Shape"
+			index = 0
+			texture_diffuse = "pirate_01_base_asteroid_diffuse.dds"
+			texture_normal = "pirate_01_base_asteroid_normal.dds"
+			texture_specular = "pirate_01_base_asteroid_specular.dds"
+			shader = "PdxMeshTerra"
+		}
+	}
+	
+	pdxmesh = {
+		name = "pirate_01_galleon_destroyed_mesh"
+		file = "gfx/models/ships/guardians/pirate_galleon/pirate_01_galleon_destroyed.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface2Shape"
+			index = 0
+			texture_diffuse = "pirate_01_galleon_2_destroyed_diffuse.dds"
+			texture_normal = "pirate_01_galleon_2_destroyed_normal.dds"
+			texture_specular = "pirate_corvette_01_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+
+		meshsettings = {
+			name = "polySurface2Shape"
+			index = 1
+			texture_diffuse = "pirate_01_galleon_1_destroyed_diffuse.dds"
+			texture_normal = "pirate_01_galleon_1_destroyed_normal.dds"
+			texture_specular = "pirate_01_destroyer_spec.dds"
+			shader = "PdxMeshTerra"
+		}
+
+		meshsettings = {
+			name = "polySurface2Shape"
+			index = 2
+			texture_diffuse = "pirate_01_base_asteroid_diffuse.dds"
+			texture_normal = "pirate_01_base_asteroid_normal.dds"
+			texture_specular = "pirate_01_base_asteroid_specular.dds"
+			shader = "PdxMeshTerra"
+		}
+
+		meshsettings = {
+			name = "collisionmeshShape"
+			index = 0
+			shader = "PdxMeshAlphaBlend"
+		}
+	}
+}

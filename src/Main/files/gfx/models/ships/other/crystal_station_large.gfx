@@ -1,0 +1,46 @@
+objectTypes = {
+	pdxmesh = {
+		name = "crystal_station_large_frame_mesh"
+		file = "gfx/models/ships/other/crystal_station_large_frame.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle_animation"		type = "crystal_station_large_frame_idle_animation" }
+		animation = { id = "death_animation"	type = "crystal_station_large_frame_death_animation" }
+	}
+	
+	pdxmesh = {
+		name = "crystal_station_large_base_mesh"
+		file = "gfx/models/ships/other/crystal_station_large_base.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "crystal_station_large_rings_X_mesh"
+		file = "gfx/models/ships/other/crystal_station_large_rings_X.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface249Shape"
+			index = 0
+			texture_diffuse = "crystal_ship_diffuse2.dds"
+			texture_normal = "crystal_ship_normal2.dds"
+			texture_specular = "crystal_ship_specular2.dds"
+			shader = "AlphaBlend_00"
+		}
+	}
+	
+	pdxmesh = {
+		name = "crystal_station_large_rings_Z_mesh"
+		file = "gfx/models/ships/other/crystal_station_large_rings_Z.mesh"
+		scale = 1.0
+
+		meshsettings = {
+			name = "polySurface249Shape"
+			index = 0
+			texture_diffuse = "crystal_ship_diffuse2.dds"
+			texture_normal = "crystal_ship_normal2.dds"
+			texture_specular = "crystal_ship_specular2.dds"
+			shader = "AlphaBlend_00"
+		}
+	}
+}

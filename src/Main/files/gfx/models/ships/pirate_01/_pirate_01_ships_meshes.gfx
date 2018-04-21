@@ -1,0 +1,223 @@
+objectTypes = {
+
+	pdxmesh = {
+		name = "pirate_01_turret_projectile_large_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_projectile_large.mesh"
+
+		scale = 1.0
+		
+		meshsettings = {
+			shader = "PdxMeshShip"
+			texture_diffuse = "pirate_01_turret_diffuse.dds"
+			texture_normal = "pirate_01_turret_normal.dds"
+			texture_specular = "pirate_01_turret_specular.dds"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "pirate_01_turret_projectile_medium_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_turret_projectile_medium.mesh"
+
+		scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#		texture_diffuse = "pirate_01_turret_diffuse.dds"
+	#		texture_normal = "pirate_01_turret_normal.dds"
+	#		texture_specular = "pirate_01_turret_specular.dds"
+	#	}
+	}	
+	
+	pdxmesh = {
+		name = "pirate_01_turret_projectile_small_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_turret_projectile_small.mesh"
+		
+		scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#		texture_diffuse = "pirate_01_turret_diffuse.dds"
+	#		texture_normal = "pirate_01_turret_normal.dds"
+	#		texture_specular = "pirate_01_turret_specular.dds"
+	#	}
+	}	
+	
+	pdxmesh = {
+		name = "pirate_01_turret_missile_large_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_missile_large.mesh"
+
+		scale = 1.0
+		
+		meshsettings = {
+			shader = "PdxMeshShip"
+			texture_diffuse = "pirate_01_turret_diffuse.dds"
+			texture_normal = "pirate_01_turret_normal.dds"
+			texture_specular = "pirate_01_turret_specular.dds"
+		}
+	}	
+	
+	pdxmesh = {
+		name = "pirate_01_turret_missile_medium_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_turret_missile_medium.mesh"
+
+		scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#		texture_diffuse = "pirate_01_turret_diffuse.dds"
+	#		texture_normal = "pirate_01_turret_normal.dds"
+	#		texture_specular = "pirate_01_turret_specular.dds"
+	#	}
+	}	
+	
+	pdxmesh = {
+		name = "pirate_01_turret_missile_small_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_turret_missile_small.mesh"
+		
+		scale = 1.0
+	#	meshsettings = {
+	#		shader = "PdxMeshShip"
+	#		texture_diffuse = "pirate_01_turret_diffuse.dds"
+	#		texture_normal = "pirate_01_turret_normal.dds"
+	#		texture_specular = "pirate_01_turret_specular.dds"
+	#	}
+	}		
+	
+	pdxmesh = {
+		name = "pirate_01_turret_point_defence_mesh"
+		file = "gfx/models/ships/mammalian_01/mammalian_01_turret_point_defence.mesh"
+		
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+			texture_diffuse = "pirate_01_turret_diffuse.dds"
+			texture_normal = "pirate_01_turret_normal.dds"
+			texture_specular = "pirate_01_turret_specular.dds"
+		}
+	}	
+		
+	pdxmesh = {
+		name = "pirate_01_cruiser_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_cruiser.mesh"
+		scale = 1.0
+				animation = { id = "idle"			type = "molluscoid_01_corvette_frame_idle_animation" }
+				#animation = { id = "death"			type = "molluscoid_01_corvette_frame_death_animation" }
+				#animation = { id = "death2"		type = "molluscoid_01_corvette_frame_death2_animation" }
+				animation = { id = "death3"			type = "molluscoid_01_corvette_frame_death3_animation" }
+				
+
+		meshsettings = {
+			name = "pirate_cruiserShape"
+			index = 0
+			texture_diffuse = "pirate_01_base_asteroid_diffuse.dds"
+			texture_normal = "pirate_01_base_asteroid_normal.dds"
+			texture_specular = "pirate_01_base_asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "pirate_cruiserShape"
+			index = 1
+			texture_diffuse = "pirate_01_base_diffuse.dds"
+			texture_normal = "pirate_01_base_normal.dds"
+			texture_specular = "pirate_01_base_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "pirate_cruiserShape"
+			index = 2
+			texture_diffuse = "pirate_corvette_01_diffuse.dds"
+			texture_normal = "pirate_corvette_01_normal.dds"
+			texture_specular = "pirate_corvette_01_spec.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "pirate_cruiserShape"
+			index = 3
+			texture_diffuse = "pirate_01_destroyer_diffuse.dds"
+			texture_normal = "pirate_01_destroyer_normal.dds"
+			texture_specular = "pirate_01_destroyer_spec.dds"
+			shader = "PdxMeshShip"
+		}
+	}	
+		
+	pdxmesh = {
+		name = "pirate_01_corvette_M1S1_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_corvette_M1S1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+	pdxmesh = {
+		name = "pirate_01_corvette_S3_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_corvette_S3.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+		pdxmesh = {
+		name = "pirate_01_corvette_S1_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_corvette_S1.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}	
+	
+	#######  destroyer frame  #######
+	
+	pdxmesh = {
+		name = "pirate_01_destroyer_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_destroyer.mesh"
+		scale = 1.0
+				meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	
+	
+	#######  destroyer bow sections  #######	
+	
+	pdxmesh = {
+		name = "pirates_destroyer01_1l_2s_mesh"
+		file = "gfx/models/ships/pirate_01/pirates_destroyer01_1l_2s.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+		
+		
+	pdxmesh = {
+		name = "pirates_destroyer01_1m_2s_1m_mesh"
+		file = "gfx/models/ships/pirate_01/pirates_destroyer01_1m_2s_1m.mesh"
+		scale = 1.0
+		meshsettings = {
+			shader = "PdxMeshShip"
+		}
+	}
+
+	
+	
+	#######  base   #######	
+	
+	pdxmesh = {
+		name = "pirate_01_base_mesh"
+		file = "gfx/models/ships/pirate_01/pirate_01_base.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"			type = "pirate_01_base_idle_animation" }
+		animation = { id = "death"			type = "pirate_01_base_death_animation" }
+		
+		#		meshsettings = {
+		#	shader = "PdxMeshShip"
+		#}
+		
+		
+	}
+	
+}

@@ -1,0 +1,82 @@
+objectTypes = {
+
+####### Components #######
+	
+	pdxmesh = {
+		name = "survey_base_effect_mesh"
+		file = "gfx/models/add_ons/survey_base_effect.mesh"
+				animation = { id = "survey"			type = "survey_base_effect_animation" }				
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "survey_base_inverse_effect_mesh"
+		file = "gfx/models/add_ons/survey_base_inverse_effect.mesh"
+				animation = { id = "survey"			type = "survey_base_inverse_effect_animation" }				
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "survey_light_mesh"
+		file = "gfx/models/add_ons/survey_light.mesh"	
+			animation = { id = "scan"			type = "survey_light_spin_animation" }
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "scan_detail_mesh"
+		file = "gfx/models/add_ons/scan_detail.mesh"
+				animation = { id = "scan"			type = "scan_detail_scanning_animation" }				
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "minefield_explosion_mesh"
+		file = "gfx/models/add_ons/minefield_explosion.mesh"
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "station_construction_test_01_mesh"
+		file = "gfx/models/add_ons/station_construction_test_01.mesh"
+		
+				animation = { id = "progress_00"			type = "station_construction_test_01_progress_00" }	
+				animation = { id = "progress_20"			type = "station_construction_test_01_progress_20" }	
+				animation = { id = "progress_40"			type = "station_construction_test_01_progress_40" }	
+				animation = { id = "progress_60"			type = "station_construction_test_01_progress_60" }	
+				animation = { id = "progress_80"			type = "station_construction_test_01_progress_80" }	
+				
+		scale = 1.0
+	}
+	
+	pdxmesh = {
+		name = "wormhole_rings_mesh"
+		file = "gfx/models/add_ons/wormhole_rings.mesh"
+		#animation = { id = "idle"	type = "wormhole_rings_idle_animation" }
+		#animation = { id = "open"	type = "wormhole_rings_open_animation" }
+		#animation = { id = "close"	type = "wormhole_rings_close_animation" }
+		scale = 1
+		cull_distance = 99999999.0f
+		
+		meshsettings = {
+			shader = PdxMeshAlphaAdditiveAnimateUVNoDissolve
+		}
+	}
+	
+	pdxmesh = {
+		name = "wormhole_stretched_ring_mesh"
+		file = "gfx/models/add_ons/wormhole_stretched_ring.mesh"
+		scale = 1
+		cull_distance = 99999999.0f
+		
+		meshsettings = {
+			shader = PdxMeshAlphaAdditiveAnimateUVNoDissolve
+		}
+	}
+	
+	pdxmesh = {
+		name = "terraforming_effect_mesh"
+		file = "gfx/models/add_ons/terraforming_effect.mesh"
+		scale = 1.0
+	}
+}
