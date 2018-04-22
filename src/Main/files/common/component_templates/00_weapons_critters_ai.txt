@@ -1,0 +1,52 @@
+
+
+# ####################
+#  Critter Weapons - Contingency Weapons
+# ####################
+
+@critter_cost_value = 35
+@regen = 0.13
+
+### Strike Craft
+
+# Standard Contingency Fighter
+strike_craft_component_template = {
+	key = "AI_STRIKE_CRAFT"
+	size = LARGE
+	entity = "ai_01_fighter_entity"
+	cost = 60
+	power = -60
+	hidden = yes
+
+	count = 10
+	regeneration_per_day = @regen
+	launch_time = 1.0
+	
+	damage = { min = 19 max = 21 }
+	cooldown = 8
+	range = 20
+	accuracy = 1.0
+	
+	health = 100
+	armor = 50
+	shield = 50
+	evasion = 0.80
+	
+	speed = 400
+	rotation_speed = 0.2
+	acceleration = 0.5
+	
+	shield_damage = 1.0
+	shield_penetration = 1
+	armor_penetration = 0.66
+	
+	ship_behavior = "bombers_behavior"
+	
+	weapon_type = instant
+	projectile_gfx = "scout_laser_1"
+	
+	component_set = "AI_STRIKE_CRAFT_1"
+	icon = "GFX_ship_part_strike_craft_scout_1"
+	icon_frame = 1
+	tags = { weapon_type_strike_craft }
+}

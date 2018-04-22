@@ -1,0 +1,287 @@
+@primary = 0.80
+@secondary = 0.60
+@tertiary = 0.20
+
+trait_pc_desert_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_desert_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_desert_habitability = @primary	
+		pc_arid_habitability = @secondary
+		pc_savannah_habitability = @secondary
+		
+		pc_tropical_habitability = @tertiary
+		pc_continental_habitability = @tertiary
+		pc_tundra_habitability = @tertiary
+		pc_arctic_habitability = @tertiary
+		pc_ocean_habitability = @tertiary
+		pc_alpine_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_arid_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_arid_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_arid_habitability = @primary
+		pc_desert_habitability = @secondary
+		pc_savannah_habitability = @secondary
+		
+		pc_tropical_habitability = @tertiary
+		pc_continental_habitability = @tertiary
+		pc_tundra_habitability = @tertiary
+		pc_arctic_habitability = @tertiary
+		pc_ocean_habitability = @tertiary
+		pc_alpine_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_savannah_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_savannah_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_savannah_habitability = @primary
+		pc_desert_habitability = @secondary
+		pc_arid_habitability = @secondary
+		
+		pc_tropical_habitability = @tertiary
+		pc_continental_habitability = @tertiary
+		pc_tundra_habitability = @tertiary
+		pc_arctic_habitability = @tertiary
+		pc_ocean_habitability = @tertiary
+		pc_alpine_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_tropical_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_tropical_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_tropical_habitability = @primary	
+		pc_continental_habitability = @secondary
+		pc_ocean_habitability = @secondary
+		
+		pc_desert_habitability = @tertiary
+		pc_arid_habitability = @tertiary
+		pc_tundra_habitability = @tertiary
+		pc_arctic_habitability = @tertiary
+		pc_alpine_habitability = @tertiary
+		pc_savannah_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_continental_preference = {	
+	icon = "gfx/interface/icons/traits/trait_pc_continental_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_continental_habitability = @primary	
+		pc_tropical_habitability = @secondary
+		pc_ocean_habitability = @secondary
+		
+		pc_desert_habitability = @tertiary
+		pc_arid_habitability = @tertiary
+		pc_tundra_habitability = @tertiary
+		pc_arctic_habitability = @tertiary	
+		pc_alpine_habitability = @tertiary
+		pc_savannah_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_ocean_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_ocean_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_ocean_habitability = @primary	
+		pc_continental_habitability = @secondary
+		pc_tropical_habitability = @secondary
+		
+		pc_desert_habitability = @tertiary
+		pc_arid_habitability = @tertiary
+		pc_tundra_habitability = @tertiary
+		pc_arctic_habitability = @tertiary	
+		pc_alpine_habitability = @tertiary
+		pc_savannah_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_arctic_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_arctic_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_arctic_habitability = @primary	
+		pc_tundra_habitability = @secondary
+		pc_alpine_habitability = @secondary
+			
+		pc_ocean_habitability = @tertiary
+		pc_desert_habitability = @tertiary
+		pc_tropical_habitability = @tertiary
+		pc_continental_habitability = @tertiary
+		pc_arid_habitability = @tertiary
+		pc_savannah_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_tundra_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_tundra_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_tundra_habitability = @primary	
+		pc_arctic_habitability = @secondary
+		pc_alpine_habitability = @secondary
+			
+		pc_ocean_habitability = @tertiary
+		pc_desert_habitability = @tertiary
+		pc_tropical_habitability = @tertiary
+		pc_continental_habitability = @tertiary
+		pc_arid_habitability = @tertiary
+		pc_savannah_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_alpine_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_alpine_preference.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_alpine_habitability = @primary	
+		pc_arctic_habitability = @secondary
+		pc_tundra_habitability = @secondary
+			
+		pc_ocean_habitability = @tertiary
+		pc_desert_habitability = @tertiary
+		pc_tropical_habitability = @tertiary
+		pc_continental_habitability = @tertiary
+		pc_arid_habitability = @tertiary
+		pc_savannah_habitability = @tertiary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_ai_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_ai_preference.dds"
+	modification = no
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_ai_habitability = 1.0
+		pc_desert_habitability = 0.01
+		pc_tropical_habitability = 0.01
+		pc_continental_habitability = 0.01
+		pc_ocean_habitability = 0.01
+		pc_arctic_habitability = 0.01
+		pc_tundra_habitability = 0.01
+		pc_arid_habitability = 0.01
+		pc_savannah_habitability = 0.01
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_nuked_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_nuked_preference.dds"
+	modification = no
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_nuked_habitability = @primary
+		pc_desert_habitability = @secondary
+		pc_tropical_habitability = @secondary
+		pc_continental_habitability = @secondary
+		pc_ocean_habitability = @secondary
+		pc_arctic_habitability = @secondary
+		pc_tundra_habitability = @secondary
+		pc_arid_habitability = @secondary
+		pc_savannah_habitability = @secondary
+		pc_alpine_habitability = @secondary
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_gaia_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_gaia_preference.dds"
+	modification = no
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_gaia_habitability = 1.0
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_ringworld_habitable_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_ring_preference.dds"
+	modification = no
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_ringworld_habitable_habitability = 1.0
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_habitat_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_ring_preference.dds"
+	modification = no
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_habitat_habitability = 1.0
+	}
+	ai_weight = {
+		weight = 0
+	}
+}
+
+trait_pc_machine_preference = {
+	icon = "gfx/interface/icons/traits/trait_pc_ring_preference.dds"
+	modification = no
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	sorting_priority = 30
+	modifier = {
+		pc_machine_habitability = 1.0
+	}
+	ai_weight = {
+		weight = 0
+	}
+}

@@ -1,0 +1,268 @@
+tr_harmony_adopt = {
+	modifier = {
+		pop_growth_speed = 0.25
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_hive_adopt
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		modifier = {
+			pop_growth_speed = 0.25
+		}
+		weight = {
+			factor = 11
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_machine_adopt
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			pop_robot_build_speed_mult = 0.33
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 2
+			has_ethic = ethic_egalitarian
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_egalitarian
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_authoritarian
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_authoritarian
+		}	
+		modifier = {
+			factor = 2
+			has_ethic = ethic_spiritualist
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_spiritualist
+		}		
+	}
+}
+
+tr_harmony_finish = {
+	modifier = {
+		pop_happiness = 0.10
+		ascension_perks_add = 1
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_finish
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			OR = {
+				has_authority = auth_hive_mind			
+				has_authority = auth_machine_intelligence			
+			}
+		}
+		modifier = {
+			country_resource_influence_add = 1
+			ascension_perks_add = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_harmony_the_greater_good = {
+	
+	modifier = {
+		planet_unrest_mult = -0.20
+	}
+
+	tradition_swap = {
+		name = tr_synchronicity_organic_intermediaries
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_authority = auth_hive_mind			
+				has_authority = auth_machine_intelligence			
+			}
+		}
+		modifier = {
+			planet_unrest_mult = -0.25
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_harmony_kinship = {
+	
+	modifier = {
+		pop_government_ethic_attraction = 0.25
+	}	
+	
+	tradition_swap = {
+		name = tr_synchronicity_drone_network
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_authority = auth_hive_mind
+				has_authority = auth_machine_intelligence			
+			}
+		}
+		modifier = {
+			planet_building_build_speed_mult = 0.20
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_harmony_utopian_dream = {
+	possible = {
+		has_tradition = tr_harmony_the_greater_good
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_machine_center
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+			NOR = {
+				has_valid_civic = civic_machine_assimilator
+				has_valid_civic = civic_machine_servitor
+			}
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_cyber_comms
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_valid_civic = civic_machine_assimilator
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_organic_paradise
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_valid_civic = civic_machine_servitor
+		}
+		modifier = {
+			pop_happiness = 0.10	
+		}		
+		on_enabled = {
+			every_owned_planet = {
+				upgrade_organic_sanctuaries = yes
+			}
+		}		
+		weight = {
+			factor = 1
+		}
+	}	
+	
+	tradition_swap = {
+		name = tr_synchronicity_hive_mind_synapse
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	#allows player to build Paradise Dome
+	
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_harmony_bulwark_of_harmony = {
+	possible = {
+		has_tradition = tr_harmony_kinship
+		has_tradition = tr_harmony_mind_and_body
+	}
+	
+	modifier = {
+		starbase_defensive_war_ship_build_speed_mult = 0.33
+		ship_home_territory_fire_rate_mult = 0.15
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_harmony_mind_and_body = {
+	
+	modifier = {
+		leader_age = 20
+	}
+	
+	tradition_swap = {
+		name = tr_synchronicity_self_preservation
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}

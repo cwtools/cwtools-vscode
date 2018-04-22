@@ -1,0 +1,187 @@
+##########################################################################
+# HARD FIXED STATE - DO NOT REMOVE OR RENAME ANY OF THESE
+##########################################################################
+
+opinion_from_personality = {
+	opinion = {
+		modifier = {
+			add = -1000
+			has_ai_personality = metalhead
+		}
+		modifier = {
+			add = 100
+			has_ai_personality = fanatic_befrienders
+		}
+	}
+}
+
+opinion_devouring_swarm = {		
+	trigger = {
+		is_country_type = default
+		OR = {
+			has_valid_civic = "civic_hive_devouring_swarm"
+			AND = {			
+				from = { has_valid_civic = "civic_hive_devouring_swarm" }
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
+			}			
+		}	
+	}
+	opinion = {
+		modifier = {
+			add = -1000				
+		}		
+	}
+}
+
+opinion_fanatic_purifiers_vs_xeno = {
+	opinion = {
+		modifier = {
+			add = -1000
+			has_valid_civic = civic_fanatic_purifiers
+			NOT = { is_same_species = FROM }	
+		}		
+	}
+}
+
+opinion_both_fanatic_purifiers = {
+	opinion = {
+		modifier = {
+			add = 200
+			has_valid_civic = civic_fanatic_purifiers
+			FROM = { has_valid_civic = civic_fanatic_purifiers }	
+			is_same_species = FROM			
+		}	
+	}
+}
+
+opinion_fanatic_purifiers = {
+	opinion = {
+		modifier = {
+		 	add = -1000
+			is_country_type = default
+			NOR = { 
+				has_valid_civic = civic_fanatic_purifiers 
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_machine_terminator
+			}
+			FROM = { has_valid_civic = civic_fanatic_purifiers }
+		}	
+	}
+}
+
+opinion_zealots_vs_materialists = {
+	opinion = {
+		modifier = {
+			add = -100
+			OR = {
+				has_ai_personality = evangelising_zealots
+				has_ai_personality = awakened_fallen_empire_spiritualist
+			}
+			OR = {
+				has_ethic = "ethic_spiritualist"
+				has_ethic = "ethic_fanatic_spiritualist"
+			}
+			OR = {
+				FROM = { has_ethic = "ethic_materialist" }
+				FROM = { has_ethic = "ethic_fanatic_materialist" }
+			}				
+		}
+	}
+}
+
+opinion_hw_vs_pacifist = {
+	opinion = {
+		modifier = {
+			add = -100
+			has_ai_personality = honorbound_warriors
+			FROM = { has_ethic = "ethic_fanatic_pacifist" }
+		}
+		modifier = {
+			add = -50
+			has_ai_personality = honorbound_warriors
+			FROM = { has_ethic = "ethic_pacifist" }
+		}			
+	}
+}
+
+opinion_dc_vs_democratic = {
+	opinion = {
+		modifier = {
+			add = 25
+			has_ai_personality = democratic_crusaders 
+			FROM = { has_authority = auth_democratic }
+		}		
+	}
+}
+
+opinion_dc_vs_oligarchic = {
+	opinion = {
+		modifier = {
+			add = -50
+			has_ai_personality = democratic_crusaders	
+			FROM = { has_authority =  auth_oligarchic }
+		}	
+	}
+}
+
+opinion_dc_vs_autocracy = {
+	opinion = {
+		modifier = {
+			add = -100
+			has_ai_personality = democratic_crusaders	
+			FROM = { 
+				OR = {
+					has_authority = auth_imperial
+					has_authority = auth_dictatorial
+				}
+			}
+		}
+	}
+}
+
+# Desecrated Fallen Empire's holy world
+opinion_desecrated_holy_world = {
+	opinion = {
+		modifier = {
+			add = -200
+			has_ai_personality_behaviour = holy_planets
+			from = {
+				OR = {
+					is_country_type = default
+					is_country_type = awakened_fallen_empire
+				}
+				is_valid_target_fe_cleanse_holy_worlds = yes
+			}
+		}	
+	}
+}
+
+# Xenophobe Fallen Empires aren't fans of bordering other empires
+opinion_encroaching_borders = {
+	opinion = {
+		modifier = {
+			add = -200
+			has_ai_personality_behaviour = demands_clear_borders
+			from = {
+				OR = {
+					is_country_type = default
+					is_country_type = awakened_fallen_empire
+				}			
+				is_neighbor_of = root
+			}
+		}
+	}
+}
+
+# Horde Diadochi hate each other
+opinion_war_diadochi = {
+	opinion = {
+		modifier = {
+			add = -100
+			has_government = gov_diadochi	
+			FROM = { 
+				has_government = gov_diadochi
+			}
+		}
+	}
+}

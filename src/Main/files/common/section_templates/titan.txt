@@ -1,0 +1,95 @@
+#BOW
+
+ship_section_template = {
+	key = "TITAN_BOW"
+	ship_size = titan
+	fits_on_slot = bow
+	entity = "titan_bow_entity"
+	icon = "GFX_ship_part_core_bow"
+		
+	ai_weight = {
+		modifier = {
+			factor = 10.0
+			NOT = { is_preferred_weapons = weapon_type_explosive }
+		}
+		modifier = {
+			factor = 0.1
+			is_preferred_weapons = weapon_type_explosive
+		}
+	}
+	
+	component_slot = {
+		name = "TITANIC_01"
+		slot_size = titanic
+		slot_type = weapon
+		locatorname = "xl_gun_01"
+	}
+	
+	large_utility_slots = 6
+	
+	cost = 400
+}
+
+ship_section_template = {
+	key = "TITAN_MID"
+	ship_size = titan
+	fits_on_slot = mid
+	entity = "titan_mid_entity"
+	icon = "GFX_ship_part_core_mid"
+
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_02"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_02"
+	}	
+	component_slot = {
+		name = "LARGE_GUN_03"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_03"
+	}
+	component_slot = {
+		name = "LARGE_GUN_04"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_04"
+	}
+	
+	large_utility_slots = 6
+	
+	cost = 400
+}
+
+#STERN
+
+ship_section_template = {
+	key = "TITAN_STERN"
+	ship_size = titan
+	fits_on_slot = stern
+	entity = "titan_stern_entity"
+	icon = "GFX_ship_part_core_stern"
+	
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_02"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_02"
+	}
+	
+	aux_utility_slots = 3
+	
+	cost = 400
+}

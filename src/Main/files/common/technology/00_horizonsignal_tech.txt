@@ -1,0 +1,81 @@
+##################
+### TECH COSTS ###
+##################
+#If you change any of these, use replace in files so the values are the same across all files
+
+@horizontechcost = 4000
+@horizontechtier = 3
+
+tech_akx_worm_1 = {
+	area = physics
+	start_tech = no
+	cost = @horizontechcost
+	is_rare = yes
+	tier = @horizontechtier
+	category = { field_manipulation }
+	prerequisites = { }
+	weight = 0
+	
+	ai_weight = {
+		factor = 0
+	}
+	
+	prereqfor_desc = {
+		component = {
+			title = "TECH_UNLOCK_AKX_WORM_3_TITLE"
+			desc = "TECH_UNLOCK_AKX_WORM_3_DESC"
+		}
+	}
+}
+
+tech_akx_worm_2 = {
+	area = society
+	start_tech = no
+	cost = @horizontechcost
+	is_rare = yes
+	tier = @horizontechtier
+	category = { statecraft }	
+	prerequisites = { }
+	weight = 0
+	
+	ai_weight = {
+		factor = 0
+	}
+	
+	prereqfor_desc = {
+		component = {
+			title = "TECH_UNLOCK_AKX_WORM_3_TITLE"
+			desc = "TECH_UNLOCK_AKX_WORM_3_DESC"
+		}
+	}
+}
+
+tech_akx_worm_3 = {
+	area = physics
+	start_tech = no
+	cost = @horizontechcost
+	is_rare = yes
+	tier = @horizontechtier
+	category = { particles }	
+	prerequisites = { "tech_akx_worm_1" "tech_akx_worm_2" }
+	weight = 60
+	
+	#weight_modifier = {
+	#	modifier = {
+	#		add = 60
+	#		has_technology = tech_akx_worm_1
+	#		has_technology = tech_akx_worm_2
+	#	}
+	#}
+	
+	ai_weight = {
+		factor = 0
+	}
+	
+	prereqfor_desc = {
+		component = {
+			title = "TECH_UNLOCK_AKX_WORM_3_TITLE"
+			desc = "TECH_UNLOCK_AKX_WORM_3_DESC"
+		}
+	}
+}

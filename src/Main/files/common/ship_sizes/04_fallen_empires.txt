@@ -1,0 +1,204 @@
+#reloadable with 'reload stats'
+# This file is where you start when you want to configure something new, then go to sections
+
+@corvette_collision_radius = 2.0
+@corvette_formation_priority = 4
+
+@destroyer_collision_radius = 2.5
+@destroyer_formation_priority = 2
+
+@cruiser_collision_radius = 3.5
+@cruiser_formation_priority = 3
+
+@battleship_collision_radius = 6
+@battleship_formation_priority = 5
+
+@titan_collision_radius = 12
+@titan_formation_priority = 1
+
+@build_block_radius_none = 0
+@build_block_radius_civilian = 20
+@build_block_radius_military = 200
+
+@speed_very_slow = 80
+@speed_slow = 100
+@speed_default = 120
+@speed_fast = 140
+@speed_very_fast = 160
+
+#################
+# FALLEN EMPIRE #
+#################
+
+# Fallen Empire Massive Ship
+massive_ship_fallen_empire = {
+	formation_priority = @titan_formation_priority
+	#entity = titan_entity
+	graphical_culture = { "fallen_empire_01" "fallen_empire_02" "fallen_empire_03" "fallen_empire_04" "fallen_machine_empire_01" }
+	max_speed = @speed_slow
+	acceleration = 0.15
+	rotation_speed = 0.1
+	collision_radius = @titan_collision_radius
+	modifier = {
+		ship_evasion_add = 2
+		ship_hull_regen_add_perc = 0.5
+		ship_armor_regen_add_perc = 0.5
+	}
+	max_hitpoints = 10000
+	size_multiplier = 32
+	fleet_slot_size = 16
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 7
+	
+	combat_disengage_chance = 0.5
+	
+	cost = 10000
+	base_buildtime = 1800
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	is_designable = no
+}
+
+# Fallen Empire Large Ship
+large_ship_fallen_empire = {
+	formation_priority = @battleship_formation_priority
+	graphical_culture = { "fallen_empire_01" "fallen_empire_02" "fallen_empire_03" "fallen_empire_04" "fallen_machine_empire_01" }
+	max_speed = @speed_slow
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = @battleship_collision_radius
+	modifier = {
+		ship_evasion_add = 10
+		ship_hull_regen_add_perc = 0.5
+		ship_armor_regen_add_perc = 0.5
+	}
+	max_hitpoints = 3500
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 5
+	
+	combat_disengage_chance = 1.0
+	
+	cost = 2000
+	base_buildtime = 600
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	is_designable = no
+}
+
+# Fallen Empire Small Ship
+small_ship_fallen_empire = {
+	formation_priority = @destroyer_formation_priority
+	graphical_culture = { "fallen_empire_01" "fallen_empire_02" "fallen_empire_03" "fallen_empire_04"  "fallen_machine_empire_01" }
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	collision_radius = @destroyer_collision_radius
+	modifier = {
+		ship_evasion_add = 35
+		ship_hull_regen_add_perc = 0.5
+		ship_armor_regen_add_perc = 0.5
+	}
+	max_hitpoints = 1500
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 3
+	is_space_station = no
+	
+	combat_disengage_chance = 1.5
+	
+	cost = 500
+	base_buildtime = 200
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	is_designable = no
+}
+
+# Fallen Empire Defense Platform
+military_station_small_fallen_empire = {
+	graphical_culture = { "fallen_empire_01" "fallen_empire_02" "fallen_empire_03" "fallen_empire_04" "fallen_machine_empire_01" }
+	max_speed = 6
+	rotation_speed = 10
+	acceleration = 10
+	modifier = {
+		ship_evasion_mult = -1
+		ship_hull_regen_add_perc = 0.5
+		ship_armor_regen_add_perc = 0.5
+		ship_upkeep_mult = -0.25
+	}
+	ship_modifier = {
+		ship_weapon_range_mult = 0.20
+	}
+	max_hitpoints = 5000
+
+	combat_size_multiplier = 4
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { 
+		"mid" = { locator = "part1" }
+	}
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_military
+	
+	uses_name_prefix = no
+	takes_name_from_ship_design = yes
+	
+	cost = 1000
+	base_buildtime = 365
+	
+	class = shipclass_military_station
+	construction_type = starbase_defenses
+	is_designable = no
+}
+
+
+# Fallen Empire Large Station
+military_station_large_fallen_empire = {
+	graphical_culture = { "fallen_empire_01" "fallen_empire_02" "fallen_empire_03" "fallen_empire_04"  "fallen_machine_empire_01" }
+	max_speed = 6
+	rotation_speed = 10
+	acceleration = 10
+	modifier = {
+		ship_evasion_mult = -1
+		ship_upkeep_mult = -0.25
+	}
+	ship_modifier = {
+		ship_weapon_range_mult = 0.20
+	}
+	max_hitpoints = 10000
+	combat_size_multiplier = 20
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { 
+		"mid" = { locator = "part1" }
+	}
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_military
+	
+	uses_name_prefix = no
+	takes_name_from_ship_design = yes
+	
+	cost = 5000
+	base_buildtime = 730
+	is_listed = no
+	
+	class = shipclass_military_station
+	construction_type = starbase_defenses
+	is_designable = no
+}
+

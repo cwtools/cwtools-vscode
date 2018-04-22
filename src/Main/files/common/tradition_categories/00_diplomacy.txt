@@ -1,0 +1,34 @@
+tradition_diplomacy = {
+	adoption_bonus = "tr_diplomacy_adopt"
+	finish_bonus = "tr_diplomacy_finish"
+	traditions = {
+		"tr_diplomacy_dynamic_ecomorphism"
+		"tr_diplomacy_federal_unity"
+		"tr_diplomacy_the_federation"
+		"tr_diplomacy_entente_coordination"
+		"tr_diplomacy_alien_tourism"
+	}
+	tradition_swap = {
+		name = tradition_adaptability
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_barbaric_despoilers
+				has_authority = auth_hive_mind
+			}
+		}
+		weight = {
+			factor = 1
+		}		
+	}
+	tradition_swap = {
+		name = tradition_versatility
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}		
+	}
+}

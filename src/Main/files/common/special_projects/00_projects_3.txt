@@ -1,0 +1,567 @@
+# Available requirements:
+#
+#	SKILLS
+#	skill = 2
+#
+#	LEADER
+#	leader = scientist
+#	leader = admiral
+#	leader = general
+#	leader = ruler
+#	leader = governor
+#	
+#	MILITARY SHIPS
+#	shipclass_military = 1
+#	
+#	CIVILIAN SHIPS
+#	shipclass_constructor = 2
+#	shipclass_science_ship = 1
+#	shipclass_colonizer = 2
+#	
+#	ARMIES
+#	shipclass_transport = 1
+#	assault_armies = 2
+#	defense_armies = 1
+#	
+#	STATIONS
+#	research_station = yes
+#	mining_station = yes
+#	observation_station = yes
+#
+
+#Derelict Ship
+special_project = {
+	key = "DERELICT_SHIP_PROJECT"
+	#cost = 0
+	days_to_research = 20
+	tech_department = society_technology #DOES NOTHING OTHER THAN SHOWING AN ICON
+	timelimit = -1
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_debris.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 2
+	}
+	
+	on_success = {
+		random_list = {
+			20 = { ship_event = { id = anomaly.4012 } }
+			50 = { ship_event = { id = anomaly.4011 } }
+			30 = { ship_event = { id = anomaly_failure.4011 } }
+		}
+	}
+}
+
+#AI Admiral
+special_project = {
+	key = "AI_ADMIRAL_PROJECT"
+	#cost = 0
+	days_to_research = 30
+	tech_department = society_technology
+	timelimit = 1080
+	picture = GFX_evt_sapient_AI
+	icon = "gfx/interface/icons/situation_log/situation_log_ai.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 2
+	}
+
+	on_success = {
+		ship_event = { id = anomaly.4031 }
+	}
+	on_fail = {
+		country_event = { id = anomaly_failure.4031 }
+	}
+}
+
+#special_project = {
+#	key = "TESTING_PROJECT"
+#	#cost = 0
+#	days_to_research = 10
+#	tech_department = society_technology
+#	timelimit = -1
+#	picture = GFX_evt_ship_in_orbit
+#
+#	event_scope = ship_event
+#
+#	requirements = {
+#		shipclass_science_ship = 1
+#		leader = scientist
+#		skill = 2
+#	}
+#
+#	on_success = {
+#		FROM = {
+#			fromfrom = { planet_event = { id = anomaly.4032 } }
+#		}
+#	}
+#}
+
+# Odd Star
+special_project = {
+	key = "ODD_STAR_PROJECT"
+	#cost = 0
+	days_to_research = 60
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_star_yellow
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 2
+	}
+
+	on_success = {
+		ship_event = { id = anomaly.4038 }
+	}
+}
+
+#Improbable Teapot
+special_project = {
+	key = "IMPROBABLE_TEAPOT_PROJECT"
+	#cost = 0
+	days_to_research = 730
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_star_yellow
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 2
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				owner = {
+					NOT = {
+						has_ethic = ethic_fanatic_spiritualist
+						has_ethic = ethic_spiritualist
+					} 
+				}
+			}
+			random_list = {
+				75 = { ship_event = { id = anomaly.4061 } }
+				25 = { ship_event = { id = anomaly.4062 } }
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					OR = {
+						has_ethic = ethic_fanatic_spiritualist
+						has_ethic = ethic_spiritualist
+					} 
+				}
+			}
+			random_list = {
+				25 = { ship_event = { id = anomaly.4061 } }
+				75 = { ship_event = { id = anomaly.4062 } }
+			}
+		}
+	}
+}
+
+# Mining Gear
+special_project = {
+	key = "MINING_GEAR_PROJECT"
+	#cost = 0
+	days_to_research = 60
+	tech_department = engineering_technology
+	timelimit = 1080
+	picture = GFX_evt_mining_station
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_constructor = 1
+	}
+
+	on_success = {
+		ship_event = { id = anomaly.4066 }
+	}
+	on_fail = {
+		country_event = { id = anomaly_failure.4066 }
+	}
+}
+
+# Abandoned Array
+special_project = {
+	key = "ABANDONED_ARRAY_PROJECT"
+	#cost = 0
+	days_to_research = 1#90
+	tech_department = engineering_technology
+	timelimit = -1
+	picture = GFX_evt_star_chart
+	icon = "gfx/interface/icons/situation_log/situation_log_radar.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		#shipclass_constructor = 1
+		shipclass_science_ship = 1
+	}
+
+	on_success = {
+		random_list = {
+			80 = { ship_event = { id = anomaly.4081 } }
+			20 = { ship_event = { id = anomaly_failure.4081 } }
+		}
+	}
+}
+
+# Alien Speed Ship
+special_project = {
+	key = "ALIEN_RACER_PROJECT"
+	#cost = 0
+	days_to_research = 45
+	tech_department = engineering_technology
+	timelimit = 1080
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_constructor = 1
+	}
+
+	on_success = {
+		random_list = {
+			60 = { ship_event = { id = anomaly.4086 } }
+			#40 = { ship_event = { id = anomaly.4087 } }
+		}
+	}
+	on_fail = {
+		country_event = { id = anomaly_failure.4086 }
+	}
+}
+
+# Psionic Horses
+special_project = {
+	key = "PSIONIC_HORSES_PROJECT"
+	#cost = 0
+	days_to_research = 30
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_alien_nature
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 2
+	}
+
+	on_success = {
+		if = {
+			limit = {
+				from = {
+					owner = {
+						OR = {
+							has_ethic = "ethic_fanatic_xenophobe"
+							has_ethic = "ethic_fanatic_militarist"
+							has_ethic = "ethic_fanatic_egalitarian"
+							has_ethic = "ethic_xenophobe"
+							has_ethic = "ethic_militarist"
+						}
+					}
+				}
+			}
+			ship_event = { id = anomaly.4101 }
+		}
+		if = {
+			limit = {
+				from = {
+					owner = {
+						NOT = {
+							has_ethic = "ethic_fanatic_xenophobe"
+							has_ethic = "ethic_fanatic_militarist"
+							has_ethic = "ethic_fanatic_egalitarian"
+							has_ethic = "ethic_xenophobe"
+							has_ethic = "ethic_militarist"
+						}
+					}
+				}
+			}
+			ship_event = { id = anomaly.4102 }
+		}
+	}
+}
+
+# Giant Roombas
+special_project = {
+	key = "ROBOT_CLEANERS_PROJECT"
+	#cost = 0
+	days_to_research = 90
+	tech_department = engineering_technology
+	timelimit = -1
+	picture = GFX_evt_robot_assembly_plant
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	on_success = {
+		ship_event = { id = anomaly.4106 }
+	}
+}
+
+# Monsters on a Ship
+special_project = {
+	key = "ALIEN_MONSTER_ON_SHIP"
+	#cost = 0
+	days_to_research = 7
+	tech_department = society_technology
+	timelimit = 1080
+	picture = GFX_evt_ship_under_attack
+	icon = "gfx/interface/icons/situation_log/situation_log_extradimensional.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_military = 2
+		#leader = admiral
+		#skill = 2
+	}
+
+	on_success = {
+		random_list = {
+			70 = { ship_event = { id = anomaly.4116 } }
+			30 = { ship_event = { id = anomaly.4117 } }
+		}
+	}
+	on_fail = {
+		country_event = { id = anomaly_failure.4116 }
+	}
+}
+
+# Tree of Life
+special_project = {
+	key = "TREE_OF_LIFE"
+	#cost = 0
+	days_to_research = 60
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_physics_research
+	icon = "gfx/interface/icons/situation_log/situation_log_extradimensional.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 3
+	}
+
+	on_success = {
+		ship_event = { id = anomaly.4131 }
+	}
+}
+
+# Master's Writings - Politics
+special_project = {
+	key = "MASTERS_WRITINGS_POLITICS"
+	cost = 500
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_star_chart
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+
+	location = no
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			random_list = {
+				70 = { country_event = { id = anomaly.4136 } }
+				30 = { country_event = { id = anomaly_failure.4136 } }
+			}
+		}
+	}
+}
+
+# Master's Writings - Politics
+special_project = {
+	key = "MASTERS_WRITINGS_PHILOSOPHY"
+	cost = 500
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_star_chart
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+
+	location = no
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			random_list = {
+				70 = { country_event = { id = anomaly.4141 } }
+				30 = { country_event = { id = anomaly_failure.4136 } }
+			}
+		}
+	}
+}
+
+# Master's Writings - Diplomacy
+special_project = {
+	key = "MASTERS_WRITINGS_DIPLOMACY"
+	cost = 500
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_star_chart
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+
+	location = no
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			random_list = {
+				70 = { country_event = { id = anomaly.4151 } }
+				30 = { country_event = { id = anomaly_failure.4136 } }
+			}
+		}
+	}
+}
+
+# Master's Writings - War
+special_project = {
+	key = "MASTERS_WRITINGS_WAR"
+	cost = 500
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_small_space_battle
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+
+	location = no
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			random_list = {
+				70 = { country_event = { id = anomaly.4166 } }
+				30 = { country_event = { id = anomaly_failure.4136 } }
+			}
+		}
+	}
+}
+
+# Getting into a vault guarded by beasts
+special_project = {
+	key = "CRYOPOD_FOUND_PROJECT"
+	#cost = 0
+	days_to_research = 100
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_alien_ruins
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_military = 3
+		#shipclass_science_ship = 1
+		#leader = admiral
+		#skill = 2
+		#has_trait = leader_trait_trickster
+	}
+
+	on_success = {
+		random_list = {
+			70 = { ship_event = { id = anomaly.4156 } }
+			30 = { ship_event = { id = anomaly_failure.4156 } }
+		}
+	}
+}
+
+# Opening up the cryopod
+special_project = {
+	key = "CRYOPOD_OPENING_PROJECT"
+	#cost = 0
+	days_to_research = 50
+	tech_department = society_technology
+	timelimit = -1
+	location = no
+	picture = GFX_evt_society_research
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			random_list = {
+				40 = { country_event = { id = anomaly.4157 } } #pod contains alien general
+				30 = { country_event = { id = anomaly_failure.4157 } } #pod contains tech
+				30 = { country_event = { id = anomaly_failure.4158 } } #pod contains corpse
+			}
+		}
+	}
+}
+
+# Giant ocean buried ship
+special_project = {
+	key = "ANCIENT_OCEAN_SHIP"
+	cost = 1000
+	tech_department = engineering_technology
+	timelimit = -1
+	location = no
+	picture = GFX_evt_ocean
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		root = {
+			random_list = {
+				50 = { planet_event = { id = colony.2006 } } #ship can be used
+				30 = { planet_event = { id = colony.2007 } } #ship can be salvaged
+				20 = { planet_event = { id = colony.2008 } } #ship cannot be salvaged
+			}
+		}
+	}
+}

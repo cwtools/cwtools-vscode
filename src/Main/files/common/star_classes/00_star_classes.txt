@@ -1,0 +1,196 @@
+# Blue Stars
+sc_b = {
+	class 			= b_star
+	planet			= pc_b_star
+	spawn_odds 		= 10
+	num_planets 	= { min = 4 max = 10 }
+	
+	pc_continental 	= { spawn_odds = 0.6 }
+	pc_desert		= { spawn_odds = 0.6 }
+	pc_tropical		= { spawn_odds = 0.6 }
+	pc_arid 		= { spawn_odds = 0.6 }
+	pc_ocean		= { spawn_odds = 0.6 }
+	pc_tundra		= { spawn_odds = 0.6 }
+	pc_arctic		= { spawn_odds = 0.6 }
+	pc_alpine		= { spawn_odds = 0.6 }
+	pc_savannah		= { spawn_odds = 0.6 }
+}
+
+# White or Blueish Stars
+sc_a = {
+	class 			= a_star
+	planet			= pc_a_star
+	spawn_odds 		= 10
+	num_planets 	= { min = 4 max = 10 }
+	
+	pc_continental 	= { spawn_odds = 0.6 }
+	pc_desert		= { spawn_odds = 0.6 }
+	pc_tropical		= { spawn_odds = 0.6 }
+	pc_arid 		= { spawn_odds = 0.6 }
+	pc_ocean		= { spawn_odds = 0.6 }
+	pc_tundra		= { spawn_odds = 0.6 }
+	pc_arctic		= { spawn_odds = 0.6 }
+	pc_alpine		= { spawn_odds = 0.6 }
+	pc_savannah		= { spawn_odds = 0.6 }
+}
+
+# Yellow-White Dwarves
+sc_f = {
+	class 			= f_star
+	planet			= pc_f_star
+	spawn_odds 		= 15
+	num_planets 	= { min = 4 max = 10 }	
+}
+
+# Yellow Dwarves
+sc_g = {
+	class 			= g_star
+	planet			= pc_g_star
+	spawn_odds 		= 30
+	num_planets 	= { min = 4 max = 10 }	
+}
+
+# Orange Dwarves
+sc_k = {
+	class 			= k_star
+	planet			= pc_k_star
+	spawn_odds 		= 20
+	num_planets 	= { min = 4 max = 10 }	
+}
+
+# Red Dwarves
+sc_m = {
+	class 			= m_star
+	planet			= pc_m_star
+	spawn_odds 		= 20
+	num_planets 	= { min = 4 max = 10 }
+	
+	pc_continental 	= { spawn_odds = 0.4 }
+	pc_desert		= { spawn_odds = 0.4 }
+	pc_tropical		= { spawn_odds = 0.4 }
+	pc_arid 		= { spawn_odds = 0.4 }
+	pc_ocean		= { spawn_odds = 0.4 }
+	pc_tundra		= { spawn_odds = 0.4 }
+	pc_arctic		= { spawn_odds = 0.4 }
+	pc_alpine		= { spawn_odds = 0.4 }
+	pc_savannah		= { spawn_odds = 0.4 }
+}
+
+sc_black_hole = {
+	class 			= black_hole
+	icon_scale		= 2.0
+	planet			= pc_black_hole
+	spawn_odds 		= 0.8
+	num_planets 	= { min = 1 max = 4 }
+	
+	pc_gas_giant	= { spawn_odds = 0 }
+	pc_desert 		= { spawn_odds = 0 }
+	pc_tropical 	= { spawn_odds = 0 }
+	pc_arid 		= {	spawn_odds = 0 }
+	pc_continental 	= { spawn_odds = 0 }
+	pc_ocean 		= { spawn_odds = 0 }
+	pc_tundra 		= { spawn_odds = 0 }
+	pc_arctic 		= { spawn_odds = 0 }
+	pc_gaia			= { spawn_odds = 0 }
+	pc_alpine		= { spawn_odds = 0 }
+	pc_savannah		= { spawn_odds = 0 }
+	
+	is_environmental_hazard = yes
+	modifier = {
+		ship_disengage_chance_reduction = 0.5
+		ship_emergency_ftl_min_days_mult = 0.5
+	}
+}
+
+sc_neutron_star = {
+	class 			= neutron_star
+	icon_scale		= 1.5
+	planet			= pc_neutron_star
+	spawn_odds 		= 0.4
+	num_planets 	= { min = 1 max = 4 }	
+	
+	pc_desert 		= { spawn_odds = 0 }
+	pc_tropical 	= { spawn_odds = 0 }	
+	pc_arid 		= {	spawn_odds = 0 }
+	pc_continental 	= { spawn_odds = 0 }
+	pc_ocean 		= { spawn_odds = 0 }
+	pc_tundra 		= { spawn_odds = 0 }
+	pc_arctic 		= { spawn_odds = 0 }
+	pc_gaia			= { spawn_odds = 0 }
+	pc_alpine		= { spawn_odds = 0 }
+	pc_savannah		= { spawn_odds = 0 }
+	
+	is_environmental_hazard = yes
+	modifier = {
+		ship_speed_reduction = 0.5
+	}
+}
+
+sc_pulsar = {
+	class 			= pulsar
+	icon_scale		= 2.25
+	planet			= pc_pulsar
+	spawn_odds 		= 0.4
+	num_planets 	= { min = 1 max = 4 }		
+	
+	pc_desert 		= { spawn_odds = 0 }
+	pc_tropical 	= { spawn_odds = 0 }	
+	pc_arid 		= {	spawn_odds = 0 }
+	pc_continental 	= { spawn_odds = 0 }
+	pc_ocean 		= { spawn_odds = 0 }
+	pc_tundra 		= { spawn_odds = 0 }
+	pc_arctic 		= { spawn_odds = 0 }
+	pc_gaia			= { spawn_odds = 0 }
+	pc_alpine		= { spawn_odds = 0 }
+	pc_savannah		= { spawn_odds = 0 }
+	
+	is_environmental_hazard = yes
+	modifier = {
+		ship_shield_reduction = 1.0
+	}
+}
+
+random_list = {
+	name = "rl_standard_stars"
+	stars = {
+		"sc_a"
+		"sc_b"
+		"sc_f"
+		"sc_g"
+		"sc_k"
+		"sc_m"
+	}
+}
+
+random_list = {
+	name = "rl_special_stars"
+	stars = {
+		"sc_black_hole"
+		"sc_neutron_star"
+		"sc_pulsar"
+	}
+}
+random_list = {
+	name = "rl_dwarf_stars"
+	stars = {
+		"sc_f"
+		"sc_g"
+		"sc_k"
+		"sc_m"
+	}
+}
+
+random_list = {
+	name = "rl_all_stars"
+	stars = {
+		"sc_a"
+		"sc_b"
+		"sc_f"
+		"sc_g"
+		"sc_k"
+		"sc_m"
+		"sc_black_hole"
+		"sc_neutron_star"
+		"sc_pulsar"
+	}
+}

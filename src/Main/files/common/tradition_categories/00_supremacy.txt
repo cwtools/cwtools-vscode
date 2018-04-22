@@ -1,0 +1,31 @@
+tradition_supremacy = {
+	adoption_bonus = "tr_supremacy_adopt"
+	finish_bonus = "tr_supremacy_finish"
+	traditions = {
+		"tr_supremacy_great_game"
+		"tr_supremacy_right_of_conquest"
+		"tr_supremacy_master_shipwrights"
+		"tr_supremacy_war_games"
+		"tr_supremacy_overwhelming_force"
+	}
+
+	tradition_swap = {
+		name = tradition_supremacy_machine
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tradition_supremacy_hive
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}

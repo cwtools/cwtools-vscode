@@ -1,0 +1,144 @@
+##########################################################################
+# Planet edicts
+##########################################################################
+
+# Sets the edict-cost for all edicts with this variable
+@planetEdictCost = 100
+@planetEdictDuration = 3600
+
+# Land Clearance
+planet_edict = {
+	name = "land_clearance"
+	cost = { influence = 100 energy = 500 }
+	length = 0
+	
+	potential = {
+		habitable_structure = no
+		owner = {
+			has_ascension_perk = ap_mastery_of_nature
+		}
+		NOT = { has_planet_flag = land_clearance_happened }
+	}
+	
+	allow = {
+		custom_tooltip = {
+			fail_text = land_clearance_not_max_size
+			planet_size < 25
+		}		
+	}
+	
+	effect = {
+		if = {
+			limit = {
+				planet_size <= 12
+			}
+			custom_tooltip = land_clearance_increase_size_3
+			hidden_effect = { change_planet_size = 3 }						
+			else = {
+				if = {
+					limit = {
+						planet_size <= 15
+					}
+					custom_tooltip = land_clearance_increase_size_2
+					hidden_effect = { change_planet_size = 2 }			
+					else = {	
+						custom_tooltip = land_clearance_increase_size_1
+						hidden_effect = { change_planet_size = 1 }
+					}
+				}			
+			}
+		}
+		hidden_effect = { set_planet_flag = land_clearance_happened }
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+	}
+}
+
+# Consectrated worlds
+planet_edict = {
+	name = "consecrated_worlds"
+	cost = { influence = 300 }
+	length = 36000
+	modifier = {
+		pop_happiness = 0.05
+		pop_ethic_spiritualist_attraction_mult = 0.25
+		pop_growth_speed = 0.15
+		tile_resource_unity_mult = 0.15
+	}
+	
+	potential = {
+		owner = {
+			has_ascension_perk = ap_consecrated_worlds
+		}
+	}
+	
+	allow = {
+	}
+	
+	effect = {		
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			num_pops < 10
+		}
+	}
+}
+
+planet_edict = {
+	name = "martial_law"
+	cost = { influence = @planetEdictCost }
+	length = @planetEdictDuration
+
+	modifier = {
+		planet_unrest_mult = -0.50
+	}
+	
+	potential = {
+		owner = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		has_orbital_bombardment = no
+	}
+	
+	ai_weight = {
+		weight = 1000
+		modifier = {
+			unrest < 50
+			factor = 0
+		}
+	}
+}
+
+planet_edict = {
+	name = "patrol_drones"
+	cost = { influence = @planetEdictCost }
+	length = @planetEdictDuration
+
+	modifier = {
+		planet_unrest_mult = -0.50
+	}
+	
+	potential = {
+		owner = {
+			has_ethic = ethic_gestalt_consciousness
+		}
+		has_orbital_bombardment = no
+	}
+	
+	ai_weight = {
+		weight = 1000
+		modifier = {
+			unrest < 50
+			factor = 0
+		}
+	}
+}

@@ -1,0 +1,195 @@
+##########################################################################
+# Unity Ambitions - edicts
+##########################################################################
+
+# Sets the edict-cost for all edicts with this variable
+@campaignCost = 1000
+@campaignDuration = 3600
+
+#################
+# Campaigns
+# shorter duration, cost energy
+#################
+
+country_edict = {
+	name = "fear_campaign"
+	length = @campaignDuration
+	cost = { energy = @campaignCost }
+	
+	modifier = {
+		country_resource_unity_mult = 0.10
+		pop_ethic_xenophobe_attraction_mult = 0.25
+	}
+	
+	potential = {
+		is_xenophobe = yes
+		has_comms_with_alien_civilization = yes
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "education_campaign"
+	length = @campaignDuration
+	cost = { energy = @campaignCost }
+	
+	modifier = {
+		species_leader_exp_gain = 0.25
+	}
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "recycling_campaign"
+	length = @campaignDuration
+	cost = { energy = @campaignCost }
+	
+	modifier = {
+		pop_consumer_goods_mult = -0.15
+	}
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "healthcare_campaign"
+	length = @campaignDuration
+	cost = { energy = @campaignCost }
+	
+	modifier = {
+		pop_growth_speed = 0.20
+	}
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+###########
+# Machine Empire
+###########
+
+country_edict = {
+	name = "robot_campaign"
+	length = @campaignDuration
+	cost = { energy = @campaignCost }
+	
+	modifier = {
+		pop_robot_build_speed_mult = 0.20
+	}
+
+	potential = {
+		has_authority = auth_machine_intelligence
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "machine_learning_campaign"
+	length = @campaignDuration
+	cost = { energy = @campaignCost }
+	
+	modifier = {
+		species_leader_exp_gain = 0.25
+	}
+
+	potential = {
+		has_authority = auth_machine_intelligence
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+#################
+# Hive Mind
+#################
+
+@hiveFood = 500
+
+country_edict = {
+	name = "drone_campaign"
+	length = @campaignDuration
+	cost = { food = @hiveFood }
+	
+	modifier = {
+		pop_growth_speed = 0.20
+	}
+
+	potential = {
+		has_authority = auth_hive_mind
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "learning_campaign"
+	length = @campaignDuration
+	cost = { food = @hiveFood }
+	
+	modifier = {
+		species_leader_exp_gain = 0.25
+	}
+
+	potential = {
+		has_authority = auth_hive_mind
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "war_drone_campaign"
+	length = @campaignDuration
+	cost = { food = @hiveFood }
+	
+	modifier = {
+		army_damage_mult = 0.15
+	}
+
+	potential = {
+		has_authority = auth_hive_mind
+		has_technology = tech_planetary_unification
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}

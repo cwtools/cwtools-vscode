@@ -1,0 +1,248 @@
+# Available requirements:
+#
+#	SKILLS
+#	skill = 2
+#
+#	LEADER
+#	leader = scientist
+#	leader = admiral
+#	leader = general
+#	leader = ruler
+#	leader = governor
+#	
+#	MILITARY SHIPS
+#	shipclass_military = 1
+#	
+#	CIVILIAN SHIPS
+#	shipclass_constructor = 2
+#	shipclass_science_ship = 1
+#	shipclass_colonizer = 2
+#	
+#	ARMIES
+#	shipclass_transport = 1
+#	assault_armies = 2
+#	defense_armies = 1
+#	
+#	STATIONS
+#	research_station = yes
+#	mining_station = yes
+#	observation_station = yes
+#	
+#
+#	SCOPES
+#	abort_trigger
+#	this = country (project owner)
+#	from = event scope (planet or ship, MIGHT NOT EXIST)
+#	fromfrom = project creation scope (usually equals location)
+#	
+#	on_success
+#	this = event scope (ship or planet)
+#	from = project creation scope (usually equals location)
+#	
+#	on_fail
+#	this = country (project owner)
+#	from = project creation scope (usually equals location)
+#
+
+special_project = {
+	key = "hallucinogen_removal"
+	cost = 500
+	tech_department = engineering_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_debris.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		random_list = {
+			75 = {
+				planet_event = { id = colony_mod.10 }
+			}
+			25 = {
+				planet_event = { id = colony_mod.11 }
+			}
+		}
+	}	
+}
+
+special_project = {
+	key = "impact_defence_system"
+	cost = 500
+	tech_department = engineering_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_debris.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		planet_event = { id = colony_mod.13 }
+	}
+}
+
+#Titanic life study
+#This is the default version which has a middling cost and a fairly good chance for a good outcome
+special_project = {
+	key = "titanic_life_study_normal"
+	cost = 1000
+	tech_department = society_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_debris.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		random_list = {
+			70 = {
+				planet_event = { id = colony_mod.101 }
+			}
+			30 = {
+				planet_event = { id = colony_mod.102 }
+			}
+		}
+	}
+}
+
+#Titanic life study
+#This is the Xenophobe version of the study, which is cheaper but has a worse chance of a good outcome. The event choice leading to this also gives a good planet modifier though
+special_project = {
+	key = "titanic_life_study_mean"
+	cost = 500
+	tech_department = society_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_debris.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		random_list = {
+			50 = {
+				planet_event = { id = colony_mod.101 }
+			}
+			50 = {
+				planet_event = { id = colony_mod.102 }
+			}
+		}
+	}
+}
+
+#Titanic life study
+#This is the Xenophile version, which has a higher cost but better chance for good outcome. The event choice leading to this also gives a good planet effect. 
+special_project = {
+	key = "titanic_life_study_nice"
+	cost = 1500
+	tech_department = society_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_debris.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		random_list = {
+			90 = {
+				planet_event = { id = colony_mod.101 }
+			}
+			10 = {
+				planet_event = { id = colony_mod.102 }
+			}
+		}
+	}
+}
+
+# Retaliatory Genome Mapping
+special_project = {
+	key = "retaliatory_genome_mapping"
+	days_to_research = 730
+	tech_department = society_technology
+	picture = GFX_evt_genetic_modification
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = diplomatic.14 }
+		}
+	}
+}
+
+# Woodwind Instrument Investigation
+special_project = {
+	key = "woodwind_instrument_investigation"
+	days_to_research = 730
+	tech_department = society_technology
+	picture = GFX_evt_alien_planet
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = diplomatic.20 }
+		}
+	}
+}
+
+special_project = {
+	key = "disappearing_pops_project"
+	timelimit = 1080
+	cost = 100
+	tech_department = society_technology
+	picture = GFX_evt_alien_planet
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_military = 1
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = utopia.101 }
+		}
+	}
+}
+# Ageless
+special_project = {
+	key = "mystery_cream_project"
+	timelimit = 360
+	cost = 100
+	tech_department = society_technology
+	picture = GFX_evt_alien_planet
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		owner = {
+			country_event = { id = utopia.103 }
+		}
+	}
+}
+# Cream Origin
+special_project = {
+	key = "cream_origin_project"
+	timelimit = 360
+	cost = 200
+	tech_department = society_technology
+	picture = GFX_evt_alien_planet
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+	
+	event_scope = planet_event
+	
+	on_success = {
+		owner = {
+			country_event = { id = utopia.104 }
+		}
+	}
+}

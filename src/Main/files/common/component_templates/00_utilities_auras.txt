@@ -1,0 +1,394 @@
+# ##################################################
+#
+# Radial Effect / Aura components
+#
+# ##################################################
+
+### Variables
+
+@shipAuraRange = 80
+@stationSmallAuraRange = 70
+@stationMediumAuraRange = 90
+@stationLargeAuraRange = 110
+
+
+### Empty Aura-slot
+utility_component_template = {
+	key = "SHIP_AURA_EMPTY"
+	size = small
+	icon = "GFX_ship_part_empty_ftl_drive"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	component_set = "ship_aura_components"
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+### Empty Aura-slot
+utility_component_template = {
+	key = "STATION_SMALL_AURA_EMPTY"
+	size = small
+	icon = "GFX_ship_part_empty_ftl_drive"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	component_set = "station_small_aura_components"
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+### Empty Aura-slot
+utility_component_template = {
+	key = "STATION_MEDIUM_AURA_EMPTY"
+	size = small
+	icon = "GFX_ship_part_empty_ftl_drive"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	component_set = "station_medium_aura_components"
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+### Empty Aura-slot
+utility_component_template = {
+	key = "STATION_LARGE_AURA_EMPTY"
+	size = small
+	icon = "GFX_ship_part_empty_ftl_drive"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	component_set = "station_large_aura_components"
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+# #################
+#  Reworked Auras
+# #################
+
+#Offensive
+utility_component_template = {
+	key = "SHIP_AURA_SHIELD_DAMPENER"
+	size = medium
+	icon = "GFX_ship_part_aura_shield_dampener"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	size_restriction = { titan }
+	component_set = "ship_aura_components"
+	
+	hostile_aura = {
+		name = "aura_shield_dampener"
+		radius = @shipAuraRange
+		apply_on = ships
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_shield_dampener
+			priority = 1
+		}
+		
+		modifier = {
+			ship_shield_mult = -0.20
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2
+			is_ai = yes
+			is_preferred_weapons = weapon_type_energy
+		}
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_AURA_QUANTUM_DESTABILIZER"
+	size = medium
+	icon = "GFX_ship_part_aura_quantum_destabilizer"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	size_restriction = { titan }
+	component_set = "ship_aura_components"
+	
+	hostile_aura = {
+		name = "aura_quantum_destabilizer"
+		radius = @shipAuraRange
+		apply_on = ships
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_quantum_destabilizer
+			priority = 10
+		}
+		
+		modifier = {
+			ship_fire_rate_mult = -0.10
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity" 
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_AURA_SUBSPACE_SNARE"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	size_restriction = { titan }
+	component_set = "ship_aura_components"
+	
+	hostile_aura = {
+		name = "aura_ship_subspace_snare"
+		radius = @shipAuraRange
+		apply_on = fleets
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_snare_aura
+			priority = 1
+		}
+		
+		modifier = {
+			ship_emergency_ftl_min_days_mult = 1
+			ship_disengage_chance_mult = -0.20
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"   
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+	}
+}
+
+#Defensive
+utility_component_template = {
+	key = "SHIP_AURA_INSPIRING_PRESENCE"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	size_restriction = { titan }
+	component_set = "ship_aura_components"
+	
+	friendly_aura = {
+		name = "aura_inspiring_presence"
+		radius = @shipAuraRange
+		apply_on = ships
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_inspiring_presence
+			priority = 20
+		}
+		
+		modifier = {
+			ship_fire_rate_mult = 0.05
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_AURA_TARGETING_GRID"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	size_restriction = { titan }
+	component_set = "ship_aura_components"
+	
+	friendly_aura = {
+		name = "aura_targeting_grid"
+		radius = @shipAuraRange
+		apply_on = ships
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_targeting_grid
+			priority = 20
+		}
+		
+		modifier = {
+			ship_tracking_add = 10
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2.0
+			is_ai = yes
+			is_preferred_weapons = weapon_type_kinetic
+		}
+	}
+}
+
+utility_component_template = {
+	key = "SHIP_AURA_NANOBOT_CLOUD"
+	size = medium
+	icon = "GFX_ship_part_aura_nanobot"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	size_restriction = { titan }
+	component_set = "ship_aura_components"
+	
+	friendly_aura = {
+		name = "aura_nanobot_cloud"
+		radius = @shipAuraRange
+		apply_on = ships
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = friendly_nanobot_cloud
+			priority = 20
+		}
+		
+		modifier = {
+			ship_hull_regen_add_static = 1
+			ship_armor_regen_add_static = 3
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+	}
+}
+
+# #################
+#  Hostile Auras
+# #################
+
+utility_component_template = {
+	key = "STATION_MEDIUM_AURA_SHIELD_DAMPENER"
+	size = medium
+	icon = "GFX_ship_part_aura_shield_dampener"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	hidden = yes
+	
+	component_set = "station_medium_aura_components"
+	
+	hostile_aura = {
+		name = "aura_shield_dampener"
+		radius = @stationMediumAuraRange
+		apply_on = ships
+		
+		stack_info = {			#A ship can only be affected by one aura of a certain id. If multiple auras have the same ID the one with the highest priority will be applied.
+			id = hostile_inhibitor_aura
+			priority = 1
+		}
+		
+		modifier = {
+			ship_shield_mult = -0.25
+			ship_shield_regen_add_perc = -0.05
+		}
+		
+		graphics = {
+			area_effect = {
+				entity = "circle_area_entity"
+				dynamic_scale = yes
+			}
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+	}
+}

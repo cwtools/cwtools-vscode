@@ -1,0 +1,580 @@
+#root = system
+#from = player
+
+# Outpost System
+sys_outpost = {
+	potential = {
+		exists = owner
+	}
+}
+
+# Mining System
+sys_mining = {
+	potential = {
+		exists = owner
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = mining_station }
+				count > 1
+			}			
+		}	
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = mining_station }
+				count > 2
+			}			
+		}	
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = mining_station }
+				count > 3
+			}			
+		}	
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = mining_station }
+				count > 4
+			}			
+		}		
+	}	
+}
+
+# Research System
+sys_research = {
+	potential = {
+		exists = owner
+	}
+
+	weight_modifier = {
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = research_station }
+				count > 0
+			}			
+		}	
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = research_station }
+				count > 1
+			}			
+		}	
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = research_station }
+				count > 2
+			}			
+		}	
+		modifier = {
+			add = 1
+			count_system_ships = {
+				limit = { is_ship_size = research_station }
+				count > 3
+			}			
+		}	
+	}	
+}
+
+# Shipyard System
+sys_shipyard = {
+	potential = {
+		exists = owner
+		exists = starbase
+		starbase = {
+			has_starbase_size >= starbase_starport
+			count_starbase_modules = {
+				type = shipyard
+				count > 1
+			}
+		}
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = shipyard
+					count > 2
+				} 
+			}		
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = shipyard
+					count > 3
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = shipyard
+					count > 4
+				} 
+			}
+		}	
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = shipyard
+					count > 5
+				} 
+			}
+		}
+	}
+}
+
+# Anchorage System
+sys_anchorage = {
+	potential = {
+		exists = owner
+		exists = starbase
+		starbase = {
+			has_starbase_size >= starbase_starport
+			count_starbase_modules = {
+				type = anchorage
+				count > 1
+			}
+		}
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = anchorage
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = anchorage
+					count > 3
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = anchorage
+					count > 4
+				} 
+			}
+		}	
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = anchorage
+					count > 5
+				} 
+			}
+		}
+	}
+}
+
+# Trade System
+sys_trading_hub = {
+	potential = {
+		exists = owner
+		owner = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+		exists = starbase
+		starbase = {
+			has_starbase_size >= starbase_starport
+			count_starbase_modules = {
+				type = trading_hub
+				count > 1
+			}
+		}
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+	}
+}
+
+# Fortress System
+sys_fortress = {
+	potential = {
+		exists = owner
+		exists = starbase
+		starbase = {
+			has_starbase_size >= starbase_starport
+			OR = {
+				has_starbase_module = gun_battery
+				has_starbase_module = missile_battery
+				has_starbase_module = hangar_bay
+			}
+		}
+	}
+
+	weight_modifier = {
+		base = 50
+		modifier = {
+			add = -50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count < 1
+				} 
+			}
+		}	
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count > 0
+				} 
+			}
+		}		
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count > 1
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count > 3
+				} 
+			}
+		}	
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count > 4
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = gun_battery
+					count > 5
+				} 
+			}
+		}
+		modifier = {
+			add = -50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count < 1
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count > 0
+				} 
+			}
+		}		
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count > 1
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count > 3
+				} 
+			}
+		}	
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count > 4
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = missile_battery
+					count > 5
+				} 
+			}
+		}
+		modifier = {
+			add = -50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count < 1
+				} 
+			}
+		}	
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count > 0
+				} 
+			}
+		}		
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count > 1
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count > 3
+				} 
+			}
+		}	
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count > 4
+				} 
+			}
+		}
+		modifier = {
+			add = 50
+			starbase = { 
+				count_starbase_modules = {
+					type = hangar_bay
+					count > 5
+				} 
+			}
+		}		
+	}
+}
+
+# Colony System
+sys_colonized = {
+	potential = {
+		exists = owner
+		any_planet = {
+			is_colony = yes
+			is_owned_by = root.owner
+		}
+	}
+
+	weight_modifier = {
+		base = 200
+	}
+}
+
+# Capital System
+sys_capital = {
+	potential = {
+		exists = owner
+		any_planet = {
+			is_owned_by = root.owner
+			is_capital = yes
+		}
+	}
+
+	weight_modifier = {
+		base = 1000
+	}
+}
+
+
+# Homeworld System
+sys_homeworld = {
+	potential = {
+		exists = owner
+		any_planet = {
+			is_owned_by = root.owner
+			is_homeworld = yes
+		}
+	}
+
+	weight_modifier = {
+		base = 2000
+	}
+}
+
+# Trade System - Gestalt
+sys_trading_hub_gestalt = {
+	potential = {
+		exists = owner
+		owner = { has_ethic = ethic_gestalt_consciousness }
+		exists = starbase
+		starbase = {
+			has_starbase_size >= starbase_starport
+			count_starbase_modules = {
+				type = trading_hub
+				count > 1
+			}
+		}
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+		modifier = {
+			add = 100
+			starbase = { 
+				count_starbase_modules = {
+					type = trading_hub
+					count > 2
+				} 
+			}
+		}
+	}
+}
+
+# Marauder System
+sys_marauder = {
+	potential = {
+		exists = owner
+		owner = { 
+			OR = {
+				is_country_type = dormant_marauders
+				is_country_type = ruined_marauders
+				is_country_type = awakened_marauders
+			}
+		}
+	}
+	
+	weight_modifier = {
+		base = 1000
+	}
+}

@@ -1,0 +1,548 @@
+##########################################################################
+# Empire edicts
+##########################################################################
+
+@Edict1Cost = 100
+@Edict2Cost = 200
+@Edict3Cost = 300
+
+@EdictDuration = 3600
+
+#################
+#Resources
+#################
+country_edict = {
+	name = "capacity_overload"
+	length = @EdictDuration
+	cost = { influence = @Edict3Cost }
+	
+	modifier = {
+		country_resource_energy_mult = 0.20
+	}
+	
+	prerequisites = {
+		"tech_power_hub_1"		
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "production_targets"
+	length = @EdictDuration
+	cost = { influence = @Edict3Cost }
+	
+	modifier = {
+		country_resource_minerals_mult = 0.20
+	}
+	
+	potential = {
+		NOT = { has_country_flag = droning_optimizations_edict_available }
+	}
+	
+	prerequisites = {
+		"tech_colonial_centralization"
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "farming_subsidies"
+	length = @EdictDuration
+	cost = { influence = @Edict2Cost }
+	
+	show_tech_unlock_if = {	NOT = { has_authority = auth_machine_intelligence } }
+	
+	modifier = {
+		country_resource_food_mult = 0.20
+	}
+	
+	prerequisites = {
+		"tech_hydroponics"
+	}
+	
+	potential = {
+		NOT = { has_authority = auth_machine_intelligence }
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "research_focus"
+	length = @EdictDuration
+	cost = { influence = @Edict2Cost }
+	
+	modifier = {
+		all_technology_research_speed = 0.10
+	}
+		
+	potential = {
+		is_materialist = yes
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+country_edict = {
+	name = "declare_saint"
+	length = @EdictDuration
+	cost = { influence = @Edict2Cost }
+	
+	modifier = {
+		country_resource_unity_mult = 0.15
+	}
+	
+	potential = {
+		is_spiritualist = yes
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+#################
+#Government stuff
+#################
+country_edict = {
+	name = "peace_festivals"
+	cost = { influence = @Edict2Cost }
+	length = @EdictDuration
+	
+	show_tech_unlock_if = {
+		is_pacifist = yes
+	}
+	
+	modifier = {
+		pop_happiness = 0.10
+	}
+	
+	prerequisites = { 
+		"tech_planetary_unification"
+	}
+	
+	potential = {
+		is_pacifist = yes
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "information_quarantine"
+	length = @EdictDuration
+	cost = { influence = @Edict2Cost }
+	
+	modifier = {
+		pop_government_ethic_attraction = 0.5
+	}	
+	
+	potential = {
+		is_authoritarian = yes
+	}
+	
+	ai_weight = {
+		weight = 1	
+	}	
+}
+
+country_edict = {
+	name = "encourage_free_thought"
+	length = @EdictDuration
+	cost = { influence = @Edict2Cost }
+	
+	modifier = {
+		pop_ethics_shift_speed_mult = 0.5
+	}
+
+	potential = {
+		is_egalitarian = yes
+	}
+	
+	ai_weight = {
+		weight = 0	
+	}
+}
+
+country_edict = {
+	name = "map_the_stars"
+	length = @EdictDuration
+	cost = { influence = @Edict1Cost }
+	
+	modifier = {
+		science_ship_survey_speed = 0.25
+		ship_anomaly_generation_chance_mult = 0.10
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "land_of_opportunity"
+	length = @EdictDuration
+	cost = { influence = @Edict2Cost }
+	
+	modifier = {
+		planet_migration_xeno_pull = 1
+	}
+	
+	potential = {
+		is_xenophile = yes
+		has_comms_with_alien_empire = yes
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "diplomatic_grants"
+	length = @EdictDuration
+	cost = { influence = @Edict1Cost }
+	
+	modifier = {
+		country_trust_growth = 0.50
+		country_trade_attractiveness = 0.10
+	}
+	
+	potential = {
+		is_xenophobe = no
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		NOT = { has_valid_civic = civic_barbaric_despoilers }
+		has_comms_with_alien_empire = yes
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+##########################################################################
+# Event edicts
+##########################################################################
+
+country_edict = {
+	name = "crystal_sonar"
+	modifier = {
+		
+	}
+
+	cost = { influence = @Edict1Cost }
+
+	length = 36000
+
+	potential = {
+		has_country_flag = crystal_sonar_edict_available
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "greater_crystal_bounty"
+	modifier = {
+		
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = 36000
+
+	potential = {
+		has_country_flag = greater_crystal_bounty_edict_available
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "crystal_bounty"
+	modifier = {
+	
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = 36000
+
+	potential = {
+		has_country_flag = crystal_bounty_edict_available
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "droning_optimizations"
+	modifier = {
+		country_resource_minerals_mult = 0.25
+	}
+	
+	cost = { influence = @Edict3Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = droning_optimizations_edict_available
+	}
+		
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}	
+}
+
+country_edict = {
+	name = "drone_bounty"
+	modifier = {
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = 36000
+
+	potential = {
+		has_country_flag = drone_bounty_edict_available
+	}
+
+	allow = {
+	}
+
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+country_edict = {
+	name = "masters_writings_politics"
+	modifier = {
+		planet_building_cost_mult = -0.1
+		planet_building_build_speed_mult = 0.10
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_masters_writings_politics
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}	
+}
+
+country_edict = {
+	name = "masters_writings_diplomacy"
+	modifier = {
+		country_trust_growth = 1
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_masters_writings_diplomacy
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "masters_writings_philosophy"
+	modifier = {
+		country_society_tech_research_speed = 0.1
+		country_leader_cap = 1
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_masters_writings_philosophy
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "masters_writings_war"
+	modifier = {
+		country_naval_cap_mult = 0.1
+		army_upkeep_mult = -0.15
+	}
+	
+	cost = { influence = @Edict1Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_masters_writings_war
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "improved_work_environment"
+	modifier = {
+		pop_happiness = 0.05
+		category_biology_research_speed_mult = 0.1
+		category_statecraft_research_speed_mult = 0.1
+	}
+	
+	cost = { influence = @Edict2Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_improved_work_environment
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "renewable_energy"
+	modifier = {
+		pop_consumer_goods_mult = -0.10
+		category_industry_research_speed_mult = 0.1
+		category_materials_research_speed_mult = 0.1
+	}
+	
+	cost = { influence = @Edict2Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_renewable_energy
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+country_edict = {
+	name = "super_sensors"
+	modifier = {
+		ship_sensor_range_add = 1
+	}
+	
+	cost = { influence = @Edict2Cost }
+
+	length = @EdictDuration
+
+	potential = {
+		has_country_flag = edict_super_sensors
+	}
+
+	allow = {
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+country_edict = {
+	name = "make_holy_world"
+
+	cost = { influence = 300 }
+
+	length = 0
+
+	potential = {
+		is_spiritualist = yes
+		NOT = { has_country_flag = search_for_holy_world }
+	}
+
+	allow = {
+		custom_tooltip = {
+			fail_text = has_world_worship
+			NOT = { has_modifier = has_holy_player_planet }
+		}
+		custom_tooltip = {
+			fail_text = has_holy_world_candidate
+			any_planet_within_border = {
+				is_planet_class = pc_gaia
+				is_colony = no
+				NOT = { has_colony_progress > 0 }
+			}
+		}
+	}
+
+
+	effect = {
+		custom_tooltip = make_holy_world_effect
+		hidden_effect = { 
+			set_country_flag = search_for_holy_world
+			country_event = { id = apoc.199 } 
+		}
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}

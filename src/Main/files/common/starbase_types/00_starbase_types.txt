@@ -1,0 +1,578 @@
+#root = starbase
+#from = player
+
+# Shipyard
+stb_shipyard = {
+	potential = {
+		has_starbase_size >= starbase_starport
+		count_starbase_modules = {
+			type = shipyard
+			count > 0
+		}
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = shipyard
+				count > 1
+			}
+		}		
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = shipyard
+				count > 2
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = shipyard
+				count > 3
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = shipyard
+				count > 4
+			}
+		}	
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = shipyard
+				count > 5
+			}
+		}
+	}
+
+	ai_design = {
+		min = {
+			base = 1
+		}
+		
+		ratio = {
+			base = 0.25
+			modifier = {
+				add = 0.10
+				owner = {
+					has_ethic = ethic_militarist
+				}
+			}
+			modifier = {
+				add = 0.05
+				owner = {
+					has_ethic = ethic_fanatic_militarist
+				}
+			}
+		}
+
+		# token followed by priority
+		buildings = {
+			crew_quarters = {
+				base = 1.00
+			}
+			
+			fleet_academy = {
+				base = 0.25
+			}
+
+			naval_logistics_office = {
+				base = 0.05
+			}
+
+			titan_yards = {
+				base = 0.01
+			}
+
+			colossus_yards = {
+				base = 0.01
+			}
+		}
+		
+		modules = {
+			shipyard = {
+				base = 1.00
+			}
+
+			anchorage = {
+				base = 0.50
+			}
+
+			hangar_bay = {
+				base = 0.45
+			}
+		}
+	}
+}
+
+# Anchorage
+stb_anchorage = {
+	potential = {
+		has_starbase_size >= starbase_starport
+		count_starbase_modules = {
+			type = anchorage
+			count > 0
+		}
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = anchorage
+				count > 1
+			}
+		}		
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = anchorage
+				count > 2
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = anchorage
+				count > 3
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = anchorage
+				count > 4
+			}
+		}	
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = anchorage
+				count > 5
+			}
+		}
+	}
+
+	ai_design = {
+		min = {
+			base = 1
+		}
+		
+		ratio = {
+			base = 0.15
+			modifier = {
+				add = 0.05
+				owner = {
+					has_ethic = ethic_militarist
+				}
+			}
+			modifier = {
+				add = 0.02
+				owner = {
+					has_ethic = ethic_fanatic_militarist
+				}
+			}
+		}
+
+		# token followed by priority
+		buildings = {
+			crew_quarters = {
+				base = 1.00
+			}
+			
+			fleet_academy = {
+				base = 0.05
+			}
+
+			naval_logistics_office = {
+				base = 0.05
+			}
+
+			curator_think_tank = {
+				base = 0.03
+			}
+
+			art_college = {
+				base = 0.03
+			}
+		}
+		
+		modules = {
+			anchorage = {
+				base = 1.00
+			}
+
+			hangar_bay = {
+				base = 0.60
+			}
+		}
+	}
+}
+
+# Trading Hub
+stb_trading_hub = {
+	potential = {
+		has_starbase_size >= starbase_starport
+		count_starbase_modules = {
+			type = trading_hub
+			count > 0
+		}
+		owner = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 1
+			}
+		}		
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 2
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 3
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 4
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 5
+			}
+		}
+	}
+
+	ai_design = {
+		min = {
+			base = 1
+		}
+		
+		ratio = {
+			base = 0.3
+			modifier = {
+				add = 0.10
+				owner = {
+					has_ethic = ethic_materialist
+				}
+			}
+			modifier = {
+				add = 0.05
+				owner = {
+					has_ethic = ethic_fanatic_materialist
+				}
+			}
+		}
+
+		# token followed by priority
+		buildings = {
+			offworld_trading_company = {
+				base = 1.00
+			}
+			
+			nebula_refinery = {
+				base = 0.8
+			}
+
+			naval_logistics_office = {
+				base = 0.05
+			}
+
+			art_college = {
+				base = 0.03
+			}
+
+			curator_think_tank = {
+				base = 0.03
+			}
+		}
+		
+		modules = {
+			trading_hub = {
+				base = 1.0
+			}
+
+			resource_silo = {
+				base = 0.80
+			}
+		}
+	}
+}
+
+# Fortress System
+stb_fortress = {
+	potential = {
+		has_starbase_size >= starbase_starport
+		OR = {
+			has_starbase_module = gun_battery
+			has_starbase_module = missile_battery
+			has_starbase_module = hangar_bay
+		}
+	}
+
+	weight_modifier = {
+		base = 75
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = gun_battery
+				count > 0
+			}
+		}		
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = gun_battery
+				count > 1
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = gun_battery
+				count > 2
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = gun_battery
+				count > 3
+			}
+		}	
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = gun_battery
+				count > 4
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = gun_battery
+				count > 5
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = missile_battery
+				count > 0
+			}
+		}		
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = missile_battery
+				count > 1
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = missile_battery
+				count > 2
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = missile_battery
+				count > 3
+			}
+		}	
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = missile_battery
+				count > 4
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = missile_battery
+				count > 5
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = hangar_bay
+				count > 0
+			}
+		}		
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = hangar_bay
+				count > 1
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = hangar_bay
+				count > 2
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = hangar_bay
+				count > 3
+			}
+		}	
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = hangar_bay
+				count > 4
+			}
+		}
+		modifier = {
+			add = 75
+			count_starbase_modules = {
+				type = hangar_bay
+				count > 5
+			}
+		}		
+	}
+
+	ai_design = {
+		min = {
+			base = 1
+		}
+		
+		ratio = {
+			base = 0.25
+			modifier = {
+				add = 0.10
+				owner = {
+					has_ethic = ethic_militarist
+				}
+			}
+			modifier = {
+				add = 0.1
+				owner = {
+					has_ethic = ethic_fanatic_militarist
+				}
+			}
+		}
+
+		# token followed by priority
+		buildings = {
+			target_uplink_computer = {
+				base = 1.00
+			}
+
+			command_center = {
+				base = 1.00
+			}
+
+			defense_grid = {
+				base = 1.00
+			}
+
+			communications_jammer = {
+				base = 0.90
+			}
+
+			disruption_field = {
+				base = 0.90
+			}
+
+			warp_fluctuator = {
+				base = 0.90
+			}
+		}
+		
+		modules = {
+			hangar_bay = {
+				base = 0.80
+			}
+
+			missile_battery = {
+				base = 1.00
+			}
+
+			gun_battery = {
+				base = 1.00
+			}
+		}
+	}
+}
+
+# Trading Hub - Gestalts
+stb_trading_hub_gestalt = {
+	potential = {
+		has_starbase_size >= starbase_starport
+		count_starbase_modules = {
+			type = trading_hub
+			count > 0
+		}
+		owner = { has_ethic = ethic_gestalt_consciousness }
+	}
+
+	weight_modifier = {
+		base = 100	
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 1
+			}
+		}		
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 2
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 3
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 4
+			}
+		}
+		modifier = {
+			add = 100
+			count_starbase_modules = {
+				type = trading_hub
+				count > 5
+			}
+		}
+	}
+}

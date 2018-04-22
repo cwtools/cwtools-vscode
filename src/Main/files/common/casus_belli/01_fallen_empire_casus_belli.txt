@@ -1,0 +1,21 @@
+#my_casus_belli = {
+#	potential = { ... }		# trigger to make some CBs invalid for certain types of countries; this = attacker (CB owner); default: { always = yes }
+#	is_valid = { ... }		# trigger, evaluated daily to check if CB should be created or destroyed automatically, does not affect CBs granted via script;
+#								# this = attacker (CB owner), from = defender (target country); default: { always = yes }
+#	destroy_if = { ... }	# trigger, evaluated daily to destroy CBs that have been granted via script ahead of expiration date;
+#								# this = attacker (CB owner), from = defender (target country); default: { always = no }
+#}
+
+cb_fe_punishment = {
+	show_notification = yes
+	potential = {
+		is_country_type = fallen_empire
+	}
+	is_valid = {
+		OR = {
+			has_opinion_modifier = { who = from modifier = opinion_angered_fallen_machine_empire }
+			has_opinion_modifier = { who = from modifier = opinion_refused_fallen_empire_demand }
+			has_opinion_modifier = { who = from modifier = opinion_majorly_failed_fallen_empire_task  }			
+		}
+	}
+}

@@ -1,0 +1,277 @@
+# buildings for habitats
+
+building_hab_capital = {
+	base_buildtime = 1080
+	defense_armies = 2
+	
+	cost = {
+	}
+	
+	produced_resources = {
+		energy = 5
+		unity = 2
+	}
+	
+	produced_resource_trigger = {
+		modifier = {
+			has_non_swapped_tradition = tr_expansion_colonization_fever
+			has_swapped_tradition = tr_expansion_colonization_fever_machine
+			has_swapped_tradition = tr_expansion_colonization_fever_hive
+			resources = {
+				unity = 1
+			}
+		}
+	}
+	
+	planet_modifier = {
+		pop_government_ethic_attraction = 0.2
+	}
+	
+	potential = {
+		planet = {
+			is_planet_class = pc_habitat
+		}	
+	}
+	
+	planet_unique = yes
+	capital = yes
+	
+	ai_replace = no
+}
+
+building_hab_astro_mining_facility = {
+	base_buildtime = 360
+	
+	cost = {
+		minerals = 200
+	}
+	
+	potential = {
+		planet = {
+			is_planet_class = pc_habitat
+		}	
+	}
+	
+	allow = {
+		planet = { 
+			has_building = "building_hab_capital"
+		}
+	}
+	
+	produced_resources = {
+		minerals = 4
+	}
+	
+	required_resources = {
+		energy = 2
+	}
+}
+
+building_hab_solar_power_processor = {
+	base_buildtime = 360
+	
+	cost = {
+		minerals = 250
+	}
+	
+	potential = {
+		planet = {		
+			is_planet_class = pc_habitat
+			has_building = "building_hab_capital"
+			solar_system = {
+				custom_tooltip = {
+					fail_text = "requires_no_black_hole_or_dyson_sphere"
+					NOR = {
+						is_star_class = sc_black_hole
+						has_megastructure = dyson_sphere_3
+						has_megastructure = dyson_sphere_4
+						has_megastructure = dyson_sphere_5
+					}
+				}				
+			}
+		}	
+	}
+	
+	destroy_if = {
+		planet = {		
+			solar_system = {
+				OR = {
+					is_star_class = sc_black_hole	
+					has_megastructure = dyson_sphere_3
+					has_megastructure = dyson_sphere_4
+					has_megastructure = dyson_sphere_5
+				}
+			}
+		}	
+	}
+	
+	produced_resources = {
+		energy = 6
+	}
+}
+
+building_hab_agri_bay = {
+	base_buildtime = 360
+	
+	cost = {
+		minerals = 200
+	}
+	
+	potential = {
+		NOT =  { owner = { has_authority = auth_machine_intelligence } }
+		planet = {		
+			is_planet_class = pc_habitat
+		}	
+	}
+	
+	allow = {
+		planet = { 
+			has_building = "building_hab_capital"
+		}
+	}
+	
+	produced_resources = {
+		food = 4
+	}
+	
+	required_resources = {
+		energy = 2
+	}
+}
+
+building_hab_laboratory_module = {
+	base_buildtime = 360
+	
+	cost = {
+		minerals = 250
+	}
+	
+	potential = {
+		planet = {		
+			is_planet_class = pc_habitat
+		}	
+	}
+
+	allow = {
+		planet = { 
+			has_building = "building_hab_capital"
+		}
+	}
+	
+	produced_resources = {
+		engineering_research = 2
+		physics_research = 2
+		society_research = 2
+	}
+	
+	required_resources = {
+		energy = 2
+	}
+}
+
+building_hab_cultural_center = {
+	base_buildtime = 730
+	planet_unique = yes
+	
+	cost = {
+		minerals = 400
+	}
+	
+	potential = {
+		NOT = {
+			owner = { has_authority = auth_machine_intelligence }
+		}
+		planet = {		
+			is_planet_class = pc_habitat
+		}	
+	}
+	
+	allow = {
+		planet = { 
+			has_building = "building_hab_capital"
+		}
+	}
+	
+	destroy_if = {
+		exists = owner
+		owner = { has_authority = auth_machine_intelligence }
+	}
+	
+	produced_resources = {		
+		unity = 4
+	}
+	
+	planet_modifier = {
+		pop_citizen_happiness = 0.05
+	}
+	
+	required_resources = {
+		energy = 4
+	}
+	
+	ai_weight = {
+		weight = 300
+	}
+}
+
+building_hab_stronghold  = {
+	icon = "building_stronghold"
+	base_buildtime = 180
+	is_listed = yes
+	defense_armies = 2
+	
+	potential = {
+		planet = {
+			is_planet_class = pc_habitat
+		}
+	}
+	
+	allow = {
+		planet = { 
+			has_building = "building_hab_capital"
+		}
+	}
+	
+	cost = {
+		minerals = 250
+	}
+	
+	produced_resources = {
+		unity = 1
+	}
+	
+	required_resources = {
+		energy = 2
+	}
+	
+	planet_modifier = {
+		planet_unrest_add = -40
+	}
+
+	ai_weight = {
+		weight = 1000
+		modifier = {
+			factor = 0
+			years_passed < 25
+		}
+		modifier = {
+			factor = 0
+			planet = {
+				NOT = { unrest > 50	}
+			}
+		}
+		modifier = {
+			factor = 0
+			planet = {
+				count_tile = {
+					limit = {
+						OR = {
+							has_building = building_hab_stronghold
+						}
+					}
+					count > 0					
+				}				
+			}
+		}
+	}
+}

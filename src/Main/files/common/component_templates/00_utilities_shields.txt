@@ -1,0 +1,473 @@
+# Icons set here are the ones show in the actual slot. The reason is so that we can support different icons for different sizes. 
+
+#############
+#	POWER	#
+#############
+
+@power_S1 = -15
+@power_M1 = -45
+@power_L1 = -105
+             
+@power_S2 = -20
+@power_M2 = -50
+@power_L2 = -125
+             
+@power_S3 = -25
+@power_M3 = -65
+@power_L3 = -150
+             
+@power_S4 = -30
+@power_M4 = -75
+@power_L4 = -185
+             
+@power_S5 = -35
+@power_M5 = -85
+@power_L5 = -210
+ 
+@power_S6 = -45
+@power_M6 = -115
+@power_L6 = -280
+
+@power_S7 = -50
+@power_M7 = -125
+@power_L7 = -315
+
+#############
+#	COST	#
+#############
+
+@cost_S1 = 5
+@cost_M1 = 10
+@cost_L1 = 15
+           
+@cost_S2 = 7
+@cost_M2 = 14
+@cost_L2 = 28
+
+@cost_S3 = 9
+@cost_M3 = 18
+@cost_L3 = 36
+           
+@cost_S4 = 12
+@cost_M4 = 24
+@cost_L4 = 48
+           
+@cost_S5 = 15
+@cost_M5 = 30
+@cost_L5 = 45
+           
+@cost_S6 = 20
+@cost_M6 = 40
+@cost_L6 = 80
+
+@cost_S7 = 25
+@cost_M7 = 50
+@cost_L7 = 100
+
+#############
+#	SHIELD	#
+#############
+
+@shield_S1 = 50
+@shield_M1 = 125
+@shield_L1 = 315
+
+@regen_S1 = 0.50
+@regen_M1 = 1.25
+@regen_L1 = 3.15
+
+@shield_S2 = 65
+@shield_M2 = 160
+@shield_L2 = 405
+
+@regen_S2 = 0.65
+@regen_M2 = 1.60
+@regen_L2 = 4.05
+
+@shield_S3 = 85
+@shield_M3 = 215
+@shield_L3 = 525
+
+@regen_S3 = 0.85
+@regen_M3 = 2.15
+@regen_L3 = 5.25
+
+@shield_S4 = 110
+@shield_M4 = 275
+@shield_L4 = 685
+
+@regen_S4 = 1.10
+@regen_M4 = 2.75
+@regen_L4 = 6.85
+
+@shield_S5 = 140
+@shield_M5 = 350
+@shield_L5 = 875
+
+@regen_S5 = 1.40
+@regen_M5 = 3.50
+@regen_L5 = 8.75
+
+@shield_S6 = 180
+@shield_M6 = 450
+@shield_L6 = 1150
+
+@regen_S6 = 1.80
+@regen_M6 = 4.50
+@regen_L6 = 11.50
+
+@shield_S7 = 200
+@shield_M7 = 500
+@shield_L7 = 1250
+
+@regen_S7 = 2.00
+@regen_M7 = 5.00
+@regen_L7 = 12.50
+
+#############
+# UTILITIES #
+#############
+
+# Deflectors
+utility_component_template = {
+	key = "SMALL_SHIELD_1"
+	size = small
+	icon = "GFX_ship_part_shield_1"
+	icon_frame = 1
+	power = @power_S1
+	cost = @cost_S1
+	modifier = {
+		ship_shield_add = @shield_S1
+		ship_shield_regen_add_static = @regen_S1 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_1" }
+	component_set = "SHIELD_1"
+	upgrades_to = "SMALL_SHIELD_2"
+}
+
+utility_component_template = {
+	key = "MEDIUM_SHIELD_1"
+	size = medium
+	icon = "GFX_ship_part_shield_1"
+	icon_frame = 1
+	power = @power_M1
+	cost = @cost_M1
+	modifier = {
+		ship_shield_add = @shield_M1
+		ship_shield_regen_add_static = @regen_M1 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_1" }
+	component_set = "SHIELD_1"
+	upgrades_to = "MEDIUM_SHIELD_2"
+}
+
+utility_component_template = {
+	key = "LARGE_SHIELD_1"
+	size = large
+	icon = "GFX_ship_part_shield_1"
+	icon_frame = 1
+	power = @power_L1
+	cost = @cost_L1
+	modifier = {
+		ship_shield_add = @shield_L1
+		ship_shield_regen_add_static = @regen_L1 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_1" }
+	component_set = "SHIELD_1"
+	upgrades_to = "LARGE_SHIELD_2"
+}
+
+# Advanced Deflectors
+utility_component_template = {
+	key = "SMALL_SHIELD_2"
+	size = small
+	icon = "GFX_ship_part_shield_2"
+	icon_frame = 1
+	power = @power_S2
+	cost = @cost_S2
+	modifier = {
+		ship_shield_add = @shield_S2
+		ship_shield_regen_add_static = @regen_S2 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_2" }
+	component_set = "SHIELD_2"
+	upgrades_to = "SMALL_SHIELD_3"
+}
+
+utility_component_template = {
+	key = "MEDIUM_SHIELD_2"
+	size = medium
+	icon = "GFX_ship_part_shield_2"
+	icon_frame = 1
+	power = @power_M2
+	cost = @cost_M2
+	modifier = {
+		ship_shield_add = @shield_M2
+		ship_shield_regen_add_static = @regen_M2 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_2" }
+	component_set = "SHIELD_2"
+	upgrades_to = "MEDIUM_SHIELD_3"
+}
+
+utility_component_template = {
+	key = "LARGE_SHIELD_2"
+	size = large
+	icon = "GFX_ship_part_shield_2"
+	icon_frame = 1
+	power = @power_L2
+	cost = @cost_L2
+	modifier = {
+		ship_shield_add = @shield_L2
+		ship_shield_regen_add_static = @regen_L2 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_2" }
+	component_set = "SHIELD_2"
+	upgrades_to = "LARGE_SHIELD_3"
+}
+
+# Shields
+utility_component_template = {
+	key = "SMALL_SHIELD_3"
+	size = small
+	icon = "GFX_ship_part_shield_3"
+	icon_frame = 1
+	power = @power_S3
+	cost = @cost_S3
+	modifier = {
+		ship_shield_add = @shield_S3
+		ship_shield_regen_add_static = @regen_S3 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_3" }
+	component_set = "SHIELD_3"
+	upgrades_to = "SMALL_SHIELD_4"
+}
+
+utility_component_template = {
+	key = "MEDIUM_SHIELD_3"
+	size = medium
+	icon = "GFX_ship_part_shield_3"
+	icon_frame = 1
+	power = @power_M3
+	cost = @cost_M3
+	modifier = {
+		ship_shield_add = @shield_M3
+		ship_shield_regen_add_static = @regen_M3 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_3" }
+	component_set = "SHIELD_3"
+	upgrades_to = "MEDIUM_SHIELD_4"
+}
+
+utility_component_template = {
+	key = "LARGE_SHIELD_3"
+	size = large
+	icon = "GFX_ship_part_shield_3"
+	icon_frame = 1
+	power = @power_L3
+	cost = @cost_L3
+	modifier = {
+		ship_shield_add = @shield_L3
+		ship_shield_regen_add_static = @regen_L3 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_3" }
+	component_set = "SHIELD_3"
+	upgrades_to = "LARGE_SHIELD_4"
+}
+
+# Advanced Shields
+utility_component_template = {
+	key = "SMALL_SHIELD_4"
+	size = small
+	icon = "GFX_ship_part_shield_4"
+	icon_frame = 1
+	power = @power_S4
+	cost = @cost_S4
+	modifier = {
+		ship_shield_add = @shield_S4
+		ship_shield_regen_add_static = @regen_S4 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_4" }
+	component_set = "SHIELD_4"
+	upgrades_to = "SMALL_SHIELD_5"
+}
+
+utility_component_template = {
+	key = "MEDIUM_SHIELD_4"
+	size = medium
+	icon = "GFX_ship_part_shield_4"
+	icon_frame = 1
+	power = @power_M4
+	cost = @cost_M4
+	modifier = {
+		ship_shield_add = @shield_M4
+		ship_shield_regen_add_static = @regen_M4 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_4" }
+	component_set = "SHIELD_4"
+	upgrades_to = "MEDIUM_SHIELD_5"
+}
+
+utility_component_template = {
+	key = "LARGE_SHIELD_4"
+	size = large
+	icon = "GFX_ship_part_shield_4"
+	icon_frame = 1
+	power = @power_L4
+	cost = @cost_L4
+	modifier = {
+		ship_shield_add = @shield_L4
+		ship_shield_regen_add_static = @regen_L4 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_4" }
+	component_set = "SHIELD_4"
+	upgrades_to = "LARGE_SHIELD_5"
+}
+
+# Hyper Shields
+utility_component_template = {
+	key = "SMALL_SHIELD_5"
+	size = small
+	icon = "GFX_ship_part_shield_5"
+	icon_frame = 1
+	power = @power_S5
+	cost = @cost_S5
+	modifier = {
+		ship_shield_add = @shield_S5
+		ship_shield_regen_add_static = @regen_S5 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_5" }
+	upgrades_to = "SMALL_DARK_MATTER_DEFLECTOR"
+	component_set = "SHIELD_5"
+}
+
+utility_component_template = {
+	key = "MEDIUM_SHIELD_5"
+	size = medium
+	icon = "GFX_ship_part_shield_5"
+	icon_frame = 1
+	power = @power_M5
+	cost = @cost_M5
+	modifier = {
+		ship_shield_add = @shield_M5
+		ship_shield_regen_add_static = @regen_M5 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_5" }
+	upgrades_to = "MEDIUM_DARK_MATTER_DEFLECTOR"
+	component_set = "SHIELD_5"
+}
+
+utility_component_template = {
+	key = "LARGE_SHIELD_5"
+	size = large
+	icon = "GFX_ship_part_shield_5"
+	icon_frame = 1
+	power = @power_L5
+	cost = @cost_L5
+	modifier = {
+		ship_shield_add = @shield_L5
+		ship_shield_regen_add_static = @regen_L5 #Regeneration per day
+	}
+	prerequisites = { "tech_shields_5" }
+	upgrades_to = "LARGE_DARK_MATTER_DEFLECTOR"
+	component_set = "SHIELD_5"
+}
+
+####################
+# Psionic Shields
+####################
+
+utility_component_template = {
+	key = "SMALL_PSI_SHIELD"
+	size = small
+	icon = "GFX_ship_part_psi_shield"
+	icon_frame = 1
+	power = @power_S6
+	cost = @cost_S6
+	modifier = {
+		ship_shield_add = @shield_S6
+		ship_shield_regen_add_static = @regen_S6 #Regeneration per day
+	}
+	prerequisites = { "tech_psionic_shield" }
+	component_set = "PSI_SHIELD"
+}
+
+utility_component_template = {
+	key = "MEDIUM_PSI_SHIELD"
+	size = medium
+	icon = "GFX_ship_part_psi_shield"
+	icon_frame = 1
+	power = @power_M6
+	cost = @cost_M6
+	modifier = {
+		ship_shield_add = @shield_M6
+		ship_shield_regen_add_static = @regen_M6 #Regeneration per day
+	}
+	prerequisites = { "tech_psionic_shield" }
+	component_set = "PSI_SHIELD"
+}
+
+utility_component_template = {
+	key = "LARGE_PSI_SHIELD"
+	size = large
+	icon = "GFX_ship_part_psi_shield"
+	icon_frame = 1
+	power = @power_L6
+	cost = @cost_L6
+	modifier = {
+		ship_shield_add = @shield_L6
+		ship_shield_regen_add_static = @regen_L6 #Regeneration per day
+	}
+	prerequisites = { "tech_psionic_shield" }
+	component_set = "PSI_SHIELD"
+}
+
+####################
+# Engimatic Shields
+####################
+
+# Enigmatic Deflectors
+utility_component_template = {
+	key = "SMALL_DARK_MATTER_DEFLECTOR"
+	size = small
+	icon = "GFX_ship_part_dark_matter_shield"
+	icon_frame = 1
+	power = @power_S7
+	cost = @cost_S7
+	modifier = {
+		ship_shield_add = @shield_S7
+		ship_shield_regen_add_static = @regen_S7 #Regeneration per day
+	}
+	prerequisites = { "tech_dark_matter_deflector" }
+	component_set = "DARK_MATTER_DEFLECTOR"
+}
+
+utility_component_template = {
+	key = "MEDIUM_DARK_MATTER_DEFLECTOR"
+	size = medium
+	icon = "GFX_ship_part_dark_matter_shield"
+	icon_frame = 1
+	power = @power_M7
+	cost = @cost_M7
+	modifier = {
+		ship_shield_add = @shield_M7
+		ship_shield_regen_add_static = @regen_M7 #Regeneration per day
+	}
+	prerequisites = { "tech_dark_matter_deflector" }
+	component_set = "DARK_MATTER_DEFLECTOR"
+}
+
+utility_component_template = {
+	key = "LARGE_DARK_MATTER_DEFLECTOR"
+	size = large
+	icon = "GFX_ship_part_dark_matter_shield"
+	icon_frame = 1
+	power = @power_L7
+	cost = @cost_L7
+	modifier = {
+		ship_shield_add = @shield_L7
+		ship_shield_regen_add_static = @regen_L7 #Regeneration per day
+	}
+	prerequisites = { "tech_dark_matter_deflector" }
+	component_set = "DARK_MATTER_DEFLECTOR"
+}

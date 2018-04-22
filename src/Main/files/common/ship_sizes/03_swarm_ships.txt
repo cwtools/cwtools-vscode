@@ -1,0 +1,232 @@
+#reloadable with 'reload stats'
+# This file is where you start when you want to configure something new, then go to sections
+
+@corvette_collision_radius = 2.0
+
+@destroyer_collision_radius = 2.5
+
+@cruiser_collision_radius = 3
+
+@battleship_collision_radius = 3
+
+@titan_collision_radius = 15
+
+@build_block_radius_none = 0
+@build_block_radius_civilian = 20
+@build_block_radius_military = 200
+
+@speed_very_slow = 80
+@speed_slow = 100
+@speed_default = 120
+@speed_fast = 140
+@speed_very_fast = 160
+
+#########
+# SWARM #
+#########
+
+# Swarm Large Ship (Warrior)
+large_ship_swarm = {
+	is_space_object = yes
+	graphical_culture = {  "swarm_01" }
+	max_speed = @speed_slow
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = @battleship_collision_radius
+	modifier = {
+		ship_evasion_add = 5
+		ship_armor_add = 3000
+		ship_upkeep_mult = -1
+	}
+	max_hitpoints = 2000
+	size_multiplier = 8
+	fleet_slot_size = 8
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 5
+	
+	class = shipclass_military
+	is_designable = no
+}
+
+# Swarm Carrier Ship (Brood Mother)
+large_ship_carrier_swarm = {
+	is_space_object = yes
+	graphical_culture = {  "swarm_01" }
+	max_speed = @speed_slow
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = @battleship_collision_radius
+	modifier = {
+		ship_evasion_add = 5
+		ship_armor_add = 3000
+		ship_upkeep_mult = -1
+	}
+	max_hitpoints = 2000
+	size_multiplier = 8
+	fleet_slot_size = 8
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 5
+	
+	class = shipclass_military
+	is_designable = no
+}
+
+# Swarm Small Ship
+small_ship_swarm = {
+	is_space_object = yes
+	graphical_culture = { "swarm_01" }
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	collision_radius = @destroyer_collision_radius
+	modifier = {
+		ship_evasion_add = 65
+		ship_armor_add = 1000
+		ship_upkeep_mult = -1
+	}
+	max_hitpoints = 500
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 3
+	is_space_station = no
+		
+	class = shipclass_military
+	is_designable = no
+}
+
+# Swarm Queen
+queen_swarm = {
+	is_space_object = yes
+	graphical_culture = {  "swarm_01" }
+	max_speed = @speed_slow
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = @battleship_collision_radius
+	modifier = {
+		ship_evasion_add = 5
+		ship_armor_add = 6000
+		ship_upkeep_mult = -1
+	}
+	max_hitpoints = 4000
+	size_multiplier = 8
+	fleet_slot_size = 8
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 5
+	
+	class = shipclass_military
+	is_designable = no
+}
+
+# Swarm Constructor
+construction_ship_swarm = {
+	graphical_culture = { "swarm_01" }
+	is_space_object = yes
+	max_speed = @speed_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 300
+	}
+	max_hitpoints = 300
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 9
+	
+	is_civilian = yes
+	is_designable = no
+	class = shipclass_constructor
+	required_component_set = "ftl_components"
+	required_component_set = "sensor_components"
+	required_component_set = "thruster_components"
+}
+
+# Swarm Colonizer
+colony_ship_swarm = {
+	graphical_culture = { "swarm_01" }
+	is_space_object = yes
+	max_speed = @speed_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 300
+	}
+	max_hitpoints = 300
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 10
+
+	is_civilian = yes
+	is_designable = no
+	class = shipclass_colonizer
+	required_component_set = "ftl_components"
+	required_component_set = "sensor_components"
+	required_component_set = "thruster_components"
+}
+
+# Swarm Transport
+transport_ship_swarm = {
+	graphical_culture = { "swarm_01" }
+	is_space_object = yes
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	acceleration = 0.6
+	modifier = {
+		ship_evasion_add = 70
+		ship_armor_add = 300
+	}
+	max_hitpoints = 300
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 11
+	is_designable = no
+	class = shipclass_transport
+	required_component_set = "ftl_components"
+	required_component_set = "sensor_components"
+	required_component_set = "thruster_components"
+}
+
+###########
+# Special #
+###########
+sentinel_station = {
+	is_space_object = yes
+	entity = enclave_station_entity
+	graphical_culture = no
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.10
+	modifier = {
+		ship_evasion_mult = -1
+		ship_upkeep_mult = -0.25
+	}
+	max_hitpoints = 20000
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "station" } }
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	
+	class = shipclass_military_station
+	is_designable = no
+}

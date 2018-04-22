@@ -1,0 +1,1179 @@
+@base_moon_distance = 10
+
+### Crisis Initializers
+
+# AI
+
+# Machine World 1
+ai_system_01 = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_1
+		}
+	}
+
+	spawn_chance = 100
+	max_instances = 1
+
+	flags = { AI_hub AI_system_1 }
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		count = { min = 1 max = 4 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+
+	change_orbit = 20
+
+	planet = {
+		class = pc_barren
+		size = 20
+		flags = { machine_world_1 }
+	}
+
+	planet = {
+		count = { min = 1 max = 4 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+}
+
+# Machine World 2
+ai_system_02 = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_2
+		}
+	}
+
+	spawn_chance = 100
+	max_instances = 1
+
+	flags = { AI_hub AI_system_2 }
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+
+	planet = {
+		class = pc_molten
+		size = 20
+		flags = { machine_world_2 }
+	}
+
+	planet = {
+		count = { min = 1 max = 7 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+}
+
+# Machine World 3
+ai_system_03 = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_3
+		}
+	}
+
+	spawn_chance = 100
+	max_instances = 1
+
+	flags = { AI_hub AI_system_3 }
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		count = { min = 1 max = 4 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+
+	change_orbit = 20
+
+	planet = {
+		class = pc_gas_giant
+		size = 35
+		flags = { machine_world_3 }
+	}
+
+	planet = {
+		count = { min = 1 max = 4 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+}
+
+# Machine World 4
+ai_system_04 = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_4
+		}
+	}
+
+	spawn_chance = 100
+	max_instances = 1
+
+	flags = { AI_hub AI_system_4 }
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		count = 5
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+
+	change_orbit = 20
+
+	planet = {
+		class = pc_toxic
+		size = 20
+		flags = { machine_world_4 }
+	}
+
+	planet = {
+		count = { min = 1 max = 4 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+}
+
+# Machine World Secret Lair
+ai_system_05 = {
+	class = "sc_neutron_star"
+	name = "NAME_Contingency_System"
+
+	flags = { AI_lair }
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 75
+
+	planet = {
+		class = pc_ai
+		name = "NAME_Contingency_Lair"
+		size = 35
+		flags = { machine_lair }
+
+		init_effect = {
+			random_country = {
+				limit = { is_country_type = ai_empire }
+				save_event_target_as = AI_crisis
+			}
+			set_owner = event_target:AI_crisis
+		}
+	}
+
+	change_orbit = 35
+
+	planet = {
+		class = pc_barren
+		orbit_distance = 35
+		orbit_angle = { min = 90 max = 270 }
+		size = 12
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 30
+		orbit_angle = { min = 90 max = 270 }
+		size = 8
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 45
+		orbit_angle = { min = 90 max = 270 }
+		size = 10
+	}
+}
+
+cybrex_beta = {
+	name = "NAME_Cybrex_Beta"
+	class = "sc_g"
+
+	flags = { cybrex_beta }
+	
+	planet = {
+		class = star
+		orbit_distance = 0
+
+		init_effect = {
+			create_species = {
+				name = "NAME_Cybrex"
+				class = "ROBOT"
+				portrait = "ai_crisis_2"
+				immortal = yes
+			}
+			create_country = {
+				name = NAME_Cybrex_Empire
+				species = last_created
+				authority = auth_ancient_machine_intelligence
+				ethos = {
+					ethic = ethic_gestalt_consciousness
+				}
+				civics = {
+					civic = civic_machine_built_to_last
+					civic = civic_machine_warbots
+				}
+				type = "cybrex_empire"
+				name_list = "Cybrex"
+				flag = {
+					icon= {
+						category = "special"
+						file = "ai_02.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"black"
+						"blue"
+						"null"
+						"null"
+					}
+				}
+			}
+			last_created_country = { 
+				save_global_event_target_as = cybrex
+				set_country_flag = cybrex_reborn
+				create_ship_design = { design = "NAME_Cybrex_Transport" }
+				add_ship_design = last_created_design
+				add_minerals = 20000
+				add_energy = 20000
+				add_influence = 1000
+				set_graphical_culture = ai_02
+			}
+		}
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		class = "pc_cybrex"
+		name = "NAME_Cybrex_Beta_1"
+		orbit_angle = 30
+		orbit_distance = 0
+		tile_blockers = none
+		modifiers = none
+		
+		init_effect = {
+			prevent_anomaly = yes
+			set_owner = event_target:cybrex
+			set_capital = yes
+	
+			create_fleet = {
+				name = "NAME_Cybrex_Core"
+				effect = {
+					set_owner = event_target:cybrex
+					create_ship = {
+						name = random
+						design = "NAME_Cybrex_Core"
+						graphical_culture = "ai_01"
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = random
+					}
+				}
+			}
+			event_target:cybrex = {
+				create_leader = {
+					type = admiral
+					species = owner_main_species
+					name = random
+					skill = 5
+					traits = {
+						trait = leader_trait_cybrex
+					}
+				}
+				last_created_leader = { set_age = 0 }
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:cybrex
+					while = {
+						count = 40
+						create_ship = {
+							name = random
+							design = "NAME_Taciturn"
+							graphical_culture = "ai_01"
+						}
+					}
+					assign_leader = last_created_leader
+					while = {
+						count = 80
+						create_ship = {
+							name = random
+							design = "NAME_Reticent"
+							graphical_culture = "ai_01"
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 45
+						angle = random
+					}
+					set_aggro_range = 500
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+		}
+	}
+	planet = {
+		class = "pc_ringworld_tech"
+		name = "NAME_Ring_Section_B"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_ringworld_seam"
+		name = "NAME_Ring_Section_C"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_cybrex"
+		name = "NAME_Cybrex_Beta_2"
+		orbit_angle = 30
+		orbit_distance = 0
+		tile_blockers = none
+		modifiers = none
+
+		init_effect = {
+			prevent_anomaly = yes
+			set_owner = event_target:cybrex
+			
+			create_fleet = {
+				name = "NAME_Cybrex_Station_1"
+				effect = {
+					set_owner = event_target:cybrex
+					create_ship = {
+						name = random
+						design = "NAME_Cybrex_Station_1"
+						graphical_culture = "ai_01"
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = random
+					}
+				}
+			}
+			event_target:cybrex = {
+				create_leader = {
+					type = admiral
+					species = owner_main_species
+					name = random
+					skill = 5
+					traits = {
+						trait = leader_trait_cybrex
+					}
+				}
+				last_created_leader = { set_age = 0 }
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:cybrex
+					while = {
+						count = 16
+						create_ship = {
+							name = random
+							design = "NAME_Taciturn"
+							graphical_culture = "ai_01"
+						}
+					}
+					assign_leader = last_created_leader
+					while = {
+						count = 38
+						create_ship = {
+							name = random
+							design = "NAME_Reticent"
+							graphical_culture = "ai_01"
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 45
+						angle = random
+					}
+					set_aggro_range = 500
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+				}
+			}
+		}
+	}
+	planet = {
+		class = "pc_ringworld_tech"
+		name = "NAME_Ring_Section_E"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_ringworld_seam"
+		name = "NAME_Ring_Section_F"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_cybrex"
+		name = "NAME_Cybrex_Beta_3"
+		orbit_angle = 30
+		orbit_distance = 0
+		tile_blockers = none
+		modifiers = none
+
+		init_effect = {
+			prevent_anomaly = yes
+			set_owner = event_target:cybrex
+			
+			create_fleet = {
+				name = "NAME_Cybrex_Station_1"
+				effect = {
+					set_owner = event_target:cybrex
+					create_ship = {
+						name = random
+						design = "NAME_Cybrex_Station_1"
+						graphical_culture = "ai_01"
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = random
+					}
+				}
+			}
+			event_target:cybrex = {
+				create_leader = {
+					type = admiral
+					species = owner_main_species
+					name = random
+					skill = 5
+					traits = {
+						trait = leader_trait_cybrex
+					}
+				}
+				last_created_leader = { set_age = 0 }
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:cybrex
+					while = {
+						count = 16
+						create_ship = {
+							name = random
+							design = "NAME_Taciturn"
+							graphical_culture = "ai_01"
+						}
+					}
+					assign_leader = last_created_leader
+					while = {
+						count = 38
+						create_ship = {
+							name = random
+							design = "NAME_Reticent"
+							graphical_culture = "ai_01"
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 45
+						angle = random
+					}
+					set_aggro_range = 500
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+				}
+			}
+		}
+	}
+	planet = {
+		class = "pc_ringworld_tech"
+		name = "NAME_Ring_Section_H"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_ringworld_seam"
+		name = "NAME_Ring_Section_I"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_cybrex"
+		name = "NAME_Cybrex_Beta_4"
+		orbit_angle = 30
+		orbit_distance = 0
+		tile_blockers = none
+		modifiers = none
+
+		init_effect = {
+			prevent_anomaly = yes
+			set_owner = event_target:cybrex
+			
+			create_fleet = {
+				name = "NAME_Cybrex_Station_1"
+				effect = {
+					set_owner = event_target:cybrex
+					create_ship = {
+						name = random
+						design = "NAME_Cybrex_Station_1"
+						graphical_culture = "ai_01"
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = random
+					}
+				}
+			}
+			event_target:cybrex = {
+				create_leader = {
+					type = admiral
+					species = owner_main_species
+					name = random
+					skill = 5
+					traits = {
+						trait = leader_trait_cybrex
+					}
+				}
+				last_created_leader = { set_age = 0 }
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:cybrex
+					while = {
+						count = 16
+						create_ship = {
+							name = random
+							design = "NAME_Taciturn"
+							graphical_culture = "ai_01"
+						}
+					}
+					assign_leader = last_created_leader
+					while = {
+						count = 38
+						create_ship = {
+							name = random
+							design = "NAME_Reticent"
+							graphical_culture = "ai_01"
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 45
+						angle = random
+					}
+					set_aggro_range = 500
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+				}
+			}
+		}
+	}
+	planet = {
+		class = "pc_ringworld_tech"
+		name = "NAME_Ring_Section_K"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+	planet = {
+		class = "pc_ringworld_seam"
+		name = "NAME_Ring_Section_L"
+		orbit_angle = 30
+		orbit_distance = 0
+	}
+
+	init_effect = {
+		save_global_event_target_as = cybrex_beta
+		#create_starbase = {
+		#	size = "starbase_outpost"
+		#	owner = event_target:cybrex
+		#}
+	}
+}
+
+# Sentinel System
+sentinel_system = {
+	class = "sc_black_hole"
+	#name = "NAME_Thelet"
+	#asteroids_distance = 200
+	flags = { sentinel_system }
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = 30
+		has_ring = no
+
+		init_effect = { 
+			prevent_anomaly = yes
+			create_species = {
+				name = random
+				class = random_non_machine
+				portrait = random
+				traits = random
+				homeworld = this
+			}
+			create_country = {
+				name = "NAME_Sentinels"
+				type = sentinels
+				authority = "auth_oligarchic"
+				civics = {
+					civic = civic_military_order
+				}
+				species = last_created
+				ethos = {
+					ethic = "ethic_fanatic_militarist"
+					ethic = "ethic_egalitarian"
+				}
+				effect = {
+					save_global_event_target_as = sentinels
+					add_minerals = 5000
+					add_energy = 5000
+					add_influence = 5000
+				}
+			}
+			every_country = {
+				establish_communications = event_target:sentinels
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Sentinel_Alpha"
+						design = "NAME_Vigil"
+					}
+					set_location = {
+						target = PREV
+						distance = 40
+						angle = 210
+					}
+					save_global_event_target_as = sentinel_alpha
+				}
+			}
+			last_created_country = {
+				create_leader = {
+					type = admiral
+					species = owner_main_species
+					name = random
+					skill = 500
+					traits = {
+						trait = leader_trait_sentinel
+						trait = random_trait
+					}
+				}
+			}
+			create_fleet = {
+				name = "NAME_Sentinel_Defense_Fleet"
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = random
+						design = NAME_Alpha
+						graphical_culture = "fallen_empire_01"
+					}
+					assign_leader = last_created_leader
+					while = {
+						count = 16
+						create_ship = {
+							name = random
+							design = NAME_Gamma
+							graphical_culture = "fallen_empire_01"
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							design = NAME_Spearhead
+							graphical_culture = "arthropoid_01"
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							design = NAME_Spearhead
+							graphical_culture = "mammalian_01"
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							design = NAME_Spearhead
+							graphical_culture = "avian_01"
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							design = NAME_Spearhead
+							graphical_culture = "molluscoid_01"
+						}
+					}
+					while = {
+						count = 3
+						create_ship = {
+							name = random
+							design = NAME_Deaths_Head
+							graphical_culture = "molluscoid_01"
+						}
+					}
+					while = {
+						count = 3
+						create_ship = {
+							name = random
+							design = NAME_Deaths_Head
+							graphical_culture = "arthropoid_01"
+						}
+					}
+					while = {
+						count = 3
+						create_ship = {
+							name = random
+							design = NAME_Deaths_Head
+							graphical_culture = "mammalian_01"
+						}
+					}
+					while = {
+						count = 3
+						create_ship = {
+							name = random
+							design = NAME_Deaths_Head
+							graphical_culture = "avian_01"
+						}
+					}
+					while = {
+						count = 3
+						create_ship = {
+							name = random
+							design = NAME_Beta
+							graphical_culture = "fallen_empire_01"
+						}
+					}
+					while = {
+						count = 6
+						create_ship = {
+							name = random
+							design = NAME_Bug_Crusher
+							graphical_culture = "mammalian_01"
+						}
+					}
+					while = {
+						count = 6
+						create_ship = {
+							name = random
+							design = NAME_Bug_Crusher
+							graphical_culture = "reptilian_01"
+						}
+					}
+					while = {
+						count = 8
+						create_ship = {
+							name = random
+							design = NAME_Blade
+							graphical_culture = "reptilian_01"
+						}
+					}
+					while = {
+						count = 8
+						create_ship = {
+							name = random
+							design = NAME_Blade
+							graphical_culture = "avian_01"
+						}
+					}
+					while = {
+						count = 8
+						create_ship = {
+							name = random
+							design = NAME_Blade
+							graphical_culture = "arthropoid_01"
+						}
+					}
+					set_location = {
+						target = PREV
+						distance = 50
+						angle = 220 
+					}
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_aggro_range = 500
+					set_aggro_range_measure_from = return_point
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Early_Warning_X-34"
+						design = "NAME_Sentry"
+					}
+					set_location = {
+						target = PREV
+						distance = 120
+						angle = 0
+					}
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Early_Warning_X-35"
+						design = "NAME_Sentry"
+					}
+					set_location = {
+						target = PREV
+						distance = 120
+						angle = 70
+					}
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Early_Warning_X-36"
+						design = "NAME_Sentry"
+					}
+					set_location = {
+						target = PREV
+						distance = 120
+						angle = 140
+					}
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Early_Warning_X-37"
+						design = "NAME_Sentry"
+					}
+					set_location = {
+						target = PREV
+						distance = 120
+						angle = 210
+					}
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Early_Warning_X-38"
+						design = "NAME_Sentry"
+					}
+					set_location = {
+						target = PREV
+						distance = 120
+						angle = 280
+					}
+				}
+			}
+		}
+	}
+	
+	planet = {
+		class = "pc_broken"
+		orbit_distance = 200
+		orbit_angle = 45
+		size = 16
+		has_ring = no
+
+		init_effect = {
+			prevent_anomaly = yes
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Refugee_Site_Alpha"
+						design = "NAME_PR_417"
+						graphical_culture = "pirate_01"
+					}
+					set_location = {
+						target = PREV
+						distance = 5
+						angle = random
+					}
+				}
+			}
+			create_fleet = {
+				name = "NAME_Refugee_Fleet"
+				effect = {
+					set_owner = event_target:sentinels
+					while = {
+						count = 6
+						create_ship = {
+							name = random
+							design = "NAME_C1"
+						}
+					}
+					while = {
+						count = 6
+						create_ship = {
+							name = random
+							design = "NAME_C2"
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							design = "NAME_Splendor"
+						}
+					}
+					set_formation_scale = 2
+					set_location = {
+						target = PREV
+						distance = 10
+						angle = random
+					}
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+		}
+	}
+	
+	planet = {
+		class = "pc_broken"
+		orbit_distance = 40
+		orbit_angle = 85
+		size = 28
+		has_ring = no
+
+		init_effect = { 
+			prevent_anomaly = yes
+			create_fleet = {
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Refugee_Site_Beta"
+						design = "NAME_PR_417"
+						graphical_culture = "pirate_01"
+					}
+					set_location = {
+						target = PREV
+						distance = 5
+						angle = random
+					}
+				}
+			}
+			create_fleet = {
+				name = "NAME_Refugee_Fleet"
+				effect = {
+					set_owner = event_target:sentinels
+					create_ship = {
+						name = "NAME_Gray_Moon"
+						design = "NAME_C1"
+						effect = { set_disabled = yes }
+					}
+					create_ship = {
+						name = "NAME_Princess_Kolos"
+						design = "NAME_C1"
+						effect = { set_disabled = yes }
+					}
+					create_ship = {
+						name = "NAME_Kobyar_Miru"
+						design = "NAME_C2"
+						effect = { set_disabled = yes }
+					}
+					create_ship = {
+						name = "NAME_Deep_Eyes"
+						design = "NAME_C2"
+						effect = { set_disabled = yes }
+					}
+					create_ship = {
+						name = "NAME_Stellar_Queen"
+						design = "NAME_C2"
+						effect = { set_disabled = yes }
+					}
+					set_formation_scale = 2
+					set_location = {
+						target = PREV
+						distance = 10
+						angle = random
+					}
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = "pc_broken"
+		orbit_distance = 35
+		orbit_angle = 135
+		size = 21
+		has_ring = no
+
+		init_effect = { prevent_anomaly = yes }
+	}
+
+	planet = {
+		class = "pc_broken"
+		orbit_distance = 80
+		orbit_angle = 96
+		size = 11
+		has_ring = no
+
+		init_effect = { prevent_anomaly = yes }
+	}
+	
+	init_effect = {
+		save_global_event_target_as = sentinel_system
+		create_starbase = {
+			size = "starbase_citadel"
+			owner = event_target:sentinels
+
+			module = "shipyard"
+			module = "shipyard"
+			module = "gun_battery"
+			module = "gun_battery"
+			module = "missile_battery"
+			module = "missile_battery"
+		}
+	}
+}

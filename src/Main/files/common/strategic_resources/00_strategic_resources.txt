@@ -1,0 +1,356 @@
+### System Resources
+# accumulative = yes					- 
+# collect_if_wrong_building = yes/no	- 
+# accumulated_by_sectors = yes/no		- 
+# tradable = yes/no						- 
+# is_rare = yes/no						- Rare resources are shown in strategic resources view.
+# is_global = yes/no					- On orbital tiles only. Collected with station. Can have country modifiers. Aren't necessarily consumed. Can't be planet_local.
+# is_planet_local = yes/no				- On planet tiles only. Collected with building. Are consumed. Can't be global.
+# modifier = {}							- Global resource country modifiers.
+# prerequisites = {}					- Must be fulfilled before resource is shown.
+# modifier_prerequisites = {}			- Must be fulfilled before resource can be used.
+#
+
+time = {
+}
+
+### Basic Resources
+
+energy = {
+	accumulative = yes
+	collect_if_wrong_building = no
+	accumulated_by_sectors = yes
+	tradable = yes
+	AI_category = energy
+	max = 5000
+	base_income = 0
+	capital_building_resource = yes # When placing colony, AI should want to place on this resource
+	base_income = 5
+}
+
+minerals = {
+	accumulative = yes
+	collect_if_wrong_building = no
+	accumulated_by_sectors = yes
+	tradable = yes
+	AI_category = minerals
+	max = 5000
+	base_income = 10
+}
+
+food = {
+	accumulative = yes
+	tradable = yes
+	collect_if_wrong_building = no
+	max = 0
+	AI_category = food
+}
+
+physics_research = {
+	accumulative = yes
+	collect_if_wrong_building = no
+	AI_category = physics
+	base_income = 5
+}
+
+society_research = {
+	accumulative = yes
+	collect_if_wrong_building = no
+	AI_category = society
+	base_income = 5
+}
+
+engineering_research = {
+	accumulative = yes
+	collect_if_wrong_building = no
+	AI_category = engineering
+	base_income = 5
+}
+
+influence = {
+	accumulative = yes
+	AI_category = influence
+	max = 1000
+	sector_ignore_cost = yes
+	base_income = 3
+	tooltip_decimals = 1
+}
+
+unity = {
+	accumulative = yes
+	collect_if_wrong_building = no
+	AI_category = unity
+	base_income = 2
+}
+
+###########################
+## Terraforming Resources #
+###########################
+
+sr_terraform_gases = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_terrestrial_sculpting" }
+	tradable = no
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {	
+		terraforming_cost_mult = -0.25
+	}
+}
+
+sr_terraform_liquids = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_terrestrial_sculpting" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+
+	modifier = {	
+		terraform_speed_mult = 0.25
+	}
+}
+
+###########################
+###   Rare Resources    ###
+###########################
+
+#############
+# Clustered #
+#############
+
+# Garanthium
+sr_garanthium = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_garanthium" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		ship_hull_mult = 0.10
+	}
+}
+
+# Lythuric Gas
+sr_lythuric = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_lythuric_gas" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		ship_shield_mult = 0.20
+	}
+}
+
+# Teldar Crystals
+sr_teldar = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_teldar" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		weapon_type_kinetic_weapon_damage_mult = 0.15
+	}
+}
+
+# Yurantic Crystals
+sr_yuranic = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_yuranic" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		weapon_type_energy_weapon_damage_mult = 0.15
+	}
+}
+
+# Orillium Ore
+sr_orillium = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_orillium" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		weapon_type_explosive_weapon_damage_mult = 0.15
+	}
+}
+
+# Pitharan Dust
+sr_pitharan = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_pitharan_dust" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		country_resource_food_mult = 0.10
+	}
+}
+
+# Engos Vapor
+sr_engos = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_engos_vapor" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		pop_environment_tolerance = 0.05
+	}
+}
+
+#################
+# Non-clustered #
+#################
+
+# Neutronium Ore
+sr_neutronium = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_neutronium" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		ship_armor_mult = 0.20
+	}
+}
+
+# Living Metal
+sr_living_metal = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_living_metal" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		mod_megastructure_build_cost_mult = -0.2
+		ship_hull_regen_add_perc = 0.5
+		ship_armor_regen_add_perc = 0.5
+	}
+}
+
+# Zro
+sr_zro = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_zro" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {
+		ship_interstellar_speed_mult = 0.50
+		ship_sensor_range_add = 1
+	}
+}
+
+# Dark Matter
+sr_dark_matter = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_dark_matter" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {		
+		country_resource_physics_research_mult = 0.20
+	}
+}
+
+# Helium
+#sr_helium = {
+#	AI_category = strategic_resource
+#	prerequisites = { "tech_mine_dark_matter" }
+#	tradable = yes
+#	is_rare = yes
+#	is_global = yes
+#	
+#	modifier = {
+#		tile_resource_energy_mult = 0.10
+#	}
+#}
+
+#################
+#    Policy     #
+#################
+
+# Satramene Gas
+sr_satramene = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_satramene" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {		
+		pop_government_ethic_attraction = 0.10
+	}
+}
+
+#################
+#    Local      #
+#################
+
+# Alien Pets
+sr_alien_pets = {
+	AI_category = strategic_resource
+	is_rare = yes
+	is_planet_local = yes
+}
+
+# Betharian Stone
+sr_betharian = {
+	is_rare = yes
+	is_planet_local = yes
+	AI_category = energy
+}
+
+#################
+#   Enclaves    #
+#################
+
+#Riggan Spice
+sr_riggan = {
+	AI_category = strategic_resource
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {		
+		pop_citizen_happiness = 0.05
+	}
+}
+
+sr_xuran = {
+	AI_category = strategic_resource
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {	
+		pop_environment_tolerance = 0.05		
+	}
+}
+
+sr_muutagan = {
+	AI_category = strategic_resource
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	
+	modifier = {		
+		pop_government_ethic_attraction = 0.1
+	}
+}

@@ -1,0 +1,138 @@
+####################
+# Reactor Booster #
+####################
+utility_component_template = {
+	key = "REACTOR_BOOSTER_1"
+	size = aux
+	icon = "GFX_ship_part_reactor_booster_1"
+	icon_frame = 1
+	power = 20
+	cost = 5
+	
+	prerequisites = { "tech_reactor_boosters_1" }
+	component_set = "REACTOR_BOOSTER_1"
+	upgrades_to = "REACTOR_BOOSTER_2"
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+utility_component_template = {
+	key = "REACTOR_BOOSTER_2"
+	size = aux
+	icon = "GFX_ship_part_reactor_booster_2"
+	icon_frame = 1
+	power = 50
+	cost = 10
+	
+	prerequisites = { "tech_reactor_boosters_2" }
+	component_set = "REACTOR_BOOSTER_2"
+	upgrades_to = "REACTOR_BOOSTER_3"
+
+	ai_weight = {
+		weight = 3
+	}
+}
+
+utility_component_template = {
+	key = "REACTOR_BOOSTER_3"
+	size = aux
+	icon = "GFX_ship_part_reactor_booster_3"
+	icon_frame = 1
+	power = 100
+	cost = 15
+	
+	prerequisites = { "tech_reactor_boosters_3" }
+	component_set = "REACTOR_BOOSTER_3"
+
+	ai_weight = {
+		weight = 5
+	}
+}
+
+####################
+# Shield Recharger #
+####################
+
+utility_component_template = {
+	key = "SHIELD_BOOSTER"
+	size = aux
+	icon = "GFX_ship_part_shield_recharger"
+	icon_frame = 1
+	power = -20
+	cost = 10
+	
+	prerequisites = { "tech_shield_rechargers_1" }
+	component_set = "SHIELD_BOOSTER"
+	
+	modifier = {
+		ship_shield_mult = 0.1
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2.0
+			is_preferred_weapons = weapon_type_energy
+		}
+	}
+}
+
+#############################
+# Regenerative Hull Tissue  #
+#############################
+
+utility_component_template = {
+	key = "AUTO_REPAIR"
+	size = aux
+	icon = "GFX_ship_part_auto_repair"
+	icon_frame = 1
+	power = 0
+	cost = 20
+
+	modifier = {
+		ship_hull_regen_add_static = 1
+		ship_armor_regen_add_static = 2
+	}
+	
+	prerequisites = { tech_regenerative_hull_tissue }
+	component_set = "AUTO_REPAIR"
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2.0
+			is_preferred_weapons = weapon_type_explosive
+		}		
+	}
+}
+
+#############################
+# Auxiliary Fire-control    #
+#############################
+
+utility_component_template = {
+	key = "FIRE_CONTROL_1"
+	size = aux
+	icon = "GFX_ship_part_computer_default"
+	icon_frame = 1
+	power = -10
+	cost = 10
+
+	modifier = {
+		ship_accuracy_add = 5
+	}
+	
+	prerequisites = { tech_auxiliary_fire_control }
+	component_set = "FIRE_CONTROL_1"
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 3.0
+			is_preferred_weapons = weapon_type_kinetic
+		}		
+	}
+}
+

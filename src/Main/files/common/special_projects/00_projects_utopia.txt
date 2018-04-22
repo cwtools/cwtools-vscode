@@ -1,0 +1,102 @@
+# The Flesh is Weak
+special_project = {
+	key = "FLESH_IS_WEAK_PROJECT"
+	cost = {
+		base = 1000
+		scaled_modifier = {
+			limit = {
+			}
+			scope = this
+			add = 100
+			calc = pop_count
+		}
+	}
+	tech_department = engineering_technology
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_cybernetics
+	
+	event_scope = planet_event
+	
+	requirements = {
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = utopia.2501 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+# Synthetic Evolution
+special_project = {
+	key = "SYNTHETIC_EVOLUTION_PROJECT"
+	cost = {
+		base = 1000
+		scaled_modifier = {
+			limit = {
+			}
+			scope = this
+			add = 200
+			calc = pop_count
+		}
+	}
+	tech_department = engineering_technology
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_robot_assembly_plant
+	
+	event_scope = planet_event
+	
+	requirements = {
+	}
+	
+	on_success = {
+		owner = {
+			if = {
+				limit = {
+					has_policy_flag = robots_outlawed
+				}
+				set_policy = {
+					policy = robot_pop_policy
+					option = robot_pops_allowed
+					cooldown = no
+				}
+			}
+			country_event = { id = utopia.2551 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+# Breaching the Shroud
+special_project = {
+	key = "BREACHING_SHROUD_PROJECT"
+	cost = 5000
+	tech_department = society_technology
+	picture = GFX_evt_psionics
+	location = no
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	timelimit = -1
+	
+	event_scope = planet_event
+	
+	requirements = {
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = utopia.2656 }
+			set_country_flag = breached_shroud
+		}
+	}
+	
+	on_fail = {
+	}
+	
+	on_start = {
+	}
+}

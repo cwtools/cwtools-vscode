@@ -1,0 +1,279 @@
+# Event chains.
+
+# counter, counters that can be increased and checked from effects and triggers
+#
+# Localization needed:
+# event_chain_chainnkey_title, a title to show in the situation log.
+# event_chain_chainnkey_desc, a description to show in the situation log.
+
+test_chain = {
+	counter = {
+		test_counter = {
+			max = 6
+		}
+	}
+}
+
+test_chain_2 = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+}
+
+migrating_forests_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_alien_nature
+}
+
+subterranean_civilization_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_in_the_dark
+}
+
+abandoned_terraforming_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_alien_planet
+}
+
+vultaum_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+	picture = GFX_evt_archaeological_dig
+	counter = {
+		vultaum_artifacts = {
+			max = 6
+		}
+	}
+}
+
+vultaum_homeworld_chain = {
+	picture = GFX_evt_archaeological_dig
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+}
+
+yuht_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+	picture = GFX_evt_archaeological_dig
+	counter = {
+		yuht_artifacts = {
+			max = 6
+		}
+	}
+}
+
+yuht_homeworld_chain = {
+	picture = GFX_evt_archaeological_dig
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+}
+
+first_league_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+	picture = GFX_evt_archaeological_dig
+	counter = {
+		first_league_artifacts = {
+			max = 6
+		}
+	}
+}
+
+first_league_homeworld_chain = {
+	picture = GFX_evt_archaeological_dig
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+}
+
+irassian_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+	picture = GFX_evt_archaeological_dig
+	counter = {
+		irassian_artifacts = {
+			max = 6
+		}
+	}
+}
+
+irassian_homeworld_chain = {
+	picture = GFX_evt_archaeological_dig
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+}
+
+cybrex_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+	picture = GFX_evt_archaeological_dig
+	counter = {
+		cybrex_artifacts = {
+			max = 6
+		}
+	}
+}
+
+cybrex_homeworld_chain = {
+	picture = GFX_evt_archaeological_dig
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+}
+
+sublight_probes_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_satellite_in_orbit
+	counter = {
+		probes_recovered = {
+			max = 4
+		}
+	}
+}
+
+survey_habitable_worlds_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_alien_nature
+	counter = {
+		habitable_worlds_surveyed = {
+			max = 8
+		}
+	}
+}
+
+specimen_procurement_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_society_research
+	counter = {
+		specimens_collected = {
+			max = 7
+		}
+	}
+}
+
+radical_cult = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_throne_room
+}
+
+survey_home_system = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_ship_in_orbit
+}
+
+establish_colony = {
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_big_landing_ship
+	counter = {
+		first_colony = {
+			max = 1
+		}
+	}
+}
+
+asteroid_sighted_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	picture = GFX_evt_asteroid_approaching_planet
+	counter = {
+		asteroid_destroyed = {
+			max = 1
+		}
+	}
+}
+
+coming_storm_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_throne_room
+}
+
+ghost_signal_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_satellite_in_orbit
+}
+
+ai_crisis_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_sapient_AI
+	counter = {
+		assimilated_worlds = {
+		}
+		active_machine_worlds = {
+		}
+		contingency_kills_us = {
+		}
+		contingency_kills_others = {
+		}
+		contingency_victims = {
+		}
+	}
+}
+
+prethoryn_scourge_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_throne_room
+	counter = {
+		infested_worlds = {
+		}
+		infested_worlds_cleansed = {
+		}
+		prethoryn_kills_us = {
+		}
+		prethoryn_kills_others = {
+		}
+		prethoryn_victims = {
+		}
+	}
+}
+
+extradimensional_invasion_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_wormhole
+	counter = {
+		dimensional_anchors_1 = {
+		}
+		extradimensional_kills_us_1 = {
+		}
+		extradimensional_kills_others_1 = {
+		}
+		extradimensional_victims_1 = {
+		}
+		extradimensional_planets_1 = {
+		}
+	}
+}
+
+extradimensional_invasion_chain_2 = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_wormhole
+	counter = {
+		dimensional_anchors_2 = {
+		}
+		extradimensional_kills_us_2 = {
+		}
+		extradimensional_kills_others_2 = {
+		}
+		extradimensional_victims_2 = {
+		}
+		extradimensional_planets_2 = {
+		}
+	}
+}
+
+extradimensional_invasion_chain_3 = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_wormhole
+	counter = {
+		dimensional_anchors_3 = {
+		}
+		extradimensional_kills_us_3 = {
+		}
+		extradimensional_kills_others_3 = {
+		}
+		extradimensional_victims_3 = {
+		}
+		extradimensional_planets_3 = {
+		}
+	}
+}
+
+hunting_hyacinth = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_star_chart
+}
+
+nomads_observation_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_star_chart
+}
+
+enigmatic_fortress_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
+	picture = GFX_evt_enigmatic_fortress
+}

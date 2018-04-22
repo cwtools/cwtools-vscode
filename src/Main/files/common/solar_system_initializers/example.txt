@@ -1,0 +1,134 @@
+# This is a full example of system initializers and initializer trees
+# A system initializer is used to initialize each solar system in the game by creating planets, setting names and values on everything.
+# The system also has a tree structure that allows one initializer decide how neighboring systems should be initialized ( see the 'neighbor_system' part further down ).
+#
+# All numeric values can be scripted as 'x = 10' or 'x = { min = 5 max = 15 }', except within the triggers and effects
+#
+# Useful console commands:
+# 'Draw.Clusters' will toggle clusters on/off. Some clusters are created in the beginning and will be used for placing empires. Clusters can(will) also be created from effects and events
+# 'Draw.SystemInit' will print the initializer used for each system, as well as lines to show which initializer triggered another
+
+
+example_initializer = {
+	name = "Example System"						#Name of the system. Use localization tags rather than strings for translation purposes.
+	class = random								#system's star class. [random] picks a random class from all available system classes. ["name_of_class"] picks a specific class. ["name_of_random_list"] picks a random class from the specified random_list ( random_list are found in the same files as the star classes )
+	asteroids_distance = { min = 20 max = 30 }	#asteroid field distance from center
+	flags = { example_system }					#flags that can be used in triggers and effects
+	
+	#Initializers can specify how the game can use them.
+	#valid values are:
+	#usage = empire_init		#game can pick this initializer randomly to initialize systems for regular empires ( i.e the player(s) or regular AI empires ) that do not specify a specific initializer
+	#usage = misc_system_init	#game can pick this initializer randomly when initializing misc systems. i.e systems that have not been initialized by empires or fallen empires
+	#you can specify multiple usages for an initializer.
+	#By not specifiying any usage the game won't use this initializer except when explicitly told to from another script ( if a prescripted species or an effect specify an initializer by name )
+	usage_odds = 20				#if a 'usage = x' is specified the usage_odds is used to control the odds of this initializer being picked over another.
+	max_instances = 10			#This initializer can at most be used 10 times. leave blank or negative for infinite. Note that this limit is also applied when spawning systems from effects, i.e if the galaxy starts with 9 instances you can only create 1 system with this initializer from effects.
+	#when all planets have been created and the system is initialized the init_effect will be executed
+	#you can use this to spawn mining drones etc
+	#the scope will be a galactic_object scope, with prev being set to the previous system that was initialized by this tree ( if any ). Root will point to the first system in the tree.
+	init_effect = {
+		set_name = "Name set from an effect"
+	}
+		
+	#create the sun first. This is the minimum script required for a sun
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+	
+	#create a planet
+	planet = {
+		count = 1					#defaults to 1, if you have count = { min = x max = y } then a random number ( between x-y ) of planets will be created.
+		name = "Example Planet"		#leave blank to use the games default naming
+		
+		#set the planet class of the planet
+		class = star					#picks the planet class that matches the systems star class
+		#class = ideal_planet_class		#if initializing for an empire or fallen empire, picks the ideal planet class for their species. Otherwise picks a planet class randomly
+		#class = random_non_ideal		#picks a random class that is not the ideal planet class for the empire/fallen empire currently initializing for
+		#class = random					#picks a planet class randomly, based on orbit distance and system star class. See common/star_classes/ for which planet classes can be picked for each star class
+		#class = random_colonizable		#picks a random colonizable planet class
+		#class = random_non_colonizable #picks a random non-colonizable planet class
+		#class = random_asteroid		#picks a random asteroid planet_class
+		#class = none					#valid, but this planet will not be generated. It will affect orbit of other planets though
+		#class = "pc_barren"			#use the "pc_barren" planet class
+		###
+		# Please not that all "class = random*" will use the star class' settings for randomization.
+		# This means that if you try to use for instance random_colonizable with planets that are super close to the sun
+		# it will likely fail. Failing leads to the same behavior as scripting 'class = none'.
+		# You can start the game with the -script_debug to get error logs whenever it fails
+		###
+		
+		orbit_distance = { min = 40 max = 50 }	#distance from center, relative to previous planets orbit. ( if the previous planet was placed at distance 100 from the center, orbit_distance = 10 would put us 110 from the center ).
+		orbit_angle = 1							#orbit angle from previous planet, in degrees. orbit_distance and orbit_angle together makes the polar coordinate of the planet
+		size = 30								#planet size. remember that all numeric values support { min = x max = y } syntax
+		has_ring = no
+		
+		modifier = "pm_dangerous_wildlife"	#planet modifier
+		resource = "sr_alien_pets"			#strategic resource on this planet
+		anomaly = "IRASSIA"				#anomaly on this planet
+		
+		home_planet = yes					#this is a valid home planet for empires and fallen empires
+		
+		flags = { example_planet }		#flags usable by effects and triggers
+		
+		#A moon works the same as planets, with the only exception that they orbit the parent planet instead of the system center
+		moon = {
+			class = random
+			orbit_distance = 10			#orbit for moons are only relative to other moons around this planet
+			size = 1
+		}
+		#spawn 1-3 random moons
+		moon = {
+			count = { min = 1 max = 3 }
+			orbit_distance = 2.5
+			size = 1
+		}
+		
+		#when the planet is done initializing the init_effect will be executed
+		#use this to spawn mining drones or whatever else you want to do
+		#The scope will be a planet scope, with prev being the system. prevprev will be the system that triggered this system's initialization ( if any ). Root will be the first system in this initializer tree
+		init_effect = {
+			set_name = "init_effect example name"
+		}
+	}
+	
+	#change_orbit = X is a shortcut and equivalent to 'planet = { class = none orbit_distance = X }'
+	#useful when spawning a random amount of planets
+	change_orbit = 30
+	
+	
+	#this is where the tree part comes in in 'Initializer Tree'
+	#Each initializer can have any number of child initializers scripted with in a "neighbor_system" body
+	neighbor_system = {
+		#The game will test all systems within the distance limit
+		#untill it finds a system that fulfills the trigger ( see below ).
+		#it will do this in a nearest-first order
+		distance = { min = 10 max = 100 }
+		
+		#if the trigger is left empty it will always succeed. The first closest system that is within the distance limits will be picked
+		trigger = {
+			#scope = galactic_object ( parent ). root = root gal obj. prev = closest parent. prev prev = grand parent...
+			#check stuff
+		}		
+		
+		#finally the initializer to be used for the picked system
+		initializer = "example_neighbor"
+	}
+	neighbor_system = {
+		distance = { min = 10 max = 100 }
+		initializer = "example_neighbor"
+	}
+}
+
+example_neighbor = {
+	name = "Example Neighbor"						
+	class = random								#system's star class. [random] picks a random class from all available system classes. ["name_of_class"] picks a specific class
+	
+	#this initializer does not specify any 'usage = ..' so it will only be used explicitly ( like in example_initializer's neighbor_system script )
+	
+	change_orbit = 30
+	planet = {
+		count = 5
+		size = { min = 10 max = 30 }
+	}
+}

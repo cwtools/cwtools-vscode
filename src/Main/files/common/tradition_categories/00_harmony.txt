@@ -1,0 +1,23 @@
+tradition_harmony = {
+	adoption_bonus = "tr_harmony_adopt"
+	finish_bonus = "tr_harmony_finish"
+	traditions = {
+		"tr_harmony_the_greater_good"
+		"tr_harmony_kinship"
+		"tr_harmony_utopian_dream"
+		"tr_harmony_bulwark_of_harmony"
+		"tr_harmony_mind_and_body"
+	}
+	tradition_swap = {
+		name = tradition_synchronicity
+		trigger = {
+			OR = {
+				has_authority = auth_hive_mind
+				has_authority = auth_machine_intelligence			
+			}
+		}
+		weight = {
+			factor = 1
+		}		
+	}
+}

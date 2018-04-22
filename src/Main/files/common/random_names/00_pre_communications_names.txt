@@ -1,0 +1,315 @@
+### Default
+pre_communications_name_parts_list = {
+	key = "first"
+	parts = {
+		"Aliens'" = 1000
+#		"Enigma'" = 100
+	}
+}
+
+pre_communications_name_parts_list = {
+	key = "second"
+	cyclic = yes
+	parts = {
+		"'Alpha" = 1
+		"'Beta" = 0
+		"'Gamma" = 0
+		"'Delta" = 0
+		"'Epsilon" = 0
+		"'Zeta" = 0
+		"'Eta" = 0
+		"'Theta" = 0
+		"'Iota" = 0
+		"'Kappa" = 0
+		"'Lambda" = 0
+		"'Mu" = 0
+		"'Nu" = 0
+		"'Xi" = 0
+		"'Omicron" = 0
+		"'Pi" = 0
+		"'Rho" = 0
+		"'Sigma" = 0
+		"'Tau" = 0
+		"'Upsilon" = 0
+		"'Phi" = 0
+		"'Chi" = 0
+		"'Psi" = 0
+		"'Omega" = 0
+		"'Aleph" = 0
+		"'Beth" = 0
+		"'Gimel" = 0
+		"'Daleth" = 0
+		"'He" = 0
+		"'Waw" = 0
+		"'Zayin" = 0
+		"'Heth" = 0
+		"'Teth" = 0
+		"'Yodh" = 0
+		"'Kaph" = 0
+		"'Lamedh" = 0
+		"'Mem" = 0
+		"'Nun" = 0
+		"'Samekh" = 0
+		"'Ayin" = 0
+		"'Pe" = 0
+		"'Sade" = 0
+		"'Qoph" = 0
+		"'Res" = 0
+		"'Sin" = 0
+		"'Taw" = 0
+	}
+}
+
+pre_communications_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 1
+			NOT = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+				has_country_flag = human_2
+				has_country_flag = human_1
+			}
+		}
+	}
+	format = "<second> <first>"
+}
+
+### Xenophobes
+pre_communications_name_parts_list = {
+	key = "xenophobe_first"
+	parts = {
+		"Menace'" = 100
+#		"Threat'" = 10
+#		"Hazard'" = 1
+	}
+}
+
+
+pre_communications_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 10
+			OR = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+			}
+			NOT = { 
+				has_country_flag = human_2
+				has_country_flag = human_1
+			}
+		}
+	}
+	format = "<second> <xenophobe_first>"
+}
+
+### UN
+pre_communications_name_parts_list = {
+	key = "un_first"
+	parts = {
+		"'Genies'" = 1
+		"'Wraiths'" = 1
+		"'Spooks'" = 1
+		"'Blimps'" = 1
+		"'Bogies'" = 1
+		"'Creeps'" = 1
+		"'Freaks'" = 1
+		"'Zombies'" = 1
+		"'Floaters'" = 1
+		"'Haunters'" = 1
+		"'Tooters'" = 1
+		"'Screamers'" = 1
+		"'Morphies'" = 1
+		"'Ickies'" = 1
+		"'Ghosts'" = 1
+		"'Shadows'" = 1
+		"'Sprites'" = 1
+		"'Spirits'" = 1
+		"'Croaks'" = 1
+		"'Frogs'" = 1
+		"'Phantoms'" = 1
+		"'Scaries'" = 1
+		"'Mirages'" = 1
+		"'Nymphs'" = 1
+		"'Ghoulies'" = 1
+		"'Goonies'" = 1
+		"'Clowns'" = 1
+		"'Demons'" = 1
+		"'Devils'" = 1
+		"'Fiends'" = 1
+		"'Fetches'" = 1
+		"'Vampires'" = 1
+		"'Werewolves'" = 1
+		"'Sharkies'" = 1
+		"'Crooks'" = 1
+		"'Sneakies'" = 1
+		"'Fauns'" = 1
+		"'Lurkers'" = 1
+		"'Trappers'" = 1
+		"'Snarks'" = 1
+		"'Boojums'" = 1
+		"'Wisps'" = 1
+		"'Goblins'" = 1
+		"'Gnomes'" = 1
+		"'Centaurs'" = 1
+		"'Nagas'" = 1
+		"'Bogles'" = 1
+		"'Wights'" = 1
+		"'Sirens'" = 1
+		"'Grendels'" = 1
+		"'Golems'" = 1
+		"'Fairies'" = 1
+		"'Gorgons'" = 1
+		"'Harpies'" = 1
+		"'Hippos'" = 1
+		"'Unicorns'" = 1
+		"'Hobgoblins'" = 1
+		"'Hombres'" = 1
+		"'Houries'" = 1
+		"'Hydras'" = 1
+		"'Witches'" = 1
+		"'Ifrits'" = 1
+		"'Ikiryos'" = 1
+		"'Ikuchis'" = 1
+		"'Nephilim'" = 1
+		"'Satyrs'" = 1
+		"'Jackalopes'" = 1
+		"'Muppets'" = 1
+		"'Devas'" = 1
+		"'Tengus'" = 1
+		"'Kelpies'" = 1
+		"'Kitsunes'" = 1
+		"'Krakens'" = 1
+		"'Furies'" = 1
+		"'Griffins'" = 1
+		"'Manticores'" = 1
+		"'Mazikeen'" = 1
+		"'Mermaids'" = 1
+		"'Minotaurs'" = 1
+		"'Mogwais'" = 1
+		"'Gremlins'" = 1
+		"'Naiads'" = 1
+		"'Nixies'" = 1
+		"'Obakes'" = 1
+		"'Twinkies'" = 1
+		"'Ogres'" = 1
+		"'Trolls'" = 1
+		"'Onis'" = 1
+		"'Pards'" = 1
+		"'Revenants'" = 1
+		"'Rakshasas'" = 1
+		"'Rocs'" = 1
+		"'Angels'" = 1
+		"'Dragons'" = 1
+		"'Spacers'" = 1
+		"'Jinkies'" = 1
+		"'Groogies'" = 1
+		"'Extros'" = 1
+		"'Shades'" = 1
+		"'Sphinxes'" = 1
+		"'Sylphs'" = 1
+		"'Viles'" = 1
+		"'Wargs'" = 1
+		"'Yetis'" = 1
+		"'Murmies'" = 1
+		"'Crunchers'" = 1
+		"'Cooks'" = 1
+		"'Screechers'" = 1
+		"'Outers'" = 1
+		"'Shoggoths'" = 1
+		"'Others'" = 1
+		"'Munchers'" = 1
+		"'Howlies'" = 1
+		"'Goosecreatures'" = 1
+		"'Poxies'" = 1
+		"'Frights'" = 1
+		"'Doolies'" = 1
+		"'Podlings'" = 1
+		"'Brownies'" = 1
+		"'Kobolds'" = 1
+		"'Imps'" = 1
+		"'Banshees'" = 1
+		"'Changelings'" = 1
+		"'Pucks'" = 1
+		"'Merries'" = 1
+		"'Lamias'" = 1
+		"'Nightmares'" = 1
+		"'Bugbears'" = 1
+		"'Chimeras'" = 1
+		"'Visitants'" = 1
+		"'Lemures'" = 1
+		"'Manes'" = 1
+		"'Cacodemons'" = 1
+		"'W'rkncacnter'" = 1
+		"'Apostles'" = 1
+		"'Stands'" = 1
+		"'Jabberwocks'" = 1
+	}
+}
+
+pre_communications_name_parts_list = {
+	key = "un_second"
+	cyclic = yes
+	parts = {
+		"'Alpha" = 1
+		"'Bravo" = 0
+		"'Charlie" = 0
+		"'Delta" = 0
+		"'Echo" = 0
+		"'Foxtrot" = 0
+		"'Golf" = 0
+		"'Hotel" = 0
+		"'India" = 0
+		"'Juliett" = 0
+		"'Kilo" = 0
+		"'Lima" = 0
+		"'Mike" = 0
+		"'November" = 0
+		"'Oscar" = 0
+		"'Papa" = 0
+		"'Quebec" = 0
+		"'Romeo" = 0
+		"'Sierra" = 0
+		"'Tango" = 0
+		"'Uniform" = 0
+		"'Victor" = 0
+		"'Whiskey" = 0
+		"'X-Ray" = 0
+		"'Yankee" = 0
+		"'Zulu" = 0
+	}
+}
+
+pre_communications_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 10
+			has_country_flag = human_1
+		}
+	}
+	format = "<un_first>"
+}
+
+pre_communications_name_parts_list = {
+	key = "com_first"
+	parts = {
+		"Bogeys'" = 100
+		"Spooks'" = 10
+	}
+}
+
+
+
+pre_communications_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 10
+			has_country_flag = human_2
+		}
+	}
+	format = "<un_second> <com_first>"
+}

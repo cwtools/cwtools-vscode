@@ -1,0 +1,277 @@
+@phase_0_entity_x = -15
+@phase_0_entity_y = -5
+@entity_x = -15
+@entity_y = -15
+spy_orb_0 = {
+	entity = "construction_platform_entity"
+	construction_entity = "construction_platform_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @phase_0_entity_x y = @phase_0_entity_y }
+	build_time = 1800
+	
+	build_cost = {
+		minerals = 10000
+		influence = 300
+	}
+
+	maintenance = {
+		energy = 20
+	}
+
+	potential = {
+		has_ascension_perk = ap_galactic_wonders
+	}
+	
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_inside_border"
+			is_inside_border = from
+		}
+		custom_tooltip = {
+			fail_text = "requires_surveyed_system"
+			NOT = {
+				any_planet = {
+					is_surveyed = {
+						who = prev.from
+						status = no
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_no_existing_spyorb"
+			from = { NOT = { has_country_flag = built_spyorb } }
+		}
+	}
+	
+	placement_rules = {
+		planet_possible = {
+			custom_tooltip = {
+				fail_text = "requires_survey_not_habitable"
+				is_surveyed = {			# prevent leaking habitability information
+					who = prev.from
+					status = yes
+				}
+				colonizeable_planet = no
+			}
+			custom_tooltip = {
+				fail_text = "requires_no_anomaly"
+				NOT = { has_anomaly = yes }
+			}
+
+			#custom_tooltip = { # balance for think tanks
+			#	fail_text = "requires_major_planetary_body"
+			#	NOR = {
+			#		is_asteroid = yes
+			#		is_moon = yes
+			#		is_star = yes
+			#	}
+			#}
+			custom_tooltip = {
+				fail_text = "must_build_around_star"
+				is_star = yes
+			}
+
+			custom_tooltip = {
+				fail_text = "requires_no_existing_megastructure"
+				solar_system = {
+					has_no_non_gate_megastructure = yes
+					NOR = {
+						#has_any_megastructure = yes
+						any_planet = {
+							OR = {
+								is_planet_class = pc_ringworld_habitable
+								is_planet_class = pc_ringworld_habitable_damaged
+								is_planet_class = pc_ringworld_tech
+								is_planet_class = pc_ringworld_tech_damaged
+								is_planet_class = pc_ringworld_seam
+								is_planet_class = pc_ringworld_seam_damaged
+							}
+						}
+					}
+				}
+			}
+		} # use these for all non-star megastructures
+	}	
+
+	# root = system
+	# from = country	
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 0.1
+			starbase = { NOT = { has_starbase_size >= starbase_starfortress } }
+		}	
+
+		modifier = {
+			factor = 0.1
+			any_neighbor_system = { 
+				NOT = { 
+					owner = { is_same_value = from } 
+				}
+			}
+		}		
+		
+		modifier = {
+			factor = 2.0
+			from = {
+				OR = {
+					has_ethic = ethic_militarist
+					has_ethic = ethic_fanatic_militarist
+				}			
+			}
+		}
+	}
+	
+	on_build_start = {}
+	on_build_cancel = {}
+	on_build_complete = {
+		set_star_flag = spy_orb_built
+		from = { set_country_flag = built_spyorb }
+	}
+}
+
+spy_orb_1 = {
+	entity = "spyorb_phase_01_entity"
+	construction_entity = "spyorb_phase_01_construction_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	upgrade_from = {
+		spy_orb_0
+	}
+	build_time = 1800
+	build_cost = {
+		minerals = 20000
+	}
+
+	maintenance = {
+		energy = 40
+	}
+
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
+	}
+
+	sensor_range = 20
+}
+
+spy_orb_2 = {
+	entity = "spyorb_phase_02_entity"
+	construction_entity = "spyorb_phase_02_construction_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	upgrade_from = {
+		spy_orb_1
+	}
+	build_time = 1800
+	build_cost = {
+		minerals = 20000
+	}
+	maintenance = {
+		energy = 60
+	}
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
+	}
+	sensor_range = 40
+}
+
+
+spy_orb_3 = {
+	entity = "spyorb_phase_03_entity"
+	construction_entity = "spyorb_phase_03_construction_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	upgrade_from = {
+		spy_orb_2
+	}
+	build_time = 1800
+	build_cost = {
+		minerals = 20000
+	}
+	maintenance = {
+		energy = 80
+	}
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
+	}
+	sensor_range = 60
+}
+
+spy_orb_4 = {
+	entity = "spyorb_phase_04_entity"
+	construction_entity = "spyorb_phase_04_construction_entity"
+	portrait = "GFX_megastructure_spy_orb_background"
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	upgrade_from = {
+		spy_orb_3
+	}
+	build_time = 1800
+	build_cost = {
+		minerals = 20000
+	}
+	maintenance = {
+		energy = 100
+	}
+	possible = {
+		from = { has_ascension_perk = ap_galactic_wonders }
+	}
+
+	# effect implementation in game_rules (has_full_sensor_range)
+}
+
+# Ruined Sentry Array
+spy_orb_ruined = {
+	entity = "spy_orb_destroyed_entity"
+	portrait = "GFX_megastructure_construction_background"
+
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+
+	potential = {
+		always = no
+	}
+}
+
+# Restored Sentry Array
+spy_orb_restored = {
+	entity = "spyorb_phase_04_entity"
+	construction_entity = "spyorb_phase_04_construction_entity"
+	portrait = "GFX_megastructure_spy_orb_background"
+	place_entity_on_planet_plane = no
+	entity_offset = { x = @entity_x y = @entity_y }
+	upgrade_from = {
+		spy_orb_ruined
+	}
+	build_time = 4800
+	build_cost = {
+		minerals = 30000
+	}
+	maintenance = {
+		energy = 100
+	}
+
+	possible = {
+		from = { 
+			has_technology = tech_mega_engineering
+		}
+	}
+
+	on_build_start = {
+		fromfrom = {
+			set_graphical_culture = root.from
+		}
+	}
+
+	on_build_complete = {
+		every_system_ambient_object = { destroy_ambient_object = this }
+		from = {
+			country_event = { id = utopia.2015 }
+		}
+	}
+}

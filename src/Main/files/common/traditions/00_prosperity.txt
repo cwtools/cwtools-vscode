@@ -1,0 +1,264 @@
+tr_prosperity_adopt = {
+	modifier = {
+		starbase_shipyard_build_cost_mult = -0.15
+		planet_building_cost_mult = -0.15
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_adopt_machine
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		modifier = {
+			starbase_shipyard_build_cost_mult = -0.15
+			planet_building_cost_mult = -0.15
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_adopt_hive
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		modifier = {
+			starbase_shipyard_build_cost_mult = -0.15
+			planet_building_cost_mult = -0.15
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 5
+			years_passed < 10
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_pacifist
+		}		
+	}
+}
+
+tr_prosperity_finish = {
+	modifier = {
+		pop_consumer_goods_mult = -0.20
+		ascension_perks_add = 1
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_finish_machine
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		modifier = {
+			pop_consumer_goods_mult = -0.20
+			ascension_perks_add = 1
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_finish_hive
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		modifier = {
+			pop_consumer_goods_mult = -0.20
+			ascension_perks_add = 1
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_prosperity_sct = {
+	modifier = {
+		starbase_shipyard_build_speed_mult = 0.15
+		planet_building_build_speed_mult = 0.15
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_sct_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_prosperity_administrative_operations = {
+	possible = {
+		has_tradition = tr_prosperity_sct
+	}
+	modifier = {
+		planet_building_upkeep_mult = -0.10
+		country_starbase_upkeep_mult = -0.10
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_administrative_operations_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_prosperity_fleet_logistical_corps = {
+	possible = {
+		has_tradition = tr_prosperity_sct
+	}
+	
+	modifier = {
+		ship_upkeep_mult = -0.10
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_fleet_logistical_corps_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_prosperity_trans_stellar_corporations = {
+	
+	# Bonus implemented in 00_rules.txt (colony_ship_rushed)
+		
+	modifier = {
+		country_resource_energy_mult = 0.05
+	}
+	
+	tradition_swap = {
+		name = tr_prosperity_hive_warrior_forms
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no		
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		modifier = {
+			army_upkeep_mult = -0.2
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_prosperity_efficiency_algorithms
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			pop_robot_upkeep_mult = -0.10
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_prosperity_pursuit_of_profit = {
+	possible = {
+		has_tradition = tr_prosperity_trans_stellar_corporations
+	}
+	
+	tradition_swap = {
+		name = tr_prosperity_hive_neural_signal_boosters
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_pursuit_of_profit_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 5000
+	}
+}

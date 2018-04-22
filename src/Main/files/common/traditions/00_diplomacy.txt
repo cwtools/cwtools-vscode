@@ -1,0 +1,358 @@
+
+tr_diplomacy_adopt = {
+	modifier = {		
+		diplomacy_influence_cost = -0.5
+		country_trust_growth = 0.33
+	}
+	
+	
+	
+	tradition_swap = {
+		name = tr_adaptability_adopt
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_authority = auth_hive_mind
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		modifier = {
+			pop_food_req_mult = -0.15
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_adopt
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			pop_robot_build_cost_mult = -0.10
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 5
+			has_federation = yes
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_xenophile
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_xenophile
+		}		
+	}
+}
+
+tr_diplomacy_finish = {
+	modifier = {
+		ascension_perks_add = 1
+		country_trust_cap_add = 50
+	}
+	
+	tradition_swap = {
+		name = tr_adaptability_finish
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_authority = auth_hive_mind
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		modifier = {
+			ascension_perks_add = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_finish
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			pop_robot_production_output = 0.05
+			ascension_perks_add = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_diplomacy_the_federation = {
+	
+	#unlocks federation mechanic
+	
+	tradition_swap = {
+		name = tr_adaptability_dietary_enrichment
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		modifier = {
+			tile_resource_food_mult = 0.20
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_universal_compatibility
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			country_synthetic_trust_cap_add = 50
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_diplomacy_federal_unity = {
+	possible = {
+		has_tradition = tr_diplomacy_the_federation
+	}
+
+	modifier = {
+		country_federation_member_resource_unity_mult = 0.05
+		country_federation_member_resource_unity_max_mult = 0.3
+	}
+	
+	tradition_swap = {
+		name = tr_adaptability_environmental_diversification	
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_authority = auth_hive_mind
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		modifier = {
+			country_planet_classes_resource_unity_mult = 0.05
+			country_planet_classes_resource_unity_max_mult = 0.3
+		}			
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_material_analysis
+		
+		
+		
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			country_strategic_resources_resource_unity_mult = 0.05
+			country_strategic_resources_resource_unity_max_mult = 0.3
+		}		
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_diplomacy_dynamic_ecomorphism = {
+	
+	modifier = {
+		pop_environment_tolerance = 0.10
+	}
+	
+	tradition_swap = {
+		name = tr_adaptability_dynamic_ecomorphism
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_authority = auth_hive_mind
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_operational_proxies
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		modifier = {
+			country_leader_cap = 2
+		}
+		
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_diplomacy_entente_coordination = {
+	possible = {
+		has_tradition = tr_diplomacy_the_federation
+	}
+
+	modifier = {
+		federation_naval_cap_contribution_mult = 1.00
+	}
+	
+	tradition_swap = {
+		name = tr_adaptability_survival_fittest
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_authority = auth_hive_mind
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		modifier = {
+			BIOLOGICAL_species_trait_points_add = 1
+
+			modify_species_cost_mult = -0.15
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_adaptive_programming
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			MACHINE_species_trait_points_add = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	ai_weight = {
+		factor = 5000
+	}
+}
+
+tr_diplomacy_alien_tourism = {
+	possible = {
+		has_tradition = tr_diplomacy_dynamic_ecomorphism
+	}
+	
+	#unlocks alien visitor center
+	tradition_swap = {
+		name = tr_adaptability_adaptive_ecology
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_authority = auth_hive_mind
+				has_valid_civic = civic_barbaric_despoilers
+			}
+		}
+		modifier = {
+			terraforming_cost_mult = -0.15
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_versatility_peak_performance
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		modifier = {
+			leader_skill_levels = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 5000
+	}
+}

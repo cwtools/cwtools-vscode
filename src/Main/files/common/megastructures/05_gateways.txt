@@ -1,0 +1,185 @@
+# see README.txt for example
+
+gateway_0 = {
+	entity = "construction_platform_entity"
+	construction_entity = "construction_platform_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	build_outside_gravity_well = yes 						# indicates this will use "free" placement between the system's inner and outer ring
+															# if this option is active, the placement_rules will be completely ignored
+	show_galactic_map_icon = no
+	build_time = 1080
+	build_cost = {
+		minerals = 10000
+		influence = 100
+	}
+	construction_blocks_others = no
+
+	potential = {
+		has_technology = tech_gateway_construction
+	}
+
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_inside_border"
+			is_inside_border = from
+		}
+		custom_tooltip = {
+			fail_text = "requires_surveyed_system"
+			NOT = {
+				any_planet = {
+					is_surveyed = {
+						who = prev.from
+						status = no
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_no_existing_gateway"
+			NOR = {
+				has_megastructure = gateway_0
+				has_megastructure = gateway_ruined
+				has_megastructure = gateway_restored
+				has_megastructure = gateway_final
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_technology_gateway_construction"
+			from = { has_technology = tech_gateway_construction }
+		}
+	}
+
+	placement_rules = {			# those would be ignored since the gateway is being "free-placed" between the inner and outer radius of the system
+	}
+	
+	# root = system
+	# from = country
+	ai_weight = {
+		factor = 5
+		
+		modifier = {
+			factor = 0
+			starbase = { NOT = { has_starbase_size >= starbase_starfortress } }
+		}	
+
+		modifier = {
+			factor = 0
+			any_neighbor_system = { 
+				OR = {
+					has_megastructure = gateway_0
+					has_megastructure = gateway_ruined
+					has_megastructure = gateway_restored
+					has_megastructure = gateway_final
+				}
+			}
+		}		
+	}
+	
+	on_build_start = {}
+	on_build_cancel = {}	
+	on_build_complete = {}
+}
+
+gateway_final = {
+	entity = "gateway_entity"
+	construction_entity = "construction_platform_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	# build_outside_gravity_well = yes 						# indicates this will use "free" placement between the system's inner and outer ring
+															# if this option is active, the placement_rules will be completely ignored
+	show_galactic_map_icon = no
+	potential = {
+		has_technology = tech_gateway_activation
+	}
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_technology_gateway_construction"
+			from = { has_technology = tech_gateway_construction }
+		}
+	}
+	upgrade_from = {
+		gateway_0
+	}
+	build_time = 1800
+	build_cost = {
+		minerals = 15000
+		energy = 10000
+	}
+	construction_blocks_others = no
+	bypass_type = gateway
+	on_build_complete = {
+		activate_gateway = fromfrom
+		if = {
+			limit = { num_active_gateways = 1 }
+			random_megastructure = {
+				limit = { is_megastructure_type = gateway_ruined }
+				upgrade_megastructure_to = gateway_restored
+				finish_upgrade = yes
+			}
+		}
+		from = { country_event = { id = apoc.11 } }
+	}
+}
+
+# Disabled Gateway
+gateway_ruined = {
+	entity = "deactivated_gateway_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	build_outside_gravity_well = yes
+	bypass_type = gateway
+	show_galactic_map_icon = no
+
+	potential = {
+		always = no
+	}
+}
+
+# Restored Gateway
+gateway_restored = {
+	entity = "reactivated_gateway_entity"
+	construction_entity = "gateway_portal_entity"
+	portrait = "GFX_megastructure_construction_background"
+	place_entity_on_planet_plane = no
+	# build_outside_gravity_well = yes
+	show_galactic_map_icon = no
+	
+	potential = {
+		has_technology = tech_gateway_activation
+	}
+	
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_technology_gateway_activation"
+			from = { has_technology = tech_gateway_activation }
+		}
+	}
+	upgrade_from = {
+		gateway_ruined
+	}
+	build_time = 720
+	build_cost = {
+		minerals = 5000
+		energy = 10000
+	}
+	construction_blocks_others = no
+	bypass_type = gateway
+	on_build_complete = {
+		activate_gateway = fromfrom
+		if = {
+			limit = { num_active_gateways = 1 }
+			random_megastructure = {
+				limit = { is_megastructure_type = gateway_ruined }
+				solar_system = {
+					starbase = {
+						owner = { set_country_flag = did_not_repair_gateway }
+					}
+				}
+				upgrade_megastructure_to = gateway_restored
+				finish_upgrade = yes
+			}
+		}
+		from = { country_event = { id = apoc.10 } }
+	}
+}

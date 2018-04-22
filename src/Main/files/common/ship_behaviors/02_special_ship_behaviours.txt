@@ -1,0 +1,35 @@
+#this file ( and all files in this folder ) is reloadable with console command "reload behavior"
+#filewatcher is enabled for all files in this folder
+
+ship_behavior = {
+	name = "colossus"
+
+	preferred_attack_range = 0
+	formation_distance = 0
+	return_to_formation_distance = 0
+	
+	collision_awareness = 0
+	collision_strafe = 0
+	collision_radius = 0
+
+	attack_move_pattern = none
+	passive_move_pattern = none
+
+	ignore_combat_movement = yes
+	
+	desc = "COLOSSUS_BEHAVIOR_DESC"
+}
+
+ship_behavior = {
+	name = "stellarite_default"
+	preferred_attack_range = max		#max/min/median/12/412..	#this is the distance to target the ship wants to keep when attacking
+	
+	formation_distance = 75				#when orbing/following ship will try to keep this distance to assigned position	
+	return_to_formation_distance = 100	#when attacking the ship will switch to passive mode if distance to assigned position is greater that this
+
+	collision_awareness = 0.9			#how much we try to avoid other ships
+	attack_move_pattern = flee			#stationary/charge/follow/stationary/none
+	passive_move_pattern = charge
+	
+	desc = "STELLARITE_DEFAULT_BEHAVIOR_DESC"
+}

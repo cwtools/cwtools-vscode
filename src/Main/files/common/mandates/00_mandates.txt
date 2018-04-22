@@ -1,0 +1,179 @@
+#*** Orbital Researcher, build X research stations. on_building_research_station
+mandate_orbital_researcher = {
+	valid = {
+		exists = owner
+		owner = { has_technology = tech_space_construction }
+	}
+	parameters = {}
+	
+	on_term_started = {
+		owner = {
+			if = {
+				limit = { has_event_chain = mandate_orbresearch_chain }
+				end_event_chain = mandate_orbresearch_chain
+			}
+			begin_event_chain = {
+				event_chain = "mandate_orbresearch_chain"
+				target = this
+			}
+			# Detail event chain reward in comment here:
+			# +300 Influence
+		}
+	}
+
+	on_term_ended = {
+		owner = {
+			country_event = { id = mandate.2 }
+		}
+	}
+}
+
+#*** Miner, build X mining stations. on_building_mining_station on-action
+mandate_miner = {
+	valid = {
+		exists = owner
+		owner = { has_technology = tech_space_construction }
+	}
+	parameters = {}
+
+	on_term_started = {
+		owner = {
+			if = {
+				limit = { has_event_chain = mandate_miner_chain }
+				end_event_chain = mandate_miner_chain
+			}
+			begin_event_chain = {
+				event_chain = "mandate_miner_chain"
+				target = this
+			}
+			# Detail event chain reward in comment here:
+			# +300 Influence
+		}
+	}
+
+	on_term_ended = {
+		owner = {
+			country_event = { id = mandate.2 }
+		}
+	}
+}
+
+# Peacemaker Mandate, check if at peace in 4 years
+mandate_peacemaker = {
+	valid = {
+		always = no
+		exists = owner
+		owner = {
+			is_at_war = yes
+			is_war_leader = yes
+		}
+	}
+
+	parameters = {
+		self = country
+		enemy = country
+	}
+
+	on_term_started = {
+		owner = {
+			begin_event_chain = {
+				event_chain = "mandate_peacemaker_chain"
+				target = this
+			}
+			# Detail event chain reward in comment here:
+			# +300 Influence
+		}
+	}
+
+	on_term_ended = {
+		owner = {
+			country_event = { id = mandate.160 }
+			#country_event = { id = mandate.2 }
+		}
+	}
+}
+
+#*** Shipwright, build X ships by year Y. count_ships trigger
+mandate_shipwright = {
+	valid = {
+		always = no
+		exists = owner
+	}
+	parameters = {}
+
+	on_term_started = {
+		owner = {
+			begin_event_chain = {
+				event_chain = "mandate_shipwright_chain"
+				target = this
+			}
+			# Detail event chain reward in comment here:
+			# +500 Influence
+		}
+	}
+
+	on_term_ended = {
+		owner = {
+			country_event = { id = mandate.140 }
+			#country_event = { id = mandate.2 }
+		}
+	}
+}
+
+#*** Xeno Purger, purge xenos from planet X. on_purge_complete
+mandate_xenopurger = {
+	valid = {
+		always = no
+		exists = owner
+		owner = {
+			any_owned_pop = {
+				NOT = { is_same_species = owner_main_species }
+			}
+		}
+	}
+
+	parameters = {
+		master = country
+		planet = planet
+	}
+
+	on_term_started = {
+		owner = {
+			random_owned_planet = {
+				limit = {
+					any_pop = {
+						NOT = { is_same_species = owner_main_species }
+					}
+				}
+				save_event_target_as = purge_planet
+				set_planet_flag = purge_planet
+			}
+			begin_event_chain = {
+				event_chain = "mandate_xenopurge_chain"
+				target = this
+			}
+			# Detail event chain reward in comment here:
+			# +300 Influence
+		}
+	}
+
+	on_term_ended = {
+		owner = {
+			country_event = { id = mandate.2 }
+		}
+	}
+}
+
+# Uplifter, uplift species X on_uplift_completion on-action
+
+# Slavery Proponent, enable slavery and enslave X pops
+
+# Planet Builder, construct X number of buildings on planet Y by year Z
+
+# Planet Builder variant, 0 free_building_tiles on planet X by year Y
+
+# More Jobs, less than 3 pops unemployed by year X
+
+# Fiscal Conservative, X energy in store by year Y
+
+# Population Grower, 0 free_pop_tiles on planet X by year Y

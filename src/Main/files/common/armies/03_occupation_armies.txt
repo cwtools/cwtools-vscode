@@ -1,0 +1,110 @@
+#Defensive armies can't transport of the planet
+#maintenance is directly scripted here. 0.25 translates to 0.25 monthly cost (excluding other upkeep modifiers)
+#morale_damage = 1		# average morale damage of the army, default: auto (calculated from morale * MORALE_DAMAGE_MULT)
+#building spawned armies can't be built normally, but only created from pops working buildings
+
+# Occupation Armies
+occupation_army = {
+	defensive = yes
+	occupation = yes
+	health = 1.25
+	damage = 1.50
+	morale = 1.25
+	collateral_damage = 0.0
+	war_exhaustion = 0.0 # No WE from occupation armies
+	icon_frame = 1
+		
+	potential = {
+		from = {
+			NOR = {
+				has_trait = "trait_robotic_1"
+				has_trait = "trait_robotic_2"
+				has_trait = "trait_robotic_3"
+				has_trait = "trait_machine_unit"
+				is_sapient = no
+			}
+		}
+		owner = {
+			OR = {
+				NOT = { has_authority = auth_machine_intelligence }
+				has_valid_civic = civic_machine_assimilator
+			}
+		}
+	}
+}
+
+# Robotic Armies
+robotic_occupation_army = {
+	defensive = yes
+	occupation = yes
+	damage = 1.00
+	health = 1.25
+	morale_damage = 1.00
+	collateral_damage = 0.0
+	war_exhaustion = 0.0 # No WE from occupation armies
+	has_morale = no
+	icon_frame = 4
+	has_species = yes
+
+	potential = {
+		from = { 
+			OR = {
+				has_trait = "trait_robotic_1"
+				has_trait = "trait_robotic_2" 
+			}
+		}
+		owner = {
+			NOT = { has_authority = auth_machine_intelligence }
+		}
+	}
+
+	allow = {
+		owner = { NOT = { has_policy_flag = robots_outlawed } }
+	}
+}
+
+# Synthetic Armies
+android_occupation_army = {
+	defensive = yes
+	occupation = yes
+	damage = 1.25
+	health = 1.25
+	has_morale = no
+	morale_damage = 1.00
+	collateral_damage = 0.0
+	war_exhaustion = 0.0 # No WE from occupation armies
+	icon_frame = 4
+	has_species = yes
+
+	potential = {
+		from = { has_trait = "trait_robotic_3" }
+		owner = {
+			NOT = { has_authority = auth_machine_intelligence }
+		}
+	}
+
+	allow = {
+		owner = { NOT = { has_policy_flag = ai_outlawed } }
+	}
+}
+
+### Machine Empire Armies
+machine_occupation_army = {
+	defensive = yes
+	occupation = yes
+	health = 1.10
+	damage = 1.10
+	has_morale = no
+	morale_damage = 1.00
+	collateral_damage = 0.0
+	war_exhaustion = 0.0 # No WE from occupation armies
+	icon_frame = 12
+	has_species = yes
+
+	potential = {
+		owner = { has_authority = auth_machine_intelligence }
+		from = {
+			has_trait = "trait_machine_unit"
+		}
+	}
+}

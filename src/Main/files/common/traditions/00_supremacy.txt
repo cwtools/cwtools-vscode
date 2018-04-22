@@ -1,0 +1,353 @@
+tr_supremacy_adopt = {
+	modifier = {
+		starbase_upgrade_cost_mult = -0.20
+		country_starbase_capacity_add = 2
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_adopt_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_adopt_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 2
+			has_ethic = ethic_militarist
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_militarist
+		}	
+		modifier = {
+			factor = 2
+			has_ethic = ethic_xenophobe
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_xenophobe
+		}		
+	}
+}
+
+tr_supremacy_finish = {
+	modifier = {
+		ascension_perks_add = 1
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_finish_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_finish_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_supremacy_great_game = {
+	possible = {
+		has_tradition = tr_supremacy_overwhelming_force
+		has_tradition = tr_supremacy_right_of_conquest
+	}
+	
+	#implementation in the "should_apply_neighbor_rival_modifier" game rule
+
+	tradition_swap = {
+		name = tr_supremacy_above_the_fray
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			country_resource_unity_mult = 0.10
+		}
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+				has_valid_civic = civic_hive_devouring_swarm
+			}
+		}
+
+		weight = {
+			factor = 1
+		}
+	}	
+	
+	tradition_swap = {
+		name = tr_supremacy_great_game_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+			NOT = { has_valid_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_great_game_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_valid_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_supremacy_right_of_conquest = {
+	modifier = {
+		country_claim_influence_cost_mult = -0.2
+	}
+	
+	tradition_swap = {
+		name = tr_supremacy_armed_deterrence
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			shipsize_military_station_small_build_cost_mult = -0.25
+			shipsize_military_station_small_hull_mult = 0.20
+		}
+		trigger = {
+			is_pacifist = yes
+		}
+
+		weight = {
+			factor = 1
+		}
+	}		
+	
+	tradition_swap = {
+		name = tr_supremacy_natural_preeminence
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			planet_unrest_mult = -0.20
+		}
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_machine_terminator
+				has_valid_civic = civic_hive_devouring_swarm
+			}
+		}
+
+		weight = {
+			factor = 1
+		}
+	}	
+
+	tradition_swap = {
+		name = tr_supremacy_right_of_conquest_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+			NOT = { has_valid_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_right_of_conquest_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_valid_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_supremacy_master_shipwrights = {
+	modifier = {
+		starbase_shipyard_build_speed_mult = 0.25
+		country_ship_upgrade_cost_mult = -0.20
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_master_shipwrights_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_master_shipwrights_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_supremacy_war_games = {
+	possible = {
+		has_tradition = tr_supremacy_master_shipwrights
+		has_tradition = tr_supremacy_right_of_conquest
+	}
+	modifier = {
+		ship_fire_rate_mult = 0.10
+		country_command_limit_add = 20
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_war_games_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_war_games_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_supremacy_overwhelming_force = {
+	
+	modifier = {
+		army_damage_mult = 0.25
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_overwhelming_force_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_overwhelming_force_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}

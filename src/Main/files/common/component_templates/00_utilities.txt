@@ -1,0 +1,457 @@
+# Icons set here are the ones show in the actual slot. The reason is so that we can support different icons for different sizes. 
+
+#############
+#	ARMOR	#
+#############
+
+@armor_1S = 50
+@armor_1M = 125
+@armor_1L = 315
+
+@armor_2S = 65
+@armor_2M = 160
+@armor_2L = 405
+
+@armor_3S = 85
+@armor_3M = 215
+@armor_3L = 525
+
+@armor_4S = 110
+@armor_4M = 275
+@armor_4L = 685
+
+@armor_5S = 140
+@armor_5M = 350
+@armor_5L = 875
+
+@armor_6S = 185
+@armor_6M = 460
+@armor_6L = 1150
+
+#############
+#	COST	#
+#############
+
+@cost_1S = 10
+@cost_1M = 20
+@cost_1L = 40
+           
+@cost_2S = 13
+@cost_2M = 26
+@cost_2L = 52
+
+@cost_3S = 17
+@cost_3M = 34
+@cost_3L = 68
+           
+@cost_4S = 22
+@cost_4M = 44
+@cost_4L = 88
+           
+@cost_5S = 28
+@cost_5M = 56
+@cost_5L = 112
+           
+@cost_6S = 36
+@cost_6M = 72
+@cost_6L = 144
+
+#############
+# UTILITIES #
+#############
+
+# Plasteel Armor
+utility_component_template = {
+	key = "SMALL_ARMOR_1"
+	size = small
+	icon = "GFX_ship_part_armor_1"
+	icon_frame = 1
+	power = 0
+	cost = @cost_1S
+	modifier = {
+		ship_armor_add = @armor_1S
+	}
+	
+	prerequisites = { "tech_ship_armor_1" }
+	component_set = "ARMOR_1"
+	upgrades_to = "SMALL_ARMOR_2"
+}
+
+utility_component_template = {
+	key = "MEDIUM_ARMOR_1"
+	size = medium
+	icon = "GFX_ship_part_armor_1"
+	icon_frame = 1
+	power = 0
+	cost = @cost_1M
+	modifier = {
+		ship_armor_add = @armor_1M
+	}
+	
+	prerequisites = { "tech_ship_armor_1" }
+	component_set = "ARMOR_1"
+	upgrades_to = "MEDIUM_ARMOR_2"
+}
+
+utility_component_template = {
+	key = "LARGE_ARMOR_1"
+	size = large
+	icon = "GFX_ship_part_armor_1"
+	icon_frame = 1
+	power = 0
+	cost = @cost_1L
+	modifier = {
+		ship_armor_add = @armor_1L
+	}
+	
+	prerequisites = { "tech_ship_armor_1" }
+	component_set = "ARMOR_1"
+	upgrades_to = "LARGE_ARMOR_2"
+}
+
+# Durasteel Armor
+utility_component_template = {
+	key = "SMALL_ARMOR_2"
+	size = small
+	icon = "GFX_ship_part_armor_2"
+	icon_frame = 1
+	power = 0
+	cost = @cost_2S
+	modifier = {
+		ship_armor_add = @armor_2S
+	}
+	
+	prerequisites = { "tech_ship_armor_2" }
+	component_set = "ARMOR_2"
+	upgrades_to = "SMALL_ARMOR_3"
+}
+
+utility_component_template = {
+	key = "MEDIUM_ARMOR_2"
+	size = medium
+	icon = "GFX_ship_part_armor_2"
+	icon_frame = 1
+	power = 0
+	cost = @cost_2M
+	modifier = {
+		ship_armor_add = @armor_2M
+	}
+	
+	prerequisites = { "tech_ship_armor_2" }
+	component_set = "ARMOR_2"
+	upgrades_to = "MEDIUM_ARMOR_3"
+}
+
+utility_component_template = {
+	key = "LARGE_ARMOR_2"
+	size = large
+	icon = "GFX_ship_part_armor_2"
+	icon_frame = 1
+	power = 0
+	cost = @cost_2L
+	modifier = {
+		ship_armor_add = @armor_2L
+	}
+	
+	prerequisites = { "tech_ship_armor_2" }
+	component_set = "ARMOR_2"
+	upgrades_to = "LARGE_ARMOR_3"
+}
+
+# Ceramo-Metal Armor
+utility_component_template = {
+	key = "SMALL_ARMOR_3"
+	size = small
+	icon = "GFX_ship_part_armor_3"
+	icon_frame = 1
+	power = 0
+	cost = @cost_3S
+	modifier = {
+		ship_armor_add = @armor_3S
+	}
+	
+	prerequisites = { "tech_ship_armor_3" }
+	component_set = "ARMOR_3"
+	upgrades_to = "SMALL_ARMOR_4"
+}
+
+utility_component_template = {
+	key = "MEDIUM_ARMOR_3"
+	size = medium
+	icon = "GFX_ship_part_armor_3"
+	icon_frame = 1
+	power = 0
+	cost = @cost_3M
+	modifier = {
+		ship_armor_add = @armor_3M
+	}
+	
+	prerequisites = { "tech_ship_armor_3" }
+	component_set = "ARMOR_3"
+	upgrades_to = "MEDIUM_ARMOR_4"
+}
+
+utility_component_template = {
+	key = "LARGE_ARMOR_3"
+	size = large
+	icon = "GFX_ship_part_armor_3"
+	icon_frame = 1
+	power = 0
+	cost = @cost_3L
+	modifier = {
+		ship_armor_add = @armor_3L
+	}
+	
+	prerequisites = { "tech_ship_armor_3" }
+	component_set = "ARMOR_3"
+	upgrades_to = "LARGE_ARMOR_4"
+}
+
+# Nanocomposite Armor
+utility_component_template = {
+	key = "SMALL_ARMOR_4"
+	size = small
+	icon = "GFX_ship_part_armor_4"
+	icon_frame = 1
+	power = 0
+	cost = @cost_4S
+	modifier = {
+		ship_armor_add = @armor_4S
+	}
+	
+	prerequisites = { "tech_ship_armor_4" }
+	component_set = "ARMOR_4"
+	upgrades_to = "SMALL_ARMOR_5"
+}
+
+utility_component_template = {
+	key = "MEDIUM_ARMOR_4"
+	size = medium
+	icon = "GFX_ship_part_armor_4"
+	icon_frame = 1
+	power = 0
+	cost = @cost_4M
+	modifier = {
+		ship_armor_add = @armor_4M
+	}
+	
+	prerequisites = { "tech_ship_armor_4" }
+	component_set = "ARMOR_4"
+	upgrades_to = "MEDIUM_ARMOR_5"
+}
+
+utility_component_template = {
+	key = "LARGE_ARMOR_4"
+	size = large
+	icon = "GFX_ship_part_armor_4"
+	icon_frame = 1
+	power = 0
+	cost = @cost_4L
+	modifier = {
+		ship_armor_add = @armor_4L
+	}
+	
+	prerequisites = { "tech_ship_armor_4" }
+	component_set = "ARMOR_4"
+	upgrades_to = "LARGE_ARMOR_5"
+}
+
+# Neutronium Armor
+utility_component_template = {
+	key = "SMALL_ARMOR_5"
+	size = small
+	icon = "GFX_ship_part_armor_5"
+	icon_frame = 1
+	power = 0
+	cost = @cost_5S
+	modifier = {
+		ship_armor_add = @armor_5S
+	}
+	
+	prerequisites = { "tech_ship_armor_5" }
+	component_set = "ARMOR_5"
+}
+
+utility_component_template = {
+	key = "MEDIUM_ARMOR_5"
+	size = medium
+	icon = "GFX_ship_part_armor_5"
+	icon_frame = 1
+	power = 0
+	cost = @cost_5M
+	modifier = {
+		ship_armor_add = @armor_5M
+	}
+	
+	prerequisites = { "tech_ship_armor_5" }
+	component_set = "ARMOR_5"
+}
+
+utility_component_template = {
+	key = "LARGE_ARMOR_5"
+	size = large
+	icon = "GFX_ship_part_armor_5"
+	icon_frame = 1
+	power = 0
+	cost = @cost_5L
+	modifier = {
+		ship_armor_add = @armor_5L
+	}
+	
+	prerequisites = { "tech_ship_armor_5" }
+	component_set = "ARMOR_5"
+}
+
+########################
+# Dragon Armor
+########################
+
+# Dragonscale Armor
+utility_component_template = {
+	key = "SMALL_DRAGON_ARMOR"
+	size = small
+	icon = "GFX_ship_part_dragon_armor"
+	icon_frame = 1
+	power = 0
+	cost = @cost_6S
+	modifier = {
+		ship_armor_add = @armor_6S
+	}
+	
+	prerequisites = { "tech_dragon_armor" }
+	component_set = "DRAGON_ARMOR"
+}
+
+utility_component_template = {
+	key = "MEDIUM_DRAGON_ARMOR"
+	size = medium
+	icon = "GFX_ship_part_dragon_armor"
+	icon_frame = 1
+	power = 0
+	cost = @cost_6M
+	modifier = {
+		ship_armor_add = @armor_6M
+	}
+	
+	prerequisites = { "tech_dragon_armor" }
+	component_set = "DRAGON_ARMOR"
+}
+
+utility_component_template = {
+	key = "LARGE_DRAGON_ARMOR"
+	size = large
+	icon = "GFX_ship_part_dragon_armor"
+	icon_frame = 1
+	power = 0
+	cost = @cost_6L
+	modifier = {
+		ship_armor_add = @armor_6L
+	}
+	
+	prerequisites = { "tech_dragon_armor" }
+	component_set = "DRAGON_ARMOR"
+}
+
+
+####################
+# Crystal Plating  #
+####################
+
+utility_component_template = {
+	key = "SMALL_CRYSTAL_ARMOR_1"
+	size = small
+	icon = "GFX_ship_part_crystal_armor_1"
+	icon_frame = 1
+	power = 0
+	cost = @cost_4S
+	
+	prerequisites = { "tech_crystal_armor_1" }
+	component_set = "CRYSTAL_ARMOR_1"
+	upgrades_to = "SMALL_CRYSTAL_ARMOR_2"
+	
+	modifier = {
+		ship_hull_add = @armor_4S
+	}
+}
+
+utility_component_template = {
+	key = "MEDIUM_CRYSTAL_ARMOR_1"
+	size = medium
+	icon = "GFX_ship_part_crystal_armor_1"
+	icon_frame = 1
+	power = 0
+	cost = @cost_4M
+	
+	prerequisites = { "tech_crystal_armor_1" }
+	component_set = "CRYSTAL_ARMOR_1"
+	upgrades_to = "SMALL_CRYSTAL_ARMOR_2"
+	
+	modifier = {
+		ship_hull_add = @armor_4M
+	}
+}
+
+utility_component_template = {
+	key = "LARGE_CRYSTAL_ARMOR_1"
+	size = large
+	icon = "GFX_ship_part_crystal_armor_1"
+	icon_frame = 1
+	power = 0
+	cost = @cost_4L
+	
+	prerequisites = { "tech_crystal_armor_1" }
+	component_set = "CRYSTAL_ARMOR_1"
+	upgrades_to = "SMALL_CRYSTAL_ARMOR_2"
+	
+	modifier = {
+		ship_hull_add = @armor_4L
+	}
+}
+
+utility_component_template = {
+	key = "SMALL_CRYSTAL_ARMOR_2"
+	size = small
+	icon = "GFX_ship_part_crystal_armor_2"
+	icon_frame = 1
+	power = 0
+	cost = @cost_6S
+	
+	prerequisites = { "tech_crystal_armor_2" }
+	component_set = "CRYSTAL_ARMOR_2"
+	
+	modifier = {
+		ship_hull_add = @armor_6S
+	}
+}
+
+utility_component_template = {
+	key = "MEDIUM_CRYSTAL_ARMOR_2"
+	size = medium
+	icon = "GFX_ship_part_crystal_armor_2"
+	icon_frame = 1
+	power = 0
+	cost = @cost_6M
+	
+	prerequisites = { "tech_crystal_armor_2" }
+	component_set = "CRYSTAL_ARMOR_2"
+	
+	modifier = {
+		ship_hull_add = @armor_6M
+	}
+}
+
+utility_component_template = {
+	key = "LARGE_CRYSTAL_ARMOR_2"
+	size = large
+	icon = "GFX_ship_part_crystal_armor_2"
+	icon_frame = 1
+	power = 0
+	cost = @cost_6L
+	
+	prerequisites = { "tech_crystal_armor_2" }
+	component_set = "CRYSTAL_ARMOR_2"
+	
+	modifier = {
+		ship_hull_add = @armor_6L
+	}
+}

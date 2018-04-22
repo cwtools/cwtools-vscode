@@ -1,0 +1,521 @@
+#reloadable with 'reload stats'
+# This file is where you start when you want to configure something new, then go to sections
+
+@corvette_collision_radius = 2.0
+
+@destroyer_collision_radius = 2.5
+
+@cruiser_collision_radius = 3
+
+@battleship_collision_radius = 3
+
+@titan_collision_radius = 15
+
+@build_block_radius_none = 0
+@build_block_radius_civilian = 20
+@build_block_radius_military = 200
+
+@speed_very_slow = 80
+@speed_slow = 100
+@speed_default = 120
+@speed_fast = 140
+@speed_very_fast = 160
+
+##################
+# EVENT SPECIFIC #
+##################
+
+# Asteroid
+asteroid = {
+	is_space_object = yes	
+	max_speed = 1
+	rotation_speed = 10
+	acceleration = 10
+	modifier = {
+		ship_evasion_mult = -1
+	}
+	max_hitpoints = 6000
+	size_multiplier = 1.5
+	fleet_slot_size = 1
+	
+	num_target_locators = 0
+	icon_frame = 2
+	is_civilian = yes
+	class = shipclass_military
+	is_designable = no
+}
+
+# Repaired Abandoned Ship
+abandoned_ship = {
+	max_speed = @speed_slow
+	rotation_speed = 0.15
+	acceleration = 0.3
+	fleet_slot_size = 4
+	modifier = {
+		ship_evasion_add = 20
+		ship_armor_add = 40
+	}
+	max_hitpoints = 1200
+	size_multiplier = 4
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	icon_frame = 4
+	class = shipclass_military
+	is_designable = no
+	required_component_set = "ftl_components"
+}
+
+# Space Ark
+ark_ship = {
+	max_speed = @speed_fast
+	rotation_speed = 0.15
+	acceleration = 0.3
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 30
+	}
+	max_hitpoints = 1500
+	size_multiplier = 1
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	icon_frame = 2
+	class = shipclass_military
+	is_designable = no
+}
+
+# Small Probe
+probe = {
+	max_speed = @speed_very_fast
+	rotation_speed = 0.15
+	acceleration = 0.35
+	modifier = {
+		ship_armor_add = 10
+		ship_evasion_add = 60
+	}
+	max_hitpoints = 600
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	icon_frame = 2
+	class = shipclass_military
+	is_designable = no
+}
+
+# Generic Starbase
+station_generic_01 = {
+	graphical_culture = no
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	modifier = {
+		ship_evasion_mult = -1
+		ship_armor_add = 11
+		ship_upkeep_mult = -0.25
+	}
+	max_hitpoints = 4000
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	
+	class = shipclass_military_station
+	is_designable = no
+}
+
+# Sensor Station
+sensor_station_01 = {
+	graphical_culture = no
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	modifier = {
+		ship_evasion_mult = -1
+		ship_armor_add = 5
+		ship_upkeep_mult = -0.25
+	}
+	max_hitpoints = 1000
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	
+	class = shipclass_military_station
+	is_designable = no
+}
+
+# Alien Racing Ship (uses eventship_06)
+alien_racing_ship = {
+	graphical_culture = no
+	max_speed = 200
+	acceleration = 0.4
+	rotation_speed = 0.35
+	modifier = {
+		ship_evasion_add = 25
+		ship_armor_add = 3
+	}
+	max_hitpoints = 300
+	size_multiplier = 1
+	fleet_slot_size = 2
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 2
+	
+	is_designable = no
+	is_civilian = yes
+	class = shipclass_science_ship
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+}
+
+# Event Ship 1 (Cruiser)
+eventship_01 = {
+	graphical_culture = no
+	max_speed = @speed_fast
+	acceleration = 0.25
+	rotation_speed = 0.175
+	collision_radius = 4
+	modifier = {
+		ship_evasion_add = 15
+	}
+	max_hitpoints = 2000
+	size_multiplier = 4
+	fleet_slot_size = 3
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 4		
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Event Ship 2 (Corvette)
+eventship_02 = {
+	graphical_culture = no
+	max_speed = @speed_very_fast
+	acceleration = 0.35
+	rotation_speed = 0.1
+	collision_radius = 2.0
+	modifier = {
+		ship_evasion_add = 71
+		ship_armor_add = 5
+	}	
+	max_hitpoints = 240
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 2
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Event Ship 3 (Battleship)
+eventship_03 = {
+	graphical_culture = no
+	max_speed = @speed_default
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = 5
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 37
+	}
+	max_hitpoints = 1920
+	size_multiplier = 1
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 5
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Event Ship 4 (Battleship)
+eventship_04 = {
+	graphical_culture = no
+	entity = eventship_04_blue_entity
+	max_speed = @speed_default
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = 5
+	modifier = {
+		ship_evasion_add = 8
+		ship_armor_add = 90
+	}
+	max_hitpoints = 1920
+	size_multiplier = 1
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 5
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Nomad Destroyer
+nomad_destroyer = {
+	graphical_culture = no
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	collision_radius = @destroyer_collision_radius
+	modifier = {
+		ship_evasion_add = 35
+	}
+	max_hitpoints = 1000
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 3
+	is_space_station = no
+	
+	class = shipclass_military
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Nomad Cruiser
+eventship_05 = {
+	graphical_culture = no
+	max_speed = @speed_fast
+	acceleration = 0.5
+	rotation_speed = 0.2
+	collision_radius = 4
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 30
+	}
+	max_hitpoints = 1800
+	size_multiplier = 1
+	fleet_slot_size = 3
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 4
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+
+# Event Ship 6 (Destroyer)
+eventship_06 = {
+	graphical_culture = no
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	collision_radius = 3
+	modifier = {
+		ship_evasion_add = 25
+		ship_armor_add = 14
+	}
+	max_hitpoints = 480
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	icon_frame = 3
+	is_space_station = no
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Event Ship 7 (Destroyer)
+eventship_07 = {
+	graphical_culture = no
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	collision_radius = 3
+	modifier = {
+		ship_evasion_add = 25
+		ship_armor_add = 14
+	}
+	max_hitpoints = 480
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	icon_frame = 3
+	is_space_station = no
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "combat_computers"
+	required_component_set = "thruster_components"
+}
+
+# Civilian Freighter
+civilian_freighter = {
+	graphical_culture = no
+	entity = cargo_transport_containers_entity
+	max_speed = @speed_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	
+	modifier = {
+		ship_evasion_add = 5
+		ship_armor_add = 3
+	}
+	max_hitpoints = 240
+	size_multiplier = 1
+	fleet_slot_size = 3
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 2
+	base_buildtime = 60	
+	is_civilian = no
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+}
+
+# Civilian Tanker
+civilian_tanker = {
+	graphical_culture = no
+	entity = cargo_transport_tanker_entity
+	max_speed = @speed_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	
+	modifier = {
+		ship_evasion_add = 5
+		ship_armor_add = 3
+	}
+	max_hitpoints = 240
+	size_multiplier = 1
+	fleet_slot_size = 3
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 2
+	base_buildtime = 60	
+	is_civilian = no
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+}
+
+# Passenger Liner
+passenger_liner = {
+	graphical_culture = no
+	entity = abandoned_ship_section_entity
+	max_speed = @speed_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	
+	modifier = {
+		ship_evasion_add = 5
+		ship_armor_add = 3
+	}
+	max_hitpoints = 240
+	size_multiplier = 1
+	fleet_slot_size = 3
+	section_slots = { "mid" = { locator = "root" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 2
+	base_buildtime = 60	
+	is_civilian = no
+	class = shipclass_military
+	
+	is_designable = no
+	
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+}
+
+# Primitive Space Station
+primitive_space_station = {
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	modifier = {
+		ship_evasion_mult = -1
+		ship_upkeep_mult = -0.25
+	}
+	max_hitpoints = 100
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "root" } }
+	is_designable = no
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	
+	class = shipclass_military_station
+}
+
+# Ancient Manufactory object
+ancient_drone_station = {
+	is_space_object = yes
+	max_speed = @speed_default
+	rotation_speed = 10
+	acceleration = 10
+	modifier = {
+		ship_evasion_mult = 100
+	}
+	max_hitpoints = 6000
+	size_multiplier = 1
+	fleet_slot_size = 1
+	
+	num_target_locators = 0
+	icon_frame = 2
+	is_civilian = yes
+	class = shipclass_constructor
+	is_designable = no
+}

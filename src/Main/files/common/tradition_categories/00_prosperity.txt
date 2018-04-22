@@ -1,0 +1,29 @@
+tradition_prosperity = {
+	adoption_bonus = "tr_prosperity_adopt"
+	finish_bonus = "tr_prosperity_finish"
+	traditions = {
+		"tr_prosperity_sct"
+		"tr_prosperity_administrative_operations"
+		"tr_prosperity_fleet_logistical_corps"
+		"tr_prosperity_trans_stellar_corporations"
+		"tr_prosperity_pursuit_of_profit"
+	}
+	tradition_swap = {
+		name = tradition_prosperity_hive_mind
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}		
+	}
+	tradition_swap = {
+		name = tradition_prosperity_machine
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}

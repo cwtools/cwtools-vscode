@@ -1,0 +1,112 @@
+#reloadable with 'reload stats'
+# This file is where you start when you want to configure something new, then go to sections
+
+@corvette_collision_radius = 2.0
+
+@destroyer_collision_radius = 2.5
+
+@cruiser_collision_radius = 3
+
+@battleship_collision_radius = 3
+
+@titan_collision_radius = 15
+
+@build_block_radius_none = 0
+@build_block_radius_civilian = 20
+@build_block_radius_military = 200
+
+@speed_very_slow = 80
+@speed_slow = 100
+@speed_default = 120
+@speed_fast = 140
+@speed_very_fast = 160
+
+#################
+#	AVATAR		#
+#################
+
+# Avatar
+psionic_avatar = {
+	graphical_culture = no
+	is_space_object = yes
+	max_speed = @speed_slow
+	rotation_speed = 0.15
+	acceleration = 0.3
+	modifier = {
+		ship_evasion_add = 15
+		ship_shield_add = 20000 
+		ship_shield_regen_add_static = 20
+	}
+	max_hitpoints = 5000
+	size_multiplier = 16
+	fleet_slot_size = 16
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 12
+	class = shipclass_military
+	is_designable = no
+}
+
+# Corrupted Avatar
+corrupted_avatar = {
+	graphical_culture = no
+	is_space_object = yes
+	max_speed = @speed_slow
+	rotation_speed = 0.15
+	acceleration = 0.2
+	modifier = {
+		ship_evasion_add = 25
+		ship_shield_add = 150000 
+		ship_shield_regen_add_static = 20
+	}
+	max_hitpoints = 17500
+	size_multiplier = 16
+	fleet_slot_size = 16
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 12
+	class = shipclass_military
+	is_designable = no
+}
+
+# Shroud Manifestation
+shroud_manifestation = {
+	graphical_culture = no
+	is_space_object = yes
+	max_speed = @speed_slow
+	rotation_speed = 0.15
+	acceleration = 0.2
+	modifier = {
+		ship_evasion_add = 25
+		ship_shield_add = 50000
+	}
+	max_hitpoints = 10000
+	size_multiplier = 16
+	fleet_slot_size = 16
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 12
+	class = shipclass_military
+	is_designable = no
+}
+
+# Warped Consciousness
+warped_consciousness = {
+	graphical_culture = no
+	is_space_object = yes
+	max_speed = @speed_slow
+	rotation_speed = 0.15
+	acceleration = 0.1
+	modifier = {
+		ship_evasion_add = 25
+		ship_shield_add = 50000
+	}
+	max_hitpoints = 10000
+	size_multiplier = 16
+	fleet_slot_size = 16
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 12
+	class = shipclass_military
+	is_designable = no
+}

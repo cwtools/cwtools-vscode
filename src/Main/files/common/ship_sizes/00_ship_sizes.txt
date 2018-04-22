@@ -1,0 +1,597 @@
+#reloadable with 'reload stats'
+# This file is where you start when you want to configure something new, then go to sections
+
+@corvette_collision_radius = 2.0
+@corvette_formation_priority = 20
+
+@destroyer_collision_radius = 2.5
+@destroyer_formation_priority = 10
+
+@cruiser_collision_radius = 3.5
+@cruiser_formation_priority = 30
+
+@battleship_collision_radius = 6
+@battleship_formation_priority = 50
+
+@titan_collision_radius = 12
+@titan_formation_priority = 40
+
+@build_block_radius_none = 0
+@build_block_radius_civilian = 20
+@build_block_radius_military = 200
+
+@speed_very_slow = 80
+@speed_slow = 100
+@speed_default = 120
+@speed_fast = 140
+@speed_very_fast = 160
+
+####################
+# NOTE FOR MODDERS #
+####################
+# modifier = { } only takes the following modifiers
+# hull, shield & armor add/mult and regen add perc/static
+# evasion add/mult
+# speed/base speed mult
+# weapon damage mult
+# upkeep mult
+# for other modifiers, use ship_modifier = { }
+####################
+
+############
+# STANDARD #
+############
+
+corvette = {
+	formation_priority = @corvette_formation_priority
+	max_speed = @speed_very_fast
+	acceleration = 0.35
+	rotation_speed = 0.1
+	collision_radius = @corvette_collision_radius
+	max_hitpoints = 300
+	modifier = {
+		ship_evasion_add = 60
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 2
+	is_space_station = no
+	icon_frame = 2
+	base_buildtime = 60
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start	
+	
+	default_behavior = swarm
+	
+	prerequisites = { "tech_corvettes" }
+	
+	combat_disengage_chance = 1.75
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+}
+
+destroyer = {
+	formation_priority = @destroyer_formation_priority
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	collision_radius = @destroyer_collision_radius
+	max_hitpoints = 800
+	modifier = {
+		ship_evasion_add = 35
+	}
+	size_multiplier = 2
+	fleet_slot_size = 2
+	section_slots = { "bow" = { locator = "part1" } "stern" = { locator = "part2" } }
+	num_target_locators = 4
+	icon_frame = 3
+	is_space_station = no
+	base_buildtime = 120
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	
+	default_behavior = picket
+	
+	prerequisites = { "tech_destroyers" }
+	
+	combat_disengage_chance = 1.50
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+}
+
+cruiser = {
+	formation_priority = @cruiser_formation_priority
+	max_speed = @speed_default
+	acceleration = 0.25
+	rotation_speed = 0.175
+	collision_radius = @cruiser_collision_radius
+	max_hitpoints = 1800
+	modifier = {
+		ship_evasion_add = 10
+	}
+	size_multiplier = 4
+	fleet_slot_size = 3
+	section_slots = { "bow" = { locator = "part1" } "mid" = { locator = "part2" } "stern" = { locator = "part3" } }
+	num_target_locators = 4
+	is_space_station = no
+	icon_frame = 4
+	base_buildtime = 240
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	
+	default_behavior = line
+	
+	prerequisites = { "tech_cruisers" }
+	
+	combat_disengage_chance = 1.25
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+}
+
+battleship = {
+	formation_priority = @battleship_formation_priority
+	max_speed = @speed_slow
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = @battleship_collision_radius
+	max_hitpoints = 3000
+	modifier = {
+		ship_evasion_add = 5
+	}
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { "bow" = { locator = "part1" } "mid" = { locator = "part2" } "stern" = { locator = "part3" } }
+	num_target_locators = 4
+	is_space_station = no
+	icon_frame = 5
+	base_buildtime = 480
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	
+	default_behavior = line
+	
+	prerequisites = { "tech_battleships" }
+	
+	combat_disengage_chance = 1.00
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+}
+
+titan = {
+	formation_priority = @titan_formation_priority
+	max_speed = @speed_slow
+	acceleration = 0.2
+	rotation_speed = 0.15
+	collision_radius = @titan_collision_radius
+	max_hitpoints = 10000
+	modifier = {
+		ship_evasion_add = 5
+	}
+	size_multiplier = 16
+	fleet_slot_size = 8
+	section_slots = { "bow" = { locator = "part1" } "mid" = { locator = "part2" } "stern" = { locator = "part3" } }
+	num_target_locators = 4
+	is_space_station = no
+	icon_frame = 6
+	base_buildtime = 1800
+	can_have_federation_design = yes
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	
+	default_behavior = artillery
+	
+	prerequisites = { "tech_titans" }
+	
+	combat_disengage_chance = 1.00
+	
+	has_mineral_upkeep = yes
+	class = shipclass_military
+	construction_type = starbase_shipyard
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	required_component_set = "ship_aura_components"
+	
+	possible_starbase = {
+		has_starbase_size >= starbase_citadel
+		has_starbase_building = titan_yards
+	}
+	
+	empire_limit = {
+		base = 1
+		max = 20
+		naval_cap_div = 200
+	}
+}
+
+constructor = {
+	max_speed = @speed_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 300
+	modifier = {
+		ship_evasion_add = 25
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 9
+	base_buildtime = 60
+	cost = 100
+	
+	combat_disengage_chance = 1.0
+
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	prerequisites = { "tech_space_construction" }
+	is_civilian = yes
+	is_designable = no
+	components_add_to_cost = no
+	class = shipclass_constructor
+	construction_type = spaceport
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	valid_target_aggressive_stance = no
+	auto_upgrade = yes
+
+	upkeep_override = {
+		energy = 1
+		minerals = 0
+	}
+}
+
+colonizer = {
+	max_speed = @speed_very_slow
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 300
+	modifier = {
+		ship_evasion_add = 10
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 10
+	base_buildtime = 360
+	cost = 300
+	
+	combat_disengage_chance = 0.5
+
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	prerequisites = { "tech_colonization_1" }
+	is_civilian = yes
+	is_designable = no
+	components_add_to_cost = no
+	class = shipclass_colonizer
+	construction_type = spaceport
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	valid_target_aggressive_stance = no
+	auto_upgrade = yes
+
+	upkeep_override = {
+		energy = 8
+		minerals = 0
+	}
+}
+
+science = {
+	max_speed = @speed_very_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	max_hitpoints = 300
+	modifier = {
+		ship_evasion_add = 40
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 8
+	base_buildtime = 60	
+	cost = 100
+	
+	combat_disengage_chance = 2.0
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	is_designable = no
+	components_add_to_cost = no	
+	prerequisites = { "tech_space_exploration" }
+	is_civilian = yes
+	class = shipclass_science_ship
+	construction_type = spaceport
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	valid_target_aggressive_stance = no
+	auto_upgrade = yes
+
+	upkeep_override = {
+		energy = 1
+		minerals = 0
+	}
+}
+
+transport = {
+	max_speed = @speed_very_fast
+	acceleration = 0.3
+	rotation_speed = 0.2
+	acceleration = 0.6
+	max_hitpoints = 100
+	modifier = {
+		ship_armor_add = 100
+		ship_evasion_add = 70
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = no
+	icon_frame = 11
+	
+	combat_disengage_chance = 1.5
+
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	is_designable = no
+	components_add_to_cost = no
+	class = shipclass_transport
+	required_component_set = "power_core"
+	required_component_set = "ftl_components"
+	required_component_set = "thruster_components"
+	required_component_set = "sensor_components"
+	auto_upgrade = yes
+}
+
+################
+# MILITARY STATIONS #
+################
+
+military_station_small = {
+	max_speed = 6
+	rotation_speed = 10
+	acceleration = 10
+	max_hitpoints = 1000
+	modifier = {
+		ship_evasion_mult = -1
+		ship_upkeep_mult = -0.25
+	}
+	ship_modifier = {
+		ship_weapon_range_mult = 0.20
+	}	
+	combat_size_multiplier = 2
+	size_multiplier = 1
+	fleet_slot_size = 2
+	section_slots = { 
+		"west" = { locator = "part1" }
+		"east" = { locator = "part2" }
+	}
+	is_designable = yes
+	uses_name_prefix = no
+	takes_name_from_ship_design = yes
+	num_target_locators = 0
+	is_space_station = yes
+	base_buildtime = 120
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	prerequisites = { "tech_space_defense_station_1" }
+	class = shipclass_military_station
+	construction_type = starbase_defenses
+	
+	required_component_set = "power_core"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	
+	build_block_radius = @build_block_radius_military
+}
+
+military_station_medium = {
+	max_speed = 6
+	rotation_speed = 10
+	acceleration = 10
+	modifier = {
+		ship_evasion_mult = -1
+		ship_armor_add = 30
+		ship_shield_mult = 1
+		ship_upkeep_mult = -0.25
+	}
+	ship_modifier = {
+		ship_weapon_range_mult = 0.20	
+	}
+	max_hitpoints = 10000
+	size_multiplier = 8
+	fleet_slot_size = 4
+	section_slots = { 
+		"north" = { locator = "part1" }
+		"west" = { locator = "part2" }
+		"east" = { locator = "part3" }
+		"south" = { locator = "part4" }
+	}
+	num_target_locators = 0
+	is_space_station = yes	
+	base_buildtime = 360
+	is_listed = no
+	is_designable = no
+	uses_name_prefix = no
+	takes_name_from_ship_design = yes	
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	class = shipclass_military_station
+	required_component_set = "power_core"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	
+	build_block_radius = @build_block_radius_military
+}
+
+military_station_large = {
+	max_speed = 6
+	rotation_speed = 10
+	acceleration = 10
+	modifier = {
+		ship_evasion_mult = -1
+		ship_armor_add = 44
+		ship_shield_mult = 1
+		ship_upkeep_mult = -0.25
+	}
+	ship_modifier = {
+		ship_weapon_range_mult = 0.20	
+	}
+	max_hitpoints = 15000
+	size_multiplier = 16
+	fleet_slot_size = 8
+	section_slots = { 
+		"north" = { locator = "part1" locator = "part2" }
+		"west" = { locator = "part3" locator = "part4" }
+		"east" = { locator = "part5" locator = "part6" }
+		"south" = { locator = "part7" locator = "part8" }
+	}
+	num_target_locators = 0
+	is_space_station = yes
+	is_listed = no
+	is_designable = no
+	uses_name_prefix = no
+	takes_name_from_ship_design = yes	
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	class = shipclass_military_station
+	required_component_set = "power_core"
+	required_component_set = "sensor_components"
+	required_component_set = "combat_computers"
+	
+	build_block_radius = @build_block_radius_military
+}
+
+################
+# CIVILIAN STATIONS #
+################
+
+mining_station = {
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	max_hitpoints = 2000
+	modifier = {
+		ship_armor_add = 1000
+		ship_evasion_mult = -1
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	is_civilian = no
+	cost = 90
+	components_add_to_cost = no
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	prerequisites = { "tech_space_construction" }
+	class = shipclass_mining_station
+	is_designable = no
+	valid_target_aggressive_stance = no
+	auto_upgrade = yes
+
+	upkeep_override = {
+		energy = 1
+		minerals = 0
+	}
+}
+
+research_station = {
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	max_hitpoints = 2000
+	modifier = {
+		ship_armor_add = 1000
+		ship_evasion_mult = -1
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 1
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	is_civilian = no
+	cost = 90
+	components_add_to_cost = no
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	prerequisites = { "tech_space_construction" }
+	class = shipclass_research_station
+	is_designable = no
+	valid_target_aggressive_stance = no
+	auto_upgrade = yes
+
+	upkeep_override = {
+		energy = 1
+		minerals = 0
+	}
+}
+observation_station = {
+	max_speed = 0.0
+	acceleration = 0.0
+	rotation_speed = 0.0
+	max_hitpoints = 2000
+	modifier = {
+		ship_armor_add = 1000
+		ship_evasion_mult = -1
+	}
+	size_multiplier = 1
+	fleet_slot_size = 1
+	num_target_locators = 0
+	is_space_station = yes
+	build_block_radius = @build_block_radius_civilian
+	is_civilian = yes
+	cost = 50
+	components_add_to_cost = no
+	
+	enable_default_design = yes	#if yes, countries will have an auto-generated design at start
+	class = shipclass_observation_station
+	is_designable = no
+	valid_target_aggressive_stance = no
+
+	upkeep_override = {
+		energy = 1
+		minerals = 0
+	}
+}

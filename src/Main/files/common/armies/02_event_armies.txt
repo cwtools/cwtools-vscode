@@ -1,0 +1,218 @@
+#Defensive armies can't transport of the planet
+#maintenance is directly scripted here. 0.25 translates to 0.25 monthly cost (excluding other upkeep modifiers)
+#morale_damage = 1		# average morale damage of the army, default: auto (calculated from morale * MORALE_DAMAGE_MULT)
+#building spawned armies can't be built normally, but only created from pops working buildings
+
+# Rebel Armies
+rebel_army = {
+	rebel = yes
+	damage = 0.5
+	health = 0.5
+	morale = 1.0
+	icon_frame = 3
+	
+	potential = {
+		always = no
+	}
+}
+
+# Rebel Slave Armies
+rebel_slave_defense_army = {
+	defensive = yes
+	time = 60
+	health = 0.80
+	damage = 0.80
+	morale = 1.80
+	icon_frame = 3
+	maintenance = 0
+
+	potential = {
+		always = no
+	}
+}
+
+# Primitive Armies
+primitive_army = {
+	defensive = yes
+	damage = 0.1
+	health = 0.5
+	morale = 0.8
+	icon_frame = 5
+	
+	potential = {
+		always = no
+	}
+}
+
+# Industrial Armies
+industrial_army = {
+	defensive = yes
+	damage = 0.4
+	health = 0.5
+	morale = 0.8
+	icon_frame = 5
+	
+	potential = {
+		always = no
+	}
+}
+
+# Post-Atomic Armies
+postatomic_army = {
+	defensive = yes
+	damage = 0.6
+	health = 1
+	morale = 1
+	icon_frame = 5
+	
+	potential = {
+		always = no
+	}
+}
+
+# Mutant Horror Armies
+mutant_army = {
+	defensive = yes
+	damage = 1.5
+	morale_damage = 1.5
+	health = 2
+	has_morale = no
+	icon_frame = 8
+	has_species = no
+	
+	potential = {
+		always = no
+	}
+}
+
+# Swarm Armies
+swarm_army = {
+	damage = 2.0
+	morale_damage = 2.0
+	health = 2.0
+	has_morale = no
+	time = 180
+	icon_frame = 8
+	has_species = no
+	
+	potential = {
+		owner = {
+			is_country_type = "swarm"
+		}
+	}
+}
+
+# Rampaging Tree Armies
+tree_army = {
+	defensive = yes
+	damage = 1.0
+	morale_damage = 1.0
+	health = 1.0
+	has_morale = no
+	icon_frame = 8
+	has_species = no
+	
+	potential = {
+		always = no
+	}
+}
+
+
+# Titanic life troops
+# Can build on planets with titanic life if you get event + special project there
+# Should be very strong and quite expensive, but cannot get attachments and can be built only in limited numbers
+# Currently limited to 3. Ideally it would be X * Num of planets you have done the project one, but that is too complex for scripts
+titanic_assault_army = {
+	damage = 3.0
+	health = 5.0
+	morale = 3.0
+	morale_damage = 2.0
+	collateral_damage = 3.0
+	war_exhaustion = 2.0
+	time = 90
+	maintenance = 1.0
+	icon_frame = 8
+	has_species = no
+	
+	cost = {
+		minerals = 300
+	}
+	
+	potential = {
+		custom_tooltip = {
+			text = titanic_troop_limit_tooltip
+			planet = { has_planet_flag = titanic_life_can_build }
+			owner = {
+				has_country_flag = titanic_life_soldiers
+			}
+		}
+	}
+	
+	allow = {
+		custom_tooltip = {
+			text = titanic_troop_limit_tooltip
+			planet = { has_planet_flag = titanic_life_can_build }
+			owner = {
+				has_country_flag = titanic_life_soldiers
+				NOT = { 
+					 check_variable = {
+						which = "titanic_life_soldier_count" 
+						value = 3
+					}
+				}
+			}
+		}
+	}
+	
+	on_queued = {
+		owner = {
+			change_variable = {
+				which = "titanic_life_soldier_count" 
+				value = 1
+			}
+		}
+	}
+	
+	on_unqueued = {
+		owner = {
+			change_variable = {
+				which = "titanic_life_soldier_count" 
+				value = -1
+			}
+		}
+	}
+}
+
+#Can't be built, is spawned on Titanic life planets after special project + event. Partly as reward, partly to ensure having this on multiple planets is always useful.
+titanic_guardian_army = {
+	defensive = yes
+	damage = 2.0
+	health = 8.0
+	morale = 3.0
+	morale_damage = 2.0
+	time = 5
+	maintenance = 1.0
+	icon_frame = 8
+	has_species = no
+	
+	potential = {
+		always = no
+	}
+}
+
+# Given as a reward from the Shroud
+shroud_army = {
+	damage = 5.0
+	health = 7.0
+	has_morale = no
+	morale_damage = 2.0
+	war_exhaustion = 5.0
+	time = 5
+	maintenance = -1
+	icon_frame = 9
+	has_species = no
+	
+	potential = {
+		always = no
+	}
+}

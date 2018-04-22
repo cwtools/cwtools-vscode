@@ -1,0 +1,447 @@
+tr_domination_adopt = {
+		
+	tradition_swap = {
+		name = tr_purity_adopt
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+		modifier = {
+			planet_clear_blocker_cost_mult = -0.25
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_adopt_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {			
+			has_authority = auth_machine_intelligence
+			NOT = { has_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 20		
+		modifier = {
+			factor = 0.01
+			NOT = {
+				has_ai_personality_behaviour = subjugator			
+			}
+		}
+		modifier = {
+			factor = 2
+			has_ethic = ethic_authoritarian
+		}
+		modifier = {
+			factor = 3
+			has_ethic = ethic_fanatic_authoritarian
+		}		
+	}
+}
+
+tr_domination_finish = {
+	modifier = {
+		ascension_perks_add = 1
+		country_subject_technology_sharing_mult = 0.30
+	}
+	
+	tradition_swap = {
+		name = tr_purity_finish
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = yes
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+		modifier = {
+			country_resource_unity_mult = 0.10
+			ascension_perks_add = 1
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_finish_machine
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {			
+			has_authority = auth_machine_intelligence
+			NOT = { has_civic = civic_machine_terminator }
+		}
+		modifier = {
+			ascension_perks_add = 1
+			country_subject_technology_sharing_mult = 0.30
+		}
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_domination_colonial_viceroys = {
+	modifier = {
+		governor_skill_levels = 2
+		country_leader_cap = 2
+	}
+
+	tradition_swap = {
+		name = tr_domination_colonial_viceroys_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_machine_intelligence
+			#NOT = { has_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_colonial_viceroys_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_domination_protection_racket = {
+	possible = {
+		has_tradition = tr_domination_colonial_viceroys
+	}
+	modifier = {
+		subject_tribute_mult = 0.5
+	}
+	
+	tradition_swap = {
+		name = tr_purity_symbol_purity
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+			}
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_purity_natural_order
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			has_valid_civic = civic_hive_devouring_swarm
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_purity_age_machines
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		modifier = {
+			pop_robot_production_output = 0.05
+		}
+		trigger = {
+			has_valid_civic = civic_machine_terminator
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_protection_racket_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {			
+			has_authority = auth_machine_intelligence
+			NOT = { has_valid_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_protection_racket_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_domination_star_lords = {
+	
+	# bonus: subject opinion increased (see triggered_opinion_tr_domination_star_lords)
+	modifier = {
+		country_integration_cooldown_mult = -0.50	
+		country_subject_trust_cap_add = 50
+	}
+	
+	tradition_swap = {
+		name = tr_purity_the_chosen
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_inwards_perfection
+			}
+		}
+		modifier = {
+			pop_citizen_happiness = 0.05
+			country_starbase_influence_cost_mult = -0.05
+		}
+		weight = {
+			factor = 1
+		}
+	}
+	
+	tradition_swap = {
+		name = tr_purity_waste_processing
+		inherit_effects = no
+		inherit_icon = no
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_machine_terminator
+				has_valid_civic = civic_hive_devouring_swarm			
+			}
+		}
+		modifier = {
+			pop_processing_output = 0.50
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_star_lords_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {	
+			has_authority = auth_machine_intelligence
+			NOT = { has_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+
+	tradition_swap = {
+		name = tr_domination_star_lords_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+}
+
+tr_domination_fleet_levies = {
+	possible = {
+		has_tradition = tr_domination_colonial_viceroys
+		has_tradition = tr_domination_star_lords
+	}
+	
+	modifier = {
+		country_vassal_naval_capacity_contribution_mult = 1.00
+	}
+	
+	tradition_swap = {
+		name = tr_purity_never_surrender
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+		modifier = {
+			army_defense_health_mult = 0.5
+			shipclass_starbase_hull_mult = 0.10
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_fleet_levies_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {	
+			has_authority = auth_machine_intelligence
+			NOT = { has_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_fleet_levies_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+}
+
+tr_domination_vassal_acculturation = {
+	possible = {
+		has_tradition = tr_domination_star_lords
+	}
+	
+	modifier = {
+		country_subjects_resource_unity_mult = 0.05
+		country_subjects_resource_unity_max_mult = 0.3
+	}
+	
+	tradition_swap = {
+		name = tr_purity_appropriation
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			OR = {
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_inwards_perfection
+				has_valid_civic = civic_machine_terminator
+			}
+		}
+		modifier = {
+			pop_resettlement_cost_mult = -0.5
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_domination_vassal_acculturation_machine
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {	
+			has_authority = auth_machine_intelligence
+			NOT = { has_civic = civic_machine_terminator }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+	
+	ai_weight = {
+		factor = 1000
+	}
+
+	tradition_swap = {
+		name = tr_domination_vassal_acculturation_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+			NOT = { has_civic = civic_hive_devouring_swarm }
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+}

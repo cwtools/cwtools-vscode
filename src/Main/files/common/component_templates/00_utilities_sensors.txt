@@ -1,0 +1,100 @@
+@hit2 = 5
+@hit3 = 10
+@hit4 = 15
+
+@cost1 = 2
+@cost2 = 4
+@cost3 = 6
+@cost4 = 8
+
+@power1 = -5
+@power2 = -10
+@power3 = -15
+@power4 = -20
+
+@sensor1 = 1
+@sensor2 = 2
+@sensor3 = 3
+@sensor4 = 4
+
+utility_component_template = {
+	key = "SENSOR_1"
+	size = medium
+	icon = "GFX_ship_part_sensor_1"
+	icon_frame = 1
+	power = @power1
+	cost = @cost1
+	sensor_range = @sensor1
+	
+	component_set = "sensor_components"
+	upgrades_to = "SENSOR_2"
+	
+	ai_weight = {
+		weight = 1
+	}	
+}
+
+utility_component_template = {
+	key = "SENSOR_2"
+	size = medium
+	icon = "GFX_ship_part_sensor_2"
+	icon_frame = 1
+	power = @power2
+	cost = @cost2
+	sensor_range = @sensor2
+	
+	prerequisites = { "tech_sensors_2" }
+	component_set = "sensor_components"
+	upgrades_to = "SENSOR_3"
+	
+	ship_modifier = {
+		ship_tracking_add = @hit2
+	}
+	
+	ai_weight = {
+		weight = 10
+	}	
+}
+
+utility_component_template = {
+	key = "SENSOR_3"
+	size = medium
+	icon = "GFX_ship_part_sensor_3"
+	icon_frame = 1
+	power = @power3
+	cost = @cost3
+	sensor_range = @sensor3
+	
+	prerequisites = { "tech_sensors_3" }
+	component_set = "sensor_components"
+	upgrades_to = "SENSOR_4"
+	
+	ship_modifier = {
+		ship_tracking_add = @hit3
+	}
+	
+	ai_weight = {
+		weight = 100
+	}	
+}
+
+utility_component_template = {
+	key = "SENSOR_4"
+	size = medium
+	icon = "GFX_ship_part_sensor_4"
+	icon_frame = 1
+	power = @power4
+	cost = @cost4
+	sensor_range = @sensor4
+	
+	ship_modifier = {
+		ship_tracking_add = @hit4
+	}
+	
+	prerequisites = { "tech_sensors_4" }
+	component_set = "sensor_components"
+	
+	ai_weight = {
+		weight = 1000
+	}	
+}

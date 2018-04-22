@@ -1,0 +1,82 @@
+### Nomad ###
+
+### Destroyer
+ship_section_template = {
+	key = "NOMAD_DESTROYER_MID"
+	ship_size = nomad_destroyer
+	fits_on_slot = mid
+	entity = "nomad_destroyer_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "large_gun_01"
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_size = point_defence
+		locatorname = "small_gun_01"
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_size = point_defence
+		locatorname = "small_gun_02"
+	}	
+	
+	medium_utility_slots = 3
+}
+
+### Cruiser
+ship_section_template = {
+	key = "NOMAD_CRUISER_MID"
+	ship_size = eventship_05
+	fits_on_slot = mid
+	entity = "eventship_05_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_03"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "MEDIUM_GUN_01"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "MEDIUM_GUN_02"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "root"
+	}
+	
+	medium_utility_slots = 6
+	aux_utility_slots = 1
+}

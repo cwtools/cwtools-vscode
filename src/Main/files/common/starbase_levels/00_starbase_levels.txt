@@ -1,0 +1,74 @@
+#starbase_level_foo = {
+#	ship_size = starbase_foo 		# Required
+#	next_level = starbase_level_bar	# Optional
+#	show_in_outliner = yes			# Default yes, if yes starbase will be shown in outliner
+#	display_empire_shield = no		# Default no, if yes empire shield will be shown even if there's no colony
+#	display_map_icon = yes			# Default yes, if yes starbase map icon will be shown even if there's no colony
+#	level_weight = 1				# Default 0, used for claim cost and required module/building level
+#	ai_weight = { weight = 1.0 }	# Default 0, THIS = Starbase, FROM = Country - determines which levels are more important to upgrade from
+#}
+
+# Normal
+
+starbase_level_outpost = {
+	ship_size = starbase_outpost
+	next_level = starbase_level_starport
+	show_in_outliner = no
+	display_map_icon = no
+	level_weight = 0	
+	ai_weight = { weight = 1 }	
+}
+
+starbase_level_starport = {
+	ship_size = starbase_starport
+	next_level = starbase_level_starhold
+	level_weight = 1
+	ai_weight = { weight = 2 }
+}
+
+starbase_level_starhold = {
+	ship_size = starbase_starhold
+	next_level = starbase_level_starfortress
+	level_weight = 2
+	ai_weight = { weight = 3 }
+}
+
+starbase_level_starfortress = {
+	ship_size = starbase_starfortress
+	next_level = starbase_level_citadel
+	level_weight = 3
+	ai_weight = { weight = 4 }
+}
+
+starbase_level_citadel = {
+	ship_size = starbase_citadel
+	level_weight = 4
+	ai_weight = { weight = 5 }
+}
+
+# Special
+
+starbase_level_swarm = {
+	ship_size = starbase_swarm
+	level_weight = 5
+	ai_weight = { weight = 5 }
+}
+
+starbase_level_ai = {
+	ship_size = starbase_ai
+	level_weight = 5
+	ai_weight = { weight = 5 }
+}
+
+starbase_level_exd = {
+	ship_size = starbase_exd
+	level_weight = 5
+	ai_weight = { weight = 5 }
+}
+
+starbase_level_marauder = {
+	ship_size = starbase_marauder
+	display_empire_shield = yes
+	level_weight = 5
+	ai_weight = { weight = 5 }
+}

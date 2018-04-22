@@ -1,0 +1,629 @@
+# Example
+
+#example = {
+#	icon = "GFX_fleet_mission_button_passive_observation"
+#	country_modifier = "propaganda"
+#	planet_modifier = "propaganda"
+#
+#	cost = {
+#		energy = 1
+#		society_research = 1
+#		influence = 2
+#	}
+#
+#	gain = {
+#		society_research = 6
+#	}
+#
+#	monthly_progress = 0.04
+#	completion_event = example.1
+#
+#	potential = {
+#		OR = {
+#			has_ethic = "ethic_xenophile"
+#			has_ethic = "ethic_fanatic_xenophile"
+#		}
+#	}
+#	valid = {
+#		OR = {
+#			has_ethic = "ethic_xenophile"
+#			has_ethic = "ethic_fanatic_xenophile"
+#		}
+#	}
+#}
+
+# Passive Observation
+passive_observation = {
+	icon = "GFX_fleet_task_passive_observation"
+	small_icon = 1
+
+	gain = {
+		society_research = 8
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+# Specimen Collection AKA "Aggressive Observation"
+specimen_collection = {
+	icon = "GFX_fleet_task_specimen_collection"
+	small_icon = 2
+
+	gain = {
+		society_research = 10
+	}
+
+	potential = {
+}
+
+	valid = {
+		OR = {
+			has_policy_flag = interference_active
+			has_policy_flag = interference_full
+		}
+	}
+	
+	ai_weight = {
+		weight = 5	# Use if policy allows it
+	}
+}
+
+# Indoctrination
+native_indoctrination = {
+	icon = "GFX_fleet_task_indoctrination"
+	small_icon = 5
+	
+	potential = {
+		host_has_dlc = "Utopia"
+	}
+	
+	cost = {
+		energy = 3
+	}
+	
+	gain = {
+		society_research = 10
+	}
+	
+	#planet_modifier = native_indoctrination
+
+	valid = {
+		OR = {
+			has_policy_flag = interference_active
+			has_policy_flag = interference_full
+		}
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+	}
+	
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 0
+			NAND = {
+				has_ai_personality = democratic_crusaders
+				from = {
+					owner = { 
+						NOR = {
+							has_ethic = ethic_egalitarian
+							has_ethic = ethic_fanatic_egalitarian
+						}
+					}				
+				}
+			}
+		}
+	}
+}
+
+@enlighten_soc_cost = 5
+@enlighten_nrg_cost = 10
+
+# Technological Enlightenment - Stone Age
+technological_enlightenment_0 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.001
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = stone_age }
+		}
+		NOR = { 
+			has_valid_civic = civic_machine_terminator
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+# Technological Enlightenment - Bronze Age
+technological_enlightenment_1 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.002
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = bronze_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}	
+}
+
+# Technological Enlightenment - Iron Age
+technological_enlightenment_2 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.003
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = iron_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Technological Enlightenment - Late Medieval Age
+technological_enlightenment_3 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.004
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = late_medieval_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Technological Enlightenment - Renaissance Age
+technological_enlightenment_4 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.005
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = renaissance_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+# Technological Enlightenment - Steam Age
+technological_enlightenment_5 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.01
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = steam_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = { has_ai_personality_behaviour = uplifter }
+		}
+		modifier = {
+			factor = 0
+			energy < 2000
+		}
+	}
+}
+
+# Technological Enlightenment - Industrial Age
+technological_enlightenment_6 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.015
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = industrial_age  }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = { has_ai_personality_behaviour = uplifter }
+		}
+		modifier = {
+			factor = 0
+			energy < 1500
+		}
+	}
+}
+
+# Technological Enlightenment - Machine Age
+technological_enlightenment_7 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.02
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = machine_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = { has_ai_personality_behaviour = uplifter }
+		}
+		modifier = {
+			factor = 0
+			energy < 1000
+		}
+	}
+}
+
+# Technological Enlightenment - Atomic Age
+technological_enlightenment_8 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.025
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = atomic_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = { has_ai_personality_behaviour = uplifter }
+		}
+		modifier = {
+			factor = 0
+			energy < 1000
+		}
+	}
+}
+
+# Technological Enlightenment - Early Space Age
+technological_enlightenment_9 = {
+	icon = "GFX_fleet_task_technological_enlightenment_action"
+	small_icon = 3
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.025
+	completion_event = observation.2000
+
+	potential = {
+		FROM = {
+			exists = owner
+			owner = { has_country_flag = early_space_age }
+		}
+	}
+
+	valid = {
+		has_policy_flag = enlightenment_allowed
+		custom_tooltip = {
+			fail_text = CANNOT_ENLIGHTEN_FANATIC_XENOPHOBE
+			FROM = {
+				exists = owner
+				owner = { NOT = { has_ethic = ethic_fanatic_xenophobe } }
+			}		
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = { has_ai_personality_behaviour = uplifter }
+		}
+		modifier = {
+			factor = 0
+			energy < 1000
+		}
+	}
+}
+
+# Covert Infiltration
+covert_infiltration = {
+	icon = "GFX_fleet_task_covert_infiltration_action"
+	small_icon = 4
+	
+	cost = {
+		society_research = @enlighten_soc_cost
+		energy = @enlighten_nrg_cost
+	}
+
+	monthly_progress = 0.02
+	completion_event = observation.3009
+
+	potential = {
+		NOT = { has_valid_civic = civic_inwards_perfection }
+	}
+
+	valid = {
+		has_technology = tech_gene_tailoring
+		OR = {
+			has_policy_flag = interference_active
+			has_policy_flag = interference_full
+		}
+		FROM = {
+			exists = owner
+			owner = {
+				OR = {
+					has_country_flag = industrial_age
+					has_country_flag = machine_age
+					has_country_flag = atomic_age
+					has_country_flag = early_space_age
+				}
+			}
+		}
+		NOR = {
+			has_valid_civic = civic_fanatic_purifiers
+			has_valid_civic = civic_hive_devouring_swarm
+			has_valid_civic = civic_machine_terminator
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			NOT = { has_ai_personality_behaviour = infiltrator }
+		}
+		modifier = {
+			factor = 0
+			energy < 1000
+		}
+	}
+}

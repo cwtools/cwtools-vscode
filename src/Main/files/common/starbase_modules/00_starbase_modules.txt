@@ -1,0 +1,315 @@
+# possible section models:
+# SHIPYARD_STARBASE_SECTION
+# REFINERY_STARBASE_SECTION
+# SCIENCE_STARBASE_SECTION
+# HANGAR_STARBASE_SECTION
+# ASSEMBLYYARD_STARBASE_SECTION
+#
+
+shipyard = {
+	icon = "GFX_starbase_shipyard"
+	section = "ASSEMBLYYARD_STARBASE_SECTION"
+	construction_days = 180
+	initial = yes
+
+	cost = {
+		minerals = 100
+	}
+
+	station_modifier = {
+		starbase_shipyard_capacity_add = 1
+	}
+	
+	upkeep_resources = {
+		energy = 1
+	}
+	
+	ai_build_at_chokepoint = no
+	ai_build_outside_chokepoint = yes
+	ai_weight = {
+		weight = 30
+	#	modifier = {
+	#		factor = 100
+	#		NOT = { has_starbase_module = shipyard }
+	#	}
+	}
+}
+
+anchorage = {
+	icon = "GFX_starbase_anchorage"
+	section = "ANCHORAGE_STARBASE_SECTION"
+	construction_days = 180
+	
+	cost = {
+		minerals = 100
+	}
+	
+	upkeep_resources = {
+		energy = 1
+	}
+	
+	country_modifier = {
+		country_naval_cap_add = 4
+	}
+	triggered_country_modifier = {
+		potential = { has_starbase_building = naval_logistics_office }
+		country_naval_cap_add = 2
+	}
+	
+	ai_build_at_chokepoint = no
+	ai_build_outside_chokepoint = yes
+	ai_weight = {
+		weight = 20
+		modifier = {
+			factor = 2
+			count_starbase_modules = {
+				type = anchorage
+				count < 2
+			}
+		}		
+	}
+}
+
+gun_battery = {
+	section = "BATTERY_STARBASE_SECTION"
+	construction_days = 180
+
+	cost = {
+		minerals = 200
+	}
+	
+	station_modifier = {
+		ship_hull_mult = 0.10
+		ship_armor_mult = 0.10
+	}
+	
+	upkeep_resources = {
+		energy = 1
+	}
+	
+	ai_build_at_chokepoint = yes
+	ai_build_outside_chokepoint = no
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2
+			exists = owner
+			owner = {
+				OR = {
+					is_preferred_weapons = weapon_type_energy
+					is_preferred_weapons = weapon_type_kinetic
+				}			
+			}
+		}
+	}
+
+	show_in_tech = "tech_mass_drivers_1"
+}
+
+missile_battery = {
+	section = "MISSILE_STARBASE_SECTION"
+	icon = "GFX_starbase_missile_battery"
+	construction_days = 180	
+	
+	cost = {
+		minerals = 200
+	}
+	
+	station_modifier = {
+		ship_hull_mult = 0.10
+		ship_armor_mult = 0.10
+	}
+	
+	upkeep_resources = {
+		energy = 1
+	}
+
+	ai_build_at_chokepoint = yes
+	ai_build_outside_chokepoint = no
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2
+			exists = owner
+			owner = { is_preferred_weapons = weapon_type_explosive }
+		}	
+	}
+
+	show_in_tech = "tech_missiles_1"
+}
+
+hangar_bay = {
+	icon = "GFX_starbase_hangar_bay"
+	section = "HANGAR_STARBASE_SECTION"
+	construction_days = 180	
+	
+	potential = {
+		exists = owner
+		owner = { has_technology = tech_strike_craft_1 }
+	}		
+	cost = {
+		minerals = 200
+	}
+	
+	station_modifier = {
+		ship_hull_mult = 0.10
+		ship_armor_mult = 0.10
+	}
+	
+	upkeep_resources = {
+		energy = 1
+	}
+	
+	ai_build_outside_chokepoint = yes
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 2
+			exists = owner
+			owner = { is_preferred_weapons = weapon_type_strike_craft }
+		}	
+	}
+
+	show_in_tech = "tech_strike_craft_1"
+}
+
+trading_hub = {
+	icon = "GFX_starbase_trading_hub"
+	section = "REFINERY_STARBASE_SECTION"
+	construction_days = 180
+	
+	potential = {
+		exists = owner
+		#owner = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+	}
+
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_trade_planet"
+			solar_system = {
+				OR = {
+					any_planet = {
+						exists = owner
+						owner = { is_country_type = default }
+					}
+					AND = {
+						has_star_flag = enclave
+						any_ship_in_system = {
+							exists = owner
+							owner = {
+								has_country_flag = trader_enclave_country
+							}
+						}
+					}			
+				}
+			}
+		}
+	}
+	
+	cost = {
+		minerals = 100
+	}
+	
+	produced_resources = {
+		energy = 4
+	}
+	
+	produced_resource_trigger = {
+		modifier = {
+			hidden_trigger = { exists = this }		
+			has_starbase_building = offworld_trading_company
+			resources = {
+				energy = 2
+			}
+		}
+		modifier = {
+			hidden_trigger = { exists = this }		
+			owner = { has_civic = civic_corporate_dominion }
+			resources = {
+				energy = 1
+			}
+		}
+		modifier = {
+			hidden_trigger = { exists = this }		
+			owner = { has_non_swapped_tradition = tr_prosperity_trans_stellar_corporations }
+			resources = {
+				energy = 1
+			}
+		}
+	}
+	
+	ai_build_at_chokepoint = no
+	ai_weight = {
+		weight = 15
+	}
+}
+
+#trading_hub_gestalt = {
+#	icon = "GFX_starbase_trading_hub"
+#	section = "REFINERY_STARBASE_SECTION"
+#	construction_days = 180
+#	
+#	potential = {
+#		exists = owner
+#		owner = { has_ethic = ethic_gestalt_consciousness }
+#	}
+#
+#	possible = {
+#		custom_tooltip = {
+#			fail_text = "requires_trade_planet"
+#			solar_system = {
+#				OR = {
+#					any_planet = {
+#						is_colony = yes
+#					}
+#					AND = {
+#						has_star_flag = enclave
+#						any_ship_in_system = {
+#							exists = owner
+#							owner = {
+#								has_country_flag = trader_enclave_country
+#							}
+#						}
+#					}			
+#				}
+#			}
+#		}
+#	}
+#	
+#	cost = {
+#		minerals = 100
+#	}
+#	
+#	produced_resources = {
+#		energy = 4
+#	}
+#	
+#	produced_resource_trigger = {
+#		modifier = {
+#			hidden_trigger = { exists = this }		
+#			has_starbase_building = offworld_trading_company_gestalt
+#			resources = {
+#				energy = 2
+#			}
+#		}
+#		modifier = {
+#			hidden_trigger = { exists = this }		
+#			owner = { has_civic = civic_corporate_dominion }
+#			resources = {
+#				energy = 1
+#			}
+#		}
+#		modifier = {
+#			hidden_trigger = { exists = this }		
+#			owner = { has_non_swapped_tradition = tr_prosperity_trans_stellar_corporations }
+#			resources = {
+#				energy = 1
+#			}
+#		}
+#	}
+#	
+#	ai_build_at_chokepoint = no
+#	ai_weight = {
+#		weight = 10
+#	}
+#}

@@ -1,0 +1,111 @@
+#repeatable_test_1 = {
+#	area = engineering
+#	cost = 0
+#	cost_per_level = 1
+#	tier = 0
+#	category = { materials }
+#	ai_update_type = military
+#	levels = -1
+#	
+#	weight_modifier = {
+#		factor = 1000
+#	}
+#	#When a tech is added to the list of tech alternatives it will register each entry in weight_groups to a list. such as economy, or repeatable, or whatever
+#	#Then all remaining potential techs will multiply their weight with the corresponding mod_weight_if_group_picked.
+#	#So if the first tech picked has the weight group 'repeatable', all other techs with a mod_weight_if_group_picked 'repeatable = 0.4', for example, will multiply their weight with 0.4
+#	weight_groups = {
+#		repeatable
+#	}
+#	mod_weight_if_group_picked = {
+#		repeatable = 0.001
+#		economy = 0.75
+#	}
+#	
+#	ai_weight = {
+#		factor = 0.0
+#	}
+#	
+#	modifier = {
+#		country_resource_minerals_add = 1.0
+#	}
+#	
+#}
+#repeatable_test_2 = {
+#	area = engineering
+#	cost = 0
+#	cost_per_level = 1
+#	tier = 0
+#	category = { materials }
+#	ai_update_type = military
+#	levels = -1
+#	
+#	weight_modifier = {
+#		factor = 1000
+#	}
+#	#When a tech is added to the list of tech alternatives it will register each entry in weight_groups to a list. such as economy, or repeatable, or whatever
+#	#Then all remaining potential techs will multiply their weight with the corresponding mod_weight_if_group_picked.
+#	#So if the first tech picked has the weight group 'repeatable', all other techs with a mod_weight_if_group_picked 'repeatable = 0.4', for example, will multiply their weight with 0.4
+#	weight_groups = {
+#		repeatable
+#	}
+#	mod_weight_if_group_picked = {
+#		repeatable = 0.001
+#		economy = 0.75
+#	}
+#	
+#	ai_weight = {
+#		factor = 0.0
+#	}
+#	
+#	modifier = {
+#	#	cool_weapon_damage_mult = 1.0
+#	}
+#}
+#repeatable_test_3 = {
+#	area = engineering
+#	cost = 0
+#	cost_per_level = 1
+#	tier = 0
+#	category = { materials }
+#	ai_update_type = military
+#	levels = -1
+#	
+#	weight_modifier = {
+#		factor = 1000
+#	}
+#	#When a tech is added to the list of tech alternatives it will register each entry in weight_groups to a list. such as economy, or repeatable, or whatever
+#	#Then all remaining potential techs will multiply their weight with the corresponding mod_weight_if_group_picked.
+#	#So if the first tech picked has the weight group 'repeatable', all other techs with a mod_weight_if_group_picked 'repeatable = 0.4', for example, will multiply their weight with 0.4
+#	weight_groups = {
+#		repeatable
+#	}
+#	mod_weight_if_group_picked = {
+#		repeatable = 0.001
+#		economy = 0.75
+#	}
+#	
+#	ai_weight = {
+#		factor = 0.5
+#	}
+#	
+#	modifier = {
+#		laser_weapon_damage_mult = 1.0
+#	}
+#}
+#repeatable_test_4 = {
+#	area = engineering
+#	cost = 0
+#	cost_per_level = 1
+#	tier = 0
+#	category = { materials }
+#	ai_update_type = military
+#	levels = 100
+#	
+#	weight_modifier = {
+#		factor = 0
+#	}
+#	
+#	ai_weight = {
+#		factor = 0.5
+#	}
+#}

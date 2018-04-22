@@ -1,0 +1,365 @@
+##################
+### TECH COSTS ###
+##################
+#If you change any of these, use replace in files so the values are the same across all files
+
+@tier1cost1 = 500
+@tier1cost2 = 750
+@tier1cost3 = 1000
+
+@tier2cost1 = 1500
+@tier2cost2 = 2000
+@tier2cost3 = 2500
+
+@tier3cost1 = 4000
+@tier3cost2 = 5000
+@tier3cost3 = 6000
+
+@tier4cost1 = 8000
+@tier4cost2 = 10000
+@tier4cost3 = 12000
+
+@tier5cost1 = 15000
+@tier5cost2 = 17500
+@tier5cost3 = 20000
+
+####################
+### TECH WEIGHTS ###
+####################
+
+@tier1weight1 = 100
+@tier1weight2 = 95
+@tier1weight3 = 90
+
+@tier2weight1 = 85
+@tier2weight2 = 75
+@tier2weight3 = 70
+
+@tier3weight1 = 65
+@tier3weight2 = 60
+@tier3weight3 = 50
+
+@tier4weight1 = 45
+@tier4weight2 = 40
+@tier4weight3 = 35
+
+@tier5weight1 = 30
+@tier5weight2 = 25
+@tier5weight3 = 20
+
+ ##       ##      #        ##       ##      ##     #  #      ## 
+#  #     #  #     #       #  #     #       #       #  #     #   
+#        #  #     #       #  #      #       #      #  #      #  
+#  #     #  #     #       #  #       #       #     #  #       # 
+ ##       ##      ###      ##      ##      ##       ##      ##  
+
+# UNLOCKED BY ASCENSION PERK PROJECT
+tech_colossus = {
+	cost = @tier5cost3
+	area = engineering
+	tier = 5
+	is_rare = yes
+	category = { voidcraft }	
+	prerequisites = { "tech_titans" }
+	weight = 0
+	
+	potential = {
+		host_has_dlc = "Apocalypse"
+	}
+
+	prereqfor_desc = {
+		ship = {
+			title = "TECH_UNLOCK_COLOSSUS_CONSTRUCTION_TITLE"
+			desc = "TECH_UNLOCK_COLOSSUS_CONSTRUCTION_DESC"
+		}
+	}
+		
+	## unlock colossi
+	
+	ai_weight = {
+		factor = 1
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = engineering
+				has_trait = "leader_trait_expertise_voidcraft"
+			}
+		}
+	}
+}
+
+###      #        ##      #  #     ###     ###     # #     ###     #       #       ###     ###       ## 
+#  #     #       #  #     ## #     #        #      # #      #      #       #       #       #  #     #   
+###      #       ####     # ##     ##       #      ##       #      #       #       ##      ###       #  
+#        #       #  #     #  #     #        #      # #      #      #       #       #       #  #       # 
+#        ###     #  #     #  #     ###      #      # #     ###     ###     ###     ###     #  #     ##  
+
+# World Cracker
+tech_pk_cracker = {
+	area = engineering
+	cost = @tier5cost3
+	tier = 5
+	is_rare = yes
+	category = { voidcraft }
+	prerequisites = { "tech_colossus" }
+	ai_update_type = military
+	weight = @tier5weight3
+	
+	potential = {
+		host_has_dlc = "Apocalypse"
+		has_country_flag = colossus_project
+		is_pacifist = no
+	}
+	
+	weight_modifier = {
+		factor = 0.50
+		modifier = {
+			factor = 0.20
+			NOR = {
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_maniacal"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_curator"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_expertise_voidcraft"
+				}
+			}			
+		}	
+	}
+	
+	ai_weight = {
+		factor = 0.25
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_militarist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_militarist
+		}
+	}
+}
+
+# Global Pacifier
+tech_pk_shielder = {
+	area = physics
+	cost = @tier5cost3
+	tier = 5
+	is_rare = yes
+	category = { voidcraft }
+	prerequisites = { "tech_colossus" }
+	ai_update_type = military
+	weight = @tier5weight3
+	
+	potential = {
+		host_has_dlc = "Apocalypse"
+		has_country_flag = colossus_project
+	}
+	
+	weight_modifier = {
+		factor = 0.50
+		modifier = {
+			factor = 0.20
+			NOR = {
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_maniacal"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_curator"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_expertise_voidcraft"
+				}
+			}			
+		}
+		modifier = {
+			factor = 2
+			is_pacifist = yes
+		}
+	}
+	
+	ai_weight = {
+		factor = 0.25
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_pacifist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_pacifist
+		}
+	}
+}
+
+# Neutron Sweep
+tech_pk_neutron = {
+	area = physics
+	cost = @tier5cost3
+	tier = 5
+	is_rare = yes
+	category = { voidcraft }
+	prerequisites = { "tech_colossus" }
+	ai_update_type = military
+	weight = @tier5weight3
+	
+	potential = {
+		host_has_dlc = "Apocalypse"
+		has_country_flag = colossus_project
+		is_spiritualist = no
+		is_pacifist = no
+	}
+	
+	weight_modifier = {
+		factor = 0.50
+		modifier = {
+			factor = 0.20
+			NOR = {
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_maniacal"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_curator"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_expertise_voidcraft"
+				}
+			}			
+		}
+		modifier = {
+			factor = 2
+			is_materialist = yes
+		}
+	}
+	
+	ai_weight = {
+		factor = 0.25
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_materialist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_materialist
+		}
+	}
+}
+
+# God Ray
+tech_pk_godray = {
+	area = society
+	cost = @tier5cost3
+	tier = 5
+	is_rare = yes
+	category = { psionics }
+	prerequisites = { "tech_colossus" }
+	ai_update_type = military
+	weight = @tier5weight3
+	
+	potential = {
+		host_has_dlc = "Apocalypse"
+		has_country_flag = colossus_project
+		is_spiritualist = yes
+		OR = {
+			AND = {
+				NOT = { host_has_dlc = "Utopia" }
+				has_technology = tech_telepathy
+			}
+			AND = {
+				host_has_dlc = "Utopia"
+				has_ascension_perk = ap_mind_over_matter
+			}
+		}
+	}
+	
+	weight_modifier = {
+		factor = 0.50
+		modifier = {
+			factor = 0.20
+			NOR = {
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_maniacal"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_curator"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}			
+		}
+	}
+	
+	ai_weight = {
+		factor = 0.25
+		modifier = {
+			factor = 1.25
+			has_ethic = ethic_spiritualist
+		}
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_fanatic_spiritualist
+		}
+	}
+}
+
+# Nanobots
+tech_pk_nanobots = {
+	area = engineering
+	cost = @tier5cost3
+	tier = 5
+	is_rare = yes
+	category = { voidcraft }
+	prerequisites = { "tech_colossus" }
+	ai_update_type = military
+	weight = @tier5weight3
+	
+	potential = {
+		host_has_dlc = "Apocalypse"
+		has_country_flag = colossus_project
+		has_valid_civic = civic_machine_assimilator
+	}
+	
+	weight_modifier = {
+		factor = 0.50
+		modifier = {
+			factor = 0.20
+			NOR = {
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_maniacal"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_curator"
+				}
+				research_leader = {
+					area = engineering
+					has_trait = "leader_trait_expertise_voidcraft"
+				}
+			}			
+		}
+	}
+	
+	ai_weight = {
+		factor = 0.25
+		modifier = {
+			factor = 1.5
+			has_ethic = ethic_gestalt_consciousness
+			has_valid_civic = civic_machine_assimilator
+		}
+	}
+}

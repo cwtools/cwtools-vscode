@@ -1,0 +1,129 @@
+#
+# These defines the type of bypasses that exist in game. This is only the logical connection between system
+# These can be added to megastructures
+#
+# bypass_type = {
+# 	name = GATEWAY_GALACTIC 		# the localization key used in triggers and effects for the type
+# 	is_pathfind = yes 				# whether this type can be automatically used by the pathfinding (otherwise you'll have to right click the object containing it)
+# 	uses_action = no 				# whether this type needs an action or can be used automagically
+# 	always_active = no 				# whether bypasses of these types are automatically active on creation, or if they need to be researched/upgraded to be activated
+# 	windup_time = 0 				# time spent "prepping" in the system before going through the bypass
+# 	winddown_time = 0 				# time spent "recovering" in the system after going through the bypass
+# 	ftl_multiplier = 0				# 0 means instant
+#	extends_sensors = yes			# whether you can "see through" the bypass and extends your sensor range to the other side
+# 	icon_frame = 25
+# 	remember_instances = no 	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+# 	galactic_map_tooltip_header=GATEWAY_GALACTIC
+# 	galactic_map_tooltip_desc=GATEWAY_GALACTIC_DESC
+# 	connection_type = any_other
+#	ftl_ship_effect 	= "gateway_ftl_ship_effect_entity"		# what effect to spawn on the ship when they jump through the bypass
+#	ftl_bypass_effect	= "gateway_ftl_bypass_effect_entity"	# what effect to spawn on the bypass when a ship jumps through
+#	bypass_effect 		= ""
+#	animation_time = 3				# number of days to wait for the jump animation to be played
+# 	prerequisites = {
+# 		tech_gateway_activation
+# 	}
+# 	on_pre_explore = {					# an effect that is called just before the jump of a right click "explore" action of a fleet
+#			
+# 	}
+#	country_can_use = {					# trigger to evaluate if a country can use bypasses of this type. this: country, from: (optional) system owner; default: { always = yes }
+#	}
+# 	on_action = "on_entering_bypass"	# The name of the on-action event that will be fired upon entering FTL (if set)
+# 										# THIS = Fleet
+# 										# FROM = System jumping to
+# 										# FROMFROM = System jumped from
+# }
+
+gateway = {
+	name = GATEWAY_GALACTIC
+	is_pathfind = yes
+	uses_action = no
+	always_active = no
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0			# 0 means instant
+	icon_frame = 25
+	remember_instances = no 	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	galactic_map_tooltip_header=GATEWAY_GALACTIC
+	galactic_map_tooltip_desc=GATEWAY_GALACTIC_DESC
+	connection_type = any_other
+	animation_time = 1
+	ftl_ship_effect = "gateway_ftl_ship_effect_entity"
+	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
+	prerequisites = {
+		tech_gateway_activation
+	}
+	on_pre_explore = {
+		activate_gateway = fromfrom
+		if = {
+			limit = { num_active_gateways = 1 }
+			random_megastructure = {
+				limit = { is_megastructure_type = gateway_ruined }
+				upgrade_megastructure_to = gateway_restored
+				finish_upgrade = yes
+			}
+		}
+	}
+	country_can_use = {
+		custom_tooltip = {
+			fail_text = GATEWAY_COUNTRY_CANNOT_USE
+			OR = {
+				NOT = { exists = from }
+				from = {
+					NOR = {
+						has_closed_borders = root
+						is_hostile = root
+					}
+				}
+			}
+		}
+	}
+	on_action = "on_entering_gateway"
+}
+
+wormhole = {
+	name = NATURAL_WORMHOLE_GALACTIC
+	is_pathfind = yes
+	uses_action = no
+	always_active = yes
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0
+	extends_sensors = yes
+	icon_frame = 12
+	remember_instances = yes
+	animation_time = 1
+	galactic_map_tooltip_header=NATURAL_WORMHOLE_GALACTIC
+	galactic_map_tooltip_desc=NATURAL_WORMHOLE_DESC
+	connection_type = one_to_one
+	ftl_ship_effect = "wormhole_ftl_ship_effect_entity"
+	ftl_bypass_effect = "wormhole_ftl_bypass_effect_entity"
+	prerequisites = {
+		tech_wormhole_stabilization
+	}
+	country_can_use = {
+		custom_tooltip = {
+			fail_text = NATURAL_WORMHOLE_COUNTRY_CANNOT_USE
+			# Wormhole can be used if...
+			OR = {
+				# System has no owner
+				NOT = { exists = from }
+				# System's owner has not closed borders to you
+				from = { 
+					NOT = { has_closed_borders = root }
+				}
+				# System's owner is at war with you
+				from = { is_at_war_with = root }
+				# System's owner is not a proper empire
+				from = {
+					NOR = {
+						is_country_type = default
+						is_country_type = awakened_fallen_empire
+						is_country_type = fallen_empire
+					}
+				}
+			}
+		}
+	}
+	on_action = "on_entering_wormhole"
+}

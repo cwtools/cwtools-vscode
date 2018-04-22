@@ -1,0 +1,109 @@
+# ####################
+#  Planet killer beam?
+# ####################
+
+#weapon_component_template = {
+#	key = "PLANET_DESTRUCTION_COMPONENT"
+#	size = planet_killer
+#	entity = "invisible_turret_entity"
+#	type = planet_killer
+#	static_rotation = yes
+#	use_ship_kill_target = no
+#
+#	icon = GFX_technology_unknown
+#	icon_frame = 1
+#
+#	component_set = "PLANET_KILLER_1"
+#
+#	planet_destruction_gfx = "neutron_planet_gfx"
+#}
+
+weapon_component_template = { # World Cracker
+	key = "PLANET_KILLER_CRACKER"
+	size = planet_killer
+	entity = "invisible_turret_entity"
+	type = planet_killer
+	static_rotation = yes
+	use_ship_kill_target = no
+
+	prerequisites = { "tech_pk_cracker" }
+
+	icon = GFX_ship_part_world_cracker
+	icon_frame = 1
+
+	component_set = "PLANET_KILLER_CRACKER"
+
+	planet_destruction_gfx = "shatter_planet_gfx"
+}
+
+weapon_component_template = { # Pacifier
+	key = "PLANET_KILLER_SHIELDER"
+	size = planet_killer
+	entity = "invisible_turret_entity"
+	type = planet_killer
+	static_rotation = yes
+	use_ship_kill_target = no
+
+	prerequisites = { "tech_pk_shielder" }
+
+	icon = GFX_ship_part_global_pacifier
+	icon_frame = 1
+
+	component_set = "PLANET_KILLER_SHIELDER"
+
+	planet_destruction_gfx = "global_pacifier_gfx"
+}
+
+weapon_component_template = { # Neutron Beam
+	key = "PLANET_KILLER_NEUTRON"
+	size = planet_killer
+	entity = "invisible_turret_entity"
+	type = planet_killer
+	static_rotation = yes
+	use_ship_kill_target = no
+
+	prerequisites = { "tech_pk_neutron" }
+
+	icon = GFX_ship_part_neutron_sweep
+	icon_frame = 1
+
+	component_set = "PLANET_KILLER_NEUTRON"
+
+	planet_destruction_gfx = "neutron_planet_gfx"
+}
+
+weapon_component_template = { # God Ray
+	key = "PLANET_KILLER_GODRAY"
+	size = planet_killer
+	entity = "invisible_turret_entity"
+	type = planet_killer
+	static_rotation = yes
+	use_ship_kill_target = no
+
+	prerequisites = { "tech_pk_godray" }
+
+	icon = GFX_ship_part_divine_enforcer
+	icon_frame = 1
+
+	component_set = "PLANET_KILLER_GODRAY"
+
+	planet_destruction_gfx = "god_ray_gfx"
+}
+
+weapon_component_template = { # Nanobot Assimilation
+	key = "PLANET_KILLER_NANOBOTS"
+	size = planet_killer
+	entity = "invisible_turret_entity"
+	type = planet_killer
+	static_rotation = yes
+	use_ship_kill_target = no
+
+	prerequisites = { "tech_pk_nanobots" }
+
+	icon = GFX_ship_part_nanobot_diffuser
+	icon_frame = 1
+
+	component_set = "PLANET_KILLER_NANOBOTS"
+
+	planet_destruction_gfx = "assimilation_nanobots_gfx"
+}

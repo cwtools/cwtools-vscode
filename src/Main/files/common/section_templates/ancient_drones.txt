@@ -1,0 +1,143 @@
+ship_section_template = {
+	key = "ancient_mining_drone_section"
+	ship_size = ancient_mining_drone
+	fits_on_slot = mid
+	entity = "ancient_mining_drone_hull_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_01"
+	}
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_01"
+	}
+	
+	medium_utility_slots = 1
+	large_utility_slots = 1
+}
+
+ship_section_template = {
+	key = "ancient_combat_drone_section"
+	ship_size = ancient_corvette
+	fits_on_slot = mid
+	entity = "ancient_corvette_hull_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "MEDIUM_GUN_01"
+		slot_size = medium
+		slot_type = weapon
+		is_side_slot = yes
+		locatorname = "medium_gun_01"
+	}	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	
+	medium_utility_slots = 2
+	large_utility_slots = 1
+}
+
+ship_section_template = {
+	key = "ancient_drone_destroyer_section"
+	ship_size = ancient_destroyer
+	fits_on_slot = mid
+	entity = "ancient_destroyer_hull_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "MEDIUM_GUN_01"
+		slot_size = medium
+		slot_type = weapon
+		is_side_slot = yes
+		locatorname = "medium_gun_01"
+	}
+	component_slot = {
+		name = "MEDIUM_GUN_02"
+		slot_size = medium
+		slot_type = weapon
+		is_side_slot = yes
+		locatorname = "medium_gun_02"
+	}
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	
+	medium_utility_slots = 3
+	large_utility_slots = 1
+}
+
+ship_section_template = {
+	key = "DRONE_HOMEBASE"
+	ship_size = homebase
+	fits_on_slot = mid
+	entity = "drone_homebase_hull_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = large
+		slot_type = weapon
+		is_side_slot = yes
+		locatorname = "large_gun_01"
+	}
+	
+	component_slot = {
+		name = "LARGE_GUN_02"
+		slot_size = large
+		slot_type = weapon
+		is_side_slot = yes
+		locatorname = "large_gun_02"
+	}
+	
+	component_slot = {
+		name = "STRIKE_CRAFT_01"
+		slot_size = large
+		slot_type = strike_craft
+		rotation = 90
+		position = { x = 5.1 y= 3.7 }
+		locatorname = "strike_craft_locator_01"
+	}
+	component_slot = {
+		name = "STRIKE_CRAFT_02"
+		slot_size = large
+		slot_type = strike_craft
+		rotation = -90
+		position = { x = -5.0 y = 1.7 }
+		locatorname = "strike_craft_locator_02"
+	}
+	component_slot = {
+		name = "STRIKE_CRAFT_03"
+		slot_size = large
+		slot_type = strike_craft
+		rotation = 180
+		position = { x = 0 y = -10.7 }
+		locatorname = "strike_craft_locator_03"
+	}
+
+	large_utility_slots = 5
+}

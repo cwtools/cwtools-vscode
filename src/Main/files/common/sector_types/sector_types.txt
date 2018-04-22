@@ -1,0 +1,89 @@
+# production_targets: strategic resources
+# ships: ships to build
+# ai_weight - used for AI chance ( modifier - weight, will replace the weight value | modifier - factor, will multiply the weight value )
+
+balanced = {
+	production_targets = {	
+		minerals
+		energy
+		society_research
+		engineering_research
+		physics_research
+		food
+		unity
+	}
+	
+	ships = {
+		constructor
+		colonizer
+	}
+	
+	ai_weight = {
+		weight = 100
+	}
+}
+
+agricultural = {
+	production_targets = {
+		food
+		unity
+	}
+	
+	ships = {
+		constructor
+		colonizer
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+industrial = {
+	production_targets = {
+		minerals
+		unity
+	}
+	
+	ships = {
+		constructor
+		colonizer
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+research = {
+	production_targets = {
+		society_research
+		engineering_research
+		physics_research
+		unity
+	}
+	
+	ships = {
+		constructor
+		colonizer
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+}
+
+financial = {
+	production_targets = {
+		energy
+		unity
+	}
+	
+	ships = {
+		constructor
+	}
+	
+	ai_weight = {
+		weight = 0
+	}
+}

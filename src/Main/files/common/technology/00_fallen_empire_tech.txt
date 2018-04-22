@@ -1,0 +1,90 @@
+##################
+### TECH COSTS ###
+##################
+#If you change any of these, use replace in files so the values are the same across all files
+
+@fallentechcost = 25000
+@fallentechtier = 5
+
+####################
+### TECH WEIGHTS ###
+####################
+
+# Dark Matter Deflectors
+tech_dark_matter_deflector = {
+	cost = @fallentechcost
+	area = physics
+	tier = @fallentechtier
+	category = { field_manipulation }
+	ai_update_type = all
+	weight = 1
+	is_rare = yes
+	
+	weight_modifier = {	
+		modifier = {
+			factor = 0
+			NOR = { 
+				is_country_type = fallen_empire 
+				is_country_type = awakened_fallen_empire 
+			}
+		}
+	}
+}
+
+# Dark Matter Power Cores
+tech_dark_matter_power_core = {
+	cost = @fallentechcost
+	area = physics
+	tier = @fallentechtier
+	category = { particles }
+	ai_update_type = all
+	weight = 1
+	is_rare = yes
+	
+	prereqfor_desc = {
+		hide_prereq_for_desc = component
+		custom = {
+			title = "TECH_UNLOCK_DARK_MATTER_POWER_TITLE"
+			desc = "TECH_UNLOCK_DARK_MATTER_POWER_DESC"
+		}
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 0
+			NOR = { 
+				is_country_type = fallen_empire 
+				is_country_type = awakened_fallen_empire 
+			}
+		}
+	}
+}
+
+# Dark Matter Thrusters
+tech_dark_matter_propulsion = {
+	cost = @fallentechcost
+	area = engineering
+	tier = @fallentechtier
+	category = { propulsion }
+	ai_update_type = all
+	weight = 1
+	is_rare = yes
+	
+	prereqfor_desc = {
+		hide_prereq_for_desc = component
+		custom = {
+			title = "TECH_UNLOCK_DARK_MATTER_PROPULSION_TITLE"
+			desc = "TECH_UNLOCK_DARK_MATTER_PROPULSION_DESC"
+		}
+	}
+	
+	weight_modifier = {
+		modifier = {
+			factor = 0
+			NOR = { 
+				is_country_type = fallen_empire 
+				is_country_type = awakened_fallen_empire 
+			}
+		}
+	}
+}

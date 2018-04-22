@@ -1,0 +1,222 @@
+# Available requirements:
+#
+#	SKILLS
+#	skill = 2
+#
+#	LEADER
+#	leader = scientist
+#	leader = admiral
+#	leader = general
+#	leader = ruler
+#	leader = governor
+#	
+#	MILITARY SHIPS
+#	shipclass_military = 1
+#	
+#	CIVILIAN SHIPS
+#	shipclass_constructor = 2
+#	shipclass_science_ship = 1
+#	shipclass_colonizer = 2
+#	
+#	ARMIES
+#	shipclass_transport = 1
+#	assault_armies = 2
+#	defense_armies = 1
+#	
+#	STATIONS
+#	research_station = yes
+#	mining_station = yes
+#	observation_station = yes
+#
+#	SCOPES
+#	abort_trigger
+#	this = country (project owner)
+#	from = event scope (planet or ship, MIGHT NOT EXIST)
+#	fromfrom = project creation scope (usually equals location)
+#	
+#	on_success
+#	this = event scope (ship or planet)
+#	from = project creation scope (usually equals location)
+#	
+#	on_fail
+#	this = country (project owner)
+#	from = project creation scope (usually equals location)
+
+special_project = {
+	key = "LIMBO_2_PROJECT"
+	cost = 120
+	tech_department = engineering_technology
+	timelimit = -1
+	picture = GFX_evt_sapient_AI
+	location = no
+
+	event_scope = planet_event
+
+	#requirements = {
+		#shipclass_science_ship = 1
+		#leader = scientist
+		#skill = 3
+	#}
+	
+	on_success = {
+		owner = {
+			set_country_flag = limbo_uploaded_robots
+			if = { # players have only tech_robotic_workers and access to a free tile
+				limit = {
+					has_technology = tech_robotic_workers
+					any_owned_planet = {
+						free_pop_tiles > 0
+					}
+					NOR = {	
+						has_technology = tech_droid_workers
+						has_technology = tech_synthetic_workers
+						has_policy_flag = ai_outlawed
+					}
+				}
+				country_event = { id = anomaly.187 }
+				
+				else = {
+					if = { # players have only robotic_workers tech and only free tiles with blockers.
+						limit = {
+							has_technology = tech_robotic_workers
+							any_owned_planet = {
+								any_tile = {
+									has_blocker = yes
+								}
+							}
+							NOR = {	
+								has_technology = tech_droid_workers
+								has_technology = tech_synthetic_workers
+								has_policy_flag = ai_outlawed
+							}
+						}
+						root = {
+							random_tile = {
+								limit = { has_blocker = yes }
+								remove_blocker = yes
+							}
+						}
+						country_event = { id = anomaly.187 } 
+		
+						else = {
+							if = { # If the players have only tech_robotic_workers and no available tiles.
+								limit = {
+									NOR = { 
+										has_technology = tech_droid_workers
+										has_technology = tech_synthetic_workers
+									}
+								}
+								country_event = { id = anomaly.188 } 
+	
+								else = {
+								# If the players have droids or synths, and colonizable planets inside & outside borders,
+								# the players can choose whether they colonize a planet for their empire or
+								# whether they strike out on their own.
+									if = {  
+										limit = {
+											has_technology = tech_droid_workers
+											NOT = { 
+												has_policy_flag = ai_outlawed 
+											}
+											any_planet_within_border = {
+												habitable_planet = yes
+												is_colony = no
+												has_anomaly = no
+												is_capital = no
+											}		
+											any_system = {
+												NOR = { 
+													exists = space_owner
+													has_star_flag = hostile_system
+													has_star_flag = guardian
+													has_star_flag = enclave
+													has_star_flag = primitive_system
+												}
+												any_planet = {
+													habitable_planet = yes
+													has_owner = no	
+													has_anomaly = no
+													is_colony = no
+													is_capital = no
+													NOR = {
+														exists = owner
+														exists = controller
+													}
+												} 			
+											}
+										}
+										country_event = { id = anomaly.189 }
+										else = {
+											# If the players have droid or synth tech and colonizable planets inside but not outside
+											# their borders the robots offer to colonize a planet inside borders,
+											#and the players can reject them upon which they leave without a trace.
+											if = {
+												limit = {
+													has_technology = tech_droid_workers
+													NOT = { has_policy_flag = ai_outlawed }
+													any_planet_within_border = {
+														habitable_planet = yes
+														has_owner = no	
+														has_anomaly = no
+														is_colony = no
+														is_capital = no
+														NOR = {
+															exists = owner
+															exists = controller
+														}			
+													}
+												}
+												country_event = { id = anomaly.1198 }
+												else = {
+													# If the players have droid or synth tech and colonizable planets outside but not inside
+													# their borders they tell the players they are eternally grateful but they'd like to
+													# strike out on their own and rebuild their empire again.
+													if = {
+														limit = {
+															has_technology = tech_droid_workers
+															NOT = { has_policy_flag = ai_outlawed }
+															any_system = {
+																NOR = {
+																	exists = space_owner
+																	has_star_flag = hostile_system
+																	has_star_flag = guardian
+																	has_star_flag = enclave
+																	has_star_flag = primitive_system
+																}
+																any_planet = {
+																	habitable_planet = yes
+																	has_anomaly = no
+																	is_colony = no
+																	is_capital = no
+																	NOR = {
+																		exists = owner
+																		exists = controller
+																	}
+																}	
+															}
+														}
+														country_event = { id = anomaly.1199 }
+														else = {
+															# If the players have droid or synth tech but no
+															# colonizable planets inside or outside their borders: 
+															if = {
+																limit = { has_technology = tech_droid_workers }
+																country_event = { id = anomaly.1190 }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_fail = { }
+}

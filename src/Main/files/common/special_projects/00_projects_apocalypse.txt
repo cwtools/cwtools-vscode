@@ -1,0 +1,40 @@
+# Colossus Project
+special_project = {
+	key = "COLOSSUS_PROJECT"
+	cost = {
+		base = 1000
+		scaled_modifier = {
+			limit = {
+			}
+			scope = this
+			add = 100
+			calc = pop_count
+		}
+	}
+	#cost = 50
+	tech_department = engineering_technology
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_planet_beam
+	#picture = GFX_evt_colossus # TEMP TODO [MO]
+	location = no
+	
+	event_scope = planet_event
+	
+	requirements = {
+	}
+
+	on_progress_50 = {
+		owner = {
+			country_event = { id = apoc.110 }
+		}
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = apoc.120 }
+		}
+	}
+	
+	on_fail = {
+	}
+}

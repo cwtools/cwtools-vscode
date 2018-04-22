@@ -1,0 +1,430 @@
+fallen_empire_spiritualist = { 
+	aggressiveness = 1.5
+	trade_willingness = 0.33
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.33
+	friction_modifier = 0.0
+	claims_modifier = 10.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = no
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no	
+		multispecies = no
+		holy_planets = yes # special for spiritualist FE
+		isolationist = yes # always keep borders closed
+	}
+	
+	allow = {
+		is_country_type = fallen_empire
+		has_ethic = "ethic_fanatic_spiritualist"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+fallen_empire_materialist = { 
+	aggressiveness = 1.0
+	trade_willingness = 0.5
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.33
+	friction_modifier = 0.0
+	claims_modifier = 10.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = no
+		dominator = no
+		infiltrator = no
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = no
+		multispecies = no
+	}
+	
+	allow = {
+		is_country_type = fallen_empire
+		has_ethic = "ethic_fanatic_materialist"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+fallen_empire_xenophobe = { 
+	aggressiveness = 2.0
+	trade_willingness = 0.0
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.15
+	friction_modifier = 0.0
+	claims_modifier = 10.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = yes
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no
+		demands_clear_borders = yes
+		isolationist = yes # always keep borders closed
+	}
+	
+	allow = {
+		is_country_type = fallen_empire
+		has_ethic = "ethic_fanatic_xenophobe"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+fallen_empire_xenophile = { 
+	aggressiveness = 0.5
+	trade_willingness = 0.5
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.5
+	friction_modifier = 0.0
+	claims_modifier = 10.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = yes
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = no
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no
+		multispecies = yes
+	}
+	
+	allow = {
+		is_country_type = fallen_empire
+		has_ethic = "ethic_fanatic_xenophile"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+awakened_fallen_empire_spiritualist = { 
+	aggressiveness = 1.5
+	trade_willingness = 0.33
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.0
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = yes
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = no
+		dominator = no
+		infiltrator = yes
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no
+		multispecies = no
+		holy_planets = no
+	}
+	
+	allow = {
+		is_country_type = awakened_fallen_empire
+		has_ethic = "ethic_fanatic_spiritualist"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+awakened_fallen_empire_materialist = { 
+	aggressiveness = 1.0
+	trade_willingness = 0.5
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.0
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = yes
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = no
+		dominator = no
+		infiltrator = no
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = no
+		multispecies = no
+		crisis_fighter = yes
+		crisis_leader = yes 	# special for awakened fallen empires
+	}
+	
+	allow = {
+		is_country_type = awakened_fallen_empire
+		has_ethic = "ethic_fanatic_materialist"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+awakened_fallen_empire_xenophobe = { 
+	aggressiveness = 2.0
+	trade_willingness = 0.0
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.0
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = yes
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = yes
+		dominator = yes
+		infiltrator = no
+		robot_exploiter = yes
+		robot_liberator = no
+		propagator = no
+		multispecies = no
+		isolationist = yes # always keep borders closed
+	}
+	
+	allow = {
+		is_country_type = awakened_fallen_empire
+		has_ethic = "ethic_fanatic_xenophobe"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+awakened_fallen_empire_xenophile = { 
+	aggressiveness = 0.5
+	trade_willingness = 0.5
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 1.0
+	threat_others_modifier = 0.0
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = yes
+		liberator = no
+		opportunist = yes
+		slaver = no
+		caste_system = no
+		uplifter = yes
+		purger = no
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = no
+		propagator = no
+		multispecies = no		# they like other races, but they're not taking orders from them
+		crisis_fighter = yes
+		crisis_leader = yes 	# special for awakened fallen empires
+	}
+	
+	allow = {
+		is_country_type = awakened_fallen_empire
+		has_ethic = "ethic_fanatic_xenophile"
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+fallen_empire_machine = { 
+	aggressiveness = 1.0
+	trade_willingness = 0.5
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.33
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = yes
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = yes
+		propagator = no
+		multispecies = no
+		enigmatic = yes # special for machine fallen empires
+	}
+	
+	allow = {
+		is_country_type = fallen_empire
+		has_authority = auth_machine_intelligence
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+awakened_fallen_empire_machine = { 
+	aggressiveness = 1.0
+	trade_willingness = 0.5
+	bravery = 2.0
+	combat_bravery = 1.25
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.33
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = yes
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = yes
+		propagator = no
+		multispecies = no
+		crisis_fighter = yes
+		crisis_leader = yes 	# special for awakened fallen empires
+		custodian = yes	# special for awakened machine fallen empires, prevents colonization & locks attitude
+		enigmatic = yes # special for machine fallen empires
+		limited = yes # prevents certain AI behaviours
+	}	
+	
+	allow = {
+		is_country_type = awakened_fallen_empire
+		has_authority = auth_machine_intelligence
+		has_valid_civic = civic_final_defense_protocols
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+
+berserk_fallen_empire_machine = { 
+	aggressiveness = 10.0
+	trade_willingness = 0.0
+	bravery = 10.0
+	
+	threat_modifier = 0.0
+	threat_others_modifier = 0.0
+	friction_modifier = 0.0
+
+	behaviour = {
+		conqueror = no
+		subjugator = no
+		liberator = no
+		opportunist = no
+		slaver = no
+		caste_system = no
+		uplifter = no
+		purger = yes
+		dominator = no
+		infiltrator = no
+		robot_exploiter = no
+		robot_liberator = yes
+		propagator = no
+		multispecies = no
+		berserker = yes # special for awakened machine fallen empires, prevents colonization & locks attitude
+		enigmatic = yes # special for machine fallen empires
+		limited = yes # prevents certain AI behaviours
+	}
+	
+	allow = {
+		is_country_type = awakened_fallen_empire
+		has_authority = auth_machine_intelligence
+		has_valid_civic = civic_malfunctioning_custodian
+	}
+	
+	weight_modifier = {
+		weight = 100	
+	}
+}
+

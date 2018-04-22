@@ -1,0 +1,182 @@
+@attack_range = 8
+@launch_time = 1.5
+@speed1 = 300
+@speed2 = 350
+@speed3 = 400
+@count = 8
+@regen = 0.13
+
+@cost1 = 40
+@cost2 = 50
+@cost3 = 60
+@cost4 = 70
+
+@power1 = -20
+@power2 = -30
+@power3 = -40
+@power4 = -50
+
+strike_craft_component_template = {
+	key = "LARGE_SCOUT_HANGAR_1"
+	size = LARGE
+	entity = "fighter_entity"
+	
+	weapon_type = point_defence
+	projectile_gfx = "scout_laser_1"
+	power = @power1
+	cost = @cost1
+	
+	count = @count
+	regeneration_per_day = @regen
+	launch_time = @launch_time
+	
+	damage = { min = 2 max = 4 }
+	cooldown = 2.0
+	range = @attack_range
+	accuracy = 1.00
+	tracking = 0.50
+	
+	health = 30
+	armor = 0
+	shield = 0
+	evasion = 0.50
+	
+	speed = @speed1
+	rotation_speed = 0.1
+	acceleration = 0.5
+	
+	shield_penetration = 1
+	armor_damage = 1.50
+	
+	ship_behavior = "fighters_behavior"
+	
+	icon = "GFX_ship_part_strike_craft_scout_1"
+	icon_frame = 1
+	component_set = "SCOUT_HANGAR_1"
+	tags = { weapon_type_strike_craft }
+}
+
+strike_craft_component_template = {
+	key = "STRIKE_CRAFT_HANGAR_1"
+	size = LARGE
+	entity = "bomber_entity"
+	power = @power2
+	cost = @cost2
+		
+	count = @count
+	regeneration_per_day = @regen
+	launch_time = @launch_time
+	
+	damage = { min = 2 max = 8 }
+	cooldown = 2.0
+	range = @attack_range
+	accuracy = 1.0
+	tracking = 0.60
+	
+	health = 35
+	armor = 0
+	shield = 10
+	evasion = 0.55
+	
+	speed = @speed1
+	rotation_speed = 0.1
+	acceleration = 0.5
+	
+	shield_penetration = 1
+	armor_damage = 1.50
+	
+	ship_behavior = "bombers_behavior"
+	
+	weapon_type = instant
+	projectile_gfx = "scout_laser_1"
+	
+	icon = "GFX_ship_part_strike_craft_bomber_1"
+	icon_frame = 1
+	component_set = "STRIKE_CRAFT_HANGAR_1"
+	prerequisites = { "tech_strike_craft_1" }
+	tags = { weapon_type_strike_craft }
+	upgrades_to = "STRIKE_CRAFT_HANGAR_2"
+}
+
+strike_craft_component_template = {
+	key = "STRIKE_CRAFT_HANGAR_2"
+	size = LARGE
+	entity = "bomber_entity"
+	power = @power3
+	cost = @cost3
+		
+	count = @count
+	regeneration_per_day = @regen
+	launch_time = @launch_time
+	
+	damage = { min = 4 max = 9 }
+	cooldown = 2.0
+	range = @attack_range
+	accuracy = 1.0
+	tracking = 0.70
+	
+	health = 40
+	armor = 0
+	shield = 20
+	evasion = 0.80
+	
+	speed = @speed2
+	rotation_speed = 0.1
+	acceleration = 0.5
+	
+	shield_penetration = 1
+	armor_damage = 1.50
+	
+	ship_behavior = "bombers_behavior"
+	
+	weapon_type = instant
+	projectile_gfx = "scout_laser_1"
+	
+	icon = "GFX_ship_part_strike_craft_bomber_2"
+	icon_frame = 1
+	component_set = "STRIKE_CRAFT_HANGAR_2"
+	prerequisites = { "tech_strike_craft_2" }
+	tags = { weapon_type_strike_craft }
+	upgrades_to = "STRIKE_CRAFT_HANGAR_3"
+}
+
+strike_craft_component_template = {
+	key = "STRIKE_CRAFT_HANGAR_3"
+	size = LARGE
+	entity = "bomber_entity"
+	power = @power4
+	cost = @cost4
+		
+	count = @count
+	regeneration_per_day = @regen
+	launch_time = @launch_time
+	
+	damage = { min = 6 max = 12 }
+	cooldown = 2.0
+	range = @attack_range
+	accuracy = 1.0
+	tracking = 0.70
+	
+	health = 45
+	armor = 0
+	shield = 30
+	evasion = 0.80
+	
+	speed = @speed3
+	rotation_speed = 0.1
+	acceleration = 0.5
+	
+	shield_penetration = 1
+	armor_damage = 1.50
+	
+	ship_behavior = "bombers_behavior"
+	
+	weapon_type = instant
+	projectile_gfx = "scout_laser_1"
+	
+	icon = "GFX_ship_part_strike_craft_bomber_3"
+	icon_frame = 1
+	component_set = "STRIKE_CRAFT_HANGAR_3"
+	prerequisites = { "tech_strike_craft_3" }
+	tags = { weapon_type_strike_craft }
+}

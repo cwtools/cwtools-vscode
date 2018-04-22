@@ -1,0 +1,63 @@
+# Utopia Initializers
+
+@base_moon_distance = 10
+
+# Abandoned Gateways
+abandoned_gateways_01 = {
+	class = "rl_standard_stars"
+
+	flags = { abandoned_gateway }
+
+	usage = misc_system_init
+	usage_odds = {
+		base = 100
+		modifier = {
+			factor = 0										# we don't want gateways too close to each other
+			closest_system = {
+				has_megastructure = gateway_ruined
+				distance = {
+					source = prev
+					max_distance = 200
+				}
+			}
+		}
+	}
+
+	max_instances = 15
+	scaled_spawn_chance = 5
+	scaled_spawn_settings = num_gateways					# scales both the spawn_chance and the max_instances based on the settings value
+
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	
+	change_orbit = 45
+	
+	planet = {
+		count = { min = 2 max = 10 }
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+
+	init_effect = {
+		spawn_megastructure = {
+			type = "gateway_ruined"
+			random_pos = yes
+			orbit_angle = 360		# range of the randomization
+		}
+	}
+}
+

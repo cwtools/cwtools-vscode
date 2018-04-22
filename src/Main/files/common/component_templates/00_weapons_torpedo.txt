@@ -1,0 +1,52 @@
+### Torpedo Launcher
+weapon_component_template = {
+	key = "TORPEDO_1"
+	size = torpedo
+	entity = "turret_torpedo_entity"
+	
+	icon = "GFX_ship_part_torpedo_1"
+	icon_frame = 1
+	type = missile
+	
+	prerequisites = { "tech_torpedoes_1" }
+	component_set = "TORPEDO_1"
+	projectile_gfx = "large_torpedo"
+	tags = { weapon_type_explosive }
+	ai_tags = { weapon_role_anti_shield }
+	upgrades_to = "TORPEDO_2"
+}
+
+### Armored Torpedoes
+weapon_component_template = {
+	key = "TORPEDO_2"
+	size = torpedo
+	entity = "turret_torpedo_entity"
+	
+	icon = "GFX_ship_part_torpedo_2"
+	icon_frame = 1
+	type = missile
+	
+	prerequisites = { "tech_torpedoes_2" }
+	component_set = "TORPEDO_2"
+	projectile_gfx = "large_torpedo_02"
+	tags = { weapon_type_explosive }
+	ai_tags = { weapon_role_anti_shield }
+	upgrades_to = "TORPEDO_3"
+}
+
+### Devastator Torpedoes
+weapon_component_template = {
+	key = "TORPEDO_3"
+	size = torpedo
+	entity = "turret_torpedo_entity"
+	
+	icon = "GFX_ship_part_torpedo_3"
+	icon_frame = 1
+	type = missile
+	
+	prerequisites = { "tech_torpedoes_3" }
+	component_set = "TORPEDO_3"
+	projectile_gfx = "large_torpedo_03"
+	tags = { weapon_type_explosive }
+	ai_tags = { weapon_role_anti_shield }
+}

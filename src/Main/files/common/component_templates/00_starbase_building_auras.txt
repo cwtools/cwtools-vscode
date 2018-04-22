@@ -1,0 +1,188 @@
+### NON-FTL DRIVE
+utility_component_template = {
+	key = "EMPTY_FTL_INHIBITOR"
+	size = medium
+	icon = "GFX_ship_part_empty_ftl_drive"
+	icon_frame = 1
+	power = 0
+	cost = 0
+	
+	class_restriction = { shipclass_starbase }
+	component_set = "ftl_inhibitor"
+	upgrades_to = "STARBASE_AURA_FTL_INHIBITOR"
+	
+	ai_weight = {
+		weight = 1
+	}
+}
+
+utility_component_template = {
+	key = "STARBASE_AURA_FTL_INHIBITOR"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+	cost = 0
+
+	class_restriction = { shipclass_starbase }
+	prerequisites = { "tech_ftl_inhibitor" }
+	component_set = "ftl_inhibitor"
+
+	ftl_inhibitor = yes
+
+	hostile_aura = {
+		name = "aura_starbase_ftl_inhibitor"
+		system_wide = yes
+
+		stack_info = {
+			id = hostile_flt_inhibitor_aura
+			priority = 10
+		}
+
+		modifier = {
+			ship_emergency_ftl_min_days_mult = 1
+		}
+
+		graphics = {
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 2
+	}
+}
+
+utility_component_template = {
+	key = "STARBASE_AURA_COMMUNICATIONS_JAMMER"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+	cost = 0
+
+	class_restriction = { shipclass_starbase }
+
+	hostile_aura = {
+		name = "aura_starbase_communications_jammer"
+		system_wide = yes
+
+		stack_info = {
+			id = hostile_communications_jammer_aura
+			priority = 10
+		}
+
+		modifier = {
+			ship_speed_mult = -0.20
+			ship_disengage_chance_mult = -0.20
+		}
+
+		graphics = {
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+}
+
+utility_component_template = {
+	key = "STARBASE_AURA_DISRUPTION_FIELD"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+	cost = 0
+
+	class_restriction = { shipclass_starbase }
+
+	hostile_aura = {
+		name = "aura_starbase_distruption_field"
+		system_wide = yes
+
+		stack_info = {
+			id = hostile_disruption_field_aura
+			priority = 10
+		}
+
+		modifier = {
+			ship_shield_mult = -0.20
+		}
+
+		graphics = {
+			ship_effect = {
+				entity = "ship_aura_negative_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+}
+
+utility_component_template = {
+	key = "STARBASE_AURA_COMMAND_CENTER"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+	cost = 0
+
+	class_restriction = { shipclass_starbase }
+
+	friendly_aura = {
+		name = "aura_starbase_command_center"
+		system_wide = yes
+
+		stack_info = {
+			id = friendly_command_center_aura
+			priority = 10
+		}
+
+		modifier = {
+			ship_fire_rate_mult = 0.1
+		}
+
+		graphics = {
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+}
+
+utility_component_template = {
+	key = "STARBASE_AURA_WARP_FLUCTUATOR"
+	size = medium
+	icon = "GFX_ship_part_aura_snare"
+	icon_frame = 1
+	power = 0
+	cost = 0
+
+	class_restriction = { shipclass_starbase }
+
+	friendly_aura = {
+		name = "aura_starbase_warp_fluctuator"
+		system_wide = yes
+
+		stack_info = {
+			id = friendly_warp_fluctuator_aura
+			priority = 10
+		}
+
+		modifier = {
+			ship_windup_mult = -0.20
+			ship_winddown_mult = -0.20
+			ship_disengage_chance_mult = 0.20
+		}
+
+		graphics = {
+			ship_effect = {
+				entity = "ship_aura_positive_entity"
+				dynamic_scale = no
+			}
+		}
+	}
+}

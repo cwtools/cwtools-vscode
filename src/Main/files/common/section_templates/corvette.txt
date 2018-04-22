@@ -1,0 +1,170 @@
+ship_section_template = {
+	key = "CORVETTE_MID_M1S1"
+	ship_size = corvette
+	fits_on_slot = mid
+	entity = "corvette_M1S1_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	prerequisites = { tech_missiles_1 }
+	
+	ai_weight = {
+		modifier = {
+			factor = 10.0
+			is_preferred_weapons = weapon_type_explosive
+		}
+		modifier = {
+			factor = 0.1
+			NOT = { is_preferred_weapons = weapon_type_explosive }
+		}		
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_01"
+	}
+	
+	component_slot = {
+		name = "TORPEDO_01"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "medium_gun_01"
+	}
+	
+	small_utility_slots = 3
+	aux_utility_slots = 1
+	
+	cost = 60
+}
+
+ship_section_template = {
+	key = "CORVETTE_MID_S3"
+	ship_size = corvette
+	fits_on_slot = mid
+	entity = "corvette_S3_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	ai_weight = {
+		factor = 1
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_01"
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_02"
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_03"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_03"
+	}
+	
+	small_utility_slots = 3
+	aux_utility_slots = 1
+	
+	ai_weight = {
+		modifier = {
+			factor = 10.0
+			NOT = { is_preferred_weapons = weapon_type_explosive }
+		}
+		modifier = {
+			factor = 0.1
+			is_preferred_weapons = weapon_type_explosive
+		}		
+	}
+	
+	cost = 60
+}
+
+ship_section_template = {
+	key = "CORVETTE_MID_S2PD1"
+	ship_size = corvette
+	fits_on_slot = mid
+	entity = "corvette_S3_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	prerequisites = { tech_pd_tracking_1 tech_pd_tracking_2 tech_pd_tracking_3 tech_flak_batteries_1 tech_flak_batteries_2 tech_flak_batteries_3 }
+	
+	ai_weight = {
+		modifier = {
+			factor = 10.0
+			NOR = {
+				has_ai_personality = peaceful_traders
+				has_ai_personality = slaving_despots
+				has_ai_personality = migrating_flock
+				has_ai_personality = evangelising_zealots
+				has_ai_personality = hive_mind
+			}
+		}
+		modifier = {
+			factor = 10.0
+			NOT = { is_preferred_weapons = weapon_type_explosive }
+		}
+		modifier = {
+			factor = 0.1
+			is_preferred_weapons = weapon_type_explosive
+		}	
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = point_defence
+		slot_type = weapon
+		locatorname = "small_gun_01"
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_02"
+	}
+	
+	component_slot = {
+		name = "SMALL_GUN_03"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "small_gun_03"
+	}
+	
+	small_utility_slots = 3
+	aux_utility_slots = 1
+	
+	cost = 60
+}
+
+#ship_section_template = {
+#	key = "CORVETTE_MID_S1"
+#	ship_size = corvette
+#	fits_on_slot = mid
+#	entity = "corvette_S1_entity"
+#	icon = "GFX_ship_part_core_mid"
+#	
+#	# Unused by AI
+#	ai_weight = {
+#		factor = 0
+#	}
+#	
+#	component_slot = {
+#		name = "SMALL_GUN_01"
+#		slot_size = small
+#		slot_type = weapon
+#		locatorname = "small_gun_01"
+#	}
+#	
+#	small_utility_slots = 3
+#	medium_utility_slots = 2
+#	
+#	cost = 30
+#}

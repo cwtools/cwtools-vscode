@@ -1,0 +1,26 @@
+action_declare_war = {
+	opinion = {
+		01_DOW_PROPOSE = {
+			trigger = {
+				FROM = {
+					OR = {
+						has_ethic = ethic_fanatic_pacifist
+						has_ethic = ethic_pacifist
+					}
+				}
+			}
+		}
+		02_DOW_PROPOSE = {
+			trigger = {
+				FROM = {
+					NOT = {
+						OR = {
+							has_ethic = ethic_fanatic_pacifist
+							has_ethic = ethic_pacifist
+						}
+					}
+				}
+			}
+		}
+	}
+}

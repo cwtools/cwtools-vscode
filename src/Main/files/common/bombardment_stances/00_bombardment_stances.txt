@@ -1,0 +1,169 @@
+#example = {
+#	# root = fleet
+#	trigger = {		
+#		always = yes
+#	}
+#	
+#	icon_frame = 1	# This is the frame for the shared icon file, will also need a GFX_fleet_order_button_ground_support_NAME entry
+#	default = yes	# Is this the default stance that new fleets will use?
+#	
+#	stop_when_armies_dead = yes	# Will this stance continue to bombard planets where all defensive armies are dead? default = no
+#	abduct_pops = no	# Will this stance attempt to abduct pops to your own planets instead of killing them? default = no
+#
+#	planet_damage = 0.5		# General scale of damage to planet, default = 1.0
+#	army_damage = 1.0		# General scale of damage to armies, default = 1.0
+#	
+#	kill_pop_chance = 0.2		# Chance that a pop is killed when planetary damage reaches 100%, default = 0
+#	min_pops_to_kill_pop = 8	# Will not kill/abduct pops if pops < this number already, default = 0
+#	add_blocker_chance = 0.2	# Chance that blocker is added to tile hen planetary damage reaches 100%, default = 0
+#	max_blockers = 3			# Will not add bombardment blockers if bombardment blockers >= this number already, default = 0 (if set to -1, unrestricted number)
+#	
+#	# root = fleet
+#	# from = planet
+#	ai_weight = {
+#		weight = 1
+#	}
+#}
+
+selective = {
+	trigger = {
+		owner = { 	
+			OR = {
+				NOT = { is_country_type = default }
+				has_policy_flag = orbital_bombardment_selective
+				has_policy_flag = orbital_bombardment_indiscriminate
+				has_policy_flag = orbital_bombardment_armageddon
+			}
+		}
+	}
+	
+	icon_frame = 1
+	default = yes
+	
+	stop_when_armies_dead = yes
+	abduct_pops = no
+
+	planet_damage = 0.5
+	army_damage = 1.0	
+	
+	kill_pop_chance = 0.2
+	min_pops_to_kill_pop = 8
+	add_blocker_chance = 0.2
+	max_blockers = 3
+	
+	# root = fleet
+	# from = planet
+	ai_weight = {
+		weight = 1
+	}
+}
+
+indiscriminate = {
+	trigger = {
+		owner = { 
+			OR = {
+				NOT = { is_country_type = default }
+				has_policy_flag = orbital_bombardment_indiscriminate
+				has_policy_flag = orbital_bombardment_armageddon
+			}
+		}
+	}
+	
+	icon_frame = 2
+	default = no
+	
+	stop_when_armies_dead = no
+	abduct_pops = no
+
+	planet_damage = 1.0
+	army_damage = 1.5	
+	
+	kill_pop_chance = 0.33
+	min_pops_to_kill_pop = 4
+	add_blocker_chance = 0.2
+	max_blockers = 5
+	
+	# root = fleet
+	# from = planet
+	ai_weight = {
+		weight = 5
+		modifier = {
+			factor = 0
+			exists = from
+			from = { 
+				owner = { is_same_value = root.owner }
+			}
+		}
+	}
+}
+
+armageddon = {
+	trigger = {
+		owner = { 
+			has_policy_flag = orbital_bombardment_armageddon		
+		}
+	}
+	
+	icon_frame = 3
+	default = no
+	
+	stop_when_armies_dead = no
+	abduct_pops = no
+
+	planet_damage = 1.5
+	army_damage = 2.0	
+	
+	kill_pop_chance = 0.75
+	min_pops_to_kill_pop = 0
+	add_blocker_chance = 0.6
+	max_blockers = -1
+	
+	# root = fleet
+	# from = planet
+	ai_weight = {
+		weight = 10
+		modifier = {
+			factor = 0
+			exists = from
+			from = { 
+				owner = { is_same_value = root.owner }
+			}
+		}
+	}
+}
+
+raiding = {
+	trigger = {
+		OR = {
+			owner = { has_ascension_perk = ap_nihilistic_acquisition }
+			owner = { has_valid_civic = civic_barbaric_despoilers }		
+		}
+	}
+	
+	icon_frame = 4
+	default = no
+	
+	stop_when_armies_dead = no
+	abduct_pops = yes
+
+	planet_damage = 0.5
+	army_damage = 0.5	
+	
+	kill_pop_chance = 1.0
+	min_pops_to_kill_pop = 4
+	add_blocker_chance = 0.0
+	max_blockers = 0
+	
+	# root = fleet
+	# from = planet
+	ai_weight = {
+		weight = 8
+		modifier = {
+			factor = 0
+			exists = from
+			from = { 
+				owner = { is_same_value = root.owner }
+			}
+		}
+	}
+}
