@@ -1,4 +1,11 @@
-# 0.4.17
+# 0.4.19
+* Handle mod overwriting of vanilla files
+* Add localisation tooltips
+* Promote ship design validation from experimental
+* Add mesh validation (experimental)
+* Add graphical entity validation (experimental)
+* Add ship\_size/component/section graphical entity validation (experimental)
+# 0.4.18
 * Add temporary error for 2.0.2 bug with after
 * Add validation of ship designs, check that section slot type and component type match (behind experimental flag)
 * Warn if tech has no effect (and has weight > 0)
