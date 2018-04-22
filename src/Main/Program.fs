@@ -234,9 +234,11 @@ type Server(send : BinaryWriter) =
             |Some game ->
                 let allEffects = game.ScriptedEffects @ game.ScripteTriggers
                 eprintfn "Looking for effect %s in the %i effects loaded" word (allEffects.Length)
-                let hovered = allEffects |> List.tryFind (fun e -> "\"" + e.Name + "\"" = word)
-                match hovered with
-                |Some effect ->
+                let unescapedword = word.Replace("\\\"", "\"").Trim('"')
+                let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
+                let lochover = game.References.Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                match hovered, lochover with
+                |Some effect, _ ->
                     match effect with
                     | :? DocEffect as de ->
                         let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
@@ -246,7 +248,9 @@ type Server(send : BinaryWriter) =
                         let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
                         let content = String.Join("\n***\n",["_"+e.Name+"_"; "Supports scopes: " + scopes;]) // TODO: usageeffect.Usage])
                         {contents = (MarkupContent ("markdown", content)) ; range = None}
-                |None ->  {contents = MarkupContent ("markdown", ""); range = None}
+                |None, Some (_, loc) ->
+                    {contents = MarkupContent ("markdown", loc.desc); range = None}
+                |None, None ->  {contents = MarkupContent ("markdown", ""); range = None}
             |_ -> {contents = MarkupContent ("markdown", ""); range = None}
         }
     

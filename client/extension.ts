@@ -112,7 +112,7 @@ export function activate(context: ExtensionContext) {
 			console.log("recieved request " + request.method + " "+ param)
 			let document = window.activeTextEditor.document;
 			let position = new Position(param.position.line, param.position.character)
-			let wordRange = document.getWordRangeAtPosition(position);
+			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
 			if(wordRange === undefined){
 				return "";
 			}
