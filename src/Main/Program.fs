@@ -140,15 +140,19 @@ type Server(send : BinaryWriter) =
                 async{
                     let! msg = agent.Receive()
                     match msg, inprogress with
-                    | UpdateRequest ur, false ->
+                    | UpdateRequest (ur), false ->
                         analyze ur
                         return! loop true state
-                    | UpdateRequest ur, true ->
-                        if Map.containsKey ur.uri.LocalPath state && (Map.find ur.uri.LocalPath state) |> (fun {VersionedTextDocumentIdentifier.version = v} -> v < ur.version)
+                    | UpdateRequest (ur), true ->
+                        if Map.containsKey ur.uri.LocalPath state
                         then
-                            return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
+                            if (Map.find ur.uri.LocalPath state) |> (fun {VersionedTextDocumentIdentifier.version = v} -> v < ur.version)
+                            then
+                                return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
+                            else
+                                return! loop inprogress state
                         else
-                            return! loop inprogress state
+                            return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
                     | WorkComplete _, _ ->
                         if Map.isEmpty state
                         then
