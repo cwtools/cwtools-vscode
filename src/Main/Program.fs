@@ -217,7 +217,7 @@ type Server(send : BinaryWriter) =
                 valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
-
+                GC.Collect()
                 //eprintfn "%A" game.ValidationErrors
                     // |> List.groupBy fst
                     // |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>

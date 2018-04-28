@@ -1,3 +1,6 @@
+# 0.4.20
+* Improved icon validators
+* Ensure a final validation happens after changes stop
 # 0.4.19
 * Handle mod overwriting of vanilla files
 * Add localisation tooltips
