@@ -167,7 +167,6 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		#FROM = { is_megastructure_type = gateway_final }
 		NOR = { 
 			has_country_flag = gateway_reactivated
 			has_country_flag = gateway_built
@@ -181,6 +180,80 @@ country_event = {
 	
 	option = {
 		name = EXCELLENT
+	}
+}
+
+# Additional Gateways Reactivated
+country_event = {
+	id = apoc.12
+	title = "apoc.10.name"
+	desc = "apoc.12.desc"
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_radio_chatter
+	location = from
+	
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = gateway_reactivated
+			has_country_flag = gateway_built
+		}
+	}
+	
+	immediate = {
+		from = { save_event_target_as = gateway_system }
+	}
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Additional Gateways Constructed
+country_event = {
+	id = apoc.13
+	title = "apoc.11.name"
+	desc = "apoc.13.desc"
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_radio_chatter
+	location = from
+	
+	is_triggered_only = yes
+
+	trigger = {
+		OR = {
+			has_country_flag = gateway_reactivated
+			has_country_flag = gateway_built
+		}
+	}
+	
+	immediate = {
+		from = { save_event_target_as = gateway_system }
+	}
+	
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Gateway Construction Site Finished
+country_event = {
+	id = apoc.14
+	title = "apoc.14.name"
+	desc = "apoc.14.desc"
+	picture = GFX_evt_megastructure_construction
+	show_sound = event_radio_chatter
+	location = from
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		from = { save_event_target_as = gateway_system }
+	}
+	
+	option = {
+		name = GOOD
 	}
 }
 
@@ -698,6 +771,47 @@ planet_event = {
 					modifier = opinion_worships_our_holy_world
 				}
 			}
+		}
+	}
+}
+
+# Gain Gateway flag on researching tech
+country_event = {
+	id = apoc.300
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		last_increased_tech = "tech_gateway_activation"
+	}
+
+	immediate = {
+		set_country_flag = encountered_first_gateway
+	}
+}
+
+# Fix for savegames
+event = {
+	id = apoc.301
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		any_playable_country = {
+			has_technology = "tech_gateway_activation"
+			NOT = { has_country_flag = encountered_first_gateway }
+		}
+	}
+
+	immediate = {
+		random_playable_country = {
+			limit = {
+				has_technology = "tech_gateway_activation"
+				NOT = { has_country_flag = encountered_first_gateway }
+			}
+			set_country_flag = encountered_first_gateway
 		}
 	}
 }

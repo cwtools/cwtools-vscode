@@ -88,10 +88,10 @@ indiscriminate = {
 	ai_weight = {
 		weight = 5
 		modifier = {
-			factor = 0
+			factor = 0.01
 			exists = from
 			from = { 
-				owner = { is_same_value = root.owner }
+				owner = { NOT = { is_hostile = root.owner } }
 			}
 		}
 	}
@@ -123,10 +123,10 @@ armageddon = {
 	ai_weight = {
 		weight = 10
 		modifier = {
-			factor = 0
+			factor = 0.01
 			exists = from
 			from = { 
-				owner = { is_same_value = root.owner }
+				owner = { NOT = { is_hostile = root.owner } }
 			}
 		}
 	}
@@ -146,7 +146,7 @@ raiding = {
 	stop_when_armies_dead = no
 	abduct_pops = yes
 
-	planet_damage = 0.5
+	planet_damage = 1.0
 	army_damage = 0.5	
 	
 	kill_pop_chance = 1.0
@@ -162,7 +162,14 @@ raiding = {
 			factor = 0
 			exists = from
 			from = { 
-				owner = { is_same_value = root.owner }
+				owner = { NOT = { is_hostile = root.owner } }
+			}
+		}
+		modifier = {
+			factor = 0.01
+			exists = from
+			from = {
+				owner = { has_claim = root.solar_system }
 			}
 		}
 	}

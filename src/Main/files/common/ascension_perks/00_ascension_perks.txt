@@ -951,14 +951,6 @@ ap_voidborn = {
 }
 
 ap_master_builders = {
-	on_enabled = {
-		if = {
-			limit = { 
-				NOT = { has_technology = tech_mega_engineering }
-			}
-			add_research_option = tech_mega_engineering
-		}
-	}
 	possible = {
 		custom_tooltip = {
 			fail_text = "requires_ascension_perks_2"
@@ -977,7 +969,33 @@ ap_master_builders = {
 		}		
 	}
 	modifier = {
-		megastructure_build_speed_mult = 1
+		megastructure_build_speed_mult = 0.5	
+	}
+	
+	on_enabled = {
+		custom_tooltip = "ap_master_builders_habitat_size"
+		hidden_effect = {
+			every_owned_planet = {
+				limit = {
+					is_planet_class = pc_habitat 
+					planet_size < 15
+				}
+				set_planet_size = 15
+			}	
+			every_planet_within_border = {
+				limit = {
+					is_planet_class = pc_habitat 
+					planet_size < 15
+				}
+				set_planet_size = 15	
+			}			
+		}
+		if = {
+			limit = { 
+				NOT = { has_technology = tech_mega_engineering }
+			}
+			add_research_option = tech_mega_engineering
+		}		
 	}
 	
 	potential = {

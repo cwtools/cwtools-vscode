@@ -15,6 +15,7 @@ empire_base = {
 # Applies to Awakened Empires too
 fallen_empire_base = {
 	country_starbase_upkeep_mult = -0.5
+	ship_upkeep_mult = -0.5
 }
 
 ##########################################################################
@@ -35,15 +36,6 @@ high_war_exhaustion = {
 ##########################################################################
 
 # For playable empires
-difficulty_scaling = {
-	country_resource_food_mult = 0.5
-	country_resource_minerals_mult = 0.5
-	country_resource_energy_mult = 0.5
-	country_resource_unity_mult = 0.5
-	all_technology_research_speed = 0.5
-	country_naval_cap_mult = 0.5
-}
-
 difficulty_grand_admiral = {
 	country_resource_food_mult = 1
 	country_resource_minerals_mult = 1
@@ -84,51 +76,44 @@ difficulty_ensign = {
 }
 
 # For non-playable empires, scales to setting in country type
-difficulty_scaling_npc = {
-	ship_weapon_damage = 0.5
-	ship_hull_mult = 0.5
-	ship_armor_mult = 0.5
-	ship_shield_mult = 0.5
-}
-
 difficulty_grand_admiral_npc = {
-	ship_weapon_damage = 1.0
-	ship_hull_mult = 1.0
-	ship_armor_mult = 1.0
-	ship_shield_mult = 1.0
+	ship_weapon_damage = 0.50
+	ship_hull_mult = 0.50
+	ship_armor_mult = 0.50
+	ship_shield_mult = 0.50
 }
 
 difficulty_admiral_npc = {
-	ship_weapon_damage = 0.75
-	ship_hull_mult = 0.75
-	ship_armor_mult = 0.75
-	ship_shield_mult = 0.75
+	ship_weapon_damage = 0.45
+	ship_hull_mult = 0.45
+	ship_armor_mult = 0.45
+	ship_shield_mult = 0.45
 }
 
 difficulty_commodore_npc = {
-	ship_weapon_damage = 0.66
-	ship_hull_mult = 0.66
-	ship_armor_mult = 0.66
-	ship_shield_mult = 0.66
+	ship_weapon_damage = 0.40
+	ship_hull_mult = 0.40
+	ship_armor_mult = 0.40
+	ship_shield_mult = 0.40
 }
 
 difficulty_captain_npc = {
-	ship_weapon_damage = 0.5
-	ship_hull_mult = 0.5
-	ship_armor_mult = 0.5
-	ship_shield_mult = 0.5
+	ship_weapon_damage = 0.35
+	ship_hull_mult = 0.35
+	ship_armor_mult = 0.35
+	ship_shield_mult = 0.35
 }
 
 difficulty_ensign_npc = {
-	ship_weapon_damage = 0.33
-	ship_hull_mult = 0.33
-	ship_armor_mult = 0.33
-	ship_shield_mult = 0.33
+	ship_weapon_damage = 0.30
+	ship_hull_mult = 0.30
+	ship_armor_mult = 0.30
+	ship_shield_mult = 0.30
 }
 
 # Awakened Empires grow weaker over time
 awakened_empire_decadence = {
-	pop_resource_output = -0.75
+	pop_resource_output_reduction = 0.66
 	country_subject_power_penalty_mult = 2.0
 	ship_weapon_damage = -0.25
 	ship_hull_mult = -0.25

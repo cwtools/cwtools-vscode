@@ -1769,6 +1769,10 @@ country_event = {
 				has_trait = leader_trait_general_psionic
 				has_trait = leader_trait_governor_psionic
 				has_trait = leader_trait_scientist_psionic
+				has_trait = leader_trait_admiral_chosen
+				has_trait = leader_trait_general_chosen
+				has_trait = leader_trait_governor_chosen
+				has_trait = leader_trait_scientist_chosen		
 			}
 		}
 	}
@@ -1848,3 +1852,20 @@ country_event = {
 	}
 }
 
+planet_event = {
+	id = utopia.2657
+	is_triggered_only = yes
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_planet_class = pc_habitat
+		owner = { has_ascension_perk = ap_master_builders }
+		planet_size < 15
+	}	
+	
+	immediate = {
+		set_planet_size = 15
+	}
+}

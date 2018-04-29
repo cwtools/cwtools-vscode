@@ -356,7 +356,18 @@ guiTypes = {
 					name = "game_setup_bar3"
 					spriteType = "GFX_tiles_dark_area_cut_8"
 				}
-			}			
+			}
+
+			containerWindowType = {
+				name = "game_setup_bar21_box"
+				size = { width = 1103 height = 36 }
+				position = { x = 42 y = 800 }
+
+				background = {
+					name = "game_setup_bar3"
+					spriteType = "GFX_tiles_dark_area_cut_8"
+				}
+			}
 
 			# Size
 			containerWindowType = {
@@ -1432,12 +1443,77 @@ guiTypes = {
 					navUp = "aggressiveness_spinner"
 					navDown = "galaxy_ftl_spinner"
 				}
-			}			
+			}	
+
+			# Scaling Difficulty
+			containerWindowType = {
+				name = "scaling_difficulty"
+				position = { x = 72 y = 525 }
+
+				instantTextBoxType = {
+					name = "scaling_difficulty"
+					position = { x = -20 y = 0 }
+					font = "malgun_goth_24"
+					maxWidth = 400
+					maxHeight = 52
+					orientation = "UPPER_LEFT"
+					text = "FE_SCALING_DIFFICULTY"
+					pdx_tooltip = "FE_SCALING_DIFFICULTY_TOOLTIP"
+					tooltip_mode_enabled = yes
+				}
+
+				instantTextBoxType={
+					name = "value"
+					font = "malgun_goth_24"
+					text = "ON"
+					position = { x = 790 y = 0 }
+					maxWidth = 220
+					maxHeight = 35
+					fixedSize = yes
+					format = center
+				}
+
+				spinnerType = {
+					id = "galaxy_scaling_difficulty_spinner"
+					name = "galaxy_scaling_difficulty_spinner"
+					leftbutton = "spinner_upButton"
+					rightbutton = "spinner_downButton"
+					size = {x = 307 y = 30 }
+					position = {x= 747 y =0}
+					priority = 100
+					borderSize = {x =16 y = 16}
+					horizontal = 1
+					maxValue = 100
+					startValue = 0
+
+					guiButtonType = {
+						name = "spinner_upButton"
+						quadTextureSprite = "scrollbar_leftbutton"
+						position = { x=30 y =0}
+					}
+					guiButtonType = {
+						name = "spinner_downButton"
+						quadTextureSprite = "scrollbar_rightbutton"
+						position = { x=30 y =120}
+					}
+					
+					overlay = {
+						name = "selected_overlay"
+						spriteType = "GFX_glow_tile_orange_no_padding"
+						overSprite = "GFX_glow_tile_line"					
+						position = { x = @spinnerOverlayPosX y = @spinnerOverlayPosY }
+						size = { x = @spinnerOverlaySizeX y = @spinnerOverlaySizeY }
+					}
+
+					navUp = "galaxy_clustered_starts_spinner"
+					navDown = "galaxy_crises_spinner"
+				}
+			}				
 			
 			# Aggressiveness
 			containerWindowType = {
 				name = "aggressiveness"
-				position = { x = 72 y = 525 }
+				position = { x = 72 y = 565 }
 
 				instantTextBoxType = {
 					name = "aggressiveness_label"
@@ -1502,7 +1578,7 @@ guiTypes = {
 			# Clustered Starts
 			containerWindowType = {
 				name = "clustered_starts"
-				position = { x = 72 y = 565 }
+				position = { x = 72 y = 605 }
 
 				instantTextBoxType = {
 					name = "clustered_starts_label"
@@ -1562,12 +1638,12 @@ guiTypes = {
 					navUp = "galaxy_ftl_spinner"
 					navDown = "galaxy_advanced_empires_near_player_spinner"
 				}
-			}
+			}		
 
 			# Advanced Empires Near Player
 			containerWindowType = {
 				name = "advanced_near_player"
-				position = { x = 72 y = 605 }
+				position = { x = 72 y = 645 }
 
 				instantTextBoxType = {
 					name = "advanced_near_player"
@@ -1632,7 +1708,7 @@ guiTypes = {
 			### Number of hyperlanes generated
 			containerWindowType = {
 				name = "hyperlanes"
-				position = { x = 72 y = 645 }
+				position = { x = 72 y = 685 }
 
 				instantTextBoxType = {
 					name = "pick_hyperlanes_label"
@@ -1717,7 +1793,7 @@ guiTypes = {
 			### Pregenerated Gateways
 			containerWindowType = {
 				name = "gateways"
-				position = { x = 72 y = 685 }
+				position = { x = 72 y = 725 }
 
 				instantTextBoxType = {
 					name = "pick_gateways_label"
@@ -1801,7 +1877,7 @@ guiTypes = {
 			### Number of natural wormhole pairs generated
 			containerWindowType = {
 				name = "wormholes"
-				position = { x = 72 y = 725 }
+				position = { x = 72 y = 765 }
 
 				instantTextBoxType = {
 					name = "pick_wormholes_label"
@@ -1886,17 +1962,17 @@ guiTypes = {
 			containerWindowType = {
 				id = "ironman"
 				name = "ironman"
-				position = { x = 72 y = 765 }
+				position = { x = 72 y = 835 }
 
 				iconType = {
 					name = "ironman_icon"
 					spriteType = "GFX_ironman_icon"
-					position = { x = 720 y = -6 }
+					position = { x = 720 y = -36 }
 				}
 
 				instantTextBoxType = {
 					name = "ironman_label"
-					position = { x = -20 y = 0 }
+					position = { x = -20 y = -30 }
 					font = "malgun_goth_24"
 					maxWidth = 400
 					maxHeight = 52
@@ -1910,7 +1986,7 @@ guiTypes = {
 					name = "value"
 					font = "malgun_goth_24"
 					text = "SETTINGS_TUTORIAL_ON"
-					position = { x = 790 y = 0 }
+					position = { x = 790 y = -30 }
 					maxWidth = 220
 					maxHeight = 35
 					fixedSize = yes
@@ -1923,7 +1999,7 @@ guiTypes = {
 					leftbutton = "spinner_upButton"
 					rightbutton = "spinner_downButton"
 					size = {x = 307 y = 30 }
-					position = {x= 747 y =0}
+					position = {x= 747 y = -30 }
 					priority = 100
 					borderSize = {x =16 y = 16}
 					horizontal = 1

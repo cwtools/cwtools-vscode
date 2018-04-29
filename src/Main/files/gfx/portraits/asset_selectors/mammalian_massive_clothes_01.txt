@@ -1,0 +1,46 @@
+# This is a template which multiple species can use. 
+
+mammalian_massive_clothes_01 = {
+	default = "gfx/models/portraits/mammalian/mammalian_massive_outfit_ruler.dds"
+	
+	game_setup = {#will run with a limited country scope. species and government is set but the country does not actually exist
+		default = "gfx/models/portraits/mammalian/mammalian_massive_outfit_ruler.dds"
+	}
+	
+	#species scope
+	species = { #generic portrait for a species
+		default = "gfx/models/portraits/mammalian/mammalian_massive_outfit_ruler.dds"
+	}
+	
+	#pop scope
+	pop = { #for a specific pop
+		default = "gfx/models/portraits/mammalian/mammalian_massive_outfit_governor.dds"
+		
+	#	"gfx/models/portraits/mammalian/mammalian_massive_outfit_general.dds" 	= { tile = { has_building = building_power_plant_1 } }
+	#	"gfx/models/portraits/mammalian/mammalian_massive_outfit_scientist.dds" 	= { tile = { has_building = building_engineering_facility_1 } }
+	#	"gfx/models/portraits/mammalian/mammalian_massive_outfit_admiral.dds" 	= { tile = { has_building = building_hydroponics_farm_1 } }
+	}
+	#leader scope
+	leader = { #scientists, generals, admirals, governor
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_scientist.dds" = { leader_class = scientist }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_general.dds" = { leader_class = general }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_admiral.dds" = { leader_class = admiral }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_governor.dds" = { leader_class = governor }
+	}
+
+	#leader scope 
+	ruler = { #for rulers
+		default = "gfx/models/portraits/mammalian/mammalian_massive_outfit_ruler.dds"
+
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_ruler.dds" = { owner = { has_generic_government = yes } }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_general.dds" = { owner = { has_militarist_government = yes } }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_ruler.dds" = { owner = { has_spiritualist_government = yes } }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_governor.dds" = { owner = { has_pacifist_government = yes } }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_governor.dds" = { owner = { has_primitive_government = yes } }
+		"gfx/models/portraits/mammalian/mammalian_massive_outfit_scientist.dds" = { owner = { has_materialist_government = yes } }
+	}
+}
+
+mammalian_hair_1 = { 
+	default = "gfx/transparent.dds"
+}

@@ -40,9 +40,11 @@ country_event = {
 		is_ai = no
 		fromfromfrom = { 
 			is_ship_size = colossus
-			has_status = firing
-		}
-		
+			OR = {
+				has_status = firing
+				has_status = charging
+			}		
+		}	
 	}
 
 	immediate = {

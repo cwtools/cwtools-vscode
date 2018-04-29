@@ -7809,7 +7809,9 @@ fallen_empire_cleanse_border_worlds_effect = {
 	every_owned_planet = {
 		limit = {
 			is_capital = no
-			is_neighbor_of = event_target:fallen_empire_humiliator
+			solar_system = {
+				has_hyperlane_to = event_target:fallen_empire_humiliator
+			}
 		}
 		destroy_colony = yes
 	}
@@ -7817,7 +7819,7 @@ fallen_empire_cleanse_border_worlds_effect = {
 		limit = {
 			is_ship_class = shipclass_starbase
 			solar_system = {
-				is_neighbor_of = event_target:fallen_empire_humiliator
+				has_hyperlane_to = event_target:fallen_empire_humiliator
 			}			
 		}
 		destroy_fleet = this
@@ -7826,7 +7828,9 @@ fallen_empire_cleanse_border_worlds_effect = {
 		every_owned_planet = {
 			limit = {
 				is_capital = no
-				is_neighbor_of = event_target:fallen_empire_humiliator
+				solar_system = {
+					has_hyperlane_to = event_target:fallen_empire_humiliator
+				}
 			}
 			destroy_colony = yes
 		}
@@ -7834,7 +7838,7 @@ fallen_empire_cleanse_border_worlds_effect = {
 			limit = {
 				is_ship_class = shipclass_starbase
 				solar_system = {
-					is_neighbor_of = event_target:fallen_empire_humiliator
+					has_hyperlane_to = event_target:fallen_empire_humiliator
 				}			
 			}
 			destroy_fleet = this

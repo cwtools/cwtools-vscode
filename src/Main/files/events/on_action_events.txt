@@ -7887,3 +7887,55 @@ event = {
 		}
 	}
 }
+
+# Make sure Extradimensionals own no planets or megastructures
+event = {
+	id = action.93
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		any_country = {
+			OR = {
+				is_country_type = extradimensional
+				is_country_type = extradimensional_2
+				is_country_type = extradimensional_3
+			}
+		}
+	}
+
+	immediate = {
+		every_planet = {
+			limit = {
+				exists = owner
+				owner = { 
+					OR = {
+						is_country_type = extradimensional
+						is_country_type = extradimensional_2
+						is_country_type = extradimensional_3
+					} 
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						is_planet_class = pc_habitat
+						is_planet_class = pc_ringworld_habitable
+					}
+				}
+				destroy_colony = yes
+				else = {
+					random_list = {
+						50 = { change_pc = pc_barren }
+						50 = { change_pc = pc_barren_cold }
+					}
+					add_modifier = {
+						modifier = "terraforming_candidate"
+						days = -1
+					}
+				}
+			}
+		}
+	}
+}

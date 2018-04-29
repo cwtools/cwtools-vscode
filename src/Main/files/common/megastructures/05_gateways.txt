@@ -78,7 +78,9 @@ gateway_0 = {
 	
 	on_build_start = {}
 	on_build_cancel = {}	
-	on_build_complete = {}
+	on_build_complete = {
+		from = { country_event = { id = apoc.14 } }
+	}
 }
 
 gateway_final = {
@@ -118,7 +120,10 @@ gateway_final = {
 				finish_upgrade = yes
 			}
 		}
-		from = { country_event = { id = apoc.11 } }
+		from = { 
+			country_event = { id = apoc.13 }
+			country_event = { id = apoc.11 }
+		}
 	}
 }
 
@@ -180,6 +185,9 @@ gateway_restored = {
 				finish_upgrade = yes
 			}
 		}
-		from = { country_event = { id = apoc.10 } }
+		from = { 
+			country_event = { id = apoc.12 }
+			country_event = { id = apoc.10 }
+		}
 	}
 }

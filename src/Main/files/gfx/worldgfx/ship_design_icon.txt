@@ -1,0 +1,60 @@
+#reloadworldgfx
+# Is used for saved designs 
+# Sections
+# Choose ship appearance in empire designer
+
+gfx_settings = 
+{
+	# world tag identifier
+	world = ship_design_icon
+	
+    color_lut = "gfx/worldgfx/colorcorrection_neutral.tga"
+	environment_map = "gfx/worldgfx/cubemap_filtered_ldr.dds"
+	
+	
+	cubemap_intensity = 0.7#0.7
+	
+	galaxy_background_hsv_shift = { 0.0 0.0 0.0 }
+	galaxy_background_lut = "gfx/worldgfx/colorcorrection_neutral.tga"
+
+	
+	
+	system_back_light_diffuse = hsv { 0.58 0.5 0.0 } #0.5
+	
+	ambient = hsv { 0.5	0.2	1.5	}	#0.1 global ambient, no direction
+	
+	# Fill light from left up
+	cam_light_1_diffuse = hsv { 0.12 0.2 1.8} #1
+	
+	# Rim light from lower right
+	cam_light_2_diffuse = hsv { 0.55 0.4 1.0} #0.45
+	
+	# Light going over model when moving around
+	cam_light_3_diffuse = hsv { 0.55 0.35 1.5 } # 0.8
+	
+	# Rim light shader
+	rim_light_diffuse = hsv { 0.55 0.5 0.8	}#0.3	
+	
+	
+	
+	
+# 	Green Debug Light
+	
+#	system_back_light_diffuse = hsv { 0.58 0.5 0.0 } #0.5
+#	
+#	ambient = hsv { 0.4	1.0	1.0	}	#0.1 global ambient, no direction
+#	
+#	# Fill light from left up
+#	cam_light_1_diffuse = hsv { 0.4	1.0	1.0	} #1
+#	
+#	# Rim light from lower right
+#	cam_light_2_diffuse = hsv { 0.4	1.0	1.0	} #0.45
+#	
+#	# Light going over model when moving around
+#	cam_light_3_diffuse = hsv { 0.4	1.0	1.0 } # 0.8
+#	
+#	# Rim light shader
+#	rim_light_diffuse = hsv { 0.4	1.0	1.0	}#0.3
+	
+	system_light="icon_light"
+}

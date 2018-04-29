@@ -1095,12 +1095,67 @@ guiTypes = {
 							position = { x = 30 y = 120 }	
 						}		
 					}
-				}					
+				}	
+
+				# Scaling Difficulty
+				containerWindowType = {
+					name = "scaling_difficulty"
+					position = { x = 0 y = 520 }
+					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
+
+					instantTextBoxType = {
+						name = "scaling_difficulty_label"
+						position = { x = 10 y = 4 }
+						font = "cg_16b"
+						maxWidth = 204
+						maxHeight = 52	
+						alwaysTransparent = yes
+						orientation = "UPPER_LEFT"
+						text = "FE_SCALING_DIFFICULTY"
+						pdx_tooltip = "FE_SCALING_DIFFICULTY_TOOLTIP"
+					}
+					
+					instantTextBoxType={
+						name = "value"
+						font = "malgun_goth_24"
+						text = "FTL_WARP"
+						position = { x = 195 y = 0 }
+						maxWidth = 204
+						maxHeight = 35
+						fixedSize = yes
+						format = center
+					}
+					
+					spinnerType = {
+						id = "galaxy_scaling_difficulty_spinner"
+						name = "galaxy_scaling_difficulty_spinner"	
+						leftbutton = "spinner_upButton"
+						rightbutton = "spinner_downButton"
+						size = { x = 204 y = 30 }
+						position = { x = 195 y = 0 }
+						priority = 100			
+						borderSize = { x = 16 y = 16 }	
+						horizontal = 1
+						maxValue = 100
+						startValue = 0
+							
+						guiButtonType = {
+							name = "spinner_upButton"
+							quadTextureSprite = "scrollbar_leftbutton"
+							position = { x=30 y =0}	
+						}
+						guiButtonType = {
+							name = "spinner_downButton"
+							quadTextureSprite = "scrollbar_rightbutton"
+							position = { x = 30 y = 120 }	
+						}		
+					}
+				}				
 				
 				# Aggressiveness
 				containerWindowType = {
 					name = "aggressiveness"
-					position = { x = 0 y = 520 }
+					position = { x = 0 y = 560 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {
@@ -1155,7 +1210,7 @@ guiTypes = {
 				# Advanced empires near player
 				containerWindowType = {
 					name = "advanced_near_player"
-					position = { x = 0 y = 560 }
+					position = { x = 0 y = 600 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {
@@ -1210,7 +1265,7 @@ guiTypes = {
 				# Player positions
 				containerWindowType = {
 					name = "pick_player_locations"
-					position = { x = 0 y = 600 }
+					position = { x = 0 y = 640 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {
@@ -1264,7 +1319,7 @@ guiTypes = {
 				### Number of hyperlanes generated
 				containerWindowType = {
 					name = "hyperlanes"
-					position = { x = 0 y = 640 }
+					position = { x = 0 y = 680 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {
@@ -1338,7 +1393,7 @@ guiTypes = {
 				### Pregenerated Gateways
 				containerWindowType = {
 					name = "gateways"
-					position = { x = 0 y = 680 }
+					position = { x = 0 y = 720 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {
@@ -1413,7 +1468,7 @@ guiTypes = {
 				### Number of natural wormhole pairs generated
 				containerWindowType = {
 					name = "wormholes"
-					position = { x = 0 y = 720 }
+					position = { x = 0 y = 760 }
 					size={ width=@SettingEntrySizeX height=@SettingEntrySizeY }
 
 					instantTextBoxType = {

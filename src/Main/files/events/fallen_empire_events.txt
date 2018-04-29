@@ -154,7 +154,11 @@ country_event = {
 					root = { 
 						has_ai_personality_behaviour = demands_clear_borders
 					}
-					is_neighbor_of = root
+					root = {
+						any_system_within_border = {
+							has_hyperlane_to = prevprev
+						}					
+					}
 				}				
 				country_event = { id = fallen_empires.7 }
 				break = yes
@@ -424,8 +428,10 @@ country_event = {
 				# if we're both fallen empires, we know of each other
 				is_country_type = fallen_empire
 				# also contact if we border them
-				any_owned_planet = {
-					is_neighbor_of = root			
+				root = {
+					any_system_within_border = {
+						has_hyperlane_to = prevprev
+					}					
 				}
 				# always if we're awakened
 				root = { is_country_type = awakened_fallen_empire }
@@ -460,8 +466,10 @@ country_event = {
 					}	
 					# also contact if we border them
 					OR = {
-						any_owned_planet = {
-							is_neighbor_of = root
+						root = {
+							any_system_within_border = {
+								has_hyperlane_to = prevprev
+							}					
 						}
 						any_owned_fleet = {
 							is_ship_class = shipclass_starbase

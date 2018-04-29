@@ -20,6 +20,8 @@ tech_dark_matter_deflector = {
 	weight = 1
 	is_rare = yes
 	
+	prerequisites = { "tech_shields_5" }
+	
 	weight_modifier = {	
 		modifier = {
 			factor = 0
@@ -40,6 +42,8 @@ tech_dark_matter_power_core = {
 	ai_update_type = all
 	weight = 1
 	is_rare = yes
+	
+	prerequisites = { "tech_zero_point_power" }
 	
 	prereqfor_desc = {
 		hide_prereq_for_desc = component
@@ -69,6 +73,8 @@ tech_dark_matter_propulsion = {
 	ai_update_type = all
 	weight = 1
 	is_rare = yes
+	
+	prerequisites = { "tech_thrusters_4" }
 	
 	prereqfor_desc = {
 		hide_prereq_for_desc = component

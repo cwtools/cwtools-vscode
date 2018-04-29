@@ -1,0 +1,31 @@
+#reloadworldgfx
+gfx_settings = 
+{
+	# world tag identifier
+	world = system_view
+	
+    color_lut = "gfx/worldgfx/colorcorrection_neutral.tga"
+	environment_map = "gfx/worldgfx/cubemap_filtered_ldr.dds"
+	
+	galaxy_background = { texture = "gfx/map/sky_core.dds" 	trigger = { distance_to_core_percent < 0.50 } ycocg = yes }
+	galaxy_background = { texture = "gfx/map/sky_mid.dds" 		trigger = { distance_to_core_percent < 0.75 } ycocg = yes }
+	galaxy_background = { texture = "gfx/map/sky_rim.dds" 	trigger = { always = yes } ycocg = yes }
+	
+	cubemap_intensity = 0.7 #0.7
+	
+	galaxy_background_hsv_shift = { 0.0 -0.1 -0.4 }
+	
+	galaxy_background_lut = "gfx/worldgfx/colorcorrection_neutral.tga"
+
+	#system_back_light_diffuse = hsv { 0.0 0.0 .0 }
+	system_back_light_diffuse = hsv { 0.53 0.8 2.0 }
+	
+	ambient = hsv { 0.55 0.25 0.2 }	#global ambient, no direction
+	#ambient = hsv { 0.0 1.0 1.0 }	#RED
+	#ambient = hsv { 0.0 0.0 0.0 }	#BLACK
+	
+	##NOT USED, but still required
+	system_light="system_view_light"
+	
+	
+}

@@ -58,7 +58,8 @@ planet_event = {
 			}
 			set_planet_flag = destroyed_by_colossus
 			set_planet_flag = planet_cracked
-			planet_event = { id = crisis.2043 }
+			from.owner = { save_event_target_as = final_machine_world_destroyer }
+			planet_event = { id = crisis.2046 }
 		}
 
 		# Swarm Situation Log counter
@@ -426,8 +427,8 @@ planet_event = {
 
 	immediate = {
 		random_list = {
-			2 = { } # null
-			1 = {
+			50 = { } # null
+			50 = {
 				solar_system = { save_event_target_as = sol_sys }
 				from.owner = { country_event = { id = planet_destruction.111 } }
 			}		
@@ -514,7 +515,8 @@ planet_event = {
 			}
 			set_planet_flag = destroyed_by_colossus
 			set_planet_flag = planet_shielded
-			planet_event = { id = crisis.2043 }
+			from.owner = { save_event_target_as = final_machine_world_destroyer }
+			planet_event = { id = crisis.2046 }
 		}
 
 		# Swarm Situation Log counter

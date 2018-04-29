@@ -5240,14 +5240,10 @@ country_event = {
 	option = {
 		name = DEAL
 		allow = {
-			energy > 500
-			minerals > 500
-			influence > 100
+			energy >= 5000
 		}
-		add_energy = -500
-		add_minerals = -500
-		add_influence = -100
-		custom_tooltip = opinion5
+		add_energy = -5000
+		custom_tooltip = opinion15
 		add_modifier = {
 			modifier = enclave_artist_festival
 			days = 1800
@@ -5256,7 +5252,7 @@ country_event = {
 			event_target:artist_enclave = {
 				add_trust = {
 					who = root
-					amount = 5
+					amount = 15
 				}
 			}
 			set_timed_country_flag = { flag = artist_festival_purchased days = 7200 }
@@ -5268,11 +5264,7 @@ country_event = {
 	option = {
 		name = TOOPOOR
 		trigger = {
-			OR = {
-				energy < 500
-				minerals < 750
-				influence < 100
-			}
+			energy < 5000
 		}
 		hidden_effect = {
 			set_country_flag = artist_enclave_diplomacy_continued
@@ -5879,8 +5871,7 @@ country_event = {
 	option = {
 		name = guardian.312.a
 		remove_modifier = enclave_artist_festival
-		add_energy = -500
-		add_minerals = -500
+		add_energy = -1000
 		hidden_effect = {
 			remove_country_flag = artist_festival_purchased
 		}
@@ -6452,8 +6443,7 @@ country_event = {
 	}
 	option = {
 		name = guardian.323.b
-		add_energy = 500
-		add_minerals = 500
+		add_energy = 1000
 		custom_tooltip = opinion-3
 		remove_modifier = enclave_artist_patron
 		hidden_effect = {
@@ -12714,12 +12704,7 @@ country_event = {
 	option = {
 		name = guardian.1056.d
 		hidden_effect = {
-			random_list = {
-				70 = { }
-				30 = { set_country_flag = technosphere_secrets }
-			}
 			country_event = { id = guardian.1060 }
-			
 		}
 	}
 	option = {

@@ -16,8 +16,10 @@ on_monthly_pulse = {
 		marauder.150 # AI hires Marauder raids
 		marauder.151 # AI hires Marauder mercs
 		action.92 # make sure the swarm infests
+		action.93 # make sure extradimensionals have no planets
 		action.90 # rebuild outpost for orphaned colonies
 		unrest.166
+		apoc.301
 	}
 }
 
@@ -247,6 +249,13 @@ on_planet_defenders_lose = {
 		colony.113
 		colony.154
 		unrest.167
+	}
+}
+
+# Scope = Country
+# From = System
+on_system_first_visited = {
+	events = {
 	}
 }
 
@@ -1065,6 +1074,7 @@ on_tech_increased = {
 		anomaly.1191
 		anomaly.1193
 		action.55
+		apoc.300
 	}
 }
 
@@ -1359,6 +1369,7 @@ on_planet_transfer = {
 	events = {
 		action.42
 		apoc.202 # lose new holy world status
+		utopia.2657 # make habitats larger
 	}
 }
 
@@ -1414,8 +1425,6 @@ on_megastructure_built = {
 		utopia.4000
 		utopia.4100
 		utopia.80
-		#apoc.10
-		#apoc.11
 	}
 }
 

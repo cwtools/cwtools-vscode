@@ -1,0 +1,246 @@
+# PROJECTILE POINT DEFENCE
+
+projectile_gfx_ballistic = {
+	#common for all types of projectiles
+	name = "proj_pd"
+	color = { 1.0	1.0		1.0		1.0 }
+	hit_entity = "proj_pd_hit_entity"
+	muzzle_flash_entity = "proj_pd_muzzle_entity"
+	
+	#ballistic specific
+	entity = "proj_pd_entity"
+	speed = 100.0			#preferred speed of the projectile
+	max_duration = 2.0		#Speed of projectile might be scaled up in order to guarantee reaching the target within <max_duration> seconds
+}
+
+
+# RED LASER POINT DEFENCE
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "red_laser_pd"
+	color = { 1.0 	0.4 	0.4 	1.5 }
+	hit_entity = "pd_red_laser_hit_entity"
+	muzzle_flash_entity = "pd_red_laser_muzzle_entity"
+	
+	#beam specific data
+	width = 0.05
+	texture_scroll_speed = 5.5
+	texture_tiling = 10.0
+	hit = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 0.2
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 0.2
+	}
+	texture = "gfx/models/combat_items/laser_diffuse2.dds"
+}
+
+# BLUE LASER POINT DEFENCE
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "blue_laser_pd"
+	color = { 0.15 		0.4 	1.0 	2.0 }
+	hit_entity = "pd_blue_laser_hit_entity"
+	muzzle_flash_entity = "pd_blue_laser_muzzle_entity"
+	
+	#beam specific data
+	width = 0.05
+	texture_scroll_speed = 5.5
+	texture_tiling = 10.0
+	hit = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 0.2
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 0.2
+	}
+	texture = "gfx/models/combat_items/laser_diffuse2.dds"
+}
+
+# WHITE LASER POINT DEFENCE
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "white_laser_pd"
+	color = { 1.0 	 1.0 	1.0 	1.5 }
+	hit_entity = "pd_white_laser_hit_entity"
+	muzzle_flash_entity = "pd_white_laser_muzzle_entity"
+	
+	#beam specific data
+	width = 0.05
+	texture_scroll_speed = 5.5
+	texture_tiling = 10.0
+	hit = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 0.2
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 0.2
+	}
+	texture = "gfx/models/combat_items/laser_diffuse2.dds"
+}
+
+
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "flak_pd_1"
+	color = { 0.6 	0.6 	0.6 	1.0 }
+	hit_entity = "auto_cannons_medium_hit_entity"
+	shield_hit_entity = "auto_cannons_medium_hit_entity"
+	muzzle_flash_entity = "auto_cannons_medium_muzzle_entity"
+	
+	#beam specific data
+	width = 0.5
+	texture_scroll_speed = 10
+	texture_tiling = 25.0
+	hit = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.2		1.0
+			0.9		1.0
+			1.0 	0.0
+		}
+		duration = 1.0
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.2		1.0
+			0.9		1.0
+			1.0 	0.0
+		}
+		duration = 0.2
+	}
+	texture = "gfx/models/combat_items/auto_cannon_diffuse.dds"
+	
+	shield_impact = {
+		size = small
+		loop_duration = 1.5
+		delay = 0.0
+	}
+}
+
+
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "flak_pd_2"
+	color = { 0.6 	1.0 	0.6 	1.0 }
+	hit_entity = "auto_cannons_medium_hit_entity"
+	shield_hit_entity = "auto_cannons_medium_hit_entity"
+	muzzle_flash_entity = "auto_cannons_medium_muzzle_entity"
+	
+	#beam specific data
+	width = 0.5
+	texture_scroll_speed = 15
+	texture_tiling = 25.0
+	hit = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.2		1.0
+			0.9		1.0
+			1.0 	0.0
+		}
+		duration = 1.5
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.2		1.0
+			0.9		1.0
+			1.0 	0.0
+		}
+		duration = 0.2
+	}
+	texture = "gfx/models/combat_items/auto_cannon_diffuse.dds"
+	
+	shield_impact = {
+		size = small
+		loop_duration = 1.5
+		delay = 0.0
+	}
+}
+
+
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "flak_pd_3"
+	color = { 1.0 	0.6 	0.6 	1.0 }
+	hit_entity = "auto_cannons_medium_hit_entity"
+	shield_hit_entity = "auto_cannons_medium_hit_entity"
+	muzzle_flash_entity = "auto_cannons_medium_muzzle_entity"
+	
+	#beam specific data
+	width = 0.5
+	texture_scroll_speed = 15
+	texture_tiling = 25.0
+	hit = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.2		1.0
+			0.9		1.0
+			1.0 	0.0
+		}
+		duration = 1.5
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.2		1.0
+			0.9		1.0
+			1.0 	0.0
+		}
+		duration = 0.2
+	}
+	texture = "gfx/models/combat_items/auto_cannon_diffuse.dds"
+	
+	shield_impact = {
+		size = small
+		loop_duration = 1.5
+		delay = 0.0
+	}
+}

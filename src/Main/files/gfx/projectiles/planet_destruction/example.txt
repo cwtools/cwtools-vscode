@@ -1,0 +1,87 @@
+# example_beam = {
+#
+# 	texture = "gfx/models/combat_items/laser_diffuse2.dds"
+#
+# 	color = { 1.0 1.0 1.0 1.0 }
+#
+#	windup_entity = "colossus_shatter_planet_windup_entity"
+#
+# 	ship_fire_entity = "colossus_shatter_planet_muzzle_entity"
+#
+# 	planet_hit_entity = "colossus_shatter_planet_hit_entity"
+#
+# 	megastructure_hit_entity = "colossus_shatter_megastructure_hit_entity"
+#
+# 	# Has the same options as the other beam states
+#	windup = {
+#		duration = 10.0
+#	}
+# 	start = {
+# 		# If the ship's entity has a state called "kill_planet" 
+# 		# and that state has an event with id "beam_start" then
+# 		# the game will delay this state until that event has
+# 		# fired. This allows the entities to set their own timing
+# 		# and allows more freedom in the animations.
+# 		
+# 		duration = 1.0
+# 		
+# 		#width, texture_scroll_speed, texture_tiling, and alpha all support animation curves and constant assignment
+# 		# for example, width = 1.0 will give the beam a constant width of 1.0
+# 		# width = { 0.0 1.0 	1.0 2.0 } will make the beam start with a width of 1.0 and interpolate to a width of 2.0 after one second has passed
+# 		# width = { timestamp value		timestamp value 	timestamp value }
+# 		# timestamp values are scaled so that 1.0 matches duration
+# 		width = { 	
+# 			0.0 01.0
+# 			1.0 10.0 
+# 		}
+# 		texture_scroll_speed = {
+# 			0.0 -0.1
+# 			0.95 -0.1
+# 			1.0 5.0
+# 		}
+# 		texture_tiling = 5.0
+# 		alpha = { 	
+# 			0.0 0.0
+# 			0.9 1.0
+# 			1.0 5.0
+# 		}
+# 	}
+# 	in_progress = {
+# 		duration = 10.0
+# 		width = { 	
+# 			0.0 10.0	
+# 			0.5 15.0 
+# 			1.0 10.0 
+# 		}
+# 		texture_scroll_speed = {
+# 			0.0 1.5 
+# 		}
+# 		texture_tiling = {
+# 			0.0 	5.0 
+# 		}
+# 		alpha = {
+# 			0.0 3.0 
+# 			0.5 2.0
+# 			1.0 3.0
+# 		}
+# 	}
+# 	end = {
+# 		duration = 1.0
+# 		width = { 	
+# 			0.0 10.0
+# 			1.0 0.0 
+# 		}					
+# 		texture_scroll_speed = 5.0
+# 		texture_tiling = 5.0
+# 		alpha = { 
+# 			0.0 5.0 	
+# 			1.0 0.0 
+# 		}
+# 	}
+#
+#	fade = {
+#		# { <Fade-in/out start/end percentage> <Width in world units> }
+#		fade_in = { 0.0 50.0 }
+#		fade_out = { 1.0 50.0 }
+#	}
+#}

@@ -4,7 +4,7 @@
 
  # Unrest
  UNREST:0 "Unruhe"
- UNREST_DESC:0 "§E§HUnruhe§! repräsentiert das Ausmaß von Unzufriedenheit und politischer Instabilität auf diesem Planeten. §HUnzufrieden§! Bewohner und Sklaven erhöhen die §HUnruhe§!, §HGarnisonsarmeen§! reduzieren sie.\n\nIst die §HUnruhe§! hoch, kann das direkte und negative Konsequenzen haben.§!"
+ UNREST_DESC:1 "§E§HUnruhe§! repräsentiert das Ausmaß von Unzufriedenheit und politischer Instabilität auf diesem Planeten. §HUnzufrieden§! Bewohner und Sklaven erhöhen die §HUnruhe§!, während §HBollwerke§! und §HFestungen§! sie reduziert.\n\nIst die §HUnruhe§! hoch, kann das direkte und negative Konsequenzen haben.§!"
  UNREST_VALUE_POP_DESC:0 "$NAME$: $VALUE$"
  UNREST_HAPPY_POPS:0 "Zufriedene Bewohner"
  UNREST_UNHAPPY_POPS:0 "Unzufriedene Bewohner"
@@ -68,8 +68,8 @@
  allow_machine_worlds:2 "§HFreischaltung der Terraformoption:§! Maschinenwelt"
  describe_machine_worlds:2 "§YMaschinenwelten§! sind eine spezielle Planetenklasse, die für organische Wesen unbewohnbar ist. §YMaschinenbewohner§!, die auf §YMaschinenwelten§! leben, haben eine um §G+20%§! erhöhte Ressourcenproduktion."
 
- ALLOW_PSI_CORPS:0 "Das §H$building_psi_corps$§!-Gebäude steht jetzt zur Verfügung."
- ALLOW_PSI_ARMIES:0 "§H$psionic_army_plural$§! kann jetzt rekrutiert werden."
+ ALLOW_PSI_CORPS:0 "Das Gebbäude §H$building_psi_corps$§! steht jetzt zur Verfügung."
+ ALLOW_PSI_ARMIES:0 "§H$psionic_army_plural$§! können jetzt rekrutiert werden."
  
  dyson_sphere_0_MEGASTRUCTURE_DETAILS:1 "Eine §Y$dyson_sphere_5$§! umfasst einen Stern vollständig und wandelt die entstehende Solarenergie direkt in £energy  Energie-Credits um."
  dyson_sphere_0_CONSTRUCTION_INFO_DELAYED:3 "Eine $dyson_sphere_5$ vernichtet die Sonne und verwandelt sämtliche Planeten des Systems in karge oder gefrorene Welten."
@@ -159,6 +159,8 @@
  FLESH_IS_WEAK_PROJECT_DESC:0 "Nur ein Narr besteht darauf, sich an ein abgenutztes, marodes Werkzeug zu klammern, wenn sich effizientere Alternativen anbieten.\n\nWir verfügen nun über die Technologie, die Massenproduktion von kybernetischen Implantaten für die [Root.GetName] zu starten. Nach der Ersetzung von Gliedmaßen und Organen durch verbesserte mechanische Versionen werden unsere Bürger stärker, schneller und intelligenter sein."
  SYNTHETIC_EVOLUTION_PROJECT:0 "Synthetische Evolution"
  SYNTHETIC_EVOLUTION_PROJECT_DESC:0 "Es ist an der Zeit, unsere fehlerhaften organischen Behälter zurückzulassen und die Unsterblichkeit anzunehmen. Wir müssen moderne synthetische Inkarnationen für unsere gesamte Bevölkerung schaffen und dann mit den Bewusstseinsübertragungen beginnen."
+ 
+ TRAIT_IMPROVES_LEADERS:0 "§GAnführer dieser Spezies haben zusätzliche Eigenschaften und Boni§!"
 
  trait_cybernetic:0 "Kybernetik"
  trait_cybernetic_desc:0 "§LDiese Spezies hat derart stark auf kybernetische Implantate zurückgegriffen, dass ihre Mitglieder als Cyborgs betrachtet werden. Sie ersetzen ihre organischen Körperteile routinemäßig mit besseren mechanischen Versionen.§!\n"
@@ -168,6 +170,17 @@
  trait_psionic_desc:0 "§LAlle Mitglieder dieser Spezies besitzen mächtige psionische Fähigkeiten. Normalerweise kommunizieren sie miteinander per Telepathie.§!\n"
  trait_self_modified:0 "Selbstmodifizierung"
  trait_self_modified_desc:0 "§LMitglieder dieser Nebenspezies haben ihre genetischen Zusammensetzung verändert, um sich einen Vorteil zu verschaffen.§!"
+
+ leader_trait_admiral_erudite:0 "Hochgebildet"
+ leader_trait_admiral_erudite_desc:0 "Dieser Anführer hat einen stark verbesserten Intellekt und erhöht dadurch seine Fähigkeit Flotten zu befehligen."
+ leader_trait_general_erudite:0 "$leader_trait_admiral_erudite$"
+ leader_trait_general_erudite_desc:0 "Dieser Anführer hat einen stark verbesserten Intellekt und erhöht dadurch seine Fähigkeit Armeen zu befehligen."
+ leader_trait_governor_erudite:0 "$leader_trait_admiral_erudite$"
+ leader_trait_governor_erudite_desc:0 "Dieser Anführer hat einen stark verbesserten Intellekt und erhöht dadurch seine Fähigkeit zu regieren."
+ leader_trait_scientist_erudite:0 "$leader_trait_admiral_erudite$"
+ leader_trait_scientist_erudite_desc:0 "Dieser Anführer hat einen stark verbesserten Intellekt und erhöht dadurch seine Fähigkeit zu forschen."
+ leader_trait_ruler_erudite:0 "$leader_trait_admiral_erudite$"
+ leader_trait_ruler_erudite_desc:0 "Dieser Anführer hat einen stark verbesserten Intellekt und erhöht dadurch seine Fähigkeit zu herrschen."
 
  leader_trait_admiral_cyborg:0 "Cyborg"
  leader_trait_admiral_cyborg_desc:0 "Dieser Anführer ist mit militärischen kybernetischen Implantaten ausgestattet, über die er sich direkt mit dem Flottenkommando und Kontrollsystemen verbinden kann."
@@ -289,6 +302,6 @@
 
  crisis.1011.desc:0 "Wir haben unsere Kolonie auf [Root.GetName] verloren! Nachdem sie im Orbit Stellung bezogen hatten, haben die extradimensionalen Invasionstruppen die Oberfläche bombardiert und unsere Bürger gefressen. Sie ignorierten alle nicht-fühlenden Lebensformen, aber in unseren Siedlungen gibt es kein Leben mehr."
 
- utopia.61.name:0 "[From.From.From.From.Planet.GetName]-Habitat vollständig"
+ utopia.61.name:0 "[From.From.From.Planet.GetName]-Habitat errichtet"
  utopia.61.desc.a:0 "Wir haben den Bau unseres ersten Habitats abgeschlossen. Jetzt ist die Zeit gekommen, ein Kolonieschiff bereitzumachen und auf unserer selbst geschaffenen Welt zu landen.\n\nVon ihrem mechanisierten Kern bis hin zu ihren höchsten Bergen wurde sie bis in den letzten Winkel mitsamt allen Muttern und Bolzen perfekt auf unsere Anforderungen an unsere neue Heimat in den Sternen abgestimmt."
- utopia.61.desc.b:0 "Das [From.From.From.From.Planet.GetName]-Habitat ist nun vollständig und kann kolonisiert werden."
+ utopia.61.desc.b:0 "Das [From.From.From.Planet.GetName]-Habitat ist nun vollständig und kann kolonisiert werden."

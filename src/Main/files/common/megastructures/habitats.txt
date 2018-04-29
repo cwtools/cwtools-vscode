@@ -139,7 +139,13 @@ habitat_0 = {
 						}
 					}
 					copy_orbital_tile = fromfrom.planet
-				}			
+				}
+				if = {
+					limit = {
+						from = { has_ascension_perk = ap_master_builders }
+					}
+					set_planet_size = 15
+				}
 				set_planet_flag = megastructure
 				set_planet_flag = habitat
 			}

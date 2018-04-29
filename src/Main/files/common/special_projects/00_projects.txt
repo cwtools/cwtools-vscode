@@ -3124,7 +3124,16 @@ special_project = {
 # Synth Infiltration Project
 special_project = {
 	key = "SYNTH_INFILTRATION_PROJECT"
-	cost = 1000
+	cost = {
+		base = 600
+		scaled_modifier = {
+			limit = {
+			}
+			scope = this
+			add = 100
+			calc = pop_count
+		}
+	}
 	tech_department = society_technology
 	picture = GFX_evt_robot_assembly_plant
 	location = no

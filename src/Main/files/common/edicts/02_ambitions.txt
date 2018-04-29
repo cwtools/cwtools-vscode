@@ -148,3 +148,22 @@ country_edict = {
 		weight = 1
 	}
 }
+
+country_edict = {
+	name = "will_to_power"
+	length = @ambitionDuration
+	
+	is_ambition = yes 		# Costs Unity scaled to tradition cost
+	
+	modifier = {
+		country_resource_influence_add = 5
+	}	
+	
+	potential = {
+		has_technology = tech_ascension_theory_apoc
+	}
+	
+	ai_weight = {
+		weight = 1
+	}
+}

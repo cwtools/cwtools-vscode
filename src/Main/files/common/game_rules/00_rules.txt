@@ -172,6 +172,10 @@ species_has_citizenship = {
 #Root = country
 #This = pop
 should_abduct_pop = {
+	planet = { 
+		exists = owner
+		owner = { is_hostile = root }
+	}
 	NAND = {
 		has_citizenship_type = { type = citizenship_purge country = root }
 		NOR = { 

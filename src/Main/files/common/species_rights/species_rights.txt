@@ -514,9 +514,10 @@ citizenship_caste_system = {
 citizenship_caste_system_limited = {
 	token = citizenship_caste_system_limited
 	
-	pop_modifier = {
-		pop_happiness = -0.1
-		pop_consumer_goods_mult = -0.25	
+	# Only applies to the pops that are not enslaved
+	free_pop_modifier = {
+		pop_happiness = -0.05
+		pop_consumer_goods_mult = -0.20	
 	}
 
 	potential = {
@@ -736,7 +737,7 @@ citizenship_purge = {
 				custom_tooltip = {
 					fail_text = same_species_disallowed
 					NOT = { is_same_species = from }
-				}			
+				}
 			
 				OR = {
 					custom_tooltip = {
@@ -835,6 +836,10 @@ citizenship_purge_machine = {
 			has_trait = trait_machine_unit
 			has_trait = trait_mechanical
 		}
+		NAND = {
+			is_lonely_hive_mind_pop = no
+			from = { has_valid_civic = civic_machine_servitor }
+		}
 	}
 
 	allow = {
@@ -842,7 +847,7 @@ citizenship_purge_machine = {
 		custom_tooltip = {
 			fail_text = same_species_disallowed
 			NOT = { is_same_species = from }
-		}
+		}		
 	}
 	ai_will_do = {
 		factor = 0

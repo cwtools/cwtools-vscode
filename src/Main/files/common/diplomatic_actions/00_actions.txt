@@ -172,6 +172,10 @@ action_make_rival = {
 			}
 		}
 		custom_tooltip = {
+			fail_text = "requires_actor_not_machine_assimilator"
+			NOT = { has_valid_civic = civic_machine_assimilator }
+		}		
+		custom_tooltip = {
 			fail_text = "requires_actor_not_inward_perfection"
 			NOT = { has_valid_civic = civic_inwards_perfection }
 		}
@@ -1140,8 +1144,16 @@ action_demand_vassalization = {
 	}
 
 	proposable = {
-		is_neighbor_of = from
-		relative_power = { who = from value >= superior }
+		if = {
+			limit = {
+				hidden_trigger = { from = { is_country_type = awakened_fallen_empire } }
+			}
+			hidden_trigger = { always = yes }
+			else = {
+				is_neighbor_of = from
+				relative_power = { who = from value >= superior }			
+			}
+		}
 		custom_tooltip = grants_subjugation_cb
 	}
 

@@ -1042,6 +1042,7 @@ is_homicidal = {
 
 has_subjugation_req = {
 	OR = {
+		NOT = { is_country_type = default }
 		has_tradition = tr_domination_adopt
 		has_valid_civic = civic_inwards_perfection
 		has_valid_civic = civic_machine_terminator

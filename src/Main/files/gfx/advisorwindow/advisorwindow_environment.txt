@@ -1,0 +1,66 @@
+		#reload squadview.gui
+		advisor_3d_view =
+		{
+		#	camera_position = { -6.0 -5.0 35.0 }
+		#	camera_look_at 	= { 2.5 -5.0 0.0 }
+		#	fov 			= 45					# Field of view			
+			
+			camera_position = { -8.0 -3.0 30.0 }
+			camera_look_at 	= { 1.5 -3.0 0.0 }
+			fov 			= 40					# Field of view
+			near 			= 0.01					# Z Near
+			far 			= 1000					# Z Far
+			min_zoom		= 50
+			max_zoom		= 300.0
+    
+			entity 			= "advisor_entity"
+			position 		= { 0.0 0.0 0.0 }
+			
+			gfx_settings = 
+			{
+				cubemap_intensity = 0.1
+
+				system_back_light_diffuse = { 0.0 1.0 1.0 }
+				
+				ambient = hsv { 0.0 0.0	1.6	}	#global ambient, no direction
+				
+				# Top Light
+				cam_light_3_diffuse = hsv { 0.11 0.2 0.9}
+				#cam_light_3_diffuse = hsv { 0.0 0.0 0.0}		# TURN OFF
+				
+				# Left Light
+				cam_light_1_diffuse =  hsv { 0.5 0.2 0.5 }
+				#cam_light_1_diffuse =  hsv { 0.0 0.0 0.0 }		# TURN OFF
+				
+				# Right Light
+				cam_light_2_diffuse = hsv { 0.11 0.4 0.7 }
+				#cam_light_2_diffuse = hsv { 0.0 0.0 0.0 }		# TURN OFF
+				
+
+				
+				# Rim light
+				#rim_light_diffuse = hsv { 0.0 0.0 0.0 }
+				rim_light_diffuse = hsv { 0.4 0.4 0.0 }
+				
+			# Why arent this working??? O_o; sadest of pandas	
+			#	bloom_width = 1.0
+			#	bloom_scale = 1.0
+			#	bright_threshold = 0.95		# Bloom threshold
+			#	emissive_bloom_strength = 0.02
+			
+				# NEUTRAL
+				
+    		#	light_direction = { -1.1 -1.0 0.5 }
+			#	light_diffuse = { 1.0 1.0 1.0 }
+			#	light_intensity = 1.0 #1.75
+			#	cubemap_intensity = 10.0
+            #
+			#	ambient_posy  = hsv { 0.5 0.0 0.5 }
+			#	ambient_sides  = hsv { 0.3 0.0 0.5 }
+			#	ambient_negy = hsv { 0.5 0.0 0.5 }
+    
+				light_hdr_range = 1.0
+			}
+    
+			world = "a_star"	# World gfx used for post render effects
+		}

@@ -130,7 +130,7 @@ wg_assimilation = {
 	surrender_acceptance = -1000
 
 	potential = {
-		always = yes
+		from = { NOT = { is_country_type = fallen_empire } }
 	}
 	possible = {
 		always = yes
@@ -151,7 +151,7 @@ wg_cleansing = {
 	surrender_acceptance = -1000
 
 	potential = {
-		always = yes
+		from = { NOT = { is_country_type = fallen_empire } }
 	}
 	possible = {
 		always = yes
@@ -172,7 +172,7 @@ wg_absorption = {
 	surrender_acceptance = -1000
 	
 	potential = {
-		always = yes
+		from = { NOT = { is_country_type = fallen_empire } }
 	}
 	possible = {
 		always = yes
@@ -182,6 +182,68 @@ wg_absorption = {
 		weight = 100
 	}
 }
+
+wg_assimilation_vs_fe = {
+	casus_belli = cb_sublimation
+	
+	hide_if_no_cb = yes
+	total_war = yes
+	set_defender_wargoal = wg_end_threat_assimilators
+	
+	surrender_acceptance = -1000
+
+	potential = {
+		from = { is_country_type = fallen_empire }
+	}
+	possible = {
+		always = yes
+	}
+	
+	ai_weight = {
+		weight = 100
+	}
+}
+
+wg_cleansing_vs_fe = {
+	casus_belli = cb_purification
+	
+	hide_if_no_cb = yes
+	total_war = yes
+	
+	surrender_acceptance = -1000
+
+	potential = {
+		from = { is_country_type = fallen_empire }
+	}
+	possible = {
+		always = yes
+	}
+	
+	ai_weight = {
+		weight = 100
+	}
+}
+
+wg_absorption_vs_fe = {
+	casus_belli = cb_hunger
+	
+	hide_if_no_cb = yes
+	total_war = yes
+	
+	surrender_acceptance = -1000
+	
+	potential = {
+		from = { is_country_type = fallen_empire }
+	}
+	possible = {
+		always = yes
+	}
+	
+	ai_weight = {
+		weight = 100
+	}
+}
+
 
 wg_plunder = {
 	casus_belli = cb_despoliation
@@ -203,7 +265,7 @@ wg_plunder = {
 		if = {
 			limit = { 
 				from = {
-					num_owned_planets < 5
+					num_owned_planets <= 3
 				}
 			}		
 			custom_tooltip = wg_plunder_accept_us_1
@@ -212,8 +274,8 @@ wg_plunder = {
 		if = {
 			limit = {
 				from = { 
-					num_owned_planets > 4
-					num_owned_planets < 10
+					num_owned_planets >= 4
+					num_owned_planets <= 6
 				}
 			}
 			custom_tooltip = wg_plunder_accept_us_2
@@ -222,8 +284,8 @@ wg_plunder = {
 		if = {
 			limit = {
 				from = { 
-					num_owned_planets > 9
-					num_owned_planets < 15
+					num_owned_planets >= 7
+					num_owned_planets <= 9
 				}
 			}
 			custom_tooltip = wg_plunder_accept_us_3
@@ -232,8 +294,8 @@ wg_plunder = {
 		if = {
 			limit = {
 				from = { 
-					num_owned_planets > 14
-					num_owned_planets < 20
+					num_owned_planets >= 10
+					num_owned_planets <= 12
 				}
 			}
 			custom_tooltip = wg_plunder_accept_us_4
@@ -242,11 +304,161 @@ wg_plunder = {
 		if = {
 			limit = {
 				from = { 
-					num_owned_planets > 19
+					num_owned_planets >= 13
+					num_owned_planets <= 15
 				}
 			}
 			custom_tooltip = wg_plunder_accept_us_5
 			hidden_effect = { add_energy = 2500 add_minerals = 2500 } 
+		}	
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 16
+					num_owned_planets <= 18
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_6
+			hidden_effect = { add_energy = 3000 add_minerals = 3000 } 
+		}	
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 19
+					num_owned_planets <= 21
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_7
+			hidden_effect = { add_energy = 3500 add_minerals = 3500 } 
+		}
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 22
+					num_owned_planets <= 24
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_8
+			hidden_effect = { add_energy = 4000 add_minerals = 4000 } 
+		}	
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 25
+					num_owned_planets <= 27
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_9
+			hidden_effect = { add_energy = 4500 add_minerals = 4500 } 
+		}		
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 28
+					num_owned_planets <= 30
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_10
+			hidden_effect = { add_energy = 5000 add_minerals = 5000 } 
+		}
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 31
+					num_owned_planets <= 33
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_11
+			hidden_effect = { add_energy = 5500 add_minerals = 5500 } 
+		}			
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 34
+					num_owned_planets <= 36
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_12
+			hidden_effect = { add_energy = 6000 add_minerals = 6000 } 
+		}	
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 37
+					num_owned_planets <= 39
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_13
+			hidden_effect = { add_energy = 6500 add_minerals = 6500 } 
+		}			
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 40
+					num_owned_planets <= 42
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_14
+			hidden_effect = { add_energy = 7000 add_minerals = 7000 } 
+		}	
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 43
+					num_owned_planets <= 45
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_15
+			hidden_effect = { add_energy = 7500 add_minerals = 7500 } 
+		}
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 46
+					num_owned_planets <= 48
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_16
+			hidden_effect = { add_energy = 8000 add_minerals = 8000 } 
+		}	
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 49
+					num_owned_planets <= 51
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_17
+			hidden_effect = { add_energy = 8500 add_minerals = 8500 } 
+		}
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 52
+					num_owned_planets <= 54
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_18
+			hidden_effect = { add_energy = 9000 add_minerals = 9000 } 
+		}			
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 55
+					num_owned_planets <= 57
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_19
+			hidden_effect = { add_energy = 9500 add_minerals = 9500 } 
+		}		
+		if = {
+			limit = {
+				from = { 
+					num_owned_planets >= 58
+				}
+			}
+			custom_tooltip = wg_plunder_accept_us_21
+			hidden_effect = { add_energy = 10000 add_minerals = 10000 } 
 		}			
 		hidden_effect = { from = { add_modifier = { modifier = raided days = 3600 } } }
 	}
@@ -396,6 +608,13 @@ wg_force_ideology = {
 	}
 	on_accept = {
 		custom_tooltip = wg_force_ideology_accept
+		custom_tooltip = wg_force_ideology_accept_2
+		if = {
+			limit = {
+				from = { has_federation = yes }
+			}
+			custom_tooltip = wg_force_ideology_accept_3
+		}
 		hidden_effect = {		
 			from = { copy_ethos_and_authority = root }
 			add_opinion_modifier = { modifier = opinion_we_liberated who = from }
@@ -413,7 +632,10 @@ wg_force_ideology = {
 					OR = {
 						is_in_federation_with = root 
 						is_subject = yes
-						overlord = { is_same_value = root }
+						AND = {
+							exists = overlord
+							overlord = { is_same_value = root }
+						}
 					}
 				}
 				end_rivalry = from
@@ -482,6 +704,7 @@ wg_humiliation = {
 			limit = {
 				is_country_type = fallen_empire			
 			}
+			custom_tooltip = wg_humiliation_fe_accept
 			save_event_target_as = fallen_empire_humiliator
 			from = { fallen_empire_humiliate_effect = yes }			
 			else = {			

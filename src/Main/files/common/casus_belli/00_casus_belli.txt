@@ -18,6 +18,7 @@ cb_claim = {
 	is_valid = {
 		has_claim = FROM
 		has_total_war_cb = no
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -36,13 +37,14 @@ cb_subjugation = {
 		is_subject = no
 	}
 	is_valid = { 
+		NOT = { is_overlord_to = FROM }
 		is_country_type = awakened_fallen_empire 
 		NOT = { has_authority = auth_machine_intelligence }
 	}	
 }
 
 cb_humiliation = {
-	show_in_diplomacy = no
+	show_in_diplomacy = yes
 	show_notification = no
 	potential = {
 		OR = {
@@ -57,6 +59,7 @@ cb_humiliation = {
 		}
 		is_rival = FROM
 		has_total_war_cb = no
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -111,6 +114,7 @@ cb_ideology = {
 				from = { is_pacifist = no }
 			}					
 		}
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -126,6 +130,7 @@ cb_sublimation = {
 	}
 	is_valid = {
 		has_total_war_cb = yes
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -145,6 +150,7 @@ cb_purification = {
 	}
 	is_valid = {
 		has_total_war_cb = yes
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -161,6 +167,7 @@ cb_hunger = {
 	}
 	is_valid = {
 		has_total_war_cb = yes
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -178,6 +185,7 @@ cb_despoliation = {
 	is_valid = {
 		is_neighbor_of = from
 		has_total_war_cb = no
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -197,6 +205,7 @@ cb_colossus = {
 		is_neighbor_of = from
 		has_total_war_cb = no
 		any_owned_ship = { is_ship_size = colossus }
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -216,6 +225,7 @@ cb_stop_colossus = {
 		from = { is_country_type = default }
 		from = { any_owned_ship = { is_ship_size = colossus } }
 		NOT = { any_owned_ship = { is_ship_size = colossus } }
+		NOT = { is_overlord_to = FROM }
 		OR = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
@@ -224,8 +234,8 @@ cb_stop_colossus = {
 }
 
 cb_containment = {
-	show_in_diplomacy = yes
-	show_notification = yes
+	show_in_diplomacy = no
+	show_notification = no
 	potential = {
 		is_country_type = default	
 		NOR = {
@@ -241,6 +251,7 @@ cb_containment = {
 			is_subject = no
 			overlord = { NOT = { is_same_value = from } }
 		}
+		NOT = { is_overlord_to = FROM }
 		from = {
 			OR = {
 				is_country_type = awakened_fallen_empire
@@ -254,7 +265,7 @@ cb_containment = {
 }
 
 cb_subject = {
-	show_in_diplomacy = no
+	show_in_diplomacy = yes
 	show_notification = no
 	potential = {
 		is_country_type = default

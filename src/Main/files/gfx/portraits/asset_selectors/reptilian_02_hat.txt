@@ -1,0 +1,80 @@
+# This is a template which multiple species can use. 
+  
+reptilian_02_hat = {
+	default = "gfx/models/nospec.dds"
+	
+	game_setup = {#will run with a limited country scope. species and government is set but the country does not actually exist
+		default = "gfx/models/nospec.dds"
+	}
+	
+	#species scope
+	species = { #generic portrait for a species
+		default = "gfx/models/nospec.dds"
+	}
+	
+	#pop scope
+	pop = { #for a specific pop
+	
+		default = "gfx/models/nospec.dds"
+
+		random = {
+			list = {
+				"gfx/models/nospec.dds"
+			}
+		}	
+	}
+	
+	
+	
+	
+	#leader scope
+	leader = { #scientists, generals, admirals, governor
+	
+		random = {
+			trigger = { leader_class = general }
+			list = {
+				"gfx/models/nospec.dds"
+			}
+		}		
+		
+		random = {
+			trigger = { leader_class = admiral }
+			list = {
+				"gfx/models/nospec.dds"
+			}
+		}	
+		
+		random = {
+			trigger = { leader_class = scientist }
+			list = {
+				"gfx/models/nospec.dds"
+			}
+		}		
+		
+		random = {
+			trigger = { leader_class = governor }
+			list = {
+				"gfx/models/nospec.dds"
+			}
+		}
+	}
+
+	#leader scope
+	ruler = { #for rulers
+		
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_divine_empire } }
+		#"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = transcendent_empire } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_theocratic_oligarchy } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_theocratic_republic } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_irenic_monarchy } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_despotic_empire } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_star_empire } }
+		#"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = transcendent_republic } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_direct_democracy } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_moral_democracy } }
+		#"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = irenic_democracy } }
+		#"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = indirect_democracy } }
+		#"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = democratic_utopia } }
+		"gfx/models/portraits/reptilian/reptilian_slender_outfit_rulerhat.dds" = {  owner = {has_government = gov_stagnant_ascendancy } }
+	}
+}

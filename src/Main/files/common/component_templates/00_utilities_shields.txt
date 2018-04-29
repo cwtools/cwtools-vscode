@@ -24,11 +24,11 @@
 @power_M5 = -85
 @power_L5 = -210
  
-@power_S6 = -45
+@power_S7 = -45
 @power_M6 = -115
 @power_L6 = -280
 
-@power_S7 = -50
+@power_S6 = -50
 @power_M7 = -125
 @power_L7 = -315
 
@@ -56,11 +56,11 @@
 @cost_M5 = 30
 @cost_L5 = 45
            
-@cost_S6 = 20
+@cost_S7 = 20
 @cost_M6 = 40
 @cost_L6 = 80
 
-@cost_S7 = 25
+@cost_S6 = 25
 @cost_M7 = 50
 @cost_L7 = 100
 
@@ -108,19 +108,19 @@
 @regen_M5 = 3.50
 @regen_L5 = 8.75
 
-@shield_S6 = 180
+@shield_S7 = 180
 @shield_M6 = 450
 @shield_L6 = 1150
 
-@regen_S6 = 1.80
+@regen_S7 = 1.80
 @regen_M6 = 4.50
 @regen_L6 = 11.50
 
-@shield_S7 = 200
+@shield_S6 = 200
 @shield_M7 = 500
 @shield_L7 = 1250
 
-@regen_S7 = 2.00
+@regen_S6 = 2.00
 @regen_M7 = 5.00
 @regen_L7 = 12.50
 
@@ -374,55 +374,6 @@ utility_component_template = {
 }
 
 ####################
-# Psionic Shields
-####################
-
-utility_component_template = {
-	key = "SMALL_PSI_SHIELD"
-	size = small
-	icon = "GFX_ship_part_psi_shield"
-	icon_frame = 1
-	power = @power_S6
-	cost = @cost_S6
-	modifier = {
-		ship_shield_add = @shield_S6
-		ship_shield_regen_add_static = @regen_S6 #Regeneration per day
-	}
-	prerequisites = { "tech_psionic_shield" }
-	component_set = "PSI_SHIELD"
-}
-
-utility_component_template = {
-	key = "MEDIUM_PSI_SHIELD"
-	size = medium
-	icon = "GFX_ship_part_psi_shield"
-	icon_frame = 1
-	power = @power_M6
-	cost = @cost_M6
-	modifier = {
-		ship_shield_add = @shield_M6
-		ship_shield_regen_add_static = @regen_M6 #Regeneration per day
-	}
-	prerequisites = { "tech_psionic_shield" }
-	component_set = "PSI_SHIELD"
-}
-
-utility_component_template = {
-	key = "LARGE_PSI_SHIELD"
-	size = large
-	icon = "GFX_ship_part_psi_shield"
-	icon_frame = 1
-	power = @power_L6
-	cost = @cost_L6
-	modifier = {
-		ship_shield_add = @shield_L6
-		ship_shield_regen_add_static = @regen_L6 #Regeneration per day
-	}
-	prerequisites = { "tech_psionic_shield" }
-	component_set = "PSI_SHIELD"
-}
-
-####################
 # Engimatic Shields
 ####################
 
@@ -432,11 +383,11 @@ utility_component_template = {
 	size = small
 	icon = "GFX_ship_part_dark_matter_shield"
 	icon_frame = 1
-	power = @power_S7
-	cost = @cost_S7
+	power = @power_S6
+	cost = @cost_S6
 	modifier = {
-		ship_shield_add = @shield_S7
-		ship_shield_regen_add_static = @regen_S7 #Regeneration per day
+		ship_shield_add = @shield_S6
+		ship_shield_regen_add_static = @regen_S6 #Regeneration per day
 	}
 	prerequisites = { "tech_dark_matter_deflector" }
 	component_set = "DARK_MATTER_DEFLECTOR"
@@ -447,11 +398,11 @@ utility_component_template = {
 	size = medium
 	icon = "GFX_ship_part_dark_matter_shield"
 	icon_frame = 1
-	power = @power_M7
-	cost = @cost_M7
+	power = @power_M6
+	cost = @cost_M6
 	modifier = {
-		ship_shield_add = @shield_M7
-		ship_shield_regen_add_static = @regen_M7 #Regeneration per day
+		ship_shield_add = @shield_M6
+		ship_shield_regen_add_static = @regen_M6 #Regeneration per day
 	}
 	prerequisites = { "tech_dark_matter_deflector" }
 	component_set = "DARK_MATTER_DEFLECTOR"
@@ -462,12 +413,61 @@ utility_component_template = {
 	size = large
 	icon = "GFX_ship_part_dark_matter_shield"
 	icon_frame = 1
+	power = @power_L6
+	cost = @cost_L6
+	modifier = {
+		ship_shield_add = @shield_L6
+		ship_shield_regen_add_static = @regen_L6 #Regeneration per day
+	}
+	prerequisites = { "tech_dark_matter_deflector" }
+	component_set = "DARK_MATTER_DEFLECTOR"
+}
+
+####################
+# Psionic Shields
+####################
+
+utility_component_template = {
+	key = "SMALL_PSI_SHIELD"
+	size = small
+	icon = "GFX_ship_part_psi_shield"
+	icon_frame = 1
+	power = @power_S7
+	cost = @cost_S7
+	modifier = {
+		ship_shield_add = @shield_S7
+		ship_shield_regen_add_static = @regen_S7 #Regeneration per day
+	}
+	prerequisites = { "tech_psionic_shield" }
+	component_set = "PSI_SHIELD"
+}
+
+utility_component_template = {
+	key = "MEDIUM_PSI_SHIELD"
+	size = medium
+	icon = "GFX_ship_part_psi_shield"
+	icon_frame = 1
+	power = @power_M7
+	cost = @cost_M7
+	modifier = {
+		ship_shield_add = @shield_M7
+		ship_shield_regen_add_static = @regen_M7 #Regeneration per day
+	}
+	prerequisites = { "tech_psionic_shield" }
+	component_set = "PSI_SHIELD"
+}
+
+utility_component_template = {
+	key = "LARGE_PSI_SHIELD"
+	size = large
+	icon = "GFX_ship_part_psi_shield"
+	icon_frame = 1
 	power = @power_L7
 	cost = @cost_L7
 	modifier = {
 		ship_shield_add = @shield_L7
 		ship_shield_regen_add_static = @regen_L7 #Regeneration per day
 	}
-	prerequisites = { "tech_dark_matter_deflector" }
-	component_set = "DARK_MATTER_DEFLECTOR"
+	prerequisites = { "tech_psionic_shield" }
+	component_set = "PSI_SHIELD"
 }

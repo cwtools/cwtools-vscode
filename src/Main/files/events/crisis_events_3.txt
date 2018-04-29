@@ -1795,7 +1795,20 @@ planet_event = {
 	}
 	
 	immediate = {
-		from = { set_country_flag = does_not_compute }
+		from = { save_event_target_as = final_machine_world_destroyer }
+		planet_event = { id = crisis.2046 }
+	}
+}
+
+# Final Machine World Destroyed
+planet_event = {
+	id = crisis.2046
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	immediate = {
+		event_target:final_machine_world_destroyer = { set_country_flag = does_not_compute }
 		remove_global_flag = synth_terror
 		remove_global_flag = ai_ghost_signal
 		remove_global_flag = ai_invasion_ongoing
@@ -1859,7 +1872,7 @@ planet_event = {
 			destroy_country = yes # Destroy the Contingency
 		}
 
-		FROM = { set_country_flag = final_machine_world_destroyed }
+		event_target:final_machine_world_destroyer = { set_country_flag = final_machine_world_destroyed }
 
 		# Cybrex
 		if = {

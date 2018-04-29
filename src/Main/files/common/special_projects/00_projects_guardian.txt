@@ -344,24 +344,12 @@ special_project = {
 		owner = {
 			random_list = {
 				50 = {
-					modifier = {
-						factor = 0.8
-						has_country_flag = technosphere_secrets
-					}
 					country_event = { id = guardian.1061 } #succeeds
 				}
-				50 = {
-					modifier = {
-						factor = 0.1
-						has_country_flag = technosphere_secrets
-					}
+				25 = {
 					country_event = { id = guardian.1062 } #fails
 				}
-				50 = {
-					modifier = {
-						factor = 0
-						NOT = { has_country_flag = technosphere_secrets }
-					}
+				25 = {
 					set_country_flag = technosphere_special
 					country_event = { id = guardian.1062 } #secret awesome stuff
 				}

@@ -1,0 +1,155 @@
+##############################################################
+###	PORTRAITS SETTINGS
+###
+### Which portraits are used is set in 
+### common\species_classes\00_species_classes.txt
+###
+###	This file configures how portraits and planet backgrounds are built.
+###	Default position orientation is lower left.
+##############################################################
+
+portraits = {
+
+	# Human
+	human_female_01 = {	entity = "portrait_human_female_01_entity"	clothes_selector = "mammalian_human_female_clothes_01" hair_selector = "human_female_hair_01"	greeting_sound = "human_female_greetings_03"}
+	human_female_02 = {	entity = "portrait_human_female_02_entity"	clothes_selector = "mammalian_human_female_clothes_01" hair_selector = "human_female_hair_02"	greeting_sound = "human_female_greetings_04"}
+	human_female_03 = {	entity = "portrait_human_female_03_entity"	clothes_selector = "mammalian_human_female_clothes_01" hair_selector = "human_female_hair_03"	greeting_sound = "human_female_greetings_05"}	
+	human_female_04 = {	entity = "portrait_human_female_04_entity"			clothes_selector = "mammalian_human_female_clothes_01" 	hair_selector = "human_female_hair_04"	greeting_sound = "human_female_greetings_01"}
+	human_female_05 = {	entity = "portrait_human_female_05_entity"			clothes_selector = "mammalian_human_female_clothes_01" 	hair_selector = "human_female_hair_05"	greeting_sound = "human_female_greetings_02"}
+	human_male_01 = {	entity = "portrait_human_male_01_entity"	clothes_selector = "mammalian_human_male_clothes_01" hair_selector = "human_male_hair_01"	greeting_sound = "human_male_greetings_03" }	
+	human_male_02 = {	entity = "portrait_human_male_02_entity"	clothes_selector = "mammalian_human_male_clothes_01" hair_selector = "human_male_hair_02"	greeting_sound = "human_male_greetings_04" }
+	human_male_03 = {	entity = "portrait_human_male_03_entity"	clothes_selector = "mammalian_human_male_clothes_01" hair_selector = "human_male_hair_03"	greeting_sound = "human_male_greetings_05" }		
+	human_male_04 = {	entity = "portrait_human_male_04_entity"			clothes_selector = "mammalian_human_male_clothes_01" 	hair_selector = "human_male_hair_04"	greeting_sound = "human_male_greetings_01" }
+	human_male_05 = {	entity = "portrait_human_male_05_entity"			clothes_selector = "mammalian_human_male_clothes_01" 	hair_selector = "human_male_hair_05"	greeting_sound = "human_male_greetings_02" }
+	
+}
+
+portrait_groups = {
+	human = {
+		default = human_male_01
+		game_setup = { #will run with a limited country scope. species and government is set but the country does not actually exist
+			add = {
+				trigger = {
+					ruler = { gender = male }
+				}
+				portraits = {
+					human_male_01
+					human_male_02
+					human_male_03
+					human_male_04
+					human_male_05
+				}
+			}
+			add = {
+				trigger = {
+					ruler = { gender = female }
+				}
+				portraits = {
+					human_female_01
+					human_female_02
+					human_female_03
+					human_female_04
+					human_female_05
+				}
+			}
+			#set = {
+			#	trigger = { ... }
+			#	portraits = { ... }
+			#	#using "set =" instead of "add" will first clear any portraits already added
+			#}
+		}		
+		
+		#species scope
+		species = { #generic portrait for a species
+			add = {
+				portraits = {
+					human_female_01
+					human_female_02
+					human_female_03					
+					human_female_04
+					human_female_05
+					human_male_01
+					human_male_02
+					human_male_03					
+					human_male_04
+					human_male_05
+				}
+			}
+		}		
+		
+		#pop scope
+		pop = { #for a specific pop
+			add = {
+				portraits = {
+					human_female_01
+					human_female_02
+					human_female_03				
+					human_female_04
+					human_female_05
+					human_male_01
+					human_male_02
+					human_male_03					
+					human_male_04
+					human_male_05
+				}
+			}
+		}
+		
+		#leader scope
+		leader = { #scientists, generals, admirals, governor
+			add = {
+				trigger = {
+					gender = female
+				}
+				portraits = {
+					human_female_01
+					human_female_02
+					human_female_03					
+					human_female_04
+					human_female_05
+				}
+			}
+			add = {
+				trigger = {
+					gender = male
+				}
+				portraits = {
+					human_male_01
+					human_male_02
+					human_male_03					
+					human_male_04
+					human_male_05
+				}
+			}
+		}
+
+			
+		#leader scope 
+		ruler = {
+			add = {
+				trigger = {
+					gender = female
+				}
+				portraits = {
+					human_female_01
+					human_female_02
+					human_female_03					
+					human_female_04
+					human_female_05
+				}
+			}
+			add = {
+				trigger = {
+					gender = male
+				}
+				portraits = {
+					human_male_01
+					human_male_02
+					human_male_03					
+					human_male_04
+					human_male_05
+				}
+			}
+		}
+	}
+}

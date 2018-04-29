@@ -1,0 +1,111 @@
+#All files in gfx/projectiles are reloadable with the "reload projectiles" console command
+#Filewatcher is also enabled for all files
+
+projectile_gfx_missile = {
+	#common for all types of projectiles
+	name = "example_missile"
+	color = { 1.0 	0.5 	0.0 	1.0 }
+	hit_entity = "test_explosion"
+	muzzle_flash_entity = "axis_effect_entity"
+	shield_impact = {
+		size = large#/small/medium
+		delay = 0
+		#loop_duration = 2.5
+	}
+	#missile specific data
+	entity = "molluscoid_01_missle_entity"
+}
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "example_beam"
+	color = { 1.0 	0.4 	0.4 	1.5 }
+	hit_entity = "test_explosion"
+	muzzle_flash_entity = "axis_effect_entity"
+	shield_impact = {
+		size = large#/small/medium
+		delay = 0
+		#loop_duration = 2.5
+	}
+	
+	#beam specific data
+	hit = {
+		alpha_curve = {	#interpolated alpha value over time. format is { timestamp value timestamp value timestamp value }
+			0.0 0.0
+			0.25 1.0
+			0.75 1.0
+			1.0 0.0
+		}
+		duration = 1.0
+	}
+	miss = {
+		alpha_curve = {	#interpolated alpha value over time. format is { timestamp value timestamp value timestamp value }
+			0.0 0.0
+			0.25 1.0
+			0.75 1.0
+			1.0 0.0
+		}
+		duration = 1.0
+	}
+
+	width = 2.0
+	texture_scroll_speed = 0.5
+	texture_tiling = 1.0
+	texture = "gfx/models/combat_items/laser_diffuse.dds"
+}
+
+projectile_gfx_ballistic = {
+	#common for all types of projectiles
+	name = "example_ballistic"
+	color = { 1.0	0.5		0.0		1.0 }
+	hit_entity = "test_explosion"
+	muzzle_flash_entity = "missile_small_muzzle_flash_entity"
+	
+	#ballistic specific
+	entity = "test_object_entity"
+	speed = 150.0			#preferred speed of the projectile
+	max_duration = 1.0		#Speed of projectile might be scaled up in order to guarantee reaching the target within <max_duration> seconds
+}
+
+#don't remove this. It is referenced in defines.lua as a fallback object
+projectile_gfx_missile = {
+	name = "default_missile_projectile"
+	color = { 1.0 	0.5 	0.0 	1.0 }
+	hit_entity = "test_explosion"
+	muzzle_flash_entity = "axis_effect_entity"
+	
+	entity = "molluscoid_01_missle_entity"
+}
+
+#don't remove this. It is referenced in defines.lua as a fallback object
+projectile_gfx_beam = {
+	name = "default_instant_projectile"
+	color = { 1.0 	0.5 	0.0 	1.0 }
+	hit_entity = "test_explosion"
+	muzzle_flash_entity = "axis_effect_entity"
+
+	#beam specific data
+	hit = {
+		alpha_curve = {	#interpolated alpha value over time. format is { timestamp value timestamp value timestamp value }
+			0.0 0.0
+			0.25 1.0
+			0.75 1.0
+			1.0 0.0
+		}
+		duration = 1.0
+	}
+	miss = {
+		alpha_curve = {	#interpolated alpha value over time. format is { timestamp value timestamp value timestamp value }
+			0.0 0.0
+			0.25 1.0
+			0.75 1.0
+			1.0 0.0
+		}
+		duration = 1.0
+	}
+
+	width = 3.0
+	texture_scroll_speed = 1.0
+	texture_tiling = 1.0
+	texture = "gfx/models/combat_items/laser_diffuse.dds"
+}
