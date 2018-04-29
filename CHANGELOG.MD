@@ -1,3 +1,5 @@
+# 0.4.21
+* Update to stellaris 2.0.4
 # 0.4.20
 * Improved icon validators
 * Ensure a final validation happens after changes stop
