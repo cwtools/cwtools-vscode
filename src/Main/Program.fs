@@ -421,19 +421,19 @@ type Server(send : BinaryWriter) =
                 match p with
                 | {command = "genlocfile"; arguments = x::_} -> 
                     let les = game.LocalisationErrors |> List.filter (fun (_, e, pos,_, _, _) -> (Position.UnConv pos) |> (fun a -> a.StreamName.Replace("\\","/") = x.AsString()))
-                    let keys = les |> List.choose (fun (_, _, _, _, _, k) -> k)
+                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> let pos = Position.UnConv p in (pos.StreamName, pos.Line))
+                                   |> List.choose (fun (_, _, _, _, _, k) -> k)
                                    |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
                                    |> List.distinct
-                                   |> List.rev
                     let text = String.Join(Environment.NewLine,keys)
                     let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
                     LanguageServer.sendNotification send notif
                 | {command = "genlocall"; arguments = _} -> 
                     let les = game.LocalisationErrors
-                    let keys = les |> List.choose (fun (_, _, _, _, _, k) -> k)
+                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> let pos = Position.UnConv p in (pos.StreamName, pos.Line))
+                                   |> List.choose (fun (_, _, _, _, _, k) -> k)
                                    |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
                                    |> List.distinct
-                                   |> List.rev
                     let text = String.Join(Environment.NewLine,keys)
                     let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
                     LanguageServer.sendNotification send notif
