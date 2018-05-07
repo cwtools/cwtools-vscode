@@ -95,15 +95,16 @@ type Server(send : BinaryWriter) =
             let name = 
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
                 then doc.LocalPath.Substring(1)
-                else doc.LocalPath            
-            let version = docs.GetVersion doc |> Option.defaultWith (notFound doc)
-            let source = docs.GetText doc |> Option.defaultWith (notFound doc)
-            let parsed = CKParser.parseString source name
+                else doc.LocalPath     
             let parserErrors = 
-                match name, parsed with
-                | x, _ when x.EndsWith(".yml") -> []
-                | _, Success(_,_,_) -> []
-                | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
+                match docs.GetText doc with
+                |None -> []
+                |Some t ->
+                    let parsed = CKParser.parseString t name
+                    match name, parsed with
+                    | x, _ when x.EndsWith(".yml") -> []
+                    | _, Success(_,_,_) -> []
+                    | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
             let errors = 
                 match shallowAnalyze with
                 |true -> parserErrors
@@ -134,6 +135,7 @@ type Server(send : BinaryWriter) =
         MailboxProcessor.Start(
             (fun agent ->
             let analyze (file : VersionedTextDocumentIdentifier) =
+                //eprintfn "Analyze %s" (file.uri.ToString())
                 let task = new Task((fun () -> lint (file.uri) false |> Async.RunSynchronously; agent.Post (WorkComplete ())))
                 task.Start() 
             let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier>) =
@@ -367,9 +369,14 @@ type Server(send : BinaryWriter) =
             docs.Close p
         member this.DidChangeWatchedFiles(p: DidChangeWatchedFilesParams): unit = 
             for change in p.changes do 
-                eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
-                if change.uri.AbsolutePath.EndsWith ".fsproj" then
-                    projects.UpdateProjectFile change.uri 
+                match change._type with
+                |FileChangeType.Created ->
+
+                    lintAgent.Post (UpdateRequest {uri = change.uri; version = 0})
+                    //eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
+                |_ ->                 ()
+                // if change.uri.AbsolutePath.EndsWith ".fsproj" then
+                //     projects.UpdateProjectFile change.uri 
                     //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
         member this.Completion(p: TextDocumentPositionParams): CompletionList = 
             let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
