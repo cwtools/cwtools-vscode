@@ -1,3 +1,7 @@
+
+# 0.4.22
+* Sort generate localisation by order in file
+* Override trigger\_docs and show error for pop/tile use of set\_variable and similar
 # 0.4.21
 * Update to stellaris 2.0.4
 # 0.4.20
