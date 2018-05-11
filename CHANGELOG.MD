@@ -1,4 +1,6 @@
-
+# 0.4.23
+* Add info for "REPLACE_ME" localisation
+* Add localisation checks for starbase\_buildings, starbase\_modules, starbase\_types and special\_projects
 # 0.4.22
 * Sort generate localisation by order in file
 * Override trigger\_docs and show error for pop/tile use of set\_variable and similar
