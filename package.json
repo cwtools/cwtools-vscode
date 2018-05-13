@@ -25,7 +25,8 @@
         "stellaris"
     ],
     "activationEvents": [
-        "onLanguage:paradox"
+        "onLanguage:paradox",
+        "onLanguage:stellaris"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -114,7 +115,8 @@
                 "id": "stellaris",
                 "aliases": [
                     "",
-                    "paradox"
+                    "paradox",
+                    "pdxscript"
                 ],
                 "extensions": [
                     "txt",
@@ -131,24 +133,9 @@
                 ]
             }
         ],
-        "grammars": [
-            {
-                "language": "stellaris",
-                "scopeName": "source.mod",
-                "path": "./syntaxes/paradox.tmLanguage.json"
-            },
-   
-            {
-                "scopeName": "source.stellaris",
-                "injectTo": [
-                    "source.mod"
-                ],
-                "path": "./syntaxes/stellaris.tmLanguage.json"
-            }
-        ],
         "snippets": [
             {
-                "language": "paradox",
+                "language": "stellaris",
                 "path": "./snippets/paradox.json"
             }
         ]
