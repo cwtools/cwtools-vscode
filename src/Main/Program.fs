@@ -20,6 +20,7 @@ open FSharp.Data
 open LSP
 open CWTools.Validation.ValidationCore
 open System
+open Microsoft.FSharp.Compiler.Range
 
 let private TODO() = raise (Exception "TODO")
 
@@ -57,18 +58,18 @@ type Server(send : BinaryWriter) =
         | Severity.Information -> DiagnosticSeverity.Information
         | Severity.Hint -> DiagnosticSeverity.Hint
     let parserErrorToDiagnostics e =
-        let code, sev, file, error, (position : Position), length = e
+        let code, sev, file, error, (position : range), length = e
         let startC, endC = match length with
-        | 0 -> 0,( int position.Column) - 1
-        | x ->(int position.Column) - 1,(int position.Column) + length - 1
+        | 0 -> 0,( int position.StartColumn) - 1
+        | x ->(int position.StartColumn) - 1,(int position.StartColumn) + length - 1
         let result = {
                         range = {
                                 start = { 
-                                        line = (int position.Line - 1)
+                                        line = (int position.StartLine - 1)
                                         character = startC
                                     }
                                 ``end`` = {
-                                            line = (int position.Line - 1)
+                                            line = (int position.StartLine - 1)
                                             character = endC
                                     }
                         }
@@ -96,6 +97,7 @@ type Server(send : BinaryWriter) =
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
                 then doc.LocalPath.Substring(1)
                 else doc.LocalPath     
+            let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
             let parserErrors = 
                 match docs.GetText doc with
                 |None -> []
@@ -104,7 +106,7 @@ type Server(send : BinaryWriter) =
                     match name, parsed with
                     | x, _ when x.EndsWith(".yml") -> []
                     | _, Success(_,_,_) -> []
-                    | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, p.Position, 0)]
+                    | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0)]
             let errors = 
                 match shallowAnalyze with
                 |true -> parserErrors
@@ -114,7 +116,7 @@ type Server(send : BinaryWriter) =
                         |None -> []
                         |Some game ->
                             let results = game.UpdateFile name
-                            results |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
+                            results |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
             match errors with
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
             | x -> x
@@ -206,15 +208,16 @@ type Server(send : BinaryWriter) =
                 eprintfn "%A" languages                
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla, experimental)
                 gameObj <- Some game
-                let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, p, 0)
+                let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
+                let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
                 parserErrors
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
 
                 LanguageServer.sendNotification send (LoadingBar {value = "Validating files..."; enable = true})
                 //eprintfn "%A" game.AllFiles
-                let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
-                let locErrors = game.LocalisationErrors |> List.map (fun (c, s, n, l, e, _) -> let (Position p) = n in (c, s, p.StreamName, e, p, l) )
+                let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
+                let locErrors = game.LocalisationErrors |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
 
                 valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
@@ -291,11 +294,11 @@ type Server(send : BinaryWriter) =
                         |None -> item
                     |None -> item
         }
-    let isPositionInRange (pos : FParsec.Position) (range : LSP.Types.Range) =
-        int pos.Column - 1 >= range.start.character 
-        && int pos.Column - 1 <= range.``end``.character
-        && int pos.Line - 1 >= range.start.line
-        && int pos.Line - 1 <= range.``end``.line
+    let isPositionInRange (pos : range) (range : LSP.Types.Range) =
+        int pos.StartColumn - 1 >= range.start.character 
+        && int pos.StartColumn - 1 <= range.``end``.character
+        && int pos.StartLine - 1 >= range.start.line
+        && int pos.StartLine - 1 <= range.``end``.line
 
 
     interface ILanguageServer with 
@@ -405,7 +408,7 @@ type Server(send : BinaryWriter) =
             match gameObj with
             |Some game ->
                 let es = game.LocalisationErrors
-                let les = es |> List.filter (fun (_, e, pos,_, _, _) -> (Position.UnConv pos) |> (fun a -> (isPositionInRange a p.range) && a.StreamName.Replace("\\","/") = p.textDocument.uri.LocalPath.Substring(1)) )
+                let les = es |> List.filter (fun (_, e, pos,_, _, _) -> (pos) |> (fun a -> (isPositionInRange a p.range) && a.FileName.Replace("\\","/") = p.textDocument.uri.LocalPath.Substring(1)) )
                 match les with
                 |[] -> []
                 |_ -> 
@@ -427,8 +430,8 @@ type Server(send : BinaryWriter) =
             |Some game ->
                 match p with
                 | {command = "genlocfile"; arguments = x::_} -> 
-                    let les = game.LocalisationErrors |> List.filter (fun (_, e, pos,_, _, _) -> (Position.UnConv pos) |> (fun a -> a.StreamName.Replace("\\","/") = x.AsString()))
-                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> let pos = Position.UnConv p in (pos.StreamName, pos.Line))
+                    let les = game.LocalisationErrors |> List.filter (fun (_, e, pos,_, _, _) -> (pos) |> (fun a -> a.FileName.Replace("\\","/") = x.AsString()))
+                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
                                    |> List.choose (fun (_, _, _, _, _, k) -> k)
                                    |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
                                    |> List.distinct
@@ -437,7 +440,7 @@ type Server(send : BinaryWriter) =
                     LanguageServer.sendNotification send notif
                 | {command = "genlocall"; arguments = _} -> 
                     let les = game.LocalisationErrors
-                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> let pos = Position.UnConv p in (pos.StreamName, pos.Line))
+                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
                                    |> List.choose (fun (_, _, _, _, _, k) -> k)
                                    |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
                                    |> List.distinct
@@ -446,7 +449,7 @@ type Server(send : BinaryWriter) =
                     LanguageServer.sendNotification send notif
                 | {command = "outputerrors"; arguments = _} ->
                     let errors = game.LocalisationErrors @ game.ValidationErrors
-                    let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> let p = Position.UnConv pos in sprintf "%s, %O, %O, %s, %O, \"%s\"" p.StreamName p.Line p.Column code sev error)
+                    let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
                     let text = String.Join(Environment.NewLine, (texts))
                     let notif = CreateVirtualFile { uri = Uri "cwtools://errors.csv"; fileContent = text }
                     LanguageServer.sendNotification send notif
