@@ -4,7 +4,7 @@ entity = {
 	
 	default_state = "idle"
 	state = { name = "idle" animation = "idle" 
-		start_event = { trigger_once = yes sound { soundeffect = "incoming_diplomatic_shroud_amb" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "incoming_diplomatic_shroud_amb" } }
 		event = { time = 0 node = "joint1" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }
 		event = { time = 0 node = "joint2" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }
 		event = { time = 0 node = "joint3" particle = "shroud_lightning_effect" keep_particle = yes trigger_once = yes sound = { soundeffect = "shroud_ambient_thunder" } }

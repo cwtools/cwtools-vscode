@@ -69,7 +69,7 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value hsv { 0.15 1.0 0.7 1.0 }
+		value = hsv { 0.15 1.0 0.7 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_SUBJECT"
 		condition = {
 			exists = overlord
@@ -79,7 +79,7 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value hsv { 0.15 1.0 0.7 1.0 }
+		value = hsv { 0.15 1.0 0.7 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_OVERLORD"
 		condition = {
 			exists = from.overlord
@@ -89,35 +89,35 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value hsv { 0.37 0.8 1.0 1.0 }
+		value = hsv { 0.37 0.8 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_DEFENSIVE_PACT"
 		condition = {
 			has_defensive_pact = FROM
 		}
 	}
 	color = {
-		value hsv { 0.4 0.5 1.0 1.0 }
+		value = hsv { 0.4 0.5 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_NON_AGGRESSION_PACT"
 		condition = {
 			has_non_aggression_pact = FROM
 		}
 	}
 	color = {
-		value hsv { 0.4 0.5 1.0 1.0 }
+		value = hsv { 0.4 0.5 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_ASSOCIATION_STATUS"
 		condition = {
 			has_association_status = FROM
 		}
 	}
 	color = {
-		value hsv { 0.05 0.6 0.8 1.0 }
+		value = hsv { 0.05 0.6 0.8 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_RIVAL"
 		condition = {
 			is_rival = FROM
 		}
 	}
 	color = {
-		value hsv { 0.0 0.4 0.7 1.0 }
+		value = hsv { 0.0 0.4 0.7 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_CLOSED_BORDERS"
 		condition = {
 			# This really could use a better trigger
@@ -125,7 +125,7 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value hsv { 0.6 0.5 1.0 1.0 }
+		value = hsv { 0.6 0.5 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_MIGRATION_PACT"
 		condition = {
 			has_migration_access = FROM			
