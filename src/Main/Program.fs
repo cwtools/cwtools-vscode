@@ -21,6 +21,7 @@ open LSP
 open CWTools.Validation.ValidationCore
 open System
 open Microsoft.FSharp.Compiler.Range
+open Microsoft.FSharp.Compiler
 
 let private TODO() = raise (Exception "TODO")
 
@@ -385,12 +386,19 @@ type Server(send : BinaryWriter) =
             let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
             match gameObj with
             |Some game ->
-                let extraKeywords = ["yes"; "no";]
-                let eventIDs = game.References.EventIDs
-                let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                let items = names |> List.map (fun e -> {defaultCompletionItem with label = e})
-                let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                {isIncomplete = false; items = items @ variables}
+                let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
+                let path = 
+                    let u = p.textDocument.uri
+                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                    then u.LocalPath.Substring(1)
+                    else u.LocalPath
+                let comp = game.Complete position (path)
+                // let extraKeywords = ["yes"; "no";]
+                // let eventIDs = game.References.EventIDs
+                // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                let items = comp |> List.map (fun e -> {defaultCompletionItem with label = e})
+                // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                {isIncomplete = false; items = items}
             |None -> {isIncomplete = false; items = []}
         member this.Hover(p: TextDocumentPositionParams): Hover = 
             eprintfn "Hover"
