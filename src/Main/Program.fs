@@ -89,15 +89,17 @@ type Server(send : BinaryWriter) =
             | _, _ -> true
         s |>  List.groupBy fst
             |> List.map ((fun (f, rs) -> f, rs |> List.filter (diagnosticFilter)) >>
-                (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
+                (fun (f, rs) -> 
+                    try PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A" rs)))
             |> List.iter (fun f -> LanguageServer.sendNotification send f)
 
-    let lint (doc: Uri) (shallowAnalyze : bool) : Async<unit> = 
+    let lint (doc: Uri) (shallowAnalyze : bool) (forceDisk : bool) : Async<unit> = 
         async {
             let name = 
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
                 then doc.LocalPath.Substring(1)
                 else doc.LocalPath     
+            let filetext = if forceDisk then None else docs.GetText doc
             let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
             let parserErrors = 
                 match docs.GetText doc with
@@ -116,7 +118,7 @@ type Server(send : BinaryWriter) =
                     match gameObj with
                         |None -> []
                         |Some game ->
-                            let results = game.UpdateFile name
+                            let results = game.UpdateFile name filetext
                             results |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
             match errors with
             | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
@@ -137,9 +139,20 @@ type Server(send : BinaryWriter) =
     let lintAgent = 
         MailboxProcessor.Start(
             (fun agent ->
+            let analyzeTask uri =
+                new Task(
+                    fun () ->
+                    try
+                        try
+                            lint uri false false |> Async.RunSynchronously
+                        with
+                        | e -> eprintfn "uri %A \n exception %A" uri.LocalPath e 
+                    finally  
+                        agent.Post (WorkComplete ()))
             let analyze (file : VersionedTextDocumentIdentifier) =
                 //eprintfn "Analyze %s" (file.uri.ToString())
-                let task = new Task((fun () -> lint (file.uri) false |> Async.RunSynchronously; agent.Post (WorkComplete ())))
+                let task = analyzeTask file.uri
+                //let task = new Task((fun () -> lint (file.uri) false false |> Async.RunSynchronously; agent.Post (WorkComplete ())))
                 task.Start() 
             let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier>) =
                 async{
