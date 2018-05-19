@@ -22,6 +22,7 @@ open CWTools.Validation.ValidationCore
 open System
 open Microsoft.FSharp.Compiler.Range
 open Microsoft.FSharp.Compiler
+open CWTools.Validation.Rules
 
 let private TODO() = raise (Exception "TODO")
 
@@ -405,11 +406,11 @@ type Server(send : BinaryWriter) =
                     if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
                     then u.LocalPath.Substring(1)
                     else u.LocalPath
-                let comp = game.Complete position (path)
+                let comp = game.Complete position (path) (docs.GetText p.textDocument.uri |> Option.defaultValue "")
                 // let extraKeywords = ["yes"; "no";]
                 // let eventIDs = game.References.EventIDs
                 // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                let items = comp |> List.map (fun e -> {defaultCompletionItem with label = e})
+                let items = comp |> List.map (function |Simple e -> {defaultCompletionItem with label = e} |Snippet (l, e) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet})
                 // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                 {isIncomplete = false; items = items}
             |None -> {isIncomplete = false; items = []}
