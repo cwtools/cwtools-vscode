@@ -49,6 +49,7 @@ type Server(send : BinaryWriter) =
 
     let mutable ignoreCodes : string list = []
     let mutable ignoreFiles : string list = []
+    let mutable experimental_completion : bool = false
     let (|TrySuccess|TryFailure|) tryResult =  
         match tryResult with
         | true, value -> TrySuccess value
@@ -220,8 +221,17 @@ type Server(send : BinaryWriter) =
                 let logspath = "Main.files.setup.log"
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
+                let configpath = "Main.files.config.cwt"
+                let configs = 
+                    match experimental_completion, File.Exists "./config.cwt" with
+                    |false, _ -> []
+                    |_, true ->
+                        ["./config.cwt", File.ReadAllText("./config.cwt")]
+                    |_, false ->
+                        [configpath, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(configpath))).ReadToEnd()]
+                //let configs = [
                 eprintfn "%A" languages                
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, languages, validateVanilla, experimental)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, configs, languages, validateVanilla, experimental)
                 gameObj <- Some game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
                 let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
@@ -354,6 +364,11 @@ type Server(send : BinaryWriter) =
                 | JsonValue.Boolean b -> b
                 | _ -> false
             experimental <- newExperimental
+            let newcompletion =
+                match p.settings.Item("cwtools").Item("experimental_completion") with
+                | JsonValue.Boolean b -> b
+                | _ -> false
+            experimental_completion <- newcompletion
             let newIgnoreCodes =
                 match p.settings.Item("cwtools").Item("errors").Item("ignore") with
                 | JsonValue.Array o ->

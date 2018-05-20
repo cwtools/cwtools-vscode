@@ -1,3 +1,5 @@
+# 0.4.25
+* Add experimental completion
 # 0.4.24
 * Reduce memory usage
 * Support syntax highlighting
