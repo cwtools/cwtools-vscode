@@ -1,3 +1,8 @@
+# 0.4.26
+* Update to 2.1.0
+* Add solar\_system\_initializer star class check
+* Add anomaly migration warning
+* Update validation to new anomaly format
 # 0.4.25
 * Add experimental completion
 # 0.4.24
