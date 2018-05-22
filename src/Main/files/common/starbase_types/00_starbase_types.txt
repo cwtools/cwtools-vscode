@@ -4,7 +4,7 @@
 # Shipyard
 stb_shipyard = {
 	potential = {
-		has_starbase_size >= starbase_starport
+		has_starbase_size > starbase_outpost
 		count_starbase_modules = {
 			type = shipyard
 			count > 0
@@ -59,12 +59,14 @@ stb_shipyard = {
 			base = 0.25
 			modifier = {
 				add = 0.10
+				exists = owner
 				owner = {
 					has_ethic = ethic_militarist
 				}
 			}
 			modifier = {
 				add = 0.05
+				exists = owner
 				owner = {
 					has_ethic = ethic_fanatic_militarist
 				}
@@ -113,7 +115,7 @@ stb_shipyard = {
 # Anchorage
 stb_anchorage = {
 	potential = {
-		has_starbase_size >= starbase_starport
+		has_starbase_size > starbase_outpost
 		count_starbase_modules = {
 			type = anchorage
 			count > 0
@@ -168,12 +170,14 @@ stb_anchorage = {
 			base = 0.15
 			modifier = {
 				add = 0.05
+				exists = owner
 				owner = {
 					has_ethic = ethic_militarist
 				}
 			}
 			modifier = {
 				add = 0.02
+				exists = owner
 				owner = {
 					has_ethic = ethic_fanatic_militarist
 				}
@@ -218,11 +222,12 @@ stb_anchorage = {
 # Trading Hub
 stb_trading_hub = {
 	potential = {
-		has_starbase_size >= starbase_starport
+		has_starbase_size > starbase_outpost
 		count_starbase_modules = {
 			type = trading_hub
 			count > 0
 		}
+		exists = owner
 		owner = { NOT = { has_ethic = ethic_gestalt_consciousness } }
 	}
 
@@ -271,15 +276,17 @@ stb_trading_hub = {
 		}
 		
 		ratio = {
-			base = 0.3
+			base = 0.45
 			modifier = {
-				add = 0.10
+				add = 0.05
+				exists = owner
 				owner = {
 					has_ethic = ethic_materialist
 				}
 			}
 			modifier = {
-				add = 0.05
+				add = 0.10
+				exists = owner
 				owner = {
 					has_ethic = ethic_fanatic_materialist
 				}
@@ -324,7 +331,7 @@ stb_trading_hub = {
 # Fortress System
 stb_fortress = {
 	potential = {
-		has_starbase_size >= starbase_starport
+		has_starbase_size > starbase_outpost
 		OR = {
 			has_starbase_module = gun_battery
 			has_starbase_module = missile_battery
@@ -471,12 +478,14 @@ stb_fortress = {
 			base = 0.25
 			modifier = {
 				add = 0.10
+				exists = owner
 				owner = {
 					has_ethic = ethic_militarist
 				}
 			}
 			modifier = {
 				add = 0.1
+				exists = owner
 				owner = {
 					has_ethic = ethic_fanatic_militarist
 				}
@@ -529,11 +538,12 @@ stb_fortress = {
 # Trading Hub - Gestalts
 stb_trading_hub_gestalt = {
 	potential = {
-		has_starbase_size >= starbase_starport
+		has_starbase_size > starbase_outpost
 		count_starbase_modules = {
 			type = trading_hub
 			count > 0
 		}
+		exists = owner
 		owner = { has_ethic = ethic_gestalt_consciousness }
 	}
 

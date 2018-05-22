@@ -9,7 +9,10 @@
 marauder_1_1 = {
 	class = "rl_standard_stars"
 	usage = misc_system_init
-	asteroids_distance = 230
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 230
+	}
 
 	max_instances = 1
 	usage_odds = {
@@ -848,7 +851,10 @@ marauder_1_2 = {
 # System III
 marauder_1_3 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	flags = { marauder_system }
 	
 	planet = {
@@ -1029,7 +1035,7 @@ marauder_1_3 = {
 	
 	planet = {
 		count = { min = 1 max = 4 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}
@@ -1063,7 +1069,10 @@ marauder_1_3 = {
 marauder_2_1 = {
 	class = "sc_black_hole"
 	usage = misc_system_init
-	asteroids_distance = 270
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 270
+	}
 
 	max_instances = 1
 	usage_odds = {
@@ -1843,7 +1852,10 @@ marauder_2_2 = {
 # System III
 marauder_2_3 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	flags = { marauder_system }
 	
 	planet = {
@@ -2025,7 +2037,7 @@ marauder_2_3 = {
 	
 	planet = {
 		count = { min = 1 max = 4 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}
@@ -2233,13 +2245,13 @@ marauder_3_1 = {
 		moon = {
 			class = pc_molten
 			size = 10
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 6
 		}
 		moon = {
-			class = pc_molten
+			class = pc_barren
 			size = 8
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 8
 
 			init_effect = {
@@ -2268,15 +2280,15 @@ marauder_3_1 = {
 			}
 		}
 		moon = {
-			class = pc_molten
+			class = pc_barren
 			size = 6
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 5
 		}
 		moon = {
-			class = pc_molten
+			class = pc_barren_cold
 			size = 9
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 7
 
 			init_effect = {
@@ -2298,15 +2310,15 @@ marauder_3_1 = {
 			}
 		}
 		moon = {
-			class = pc_molten
+			class = pc_barren_cold
 			size = 11
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 6
 		}
 		moon = {
-			class = pc_molten
+			class = pc_barren_cold
 			size = 7
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 10
 
 			init_effect = {
@@ -2347,19 +2359,19 @@ marauder_3_1 = {
 		moon = {
 			class = pc_barren
 			size = 10
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 6
 		}
 		moon = {
 			class = pc_barren
 			size = 8
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 8
 		}
 		moon = {
 			class = pc_barren
 			size = 6
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 5
 
 			init_effect = {
@@ -2383,7 +2395,7 @@ marauder_3_1 = {
 		moon = {
 			class = pc_barren_cold
 			size = 11
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 6
 
 			init_effect = {
@@ -2407,7 +2419,7 @@ marauder_3_1 = {
 		moon = {
 			class = pc_barren_cold
 			size = 7
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 10
 
 			init_effect = {
@@ -2455,25 +2467,25 @@ marauder_3_1 = {
 		moon = {
 			class = pc_barren_cold
 			size = 10
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 6
 		}
 		moon = {
 			class = pc_barren_cold
 			size = 8
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 8
 		}
 		moon = {
 			class = pc_frozen
 			size = 6
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 5
 		}
 		moon = {
 			class = pc_frozen
 			size = 11
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 6
 
 			init_effect = {
@@ -2497,13 +2509,13 @@ marauder_3_1 = {
 		moon = {
 			class = pc_frozen
 			size = 7
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 10
 		}
 		moon = {
 			class = pc_frozen
 			size = 7
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 10
 
 			init_effect = {
@@ -2534,7 +2546,7 @@ marauder_3_1 = {
 		moon = {
 			class = pc_frozen
 			size = 7
-			orbit_angle = 0
+			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 10
 
 			init_effect = {
@@ -2709,7 +2721,10 @@ marauder_3_2 = {
 # System III
 marauder_3_3 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	flags = { marauder_system }
 	
 	planet = {
@@ -2891,7 +2906,7 @@ marauder_3_3 = {
 	
 	planet = {
 		count = { min = 1 max = 4 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}

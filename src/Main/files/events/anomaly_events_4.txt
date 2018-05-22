@@ -7,67 +7,6 @@
 
 namespace = anomaly
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
 # ROOT = ship scope
 # FROM = planet scope
 
@@ -99,7 +38,7 @@ ship_event = {
 		name = anomaly.3000.b
 		leader = {
 			add_experience = 50
-			add_trait = leader_trait_careful
+			add_trait = leader_trait_stubborn
 		}
 	}
 }
@@ -133,6 +72,7 @@ ship_event = {
 	picture = GFX_evt_satellite_in_orbit
 	show_sound = event_scanner
 	location = FROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -198,6 +138,7 @@ ship_event = {
 	picture = GFX_evt_archaeological_dig
 	show_sound = event_scanner
 	location = FROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -276,6 +217,7 @@ ship_event = {
 	picture = GFX_evt_sapient_AI
 	show_sound = event_activating_unknown_technology
 	location = FROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -591,6 +533,7 @@ ship_event = {
 	picture = GFX_evt_ship_in_orbit
 	show_sound = event_alien_nature
 	location = FROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -695,6 +638,7 @@ ship_event = {
 	picture = GFX_evt_landing_ship
 	show_sound = event_ship_thrusters
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -996,6 +940,7 @@ ship_event = {
 	picture = GFX_evt_mining_station
 	show_sound = event_scanner
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -1198,6 +1143,7 @@ ship_event = {
 	picture = GFX_evt_satellite_in_orbit
 	show_sound = event_scanner
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -1805,6 +1751,7 @@ ship_event = {
 	picture = GFX_evt_alien_ruins
 	show_sound = event_radio_chatter
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -1876,13 +1823,13 @@ ship_event = {
 					NOT = { has_technology = tech_alien_life_studies }
 				}
 				set_country_flag = tech1
-				else = {
-					if = {
-						limit = {
-							NOT = { has_technology = tech_doctrine_fleet_size_2 }
-						}
-						set_country_flag = tech2
+			}
+			else = {
+				if = {
+					limit = {
+						NOT = { has_technology = tech_doctrine_fleet_size_2 }
 					}
+					set_country_flag = tech2
 				}
 			}
 		}
@@ -2136,6 +2083,7 @@ fleet_event = {
 	picture = GFX_evt_federation_fleet
 	show_sound = event_default
 	location = root
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2307,6 +2255,7 @@ country_event = {
 			min = @tier2materialmin
 			max = @tier2materialmax
 		}
+		pop_lcluster_event = yes
 	}
 
 	option = {
@@ -2326,14 +2275,15 @@ country_event = {
 				tech = tech_cruisers
 				progress = 0.90
 			}
-			else = {
-				add_research_option = tech_cruisers
-				add_tech_progress = {
-					tech = tech_cruisers
-					progress = 0.6
-				}
+		}
+		else = {
+			add_research_option = tech_cruisers
+			add_tech_progress = {
+				tech = tech_cruisers
+				progress = 0.6
 			}
 		}
+		pop_lcluster_event = yes
 	}
 }
 
@@ -2374,6 +2324,7 @@ ship_event = {
 	picture = GFX_evt_mining_station
 	show_sound = event_mystic_reveal
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2465,25 +2416,23 @@ ship_event = {
 
 	immediate = {
 		owner = {
+			#if = {
+			#	limit = {
+			#		has_technology = tech_mine_betharian
+			#	}
+			#	set_country_flag = opt1
+			#}
 			if = {
 				limit = {
-					has_technology = tech_mine_betharian
-				}
-				set_country_flag = opt1
-				else = {
-					if = {
-						limit = {
-							OR = {
-								has_ethic = ethic_materialist
-								has_ethic = ethic_fanatic_materialist
-							}
-						}
-						set_country_flag = opt2
-						else = {
-							set_country_flag = opt3
-						}
+					OR = {
+						has_ethic = ethic_materialist
+						has_ethic = ethic_fanatic_materialist
 					}
 				}
+				set_country_flag = opt2
+			}
+			else = {
+				set_country_flag = opt3
 			}
 		}
 		ship_event = { id = anomaly.3127 }
@@ -2499,7 +2448,7 @@ ship_event = {
 			hidden:owner = {
 				switch = {
 					trigger = has_country_flag
-					opt1 = { text = anomaly.3127.desc.1 }
+					#opt1 = { text = anomaly.3127.desc.1 }
 					opt2 = { text = anomaly.3127.desc.2 }
 					opt3 = { text = anomaly.3127.desc.3 }
 					default = { text = anomaly.3127.desc.3 }
@@ -2517,29 +2466,27 @@ ship_event = {
 		owner = {
 			save_event_target_as = shipowner
 			set_country_flag = manufactory2
-			if = {
-				limit = {
-					NOT = {
-						has_tech_option = tech_mine_betharian
-					}
-				}
-				add_research_option = tech_mine_betharian
-			}
+			#if = {
+			#	limit = {
+			#		NOT = {
+			#			has_tech_option = tech_mine_betharian
+			#		}
+			#	}
+			#	add_research_option = tech_mine_betharian
+			#}
 		}
 	}
 
 
-	option = {
-		name = anomaly.3127.a.1
-		trigger = { owner = { has_country_flag = opt1 } }
-
-		fromfromfrom = {
-			orbital_deposit_tile = { add_deposit = d_betharian_deposit }
-			create_mining_station = { owner = event_target:shipowner }
-		}
-
-		hidden_effect = { owner = { remove_country_flag = opt1 } }
-	}
+	#option = {
+	#	name = anomaly.3127.a.1
+	#	trigger = { owner = { has_country_flag = opt1 } }
+	#	fromfromfrom = {
+	#		orbital_deposit_tile = { add_deposit = d_betharian_deposit }
+	#		create_mining_station = { owner = event_target:shipowner }
+	#	}
+	#	hidden_effect = { owner = { remove_country_flag = opt1 } }
+	#}
 
 	option = {
 		name = anomaly.3127.a.2 #We can learn much
@@ -2552,15 +2499,11 @@ ship_event = {
 			}
 		}
 		owner = { 
-			add_research_option = tech_mine_betharian
-			add_tech_progress = {
-				tech = tech_mine_betharian
-				progress = 0.80
-			}
+			give_technology = { tech = tech_mine_teldar }
 		}
 		fromfromfrom = {
 			create_mining_station = { owner = event_target:shipowner }
-			hidden_effect = { orbital_deposit_tile = { add_deposit = d_betharian_deposit } }
+			hidden_effect = { orbital_deposit_tile = { add_teldar = yes } }
 		}
 		hidden_effect = { owner = { remove_country_flag = opt2 } }
 	}
@@ -2569,22 +2512,18 @@ ship_event = {
 		name = anomaly.3127.a.3
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_materialist
 					has_ethic = ethic_fanatic_materialist
 				}
 			}
 		}
 		owner = {
-			add_research_option = tech_mine_betharian
-			add_tech_progress = {
-				tech = tech_mine_betharian
-				progress = 0.20
-			}
+			give_technology = { tech = tech_mine_teldar }
 		}
 		fromfromfrom = {
 			create_mining_station = { owner = event_target:shipowner }
-			hidden_effect = { orbital_deposit_tile = { add_deposit = d_betharian_deposit } }
+			hidden_effect = { orbital_deposit_tile = { add_teldar = yes } }
 		}
 		hidden_effect = { owner = { remove_country_flag = opt3 } }
 	}

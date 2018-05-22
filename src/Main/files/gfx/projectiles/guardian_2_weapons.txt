@@ -1,0 +1,216 @@
+# Scavenger Bot
+projectile_gfx_ballistic = {
+	#common for all types of projectiles
+	name = "scavenger_bot_main_weapon"
+	color = { 1.0	1.0		1.0		1.0 }
+	hit_entity = "scavenger_bot_main_weapon_hit_entity"
+	shield_hit_entity = "scavenger_bot_main_weapon_shield_hit_entity"
+	muzzle_flash_entity = "scavenger_bot_main_weapon_muzzle_entity"
+	windup_entity = "scavenger_bot_main_weapon_windup_entity"
+	
+	#ballistic specific
+	entity = "scavenger_bot_main_weapon_entity"
+	speed = 350.0			#preferred speed of the projectile
+	max_duration = 3.0		#Speed of projectile might be scaled up in order to guarantee reaching the target within <max_duration> seconds
+	
+	shield_impact = {
+		size = large
+		delay = 0.0
+	}
+}
+
+projectile_gfx_missile = {
+	#common for all types of projectiles
+	name = "scavenger_bot_secondary_weapon"
+	color = { 1.0 	0.5 	0.0 	1.0 }
+	hit_entity = "missile_large_hit_entity"
+	shield_hit_entity = "missile_large_shield_hit_entity"
+	muzzle_flash_entity = "scavenger_bot_secondary_muzzle_flash_entity"
+	
+	#missile specific data
+	entity = "scavenger_bot_secondary_weapon_entity"
+	
+	shield_impact = {
+		size = large
+		delay = 0.0
+	}
+}
+
+# Elder Tiyanki
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "elder_tiyanki_weapon"
+	color = { 1.0 	 0.8 	0.7 	0.2 }
+	hit_entity = "elder_tiyanki_weapon_hit_entity"
+	shield_hit_entity = "elder_tiyanki_weapon_shield_hit_entity"
+	muzzle_flash_entity = "elder_tiyanki_weapon_muzzle_entity"
+	windup_entity = "elder_tiyanki_weapon_windup_entity"
+	
+	#beam specific data
+	width = 10.0
+	texture_scroll_speed = 1.0
+	texture_tiling = 5.5
+	
+	hit = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.05	0.0
+			0.1		40.0
+			0.7		5.0
+			0.9		0.0
+			1.0 	0.0
+		}
+		duration = 3.0
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.05	0.0
+			0.1		40.0
+			0.7		5.0
+			0.9		0.0
+			1.0 	0.0
+		}
+		duration = 3.0
+	}
+	texture = "gfx/models/combat_items/titan_laser_diffuse.dds"
+	
+	#set_state = {
+	#	#ship = "test2"
+	#	#component = "test1"
+	#	section = "attack"
+	#}
+	#set_state_windup = {
+	#	#ship = "test2"
+	#	#component = "test1"
+	#	section = "attack_windup"
+	#}
+	
+	shield_impact = {
+		size = large
+		loop_duration = 0.5
+		delay = 0.2
+	}
+}
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "elder_tiyanki_secondary_weapon"
+	color = { 1.0 		0.8		0.3 	0.8 }
+	hit_entity = "elder_tiyanki_secondary_weapon_hit_entity"
+	shield_hit_entity = "elder_tiyanki_secondary_weapon_shield_hit_entity"
+	#muzzle_flash_entity = ""
+	
+	#beam specific data
+	width = 12.0
+	texture_scroll_speed = -0.5
+	texture_tiling = 10.0	
+	hit = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 50.0
+			0.8 5.0
+			1.0 0.0
+		}
+		duration = 2.0
+
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 0.0
+			0.05	0.0
+			0.2 0.0
+			0.8 0.0
+			1.0 0.0
+		}
+		duration = 0.1
+
+	}
+	texture = "gfx/models/combat_items/elder_tiyanki_secondary_weapon_beam.dds"
+	
+	shield_impact = {
+		size = medium
+		loop_duration = 0.8
+		delay = 0.1
+	}
+}
+
+# Voidspawn
+projectile_gfx_missile = {
+	#common for all types of projectiles
+	name = "voidspawn_missile"
+	color = { 1.0 	0.5 	0.0 	1.0 }
+	hit_entity = "voidspawn_missile_hit_entity"
+	shield_hit_entity = "voidspawn_missile_shield_hit_entity"
+	muzzle_flash_entity = "voidspawn_missile_muzzle_entity"
+	
+	#missile specific data
+	entity = "leviathans_01_voidspawn_projectile_entity"
+	
+	shield_impact = {
+		size = large
+		delay = 0.0
+	}
+}
+
+# Gatebuilders
+projectile_gfx_missile = {
+	#common for all types of projectiles
+	name = "gatebuilder_torpedo"
+	color = { 1.0	1.0		1.0		1.0 }
+	hit_entity = "proton_torpedoes_hit_entity"
+	shield_hit_entity = "proton_torpedoes_shield_hit_entity"
+	muzzle_flash_entity = "proton_torpedoes_muzzle_entity"
+	
+	#missile specific data
+	entity = "proton_torpedoes_entity"
+	
+	shield_impact = {
+		size = large
+		delay = 0.0
+	}
+}
+
+projectile_gfx_beam = {
+	#common for all types of projectiles
+	name = "gatebuilder_titan_weapon"
+	color = { 0.5 		1.0		0.75 	0.8 }
+	hit_entity = "gatebuilder_titan_weapon_hit_entity"
+	shield_hit_entity = "gatebuilder_titan_weapon_shield_hit_entity"
+	muzzle_flash_entity = "gatebuilder_titan_weapon_muzzle_entity"
+	windup_entity = "gatebuilder_titan_weapon_windup_entity"
+	
+	#beam specific data
+	width = 10.0
+	texture_scroll_speed = 1.0
+	texture_tiling = 5.5
+	
+	hit = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.05	0.0
+			0.1		20.0
+			0.7		5.0
+			1.0 	0.0
+		}
+		duration = 3.0
+	}
+	miss = {
+		alpha_curve = { 
+			0.0 	0.0
+			0.05	0.0
+			0.1		20.0
+			0.4		5.0
+			1.0 	0.0
+		}
+		duration = 1.5
+	}
+	texture = "gfx/models/combat_items/ion_cannon_diffuse.dds"
+	
+	shield_impact = {
+		size = large
+		loop_duration = 0.5
+		delay = 0.2
+	}
+}

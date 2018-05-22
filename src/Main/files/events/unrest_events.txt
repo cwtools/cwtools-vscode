@@ -1,11 +1,5 @@
 namespace = unrest
 
-@unrestlevel1 = 10
-@unrestlevel2 = 50
-@unrestlevel3 = 80
-
-
-
 # Unrest: Terror
 planet_event = {
 	id = unrest.101
@@ -21,6 +15,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		has_ground_combat = no
 		has_orbital_bombardment = no
@@ -95,6 +90,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		has_planet_flag = unrest_terror
 		unrest > @unrestlevel2
@@ -157,6 +153,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		unrest < @unrestlevel3
@@ -229,6 +226,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
@@ -300,6 +298,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
@@ -371,6 +370,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
@@ -449,6 +449,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
@@ -520,6 +521,7 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
+		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 
@@ -600,7 +602,8 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
 			has_planet_flag = recent_unrest_event
@@ -673,7 +676,8 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
 			has_planet_flag = recent_unrest_event
@@ -744,7 +748,8 @@ planet_event = {
 			is_country_type = default
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		NOT = {
 			has_planet_flag = recent_unrest_event
@@ -813,7 +818,8 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = default }
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel1
 		has_ground_combat = no
 		has_orbital_bombardment = no
@@ -870,7 +876,8 @@ planet_event = {
 			is_country_type = default
 			has_country_flag = slave_revolt_chain_active
 		}
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		has_ground_combat = no
 		has_orbital_bombardment = no
 	}
@@ -945,7 +952,8 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = default }
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
  		any_owned_pop = {
 			not = { has_trait = trait_mechanical }
@@ -1100,7 +1108,8 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = default }
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel3
  		any_owned_pop = {
 			is_enslaved = yes
@@ -1161,7 +1170,8 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = default }
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		unrest > @unrestlevel3
 		has_planet_flag = slave_riots
  		any_owned_pop = {
@@ -1399,8 +1409,8 @@ country_event = {
 					any_owned_planet = {
 						distance = {
    							source = FromFrom
-  							max_distance = 300
-  							min_distance = 0
+  							max_distance <= 300
+  							min_distance >= 0
  						}
  					}
  					NOT = {
@@ -1421,8 +1431,8 @@ country_event = {
 					any_owned_planet = {
 						distance = {
    							source = FromFrom
-  							max_distance = 300
-  							min_distance = 0
+  							max_distance <= 300
+  							min_distance >= 0
  						}
  					}
  					NOT = {
@@ -1825,7 +1835,8 @@ planet_event = {
 		}
 		has_ground_combat = no
 		has_orbital_bombardment = no
-		controller = { is_same_value = root.owner }
+		exists = controller
+controller = { is_same_value = root.owner }
 		#original_owner = no
 		#any_country = {
 		#	NOT = { is_same_value = root.owner }

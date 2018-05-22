@@ -218,8 +218,8 @@ country_event = {
 												}
 												distance = {
 													source = PREV
-													max_distance = 100
-													min_distance = 20
+													max_distance <= 100
+													min_distance >= 20
 												}
 											}
 											found_system = {
@@ -656,8 +656,8 @@ country_event = {
 												}
 												distance = {
 													source = PREV
-													max_distance = 100
-													min_distance = 20
+													max_distance <= 100
+													min_distance >= 20
 												}
 											}
 											found_system = {
@@ -869,8 +869,8 @@ country_event = {
 												}
 												distance = {
 													source = PREV
-													max_distance = 100
-													min_distance = 20
+													max_distance <= 100
+													min_distance >= 20
 												}
 											}
 											found_system = {
@@ -1130,13 +1130,10 @@ fleet_event = {
 	}
 }
 
-# Destroyed Pirate Station
+# Destroyed Pirate Station (HIDDEN)
 country_event = {
-	id = pirate.25
-	title = pirate.25.name
-	picture = GFX_evt_large_explosion
-	desc = pirate.25.desc
-	show_sound = event_space_battle
+	id = pirate.24
+	hide_window = yes
 
 	is_triggered_only = yes
 
@@ -1149,6 +1146,31 @@ country_event = {
 			is_ship_size = pirate_station
 		}
 	}
+
+	immediate = {
+		fromfrom = { save_event_target_as = pirate_slayers }
+		if = {
+			limit = { has_event_chain = "l_cluster_chain" }
+			random_list = {
+				80 = { country_event = { id = pirate.25 } }
+				20 = { country_event = { id = pirate.26 } }
+			}
+			else = {
+				country_event = { id = pirate.25 }
+			}
+		}
+	}
+}
+
+# Destroyed Pirate Station
+country_event = {
+	id = pirate.25
+	title = pirate.25.name
+	picture = GFX_evt_large_explosion
+	desc = pirate.25.desc
+	show_sound = event_space_battle
+
+	is_triggered_only = yes
 
 	immediate = {
 		random_list = {
@@ -1190,6 +1212,63 @@ country_event = {
 		}
 		add_minerals = 200
 		add_energy = 200
+	}
+}
+
+# Destroyed Pirate Station, Gained L-Cluster Insight
+country_event = {
+	id = pirate.26
+	title = pirate.25.name
+	picture = GFX_evt_large_explosion
+	desc = pirate.26.desc
+	show_sound = event_space_battle
+
+	is_triggered_only = yes
+
+	immediate = {
+		random_list = {
+			15 = { set_country_flag = big_loot }
+			35 = { set_country_flag = medium_loot }
+			50 = { set_country_flag = small_loot }
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		trigger = { has_country_flag = big_loot }
+		add_minerals = 300
+		add_energy = 150
+		generate_lcluster_clue = yes
+		hidden_effect = { remove_country_flag = big_loot }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { has_country_flag = medium_loot }
+		add_minerals = 180
+		add_energy = 100
+		generate_lcluster_clue = yes
+		hidden_effect = { remove_country_flag = medium_loot }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { has_country_flag = small_loot }
+		add_minerals = 80
+		add_energy = 50
+		generate_lcluster_clue = yes
+		hidden_effect = { remove_country_flag = small_loot }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			NOR = {
+				has_country_flag = big_loot
+				has_country_flag = medium_loot
+				has_country_flag = small_loot
+			}
+		}
+		add_minerals = 200
+		add_energy = 200
+		generate_lcluster_clue = yes
 	}
 }
 
@@ -1374,75 +1453,75 @@ country_event = {
 				limit = { has_authority = auth_machine_intelligence }
 				country_event = { id = pirate.55 }
 			}
-			else = {
-				random_system_within_border = {
+		}
+		else = {
+			random_system_within_border = {
+				limit = {
+					any_neighbor_system = {
+						root = {
+							intel_level = {
+								level > none
+								system = prev
+							}
+						}
+						NOT = {
+							has_star_flag = pirates_spawned
+							has_star_flag = precursor_system
+							has_star_flag = enclave
+							any_ship_in_system = {
+								owner = { is_hostile = root }
+							}
+							any_ship_in_system = {
+								is_ship_size = constructor
+								is_constructing = starbase
+							}
+							any_ship_in_system = {
+								fleet = { fleet_power > 1000 }
+							}
+						}
+						NOT = { exists = space_owner }
+					}
+				}
+				random_neighbor_system = {
 					limit = {
-						any_neighbor_system = {
-							root = {
-								intel_level = {
-									level > none
-									system = prev
-								}
+						root = {
+							intel_level = {
+								level > none
+								system = prev
 							}
-							NOT = {
-								has_star_flag = pirates_spawned
-								has_star_flag = precursor_system
-								has_star_flag = enclave
-								any_ship_in_system = {
-									owner = { is_hostile = root }
-								}
-								any_ship_in_system = {
-									is_ship_size = constructor
-									is_constructing = starbase
-								}
-								any_ship_in_system = {
-									fleet = { fleet_power > 1000 }
-								}
-							}
-							NOT = { exists = space_owner }
 						}
-					}
-					random_neighbor_system = {
-						limit = {
-							root = {
-								intel_level = {
-									level > none
-									system = prev
-								}
+						NOT = {
+							has_star_flag = pirates_spawned
+							has_star_flag = precursor_system
+							has_star_flag = enclave
+							any_ship_in_system = {
+								owner = { is_hostile = root }
 							}
-							NOT = {
-								has_star_flag = pirates_spawned
-								has_star_flag = precursor_system
-								has_star_flag = enclave
-								any_ship_in_system = {
-									owner = { is_hostile = root }
-								}
-								any_ship_in_system = {
-									is_ship_size = constructor
-									is_constructing = starbase
-								}
-								any_ship_in_system = {
-									fleet = { fleet_power > 1000 }
-								}
+							any_ship_in_system = {
+								is_ship_size = constructor
+								is_constructing = starbase
 							}
-							NOT = { exists = space_owner }
+							any_ship_in_system = {
+								fleet = { fleet_power > 1000 }
+							}
 						}
-						set_timed_star_flag = { flag = pirates_spawned days = 1800 }
-						save_event_target_as = pirate_system
+						NOT = { exists = space_owner }
 					}
+					set_timed_star_flag = { flag = pirates_spawned days = 1800 }
+					save_event_target_as = pirate_system
 				}
-				if = {
-					limit = { NOT = { has_ethic = ethic_gestalt_consciousness } }
-					country_event = { id = pirate.50 }
-				}
-				if = {
-					limit = { has_authority = auth_hive_mind }
-					country_event = { id = pirate.52 }
-				}
-				if = {
-					limit = { has_authority = auth_machine_intelligence }
-					country_event = { id = pirate.55 }
-				}
+			}
+			if = {
+				limit = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+				country_event = { id = pirate.50 }
+			}
+			if = {
+				limit = { has_authority = auth_hive_mind }
+				country_event = { id = pirate.52 }
+			}
+			if = {
+				limit = { has_authority = auth_machine_intelligence }
+				country_event = { id = pirate.55 }
 			}
 		}
 	}
@@ -1676,126 +1755,126 @@ country_event = {
 	}
 }
 
-# Pirate Test Event
-country_event = {
-	id = pirate.100
-	title = "Pirate Test"
-	picture = GFX_evt_smugglers_in_bar
-	desc = "What's yer poison?"
-	show_sound = event_ship_bridge
-
-	trigger = {
-		always = no
-	}
-
-	option = {
-		name = "Fleet 0"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_0 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 1"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_1 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 2"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_2 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 3"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_3 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 4"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_4 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 5"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_5 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 6"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_6 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 7"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_7 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 8"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_8 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-	option = {
-		name = "Fleet 9"
-		create_fleet = {
-			name = "NAME_Pirate_Fleet"
-			effect = {
-				set_owner = root
-				create_pirate_ships_9 = yes
-				set_location = root.capital_scope
-			}
-		}
-	}
-}
+## Pirate Test Event
+#country_event = {
+#	id = pirate.100
+#	title = "Pirate Test"
+#	picture = GFX_evt_smugglers_in_bar
+#	desc = "What's yer poison?"
+#	show_sound = event_ship_bridge
+#
+#	trigger = {
+#		always = no
+#	}
+#
+#	option = {
+#		name = "Fleet 0"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_0 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 1"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_1 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 2"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_2 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 3"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_3 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 4"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_4 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 5"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_5 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 6"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_6 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 7"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_7 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 8"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_8 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#	option = {
+#		name = "Fleet 9"
+#		create_fleet = {
+#			name = "NAME_Pirate_Fleet"
+#			effect = {
+#				set_owner = root
+#				create_pirate_ships_9 = yes
+#				set_location = root.capital_scope
+#			}
+#		}
+#	}
+#}

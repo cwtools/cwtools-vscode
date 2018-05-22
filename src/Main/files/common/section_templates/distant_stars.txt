@@ -1,0 +1,366 @@
+# AH4B (Battleship)
+ship_section_template = {
+	key = "ahab_section"
+	ship_size = eventship_04
+	fits_on_slot = mid
+	entity = "eventship_04_green_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "SMALL_GUN_01"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_02"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_03"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "SMALL_GUN_04"
+		slot_size = small
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "TORPEDO_01"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "TORPEDO_02"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "TORPEDO_03"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "TORPEDO_04"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "root"
+	}
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = large
+		slot_type = weapon
+		locatorname = "root"
+	}
+	
+	large_utility_slots = 8
+	aux_utility_slots = 2
+}
+
+# Scavenger Bot
+ ship_section_template = {
+ 	key = "scavenger_bot_key"
+ 	ship_size = leviathan_01_scavenger_bot
+ 	fits_on_slot = mid
+ 	entity = "leviathan_01_scavenger_bot_section_entity"
+ 	icon = "GFX_ship_part_core_mid"
+ 	
+ 	component_slot = {
+ 		name = "TITAN_01"
+ 		slot_size = titanic
+ 		slot_type = weapon
+ 		locatorname = "xl_gun_01"
+ 	}
+# 	component_slot = {
+# 		name = "TORPEDO_01"
+# 		slot_size = torpedo
+# 		slot_type = weapon
+# 		locatorname = "bot_1_locator"
+# 	}
+# 	component_slot = {
+# 		name = "TORPEDO_02"
+# 		slot_size = torpedo
+# 		slot_type = weapon
+# 		locatorname = "bot_2_locator"
+# 	}
+# 	component_slot = {
+# 		name = "TORPEDO_03"
+# 		slot_size = torpedo
+# 		slot_type = weapon
+# 		locatorname = "bot_3_locator"
+# 	}
+ 	component_slot = {
+ 		name = "TORPEDO_04"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "root"
+ 	}
+ 	component_slot = {
+ 		name = "TORPEDO_05"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "root"
+ 	}
+ 	component_slot = {
+ 		name = "TORPEDO_06"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "root"
+ 	}
+ 	component_slot = {
+ 		name = "TORPEDO_07"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "root"
+ 	}
+ 	
+ 	large_utility_slots = 20
+ 	aux_utility_slots = 3
+ }
+
+ ship_section_template = {
+ 	key = "scavenger_bot_small_bot_1_key"
+ 	ship_size = leviathan_01_scavenger_bot
+ 	fits_on_slot = bot_1
+ 	entity = "leviathan_01_scavenger_bot_helper_bot_entity"
+ 	icon = "GFX_ship_part_core_mid"
+	
+ 	component_slot = {
+ 		name = "TORPEDO_01"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "turret_muzzle_01"
+ 	}
+ }
+
+ ship_section_template = {
+ 	key = "scavenger_bot_small_bot_2_key"
+ 	ship_size = leviathan_01_scavenger_bot
+ 	fits_on_slot = bot_2
+ 	entity = "leviathan_01_scavenger_bot_helper_bot_entity"
+ 	icon = "GFX_ship_part_core_mid"
+	
+ 	component_slot = {
+ 		name = "TORPEDO_01"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "turret_muzzle_01"
+ 	}
+ }
+
+ ship_section_template = {
+ 	key = "scavenger_bot_small_bot_3_key"
+ 	ship_size = leviathan_01_scavenger_bot
+ 	fits_on_slot = bot_3
+ 	entity = "leviathan_01_scavenger_bot_helper_bot_entity"
+ 	icon = "GFX_ship_part_core_mid"
+	
+ 	component_slot = {
+ 		name = "TORPEDO_01"
+ 		slot_size = torpedo
+ 		slot_type = weapon
+ 		locatorname = "turret_muzzle_01"
+ 	}
+ }
+
+# Elderly Tiyanki
+ ship_section_template = {
+ 	key = "elderly_tiyanki_key"
+ 	ship_size = leviathan_01_elder_tiyanki
+ 	fits_on_slot = mid
+ 	entity = "leviathan_01_elder_tiyanki_section_entity"
+ 	icon = "GFX_ship_part_core_mid"
+ 	
+ 	component_slot = { #TODO [DEE] PLACEHOLDER GUNS
+ 		name = "TITAN_01"
+ 		slot_size = titanic
+ 		slot_type = weapon
+ 		locatorname = "xl_gun_01"
+ 	}
+ 	component_slot = { #TODO [DEE] PLACEHOLDER GUNS
+ 		name = "LARGE_GUN_01"
+ 		slot_size = large
+ 		slot_type = weapon
+ 		locatorname = "head"
+ 	}
+ 	
+ 	large_utility_slots = 10
+ 	aux_utility_slots = 1
+ }
+ 
+
+# Hatchling/Voidspawn
+ship_section_template = {
+	key = "voidspawn_key"
+	ship_size = leviathan_01_voidspawn
+	fits_on_slot = mid
+	entity = "leviathan_01_voidspawn_section_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "LARGE_GUN_01"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "turret_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_02"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "turret_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_03"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "turret_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_04"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "turret_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_05"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "turret_01"
+	}
+	component_slot = {
+		name = "LARGE_GUN_06"
+		slot_size = torpedo
+		slot_type = weapon
+		locatorname = "turret_01"
+	}
+
+	aux_utility_slots = 2
+	large_utility_slots = 10
+}
+
+# Enigmatic Cache
+ship_section_template = {
+	key = enigmatic_cache_section
+	ship_size = enigmatic_cache
+	fits_on_slot = mid
+	entity = empty_section_entity
+	icon = GFX_ship_part_core_mid
+	
+	small_utility_slots = 3
+	medium_utility_slots = 3
+	large_utility_slots = 3
+	aux_utility_slots = 1
+}
+
+# Baby Dragon
+ship_section_template = {
+	key = "nanite_space_dragon_baby_key"
+	ship_size = nanite_space_dragon_baby
+	fits_on_slot = mid
+	#entity = "guardian_01_space_dragon_red_entity"
+	#entity = "empty_section_entity_entity"
+	entity = "nanite_space_dragon_baby_section_entity"
+	icon = "GFX_ship_part_core_mid"
+	
+	component_slot = {
+		name = "PRIMARY_GUN_01"
+		slot_size = extra_large
+		slot_type = weapon
+		locatorname = "xl_gun_01"
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_01"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_1_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_02"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_2_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_03"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_3_4"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_04"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_4_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_05"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_1_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_06"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_2_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_07"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_3_4"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "SECONDARY_GUN_08"
+		slot_size = medium
+		slot_type = weapon
+		locatorname = "wing_4_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "TERTIARY_GUN_01"
+		slot_size = point_defence
+		slot_type = weapon
+		locatorname = "wing_1_3"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "TERTIARY_GUN_02"
+		slot_size = point_defence
+		slot_type = weapon
+		locatorname = "wing_2_3"
+		is_side_slot = yes
+	}	
+	component_slot = {
+		name = "TERTIARY_GUN_03"
+		slot_size = point_defence
+		slot_type = weapon
+		locatorname = "wing_3_4"
+		is_side_slot = yes
+	}
+	component_slot = {
+		name = "TERTIARY_GUN_04"
+		slot_size = point_defence
+		slot_type = weapon
+		locatorname = "wing_4_3"
+		is_side_slot = yes
+	}
+
+	aux_utility_slots = 2
+	large_utility_slots = 4
+}

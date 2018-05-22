@@ -45,7 +45,7 @@ guiTypes = {
 			maxHeight = 40
 			fixedSize = yes
 			format = left
-			alwaysTransparent = yes
+			alwaysTransparent = no
 		}
 		
 		buttonType = {
@@ -56,6 +56,13 @@ guiTypes = {
 			shortcut = "ESCAPE"
 			clicksound = "back_click"
 			actionshortcut = "cancel"
+		}
+
+		buttonType = {
+			name = "track_all"
+			quadTextureSprite = "GFX_track_all_projects_icon"
+			position = { x = -78 y = 11 }
+			orientation = upper_right
 		}
 
 		########################
@@ -263,6 +270,499 @@ guiTypes = {
 		}
 
 		########################
+		# anomalies
+		containerWindowType = {
+			name = "anomalies"
+			size = { width = 100% height = 100% }
+			position = { x = 0 y = 0 }
+
+			containerWindowType = {
+				name = "entries"
+				position = { x = 6 y = 45 }
+				size = { width = 308 height = 510 }
+				
+				background = {
+					name = "situation_log_entries_background_2"
+					quadTextureSprite = "GFX_planet_bg_tile_frame"
+					alwaysTransparent = yes
+				}
+				
+				smoothListBoxType = {
+					name = "list"
+					position = { x = 5 y = 10 }
+					size = { x = 285 y = 490 }
+					scrollbarType = "standardlistbox_slider"
+				}
+			}
+
+			containerWindowType = {
+				name = "currently_selected_frame"
+				size = { width = 584 height = 510 }
+				position = { x = 310 y = 45 }
+				
+				background = {
+					name = "background"
+					quadTextureSprite = "GFX_planet_bg_tile_frame"
+				}
+			}
+
+			containerWindowType = {
+				name = "currently_selected"
+				size = { width = 584 height = 510 }
+				position = { x = 310 y = 45 }
+
+				# portrait_window
+				containerWindowType = {
+					name = "portrait_window"
+					position = { x= -225 y = 10 }
+					size = { width = 448 height = 148 }
+					moveable = no
+					clipping = yes
+					orientation = center_up
+
+					buttonType = {
+						name = "portrait"
+						spriteType = "GFX_portrait_planet"
+						position = { x = -10 y = -105 }
+						alwaystransparent = yes
+					}
+					iconType = {
+						name = "stripes_1"
+						spriteType = "GFX_event_stripes_1"
+						position = { x= 0 y = 0 }
+						orientation = "UPPER_LEFT"
+						alwaystransparent = yes
+					}
+				}
+				# picture_window
+				containerWindowType = {
+					name = "picture_window"
+					position = { x= -235 y = 10 }
+					size = { width = 448 height = 148 }
+					moveable = no
+					clipping = no
+					orientation = center_up
+
+					iconType = {
+						name ="picture"
+						quadTextureSprite = "GFX_evt_landing_ship"
+						position = { x = 10 y = 7 }
+						orientation = "UPPER_LEFT"
+						alwaystransparent = yes
+					}
+					iconType = {
+						name = "picture_frame"
+						quadTextureSprite = "GFX_event_frame"
+						position = { x = 4 y = 2 }
+						alwaystransparent = yes
+					}
+				}
+
+				# anomaly_window
+				containerWindowType = {
+					name = "anomaly_window"
+					position = { x= -230 y = 165 }
+					size = { width = 462 height = 385 }
+					orientation = center_up
+
+					buttonType = {
+						name = "picture_background"
+						position = { x= 92 y = 44 }
+						size = { x = 200 y = 91 }
+						spriteType = "GFX_tiles_dark_area_cut_8"
+						alwaystransparent = yes
+					}
+
+					instantTextBoxType={
+						name = "header"
+						font = "malgun_goth_24"
+						position = { x = -52 y = 15 }
+						maxWidth = 565
+						maxHeight = 40
+						fixedSize = yes
+						format = center
+					}
+
+					buttonType = {
+						name = "desc_background"
+						position = { x = 0 y = 140 }
+						size = { x = 462 y = 150 }
+						spriteType = "GFX_tiles_frame_light"
+						alwaystransparent = yes
+					}
+
+					instantTextBoxType = {
+						name = "desc"
+						font = "cg_16b"
+						position = { x = 14 y = 152 }
+						maxWidth = 435
+						maxHeight = 85
+						scrollbartype = "standardtext_slider_small"
+					}
+
+					buttonType = {
+						name = "level_background"
+						spriteType = "GFX_value_slot"
+						position = { x = 331 y = 56 }
+					}
+					instantTextBoxType = {
+						name = "level"
+						font = "cg_16b"
+						text = "5"
+						position = { x = -125 y = 62 }
+						maxWidth = 130
+						maxHeight = 20
+						fixedSize = yes
+						Orientation = "UPPER_RIGHT"
+						format = left
+						text_color_code = "Y"
+						alwaystransparent = yes
+					}
+					instantTextBoxType = {
+						name = "level_label"
+						font = "cg_16b"
+						text = "ANOMALY_LEVEL"
+						position = { x = -131 y = 40 }
+						maxWidth = 140
+						maxHeight = 20
+						fixedSize = yes
+						Orientation = "UPPER_RIGHT"
+						alwaystransparent = yes
+					}
+					
+					# lower
+					instantTextBoxType = {
+						name = "research_time_label"
+						font = "cg_16b"
+						text = "ANOMALY_TIME"
+						position = { x = -131 y = 89 }
+						maxWidth = 140
+						maxHeight = 20
+						fixedSize = yes
+						Orientation = "UPPER_RIGHT"
+						alwaystransparent = yes
+					}
+					iconType = {
+						name = "level_icon"
+						spriteType = "GFX_discovery_level_icon"
+						position = { x = 295 y = 58 }
+						alwaystransparent = yes
+					}
+					
+					buttonType = {
+						name = "level_duration_background"
+						spriteType = "GFX_value_slot"
+						position = { x = 331 y = 105 }
+					}
+					
+					instantTextBoxType = {
+						name = "level_duration"
+						font = "cg_16b"
+						text = "5"
+						position = { x = -125 y = 111 }
+						maxWidth = 100
+						maxHeight = 20
+						fixedSize = yes
+						Orientation = "UPPER_RIGHT"
+						format = left
+						text_color_code = "Y"
+						alwaystransparent = yes
+					}
+
+					iconType = {
+						name = "level_duration_icon"
+						spriteType = "GFX_mod_ship_anomaly_research_speed"
+						position = { x = 300 y = 107 }
+						alwaystransparent = yes
+					}
+
+					containerWindowType = {
+						name = "leader_window"
+						position = { x= 8 y = 34 }
+						size = { width = 250 height = 100 }
+						moveable = no
+						clipping = no
+						orientation = upper_left
+
+						containerWindowType = {
+							name = "portrait_window"
+							position = { x= -2 y = 10 }
+							size = { width = 76 height = 90 }
+							moveable = no
+							clipping = yes
+							orientation = upper_left
+
+							buttonType = {
+								name = "leader_type_bg"
+								quadTextureSprite = "GFX_leader_bg_scientist"
+								position = { x = -4 y = 0 }
+								scale = 0.25
+
+							}
+
+							buttonType = {
+								name = "portrait"
+								spriteType = "GFX_portrait_character"
+								position = { x = -45 y = -15 }
+								scale = 0.28
+								alwaystransparent = yes
+							}
+						}
+
+						buttonType = {
+							name = "portrait_frame"
+							position = { x = -8 y = 5 }
+							size = { x = 87 y = 101 }
+							spriteType = "GFX_empty_green_frame"
+							alwaystransparent = yes
+						}
+
+						instantTextBoxType = {
+							name = "leader_name"
+							font = "cg_16b"
+							text = "Leader Name"
+							position = { x = 92 y = 12 }
+							maxWidth = 185
+							maxHeight = 20
+							fixedSize = yes
+							Orientation = "UPPER_LEFT"
+							text_color_code = "E"
+						}
+
+						instantTextBoxType = {
+							name = "status"
+							font = "cg_16b"
+							text = "STATUS"
+							position = { x = 92 y = 36 }
+							maxWidth = 185
+							maxHeight = 33
+							fixedSize = yes
+							format = left
+							#alwaystransparent = yes
+						}
+
+						iconType = {
+							name = "name_underline"
+							spriteType = "GFX_line_short"
+							position = { x = 81 y = 22 }
+							alwaystransparent = yes
+						}
+
+						instantTextBoxType = {
+							name = "skill_label"
+							font = "cg_16b"
+							text = "SKILL"
+							position = { x = 92 y = 74 }
+							maxWidth = 185
+							maxHeight = 20
+							fixedSize = yes
+							Orientation = "UPPER_LEFT"
+						}
+
+						iconType = {
+							name ="skill"
+							spriteType = "GFX_leader_skill"
+							position = { x= 150 y = 72 }
+							frame = 5
+						}
+					}
+					containerWindowType = {
+						name = "no_leader_window"
+						position = { x= 8 y = 34 }
+						size = { width = 250 height = 100 }
+						moveable = no
+						clipping = no
+						orientation = upper_left
+
+						buttonType = {
+							name = "portrait"
+							spriteType = "GFX_species_portrait"
+							position = { x = -999 y = 5 }
+							scale = 1.0
+						}
+
+						containerWindowType = {
+							name = "leader_frame_box"
+							size = { width = 87 height = 101 }
+							position = { x = -8 y = 5 }
+
+								background = {
+									name = "leader_frame"
+									spriteType = "GFX_tiles_frame_light"
+								}
+						}
+
+						instantTextBoxType = {
+							name = "no_leader"
+							font = "cg_16b"
+							text = "AV_NO_SCIENTIST"
+							position = { x = 92 y = 12 }
+							maxWidth = 160
+							maxHeight = 20
+							fixedSize = yes
+							Orientation = "UPPER_LEFT"
+							text_color_code = "H"
+						}
+
+						instantTextBoxType = {
+							name = "desc"
+							font = "cg_16b"
+							text = "AV_NO_SCIENTIST_DESC"
+							position = { x = 92 y = 36 }
+							maxWidth = 215
+							maxHeight = 100
+							fixedSize = yes
+							Orientation = "UPPER_LEFT"
+						}
+					}
+
+					containerWindowType = {
+						name = "progress_window"
+						position = { x= -227 y = -148 }
+						size = { width = 450 height = 50 }
+						moveable = no
+						clipping = yes
+						orientation = center_down
+
+						instantTextBoxType = {
+							name = "progress_label"
+							font = "cg_16b"
+							text = "ANOMALY_RESEARCH_PROGRESS"
+							position = { x = 9 y = 2 }
+							maxWidth = 160
+							maxHeight = 20
+							fixedSize = yes
+							Orientation = "UPPER_LEFT"
+							text_color_code = "H"
+						}
+
+						iconType = {
+							name = "progress_bar"
+							spriteType = "GFX_PV_GB_progressbar"
+							position = { x = 10 y = 24 }
+						}
+
+						instantTextBoxType = {
+							name = "progress_value"
+							font = "cg_16b"
+							text = "0%"
+							position = { x = 13 y = 4 }
+							maxWidth = 430
+							maxHeight = 20
+							fixedSize = yes
+							Orientation = "UPPER_LEFT"
+							text_color_code = "H"
+							format = right
+						}
+					}
+				}
+
+				# select_leader_window
+				containerWindowType = {
+					name = "select_leader_window"
+					position = { x= -230 y = 190 }
+					size = { width = 462 height = 265 }
+					moveable = no
+					clipping = yes
+					orientation = center_up
+
+					background = {
+						name = "picture_background"
+						spriteType = "GFX_empty_green_frame"
+						alwaystransparent = yes
+					}
+
+					smoothListBoxType = {
+						name = "list"
+						position = { x=11 y=13 }
+						orientation = upper_left
+						size = { x=430 y=240 }
+						borderSize = { x=0 y=0 }
+						scrollbartype = "standardlistbox_slider"
+						spacing = 5
+					}
+				}
+
+				# goto
+				buttonType = {
+					name = "goto"
+					orientation = "LOWER_LEFT"
+					position = { x = 5 y = -63 }
+					quadTextureSprite = "GFX_standard_button_142_34_button"
+					font = "cg_16b"
+					text = "FOCUS"
+					pdx_tooltip = "GOTO_HOMEPLANET"
+					borderSize = { x = 12 y = 12 }
+					multiline = yes
+					format = center
+				}
+				# scientist
+				buttonType = {
+					name = "scientist"
+					orientation = "CENTER_DOWN"
+					position = { x = -83 y = -63 }
+					quadTextureSprite = "GFX_standard_button_142_34_button"
+					font = "cg_16b"
+					borderSize = { x = 12 y = 12 }
+					multiline = yes
+					text = "ANOMALY_CHANGE_SCIENTIST"
+					format = center
+				}
+				# research
+				buttonType = {
+					name = "research"
+					orientation = "LOWER_RIGHT"
+					position = { x = -171 y = -63 }
+					quadTextureSprite = "GFX_standard_button_142_34_button"
+					font = "cg_16b"
+					borderSize = { x = 12 y = 12 }
+					multiline = yes
+					text = "RESEARCH"
+					format = center
+				}
+			}
+
+			containerWindowType = {
+				name = "empty_tip"
+
+				instantTextBoxType = {
+					name = "list_tip"
+					font = "cg_16b"
+					text = "SITUATION_LOG_NO_ENTRIES_TIP"
+					position = { x = 6 y = 95 }	# parent position = { x = 6 y = 45 }
+					orientation = upper_left
+					maxWidth = 300
+					maxHeight = 40
+					fixedSize = yes
+					format = centre
+				}
+
+				containerWindowType = {
+					name = "picture_window"
+					position = { x = 367 y = 55 } # parent position = { x = 310 y = 45 }
+					size = { width = 448 height = 148 }
+					moveable = no
+					clipping = no
+					orientation = center_up
+
+					iconType = {
+						name ="picture"
+						quadTextureSprite = "GFX_evt_landing_ship"
+						position = { x = 10 y = 7 }
+						orientation = "UPPER_LEFT"
+						alwaystransparent = yes
+					}
+					iconType = {
+						name = "picture_frame"
+						quadTextureSprite = "GFX_event_frame"
+						position = { x = 4 y = 2 }
+						alwaystransparent = yes
+					}
+				}
+			}
+		}
+
+		########################
 		# victories_window
 		containerWindowType = {
 			name = "victories_window"
@@ -391,8 +891,8 @@ guiTypes = {
 			shortcut = "z"
 			clicksound = "tab_click"
 			Orientation = "LOWER_LEFT"
+			oversound = no_sound
 		}
-		
 		buttonType = {
 			name = "tab_log_active"
 			quadTextureSprite = "GFX_tab_1_active"
@@ -403,30 +903,57 @@ guiTypes = {
 			clicksound = "tab_click"
 			shortcut = "z"
 			Orientation = "LOWER_LEFT"
+			oversound = no_sound
+		}
+
+		buttonType = {
+			name = "tab_anomalies"
+			quadTextureSprite = "GFX_tab_2_inactive"
+			position = { x= 109 y = @tabheight }
+			font = "cg_16b"
+			buttonText = "ANOMALIES"
+			buttonFont = "cg_16b"
+			shortcut = "x"
+			clicksound = "tab_click"
+			Orientation = "LOWER_LEFT"
+			oversound = no_sound
+		}
+		buttonType = {
+			name = "tab_anomalies_active"
+			quadTextureSprite = "GFX_tab_2_active"
+			position = { x= 109 y = @tabheight }
+			font = "cg_16b"
+			buttonText = "ANOMALIES"
+			buttonFont = "cg_16b"
+			clicksound = "tab_click"
+			shortcut = "x"
+			Orientation = "LOWER_LEFT"
+			oversound = no_sound
 		}
 
 		buttonType = {
 			name = "tab_victories"
 			quadTextureSprite = "GFX_tab_2_inactive"
-			position = { x= 109 y = @tabheight }
+			position = { x= 238 y = @tabheight }
 			font = "cg_16b"
 			buttonText = "VICTORIES"
 			buttonFont = "cg_16b"
-			shortcut = "x"
+			shortcut = "c"
 			clicksound = "tab_click"
 			Orientation = "LOWER_LEFT"
+			oversound = no_sound
 		}
-		
 		buttonType = {
 			name = "tab_victories_active"
 			quadTextureSprite = "GFX_tab_2_active"
-			position = { x= 109 y = @tabheight }
+			position = { x= 238 y = @tabheight }
 			font = "cg_16b"
 			buttonText = "VICTORIES"
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
-			shortcut = "x"
+			shortcut = "c"
 			Orientation = "LOWER_LEFT"
+			oversound = no_sound
 		}
 	}
 	
@@ -441,6 +968,8 @@ guiTypes = {
 			quadTextureSprite = "GFX_long_button"
 			size = { x = 272 y = 40 }
 			position = { x = 9 y = 0 }
+			clicksound = outliner_click_tab
+			oversound = no_sound
 		}
 		
 		iconType = {
@@ -637,7 +1166,54 @@ guiTypes = {
 			fixedSize = yes
 			format = right
 		}
-	}	
+	}
+
+	### situation_log_anomaly_item
+	containerWindowType = {
+		name = "situation_log_anomaly_item"
+		size = { width = 300 height = 48 }
+		
+		buttonType = {
+			name = "button"
+			quadTextureSprite = "GFX_long_button"
+			size = { x = 272 y = 40 }
+			position = { x = 9 y = 0 }
+		}
+
+		iconType = {
+			name = "progressbar"
+			spriteType = "GFX_situation_log_progressbar"
+			frame = 0
+			position = { x = 14 y = 5 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "selected"
+			spriteType = "GFX_long_button_selected"
+			position = { x = 13 y = 5 }
+			alwaysTransparent = yes
+		}
+		
+		iconType = {
+			name = "icon"
+			spriteType = "GFX_situation_log_anomaly_levels"
+			position = { x = 17 y = 6 }
+			alwaysTransparent = yes
+		}
+		
+		instantTextBoxType={
+			name = "name"
+			font = "cg_16b"
+			position = { x = 40 y = 10 }
+			maxWidth = 220
+			maxHeight = 33
+			fixedSize = yes
+			format = center
+			vertical_alignment = center
+			alwaysTransparent = yes
+		}
+	}
 	
 	### VICTORY CONDITION ITEM
 	containerWindowType = {
@@ -656,6 +1232,8 @@ guiTypes = {
 			quadTextureSprite = "GFX_long_button"
 			size = { x = 272 y = 40 }
 			position = { x = 9 y = 0 }
+			clicksound = outliner_click_tab
+			oversound = no_sound
 		}
 		
 		iconType = {

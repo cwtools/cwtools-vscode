@@ -25,7 +25,7 @@ guiTypes = {
 		
 		buttonType = {
 			name = "special_project"
-			quadTextureSprite = "GFX_point_of_interest"
+			quadTextureSprite = "GFX_point_of_interest_levels"
 			position = { x=-20 y=-20 }
 		}
 	}
@@ -181,7 +181,7 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "special_project"
-			quadTextureSprite = "GFX_point_of_interest"
+			quadTextureSprite = "GFX_point_of_interest_levels"
 			position = { x=-5 y=4 }
 		}
 	}
@@ -259,6 +259,8 @@ guiTypes = {
 			position = { x = 0 y = 12 }
 			quadTextureSprite = "GFX_map_icon_bg"
 			size = { x = 18 y = 22 }
+			oversound = no_sound
+			clicksound = click
 		}
 		
 		buttonType = {
@@ -266,6 +268,7 @@ guiTypes = {
 			position = { x = 0 y = 12 }
 			quadTextureSprite = "GFX_map_icon_bg_capital"
 			size = { x = 22 y = 22 }
+			oversound = no_sound
 		}
 		
 		instantTextBoxType={
@@ -341,7 +344,7 @@ guiTypes = {
 				
 		buttonType = {
 			name = "special_project"
-			quadTextureSprite = "GFX_point_of_interest"
+			quadTextureSprite = "GFX_point_of_interest_levels"
 			position = { x=-10 y=-33 }
 			scale = 1.0
 		}
@@ -386,7 +389,7 @@ guiTypes = {
 		
 		buttonType = {
 			name = "special_project"
-			quadTextureSprite = "GFX_point_of_interest"
+			quadTextureSprite = "GFX_point_of_interest_levels"
 			position = { x= 95  y=-50 }
 		}
 	}
@@ -468,7 +471,7 @@ guiTypes = {
 		
 		buttonType = {
 			name = "special_project"
-			quadTextureSprite = "GFX_point_of_interest"
+			quadTextureSprite = "GFX_point_of_interest_levels"
 			position = { x = -25 y = -30 }
 		}
 	}
@@ -532,6 +535,7 @@ guiTypes = {
 			position = { x = 0 y = 14 }
 			quadTextureSprite = "GFX_map_icon_bg"
 			size =  { x = 18 y = 18 }
+			oversound = no_sound
 		}
 		
 		buttonType = {
@@ -539,6 +543,7 @@ guiTypes = {
 			position = { x = 0 y = 12 }
 			quadTextureSprite = "GFX_map_icon_bg_capital"
 			size =  { x = 22 y = 22 }
+			oversound = no_sound
 		}
 
 		instantTextBoxType={
@@ -565,6 +570,7 @@ guiTypes = {
 			position = { x = 10 y = 7 } #use positiontypes above to move
 			scale = 1.0
 			no_clicksound = yes
+			oversound = no_sound
 		}
 		buttonType = {
 			name = "star_owner_capital"
@@ -636,7 +642,7 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "special_projects"
-			spriteType = "GFX_galaxy_point_of_interest"
+			spriteType = "GFX_galaxy_point_of_interest_levels"
 			position = { x = -82 y = -20 }	# x is assigned at runtime to position research icons next to each other, starting from star_mapicon_research_icons_offset
 		}
 		buttonType = {
@@ -764,11 +770,13 @@ guiTypes = {
 		buttonType = {
 			name = "fleet"
 			spriteType = "GFX_fleet_presence_icons"
+			no_clicksound = yes
 		}
 		buttonType = {
 			name = "fleet_type"
 			position = { x = 20 y = 0 }
 			spriteType = "GFX_fleet_presence_overlay_icons"
+			no_clicksound = yes
 		}		
 	}
 

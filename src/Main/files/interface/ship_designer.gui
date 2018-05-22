@@ -41,6 +41,7 @@ guiTypes = {
 			position = { x= 266 y = 40 }
 			size = { x=960 y=500 }
 			scale = 1.
+			oversound = no_sound
 		}
 
 		iconType = {
@@ -529,6 +530,7 @@ guiTypes = {
 				position = { x= 952 y = -161 }
 				spriteType = "GFX_button_randomize"
 				pdx_tooltip = "SHIP_DESIGN_NAME_RANDOMIZE_TOOLTIP"
+				clicksound = randomizer_click
 			}				
 			
 			buttonType = {
@@ -538,6 +540,8 @@ guiTypes = {
 				Orientation = "UPPER_LEFT"
 				buttonFont = "cg_16b"
 				buttonText = "SAVE"
+				clicksound = confirm_click
+				oversound = no_sound
 			}		
 			
 			instantTextBoxType = {
@@ -722,7 +726,7 @@ guiTypes = {
 			name = "choose_ship_type_button"
 			spriteType = "GFX_galactic_object_button"
 			position = { x= -12 y = -4  }
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 
 		instantTextBoxType={
@@ -909,6 +913,7 @@ guiTypes = {
 				background = {
 					name = "background"
 					spriteType = "GFX_tiles_frame_light"
+					clicksound = select_click
 				}
 		}
 		
@@ -1133,6 +1138,8 @@ guiTypes = {
 		buttonType = {
 			name = "component_slot_button"
 			quadTextureSprite = "GFX_ship_designer_slot"
+			clicksound = tab_click
+			oversound = no_sound
 		}
 
 		iconType = {
@@ -1171,6 +1178,7 @@ guiTypes = {
 			name = "button"
 			position = { x = -3 y = 0 }
 			quadTextureSprite = "GFX_ship_design_entry_button"
+			oversound = no_sound
 		}
 		buttonType = {
 			name = "delete"
@@ -1224,6 +1232,8 @@ guiTypes = {
 			name = "button"
 			position = { x = -3 y = -3 }
 			quadTextureSprite = "GFX_ship_design_entry_button"
+			clicksound = confirm_click
+			oversound = no_sound
 		}
 
 		instantTextBoxType = {
@@ -1309,6 +1319,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_button_164_24"
 			position = { x = 18 y = -29	}
 			font = "cg_16b"
+			clicksound = confirm_click
 		}
 
 		iconType = {

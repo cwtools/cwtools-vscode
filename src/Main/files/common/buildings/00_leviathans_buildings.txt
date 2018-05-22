@@ -1,0 +1,393 @@
+# Do not remove or rename this
+
+# Possible Variables for Buildings:
+# strategic_resource: strategic resource, deprecated, strategic resource used by the building.
+# allow: trigger to check for allowing construction of building.
+# prerequisites: Tech requirements for building.
+# empire_unique: boolean, can only build one if set to true.
+# cost: resource table, cost of building.
+# is_orbital: boolean, can only be built in orbital station.
+# modifier: modifier, deprecated, applies a modifier to planet.
+# base_buildtime: int, number of days for construction.
+# requires_pop, boolean, building will require a pop for production.
+# required_resources, resource table, required resources for production.
+# produced_resources, resource table, produced resources in production.
+# upgrades, buildings list, buildings this building can upgrade into.
+# is_listed, boolean, toggles if this building is shown in the non-upgrade buildable list.
+# planet_unique, toggles if one can build multiple of this type on a single planet.
+# ai_weight, weight for AI, default is set to one, weight set to 0 means that AI will never build it
+
+#
+# BALANCE
+# can change the time and cost of all common buildings with these variables below
+
+@b0time = 120
+@b0cost = 30
+@b0effect = 1
+@b0upkeep = 0.5
+
+@b1time = 210
+@b1cost = 60
+@b1effect = 2
+@b1upkeep = 1
+
+@b2time = 180
+@b2cost = 90
+@b2effect = 3
+@b2upkeep = 1.5
+
+@b3time = 180
+@b3cost = 120
+@b3effect = 4
+@b3upkeep = 2
+
+@b4time = 180
+@b4cost = 150
+@b4effect = 5
+@b4upkeep = 2.5
+
+@b5time = 180
+@b5cost = 180
+@b5effect = 8
+@b5upkeep = 3
+
+@feupkeep = 4
+@feproduction = 12
+
+@science1 = 1
+@science2 = 2
+@science3 = 3
+@science4 = 4
+@science5 = 6
+
+###
+
+building_guardian_dragon_shrine = {
+	base_buildtime = 360
+
+	empire_unique = yes
+
+	requires_pop = yes
+	
+	cost = {
+		minerals = 800
+	}
+	
+	produced_resources = {
+		unity = 15
+	}
+
+	potential = {
+		planet.owner = {
+			has_country_flag = dragon_slayer
+			OR = {
+				has_ethic = ethic_spiritualist
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 20
+		modifier = {
+			weight = 0
+			from = { sector_controlled = yes }
+			from = { NOT = { has_building = building_guardian_dragon_shrine } }
+		}		
+	}
+	
+	ai_replace = no
+	event_building = yes
+}
+
+building_guardian_dragon_monument = {
+	base_buildtime = 360
+
+	empire_unique = yes
+
+	requires_pop = yes
+	
+	cost = {
+		minerals = 800
+	}
+	
+	produced_resources = {
+		unity = 15
+	}
+	
+	potential = {
+		planet.owner = {
+			has_country_flag = dragon_slayer
+			NOR = {
+				has_ethic = ethic_spiritualist
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 20
+		modifier = {
+			weight = 0
+			from = { sector_controlled = yes }
+			from = { NOT = { has_building = building_guardian_dragon_monument } }
+		}		
+	}
+	
+	ai_replace = no
+	event_building = yes
+}
+
+# Stellarite Trophy
+building_stellarite_trophy = {
+	icon = "building_zanaam_obelisk"
+	base_buildtime = 360
+	empire_unique = yes
+	
+	cost = { 
+		minerals = 800
+	}	
+	
+	produced_resources = {
+		unity = 15
+	}
+	
+	potential = {
+		planet = {
+			owner = {
+				has_country_flag = stellarite_trophy_allowed
+			}
+		}
+	}
+	
+	ai_weight = {
+		weight = 10
+	}
+	
+	ai_replace = no
+	event_building = yes
+}
+
+# Artist Monument
+building_artist = {
+	icon = "building_zanaam_obelisk"
+	base_buildtime = 400
+	planet_unique = yes
+	
+	produced_resources = {
+		unity = 8
+	}
+
+	planet_modifier = {
+		planet_migration_all_pull = 0.50		
+	}
+	
+	allow = {
+		custom_tooltip = {
+			text = building_artist_tooltip
+			planet = {
+				owner = {
+					OR = {
+						AND = {
+							check_variable = {
+								which = artist_monument_purchased
+								value = 5
+							}
+							OR = {
+								check_variable = {
+									which = artist_monuments_built
+									value = 4
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 3
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 2
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 1
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 0
+								}
+							}
+						}AND = {
+							check_variable = {
+								which = artist_monument_purchased
+								value = 4
+							}
+							OR = {
+								check_variable = {
+									which = artist_monuments_built
+									value = 3
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 2
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 1
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 0
+								}
+							}
+						}
+						AND = {
+							check_variable = {
+								which = artist_monument_purchased
+								value = 3
+							}
+							OR = {
+								check_variable = {
+									which = artist_monuments_built
+									value = 2
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 1
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 0
+								}
+							}
+						}
+						AND = {
+							check_variable = {
+								which = artist_monument_purchased
+								value = 2
+							}
+							OR = {
+								check_variable = {
+									which = artist_monuments_built
+									value = 1
+								}
+								check_variable = {
+									which = artist_monuments_built
+									value = 0
+								}
+							}
+						}
+						AND = {
+							check_variable = {
+								which = artist_monument_purchased
+								value = 1
+							}
+							check_variable = {
+								which = artist_monuments_built
+								value = 0
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	potential = {
+		planet = {
+			owner = {
+				check_variable = {
+					which = artist_monument_purchased
+					value > 0
+				}
+			}
+		}
+	}
+	
+	on_queued = {
+		planet = {
+			owner = {
+				if = {
+					limit = {
+						check_variable = {
+							which = artist_monuments_built
+							value < 1
+						}
+					}
+					set_variable = {
+						which = artist_monuments_built
+						value = 1
+					}
+					else = {
+						change_variable = {
+							which = artist_monuments_built
+							value = 1
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	on_unqueued = {
+		planet = {
+			owner = {
+				change_variable = {
+					which = artist_monuments_built
+					value = -1
+				}
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			weight = 0
+			from = { sector_controlled = yes }
+			from = { NOT = { has_building = building_artist } }
+		}		
+	}
+	
+	ai_replace = no
+	event_building = yes
+}
+# Artist Monument 2
+building_artist_patron = {
+	icon = "building_modern_1"
+	base_buildtime = 500
+	empire_unique = yes
+
+	requires_pop = yes
+	
+	produced_resources = {
+		unity = 10
+	}
+	
+	country_modifier = {
+		pop_government_ethic_attraction = 0.10
+		country_resource_unity_mult = 0.05
+	}
+
+	potential = {
+		planet = {
+			owner = {
+				has_country_flag = artist_building_patron
+			}
+		}
+	}
+
+	ai_weight = {
+		weight = 20
+		modifier = {
+			weight = 0
+			from = { sector_controlled = yes }
+			from = { NOT = { has_building = building_artist_patron } }
+		}		
+	}
+	
+	ai_replace = no
+	event_building = yes
+}

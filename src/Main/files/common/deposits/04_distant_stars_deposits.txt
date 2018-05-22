@@ -1,0 +1,106 @@
+##############################
+#   Distant Stars Deposits   #
+##############################
+
+d_vast_unity_deposit = {
+	resources = {
+		unity = 3
+	}
+	station = shipclass_research_station
+	orbital_weight = { weight = 0 }
+	drop_weight = { weight = 0 }
+}
+
+### L-Cluster
+
+d_nanodust_deposit = {
+	resources = {
+		sr_distar_nanodust = 1
+	}
+	station = shipclass_mining_station
+	orbital_weight = {
+		weight = 1000
+	}
+	
+	drop_weight = {
+		weight = 0
+		modifier = {
+			weight = 2
+			solar_system = { has_star_flag = lcluster }
+			planet = { is_star = no }
+		}
+		modifier = {
+			factor = 5
+			planet = { is_planet_class = pc_gray_goo }
+		}
+	}
+}
+
+d_nanocrystal_deposit = {
+	resources = {
+		sr_distar_nanocrystal = 1
+	}
+	station = shipclass_mining_station
+	orbital_weight = {
+		weight = 1000
+	}
+	
+	drop_weight = {
+		weight = 0
+		modifier = {
+			weight = 2
+			solar_system = { has_star_flag = lcluster }
+			planet = { is_star = no }
+		}
+		modifier = {
+			factor = 5
+			planet = { is_planet_class = pc_gray_goo }
+		}
+	}
+}
+
+d_nanoscale_deposit = {
+	resources = {
+		sr_distar_nanoscale = 1
+	}
+	station = shipclass_mining_station
+	orbital_weight = {
+		weight = 1000
+	}
+	
+	drop_weight = {
+		weight = 0
+		modifier = {
+			weight = 2
+			solar_system = { has_star_flag = lcluster }
+			planet = { is_star = no }
+		}
+		modifier = {
+			factor = 5
+			planet = { is_planet_class = pc_gray_goo }
+		}
+	}
+}
+
+d_nanoactuator_deposit = {
+	resources = {
+		sr_distar_nanoactuator = 1
+	}
+	station = shipclass_mining_station
+	orbital_weight = {
+		weight = 1000
+	}
+	
+	drop_weight = {
+		weight = 0
+		modifier = {
+			weight = 2
+			solar_system = { has_star_flag = lcluster }
+			planet = { is_star = no }
+		}
+		modifier = {
+			factor = 5
+			planet = { is_planet_class = pc_gray_goo }
+		}
+	}
+}

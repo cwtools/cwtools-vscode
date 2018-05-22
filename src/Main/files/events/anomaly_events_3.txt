@@ -7,84 +7,6 @@
 
 namespace = anomaly
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-@tier4unityreward = 24
-@tier4unitymin = 350
-@tier4unitymax = 2000
-@tier5unityreward = 48
-@tier5unitymin = 700
-@tier5unitymax = 4000
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
-
 # ROOT = ship scope
 # FROM = planet scope
 
@@ -182,18 +104,18 @@ ship_event = {
 		}
 	}
 	
-	option = {
-		name = anomaly.85.b
-		owner = { save_event_target_as = ship_owner }
-		solar_system = {
-			every_system_planet = {
-				surveyed = {
-					set_surveyed = yes
-					surveyor = event_target:ship_owner
-				}
-			}
-		}
-	}
+	#option = {
+	#	name = anomaly.85.b
+	#	owner = { save_event_target_as = ship_owner }
+	#	solar_system = {
+	#		every_system_planet = {
+	#			surveyed = {
+	#				set_surveyed = yes
+	#				surveyor = event_target:ship_owner
+	#			}
+	#		}
+	#	}
+	#}
 }
 
 ### Cunning Flora
@@ -204,6 +126,7 @@ ship_event = {
 	picture = GFX_evt_big_landing_ship
 	show_sound = event_alien_nature
 	location = FROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -671,20 +594,10 @@ ship_event = {
 	id = anomaly.106
 	title = anomaly.106.name
 	desc = {
-		trigger = {
-			owner = {
-				NOT = {
-					has_ethic = ethic_xenophobe
-					has_ethic = ethic_fanatic_xenophobe
-					has_ethic = ethic_xenophile
-					has_ethic = ethic_fanatic_xenophile
-				}
-			}
-		}
 		text = anomaly.106.desc.neutral
 	}
 	desc = {
-		trigger = {
+		exclusive_trigger = {
 			owner = {
 				OR = {
 					has_ethic = ethic_xenophobe
@@ -695,7 +608,7 @@ ship_event = {
 		text = anomaly.106.desc.phobe
 	}
 	desc = {
-		trigger = {
+		exclusive_trigger = {
 			owner = {
 				OR = {
 					has_ethic = ethic_xenophile
@@ -730,16 +643,6 @@ ship_event = {
 
 	option = {
 		name = anomaly.106.a.neutral
-		trigger = {
-			owner = {
-				NOT = {
-					has_ethic = ethic_xenophobe
-					has_ethic = ethic_fanatic_xenophobe
-					has_ethic = ethic_xenophile
-					has_ethic = ethic_fanatic_xenophile
-				}
-			}
-		}
 		owner = {
 			add_monthly_resource_mult = {
 				resource = influence
@@ -753,7 +656,7 @@ ship_event = {
 
 	option = {
 		name = anomaly.106.a.phobe
-		trigger = {
+		exclusive_trigger = {
 			owner = {
 				OR = {
 					has_ethic = ethic_xenophobe
@@ -774,7 +677,7 @@ ship_event = {
 
 	option = {
 		name = anomaly.106.a.phile
-		trigger = {
+		exclusive_trigger = {
 			owner = {
 				OR = {
 					has_ethic = ethic_xenophile
@@ -1081,28 +984,28 @@ country_event = {
 }
 
 ### Derelict Star Chart, molten planet only
-ship_event = {
-	id = anomaly.125
-	title = "anomaly.125.name"
-	desc = "anomaly.125.desc"
-	picture = GFX_evt_molten
-	show_sound = event_ship_thrusters
-	location = FROM
-
-	is_triggered_only = yes
-
-	option = {
-		name = anomaly.125.a
-		solar_system = {
-			every_system_planet = {
-				surveyed = {
-					set_surveyed = yes
-					surveyor = root.owner
-				}
-			}
-		}
-	}
-}
+#ship_event = {
+#	id = anomaly.125
+#	title = "anomaly.125.name"
+#	desc = "anomaly.125.desc"
+#	picture = GFX_evt_molten
+#	show_sound = event_ship_thrusters
+#	location = FROM
+#
+#	is_triggered_only = yes
+#
+#	option = {
+#		name = anomaly.125.a
+#		solar_system = {
+#			every_system_planet = {
+#				surveyed = {
+#					set_surveyed = yes
+#					surveyor = root.owner
+#				}
+#			}
+#		}
+#	}
+#}
 
 ### Transient Gravitational Anomaly, asteroid only
 ship_event = {
@@ -1347,6 +1250,7 @@ ship_event = {
 	picture = GFX_evt_mining_station
 	show_sound = event_mystic_reveal
 	location = event_target:shrine
+	trackable = yes
 
 	is_triggered_only = yes
 	
@@ -1388,6 +1292,7 @@ ship_event = {
 	picture = GFX_evt_mining_station
 	show_sound = event_mystic_reveal
 	location = event_target:shrine
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -1429,6 +1334,7 @@ ship_event = {
 	picture = GFX_evt_mining_station
 	show_sound = event_mystic_reveal
 	location = event_target:shrine
+	trackable = yes
 
 	is_triggered_only = yes
 	
@@ -1735,7 +1641,7 @@ ship_event = {
 			}
 			hidden_effect = {
 				orbital_deposit_tile = {
-					add_deposit = d_zro_deposit
+					add_zro = yes
 				}
 			}
 		}
@@ -1760,13 +1666,14 @@ ship_event = {
 		name = FASCINATING
 		hidden_effect = { owner = { country_event = { id = story.5 days = 30 } } }
 		FROM = {
-			add_modifier = {
-				modifier = "dark_matter_funnel"
-				days = -1
-			}
+			custom_tooltip = anomaly.155.a.tooltip
 			hidden_effect = {
+				add_modifier = {
+					modifier = "dark_matter_funnel"
+					days = -1
+				}
 				orbital_deposit_tile = {
-					add_deposit = d_dark_matter_deposit
+					add_dark_matter = yes
 				}
 			}
 		}
@@ -2033,6 +1940,7 @@ ship_event = {
 	show_sound = event_radio_chatter
 	picture = GFX_evt_satellite_in_orbit
 	location = FROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2523,6 +2431,7 @@ ship_event = {
 	picture = GFX_evt_atmospheric_entry
 	show_sound = event_laboratory_sound
 	location = FROMFROM
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2711,6 +2620,7 @@ ship_event = {
 	picture = GFX_evt_archaeological_dig
 	show_sound = event_scanner
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2762,6 +2672,7 @@ ship_event = {
 	picture = GFX_evt_alien_city
 	show_sound = event_planetary_riot
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2795,86 +2706,113 @@ ship_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		if = {
-			limit = {
-				owner = {
-					NOT = {
-						has_technology = tech_mass_drivers_1
-						has_country_flag = got_mass
-						has_country_flag = got_miss
-						has_country_flag = got_laser
-					}
-				}
-			}
-			owner = {
-				give_technology = { tech = tech_mass_drivers_1 }
-				set_country_flag = got_mass
-			}
-		}
-		if = {
-			limit = {
-				owner = {
-					NOT = {
-						has_technology = tech_missiles_1
-						has_country_flag = got_mass
-						has_country_flag = got_miss
-						has_country_flag = got_laser
-					}
-				}
-			}
-			owner = {
-				give_technology = { tech = tech_missiles_1 }
-				set_country_flag = got_miss
-			}
-		}
-		if = {
-			limit = {
-				owner = {
-					NOT = {
-						has_technology = tech_lasers_1
-						has_country_flag = got_mass
-						has_country_flag = got_miss
-						has_country_flag = got_laser
-					}
-				}
-			}
-			owner = {
-				give_technology = { tech = tech_lasers_1 }
-				set_country_flag = got_laser
+		owner = {
+			inverted_switch = {
+				trigger = has_technology
+				tech_mass_drivers_2 = { root = { set_ship_flag = mass2 } }
+					tech_missiles_2 = { root = { set_ship_flag = miss2 } }
+					  tech_lasers_2 = { root = { set_ship_flag = lase2 } }
+				tech_mass_drivers_3 = { root = { set_ship_flag = mass3 } }
+					tech_missiles_3 = { root = { set_ship_flag = miss3 } }
+					  tech_lasers_3 = { root = { set_ship_flag = lase3 } }
+				tech_mass_drivers_4 = { root = { set_ship_flag = mass4 } }
+					tech_missiles_4 = { root = { set_ship_flag = miss4 } }
+					  tech_lasers_4 = { root = { set_ship_flag = lase4 } }
+				tech_mass_drivers_5 = { root = { set_ship_flag = mass5 } }
+					tech_missiles_5 = { root = { set_ship_flag = miss5 } }
+					  tech_lasers_5 = { root = { set_ship_flag = lase5 } }
 			}
 		}
 	}
 
 	option = {
 		name = anomaly.256.a
-		if = {
-			limit = { owner = { has_country_flag = got_mass } }
-			custom_tooltip = anomaly.256.a.tooltip.mass
-		}
-		if = {
-			limit = { owner = { has_country_flag = got_miss } }
-			custom_tooltip = anomaly.256.a.tooltip.miss
-		}
-		if = {
-			limit = { owner = { has_country_flag = got_laser } }
-			custom_tooltip = anomaly.256.a.tooltip.laser
-		}
+		trigger = {          has_ship_flag = mass2 }
+		hidden_effect = { remove_ship_flag = mass2 }
+		owner = { give_technology = { tech = tech_mass_drivers_2 } }
 	}
-
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          mass3 }
+		hidden_effect = { remove_ship_flag = mass3 }
+		owner = { give_technology = { tech = tech_mass_drivers_3 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          mass4 }
+		hidden_effect = { remove_ship_flag = mass4 }
+		owner = { give_technology = { tech = tech_mass_drivers_4 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          mass5 }
+		hidden_effect = { remove_ship_flag = mass5 }
+		owner = { give_technology = { tech = tech_mass_drivers_5 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = {          has_ship_flag = miss2 }
+		hidden_effect = { remove_ship_flag = miss2 }
+		owner = { give_technology = { tech = tech_missiles_2 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          miss3 }
+		hidden_effect = { remove_ship_flag = miss3 }
+		owner = { give_technology = { tech = tech_missiles_3 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          miss4 }
+		hidden_effect = { remove_ship_flag = miss4 }
+		owner = { give_technology = { tech = tech_missiles_4 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          miss5 }
+		hidden_effect = { remove_ship_flag = miss5 }
+		owner = { give_technology = { tech = tech_missiles_5 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = {          has_ship_flag = lase2 }
+		hidden_effect = { remove_ship_flag = lase2 }
+		owner = { give_technology = { tech = tech_lasers_2 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          lase3 }
+		hidden_effect = { remove_ship_flag = lase3 }
+		owner = { give_technology = { tech = tech_lasers_3 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          lase4 }
+		hidden_effect = { remove_ship_flag = lase4 }
+		owner = { give_technology = { tech = tech_lasers_4 } }
+	}
+	option = {
+		name = anomaly.256.a
+		trigger = { has_ship_flag =          lase5 }
+		hidden_effect = { remove_ship_flag = lase5 }
+		owner = { give_technology = { tech = tech_lasers_5 } }
+	}
 	option = {
 		name = anomaly.256.b
 		trigger = {
-			owner = {
-				NOT = {
-					has_country_flag = got_mass
-					has_country_flag = got_miss
-					has_country_flag = got_laser
-				}
-				AND = {
-					has_technology = tech_mass_drivers_1
-					has_technology = tech_missiles_1
-					has_technology = tech_lasers_1
-				}
+			NOR = {
+				has_ship_flag = mass2
+				has_ship_flag = mass3
+				has_ship_flag = mass4
+				has_ship_flag = mass5
+				has_ship_flag = miss2
+				has_ship_flag = miss3
+				has_ship_flag = miss4
+				has_ship_flag = miss5
+				has_ship_flag = lase2
+				has_ship_flag = lase3
+				has_ship_flag = lase4
+				has_ship_flag = lase5
 			}
 		}
 	}
@@ -2894,21 +2832,10 @@ ship_event = {
 	option = {
 		name = anomaly.257.a
 		trigger = {
-			NOT = {
-				OR = {
-					owner = {
-						has_technology = tech_lasers_1
-						NOT = { has_technology = tech_energy_lance_1 }
-					}
-					owner = {
-						has_technology = tech_mass_drivers_1
-						NOT = { has_technology = tech_kinetic_artillery_1 }
-					}
-					owner = {
-						has_technology = tech_missiles_1
-						NOT = { has_technology = tech_swarmer_missiles_1 }
-					}
-				}
+			owner = {
+				has_technology = tech_energy_lance_1
+				has_technology = tech_kinetic_artillery_1
+				has_technology = tech_swarmer_missiles_1
 			}
 		}
 		leader = {
@@ -2920,7 +2847,6 @@ ship_event = {
 		name = anomaly.257.b
 		trigger = {
 			owner = {
-				has_technology = tech_lasers_1
 				NOT = { has_technology = tech_energy_lance_1 }
 			}
 		}
@@ -2932,7 +2858,6 @@ ship_event = {
 		name = anomaly.257.c
 		trigger = {
 			owner = {
-				has_technology = tech_mass_drivers_1
 				NOT = { has_technology = tech_kinetic_artillery_1 }
 			}
 		}
@@ -2944,23 +2869,10 @@ ship_event = {
 		name = anomaly.257.d
 		trigger = {
 			owner = {
-				has_technology = tech_missiles_1
 				NOT = { has_technology = tech_swarmer_missiles_1 }
 			}
 		}
 		owner = { give_technology = { tech =  tech_swarmer_missiles_1 } }
-		leader = { add_experience = 200 }
-	}
-
-	OPTION = {
-		name = UNFORTUNATE
-		trigger = {
-			owner = {
-				has_technology = tech_energy_lance_1
-				has_technology = tech_kinetic_artillery_1
-				has_technology = tech_swarmer_missiles_1
-			}
-		}
 		leader = { add_experience = 200 }
 	}
 }
@@ -3168,6 +3080,7 @@ ship_event = {
 	picture = GFX_evt_ship_in_orbit
 	show_sound = event_ship_bridge
 	location =  from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -3210,13 +3123,11 @@ ship_event = {
 
 	option = {
 		name = EXCELLENT
-		hidden_effect = {
-			fromfrom = {
-				orbital_deposit_tile = {
-					add_deposit = d_vast_mineral_deposit
-					add_deposit = d_vast_mineral_deposit
-					add_deposit = d_vast_mineral_deposit
-				}
+		fromfrom = {
+			orbital_deposit_tile = {
+				add_deposit = d_vast_mineral_deposit
+				add_deposit = d_vast_mineral_deposit
+				add_deposit = d_vast_mineral_deposit
 			}
 		}
 	}

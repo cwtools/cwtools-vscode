@@ -1,0 +1,672 @@
+############################
+#
+# Gray Goo Events
+#
+# Written by Henrik Eklund
+#
+############################
+
+namespace = graygoo
+
+# Invasion begins
+country_event = {
+	id = graygoo.1
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		every_megastructure = {
+			limit = {
+				is_megastructure_type = lgate_base
+			}
+			activate_gateway = this
+		}
+		random_system = {
+			limit = { has_star_flag = graygoo_factory_system }
+			random_system_planet = {
+				limit = { has_planet_flag = main_star }
+				save_event_target_as = main_star
+			}
+			create_country = {
+				name = "NAME_Gray_Goo"
+				type = "gray_goo"
+				name_list = "graygoo"
+				flag = {
+					icon= {
+						category = "special"
+						file = "gray_goo.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "sinus.dds"
+					}
+					colors={
+						"grey"
+						"dark_grey"
+						"null"
+						"null"
+					}
+				}
+				effect = {
+					save_event_target_as = graygoo_country
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:graygoo_country
+					create_ship = {
+						name = random
+						design = "NAME_Nanite_Factory"
+						graphical_culture = "pirate_01"
+					}
+					set_location = {
+						target = event_target:main_star
+						distance = 55
+						angle = 270
+					}
+					save_event_target_as = nanite_factory
+				}
+			}
+			every_country = { establish_communications_no_message = event_target:graygoo_country }
+			create_fleet = {
+				name = "NAME_Tempest_Fleet"
+				effect = {
+					set_owner = event_target:graygoo_country
+					create_graygoo_ships_1 = yes
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = event_target:nanite_factory
+						distance = 80
+						angle = 0
+					}
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+			create_fleet = {
+				name = "NAME_Tempest_Fleet"
+				effect = {
+					set_owner = event_target:graygoo_country
+					create_graygoo_ships_1 = yes
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = event_target:nanite_factory
+						distance = 80
+						angle = 90
+					}
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+			create_fleet = {
+				name = "NAME_Tempest_Fleet"
+				effect = {
+					set_owner = event_target:graygoo_country
+					create_graygoo_ships_1 = yes
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = event_target:nanite_factory
+						distance = 80
+						angle = 180
+					}
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+			create_fleet = {
+				name = "NAME_Tempest_Fleet"
+				effect = {
+					set_owner = event_target:graygoo_country
+					create_graygoo_ships_1 = yes
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = event_target:nanite_factory
+						distance = 80
+						angle = 270
+					}
+				}
+				settings = {
+					garrison = yes
+				}
+			}
+			every_system = {
+				limit = { has_star_flag = lcluster }
+				every_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					create_fleet = {
+						name = "NAME_Tempest_Fleet"
+						effect = {
+							set_owner = event_target:graygoo_country
+							create_graygoo_ships_1 = yes
+							set_formation_scale = 2
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 250
+							set_location = {
+								target = prev
+								distance = 15
+								angle = random
+							}
+						}
+						settings = {
+							garrison = yes
+						}
+					}
+				}
+			}
+			random_system = {
+				limit = { has_star_flag = lcluster1 }
+				random_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					save_event_target_as = start_1
+				}
+			}
+			random_system = {
+				limit = { has_star_flag = lcluster2 }
+				random_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					save_event_target_as = start_2
+				}
+			}
+			random_system = {
+				limit = { has_star_flag = lcluster3 }
+				random_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					save_event_target_as = start_3
+				}
+			}
+			random_system = {
+				limit = { has_star_flag = lcluster4 }
+				random_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					save_event_target_as = start_4
+				}
+			}
+			random_system = {
+				limit = { has_star_flag = lcluster5 }
+				random_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					save_event_target_as = start_5
+				}
+			}
+			random_system = {
+				limit = { has_star_flag = lcluster1b }
+				random_system_planet = {
+					limit = { is_planet_class = pc_gray_goo }
+					save_event_target_as = start_6
+				}
+			}
+			create_graygoo_roamers_1 = yes
+			create_graygoo_roamers_2 = yes
+			create_graygoo_roamers_3 = yes
+			create_graygoo_roamers_4 = yes
+			create_graygoo_roamers_5 = yes
+			create_graygoo_roamers_6 = yes
+			create_graygoo_roamers_7 = yes
+		}
+		random_country = {
+			limit = { is_country_type = gray_goo }
+			save_event_target_as = graygoo_country
+			country_event = { id = graygoo.3 days = 3600 }
+		}
+		every_system = {
+			limit = {
+				NOR = {
+					has_star_flag = lcluster_lgate
+					has_star_flag = lgate_originating_system
+				}
+				any_system_megastructure = { 
+					is_megastructure_type = lgate_base
+				}
+			}
+			random_system_megastructure = {
+				limit = {
+					is_megastructure_type = lgate_base
+				}
+				create_fleet = {
+					name = "NAME_Tempest_Fleet"
+					effect = {
+						set_owner = event_target:graygoo_country
+						create_graygoo_ships_1 = yes
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 0
+							angle = 0
+						}
+					}
+				}
+			}
+		}
+		country_event = { id = graygoo.10 }
+		every_playable_country = {
+			limit = {
+				has_special_project = LCLUSTER_PROJECT
+				NOT = { is_same_value = root }
+			}
+			country_event = { id = graygoo.11 }
+		}
+		every_playable_country = {
+			limit = {
+				NOR = {
+					has_special_project = LCLUSTER_PROJECT
+					is_same_value = root 
+				}
+				has_event_chain = l_cluster_chain
+			}
+			country_event = { id = graygoo.12 }
+		}
+		every_playable_country = {
+			limit = {
+				NOR = {
+					has_event_chain = l_cluster_chain
+					has_special_project = LCLUSTER_PROJECT
+					is_same_value = root 
+				}
+			}
+			country_event = { id = graygoo.13 }
+		}
+	}
+}
+
+# Colony Bombarded
+planet_event = {
+	id = graygoo.2
+	title = "graygoo.2.name"
+	desc = "graygoo.2.desc"
+	picture = GFX_evt_city_ruins
+	show_sound = event_ghost_town
+
+	is_triggered_only = yes
+
+	trigger = {
+		FROM = { is_country_type = gray_goo }
+	}
+
+	immediate = {
+		while = {
+			limit = {
+				any_tile = { has_blocker = tb_tribal_settlement }
+			}
+			random_tile = {
+				limit = { has_blocker = tb_tribal_settlement }
+				remove_blocker = yes
+			}
+		}
+		destroy_colony = yes
+		if = {
+			limit = {
+				NOR = {
+					is_planet_class = pc_ringworld_habitable
+					is_planet_class = pc_habitat
+				}
+			}
+			change_pc =  pc_gray_goo
+			reset_planet = yes
+			else = {
+				if = {
+					limit = { is_planet_class = pc_ringworld_habitable }
+					change_pc = pc_ringworld_habitable_damaged
+					reset_planet = yes
+				}
+				if = {
+					limit = { is_planet_class = pc_habitat }
+					remove_planet = yes
+				}
+			}
+		}
+	}
+
+	option = {
+		name = graygoo.2.a
+	}
+}
+
+# Reinforcements 1
+country_event = {
+	id = graygoo.3
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		any_system = {
+			has_star_flag = graygoo_factory_system
+			any_ship_in_system = { is_ship_size = graygoo_factory }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				any_system = {
+					has_star_flag = lcluster
+					any_ship_in_system = {
+						owner = { 
+							NOT = { is_same_value = root }
+						}
+					}
+				}
+			}
+			# Reinforce at factory if someone else is in the cluster...
+			country_event = { id = graygoo.4 }
+			# Else spawn reinforcements...
+			else = {
+				every_system = {
+					limit = {
+						NOR = {
+							has_star_flag = lcluster_lgate
+							has_star_flag = lgate_originating_system
+						}
+						any_system_megastructure = { 
+							is_megastructure_type = lgate_base
+						}
+					}
+					random_system_megastructure = {
+						limit = {
+							is_megastructure_type = lgate_base
+						}
+						create_ambient_object = {
+							type = "horror_spawn_object"
+							location = THIS
+							use_3d_location = yes
+							duration = 10
+						}
+						create_fleet = {
+							name = "NAME_Tempest_Fleet"
+							effect = {
+								set_owner = event_target:graygoo_country
+								create_graygoo_ships_1 = yes
+								set_formation_scale = 2
+								set_fleet_stance = aggressive
+								set_aggro_range_measure_from = self
+								set_aggro_range = 250
+								set_location = {
+									target = prev
+									distance = 0
+									angle = 0
+								}
+							}
+						}
+					}
+				}
+				country_event = { id = graygoo.3 days = 3600 }
+			}
+		}
+	}
+}
+
+# Reinforcements 2
+country_event = {
+	id = graygoo.4
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		random_owned_ship = {
+			limit = { is_ship_size = graygoo_factory }
+			save_event_target_as = graygoo_factory
+		}
+		create_fleet = {
+			name = "NAME_Tempest_Fleet"
+			effect = {
+				set_owner = event_target:graygoo_country
+				create_graygoo_ships_1 = yes
+				set_formation_scale = 2
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 250
+				set_location = {
+					target = event_target:graygoo_factory
+					distance = 10
+					angle = random
+				}
+			}
+		}
+		create_fleet = {
+			name = "NAME_Tempest_Fleet"
+			effect = {
+				set_owner = event_target:graygoo_country
+				create_graygoo_ships_1 = yes
+				set_formation_scale = 2
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 250
+				set_location = {
+					target = event_target:graygoo_factory
+					distance = 10
+					angle = random
+				}
+			}
+		}
+		create_fleet = {
+			name = "NAME_Tempest_Fleet"
+			effect = {
+				set_owner = event_target:graygoo_country
+				create_graygoo_ships_1 = yes
+				set_formation_scale = 2
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 250
+				set_location = {
+					target = event_target:graygoo_factory
+					distance = 10
+					angle = random
+				}
+			}
+		}
+		country_event = { id = graygoo.3 days = 3600 }
+	}
+}
+
+# Factory Destroyed
+country_event = {
+	id = graygoo.6
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = gray_goo
+		fromfrom = { is_ship_size = graygoo_factory }
+	}
+
+	immediate = {
+		remove_global_flag = active_gray_goo
+		fromfromfrom = { save_event_target_as = goo_slayer_ship }
+		from = {
+			save_event_target_as = goo_slayer
+			country_event = { id = graygoo.15 }
+		}
+		every_playable_country = {
+			limit = {
+				is_ai = no
+				NOT = { is_same_value = event_target:goo_slayer }
+			}
+			country_event = { id = graygoo.16 }
+		}
+		every_planet = {
+			limit = { is_planet_class = pc_gray_goo }
+			add_modifier = {
+				modifier = "terraforming_candidate"
+				days = -1
+			}
+		}
+		every_owned_fleet = { destroy_fleet = this }
+		destroy_country = yes
+	}
+}
+
+# The Gray Tempest (Instigator)
+country_event = {
+	id = graygoo.10
+	title = "graygoo.10.name"
+	desc = "graygoo.10.desc"
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_radio_chatter
+
+	is_triggered_only = yes
+
+	option = {
+		name = graygoo.10.a
+		hidden_effect = {
+			country_event = { id = graygoo.12 }
+		}
+	}
+}
+
+# The Gray Tempest (Other, has project/chain)
+country_event = {
+	id = graygoo.11
+	title = "graygoo.10.name"
+	desc = "graygoo.11.desc"
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_radio_chatter
+
+	is_triggered_only = yes
+
+	option = {
+		name = graygoo.10.a
+		hidden_effect = {
+			country_event = { id = graygoo.12 }
+		}
+	}
+}
+
+# The Gray Tempest (Other, has nothing)
+country_event = {
+	id = graygoo.13
+	title = "graygoo.10.name"
+	desc = "graygoo.13.desc"
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_radio_chatter
+
+	is_triggered_only = yes
+
+	option = {
+		name = graygoo.10.a
+		hidden_effect = {
+			country_event = { id = graygoo.12 }
+		}
+	}
+}
+
+# Incoming Transmission
+country_event = {
+	id = graygoo.12
+	title = "TRANSMISSION"
+	desc = "graygoo.12.desc"
+	
+	diplomatic = yes
+	
+	picture_event_data = {
+		room = no_video_feed_room
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = graygoo.12.a
+		response_text = graygoo.12.a.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = graygoo.12.b
+		response_text = graygoo.12.b.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = graygoo.12.c
+		response_text = graygoo.12.c.response
+		is_dialog_only = yes
+	}
+	option = {
+		name = graygoo.12.d
+	}
+}
+
+# Tempest Defeated (Instigator)
+country_event = {
+	id = graygoo.15
+	title = "graygoo.15.name"
+	desc = "graygoo.15.desc"
+	picture = GFX_evt_large_explosion
+	show_sound = event_celebration
+	location = event_target:goo_slayer_ship.fleet
+
+	is_triggered_only = yes
+
+	option = {
+		name = graygoo.15.a
+		custom_tooltip = graygoo.15.a.tooltip
+	}
+}
+
+# Tempest Defeated (Others)
+country_event = {
+	id = graygoo.16
+	title = "graygoo.15.name"
+	desc = "graygoo.16.desc"
+	picture = GFX_evt_large_explosion
+	show_sound = event_celebration
+
+	is_triggered_only = yes
+
+	option = {
+		name = GOOD
+	}
+}
+
+## Project Test 1
+#country_event = {
+#	id = graygoo.24
+#	hide_window = yes
+#
+#	is_triggered_only = yes
+#
+#	immediate = {
+#		begin_event_chain = {
+#			event_chain = l_cluster_chain
+#			target = this
+#		}
+#	}
+#}
+
+# Gray Tempest Test Event
+country_event = {
+	id = graygoo.25
+	hide_window = yes
+
+	trigger = {
+		always = no
+	}
+
+	immediate = {
+		if = {
+			limit = { has_global_flag = dragon_season }
+			remove_global_flag = dragon_season
+		}
+		set_global_flag = gray_goo_crisis_set
+		country_event = { id = distar.10950 }
+	}
+}

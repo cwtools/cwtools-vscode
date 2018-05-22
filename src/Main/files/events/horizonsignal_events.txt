@@ -6,22 +6,6 @@
 
 namespace = akx
 
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-@tier4unityreward = 24
-@tier4unitymin = 350
-@tier4unitymax = 2000
-@tier5unityreward = 48
-@tier5unitymin = 700
-@tier5unitymax = 4000
-
 fleet_event = {
 	id = akx.8888
 	title = akx.9000.name
@@ -35,6 +19,7 @@ fleet_event = {
 	picture = GFX_evt_black_hole
 	show_sound = event_alien_signal
 	location = event_target:horizonsignal_black_hole
+	trackable = yes
 
 	trigger = { always = no }
 
@@ -78,6 +63,7 @@ fleet_event = {
 	picture = GFX_evt_black_hole
 	show_sound = event_alien_signal
 	location = event_target:horizonsignal_black_hole
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -429,6 +415,7 @@ country_event = {
 	picture = GFX_evt_debris
 	show_sound = event_ship_explosion
 	location = event_target:horizonsignal_system
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -660,6 +647,7 @@ country_event = {
 	picture = GFX_evt_debris
 	show_sound = event_ship_explosion
 	location = event_target:horizonsignal_system
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -741,6 +729,7 @@ planet_event = {
 	picture = GFX_evt_in_the_dark
 	show_sound = event_mystic_reveal
 	location = root
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -928,6 +917,7 @@ fleet_event = {
 	picture = GFX_evt_space_debris
 	show_sound = event_ship_bridge
 	location = event_target:horizon_pod
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -974,6 +964,7 @@ country_event = {
 	desc = akx.9201.desc
 	picture = GFX_evt_throne_room
 	location = root
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -1993,6 +1984,7 @@ country_event = {
 	desc = akx.9319.desc
 	picture = GFX_evt_debris
 	location = event_target:syzygy_location
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2252,6 +2244,7 @@ country_event = {
 	desc = akx.9450.desc
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:coils_planet
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2884,6 +2877,7 @@ planet_event = {
 	desc = akx.9530.desc
 	picture = GFX_evt_colony_settlement
 	location = root
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -2982,6 +2976,7 @@ planet_event = {
 	desc = akx.9540.desc
 	picture = GFX_evt_colony_settlement
 	location = root
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -3554,6 +3549,7 @@ planet_event = {
 	picture = GFX_evt_metropolis
 	show_sound = event_ship_bridge
 	location = root
+	trackable = yes
 
 	is_triggered_only = yes
 

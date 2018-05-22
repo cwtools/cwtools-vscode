@@ -93,6 +93,7 @@ sr_terraform_gases = {
 	tradable = no
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {	
 		terraforming_cost_mult = -0.25
@@ -105,6 +106,7 @@ sr_terraform_liquids = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 
 	modifier = {	
 		terraform_speed_mult = 0.25
@@ -126,22 +128,23 @@ sr_garanthium = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		ship_hull_mult = 0.10
+		ship_armor_mult = 0.20
 	}
 }
 
 # Lythuric Gas
 sr_lythuric = {
 	AI_category = strategic_resource
-	prerequisites = { "tech_lythuric_gas" }
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		ship_shield_mult = 0.20
+		ship_speed_mult = 0.20
 	}
 }
 
@@ -152,22 +155,38 @@ sr_teldar = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		weapon_type_kinetic_weapon_damage_mult = 0.15
+		weapon_type_kinetic_weapon_damage_mult = 0.20
 	}
 }
 
 # Yurantic Crystals
-sr_yuranic = {
+sr_yurantic = {
 	AI_category = strategic_resource
-	prerequisites = { "tech_mine_yuranic" }
+	prerequisites = { "tech_mine_yurantic" }
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		weapon_type_energy_weapon_damage_mult = 0.15
+		weapon_type_energy_weapon_damage_mult = 0.20
+	}
+}
+
+# Aldar Crystals
+sr_aldar = {
+	AI_category = strategic_resource
+	prerequisites = { "tech_mine_aldar" }
+	tradable = yes
+	is_rare = yes
+	is_global = yes
+	visibility_prerequisite = { always = yes }
+	
+	modifier = {
+		weapon_type_explosive_weapon_damage_mult = 0.20
 	}
 }
 
@@ -178,19 +197,20 @@ sr_orillium = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		weapon_type_explosive_weapon_damage_mult = 0.15
+		ship_shield_mult = 0.20
 	}
 }
 
 # Pitharan Dust
 sr_pitharan = {
 	AI_category = strategic_resource
-	prerequisites = { "tech_pitharan_dust" }
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
 		country_resource_food_mult = 0.10
@@ -204,9 +224,10 @@ sr_engos = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		pop_environment_tolerance = 0.05
+		pop_resource_output = 0.10
 	}
 }
 
@@ -221,9 +242,10 @@ sr_neutronium = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
-		ship_armor_mult = 0.20
+		ship_hull_mult = 0.20
 	}
 }
 
@@ -234,6 +256,7 @@ sr_living_metal = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
 		mod_megastructure_build_cost_mult = -0.2
@@ -249,10 +272,12 @@ sr_zro = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {
 		ship_interstellar_speed_mult = 0.50
 		ship_sensor_range_add = 1
+		ship_hyperlane_range_add = 2
 	}
 }
 
@@ -263,24 +288,12 @@ sr_dark_matter = {
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {		
-		country_resource_physics_research_mult = 0.20
+		all_technology_research_speed = 0.10
 	}
 }
-
-# Helium
-#sr_helium = {
-#	AI_category = strategic_resource
-#	prerequisites = { "tech_mine_dark_matter" }
-#	tradable = yes
-#	is_rare = yes
-#	is_global = yes
-#	
-#	modifier = {
-#		tile_resource_energy_mult = 0.10
-#	}
-#}
 
 #################
 #    Policy     #
@@ -289,13 +302,13 @@ sr_dark_matter = {
 # Satramene Gas
 sr_satramene = {
 	AI_category = strategic_resource
-	prerequisites = { "tech_mine_satramene" }
 	tradable = yes
 	is_rare = yes
 	is_global = yes
+	visibility_prerequisite = { always = yes }
 	
 	modifier = {		
-		pop_government_ethic_attraction = 0.10
+		pop_government_ethic_attraction = 0.25
 	}
 }
 
@@ -329,7 +342,8 @@ sr_riggan = {
 	is_global = yes
 	
 	modifier = {		
-		pop_citizen_happiness = 0.05
+		ship_fire_rate_mult = 0.05
+		army_damage_mult = 0.10
 	}
 }
 
@@ -340,7 +354,7 @@ sr_xuran = {
 	is_global = yes
 	
 	modifier = {	
-		pop_environment_tolerance = 0.05		
+		pop_environment_tolerance = 0.10
 	}
 }
 
@@ -351,6 +365,6 @@ sr_muutagan = {
 	is_global = yes
 	
 	modifier = {		
-		pop_government_ethic_attraction = 0.1
+		pop_citizen_happiness = 0.10
 	}
 }

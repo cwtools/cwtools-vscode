@@ -176,10 +176,9 @@ gateway_restored = {
 			limit = { num_active_gateways = 1 }
 			random_megastructure = {
 				limit = { is_megastructure_type = gateway_ruined }
-				solar_system = {
-					starbase = {
-						owner = { set_country_flag = did_not_repair_gateway }
-					}
+				if = {
+					limit = { exists = solar_system.starbase }
+					solar_system.starbase.owner = { set_country_flag = did_not_repair_gateway }
 				}
 				upgrade_megastructure_to = gateway_restored
 				finish_upgrade = yes

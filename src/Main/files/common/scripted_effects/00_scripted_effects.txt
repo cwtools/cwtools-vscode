@@ -462,16 +462,6 @@ add_random_leader_trait = {
 				5 = {
 					if = {
 						limit = {
-							NOT = { has_trait = leader_trait_careful }
-						}
-						add_trait = leader_trait_careful
-						set_timed_leader_flag = { flag = gained_leader_trait_careful days = 7 }
-						set_timed_leader_flag = { flag = has_gained_trait days = 7 }
-					}
-				}
-				5 = {
-					if = {
-						limit = {
 							NOT = { has_trait = leader_trait_spark_of_genius }
 						}
 						add_trait = leader_trait_spark_of_genius
@@ -1917,29 +1907,6 @@ spawn_planet_temperature_effect2 = {
 		
 		entity_scale_to_size = yes
 		scale = 0.03
-	}
-}
-
-guardian_difficulty = {
-	if = {
-		limit = {
-			is_difficulty = 2
-		}
-		add_modifier = {
-			modifier = guardian_insane
-			days = -1
-		}
-		else = {
-			if = {
-				limit = {
-					is_difficulty = 1
-				}
-				add_modifier = {
-					modifier = guardian_hard
-					days = -1
-				}
-			}
-		}
 	}
 }
 
@@ -7492,17 +7459,15 @@ fire_warning_sign = {
 						has_country_flag = triggered_syndaw_515
 						NOR = {
 							has_technology = tech_mine_garanthium
-							has_technology = tech_lythuric_gas
 							has_technology = tech_mine_teldar
-							has_technology = tech_mine_yuranic
+							has_technology = tech_mine_yurantic
+							has_technology = tech_mine_aldar
 							has_technology = tech_mine_orillium
-							has_technology = tech_pitharan_dust
 							has_technology = tech_engos_vapor
 							has_technology = tech_mine_neutronium
 							has_technology = tech_mine_living_metal
 							has_technology = tech_mine_zro
 							has_technology = tech_mine_dark_matter
-							has_technology = tech_mine_satramene
 							has_technology = tech_terrestrial_sculpting
 						}
 					}
@@ -8010,7 +7975,7 @@ generate_home_system_resources = {
 				}				
 			}
 		}	
-	}		
+	}
 }
 
 clear_buildings = {
@@ -8362,4 +8327,1213 @@ remove_leader_traits_after_modification = {
 			remove_ruler_trait = leader_trait_ruler_erudite
 		}		
 	}
+}
+
+incr_minerallump1_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_mineral_lump1
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_mineral_lump1
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_mineral_lump1
+				value = 1
+			}
+		}
+	}
+}
+
+incr_minerallump2_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_mineral_lump2
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_mineral_lump2
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_mineral_lump2
+				value = 1
+			}
+		}
+	}
+}
+
+incr_minerallump3_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_mineral_lump3
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_mineral_lump3
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_mineral_lump3
+				value = 1
+			}
+		}
+	}
+}
+
+incr_minerallump4_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_mineral_lump4
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_mineral_lump4
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_mineral_lump4
+				value = 1
+			}
+		}
+	}
+}
+
+incr_energylump1_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_energy_lump1
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_energy_lump1
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_energy_lump1
+				value = 1
+			}
+		}
+	}
+}
+
+incr_energylump2_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_energy_lump2
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_energy_lump2
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_energy_lump2
+				value = 1
+			}
+		}
+	}
+}
+
+incr_energylump3_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_energy_lump3
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_energy_lump3
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_energy_lump3
+				value = 1
+			}
+		}
+	}
+}
+
+incr_energylump4_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_energy_lump4
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_energy_lump4
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_energy_lump4
+				value = 1
+			}
+		}
+	}
+}
+
+incr_physicslump1_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_physics_lump1
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_physics_lump1
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_physics_lump1
+				value = 1
+			}
+		}
+	}
+}
+
+incr_physicslump2_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_physics_lump2
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_physics_lump2
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_physics_lump2
+				value = 1
+			}
+		}
+	}
+}
+
+incr_physicslump3_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_physics_lump3
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_physics_lump3
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_physics_lump3
+				value = 1
+			}
+		}
+	}
+}
+
+incr_physicslump4_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_physics_lump4
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_physics_lump4
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_physics_lump4
+				value = 1
+			}
+		}
+	}
+}
+
+incr_societylump1_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_society_lump1
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_society_lump1
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_society_lump1
+				value = 1
+			}
+		}
+	}
+}
+
+incr_societylump2_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_society_lump2
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_society_lump2
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_society_lump2
+				value = 1
+			}
+		}
+	}
+}
+
+incr_societylump3_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_society_lump3
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_society_lump3
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_society_lump3
+				value = 1
+			}
+		}
+	}
+}
+
+incr_societylump4_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_society_lump4
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_society_lump4
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_society_lump4
+				value = 1
+			}
+		}
+	}
+}
+
+incr_engineeringlump1_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_engineering_lump1
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_engineering_lump1
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_engineering_lump1
+				value = 1
+			}
+		}
+	}
+}
+
+incr_engineeringlump2_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_engineering_lump2
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_engineering_lump2
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_engineering_lump2
+				value = 1
+			}
+		}
+	}
+}
+
+incr_engineeringlump3_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_engineering_lump3
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_engineering_lump3
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_engineering_lump3
+				value = 1
+			}
+		}
+	}
+}
+
+incr_engineeringlump4_var = {
+	if = {
+		limit = {
+			check_variable = {
+				which = aianom_engineering_lump4
+				value < 1
+			}
+		}
+		set_variable = {
+			which = aianom_engineering_lump4
+			value = 1
+		}
+		else = {
+			change_variable = {
+				which = aianom_engineering_lump4
+				value = 1
+			}
+		}
+	}
+}
+
+incr_mineraldepo1_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_mineral_depo1
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_mineral_depo1
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_mineral_depo1
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_mineraldepo2_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_mineral_depo2
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_mineral_depo2
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_mineral_depo2
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_mineraldepo3_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_mineral_depo3
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_mineral_depo3
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_mineral_depo3
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_mineraldepo4_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_mineral_depo4
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_mineral_depo4
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_mineral_depo4
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_energydepo1_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_energy_depo1
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_energy_depo1
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_energy_depo1
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_energydepo2_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_energy_depo2
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_energy_depo2
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_energy_depo2
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_energydepo3_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_energy_depo3
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_energy_depo3
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_energy_depo3
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_energydepo4_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_energy_depo4
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_energy_depo4
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_energy_depo4
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_physicsdepo1_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_physics_depo1
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_physics_depo1
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_physics_depo1
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_physicsdepo2_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_physics_depo2
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_physics_depo2
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_physics_depo2
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_physicsdepo3_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_physics_depo3
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_physics_depo3
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_physics_depo3
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_physicsdepo4_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_physics_depo4
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_physics_depo4
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_physics_depo4
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_societydepo1_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_society_depo1
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_society_depo1
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_society_depo1
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_societydepo2_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_society_depo2
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_society_depo2
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_society_depo2
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_societydepo3_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_society_depo3
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_society_depo3
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_society_depo3
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_societydepo4_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_society_depo4
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_society_depo4
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_society_depo4
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_engineeringdepo1_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_engineering_depo1
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_engineering_depo1
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_engineering_depo1
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_engineeringdepo2_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_engineering_depo2
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_engineering_depo2
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_engineering_depo2
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_engineeringdepo3_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_engineering_depo3
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_engineering_depo3
+				value = 1
+			}
+			else = {
+				change_variable = {
+					which = aianom_engineering_depo3
+					value = 1
+				}
+			}
+		}
+	}
+}
+
+incr_engineeringdepo4_var = {
+	root.owner = {
+		if = {
+			limit = {
+				check_variable = {
+					which = aianom_engineering_depo4
+					value < 1
+				}
+			}
+			set_variable = {
+				which = aianom_engineering_depo4
+				value = 1
+			}
+		}
+		else = {
+			change_variable = {
+				which = aianom_engineering_depo4
+				value = 1
+			}
+		}
+	}
+}
+
+add_garanthium = {
+	random_list = {
+		16 = { 	add_deposit = d_garanthium_deposit_1 }
+		4 = { 	add_deposit = d_garanthium_deposit_2 }
+		1 = { 	add_deposit = d_garanthium_deposit_3 }
+	}
+}
+
+add_lythuric = {
+	random_list = {
+		16 = { 	add_deposit = d_lythuric_deposit_1 }
+		4 = { 	add_deposit = d_lythuric_deposit_2 }
+		1 = { 	add_deposit = d_lythuric_deposit_3 }
+	}
+}
+
+add_engos = {
+	random_list = {
+		16 = { 	add_deposit = d_engos_deposit_1 }
+		4 = { 	add_deposit = d_engos_deposit_2 }
+		1 = { 	add_deposit = d_engos_deposit_3 }
+	}
+}
+
+add_teldar = {
+	random_list = {
+		16 = { 	add_deposit = d_teldar_deposit_1 }
+		4 = { 	add_deposit = d_teldar_deposit_2 }
+		1 = { 	add_deposit = d_teldar_deposit_3 }
+	}
+}
+
+add_yurantic = {
+	random_list = {
+		16 = { 	add_deposit = d_yurantic_deposit_1 }
+		4 = { 	add_deposit = d_yurantic_deposit_2 }
+		1 = { 	add_deposit = d_yurantic_deposit_3 }
+	}
+}
+
+add_aldar = {
+	random_list = {
+		16 = { 	add_deposit = d_aldar_deposit_1 }
+		4 = { 	add_deposit = d_aldar_deposit_2 }
+		1 = { 	add_deposit = d_aldar_deposit_3 }
+	}
+}
+
+add_orillium = {
+	random_list = {
+		16 = { 	add_deposit = d_orillium_deposit_1 }
+		4 = { 	add_deposit = d_orillium_deposit_2 }
+		1 = { 	add_deposit = d_orillium_deposit_3 }
+	}
+}
+
+add_pitharan = {
+	random_list = {
+		16 = { 	add_deposit = d_pitharan_deposit_1 }
+		4 = { 	add_deposit = d_pitharan_deposit_2 }
+		1 = { 	add_deposit = d_pitharan_deposit_3 }
+	}
+}
+
+add_neutronium = {
+	random_list = {
+		16 = { 	add_deposit = d_neutronium_deposit_1 }
+		4 = { 	add_deposit = d_neutronium_deposit_2 }
+		1 = { 	add_deposit = d_neutronium_deposit_3 }
+	}
+}
+
+add_dark_matter = {
+	random_list = {
+		16 = { 	add_deposit = d_dark_matter_deposit_1 }
+		4 = { 	add_deposit = d_dark_matter_deposit_2 }
+		1 = { 	add_deposit = d_dark_matter_deposit_3 }
+	}
+}
+
+add_satramene = {
+	random_list = {
+		16 = { 	add_deposit = d_satramene_deposit_1 }
+		4 = { 	add_deposit = d_satramene_deposit_2 }
+		1 = { 	add_deposit = d_satramene_deposit_3 }
+	}
+}
+
+add_zro = {
+	random_list = {
+		16 = { 	add_deposit = d_zro_deposit_1 }
+		4 = { 	add_deposit = d_zro_deposit_2 }
+		1 = { 	add_deposit = d_zro_deposit_3 }
+	}
+}
+
+add_terraforming_gases = {
+	random_list = {
+		16 = { 	add_deposit = d_terraforming_gas_deposit_1 }
+		4 = { 	add_deposit = d_terraforming_gas_deposit_2 }
+		1 = { 	add_deposit = d_terraforming_gas_deposit_3 }
+	}
+}
+
+add_terraforming_liquids = {
+	random_list = {
+		16 = { 	add_deposit = d_terraforming_fluid_deposit_1 }
+		4 = { 	add_deposit = d_terraforming_fluid_deposit_2 }
+		1 = { 	add_deposit = d_terraforming_fluid_deposit_3 }
+	}
+}
+
+# giving clues, see pop_lcluster_event for popping follow-up events
+# this = country getting a clue
+generate_lcluster_clue = {
+	hidden_effect = {
+		# increment counter
+		if = {
+			limit = {
+				has_distar = yes
+				NOT = { has_global_flag = l_cluster_opened }
+				has_event_chain = l_cluster_chain
+			}
+			# increment counter
+			custom_tooltip = add_lcluster_clue
+			add_event_chain_counter = {
+				event_chain = l_cluster_chain
+				counter = clues
+				amount = 1
+			}
+			# increment variable
+			change_variable = {
+				which = num_lcluster_clues
+				value = 1
+			}
+		}
+		#else = {
+		#	# failsafe, do nothing
+		#}
+		# check if completed
+		if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = l_cluster_chain
+					counter = clues
+				}
+			}
+			custom_tooltip = l_cluster_openable
+			set_country_flag = completed_lcluster_chain
+			country_event = { id = distar.10900}
+		}
+	}
+}
+
+# this = solar system to isolate
+isolate_system = {
+	every_system = {
+		limit = { has_hyperlane_to = prev }
+		remove_hyperlane = { from = this to = prev }
+	}
+}
+
+# for follow-up events
+# use in AFTER or OPTION for timing reasons
+# this = country getting a clue
+pop_lcluster_event = {
+	hidden_effect = {
+		# pop follow-up if valid
+		if = {
+			limit = {
+				has_distar = yes
+				has_country_flag = encountered_first_lgate
+				NOR = {
+					has_global_flag = l_cluster_opened
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+			}
+			country_event = { id = distar.9000 days = 10 }
+		}
+	}
+}
+
+create_enigmatic_cache_fleet = {
+	create_fleet = {
+		name = "NAME_enigmatic_cache"
+		settings = {
+			spawn_debris = no
+			is_boss = yes
+		}
+		effect = {
+			save_global_event_target_as = enigmatic_cache_fleet
+			set_owner = event_target:enigmatic_cache_country
+			create_ship = {
+				name = "NAME_enigmatic_cache"
+				design = NAME_enigmatic_cache
+				effect = { 
+					set_disable_at_health = 0.90 
+					save_global_event_target_as = enigmatic_cache_ship
+					set_ship_flag = enigmatic_cache_ship
+				}
+			}
+			set_fleet_flag = enigmatic_cache_fleet
+			set_location = {
+				target = event_target:new_location
+				distance = 80
+				angle = 220
+			}
+			set_fleet_stance = passive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 100
+			#save_global_event_target_as = enigmatic_cache_ship
+			auto_move_to_planet = {
+				target = event_target:new_location
+				clear_auto_move_on_arrival = no	
+			}
+		}
+	}
+}
+
+start_lcluster_chain = {
+	hidden_effect = {
+		custom_tooltip = begin_lcluster_chain
+		begin_event_chain = {
+			event_chain = l_cluster_chain
+			target = this
+		}
+		set_variable = {
+			which = num_lcluster_clues
+			value = 0
+		}
+	}
+}
+
+liquidate_clues = {
+	hidden_effect = {
+		if = {
+			limit = { has_event_chain = l_cluster_chain }
+			end_event_chain = l_cluster_chain
+		}
+		if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value > 6
+				}
+			}
+			custom_tooltip = liquidated_7
+			add_engineering_research = 3500
+			add_energy = 3500
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value = 6
+				}
+			}
+			custom_tooltip = liquidated_6
+			add_engineering_research = 3000
+			add_energy = 3000
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value = 5
+				}
+			}
+			custom_tooltip = liquidated_5
+			add_engineering_research = 2500
+			add_energy = 2500
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value = 4
+				}
+			}
+			custom_tooltip = liquidated_4
+			add_engineering_research = 2000
+			add_energy = 2000
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value = 3
+				}
+			}
+			custom_tooltip = liquidated_3
+			add_engineering_research = 1500
+			add_energy = 1500
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value = 2
+				}
+			}
+			custom_tooltip = liquidated_2
+			add_engineering_research = 1000
+			add_energy = 1000
+		}
+		else_if = {
+			limit = {
+				check_variable = {
+					which = num_lcluster_clues
+					value = 1
+				}
+			}
+			custom_tooltip = liquidated_1
+			add_engineering_research = 500
+			add_energy = 500
+		}
+		else = {
+			custom_tooltip = liquidated_0
+		}
+	}
+}
+
+guardian_difficulty = {
+	# nothing anymore
 }

@@ -1,0 +1,186 @@
+entity = {
+	name = "leviathan_01_voidspawn_ambient_object_entity"
+	locator = { name = "spawn" rotation = { 180 0 0 } }
+	
+	default_state = "hatching"
+	state = { name = "hatching" state_time = 5 }
+	
+	attach = { spawn = "leviathan_01_voidspawn_section_entity" }
+}
+
+entity = {
+	name = "leviathan_01_voidspawn_entity"
+	locator = { name = "spine" }
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5 }
+	state = { name = "moving" state_time = 5 }
+	state = { name = "hatching" state_time = 5 }
+	state = { name = "death" state_time = 5 looping = no }
+}
+
+entity = {
+	name = "leviathan_01_voidspawn_section_entity"
+	pdxmesh = "leviathan_01_voidspawn_mesh"
+	locator = { name = "spine" }
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle"
+		event = { trigger_once = yes sound = { soundeffect = "voidspawn_idle" stop_on_state_change = yes } }
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 0
+				"hatching" = 100
+			}
+			default = 1
+		}
+	}
+	state = { name = "idle" animation = "idle" animation_blend_time = 1 looping = no next_state = "idle"
+		event = { trigger_once = yes sound = { soundeffect = "voidspawn_idle" stop_on_state_change = yes } }
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 100
+				"hatching" = 0
+			}
+			default = 1
+		}
+	}
+	state = { name = "moving" animation = "moving" 
+		event = { trigger_once = yes sound = { soundeffect = "voidspawn_moving" stop_on_state_change = yes } }
+		chance = {
+			if_current_state = {
+				"idle" = 0
+				"moving" = 100
+				"hatching" = 0
+			}
+			default = 1
+		}
+	}
+	state = { name = "moving" animation = "moving" animation_blend_time = 0.5 looping = no next_state = "moving" 
+		event = { trigger_once = yes sound = { soundeffect = "voidspawn_moving" stop_on_state_change = yes } }
+		chance = {
+			if_current_state = {
+				"idle" = 100
+				"moving" = 0
+				"hatching" = 100
+			}
+			default = 1
+		}
+	}
+	state = { name = "hatching" animation = "hatching" looping = no next_state = "idle"	}
+	state = { name = "death" animation = "death" looping = no animation_blend_time = 0.3
+		event = { time = 1.2 node = "head" particle = "distant_stars_gib_explosion_effect" keep_particle = yes trigger_once = yes }
+	}
+}
+
+######
+# MAIN WEAPON
+######
+
+entity = {
+	name = "voidspawn_missile_muzzle_entity"
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 5
+		start_event = { particle = "voidspawn_missile_muzzle_effect" keep_particle = yes trigger_once = yes }
+	}
+}
+
+entity = {
+	name = "leviathans_01_voidspawn_projectile_entity"
+	pdxmesh = "leviathans_01_voidspawn_projectile_mesh"	
+	
+	default_state = idle
+	state = { name = "idle" animation = "idle"
+		start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+			event = {trigger_once = yes sound = {soundeffect = "voidspawn_missile"} }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss"
+		time_offset = { 0 1.4 }
+		animation_blend_time = 0.5
+		start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss2"
+		time_offset = { 0 1 }
+		animation_blend_time = 0.5
+		start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss_reversed"
+		time_offset = { 0 1.4 }
+		animation_blend_time = 0.5
+		start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss2_reversed"
+		time_offset = { 0 1 }
+		animation_blend_time = 0.5
+		start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+}
+
+entity = {
+	name = "voidspawn_missile_hit_entity"
+	cull_radius = 1.0
+	
+	state = { name = "explode_med_hp" state_time = 5 looping = no
+		event = { time = 0.0 particle = "voidspawn_missile_hit_effect" sound = { soundeffect = mass_driver_hit } }
+	#	event = { trigger_once = yes sound = { soundeffect = "distance_mass_driver_hit" } } 
+	}
+	state = { name = "explode_med_shield" state_time = 0.8 looping = no
+		event = { time = 0.0 particle = "medium_hit_effect_shield" }
+	}
+	default_state = "explode_med_hp"
+}
+
+entity = {
+	name = "voidspawn_missile_shield_hit_entity"
+	cull_radius = 1.0
+	
+	state = { name = "explode_med_hp" state_time = 5 looping = no
+		event = { time = 0.0 particle = "voidspawn_missile_hit_effect" sound = { soundeffect = mass_driver_hit } }
+	#	event = { trigger_once = yes sound = { soundeffect = "distance_mass_driver_hit" } } 
+	}
+	state = { name = "explode_med_shield" state_time = 0.8 looping = no
+		event = { time = 0.0 particle = "medium_hit_effect_shield" }
+	}
+	default_state = "explode_med_hp"
+}
+
+
+
+animation = {
+	name = "leviathan_01_voidspawn_idle_animation"
+	file = "leviathan_01_voidspawn_idle.anim"
+}
+
+animation = {
+	name = "leviathan_01_voidspawn_moving_animation"
+	file = "leviathan_01_voidspawn_moving.anim"
+}
+
+animation = {
+	name = "leviathan_01_voidspawn_hatching_animation"
+	file = "leviathan_01_voidspawn_hatching.anim"
+}
+
+animation = {
+	name = "leviathan_01_voidspawn_death_animation"
+	file = "leviathan_01_voidspawn_death.anim"
+}

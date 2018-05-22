@@ -567,6 +567,21 @@ is_berserk_fallen_machine_empire = {
 	has_valid_civic = civic_malfunctioning_custodian
 }
 
+is_binary_star = {
+	OR = {
+		is_star_class = sc_binary_1
+		is_star_class = sc_binary_2
+		is_star_class = sc_binary_3
+		is_star_class = sc_binary_4
+		is_star_class = sc_binary_5
+		is_star_class = sc_binary_6
+		is_star_class = sc_binary_7
+		is_star_class = sc_binary_8
+		is_star_class = sc_binary_9
+		is_star_class = sc_binary_10
+	}
+}
+
 has_crisis = {
 	OR = {
 		has_global_flag = crisis_stage_1
@@ -602,6 +617,15 @@ is_synthetic_empire = {
 	OR = {
 		has_country_flag = synthetic_empire
 		has_authority = auth_machine_intelligence
+	}
+}
+
+is_trinary_star = {
+	OR = {
+		is_star_class = sc_trinary_1
+		is_star_class = sc_trinary_2
+		is_star_class = sc_trinary_3
+		is_star_class = sc_trinary_4
 	}
 }
 
@@ -1118,4 +1142,12 @@ has_active_muutagan_trade = {
 		has_modifier = enclave_food_energy_trade_2_mut
 		has_modifier = enclave_food_energy_trade_3_mut
 	}
+}
+
+
+has_distar = {
+	#OR = {
+		# TEMP TODO [MO] ENABLE THIS
+		host_has_dlc = "Distant Stars Story Pack"
+	#}
 }

@@ -36,18 +36,6 @@
 #}
 ###
 
-
-# Planet Variables
-
-@planet_standard_scale = 11
-@habitable_planet_max_size = 25
-@habitable_planet_min_size = 12
-@habitable_moon_max_size = 15
-@habitable_moon_min_size = 10
-@habitable_min_distance = 60
-@habitable_max_distance = 100
-@habitable_spawn_odds = 0.5
-
 # ###########
 # Habitable Planets
 # ###########
@@ -365,6 +353,47 @@ pc_asteroid = {
 	survey_time_factor = 0.5
 }
 
+pc_ice_asteroid = {
+	entity = "asteroid_ice_large"
+	entity_scale = 1.5
+	icon_frame = 18
+	
+	asteroid = yes
+	
+	spawn_odds = 10
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	chance_of_ring = 0
+	
+	planet_size = 5
+	
+	colonizable = no
+	survey_time_factor = 0.5
+}
+
+pc_crystal_asteroid_2 = {
+	entity = "asteroid_crystal_large"
+	picture = pc_crystal_asteroid
+	entity_scale = 1.5
+	icon_frame = 18
+	
+	asteroid = yes
+	
+	spawn_odds = 10
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	chance_of_ring = 0
+	
+	planet_size = 5
+	
+	colonizable = no
+	survey_time_factor = 0.5
+}
+
 pc_molten = {
 	entity = "molten_planet"
 	entity_scale = @planet_standard_scale
@@ -492,15 +521,14 @@ pc_frozen = {
 
 pc_nuked = {
 	entity = "nuked_planet"
-	picture = pc_tundra # there's no unique nuked_planet picture
-	tile_set = pc_tundra
 	entity_scale = @planet_standard_scale
 	icon_frame = 17
 
-	
-	atmosphere_color 		= hsv { 0.6 0.4 0.5 }		#DONE
+	atmosphere_color 		= hsv { 0.6 0.4 0.5 }
 	atmosphere_intensity 	= 1.0
 	atmosphere_width 		= 0.85
+
+	city_color_lut = "gfx/portraits/misc/colorcorrection_neutral.dds"
 
 	min_distance_from_sun = 60
 	max_distance_from_sun = 110
@@ -874,6 +902,57 @@ pc_m_star = {
 	colonizable = no
 }
 
+pc_m_giant_star = {
+	entity = "m_giant_star_class_star_entity"
+	entity_scale = 20.0
+	picture = "pc_m_star"
+
+	atmosphere_color 		= hsv { 0.01 0.9 0.6 }
+	atmosphere_intensity 	= 0.10
+	atmosphere_width 		= 1.0	
+	
+	star = yes
+	
+	min_distance_from_sun = 0
+	max_distance_from_sun = 0
+	spawn_odds = 0
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	chance_of_ring = 0
+	
+	planet_size = { min = 30 max = 35 }
+	
+	colonizable = no
+}
+
+pc_t_star = {
+	entity = "t_star_class_star_entity"
+	entity_scale = 30.0
+	picture = "pc_browndwarf"
+
+	atmosphere_color 		= hsv { 0.87 0.6 0.4 }
+	atmosphere_intensity 	= 0.7
+	atmosphere_width 		= 0.7
+	
+	star = yes
+	star_gfx = no
+	
+	min_distance_from_sun = 0
+	max_distance_from_sun = 0
+	spawn_odds = 0
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	chance_of_ring = 0
+	
+	planet_size = { min = 30 max = 35 }
+	
+	colonizable = no
+}
+
 pc_black_hole = {
 	entity = "black_hole_entity"
 	entity_scale = 20.0
@@ -1234,4 +1313,3 @@ random_list = {
 		"pc_broken"
 	}
 }
-				

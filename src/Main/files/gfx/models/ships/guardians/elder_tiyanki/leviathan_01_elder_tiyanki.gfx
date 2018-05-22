@@ -1,0 +1,31 @@
+objectTypes = {
+	pdxmesh = {
+		name = "leviathan_01_elder_tiyanki_mesh"
+		file = "gfx/models/ships/guardians/elder_tiyanki/leviathan_01_elder_tiyanki.mesh"
+
+		animation = { id = "idle"						type = "leviathan_01_elder_tiyanki_idle_animation" }
+		animation = { id = "moving"						type = "leviathan_01_elder_tiyanki_moving_animation" }
+		animation = { id = "combat_transition_idle"		type = "leviathan_01_elder_tiyanki_combat_transition_idle_animation" }
+		animation = { id = "combat_idle"				type = "leviathan_01_elder_tiyanki_combat_idle_animation" }
+		animation = { id = "combat_moving"				type = "leviathan_01_elder_tiyanki_combat_moving_animation" }
+		animation = { id = "combat_transition_moving"	type = "leviathan_01_elder_tiyanki_combat_transition_moving_animation" }
+		animation = { id = "combat_death"				type = "leviathan_01_elder_tiyanki_combat_death_animation" }
+		animation = { id = "death"						type = "leviathan_01_elder_tiyanki_death_animation" }
+		
+		meshsettings = {
+			name = "polySurface1Shape"
+			index = 0
+			texture_diffuse = "elder_tiyanki_01_diffuse.dds"
+			texture_normal = "elder_tiyanki_01_normal.dds"
+			texture_specular = "elder_tiyanki_01_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "leviathan_01_elder_tiyanki_gibbed_mesh"
+		file = "gfx/models/ships/guardians/elder_tiyanki/leviathan_01_elder_tiyanki_gibbed.mesh"
+
+		animation = { id = "idle"						type = "leviathan_01_elder_tiyanki_gibbed_idle_animation" }
+	}
+}

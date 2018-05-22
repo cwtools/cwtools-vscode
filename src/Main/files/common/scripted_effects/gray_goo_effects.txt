@@ -1,0 +1,394 @@
+
+create_graygoo_ships_1 = {
+	create_ship = {
+		name = random
+		design = "NAME_Nanite_Mothership"
+		graphical_culture = "pirate_01"
+	}
+	while = {
+		count = 5
+		create_ship = {
+			name = random
+			design = "NAME_Nanite_Interdictor"
+			graphical_culture = "pirate_01"
+		}
+	}
+}
+
+create_graygoo_roamers_1 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:nanite_factory
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_1.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_1.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+create_graygoo_roamers_2 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:start_1
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_2.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_2.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+create_graygoo_roamers_3 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:start_2
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_3.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_3.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+create_graygoo_roamers_4 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:start_3
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_4.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_4.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+create_graygoo_roamers_5 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:start_4
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_5.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_5.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+create_graygoo_roamers_6 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:start_5
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_6.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_6.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+create_graygoo_roamers_7 = {
+	create_fleet = {
+		name = "NAME_Tempest_Fleet"
+		effect = {
+			set_owner = event_target:graygoo_country
+			create_ship = {
+				name = random
+				design = "NAME_Nanite_Mothership"
+				graphical_culture = "pirate_01"
+			}
+			while = {
+				count = 5
+				create_ship = {
+					name = random
+					design = "NAME_Nanite_Interdictor"
+					graphical_culture = "pirate_01"
+				}
+			}
+			set_location = event_target:start_6
+			set_formation_scale = 2
+			set_fleet_stance = aggressive
+			set_aggro_range_measure_from = self
+			set_aggro_range = 500
+
+			queue_actions = {
+				repeat = {
+					find_random_system = {
+						trigger = {
+							id = "graygoo_roamers_7.trigger.1"
+							has_star_flag = lcluster
+						}
+						found_system = {
+							move_to = THIS
+						}	
+					}
+					find_closest_planet = {
+						trigger = {
+							id = "graygoo_roamers_7.trigger.2"
+							is_planet_class = "pc_gray_goo"
+						}
+						found_planet = {
+							orbit_planet = THIS
+							wait = {
+								duration = 50
+								random = 25
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

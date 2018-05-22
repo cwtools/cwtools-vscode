@@ -8,22 +8,6 @@
 
 namespace = crisis
 
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-@tier4unityreward = 24
-@tier4unitymin = 350
-@tier4unitymax = 2000
-@tier5unityreward = 48
-@tier5unitymin = 700
-@tier5unitymax = 4000
-
 ### PRETHORYN SCOURGE
 
 ### Triggering Event
@@ -505,8 +489,8 @@ country_event = {
 				limit = {
 					distance = {
 						source = PREV
-						max_distance = 60
-						min_distance = 5
+						max_distance <= 60
+						min_distance >= 5
 					}
 				}
 				set_star_flag = swarm_invasion_target_2
@@ -543,8 +527,8 @@ country_event = {
 				limit = {
 					distance = {
 						source = PREV
-						max_distance = 60
-						min_distance = 5
+						max_distance <= 60
+						min_distance >= 5
 					}
 					NOT = { 
 						has_star_flag = swarm_invasion_target_1
@@ -585,8 +569,8 @@ country_event = {
 				limit = {
 					distance = {
 						source = PREV
-						max_distance = 60
-						min_distance = 5
+						max_distance <= 60
+						min_distance >= 5
 					}
 					NOT = { 
 						has_star_flag = swarm_invasion_target_1
@@ -1422,8 +1406,8 @@ country_event = {
 				}
 			}
 			spawn_system = {
-				min_distance = 20
-				max_distance = 50
+				min_distance >= 20
+				max_distance <= 50
 				initializer = "sentinel_system"
 			}
 		}
@@ -2108,6 +2092,7 @@ country_event = {
 	desc = "crisis.101.desc"
 	picture = GFX_evt_small_space_battle
 	show_sound = event_radio_chatter
+	trackable = yes
 	
 	is_triggered_only = yes
 	

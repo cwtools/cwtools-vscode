@@ -1,0 +1,186 @@
+
+
+####################
+# Scientist Traits #
+####################
+
+leader_trait_scientist_brainslug = {
+	cost = 0
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	self_modifier = {
+		species_leader_exp_gain = -0.15
+		all_technology_research_speed = 0.10
+		science_ship_survey_speed = 0.15
+		ship_anomaly_research_speed_mult = 0.15
+	}
+	initial = no
+	randomized = no
+
+	leader_trait = yes
+	leader_class = { scientist }
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+##################
+# General Traits #
+##################
+
+leader_trait_general_brainslug = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	modifier = {
+		army_upkeep_mult = -0.15
+	}
+	initial = no
+	randomized = no
+
+	leader_trait = yes
+	leader_class = { general }
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+
+#####################
+# Admiral Traits    #
+#####################
+
+leader_trait_admiral_brainslug = {
+	cost = 0
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	self_modifier = {
+		species_leader_exp_gain = -0.15
+		ship_fire_rate_mult = 0.05
+		ship_evasion_mult = 0.05
+		ship_upkeep_mult = -0.1
+	}
+	initial = no
+	randomized = no
+
+	leader_trait = yes
+	leader_class = { admiral }
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+leader_trait_admiral_hells_heart = {
+	cost = 0
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_hells_heart.dds"
+	self_modifier = {
+		ship_fire_rate_mult = 0.10
+		ship_weapon_damage = 0.10
+		ship_speed_mult = 0.10
+		species_leader_exp_gain = -0.10
+		ship_evasion_mult = -0.05
+		ship_disengage_chance_mult = -0.33
+	}
+	initial = no
+	randomized = no
+
+	leader_trait = yes
+	leader_class = { admiral }
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+###################
+# Governor Traits #
+###################
+
+leader_trait_governor_brainslug = {
+	cost = 1
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	modifier = {
+		species_leader_exp_gain = -0.15
+		planet_building_build_speed_mult = 0.10
+		tile_resource_engineering_research_mult = 0.15
+		tile_resource_physics_research_mult = 0.15
+		tile_resource_society_research_mult = 0.15
+	}
+	initial = no
+	randomized = no
+
+	leader_trait = yes
+	leader_class = { governor }
+
+	ai_weight = {
+		weight = 0
+	}
+}
+
+#################
+#  Ruler Traits #
+#################
+
+leader_trait_ruler_brainslug = {
+	cost = 0
+	modification = no
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	self_modifier = {
+		species_leader_exp_gain = -0.15
+		country_naval_cap_mult = 0.10
+		country_resource_physics_research_mult = 0.10
+		country_resource_society_research_mult = 0.10
+		country_resource_engineering_research_mult = 0.10
+	}
+	initial = no
+	randomized = no
+
+	leader_trait = yes
+	leader_class = { ruler }
+	
+	ai_weight = {
+		weight = 0
+	}
+}
+
+################
+#  Pop Traits  #
+################
+
+trait_brainslug = {
+	cost = 0
+	icon = "gfx/interface/icons/traits/leader_traits/trait_brainslugged.dds"
+	initial = no
+	randomized = no
+	modification = no
+
+	allowed_archetypes = { BIOLOGICAL }
+
+	modifier = {
+		tile_resource_engineering_research_mult = 0.10
+		tile_resource_physics_research_mult = 0.10
+		tile_resource_society_research_mult = 0.10
+		tile_resource_unity_mult = 0.10
+		pop_growth_speed = -0.25
+	}
+}
+
+trait_nivlac = {
+	cost = 1
+	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_resilient.dds"
+	initial = no
+	randomized = no
+	modification = no
+
+	allowed_archetypes = { BIOLOGICAL }
+
+	modifier = {
+		pop_environment_tolerance = 1.0
+		pop_growth_speed = 0.5
+	}
+}

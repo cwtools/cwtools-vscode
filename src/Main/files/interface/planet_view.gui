@@ -95,6 +95,7 @@ guiTypes = {
 			quadTextureSprite = "gfx_transparency_button"
 			# Position set by code
 			size = { x = 278 y = 18 }
+			oversound = no_sound
 		}
 
 		iconType = {
@@ -167,6 +168,7 @@ guiTypes = {
 			position = { x= 0 y = @tab_height }
 			orientation = lower_left
 			size = { x = 563 y = 42 }
+			oversound = no_sound
 		}
 
 		# Planet Tab
@@ -179,6 +181,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "z"
+			oversound = no_sound
 		}
 
 		buttonType = {
@@ -190,6 +193,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "z"
+			oversound = no_sound
 		}
 
 		# Tiles Tab
@@ -202,6 +206,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "x"
+			oversound = no_sound
 		}
 
 		buttonType = {
@@ -213,6 +218,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "x"
+			oversound = no_sound
 		}
 
 		# Ground Combat Tab
@@ -225,6 +231,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "c"
+			oversound = no_sound
 		}
 
 		buttonType = {
@@ -236,6 +243,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "c"
+			oversound = no_sound
 		}
 
 		# Spaceport Tab
@@ -248,6 +256,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
 			shortcut = "v"
+			oversound = no_sound
 		}
 
 		buttonType = {
@@ -510,7 +519,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			text = "PLANETVIEW_TERRAFORM"
 			font = "cg_16b"
-			oversound = menu_over_01
+			oversound = mouse_over
 			navDown = "change"
 		}
 
@@ -987,7 +996,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			text = "CREATE_VASSAL"
 			font = "cg_16b"
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 
 		buttonType = {
@@ -1000,7 +1009,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			text = "CHANGE"
 			font = "cg_16b"
-			oversound = menu_over_01
+			oversound = mouse_over
 			navUp = "terraform_button"
 			navRight = "edicts_list"
 		}
@@ -1046,7 +1055,7 @@ guiTypes = {
 				text = "PLANETVIEW_EDICTS_LIST"
 				font = "cg_16b"
 				orientation = LOWER_LEFT
-				oversound = menu_over_01
+				oversound = mouse_over
 				navLeft = "change"
 			}
 		}
@@ -2622,6 +2631,7 @@ guiTypes = {
 			text = "BUILD"
 			font = "cg_16b"
 			shortcut = "b"
+			clicksound = confirm_click
 		}
 
 		buttonType = {
@@ -2887,7 +2897,7 @@ guiTypes = {
 			orientation = LOWER_RIGHT
 			clicksound = planet_view_menu_click_01
 			shortcut = "b"
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 	}
 
@@ -4626,7 +4636,7 @@ guiTypes = {
 			font = "cg_16b"
 			clicksound = planet_view_menu_click_01
 			shortcut = "b"
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 
 		containerWindowType = {

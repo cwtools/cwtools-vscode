@@ -1,0 +1,207 @@
+particle={
+	name="scavenger_bot_main_weapon_projectile_effect"
+	subsystem={
+		name="scrap_glow"
+		max_amount=1000
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=180.000
+			y=200.000
+			z=255.000
+			alpha=50.000
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=0.500
+		emission=10.000
+		size={ 10.000 0.000 }
+		particle_yaw={ 0.000 180.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	subsystem={
+		name="scrap_lightning"
+		max_amount=1000
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 2.000 0.500 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/lightning_spark.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=180.000
+			y=200.000
+			z=255.000
+			alpha=150.000
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=0.500
+		emission=20.000
+		size={ 1.000 0.500 }
+		particle_yaw={ 0.000 180.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	subsystem={
+		name="scrap_ball2"
+		max_amount=100
+		slave_particles=0
+		sort="depth"
+		emitter_type="sphere"
+		sphere_emitter_radius={ 1.000 1.000 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards_2.dds"
+			x=4
+			y=4
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=30.000
+			y=30.000
+			z=30.000
+			alpha=255.000
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=2.000
+		emission=1000.000
+		size={ 1.000 0.500 }
+		particle_yaw={ 0.000 180.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	subsystem={
+		name="scrap_ball"
+		max_amount=100
+		slave_particles=0
+		sort="depth"
+		emitter_type="sphere"
+		sphere_emitter_radius={ 1.000 1.000 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=40.000
+			y=40.000
+			z=40.000
+			alpha=255.000
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=2.000
+		emission=1000.000
+		size={ 0.800 0.500 }
+		particle_yaw={ 0.000 180.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	subsystem={
+		name="scrap_ball3"
+		max_amount=25
+		slave_particles=0
+		sort="depth"
+		emitter_type="sphere"
+		sphere_emitter_radius={ 1.000 1.000 }
+		sphere_emitter_yaw={ 0.000 180.000 }
+		sphere_emitter_pitch={ 0.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=60.000
+			y=60.000
+			z=60.000
+			alpha=255.000
+		}
+		position={
+		}
+		duration=-1.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=2.000
+		emission=1000.000
+		size={ 0.800 0.500 }
+		particle_yaw={ 0.000 180.000 }
+		particle_pitch={ 0.000 180.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed=50.000
+	}
+	force={
+		type="planar"
+		name="force0"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

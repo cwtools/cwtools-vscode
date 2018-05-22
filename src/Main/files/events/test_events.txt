@@ -5,406 +5,331 @@
 #########################################
 
 namespace = henrik
+planet_event = {
+    id = henrik.31
+    hide_window = yes
 
-fleet_event = {
-	id = henrik.1
-	hide_window = yes
+    trigger = { always = no }
 
-	trigger = { always = no }
-
-	immediate = {
-		solar_system = {
-			create_species = {
-				name = "NAME_Unbidden"
-				class = EXD
-				portrait = exd1
-				traits = random
-			}
-			create_country = {
-				name = root.owner
-				type = "extradimensional"
-				species = last_created
-				name_list = "Extradimensional"
-				effect = { set_country_flag = unbidden }
-				flag = {
-					icon= {
-						category = "special"
-						file = "extradimensional_01.dds"
-					}
-					background= {
-						category = "backgrounds"
-						file = "circle.dds"
-					}
-					colors={
-						"indigo"
-						"blue"
-						"null"
-						"null"
-					}
-				}
-				effect = {
-					set_graphical_culture = extra_dimensional_01
-					save_global_event_target_as = extradimensionals
-					every_playable_country = {
-						establish_communications_no_message = prev
-					}
-				}
-			}
-			if = {
-				limit = { exists = starbase }
-				starbase = { fleet = { destroy_fleet = this } }
-			}
-			create_starbase = {
-				size = starbase_outpost
-				owner = event_target:extradimensionals
-			}
-		}
-	}
+    immediate = {
+        set_planet_size = 20
+    }
 }
 
-fleet_event = {
-	id = henrik.2
+planet_event = {
+	id = henrik.24
 	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		solar_system = {
-			create_species = {
-				name = "NAME_Unbidden"
-				class = EXD
-				portrait = exd1
-				traits = random
-			}
-			create_country = {
-				name = "NAME_Unbidden"
-				type = "extradimensional"
-				species = last_created
-				name_list = "Extradimensional"
-				effect = { set_country_flag = unbidden }
-				flag = {
-					icon= {
-						category = "special"
-						file = "extradimensional_01.dds"
-					}
-					background= {
-						category = "backgrounds"
-						file = "circle.dds"
-					}
-					colors={
-						"indigo"
-						"blue"
-						"null"
-						"null"
-					}
-				}
-				effect = {
-					set_graphical_culture = extra_dimensional_01
-					save_global_event_target_as = extradimensionals
-					every_playable_country = {
-						establish_communications_no_message = prev
-					}
-				}
-			}
-			if = {
-				limit = { exists = starbase }
-				starbase = { fleet = { destroy_fleet = this } }
-			}
-			create_starbase = {
-				size = starbase_citadel
-				owner = event_target:extradimensionals
-			}
-		}
-	}
-}
-
-fleet_event = { # advance primitives in system
-	id = henrik.3
-	hide_window = yes
-
 	trigger = { always = no }
 
 	immediate = {
 		solar_system = {
 			random_system_planet = {
-				limit = {
-					exists = owner
-					owner = { is_country_type = primitive }
+				save_global_event_target_as = destruction_target
+			}
+		}
+		create_fleet = {
+			name = "NAME_mardak_vol_haters_colossus"
+			settings = {
+				spawn_debris = no
+				is_boss = yes
+			}
+			effect = {
+				set_owner = event_target:colossus_owner
+				create_ship = {
+					name = "Mardak Crusher"
+					design = "NAME_mardak_vol_haters_colossus"
+					graphical_culture = "mammalian_01"
 				}
-				owner = { country_event = { id = primitive.16 } }
-			}
-		}
-	}
-}
-
-planet_event = {
-	id = henrik.4
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		owner = {
-			country_event = { id = primitive.14 }
-			country_event = { id = primitive.16 days = 5 }
-		}
-	}
-}
-
-country_event = {
-	id = henrik.5
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		random_owned_fleet = {
-			save_event_target_as = FollowFleet
-		}
-		every_owned_fleet = {
-			auto_follow_fleet = {
-				target = event_target:FollowFleet
-				attack_fleet = no
-			}
-		}
-	}
-}
-
-country_event = {
-	id = henrik.6
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		every_owned_fleet = {
-			auto_move_to_planet = {
-				target = root.capital_scope
-				clear_auto_move_on_arrival = no
-			}
-		}
-	}
-}
-
-country_event = {
-	id = henrik.7
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		every_owned_fleet = {
-			limit = { has_auto_move_target = yes }
-			remove_auto_move_target = yes
-		}
-	}
-}
-
-country_event = {
-	id = henrik.8
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		give_technology = {
-			tech = tech_destroyers
-			message = no
-		}
-		give_technology = {
-			tech = tech_cruisers
-			message = no
-		}
-		give_technology = {
-			tech = tech_battleships
-			message = no
-		}
-		give_technology = {
-			tech = tech_titans
-			message = no
-		}
-	}
-}
-
-planet_event = {
-	id = henrik.9
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		starbase = { fleet = { destroy_fleet = this } }
-	}
-}
-
-country_event = {
-	id = henrik.10
-	title = "whoa"
-	desc = "how many"
-	picture = GFX_evt_tropical
-
-	trigger = { always = no }
-
-
-	option = {
-		name = country.200.desc
-		trigger = {
-			any_owned_leader = {
-				#count < 2 # DOES NOT WORK
-				leader_class = scientist
-			}
-		}
-	}
-	option = {
-		name = country.200.a
-	}
-}
-
-country_event = {
-	id = henrik.11
-	title = "CB Check"
-	desc = "What's the Casus Belli situation?"
-
-	picture = GFX_evt_tropical
-
-	trigger = { always = no }
-
-	option = {
-		name = "Ain't no CBs."
-		trigger = {
-			NOR = {
-				any_playable_country = { # no one has CB on player
-					has_casus_belli = {
-						target = root
+				set_location = {
+					target = event_target:destruction_target
+					distance = 200
+					angle = 150
+				}
+				set_fleet_stance = passive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 20
+				queue_actions = {
+					destroy_planet = {
+						skip_rules = yes
+						target = event_target:destruction_target
 					}
 				}
-				any_playable_country = { # player has CB on no one
-					root = {
-						has_casus_belli = {
-							target = prev
+			}
+		}
+	}
+}
+
+#########################################
+#
+# Dee's Test Events
+#
+#########################################
+
+namespace = dee
+
+
+planet_event = {
+	id = dee.1
+	hide_window = yes
+	trigger = { always = no }
+
+	immediate = {
+		solar_system = {
+			create_country = {
+				name = "NAME_Tiyanki_Space_Whale_Ancient"
+				type = guardian_elderly_tiyanki
+				flag = {
+					icon = {
+						category = "zoological"
+						file = "flag_zoological_17.dds"
+					}
+					background = {
+						category = "backgrounds"
+						file = "00_solid.dds"
+					}
+					colors = {
+						"blue"
+						"blue"
+						"null"
+						"null"
+					}
+				}
+			}
+			last_created_country = {
+				if = {
+					limit = { NOT = { has_modifier = elderly_tiyanki_power } }
+					add_modifier = { modifier = elderly_tiyanki_power days = -1 }
+				}					
+				guardian_difficulty = yes
+				save_global_event_target_as = elderly_tiyanki_country
+			}
+			random_system_planet = {
+				limit = { is_star = no }
+				save_event_target_as = new_location
+			}
+			random_system_planet = {
+				limit = { is_star = yes }
+				save_event_target_as = start_point
+				event_target:elderly_tiyanki_country = {
+					create_fleet = {
+						name = "NAME_Elderly_Tiyanki"
+						settings = {
+							spawn_debris = no
+							is_boss = yes
+						}
+						effect = {
+							set_owner = event_target:elderly_tiyanki_country
+							create_ship = {
+								name = "NAME_Elder"
+								design = "NAME_Progenitor"
+							}
+							set_location = event_target:start_point
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 50
+							save_global_event_target_as = elderly_tiyanki_fleet
+							auto_move_to_planet = {
+								target = event_target:new_location
+								clear_auto_move_on_arrival = no		# distar.136 sets a new auto 	move target
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+}
 
-	option = {
-		name = "Yes, I have a CB on someone. Check tooltip."
 
-		trigger = {
-			any_playable_country = {
-				root = {
-					has_casus_belli = {
-						target = prev
-					}
-				}
-			}
-		}
+planet_event = {
+	id = dee.2
+	hide_window = yes
+	trigger = { always = no }
 
-		random_playable_country = {
-			limit = {
-				root = {
-					has_casus_belli = {
-						target = prev
-					}
-				}
-			}
-			set_country_flag = CB!
-		}
-	}
-
-	option = {
-		name = "Yes, someone has a CB on me. Check tooltip."
-
-		trigger = {
-			any_playable_country = {
-				has_casus_belli = {
-					target = root
-				}
-			}
-		}
-
-		random_playable_country = {
-			limit = {
-				has_casus_belli = {
-					target = root
-				}
-			}
-			set_country_flag = CB_on_player!
-		}
-	}
-
-	option = {
-		name = "Yes, I have an Animosity CB on someone. Check tooltip."
-
-		trigger = {
-			any_playable_country = {
-				root = {
-					has_casus_belli = {
-						target = prev
-					}
-				}
-			}
-		}
-
-		random_playable_country = {
-			limit = {
-				root = {
-					has_casus_belli = {
-						target = prev
-						type = cb_humiliation
-					}
-				}
-			}
-			set_country_flag = Animosity_CB!
+	immediate = {
+		set_planet_entity = {
+			picture = pc_junkheap
 		}
 	}
 }
 
+#########################################
+#
+# Miranda's Test Events
+#
+#########################################
 
-country_event = {
-	id = henrik.12
+# Spawning the hatchling
+planet_event = {
+	id = henrik.25
 	hide_window = yes
 
 	trigger = { always = no }
 
 	immediate = {
-		random_country = {
-			limit = { 
-				NOT = { is_same_value = root } 
-			}
-			save_event_target_as = target
+		save_event_target_as = hatchling_egg
+		set_planet_entity = {
+			entity = "infected_planet_01_stage_3_entity"
 		}
-		establish_communications_no_message = event_target:target
+
+		if = {
+			limit = {
+				exists = owner
+			}
+			owner = {
+				save_global_event_target_as = egg_owner
+			}
+		}
+		change_pc = pc_egg_cracked
+		destroy_colony = yes
+		clear_deposits = yes
+		orbital_deposit_tile = {
+			clear_deposits = yes
+			add_deposit = d_immense_society_deposit
+			add_deposit = d_immense_society_deposit
+			add_deposit = d_immense_society_deposit
+			add_deposit = d_immense_society_deposit
+			add_deposit = d_immense_society_deposit
+  		}
+
+		remove_modifier = seismological_phenomena_2
+		solar_system = {
+			random_system_planet = {
+				limit = { is_star = no }
+				save_event_target_as = new_location
+			}
+		}
+		create_country = {
+			name = "NAME_Voidspawn"
+			type = guardian_hatchling
+			flag = {
+				icon = {
+					category = "spherical"
+					file = "flag_spherical_6.dds"
+				}
+				background = {
+					category = "backgrounds"
+					file = "00_solid.dds"
+				}
+				# TODO FLAG
+				colors = {
+					"red"
+					"red"
+					"null"
+					"null"
+				}
+			}
+			effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_modifier = hatchling_power
+						}
+					}
+					add_modifier = {
+						modifier = hatchling_power
+						days = -1
+					}
+				}
+				guardian_difficulty = yes
+				save_global_event_target_as = hatchling_country
+				set_country_flag = hatchling_country
+				if = {
+					limit = {
+						exists = event_target:egg_owner
+					}
+					event_target:egg_owner = {
+						establish_communications_no_message = event_target:hatchling_country
+					}
+				}
+				else_if = {
+					limit = {
+						root = {
+							solar_system = {
+								has_owner = yes
+							}
+						}
+					}
+					root.solar_system.owner = { 
+						establish_communications_no_message = event_target:hatchling_country 
+					}
+				}
+				create_fleet = {
+					name = "NAME_Voidspawn"
+					settings = {
+						spawn_debris = no
+						is_boss = yes
+					}
+					effect = {
+						set_owner = event_target:hatchling_country
+						create_ship = {
+							#name = "NAME_Voidspawn"
+							#design = "NAME_Voidspawn"
+							name = NAME_Nanite_Dragon
+							design = NAME_Nanite_Dragon
+							effect = {
+								set_ship_flag = hatchling_ship
+								save_global_event_target_as = hatchling
+								set_disabled = yes
+							}
+						}
+						save_global_event_target_as = hatchling_fleet
+						set_location = {
+							target = event_target:hatchling_egg
+							distance = 0
+							angle = 90
+							direction = in_system
+						}
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self #or return_point
+						set_aggro_range = 300
+						auto_move_to_planet = {
+							target = event_target:new_location
+							clear_auto_move_on_arrival = no	# distar.5008 sets a new auto move target
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = event_target:egg_owner
+			}
+			event_target:egg_owner = { 
+				country_event = { id = distar.5007 } 
+			} # Triggers Notification
+		}
+		else_if = {
+			limit = {
+				solar_system = {
+					has_owner = yes
+				}
+			}
+			solar_system = { owner = { country_event = { id = distar.5007 } } } # Triggers Notification
+		}
 	}
 }
 
 planet_event = {
-	id = henrik.13
+	id = henrik.30
 	hide_window = yes
 
 	trigger = { always = no }
 
 	immediate = {
-		#spawn_megastructure_destruction_effect = yes
-	}
-}
-
-planet_event = {
-	id = henrik.134
-	hide_window = yes
-
-	trigger = { always = no }
-
-	immediate = {
-		create_message = { 
-			type = BYPASS_EXPLORED
-			localization = BYPASS_EXPLORED_MESSAGE
-			days = 30 
-			target = root
-			variable = { type = name localization = SYSTEM1 scope = root } 
-			variable = { type = name localization = SYSTEM2 scope = root } 
+		set_planet_size = 20
+		change_pc = pc_shattered
+		create_ambient_object = {
+			type = dreadnought_object
+			entity_face_object = root
+		}
+		last_created_ambient_object = {
+			set_location = {
+				target = root
+				distance = -1
+				#angle = 90
+				#direction = in_system
+			}
 		}
 	}
 }

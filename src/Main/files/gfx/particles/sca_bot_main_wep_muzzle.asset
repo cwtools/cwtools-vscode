@@ -1,0 +1,238 @@
+particle={
+	name="scavenger_bot_main_weapon_muzzle_effect"
+	subsystem={
+		name="feedback_blast"
+		max_amount=1
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/blast.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=180.000
+			y=200.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		life=0.500
+		emission=2.000
+		size=100.000,straight_grow
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="smoke_blast_forward"
+		max_amount=50
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=yes
+		texture={
+			file="gfx/particles/cloud_low_alpha.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=220.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 15.000 }
+		velocity_yaw={ 0.000 15.000 }
+		velocity={ 20.000 20.000 }
+		life={ 1.000 0.200 }
+		emission=1000.000
+		size={ 20.000 5.000 }
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="smoke_blast_still"
+		max_amount=5
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=220.000
+			z=255.000
+			alpha=180.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 45.000 }
+		velocity_yaw={ 0.000 45.000 }
+		life={ 1.000 0.500 }
+		emission=100.000
+		size=20.000,grow
+		rotation={ 0.000 180.000 }
+	}
+	subsystem={
+		name="sparkes_wild"
+		max_amount=1000
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/glow.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=200.000
+			y=220.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		velocity={ 40.000 40.000 }
+		life=1.000
+		emission=400.000
+		size=1.000
+		rotation={ 0.000 180.000 }
+		rotation_speed=20.000
+		force=chaos,friction
+	}
+	subsystem={
+		name="ray_blast"
+		max_amount=5
+		slave_particles=0
+		emitter_type="point"
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=no
+		hide=no
+		texture={
+			file="gfx/particles/flare_wide_medium.dds"
+			x=1
+			y=1
+			shader="ParticleAdditive"
+		}
+		color={
+			x=180.000
+			y=200.000
+			z=255.000
+			alpha=255.000,fade_alpha
+		}
+		position={
+			x=24.000
+		}
+		duration=0.100
+		velocity_pitch={ 0.000 0.000 }
+		velocity_yaw={ 0.000 0.000 }
+		velocity=100.000
+		life=0.300
+		emission=100.000
+		size=80.000,straight_grow
+		particle_yaw=90.000
+		particle_pitch={ 90.000 180.000 }
+		rotation=90.000
+	}
+	animation={
+		name="fade_alpha"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.259 0.930 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.297 0.365 0.820 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	animation={
+		name="straight_grow"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.102 1.000 1.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="turbulence"
+		name="chaos"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=50.000
+	}
+	force={
+		type="friction"
+		name="friction"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=5.000
+	}
+}

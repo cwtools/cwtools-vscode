@@ -69,7 +69,7 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value = hsv { 0.15 1.0 0.7 1.0 }
+		value hsv { 0.15 1.0 0.7 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_SUBJECT"
 		condition = {
 			exists = overlord
@@ -79,7 +79,7 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value = hsv { 0.15 1.0 0.7 1.0 }
+		value hsv { 0.15 1.0 0.7 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_OVERLORD"
 		condition = {
 			exists = from.overlord
@@ -89,35 +89,35 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value = hsv { 0.37 0.8 1.0 1.0 }
+		value hsv { 0.37 0.8 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_DEFENSIVE_PACT"
 		condition = {
 			has_defensive_pact = FROM
 		}
 	}
 	color = {
-		value = hsv { 0.4 0.5 1.0 1.0 }
+		value hsv { 0.4 0.5 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_NON_AGGRESSION_PACT"
 		condition = {
 			has_non_aggression_pact = FROM
 		}
 	}
 	color = {
-		value = hsv { 0.4 0.5 1.0 1.0 }
+		value hsv { 0.4 0.5 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_ASSOCIATION_STATUS"
 		condition = {
 			has_association_status = FROM
 		}
 	}
 	color = {
-		value = hsv { 0.05 0.6 0.8 1.0 }
+		value hsv { 0.05 0.6 0.8 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_RIVAL"
 		condition = {
 			is_rival = FROM
 		}
 	}
 	color = {
-		value = hsv { 0.0 0.4 0.7 1.0 }
+		value hsv { 0.0 0.4 0.7 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_CLOSED_BORDERS"
 		condition = {
 			# This really could use a better trigger
@@ -125,7 +125,7 @@ diplomatic_map_mode = {
 		}
 	}
 	color = {
-		value = hsv { 0.6 0.5 1.0 1.0 }
+		value hsv { 0.6 0.5 1.0 1.0 }
 		custom_tooltip = "DIPLOMATIC_MAP_MODE_MIGRATION_PACT"
 		condition = {
 			has_migration_access = FROM			
@@ -141,25 +141,25 @@ opinion_map_mode = {
 	color = { value = hsv { 0.0 0.0 0.8 0.7 } condition = { NOT = { exists = FROM } } custom_tooltip = "MAP_MODE_OBSERVER" }
 	color = { value = hsv { 0.580 1.0 0.8 1.0 } condition = { is_same_empire = FROM } }
 	
-	color = { value = hsv { 0.300 1.0 0.9 1.0 } condition = { opinion = { who = FROM value = 140 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.300 1.0 0.9 1.0 } condition = { opinion = { who = FROM value = 100 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.255 1.0 0.9 1.0 } condition = { opinion = { who = FROM value = 080 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.240 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = 060 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.225 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = 040 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.210 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = 025 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.195 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = 015 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.180 1.0 0.7 1.0 } condition = { opinion = { who = FROM value = 005 } } hardcoded_tooltip = opinion }
-	#color = { value = hsv { 0.165 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = 10 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.150 1.0 0.65 1.0 } condition = { opinion = { who = FROM value = -005 } } hardcoded_tooltip = opinion }
-	#color = { value = hsv { 0.135 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = -020 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.120 1.0 0.7 1.0 } condition = { opinion = { who = FROM value = -015 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.110 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = -025 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.090 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = -040 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.075 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = -060 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.060 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = -080 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.045 1.0 0.8 1.0 } condition = { opinion = { who = FROM value = -100 } } hardcoded_tooltip = opinion }
-	#color = { value = hsv { 0.030 1.0 0.9 1.0 } condition = { opinion = { who = FROM value = -100 } } hardcoded_tooltip = opinion }
-	color = { value = hsv { 0.015 1.0 0.9 1.0 } condition = { opinion = { who = FROM value = -140 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.300 1.0 0.9 1.0 } condition = { opinion = { who = FROM value > 140 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.300 1.0 0.9 1.0 } condition = { opinion = { who = FROM value > 100 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.255 1.0 0.9 1.0 } condition = { opinion = { who = FROM value > 080 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.240 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > 060 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.225 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > 040 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.210 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > 025 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.195 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > 015 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.180 1.0 0.7 1.0 } condition = { opinion = { who = FROM value > 005 } } hardcoded_tooltip = opinion }
+	#color = { value = hsv { 0.165 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > 10 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.150 1.0 0.65 1.0 } condition = { opinion = { who = FROM value > -005 } } hardcoded_tooltip = opinion }
+	#color = { value = hsv { 0.135 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > -020 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.120 1.0 0.7 1.0 } condition = { opinion = { who = FROM value > -015 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.110 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > -025 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.090 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > -040 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.075 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > -060 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.060 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > -080 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.045 1.0 0.8 1.0 } condition = { opinion = { who = FROM value > -100 } } hardcoded_tooltip = opinion }
+	#color = { value = hsv { 0.030 1.0 0.9 1.0 } condition = { opinion = { who = FROM value > -100 } } hardcoded_tooltip = opinion }
+	color = { value = hsv { 0.015 1.0 0.9 1.0 } condition = { opinion = { who = FROM value > -140 } } hardcoded_tooltip = opinion }
 	color = { value = hsv { 0.000 1.0 0.9 1.0 } condition = { always = yes } hardcoded_tooltip = opinion }
 }
 

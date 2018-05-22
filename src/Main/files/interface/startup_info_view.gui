@@ -25,7 +25,7 @@ guiTypes = {
 			position = { x = 26 y = 10 }
 			maxWidth = 600
 			maxHeight = 16
-			text = "Stellaris 2.0"
+			text = "Stellaris 2.1"
 			Orientation = "UPPER_LEFT"
 			format = left
 		}
@@ -63,9 +63,9 @@ guiTypes = {
 
 			instantTextBoxType = {
 				name = "checkbox_text"
-				format = center
-				position = { x = 5 y = 7 }
-				maxWidth = 180
+				format = left
+				position = { x = 30 y = 7 }
+				maxWidth = 200
 				maxHeight = 20
 				font = "cg_16b"
 				text = "CLOSE_DONT_SHOW_AGAIN"
@@ -84,8 +84,8 @@ guiTypes = {
 				font = "cg_16b"
 				text = "PATCHNOTES"
 				position = { x = 0 y = 23 }
-				maxWidth = 600
-				maxHeight = 30
+				maxWidth = 700
+				maxHeight = 40
 				fixedSize = yes
 				alwaysTransparent = no
 			}
@@ -128,7 +128,9 @@ guiTypes = {
 			font = "cg_16b"
 			position = { x = 0 y = 0 }
 			maxWidth = 825
-			maxHeight = 200
+			maxHeight = 400
+			fixedSize = no
+			scrollbartype = "standardlistbox_slider"
 		}
 	}
 }

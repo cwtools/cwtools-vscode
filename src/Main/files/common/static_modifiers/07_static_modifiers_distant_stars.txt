@@ -1,0 +1,307 @@
+##########################################################################
+# Empire Modifiers
+##########################################################################
+
+rummy_nebula = {
+	pop_happiness = 0.10
+	country_resource_influence_mult = 0.33
+	tile_resource_society_research_mult = -0.05
+	tile_resource_physics_research_mult = -0.05
+	tile_resource_engineering_research_mult = -0.05
+}
+
+##########################################################################
+# Planet Modifiers
+##########################################################################
+frozen_in_time = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_factory.dds"
+	icon_frame = 1
+}
+superflare_star = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_star.dds"
+	icon_frame = 3
+}
+superflare_planet = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_star.dds"
+	icon_frame = 3
+}
+superflare_struck = {
+	pop_environment_tolerance = -0.10
+	tile_resource_energy_mult = -0.15
+	icon = "gfx/interface/icons/planet_modifiers/pm_irradiated.dds"
+	icon_frame = 3
+}
+superflare_avoided = {
+	tile_resource_unity_mult = 0.10
+	icon = "gfx/interface/icons/planet_modifiers/pm_assist_research.dds"
+	icon_frame = 1
+}
+black_hole_hologram = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_black_hole.dds"
+	icon_frame = 2
+}
+black_hole_energy = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_black_hole.dds"
+	icon_frame = 1
+}
+primitive_robots = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_robots.dds"
+	icon_frame = 2
+}
+researcher_rage = {
+	tile_resource_society_research_mult = -0.50
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+	icon_frame = 3
+}
+clones_in_cryo = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_faith_in_science.dds"
+	icon_frame = 1
+}
+dead_god = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_dead_god.dds"
+	icon_frame = 2
+}
+dead_god_planet = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_dead_god.dds"
+	icon_frame = 2
+	pop_ethic_spiritualist_attraction_mult = 2
+}
+dead_god_planet_hidden = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_atmospheric_hallucinogen.dds"
+	icon_frame = 2
+	pop_ethic_spiritualist_attraction_mult = 2
+}
+life_electric = {
+	icon = "gfx/interface/icons/planet_modifiers/capital.dds"
+	icon_frame = 2
+}
+soothing_crystals = {
+	pop_government_ethic_attraction = 0.33
+	pop_happiness = 0.10
+	icon = "gfx/interface/icons/planet_modifiers/pm_ultra_rich.dds"
+	icon_frame = 1
+}
+good_vibrations = {
+	tile_resource_unity_mult = 0.50
+	icon = "gfx/interface/icons/planet_modifiers/pm_ultra_rich.dds"
+	icon_frame = 1
+}
+exofungus = {
+	planet_building_build_speed_mult = -0.20
+	pop_environment_tolerance = -0.10
+	tile_resource_society_research_mult = 0.33
+	icon = "gfx/interface/icons/planet_modifiers/pm_unstable_tectonics.dds"
+	icon_frame = 3
+}
+watery_grave = {
+	tile_resource_society_research_mult = 0.30
+	icon = "gfx/interface/icons/planet_modifiers/pm_wild_storms.dds"
+	icon_frame = 1
+}
+brainslug_woes = {
+	planet_unrest_add = 20
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+	icon_frame = 3
+}
+brainslug_woes_phobe = {
+	planet_unrest_add = 40
+	icon = "gfx/interface/icons/planet_modifiers/pm_unrest.dds"
+	icon_frame = 3
+}
+predatory_plants = {
+	pop_environment_tolerance = -0.10
+	tile_resource_society_research_mult = 0.10
+	icon = "gfx/interface/icons/planet_modifiers/pm_natural_beauty.dds"
+	icon_frame = 3
+}
+living_sea = {
+	pop_environment_tolerance = 0.25
+	tile_resource_society_research_mult = 0.10
+	tile_resource_physics_research_mult = 0.10
+	tile_resource_engineering_research_mult = 0.10
+	pop_government_ethic_attraction = -0.25
+	planet_building_build_speed_mult = -0.25
+	icon = "gfx/interface/icons/planet_modifiers/pm_holy_planet.dds"
+	icon_frame = 2
+}
+phaseshifted = {
+	planet_building_build_speed_mult = -0.50
+	icon = "gfx/interface/icons/planet_modifiers/pm_strong_magnetic_field.dds"
+	icon_frame = 3
+}
+building_blocks = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_seismological_disturbances.dds"
+	icon_frame = 1
+}
+##########################################################################
+# Pop Modifiers
+##########################################################################
+erratic_behavior = {
+	pop_happiness = -0.25
+	pop_resource_output = -0.25
+	pop_government_ethic_attraction = -0.25
+}
+conviction = {
+	pop_happiness = 0.33
+	pop_resource_output = 0.25
+}
+##########################################################################
+# Lost Amoeba Evolution #
+##########################################################################
+amoeba_speed_boost = {
+	ship_speed_mult = 0.4
+}
+evolved_weapon_boost = {
+	ship_weapon_damage = 0.2
+}
+evolved_firing_rate = {
+	ship_fire_rate_mult = 0.2
+}
+evolved_evasion = {
+	ship_evasion_mult = 0.3
+}
+##########################################################################
+# Big Friendly Warform #
+##########################################################################
+big_friendly_warform_power = {
+	ship_hull_mult = 5.0
+}
+##########################################################################
+# Scavenger Bot #
+##########################################################################
+scavenger_bot_power = {
+
+}
+scavenger_weak_points = {
+	damage_vs_country_type_guardian_scavenger_bot_mult = 0.25
+}
+##########################################################################
+# Voidspawn/Hatchling #
+##########################################################################
+hatchling_power = {
+
+}
+##########################################################################
+# Tiyanki Matriarch #
+##########################################################################
+elderly_tiyanki_power = {
+	ship_weapon_damage = 1
+}
+elderly_tiyanki_weak_points = {
+	damage_vs_country_type_guardian_elderly_tiyanki_mult = 0.25
+}
+##########################################################################
+# AH4B #
+##########################################################################
+ahab_power = {
+	ship_hull_mult = 4
+	ship_weapon_damage = 3
+	ship_fire_rate_mult = 0.2
+}
+
+##########################################################################
+# Planet Modifiers
+##########################################################################
+
+paradise_planet = {
+	pop_happiness = 0.10
+	tile_resource_unity_mult = 0.10
+	tile_resource_food_mult = 0.20
+	planet_migration_all_pull = 0.25
+	icon = "gfx/interface/icons/planet_modifiers/pm_natural_beauty.dds"
+	icon_frame = 1
+}
+
+ancient_harvesters = { 
+	tile_resource_food_mult = 0.20
+	icon = "gfx/interface/icons/planet_modifiers/pm_lush.dds"
+	icon_frame = 1
+}
+
+seismological_phenomena = {
+	pop_environment_tolerance = -0.10
+	pop_happiness = -0.05
+	pop_growth_speed = -0.20
+	tile_resource_society_research_mult = 0.20
+	icon = "gfx/interface/icons/planet_modifiers/pm_seismological_disturbances.dds"
+	icon_frame = 1
+}
+
+seismological_phenomena_2 = {
+	pop_environment_tolerance = -0.20
+	pop_happiness = -0.15
+	pop_growth_speed = -0.20
+	tile_resource_society_research_mult = 0.20
+	icon = "gfx/interface/icons/planet_modifiers/pm_seismological_disturbances.dds"
+	icon_frame = 1
+}
+
+egg_rifts = {
+	pop_environment_tolerance = -0.05
+	pop_happiness = -0.05
+	tile_resource_society_research_mult = 0.20
+	icon = "gfx/interface/icons/planet_modifiers/pm_seismological_disturbances.dds"
+	icon_frame = 1
+}
+
+enigmatic_cache_in_orbit = {
+	tile_resource_physics_research_mult = 0.30
+	tile_resource_society_research_mult = 0.30
+	tile_resource_engineering_research_mult = 0.30
+	icon = "gfx/interface/icons/planet_modifiers/pm_enigmatic_cache.dds"
+	icon_frame = 1
+}
+
+##########################################################################
+# Pop Modifiers
+##########################################################################
+enigmatic_cache_in_orbit_phobe = {
+	pop_happiness = -0.1
+}
+
+##########################################################################
+# Empire Modifiers
+##########################################################################
+
+in_paradise = {
+	pop_happiness = 0.10
+}
+
+mega_computer = {
+	country_resource_engineering_research_mult = 0.10
+}
+
+littering_loitering_liability = {
+	pop_ethic_xenophobe_attraction_mult = 0.33
+}
+
+a_hitchikers_guide_to_the_galaxy = {
+	pop_ethic_xenophile_attraction_mult = 0.33
+}
+
+
+enigmatic_power = {
+	ship_shield_mult = 4
+	ship_weapon_damage = 8
+	ship_hull_mult = 4
+}
+
+##########################################################################
+# Guardians
+##########################################################################
+
+curator_buff_hatchling = {
+	damage_vs_country_type_guardian_hatchling_mult = 0.25	
+}
+
+##########################################################################
+# Empire Modifiers
+##########################################################################
+
+mineral_mapping = {
+	country_resource_minerals_mult = 0.10
+}
+
+disregard_for_alien_life = {
+	pop_happiness = -0.10
+}

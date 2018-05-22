@@ -1172,14 +1172,14 @@ country_event = {
 					override_requirements = yes
 				}
 			}
-			else = {	
-				from = {
-					set_timed_country_flag = { flag = ai_no_leave_fed days = 7200 }
-					join_alliance = {
-						who = root
-						override_requirements = yes
-					}	
-				}
+		}
+		else = {	
+			from = {
+				set_timed_country_flag = { flag = ai_no_leave_fed days = 7200 }
+				join_alliance = {
+					who = root
+					override_requirements = yes
+				}	
 			}
 		}
 	}

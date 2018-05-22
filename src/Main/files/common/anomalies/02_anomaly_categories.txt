@@ -1,0 +1,676 @@
+TROP_BIOLOGY_CAT = {
+	desc = "TROP_BIOLOGY_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_tropical
+		}
+	}
+	
+	on_success = anomaly.4000
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4000
+	#	}
+	#}
+}
+
+AST_MINING_CAT = {
+	desc = "AST_MINING_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = anomaly.4005
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4005
+	#	}
+	#}
+}
+
+GEN_DERELICT_SHIP_CAT = {
+	desc = "GEN_DERELICT_SHIP_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_tundra
+				is_planet_class = pc_barren_cold
+			}
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+	
+	on_success = anomaly.4010
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4010
+	#	}
+	#}
+}
+
+GEN_LOST_CARGO_CAT = {
+	desc = "GEN_LOST_CARGO_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_asteroid = yes
+			}
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.4015
+		1 = anomaly.4085
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4015
+	#	}
+	#}
+}
+
+GEN_OLD_WAR_CAT = {
+	desc = "GEN_OLD_WAR_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_tundra
+				is_planet_class = pc_nuked
+				is_planet_class = pc_toxic
+			}
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.4020
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					NOT = {
+						has_ethic = ethic_gestalt_consciousness
+					}
+				}
+			}
+			anomaly_event = anomaly.4165
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4020
+	#	}
+	#}
+}
+
+#GEN_SURVEY_CAT = {
+#	desc = "GEN_SURVEY_DESC"
+#	picture = "GFX_evt_ship_in_orbit"
+#	level = 2
+#	
+#	spawn_chance = {
+#		modifier = {
+#			add = 3
+#			OR = {
+#				is_planet_class = pc_nuked
+#				is_planet_class = pc_frozen
+#				is_planet_class = pc_barren_cold
+#			}
+#		}
+#	}
+#	
+#	on_success = anomaly.4025
+#	
+#	#on_fail = {
+#	#	1 = {
+#	#		ship_event = anomaly_failure.4025
+#	#	}
+#	#}
+#}
+
+DES_BURIED_CAT = {
+	desc = "DES_BURIED_DESC"
+	picture = "GFX_evt_desert"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_desert
+		}
+	}
+
+	max_once = yes
+	
+	on_success = {
+		1 = anomaly.4030
+		1 = {
+			modifier = {
+				factor = 0
+				owner = { has_ethic = ethic_gestalt_consciousness }
+			}
+			anomaly_event = anomaly.4135
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4030
+	#	}
+	#}
+}
+
+SUN_RAYS_CAT = {
+	desc = "SUN_RAYS_DESC"
+	picture = "GFX_evt_physics_research"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_desert
+				is_planet_class = pc_arid
+			}
+		}
+	}
+
+	max_once = yes
+	
+	on_success = {
+		1 = anomaly.4035
+		1 = anomaly.4040
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4035
+	#	}
+	#}
+}
+
+WAT_PLANET_CAT = {
+	desc = "WAT_PLANET_DESC"
+	picture = "GFX_evt_ocean"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_ocean
+			}
+			from.owner = {
+				NOR = {
+					has_policy_flag = interference_passive
+					has_ethic = ethic_gestalt_consciousness
+				}
+			}
+		}
+	}
+	
+	on_success = anomaly.4045
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4045
+	#	}
+	#}
+}
+
+COLD_RESEARCH_CAT = {
+	desc = "COLD_RESEARCH_DESC"
+	picture = "GFX_evt_tundra"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_frozen
+				is_planet_class = pc_tundra
+				is_planet_class = pc_barren_cold
+			}
+		}
+	}
+	
+	on_success = {
+		1 = {
+			modifier = {
+				factor = 0
+				owner = { has_ethic = ethic_gestalt_consciousness }
+			}
+			anomaly_event = anomaly.4055
+		}
+		1 = anomaly.4075
+		1 = {
+			modifier = {
+				factor = 0
+				owner = { has_ethic = ethic_gestalt_consciousness }
+			}
+			anomaly_event = anomaly.4120
+		}
+		1 = {
+			modifier = {
+				factor = 0
+				owner = { has_ethic = ethic_gestalt_consciousness }
+			}
+			anomaly_event = anomaly.4140
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4055
+	#	}
+	#	1 = {
+	#		ship_event = anomaly_failure.4075
+	#	}
+	#}
+}
+
+SUN_TEAPOT_CAT = {
+	desc = "SUN_TEAPOT_DESC"
+	picture = "GFX_evt_star_yellow"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			OR = {
+				is_planet_class = pc_k_star
+				is_planet_class = pc_m_star
+			}
+		}
+	}
+
+	null_spawn_chance = 0.80 # 20% chance to spawn
+	
+	on_success = anomaly.4060
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4060
+	#	}
+	#}
+}
+
+AST_GEAR_CAT = {
+	desc = "AST_GEAR_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = anomaly.4065
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4005
+	#	}
+	#}
+}
+
+TROP_CONDITIONS_CAT = {
+	desc = "TROP_CONDITIONS_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_tropical
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_authority = auth_machine_intelligence
+				NOT = {
+					has_civic = civic_machine_servitor
+				}
+			}
+		}
+	}
+	
+	on_success = anomaly.4070
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4070
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4071
+	#	}
+	#}
+}
+
+ARID_SENSOR_CAT = {
+	desc = "ARID_SENSOR_DESC"
+	picture = "GFX_evt_arid"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_arid
+		}
+	}
+	
+	on_success = anomaly.4080
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4080
+	#	}
+	#}
+}
+
+# TODO [MO] was commented out
+#GEN_REFUGEES_CAT = {
+#	desc = "GEN_REFUGEES_DESC"
+#	picture = "GFX_evt_ship_in_orbit"
+#	level = 2
+#	
+#	spawn_chance = {
+#		modifier = {
+#			add = 3
+#			OR = {
+#				is_planet_class = pc_asteroid
+#				is_planet_class = pc_gas_giant
+#			}
+#			from = {
+#				owner = {
+#					num_communications > 0
+#				}
+#			}
+#		}
+#	}
+#	on_spawn = {
+#	}
+#	
+#	on_success = anomaly.4090
+#	
+#	on_fail = {
+#		1 = {
+#			ship_event = anomaly_failure.4090
+#		}
+#	}
+#}
+
+CON_BIOLOGY_CAT = {
+	desc = "CON_BIOLOGY_DESC"
+	picture = "GFX_evt_continental"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_continental
+		}
+	}
+	
+	on_success = {
+		1 = {
+			modifier = {
+				factor = 0
+				owner = { has_authority = auth_machine_intelligence }
+			}
+			anomaly_event = anomaly.4095
+		}
+		0 = {
+			modifier = {
+				factor = 0
+				owner = { has_authority = auth_machine_intelligence }
+			}
+			anomaly_event = anomaly.4100
+		}
+		1 = anomaly.4115
+		1 = anomaly.4150
+	}
+	
+	#on_fail = {
+	#	50 = {
+	#		ship_event = anomaly_failure.4010
+	#	}
+	#	50 = {
+	#		ship_event = anomaly_failure.4025
+	#	}
+	#}
+}
+
+TOX_PLANET_CAT = {
+	desc = "TOX_PLANET_DESC"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_toxic
+		}
+	}
+
+	on_success = anomaly.4105
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4010
+	#	}
+	#	1 = {
+	#		ship_event = anomaly_failure.4025
+	#	}
+	#}
+}
+
+DES_PLANET_CAT = {
+	desc = "DES_PLANET_DESC"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_desert
+		}
+	}
+	
+	on_success = anomaly.4110
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4010
+	#	}
+	#	1 = {
+	#		ship_event = anomaly_failure.4025
+	#	}
+	#}
+}
+
+#MOL_PLANET_CAT = {
+#	desc = "MOL_PLANET_DESC"
+#	level = 2
+#	
+#	spawn_chance = {
+#		modifier = {
+#			add = 3
+#			is_planet_class = pc_molten
+#		}
+#	}
+#	
+#	on_success = anomaly.4125
+#	
+#	#on_fail = {
+#	#	1 = {
+#	#		ship_event = anomaly_failure.4055
+#	#	}
+#	#	1 = {
+#	#		ship_event = anomaly_failure.4075
+#	#	}
+#	#}
+#}
+
+GEN_MYSTICAL_CAT = {
+	desc = "GEN_MYSTICAL_DESC"
+	level = 7
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			is_asteroid = yes
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+	
+	on_success = anomaly.4130
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4010
+	#	}
+	#	1 = {
+	#		ship_event = anomaly_failure.4025
+	#	}
+	#}
+}
+
+NUKE_PLANET_CAT = {
+	desc = "NUKE_PLANET_DESC"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_nuked
+			}
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+	
+	on_success = anomaly.4155
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4055
+	#	}
+	#	1 = {
+	#		ship_event = anomaly_failure.4075
+	#	}
+	#}
+}
+
+ARID_PLANET_CAT = {
+	desc = "ARID_PLANET_DESC"
+	picture = "GFX_evt_arid"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_arid
+		}
+	}
+	
+	on_success = anomaly.4170
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.4055
+	#	}
+	#	1 = {
+	#		ship_event = anomaly_failure.4075
+	#	}
+	#}
+}
+
+# TODO [MO] was commented out
+#GEN_CAT = {
+#	desc = "GEN_DESC"
+#	level = 2
+#	
+#	spawn_chance = {
+#		modifier = {
+#			add = 3
+#			is_planet_class = pc_desert
+#		}
+#	}
+#	on_spawn = {
+#	}
+#	
+#	on_success = anomaly.5000
+#	
+#	on_fail = {
+#		50 = {
+#			ship_event = anomaly_failure.4010
+#		}
+#		50 = {
+#			ship_event = anomaly_failure.4025
+#		}
+#	}
+#}
+
+# TODO [MO] was commented out
+#GEN_TEST_CAT = {
+#	desc = "GEN_TEST_DESC"
+#	level = 2
+#	
+#	spawn_chance = {
+#		modifier = {
+#			add = 3
+#			is_planet_class = pc_desert
+#		}
+#	}
+#	on_spawn = {
+#	}
+#	
+#	on_success = anomaly.4175
+#	
+#	on_fail = {
+#	}
+#}

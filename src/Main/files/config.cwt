@@ -1,3 +1,20 @@
+alias[modifier:create_starbase] = {
+    ## cardinality = 1..1
+    owner = scalar
+
+    ## cardinality = 1..1
+    size = scalar
+
+    ## cardinality = 0..100
+    module = scalar
+
+    ## cardinality = 0..100
+    building = scalar
+
+    ## cardinality = 0..1
+    effect = effect
+}
+
 ship_size = {
     formation_priority = int
     max_speed = float
@@ -6,12 +23,26 @@ ship_size = {
     collision_radius = float
     max_hitpoints = int
     modifier = {
-        
+        alias_name[modifier] = alias_match_left[modifier]
     }
     size_multiplier = int
     fleet_slot_size = int
     section_slots = {
-        
+        "bow" = {
+            locator = scalar 
+        }
+        "mid" = {
+            locator = scalar 
+        }
+        "stern" = {
+            locator = scalar 
+        }
+        "west" = {
+            locator = scalar 
+        }
+        "east" = {
+            locator = scalar 
+        }
     }
     num_target_locators = int
     is_space_station = bool
@@ -31,14 +62,14 @@ ship_size = {
 }
 
 types = {
-    data[ship_size] = {
+    type[ship_size] = {
         path = "game/common/ship_sizes"
     }
-    data[ship_behavior] = {
+    type[ship_behavior] = {
         name_field = "name"
         path = "game/common/ship_behaviors"
     }
-    data[technology] = {
+    type[technology] = {
         path = "game/common/technology"
     }
 }
@@ -48,21 +79,4 @@ enums = {
         shipclass_military
         shipclass_transport
     }
-}
-
-create_starbase = {
-    ## cardinality = 1..1
-    owner = scalar
-
-    ## cardinality = 1..1
-    size = scalar
-
-    ## cardinality = 0..100
-    module = scalar
-
-    ## cardinality = 0..100
-    building = scalar
-
-    ## cardinality = 0..1
-    effect = effect
 }

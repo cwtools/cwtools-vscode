@@ -8,68 +8,6 @@
 
 namespace = anomaly
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
-
 # ROOT = ship scope
 # FROM = planet scope
 
@@ -83,7 +21,8 @@ ship_event = {
 	picture = GFX_evt_ship_in_orbit
 	show_sound = event_alien_signal
 	location = FROM
-	
+	trackable = yes
+
 	is_triggered_only = yes
 	
 	immediate = {
@@ -156,6 +95,7 @@ country_event = {
 	id = anomaly.5003
 	title = "anomaly.5003.name"
 	desc = "anomaly.5003.desc"
+	trackable = yes
 	
 	diplomatic = yes
 	
@@ -201,7 +141,6 @@ country_event = {
 				hidden_effect = {
 					set_planet_flag = baldarak
 					save_event_target_as = baldarak_planet
-					orbital_deposit_tile = { clear_deposits = yes }
 				}
 				enable_special_project = {
 					name = "GAS_GIANT_RELOCATION"
@@ -244,6 +183,11 @@ ship_event = {
 				add_modifier = {
 					modifier = "gas_giant_civ"
 					days = -1
+				}
+				orbital_deposit_tile = { clear_deposits = yes }
+				if = {
+					limit = { has_mining_station = yes }
+					random_mining_station = { dismantle = yes }
 				}
 			}
 		}
@@ -319,6 +263,7 @@ country_event = {
 	id = anomaly.5007
 	title = "anomaly.5007.name"
 	desc = "anomaly.5007.desc"
+	trackable = yes
 	
 	diplomatic = yes
 	
@@ -369,7 +314,6 @@ country_event = {
 					}
 					hidden_effect = {
 						set_planet_flag = new_baldarak
-						orbital_deposit_tile = { clear_deposits = yes }
 						save_event_target_as = NewBaldarak
 					}
 					enable_special_project = {
@@ -421,6 +365,11 @@ ship_event = {
 					modifier = "gas_giant_colony"
 					days = -1
 				}
+				orbital_deposit_tile = { clear_deposits = yes }
+				if = {
+					limit = { has_mining_station = yes }
+					random_mining_station = { dismantle = yes }
+				}
 			}
 			orbital_deposit_tile = {
 				add_deposit = d_immense_society_deposit
@@ -434,6 +383,7 @@ country_event = {
 	id = anomaly.5009
 	title = "anomaly.5009.name"
 	desc = "anomaly.5009.desc"
+	trackable = yes
 	
 	diplomatic = yes
 	
@@ -502,6 +452,7 @@ country_event = {
 	id = anomaly.5011
 	title = "anomaly.5011.name"
 	desc = "anomaly.5011.desc"
+	trackable = yes
 	
 	diplomatic = yes
 	
@@ -577,6 +528,7 @@ country_event = {
 	id = anomaly.5013
 	title = "anomaly.5013.name"
 	desc = "anomaly.5013.desc"
+	trackable = yes
 	
 	diplomatic = yes
 	
@@ -619,6 +571,7 @@ country_event = {
 	id = anomaly.5014
 	title = "anomaly.5014.name"
 	desc = "anomaly.5014.desc"
+	trackable = yes
 	
 	diplomatic = yes
 	

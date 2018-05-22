@@ -21,12 +21,12 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_1_chain
 			has_country_flag = waiting_tutorial_4
 			has_country_flag = tutorial_1
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -95,8 +95,8 @@ ship_event = {
 
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
+			is_ai = no
 			has_country_flag = tutorial_1
 		}
 	}
@@ -129,13 +129,15 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_ai = no
 		any_owned_ship = {
 			has_fleet_order = survey_planet_order
 		}
 		is_tutorial_level = 2
 		has_country_flag = tutorial_1
-		NOT = { has_country_flag = tutorial_2 }
+		NOT = { 
+			has_country_flag = tutorial_2
+			has_ethic = ethic_gestalt_consciousness
+		}
 	}
 			
 	immediate = {
@@ -156,7 +158,6 @@ ship_event = {
 	trigger = {
 		has_fleet_order = survey_planet_order
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_country_flag = tutorial_1
 			NOT = { has_country_flag = tutorial_2 }
@@ -184,11 +185,11 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_2_chain
 			has_technology = tech_colonization_1
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -222,10 +223,9 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		has_technology = tech_colonization_1
 		is_tutorial_level = 2
-		NOT = {
+		not = {
 			has_country_flag = tutorial_2
 		}
 	}
@@ -244,7 +244,6 @@ country_event = {
 #	is_triggered_only = yes
 #	
 #	trigger = {
-#		is_ai = no
 #		is_tutorial_level = 2
 #		has_technology = tech_colonization_1
 #		has_event_chain = "tutorial_2_chain"
@@ -270,7 +269,6 @@ country_event = {
 #	is_triggered_only = yes
 #	
 #	trigger = {
-#		is_ai = no
 #		last_increased_tech = "tech_space_construction"
 #		has_event_chain = "tutorial_2_chain"
 #		NOT = { has_country_flag = tech_2_researched }
@@ -307,7 +305,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_technology = tech_colonization_1
 		has_event_chain = "tutorial_2_chain"
@@ -343,7 +340,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		count_owned_ships = {
 			limit = { is_ship_class = shipclass_constructor }
@@ -351,6 +347,7 @@ country_event = {
 		}
 		NOT = {
 			has_event_chain = tutorial_3_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -374,7 +371,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		count_owned_ships = {
 			limit = { is_ship_class = shipclass_constructor }
@@ -400,7 +396,6 @@ ship_event = {
 	trigger = {
 		is_ship_size = constructor
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_3_chain"
 		}
@@ -436,6 +431,7 @@ country_event = {
 		NOT = {
 			any_owned_ship = { is_ship_size = mining_station }
 			has_event_chain = tutorial_4_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 		capital_scope = {
 			solar_system = {
@@ -491,7 +487,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = {
 				has_event_chain = "tutorial_4_chain"
@@ -521,7 +516,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_4_chain"
 			#any_owned_ship = { is_ship_size = mining_station }
@@ -558,6 +552,7 @@ country_event = {
 		NOT = {
 			any_owned_ship = {is_ship_size = research_station }
 			has_event_chain = tutorial_5_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 		capital_scope = {
 			solar_system = {
@@ -616,7 +611,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = {
 				has_event_chain = "tutorial_5_chain"
@@ -645,7 +639,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_5_chain"
 			#any_owned_ship = { is_ship_size = research_station } #removed cause otherwise you need to build 2 before this is triggered
@@ -677,7 +670,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_6_chain
@@ -685,6 +677,7 @@ country_event = {
 				has_building_construction = yes
 			}
 			has_country_flag = tutorial_cleared_early_14
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -709,7 +702,6 @@ planet_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = { has_country_flag = tutorial_cleared_early_14 }
 		}
@@ -735,7 +727,6 @@ planet_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_6_chain"
 		}
@@ -768,11 +759,11 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_country_flag = tutorial_cleared_early_16
 			has_event_chain = tutorial_7_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -797,7 +788,6 @@ planet_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = { has_country_flag = tutorial_cleared_early_16 }
 		}
@@ -820,7 +810,6 @@ planet_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_7_chain"
 		}
@@ -849,11 +838,11 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_8_chain
 			has_country_flag = tutorial_cleared_early_17
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -942,11 +931,11 @@ ship_event = {
 
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = {
 				has_country_flag = tutorial_cleared_early_17
 				has_event_chain = tutorial_8_chain
+				has_ethic = ethic_gestalt_consciousness
 			}
 			FROM = {
 				solar_system = {
@@ -1007,7 +996,6 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_8_chain"
 		FROM = {
@@ -1061,7 +1049,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_8_chain"
 		has_completed_event_chain_counter = {
@@ -1102,7 +1089,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_9_chain
@@ -1110,6 +1096,7 @@ country_event = {
 				limit = { is_ship_class = shipclass_science_ship }
 				count > 1
 			}
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -1133,7 +1120,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		count_owned_ships = {
 			limit = { is_ship_class = shipclass_science_ship }
@@ -1159,7 +1145,6 @@ ship_event = {
 	trigger = {
 		is_ship_class = shipclass_science_ship
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_9_chain"
 			count_owned_ships = {
@@ -1194,7 +1179,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		any_owned_ship = {
 			is_ship_class = shipclass_science_ship
@@ -1202,6 +1186,7 @@ country_event = {
 		}
 		NOT = {
 			has_event_chain = tutorial_10_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 	
@@ -1231,7 +1216,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_10_chain"
 		count_owned_ships = {
@@ -1281,6 +1265,7 @@ country_event = {
 			any_owned_planet = {
 				is_capital = no
 			}
+			has_ethic = ethic_gestalt_consciousness
 		}
 		any_planet_within_border = {
 			is_ideal_planet_class = {
@@ -1316,7 +1301,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		OR = {
 			count_owned_ships = {
@@ -1348,7 +1332,6 @@ ship_event = {
 	trigger = {
 		is_ship_class = shipclass_colonizer
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_11_chain"
 		}
@@ -1382,7 +1365,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_technology = tech_colonization_1
 		NOT = {
@@ -1394,6 +1376,7 @@ country_event = {
 				limit = { is_ship_class = shipclass_colonizer }
 				count < 1
 			}
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -1417,7 +1400,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		any_owned_planet = {
 			is_capital = no
@@ -1442,7 +1424,6 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_12_chain"
 		}
@@ -1477,13 +1458,15 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		any_owned_planet = {
 			is_capital = no
 			NOT = { exists = leader }
 		}
-		NOT = { has_event_chain = tutorial_13_chain }
+		NOT = { 
+			has_event_chain = tutorial_13_chain
+			has_ethic = ethic_gestalt_consciousness
+		}
 	}
 	
 	immediate = {
@@ -1509,7 +1492,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_13_chain"
 		any_owned_planet = {
@@ -1632,12 +1614,12 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_15_chain
 			has_monthly_income = { resource = energy value > 9 }
 			has_monthly_income = { resource = minerals value > 29 }
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -1653,7 +1635,6 @@ country_event = {
 		custom_tooltip = tutorial_15_tooltip
 	}
 }
-
 # Cleared Early
 country_event = {
 	id = tutorial.330
@@ -1661,7 +1642,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_monthly_income = { resource = energy value > 9 }
 		has_monthly_income = { resource = minerals value > 29 }
@@ -1678,7 +1658,6 @@ country_event = {
 	hide_window = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_15_chain"
 		NOT = { has_country_flag = tutorial_15_minerals_achieved }
@@ -1709,7 +1688,6 @@ country_event = {
 	hide_window = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_15_chain"
 		has_country_flag = tutorial_15_minerals_achieved
@@ -1736,7 +1714,6 @@ country_event = {
 	hide_window = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_15_chain"
 		NOT = { has_country_flag = tutorial_15_credits_achieved }
@@ -1767,7 +1744,6 @@ country_event = {
 	hide_window = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_15_chain"
 		has_country_flag = tutorial_15_credits_achieved
@@ -1799,7 +1775,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_15_chain"
 		has_completed_event_chain_counter = {
@@ -1837,7 +1812,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		count_owned_ships = {
 			limit = { is_ship_size = corvette }
@@ -1847,7 +1821,10 @@ country_event = {
 			limit = { is_ship_size = destroyer }
 			count < 1
 		}
-		NOT = { has_event_chain = tutorial_16_chain }
+		NOT = { 
+			has_event_chain = tutorial_16_chain
+			has_ethic = ethic_gestalt_consciousness
+		}
 	}
 	
 	immediate = {
@@ -1872,7 +1849,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_16_chain" 
 			NOT = { has_country_flag = tutorial_16_corvettes_built }
@@ -1900,7 +1876,6 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_16_chain"
 		NOT = { has_country_flag = tutorial_16_corvettes_built }
@@ -1921,7 +1896,6 @@ country_event = {
 	hide_window = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_16_chain"
 		NOT = { has_country_flag = tutorial_16_admiral_assigned }
@@ -1959,7 +1933,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_16_chain"
 		has_completed_event_chain_counter = {
@@ -1998,7 +1971,6 @@ planet_event = {
 	trigger = {
 		exists = owner
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			check_variable = { 
 				which = "num_colonies" 
@@ -2020,12 +1992,12 @@ planet_event = {
 					which = "num_colonies"
 					value = 1
 				}
-			 	else = {
-				 	set_variable = {
-				 		which = "num_colonies"
-				 		value = 1
-				 	}
-				}
+			}
+			else = {
+			 	set_variable = {
+			 		which = "num_colonies"
+			 		value = 1
+			 	}
 			}
 			if = {
 				limit = {
@@ -2051,14 +2023,16 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		sectors < 1
 		check_variable = { 
 			which = "num_colonies" 
 			value > 2
  		}
- 		NOT = { has_event_chain = tutorial_17_chain }
+ 		NOT = { 
+ 			has_event_chain = tutorial_17_chain
+ 			has_ethic = ethic_gestalt_consciousness
+ 		}
 	}
 	
 	immediate = {
@@ -2084,7 +2058,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_17_chain"
 		sectors > 0
@@ -2119,13 +2092,13 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		any_sector = {
 			NOT = { exists = leader }
 		}
 		NOT = {
 			has_event_chain = tutorial_18_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 	
@@ -2152,7 +2125,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_18_chain"
 		any_sector = { exists = leader }
@@ -2184,11 +2156,11 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_19_chain
 			has_country_flag = tutorial_cleared_early_48
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -2212,7 +2184,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = "tutorial_19_chain"
@@ -2236,7 +2207,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_19_chain"
 	}
@@ -2267,11 +2237,11 @@ ship_event = {
 
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = {
 				has_event_chain = tutorial_20_chain
 				has_country_flag = finished_tutorial_20
+				has_ethic = ethic_gestalt_consciousness
 			}
 			has_technology = tech_space_construction
 		}
@@ -2304,7 +2274,6 @@ country_event = {
 	is_advisor_event = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = "tutorial_20_chain"
 		any_owned_ship = { is_ship_size = observation_station }
@@ -2347,9 +2316,9 @@ ship_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		owner = {
-			is_ai = no
+		owner = { 
 			is_tutorial_level = 2
+			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
 	}
 
@@ -2376,7 +2345,6 @@ ship_event = {
 		}
 	}
 }
-
 ship_event = {
 #Story5
 	id = tutorial.53
@@ -2401,10 +2369,7 @@ ship_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		owner = {
-			is_ai = no
-			is_tutorial_level = 2
-		}
+		owner = { is_tutorial_level = 2 }
 	}
 
 	immediate = { hidden_effect = { owner = { country_event = { id = story.5 days = 30 } } } }
@@ -2445,7 +2410,6 @@ ship_event = {
 		}
 	}
 }
-
 ship_event = {
 	id = tutorial.54
 	title = tutorial.52.name
@@ -2456,10 +2420,7 @@ ship_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		owner = {
-			is_ai = no
-			is_tutorial_level = 2
-		}
+		owner = { is_tutorial_level = 2 }
 	}
 
 	option = {
@@ -2512,11 +2473,11 @@ ship_event = {
 
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = {
 				has_event_chain = tutorial_21_chain
 				has_country_flag = finished_tutorial_21
+				has_ethic = ethic_gestalt_consciousness
 			}
 		}
 		from = {
@@ -2526,39 +2487,31 @@ ship_event = {
 			# Strategic resource on this planet
 			AND = {
 				owner = { has_technology = tech_mine_neutronium }
-				from = { has_deposit = d_neutronium_deposit }
+				from = { has_resource = { type = sr_neutronium amount > 0 } }
 			}
 			AND = {
 				owner = { has_technology = tech_mine_teldar }
-				from = { has_deposit = d_teldar_deposit }
+				from = { has_resource = { type = sr_teldar amount > 0 } }
 			}
 			AND = {
 				owner = { has_technology = tech_mine_dark_matter }
-				from = { has_deposit = d_dark_matter_deposit }
+				from = { has_resource = { type = sr_dark_matter amount > 0 } }
 			}
 			AND = {
 				owner = { has_technology = tech_engos_vapor }
-				from = { has_deposit = d_engos_deposit }
-			}
-			AND = {
-				owner = { has_technology = tech_pitharan_dust }
-				from = { has_deposit = d_pitharan_deposit }
+				from = { has_resource = { type = sr_engos amount > 0 } }
 			}
 			AND = {
 				owner = { has_technology = tech_mine_living_metal }
 				from = { has_deposit = d_living_metal_deposit }
 			}
 			AND = {
-				owner = { has_technology = tech_lythuric_gas }
-				from = { has_deposit = d_lythuric_gas_deposit }
-			}
-			AND = {
 				owner = { has_technology = tech_mine_zro }
-				from = { has_deposit = d_zro_deposit }
+				from = { has_resource = { type = sr_zro amount > 0 } }
 			}
 			AND = {
 				owner = { has_technology = tech_mine_garanthium }
-				from = { has_deposit = d_garanthium_deposit }
+				from = { has_resource = { type = sr_garanthium amount > 0 } }
 			}
 			AND = {
 				owner = { has_technology = tech_alien_life_studies }
@@ -2568,10 +2521,9 @@ ship_event = {
 				owner = { has_technology = tech_mine_betharian }
 				from = { has_deposit = d_betharian_deposit }
 			}
-			AND = {
-				owner = { has_technology = tech_mine_satramene }
-				from = { has_deposit = d_satramene_deposit }
-			}
+			from = { has_resource = { type = sr_satramene amount > 0 } }
+			from = { has_resource = { type = sr_pitharan amount > 0 } }
+			from = { has_resource = { type = sr_lythuric amount > 0 } }
 		}
 	}
 
@@ -2596,7 +2548,6 @@ ship_event = {
 		custom_tooltip = tutorial_21_tooltip
 	}
 }
-
 # Start with meantime
 country_event = {
 	id = tutorial.555
@@ -2607,11 +2558,11 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_21_chain
 			has_country_flag = finished_tutorial_21
+			has_ethic = ethic_gestalt_consciousness
 		}
 		capital_scope = {
 			solar_system = {
@@ -2624,35 +2575,27 @@ country_event = {
 							NOT = { has_orbital_station = yes }
 							OR ={
 								AND = {
-									has_deposit = d_neutronium_deposit
+									has_resource = { type = sr_neutronium amount > 0 }
 									root = { has_technology = tech_mine_neutronium }
 								}
 								AND = {
-									has_deposit = d_teldar_deposit
+									has_resource = { type = sr_teldar amount > 0 }
 									root = { has_technology = tech_mine_teldar }
 								}
 								AND = {
-									has_deposit = d_dark_matter_deposit
+									has_resource = { type = sr_dark_matter amount > 0 }
 									root = { has_technology = tech_mine_dark_matter }
 								}
 								AND = {
-									has_deposit = d_engos_deposit
+									has_resource = { type = sr_engos amount > 0 }
 									root = { has_technology = tech_engos_vapor }
-								}
-								AND = {
-									has_deposit = d_pitharan_deposit
-									root = { has_technology = tech_pitharan_dust }
 								}
 								AND = {
 									has_deposit = d_living_metal_deposit
 									root = { has_technology = tech_mine_living_metal }
 								}
 								AND = {
-									has_deposit = d_lythuric_gas_deposit
-									root = { has_technology = tech_lythuric_gas }
-								}
-								AND = {
-									has_deposit = d_garanthium_deposit
+									has_resource = { type = sr_garanthium amount > 0 }
 									root = { has_technology = tech_mine_garanthium }
 								}
 								AND = {
@@ -2663,10 +2606,9 @@ country_event = {
 									has_deposit = d_betharian_deposit
 									root = { has_technology = tech_mine_betharian }
 								}
-								AND = {
-									has_deposit = d_satramene_deposit
-									root = { has_technology = tech_mine_satramene }
-								}
+								has_resource = { type = sr_satramene amount > 0 }
+								has_resource = { type = sr_lythuric amount > 0 }
+								has_resource = { type = sr_pitharan amount > 0 }
 							}
 						}
 					}
@@ -2704,25 +2646,24 @@ ship_event = {
 
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_21_chain"
 			NOT = { has_country_flag = finished_tutorial_21 }
 		}
 		from = {
 			OR = {
-				has_deposit = d_neutronium_deposit
-				has_deposit = d_teldar_deposit
-				has_deposit = d_dark_matter_deposit
-				has_deposit = d_engos_deposit
-				has_deposit = d_pitharan_deposit
+				has_resource = { type = sr_neutronium amount > 0 }
+				has_resource = { type = sr_teldar amount > 0 }
+				has_resource = { type = sr_dark_matter amount > 0 }
+				has_resource = { type = sr_engos amount > 0 }
+				has_resource = { type = sr_pitharan amount > 0 }
 				has_deposit = d_living_metal_deposit
-				has_deposit = d_lythuric_gas_deposit
-				has_deposit = d_zro_deposit
-				has_deposit = d_garanthium_deposit
+				has_resource = { type = sr_lythuric amount > 0 }
+				has_resource = { type = sr_zro amount > 0 }
+				has_resource = { type = sr_garanthium amount > 0 }
 				has_deposit = d_alien_pets_deposit
 				has_deposit = d_betharian_deposit
-				has_deposit = d_satramene_deposit
+				has_resource = { type = sr_satramene amount > 0 }
 			}
 		}
 	}
@@ -2738,7 +2679,6 @@ ship_event = {
 		name = OK
 	}
 }
-
 # Finished by having a mining station on a resource before researching the required tech
 country_event = {
 	id = tutorial.560
@@ -2749,67 +2689,47 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = { has_country_flag = finished_tutorial_21 }
-		capital_scope = {
-			solar_system = {
-				closest_system = {
-					max_steps = 15
-					limit = {
-						any_planet = {
-							is_capital = no
-							is_surveyed = { who = ROOT status = yes }
-							has_orbital_station = yes
-							OR ={
-								AND = {
-									has_deposit = d_neutronium_deposit
-									root = { has_technology = tech_mine_neutronium }
-								}
-								AND = {
-									has_deposit = d_teldar_deposit
-									root = { has_technology = tech_mine_teldar }
-								}
-								AND = {
-									has_deposit = d_dark_matter_deposit
-									root = { has_technology = tech_mine_dark_matter }
-								}
-								AND = {
-									has_deposit = d_engos_deposit
-									root = { has_technology = tech_engos_vapor }
-								}
-								AND = {
-									has_deposit = d_pitharan_deposit
-									root = { has_technology = tech_pitharan_dust }
-								}
-								AND = {
-									has_deposit = d_living_metal_deposit
-									root = { has_technology = tech_mine_living_metal }
-								}
-								AND = {
-									has_deposit = d_lythuric_gas_deposit
-									root = { has_technology = tech_lythuric_gas }
-								}
-								AND = {
-									has_deposit = d_garanthium_deposit
-									root = { has_technology = tech_mine_garanthium }
-								}
-								AND = {
-									has_deposit = d_alien_pets_deposit
-									root = { has_technology = tech_alien_life_studies }
-								}
-								AND = {
-									has_deposit = d_betharian_deposit
-									root = { has_technology = tech_mine_betharian }
-								}
-								AND = {
-									has_deposit = d_satramene_deposit
-									root = { has_technology = tech_mine_satramene }
-								}
-							}
-						}
-					}
+		any_planet_within_border = {
+			is_capital = no
+			has_orbital_station = yes
+			OR ={
+				AND = {
+					has_resource = { type = sr_neutronium amount > 0 }
+					root = { has_technology = tech_mine_neutronium }
 				}
+				AND = {
+					has_resource = { type = sr_teldar amount > 0 }
+					root = { has_technology = tech_mine_teldar }
+				}
+				AND = {
+					has_resource = { type = sr_dark_matter amount > 0 }
+					root = { has_technology = tech_mine_dark_matter }
+				}
+				AND = {
+					has_resource = { type = sr_engos amount > 0 }
+					root = { has_technology = tech_engos_vapor }
+				}
+				AND = {
+					has_deposit = d_living_metal_deposit
+					root = { has_technology = tech_mine_living_metal }
+				}
+				AND = {
+					has_resource = { type = sr_garanthium amount > 0 }
+					root = { has_technology = tech_mine_garanthium }
+				}
+				AND = {
+					has_deposit = d_alien_pets_deposit
+					root = { has_technology = tech_alien_life_studies }
+				}
+				AND = {
+					has_deposit = d_betharian_deposit
+					root = { has_technology = tech_mine_betharian }
+				}
+				has_resource = { type = sr_pitharan amount > 0 }
+				has_resource = { type = sr_satramene amount > 0 }
+				has_resource = { type = sr_lythuric amount > 0 }
 			}
 		}
 	}
@@ -2819,66 +2739,51 @@ country_event = {
 	}
 
 	immediate = {
-		capital_scope = {
-			solar_system = {
-				closest_system = {
-					max_steps = 15
-					random_planet = {
-						limit = {
-							is_capital = no
-							is_surveyed = { who = ROOT status = yes }
-							has_orbital_station = yes
-							OR ={
-								AND = {
-									has_deposit = d_neutronium_deposit
-									root = { has_technology = tech_mine_neutronium }
-								}
-								AND = {
-									has_deposit = d_teldar_deposit
-									root = { has_technology = tech_mine_teldar }
-								}
-								AND = {
-									has_deposit = d_dark_matter_deposit
-									root = { has_technology = tech_mine_dark_matter }
-								}
-								AND = {
-									has_deposit = d_engos_deposit
-									root = { has_technology = tech_engos_vapor }
-								}
-								AND = {
-									has_deposit = d_pitharan_deposit
-									root = { has_technology = tech_pitharan_dust }
-								}
-								AND = {
-									has_deposit = d_living_metal_deposit
-									root = { has_technology = tech_mine_living_metal }
-								}
-								AND = {
-									has_deposit = d_lythuric_gas_deposit
-									root = { has_technology = tech_lythuric_gas }
-								}
-								AND = {
-									has_deposit = d_garanthium_deposit
-									root = { has_technology = tech_mine_garanthium }
-								}
-								AND = {
-									has_deposit = d_alien_pets_deposit
-									root = { has_technology = tech_alien_life_studies }
-								}
-								AND = {
-									has_deposit = d_betharian_deposit
-									root = { has_technology = tech_mine_betharian }
-								}
-								AND = {
-									has_deposit = d_satramene_deposit
-									root = { has_technology = tech_mine_satramene }
-								}
-							}
-						}
-						save_event_target_as = StrategicResourcePlanet
+		random_planet_within_border = {
+			limit = {
+				is_capital = no
+				is_surveyed = { who = ROOT status = yes }
+				has_orbital_station = yes
+				owner = { is_same_value = ROOT }
+				OR ={
+					AND = {
+						has_resource = { type = sr_neutronium amount > 0 }
+						root = { has_technology = tech_mine_neutronium }
 					}
+					AND = {
+						has_resource = { type = sr_teldar amount > 0 }
+						root = { has_technology = tech_mine_teldar }
+					}
+					AND = {
+						has_resource = { type = sr_dark_matter amount > 0 }
+						root = { has_technology = tech_mine_dark_matter }
+					}
+					AND = {
+						has_resource = { type = sr_engos amount > 0 }
+						root = { has_technology = tech_engos_vapor }
+					}
+					AND = {
+						has_deposit = d_living_metal_deposit
+						root = { has_technology = tech_mine_living_metal }
+					}
+					AND = {
+						has_resource = { type = sr_garanthium amount > 0 }
+						root = { has_technology = tech_mine_garanthium }
+					}
+					AND = {
+						has_deposit = d_alien_pets_deposit
+						root = { has_technology = tech_alien_life_studies }
+					}
+					AND = {
+						has_deposit = d_betharian_deposit
+						root = { has_technology = tech_mine_betharian }
+					}
+					has_resource = { type = sr_satramene amount > 0 }
+					has_resource = { type = sr_lythuric amount > 0 }
+					has_resource = { type = sr_pitharan amount > 0 }
 				}
 			}
+			save_event_target_as = StrategicResourcePlanet
 		}
 		end_event_chain = "tutorial_21_chain"
 		set_country_flag = finished_tutorial_21
@@ -2906,10 +2811,6 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 
-	trigger = {
-		is_ai = no
-	}
-
 	immediate = {
 		end_event_chain = "tutorial_21b_chain"
 	}
@@ -2935,11 +2836,11 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_22_chain
 			has_country_flag = finished_tutorial_22
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -2967,7 +2868,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = tutorial_22_chain
 	}
@@ -2994,11 +2894,12 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_23_chain
 			has_country_flag = finished_tutorial_23
+			FROM = { is_country_type = primitive }
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -3026,7 +2927,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = tutorial_23_chain
 	}
@@ -3052,7 +2952,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = tutorial_23_chain
 	}
@@ -3075,8 +2974,8 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		is_tutorial_level = 2
 		is_country_type = default
-		from = { is_tutorial_level = 2 }
 	}
 
 	immediate = {
@@ -3097,7 +2996,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		is_country_type = default
 		has_event_chain = tutorial_23_chain
@@ -3112,8 +3010,10 @@ country_event = {
 					}
 				}
 			}
-			else = { end_event_chain = tutorial_23_chain }
+			#break = yes
+			# nothing
 		}
+		else = { end_event_chain = tutorial_23_chain }
 	}
 
 	option = {
@@ -3133,7 +3033,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		OR = {
 			last_increased_tech = "tech_gene_tailoring"
@@ -3142,6 +3041,7 @@ country_event = {
 		NOT = {
 			has_country_flag = tutorial_24
 			has_event_chain = tutorial_24_chain
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -3170,7 +3070,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_event_chain = tutorial_24_chain
 	}
@@ -3216,7 +3115,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level > 0
 	}
 
@@ -3255,12 +3153,12 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		OR = {
 			last_increased_tech = tech_epigenetic_triggers
 			#has_event_chain = tutorial_22_chain
 		}
+		NOT = { has_ethic = ethic_gestalt_consciousness }
 	}
 
 	option = {
@@ -3309,11 +3207,11 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		NOT = {
 			has_event_chain = tutorial_25_chain
 			has_country_flag = tutorial_cleared_early_75
+			has_ethic = ethic_gestalt_consciousness
 		}
 	}
 
@@ -3338,7 +3236,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			NOT = { has_country_flag = tutorial_cleared_early_75 }
 		}
@@ -3361,7 +3258,6 @@ ship_event = {
 	
 	trigger = {
 		owner = {
-			is_ai = no
 			is_tutorial_level = 2
 			has_event_chain = "tutorial_25_chain"
 		}
@@ -3387,7 +3283,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 0
 		has_country_flag = tutorial_level_picked
 	}
@@ -3412,7 +3307,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 1
 		has_country_flag = tutorial_level_picked
 		NOT = { has_ethic = ethic_gestalt_consciousness }
@@ -3438,7 +3332,6 @@ country_event = {
 	is_advisor_event = yes
 
 	trigger = {
-		is_ai = no
 		is_tutorial_level = 2
 		has_country_flag = tutorial_level_picked
 		NOT = { has_ethic = ethic_gestalt_consciousness }
@@ -3454,9 +3347,9 @@ country_event = {
 					has_country_flag = waiting_tutorial_4
 				}
 				country_event = { id = tutorial.501 days = 10 }
-				else = {
-					country_event = { id = tutorial.1 }
-				}
+			}
+			else = {
+				country_event = { id = tutorial.1 }
 			}
 		}
 	}
@@ -3469,7 +3362,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		OR = {
 			is_tutorial_level = 0
 			is_tutorial_level = 1
@@ -3646,7 +3538,6 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		is_ai = no
 		is_tutorial_level < 1
 		NOT = { has_country_flag = tutorial_level_picked }
 	}

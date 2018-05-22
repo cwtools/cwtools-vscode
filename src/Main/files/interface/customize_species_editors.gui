@@ -28,6 +28,7 @@ guiTypes = {
 			buttonText = "NEXT"
 			position = { x = 250 y = 70 }
 			#shortcut = "RETURN"
+			clicksound = "confirm_click"
 		}
 		
 		instantTextBoxType = {
@@ -110,6 +111,7 @@ guiTypes = {
 			background = {
 				name = "background"
 				spriteType = "GFX_tiles_frame"
+				clicksound = select_click
 			}
 
 			gridBoxType = {
@@ -141,6 +143,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -150,6 +153,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 	
@@ -255,6 +259,7 @@ guiTypes = {
 			position = { x = 350 y = 90 }
 			spriteType = "GFX_button_randomize"
 			pdx_tooltip = "EDIT_SPECIES_NAME_RANDOMIZE_TOOLTIP"
+			clicksound = randomizer_click
 		}
 		
 		###
@@ -356,6 +361,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -365,6 +371,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 		
 	}
@@ -543,6 +550,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType = {
 			name = "apply_and_close"
@@ -551,6 +559,7 @@ guiTypes = {
 			buttonText = "NEXT"
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
+			clicksound = confirm_click
 		}
 	}
 
@@ -561,7 +570,7 @@ guiTypes = {
 		background = {
 			name = "background"
 			spriteType = "GFX_invisible"
-			clicksound = "interface"
+			clicksound = "select_click"
 		}
 
 		containerWindowType = {
@@ -688,6 +697,7 @@ guiTypes = {
 			position = { x = 545 y = 85 }
 			spriteType = "GFX_button_randomize"
 			pdx_tooltip = "EDIT_SPECIES_NAME_RANDOMIZE_TOOLTIP"
+			clicksound = randomizer_click
 		}
 		
 		buttonType = {
@@ -707,6 +717,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -716,6 +727,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 	
@@ -921,6 +933,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -930,6 +943,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 	
@@ -1034,12 +1048,14 @@ guiTypes = {
 				name = "male"
 				quadTextureSprite = "GFX_button_male"
 				position = { x = 150 y = 1 }
+				clicksound = select_click
 			}
 		
 			buttonType = {
 				name = "female"
 				quadTextureSprite = "GFX_button_female"
 				position = { x = 185 y = 1 }
+				clicksound = select_click
 			}
 
 			instantTextBoxType = {
@@ -1143,6 +1159,7 @@ guiTypes = {
 				position = { x = 250 y = 20 }
 				spriteType = "GFX_button_randomize"
 				pdx_tooltip = "EDIT_SPECIES_NAME_RANDOMIZE_TOOLTIP"
+				clicksound = randomizer_click
 			}
 
 		}
@@ -1203,13 +1220,13 @@ guiTypes = {
 					name = "spinner_upButton"
 					quadTextureSprite = "GFX_button_left"
 					position = { x=30 y =0}	
-					clicksound = interface
+					clicksound = decrement_click
 				}
 				guiButtonType = {
 					name = "spinner_downButton"
 					quadTextureSprite = "GFX_button_right"
 					position = { x=30 y =120}	
-					clicksound = interface
+					clicksound = increment_click
 				}		
 			}
 		}	
@@ -1266,13 +1283,13 @@ guiTypes = {
 					name = "spinner_upButton"
 					quadTextureSprite = "GFX_button_left"
 					position = { x=30 y =0}	
-					clicksound = interface
+					clicksound = decrement_click
 				}
 				guiButtonType = {
 					name = "spinner_downButton"
 					quadTextureSprite = "GFX_button_right"
 					position = { x=30 y =120}	
-					clicksound = interface
+					clicksound = increment_click
 				}		
 			}
 		}		
@@ -1330,13 +1347,13 @@ guiTypes = {
 					name = "spinner_upButton"
 					quadTextureSprite = "GFX_button_left"
 					position = { x=30 y =0}	
-					clicksound = interface
+					clicksound = decrement_click
 				}
 				guiButtonType = {
 					name = "spinner_downButton"
 					quadTextureSprite = "GFX_button_right"
 					position = { x=30 y =120}	
-					clicksound = interface
+					clicksound = increment_click
 				}		
 			}
 		}
@@ -1394,13 +1411,13 @@ guiTypes = {
 					name = "spinner_upButton"
 					quadTextureSprite = "GFX_button_left"
 					position = { x=30 y =0}	
-					clicksound = interface
+					clicksound = decrement_click
 				}
 				guiButtonType = {
 					name = "spinner_downButton"
 					quadTextureSprite = "GFX_button_right"
 					position = { x=30 y =120}	
-					clicksound = interface
+					clicksound = increment_click
 				}		
 			}
 		}
@@ -1457,13 +1474,13 @@ guiTypes = {
 					name = "spinner_upButton"
 					quadTextureSprite = "GFX_button_left"
 					position = { x=30 y =0}	
-					clicksound = interface
+					clicksound = decrement_click
 				}
 				guiButtonType = {
 					name = "spinner_downButton"
 					quadTextureSprite = "GFX_button_right"
 					position = { x=30 y =120}	
-					clicksound = interface
+					clicksound = increment_click
 				}		
 			}
 		}
@@ -1486,6 +1503,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -1495,6 +1513,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 	#######################
@@ -1542,6 +1561,7 @@ guiTypes = {
 			position = { x = 245 y = 78 }
 			spriteType = "GFX_button_randomize"
 			pdx_tooltip = "EDIT_SPECIES_NAME_RANDOMIZE_TOOLTIP"
+			clicksound = randomizer_click
 		}
 		containerWindowType = {
 			name = "homeworld_box"
@@ -1650,6 +1670,7 @@ guiTypes = {
 					position = { x=30 y =0}	
 					clicksound = interface
 					pdx_tooltip = "CHANGE_SYSTEM_INITIALZIER"
+					clicksound = decrement_click
 				}
 				guiButtonType = {
 					name = "spinner_downButton"
@@ -1657,6 +1678,7 @@ guiTypes = {
 					position = { x=30 y =120}	
 					clicksound = interface
 					pdx_tooltip = "CHANGE_SYSTEM_INITIALZIER"
+					clicksound = increment_click
 				}		
 			}
 		}
@@ -1752,7 +1774,7 @@ guiTypes = {
 				position = { x = @planet_col1 y = @planet_row1 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}				
 				
 			buttonType = {		
@@ -1760,7 +1782,7 @@ guiTypes = {
 				position = { x = @planet_col2 y = @planet_row1 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}		
 
 			buttonType = {
@@ -1768,7 +1790,7 @@ guiTypes = {
 				position = { x = @planet_col3 y = @planet_row1 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}
 
 			buttonType = {
@@ -1776,7 +1798,7 @@ guiTypes = {
 				position = { x = @planet_col1 y = @planet_row2 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}
 		
 			buttonType = {
@@ -1784,7 +1806,7 @@ guiTypes = {
 				position = { x = @planet_col2 y = @planet_row2 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}				
 			
 			buttonType = {
@@ -1792,7 +1814,7 @@ guiTypes = {
 				position = { x = @planet_col3 y = @planet_row2 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}
 
 			buttonType = {
@@ -1800,7 +1822,7 @@ guiTypes = {
 				position = { x = @planet_col1 y = @planet_row3 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}	
 		
 			buttonType = {
@@ -1808,7 +1830,7 @@ guiTypes = {
 				position = { x = @planet_col2 y = @planet_row3 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}	
 		
 			buttonType = {
@@ -1816,7 +1838,7 @@ guiTypes = {
 				position = { x = @planet_col3 y = @planet_row3 }
 				spriteType = "GFX_dummy_3d_home_world_new"
 				size = { x = 100 y = 100 }
-				clicksound = "interface"
+				clicksound = "select_click"
 			}
 
 			
@@ -1925,6 +1947,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -1934,6 +1957,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}	
 
 	}
@@ -2018,6 +2042,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		
 		buttonType={
@@ -2028,6 +2053,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 
@@ -2066,7 +2092,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_portrait_planet"
 			position = { x = 6 y = -60 }
 			scale = 0.585
-			clicksound = "tab_click"
+			clicksound = "select_click"
 		}
 
 		instantTextBoxType = {
@@ -2453,6 +2479,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -2462,6 +2489,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 
@@ -2483,7 +2511,7 @@ guiTypes = {
 			orientation = center
 			position = { x = -22 y = -22 } # icon is size 44x44
 			spriteType = "GFX_government_authority"
-			clicksound = interface
+			clicksound = select_click
 		}
 	}
 
@@ -2494,7 +2522,7 @@ guiTypes = {
 		background = {
 			name = "bg"
 			spriteType = "GFX_planet_bg_tile"
-			clicksound = "interface"
+			clicksound = "tab_click"
 		}
 			
 		iconType = {
@@ -2627,6 +2655,7 @@ guiTypes = {
 			spriteType = "GFX_standard_button_200_24"
 			buttonText = "PRIMARY_COLOR"
 			position = { x = 532 y = 45 }
+			clicksound = click_outliner
 		}
 		buttonType={
 			name = "secondary_color"
@@ -2634,6 +2663,7 @@ guiTypes = {
 			spriteType = "GFX_standard_button_200_24"
 			buttonText = "SECONDARY_COLOR"
 			position = { x = 532 y = 75 }
+			clicksound = click_outliner
 		}
 
 		containerWindowType = {
@@ -2677,6 +2707,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -2686,6 +2717,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 	
@@ -2729,7 +2761,7 @@ guiTypes = {
 			name = "flag"
 			quadTextureSprite = "GFX_flag_no_mask"
 			scale = 5
-			clicksound = "tab_click"
+			clicksound = "select_click"
 		}
 
 		iconType = {
@@ -2749,7 +2781,7 @@ guiTypes = {
 		buttonType = {
 			name = "select_color"
 			quadTextureSprite = "GFX_gamesetup_colorpicker"
-			clicksound = "interface"
+			clicksound = "select_click"
 		}
 
 		iconType = {
@@ -3051,6 +3083,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -3060,6 +3093,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 
@@ -3263,6 +3297,7 @@ guiTypes = {
 			position = { x = 0 y = -40 }
 			orientation = LOWER_LEFT
 			shortcut = "BACKSPACE"
+			clicksound = back_click
 		}
 		buttonType={
 			name = "apply_and_close"
@@ -3272,6 +3307,7 @@ guiTypes = {
 			position = { x = -290 y = -40 }
 			orientation = LOWER_RIGHT
 			#shortcut = "RETURN"
+			clicksound = confirm_click
 		}
 	}
 
@@ -3291,7 +3327,7 @@ guiTypes = {
 			background = {
 				name = "click"
 				spriteType = "GFX_clean_frame_area"
-				clicksound = "tab_click"
+				clicksound = select_click
 			}
 		}	
 

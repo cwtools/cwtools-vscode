@@ -1,0 +1,137 @@
+#reloadworldgfx
+gfx_settings = 
+{
+	# world tag identifier
+	world = t_star
+	
+	# Effect and texture info
+	bloom_effect = "bloom"
+	downsample_effect = "downsample"
+	restore_effect = "Restore"
+	restore_bloom_effect = "RestoreBloom"	
+    color_lut = "gfx/worldgfx/colorcorrection_black_hole.tga"
+	environment_map = "gfx/worldgfx/cubemap_filtered_ldr_yellow.dds"
+	
+	galaxy_background = { texture = "gfx/map/sky_core.dds" 	trigger = { distance_to_core_percent < 0.50 } ycocg = yes }
+	galaxy_background = { texture = "gfx/map/sky_mid.dds" 		trigger = { distance_to_core_percent < 0.75 } ycocg = yes }
+	galaxy_background = { texture = "gfx/map/sky_rim.dds" 	trigger = { always = yes } ycocg = yes }
+	
+	galaxy_background_hsv_shift = { -0.85 -0.2 -0.5 }
+	
+	galaxy_background_lut = "gfx/worldgfx/colorcorrection_neutral.tga"
+	#center_entity = "spacedust_entity"	
+	
+	
+	
+	
+	
+#	
+#	# Shader settings
+#	cubemap_intensity = 0.7#0.7
+#
+#	system_back_light_diffuse = hsv { 0.58 0.5 0.0 } #0.5
+#	
+#	ambient = hsv { 0.5	0.2	0.25	}	#0.1 global ambient, no direction
+#	
+#	# Fill light from left up
+#	cam_light_1_diffuse = hsv { 0.12 0.2 0.5} #1
+#	
+#	# Rim light from lower right
+#	cam_light_2_diffuse = hsv { 0.55 0.4 0.0} #0.45
+#	
+#	# Light going over model when moving around
+#	cam_light_3_diffuse = hsv { 0.55 0.35 0.75 } # 0.8
+#	
+#	# Rim light shader
+#
+#	rim_light_diffuse = hsv { 0.56 0.5 0.25}#0.3	
+	
+	
+	
+	
+	
+	
+	
+	# Shader settings
+	# Is affected by SPECULAR_INTENSITY_MULT
+	cubemap_intensity = 0.4#0.4
+
+	# Works for planets, nor for ships
+	# Planets ambient light
+	system_back_light_diffuse = hsv { 0.15 0.1 0.5 } #0.4
+	
+	# Does not affect none metalic objects
+	# Not used at the moment
+	ambient = hsv { 0.55 0.2 0.6	}	#0.1 global ambient, no direction
+	
+	# Fill light from left up
+	# Yellow Key light
+	cam_light_1_diffuse = hsv { 0.12 0.2 0.0} #0.5
+	#cam_light_1_diffuse = hsv { 0.0 0.5 0.0} # RED
+	
+	# Rim light from lower right
+	# Blue light from right
+	cam_light_2_diffuse = hsv { 0.55 0.4 0.45} #0.45
+	#cam_light_2_diffuse = hsv { 0.0 0.4 0.0} RED
+	
+	# Light coming from top, going over model when moving around
+	# Blue fill light from above
+	cam_light_3_diffuse = hsv { 0.55 0.35 0.75 } # 0.75
+	
+	# Rim light shader
+	rim_light_diffuse = hsv { 0.56 0.5 0.25}#0.25	#GOOD
+	
+	
+
+	light_hdr_range = 1.0 
+	
+	
+	
+	bright_threshold = 0.95		# used by both bloom and lens flare
+	
+	#Bloom parameters
+	bloom_width = 2.0
+	bloom_scale = 0.8
+	bloom_iterations = 8					# Bloom steps 
+	emissive_bloom_strength = 0.6
+	
+	
+	#Lens flare parameters
+	lens_flare_bloom_width = 3.0			# Blurryness
+	lens_flare_bloom_scale = 0.8			# Intencity
+	lens_flare_scale = 0.2					# Intencity
+	lens_flare_bias = -0.1					# Threshold
+	lens_flare_ghost_dispersal = 0.3		# Scattering
+	lens_flare_ghost_pow = 15.0				
+	lens_flare_halo_width = 0.6				# Halo ring size
+	lens_flare_halo_pow = 0.2
+	lens_flare_distortion_factor = 1.5		# Chromatic abbaritions
+	lens_flare_distortion_factor_halo = 1.0	# Halo Chromatic abbaritions
+	
+	
+	hdr_min_adjustment = 0.15 #är hur mkt den anpassar sig till mörka områden, mindre värde -> mer mörkerseende
+	
+	hdr_max_adjustment = 0.2 #jätte högt värde så ser du bra trots att du står inuti solen och tittar. 
+	#om du sätter max_adjustment till ett relaitiv lågt värde och sedan maxxar solens styrka så bör hela bilden typ overbrigtas
+	hdr_adjustment_speed = 4
+	tonemap_middlegrey = 0.14
+	tonemap_whiteluminance = 2.0
+	
+
+	
+	lava_bright_color = hsv { 0.0 0.6 0.9 } # 
+	lava_bright_intensity = 1.0
+	lava_hot_stone_color = hsv { 0.87 0.7 0.9 } 
+	lava_hot_stone_intensity = 1.0
+	lava_cold_stone_color = hsv { 0.9 0.6 0.8 } 
+	lava_cold_stone_intensity = 1.0 
+
+
+	
+
+	tex_lava_noise="gfx/worldgfx/t_class_noise.dds" #Noise texturen som genererar lava mönstret
+	tex_lava_diffuse="gfx/worldgfx/t_class_cloud_2_d.dds" #Texturen som mullas med bright/lava area
+	tex_stone_diffuse="gfx/worldgfx/t_class_cloud_d.dds" #Texturen som mullas med stone area
+
+	system_light="t_class_star"
+}

@@ -314,6 +314,10 @@
 		
 		CONSTRUCTION_PROGRESS_BLEND_SPEED = 0.025
 		CONSTRUCTION_MEGASTRUCTURE_PROGRESS_BLEND_SPEED = 0.001
+
+		HIDE_HYPERLANES_OUTSIDE_TERRA_INCOGNITA = yes
+		HYPERLANE_DEFAULT_COLOR = { 0.0 1.0 1.0 }
+		HYPERLANE_NO_ACCESS_COLOR = { 0.9 0.15 0.0 }
 	}
 
 	NInterface = {
@@ -350,9 +354,6 @@
 		POTENTIAL_ARMY_ALPHA					= 0.45 # Used in planet view army tab
 		
 		HIGH_PIRACY_RISK						= 0.5  # used in alerts
-
-		ANOMALY_VIEW_RISK_LOW					= 0.1	# Color green if < 11%
-		ANOMALY_VIEW_RISK_MEDIUM				= 0.49	# Color yellow if < 50% else red
 
 		BUILDINGS_TO_SHOW_CITY_LEVEL 			= { 1 3 5 8 11 } # Decides how many buildings are required to show the next level of city-infrastructure in city_frame
 
@@ -490,24 +491,47 @@
 		SYSTEM_INNER_RADIUS_OFFSET = 30
 		SYSTEM_MIN_INNER_RADIUS = 150
 		SYSTEM_OUTER_RADIUS_OFFSET = 100
+		SYSTEM_BOTTLENECK_RADIUS = 2				# System will be considered bottleneck if within N systems there are no intersections between all of the directions
 		SHIP_SUBLIGHT_SPEED_MULT = 5 				# General speed multiplier for ship movement within solar systems
 		MISSILE_SUBLIGHT_SPEED_MULT = 5 			# General speed multiplier for ship movement within solar systems
 		
 		SHIP_DESIGN_SAME_NAME_FACTOR = 10			# The higher this is, the more likely a design of the same name is to be picked when upgrading to latest design
 
 		FTL_MIN_DIST = 1 							# Min distance to FTL point to start the FTL
+		JUMP_DRIVE_COOLDOWN = 200					# Days between uses of Jump Drive
 		
 		RELEVANT_DISTANCE = 150				# Within this distance we're considered to be diplomatically relevant
 
 		CONSTRUCTION_SHIP_WORK_SPEED_MULT = 1	# Construction ship construction speed multiplier
 		CONSTRUCTION_SHIP_STATION_OFFSET = 5		# distance to the station that the ship is building
 		SCIENCE_SHIP_SPECIAL_PROJECT_OFFSET = 20	# distance to the special project when collecting data
-		SCIENCE_SHIP_WORK_SPEED_MULT = 1.75		# Science ship survey speed multiplier
+		SCIENCE_SHIP_SURVEY_SPEED_MULT = 0.5		# Science ship survey speed multiplier
+		SCIENCE_SHIP_ANOMALY_RESEARCH_DAYS = { # equal level is middle (count of items / 2)
+			20 		#9 levels above anomaly
+			24 		#8 levels above anomaly
+			30 		#7 levels above anomaly
+			35 		#6 levels above anomaly
+			45 		#5 levels above anomaly
+			55 		#4 levels above anomaly
+			65 		#3 levels above anomaly
+			80 		#2 levels above anomaly
+			100		#1 level above anomaly
+			120		#0 level equal to anomaly
+			180		#1 level below anomaly
+			300		#2 levels below anomaly
+			540		#3 levels below anomaly
+			720		#4 levels below anomaly
+			1080	#5 levels below anomaly
+			1440	#6 levels below anomaly
+			2160	#7 levels below anomaly
+			2880	#8 levels below anomaly
+			5760	#9 levels below anomaly
+		}
 
 		SENSOR_KNOWLEDGE_HIGH_DIST_PERC = 0.30		# See planet classes if distance is 30% of total sensor range sq distance
 
-		HYPERLANE_GEN_REMOVE_PERC = 0.20			# Try to remove 40% of the longest edges
-		HYPERLANE_GEN_REMOVED_MAX_DIST = 30 		# Don't remove an edge if you have to travel more than 30 stars to reach the same position
+		HYPERLANE_GEN_REMOVE_PERC = 0.15			# Try to remove 40% of the longest edges
+		HYPERLANE_GEN_REMOVED_MAX_DIST = 20 		# Don't remove an edge if you have to travel more than 20 stars to reach the same position
 		HYPERLANE_GEN_REMOVE_TOO_MANY_EDGES = 4	# Remove edges if having 4 or more edges
 		
 		GALAXY_GENERATION_RELAX_ITERATIONS = 1		#Higher values means that systems will be more evenly spaced. Too high values will break spiral galaxies
@@ -555,7 +579,7 @@
 
 		LEADER_SCIENTIST_LEADING_RESEARCH_FIELD_EXPERIENCE			= 3.5
 		LEADER_SCIENTIST_SURVEY_EXPERIENCE							= 10 	# Experience gained from surveyed planet
-		LEADER_SCIENTIST_SUCCESSFUL_ANOMALY_RESEARCH_EXPERIENCE		= 100 	# Experience gained from a successful discovery research
+		LEADER_SCIENTIST_SUCCESSFUL_ANOMALY_RESEARCH_EXPERIENCE		= 50 	# Experience gained from a successful discovery research
 		LEADER_SCIENTIST_COMPLETED_SPECIAL_PROJECT_EXPERIENCE		= 100	# Experience gained from completing a special project
 		LEADER_SCIENTIST_DEEP_SCAN_EXPERIENCE						= 200	# Experience gained from a deep scan
 		LEADER_SCIENTIST_ASSIST_RESEARCH							= 0.10 	# Experience gained from assisting research per day
@@ -653,6 +677,7 @@
 		SCIENCE_SHIP_SPECIAL_PROJECT_DIST	= 25.0	# Distance to be able to progress a special project
 
 		PLANET_SENSOR_RANGE					= 1		# Base Sensor range for system that contain fully owned planets in it
+		PLANET_HYPERLANE_RANGE				= 2		# Base Hyperlane Detection range for system that contain fully owned planets in it
 		EVENT_AUTOSELECT_MONTHS				= 9 	# After these months an event option will be autoselected
 		REVOLT_RISK_ALERT					= 0.5	# This is the threshold for the revolt risk alert
 
@@ -677,6 +702,8 @@
 		
 		CUSTOM_EMPIRE_SPAWN_CHANCE 			= 50	# Chance that an empire will be created from an existing template instead of randomly generated (10 = 1% chance)
 		FALLEN_CUSTOM_EMPIRE_SPAWN_CHANCE 	= 50	# Chance that a fallen empire will be created from an existing template instead of randomly generated (10 = 1% chance)
+		FALLEN_EMPIRE_OUTER_BOUNDARY  		= 100	# Outer boundary of galaxy that fallen empire generation will try to avoid
+		FALLEN_EMPIRE_INNER_BOUNDARY		= 0		# Inner boundary of galaxy that fallen empire generation will try to avoid
 		
 		PRESCRIPTED_PLANETS_NUM				= 2	# The number of prescripted ideal colonies in empire_initializers.txt (don't change one without changing the other)
 		PRESCRIPTED_PLANETS_MAX_DISTANCE 	= 50	# Max distance of prescripted ideal colonies in empire_initializers.txt (don't change one without changing the other)
@@ -788,13 +815,9 @@
 
 		#SHIP_COST_RESOURCE = "minerals" # resource to pay ships with
 
-		ANOMALY_RISK_DEFAULT					= 20	# Base failure chance for anomalies
-		ANOMALY_RISK_MOD_POSITIVE				= -10	# Positive risk modifier for researching discovery
-		ANOMALY_RISK_MOD_NEGATIVE				= 20	# Negative risk modifier for researching discovery
-		ANOMALY_RISK_MIN						= 5		# Risk is never less than this
-		ANOMALY_CRITICAL_FAIL_CHANCE			= 0.20 # 20% chance of critical fail on fail
-		ANOMALY_SPAWN_CHANCE					= 0.025# Percent chance that a planet gets a discovery when surveyed
+		ANOMALY_SPAWN_CHANCE					= 0.050# Percent chance that a planet gets a discovery when surveyed
 		ANOMALY_SPAWN_CHANCE_INCREMENT			= 0.005# Percentage increase towards next chance when failing
+
 		GOVERNMENT_COOLDOWN_YEARS				= 20	# Cooldown years after changing government before you can change it again
 		GOVERNMENT_CHANGE_INFLUENCE_COST		= 250	# The Influence it costs to change government type
 		
@@ -909,9 +932,9 @@
 
 		GATEWAYS_MIN_DISTANCE	= 200		# Min distance between generated shortcuts and their endpoint
 		GALAXY_GENERATION_GATEWAYS_PERCENTAGE	= 0.05		# percentage of systems that will have a shortcut at game start
-		SCIENCE_SHIP_BASIC_SURVEY_SPEED = 1
 
-		EDICT_MAX_RESOURCE_COST = 1000000
+		EDICT_MAX_RESOURCE_COST 			= 1000000
+		EXPERIMENTAL_SUBSPACE_NAVIGATION_TIME_MULT 			= 0.8		# value * euclidean distance to system defines the MIA time (travel time in days) for a Science Ship MIA Jump	
 	}
 
 	NSpecies = {
@@ -1030,6 +1053,8 @@
 		SHIP_EXP_EXPERIENCED			= 100				# Amount of exp to reach experienced rank
 		SHIP_EXP_VETERAN				= 1000				# Amount of exp to reach veteran rank
 		SHIP_EXP_ELITE					= 10000				# Amount of exp to reach elite rank
+
+		CAN_TRAVEL_BETWEEN_UNEXPLORED_SYSTEMS = no		# Can move between 2 unexplored systems
 	}
 
 	NCombat = {
@@ -1502,14 +1527,14 @@
 		
 		SAVINGS_BUDGET_FRACTION = 0.00 		# AI will spend this fraction of their income on savings (normally not needed as fleets in dock will result in energy surplus)
 		ARMY_BUDGET_FRACTION = 0.05   			# AI will spend this fraction of their income on armies
-		NAVY_BUDGET_FRACTION = 0.15 			# AI will spend this fraction of their income on ships
+		NAVY_BUDGET_FRACTION = 0.10 			# AI will spend this fraction of their income on ships
 		STATION_BUDGET_FRACTION = 0.25 		# AI will spend this fraction of their income on stations
-		BUILDING_BUDGET_FRACTION = 0.40 		# AI will spend this fraction of their income on buildings
+		BUILDING_BUDGET_FRACTION = 0.45 		# AI will spend this fraction of their income on buildings
 		ROBOT_BUDGET_FRACTION = 0.10			# AI will spend this fraction of their income on robots (transfered to stations & buildings if they don't use robots)
 		STARBASE_BUDGET_FRACTION = 0.10
 		
-		DANGER_BUDGET_FACTOR = 0.1				# When there are potential dangers increase navy budget by this amount
-		SHIPSIZE_BUDGET_FACTOR = 0.025			# For each ship size unlocked increase navy budget by this amount
+		DANGER_BUDGET_FACTOR = 0.05				# When there are potential dangers increase navy budget by this amount
+		SHIPSIZE_BUDGET_FACTOR = 0.015			# For each ship size unlocked increase navy budget by this amount
 		PLANET_BUDGET_FACTOR = 0.20			# When AI has few planets it will decrease building/mil station budget by this and put it into colonies/stations instead
 		MAX_PLANETS_FOR_BUDGET_FACTOR = 5		# At this amount of planets budget is normalized
 		MAX_SYSTEMS_FOR_BUDGET_FACTOR = 10 # At this amount of systems budget priority shifts to colonies
@@ -1568,16 +1593,17 @@
 		MAX_MINERALS_STORED_SECTOR_POST = 1300		# Minerals AI will store for each budget post in sectors	
 		MAX_MINERALS_STORED_SECTOR_POST_BUILDINGS = 1000		# Minerals AI will store for buildings
 		MAX_MINERALS_SPENT_ON_NAVY = 0.50			# Spend no more than this fraction of mineral income on navy maintenance
+		MAX_MINERALS_SPENT_ON_NAVY_FALLEN_EMPIRE = 0.75		# Spend no more than this fraction of mineral income on navy maintenance
 
 		EXPECTED_UNITY_BASE = 10				# AI expects to make this base amount in unity
-		EXPECTED_UNITY_PER_POP = 0.25			# AI expects to make about their num pops x this in unity
+		EXPECTED_UNITY_PER_POP = 0.33			# AI expects to make about their num pops x this in unity
 		EXPECTED_FOOD_BASE = 20					# AI expects to produce this much food surplus (before surplus)
 		EXPECTED_FOOD_PER_GROWING_PLANET = 10	# AI expects to make about their num planets needing food x this in food surplus
-		EXPECTED_MINERALS_BASE = 50				# AI expects to make this base amount in minerals
-		EXPECTED_MINERALS_PER_POP = 1.25		# AI expects to make about their num pops x this in minerals
+		EXPECTED_MINERALS_BASE = 100			# AI expects to make this base amount in minerals
+		EXPECTED_MINERALS_PER_POP = 1.5			# AI expects to make about their num pops x this in minerals
 		EXPECTED_TECH_BASE = 10					# AI expects to make this base amount in tech
 		EXPECTED_TECH_PER_POP = 0.5				# AI expects to make about their num pops x this in tech
-		EXPECTED_ENERGY_BASE = 40				# AI expects to make this base amount in energy
+		EXPECTED_ENERGY_BASE = 50				# AI expects to make this base amount in energy
 		EXPECTED_ENERGY_PER_POP = 1				# AI expects to make about their num pops x this in energy
 		EXPECTED_ENERGY_SURPLUS = 3				# AI wants a surplus of least this amount in monthly energy production (temporary spending such as colonies does not count)
 		
@@ -1719,6 +1745,7 @@
 		EXPANSION_COLONY_PRIORITY = 10			# How much will AI prioritize systems with colonizeable worlds when building starbases
 		EXPANSION_BYPASS_PRIORITY = 10			# How much will AI prioritize systems with bypasses when building starbases
 		EXPANSION_MIN_VALUE_FOR_HIGH_PRIO = 10	# How much value does a system need to be considered priority over building up existing systems in borders
+		EXPANSION_RANDOM_AMOUNT	= 50			# A random roll of this amount is added to each system's score when deciding where to expand next
 		
 		MAX_CLAIM_DISTANCE = 4					# Max number of jumps away AI will make claims on
 		MAX_CLAIM_DISTANCE_SUBJECT = 2			# Max number of jumps away AI subjects will make claims on

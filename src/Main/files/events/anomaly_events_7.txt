@@ -8,67 +8,6 @@
 
 namespace = anomaly
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
 # ROOT = ship scope
 # FROM = planet scope
 
@@ -81,6 +20,7 @@ ship_event = {
 	show_sound = event_radio_chatter
 	picture = GFX_evt_archaeological_dig
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -108,9 +48,7 @@ ship_event = {
 					has_policy_flag = ai_outlawed
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_spiritualist
-					NOR = {
-						has_technology = tech_robotic_workers
-						has_technology = tech_droid_workers
+					NOT = {
 						has_technology = tech_synthetic_workers 
 					}
 				}
@@ -118,21 +56,21 @@ ship_event = {
 		}
 	}
 
-	desc = {
-		text = anomaly.186.desc.v2
-		trigger = { 
-			hidden:owner = { 
-				has_technology = tech_robotic_workers 
-				NOR = { 
-					has_technology = tech_droid_workers
-					has_technology = tech_synthetic_workers
-					has_policy_flag = ai_outlawed
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-				}
-			}
-		}
-	}
+	#desc = {
+	#	text = anomaly.186.desc.v2
+	#	trigger = { 
+	#		hidden:owner = { 
+	#			has_technology = tech_robotic_workers 
+	#			NOR = { 
+	#				has_technology = tech_droid_workers
+	#				has_technology = tech_synthetic_workers
+	#				has_policy_flag = ai_outlawed
+	#				has_ethic = ethic_spiritualist
+	#				has_ethic = ethic_fanatic_spiritualist
+	#			}
+	#		}
+	#	}
+	#}
 
 	desc = {
 		text = anomaly.186.desc.v3
@@ -151,6 +89,7 @@ ship_event = {
 	show_sound = event_radio_chatter
 	location = fromfrom
 	is_triggered_only = yes
+	trackable = yes
 
 	option = {
 		name = "anomaly.186.a"
@@ -165,39 +104,35 @@ ship_event = {
 		}
 	}
 
-	option = {
-		name = "anomaly.186.b"
-		custom_tooltip = anomaly.186.b.tooltip
-		trigger = {
-			owner = {
-					has_technology = tech_robotic_workers
-				NOR = {	
-					has_technology = tech_droid_workers
-					has_technology = tech_synthetic_workers
-					has_policy_flag = ai_outlawed
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-				}
-			}
-		}
-
-		hidden_effect = {
-			fromfrom = { set_planet_flag = limbo_planet }
-			owner = {
-				set_country_flag = limbo_downloaded
-			}
-		}
-	}
+	#option = {
+	#	name = "anomaly.186.b"
+	#	custom_tooltip = anomaly.186.b.tooltip
+	#	trigger = {
+	#		owner = {
+	#				has_technology = tech_robotic_workers
+	#			NOR = {	
+	#				has_technology = tech_droid_workers
+	#				has_technology = tech_synthetic_workers
+	#				has_policy_flag = ai_outlawed
+	#				has_ethic = ethic_spiritualist
+	#				has_ethic = ethic_fanatic_spiritualist
+	#			}
+	#		}
+	#	}
+#
+#	#	hidden_effect = {
+#	#		fromfrom = { set_planet_flag = limbo_planet }
+#	#		owner = {
+#	#			set_country_flag = limbo_downloaded
+#	#		}
+#	#	}
+	#}
 
 	option = {
 		name = "anomaly.186.c"
 		trigger = {
 			owner = {
-				OR = {
-					has_technology = tech_robotic_workers
-					has_technology = tech_droid_workers
-					has_technology = tech_synthetic_workers
-				}
+				has_technology = tech_synthetic_workers
 				NOT = {
 					has_policy_flag = ai_outlawed
 					has_ethic = ethic_spiritualist
@@ -226,9 +161,7 @@ ship_event = {
 		trigger = {
 			owner = {
 				OR = {
-					NOR = {	
-						has_technology = tech_robotic_workers
-						has_technology = tech_droid_workers
+					NOT = {	
 						has_technology = tech_synthetic_workers
 					}
 					has_policy_flag = ai_outlawed
@@ -255,96 +188,96 @@ ship_event = {
 	}      
 }
 
-country_event = {
-	id = anomaly.187
-	title = "anomaly.187.name"
-	desc = "anomaly.187.desc"
-	picture = GFX_evt_synth_organic_relations
-	show_sound = event_radio_chatter
-	location = FROM
+#country_event = {
+#	id = anomaly.187
+#	title = "anomaly.187.name"
+#	desc = "anomaly.187.desc"
+#	picture = GFX_evt_synth_organic_relations
+#	show_sound = event_radio_chatter
+#	location = FROM
+#
+#	is_triggered_only = yes
+#	immediate = {
+#		random_owned_planet = {
+#			limit = { free_pop_tiles > 0 }
+#    		save_event_target_as = bot_planet 
+#    	}	 
+#	}
+#
+#	option = {
+#		name = anomaly.187.a
+#		custom_tooltip = anomaly.187.a.tooltip
+#		trigger = {
+#			has_technology = tech_robotic_workers
+#			any_owned_planet = { free_pop_tiles > 0 }
+#			NOT = {	
+#				#has_technology = tech_droid_workers
+#				#has_technology = tech_synthetic_workers
+#				has_policy_flag = ai_outlawed
+#			}
+#		}
+#
+#		hidden_effect = {
+#			event_target:bot_planet = {
+#				while = {
+#					count = 3
+#					best_tile_for_pop = {
+#						build_pop = {
+#    						name = buildable_robot_pop_1_awoken
+#    						grown = yes
+#    					}
+#    				}
+#    			}
+#    		}
+#    	}
+#	}
+#
+#	# failsafe option: the aliens leave
+#	option = {
+#		name = anomaly.187.b
+#		custom_tooltip = anomaly.189.b.tooltip
+#		hidden_effect = {
+#			country_event = { id = anomaly.1195 days = 40 }
+#		}
+#	}
+#
+#	# Dismantle the robots for parts
+#	option = {
+#		name = anomaly.189.c
+#		custom_tooltip = anomaly.186.a.alt.tooltip
+#		trigger = { has_policy_flag = ai_servitude }
+#		add_minerals = 200
+#	}
+#}
 
-	is_triggered_only = yes
-	immediate = {
-		random_owned_planet = {
-			limit = { free_pop_tiles > 0 }
-    		save_event_target_as = bot_planet 
-    	}	 
-	}
+#country_event = {
+#	id = anomaly.188
+#	title = "anomaly.188.name"
+#	desc = "anomaly.188.desc"
+#	picture = GFX_evt_sapient_AI
+#	show_sound = event_radio_chatter
+#	location = from
+#
+#	is_triggered_only = yes
+#
+#	option = {
+#		name = OK
+#		add_monthly_resource_mult = {
+#			resource = engineering_research
+#			value = @tier3researchreward
+#			min = @tier3researchmin
+#			max = @tier3researchmax
+#		}
+#		add_monthly_resource_mult = {
+#			resource = society_research
+#			value = @tier3researchreward
+#			min = @tier3researchmin
+#			max = @tier3researchmax
+#		}
+#	}
+#}
 
-	option = {
-		name = anomaly.187.a
-		custom_tooltip = anomaly.187.a.tooltip
-		trigger = {
-			has_technology = tech_robotic_workers
-			any_owned_planet = { free_pop_tiles > 0 }
-			NOT = {	
-				#has_technology = tech_droid_workers
-				#has_technology = tech_synthetic_workers
-				has_policy_flag = ai_outlawed
-			}
-		}
-
-		hidden_effect = {
-			event_target:bot_planet = {
-				while = {
-					count = 3
-					best_tile_for_pop = {
-						build_pop = {
-    						name = buildable_robot_pop_1_awoken
-    						grown = yes
-    					}
-    				}
-    			}
-    		}
-    	}
-	}
-
-	# failsafe option: the aliens leave
-	option = {
-		name = anomaly.187.b
-		custom_tooltip = anomaly.189.b.tooltip
-		hidden_effect = {
-			country_event = { id = anomaly.1195 days = 40 }
-		}
-	}
-
-	# Dismantle the robots for parts
-	option = {
-		name = anomaly.189.c
-		custom_tooltip = anomaly.186.a.alt.tooltip
-		trigger = { has_policy_flag = ai_servitude }
-		add_minerals = 200
-	}
-}
-
-country_event = {
-	id = anomaly.188
-	title = "anomaly.188.name"
-	desc = "anomaly.188.desc"
-	picture = GFX_evt_sapient_AI
-	show_sound = event_radio_chatter
-	location = from
-
-	is_triggered_only = yes
-
-	option = {
-		name = OK
-		add_monthly_resource_mult = {
-			resource = engineering_research
-			value = @tier3researchreward
-			min = @tier3researchmin
-			max = @tier3researchmax
-		}
-		add_monthly_resource_mult = {
-			resource = society_research
-			value = @tier3researchreward
-			min = @tier3researchmin
-			max = @tier3researchmax
-		}
-	}
-}
-
-# The droids/synths make a colony, inside or outside of the player's borders
+# The synths make a colony, inside or outside of the player's borders
 country_event = {
 	id = anomaly.189
 	title = "anomaly.189.name"
@@ -398,33 +331,19 @@ country_event = {
 				best_tile_for_pop = {
 					set_building = "building_colony_shelter"
 				}
-				
-				if = {
+				while = {
 					limit = {
-						root = { has_technology = tech_droid_workers
-						NOT = { has_technology = tech_synthetic_workers }
+						any_tile = {
+							has_blocker = no
 						}
 					}
-					while = {
-							count = 3
-							best_tile_for_pop = {
-								build_pop = {
-    								name = buildable_robot_pop_2_awoken
-    								grown = yes
-    							}
-    						}
-					}
-					else = {
-						while = {
-							count = 3
-							best_tile_for_pop = {
-								build_pop = {
-    								name = buildable_robot_pop_3_awoken
-    								grown = yes
-    							}
-    						}
-						}
-					}
+					count = 3
+					best_tile_for_pop = {
+						build_pop = {
+    						name = buildable_robot_pop_3_awoken
+    						grown = yes
+    					}
+    				}
 				}
 			}
 		}
@@ -513,10 +432,6 @@ country_event = {
 					}
 				}
 			}
-			else = {
-				# There are no colonizable planets outside the player's borders
-				country_event = { id = anomaly.1195 days = 40 }
-			}
 			random_system = {
 				limit = {
 					NOR = {
@@ -551,26 +466,12 @@ country_event = {
 						add_deposit = d_immense_mineral_deposit
 					}
     				best_tile_for_pop = {
-						if = {
-							limit = {
-								root = { NOT = { has_technology = tech_synthetic_workers } }
-							}
-							build_pop = {
-								name = buildable_robot_pop_2_awoken
-								grown = yes
-							}
-							last_created_pop = {
-								save_event_target_as = og_bot
-							}
-	    					else = {
-	    						build_pop = {
-									name = buildable_robot_pop_3_awoken
-									grown = yes
-								}
-								last_created_pop = {
-									save_event_target_as = og_bot
-								}
-	    					}
+	    				build_pop = {
+							name = buildable_robot_pop_3_awoken
+							grown = yes
+						}
+						last_created_pop = {
+							save_event_target_as = og_bot
 						}
 	    			}
 
@@ -597,61 +498,54 @@ country_event = {
     				}
 
     				prevent_anomaly = yes 
-					if = {
-						limit = {
-							root = {
-								has_technology = tech_droid_workers
-								NOT = { has_technology = tech_synthetic_workers }
+					create_country = {
+						name = "NAME_Awoken"
+						name_list = FUN3
+						species = ROBOT_POP_SPECIES_3_AWOKEN
+						type = default
+						ethos = {
+							ethic = ethic_fanatic_materialist
+							ethic = ethic_xenophile
+						}
+						authority = random
+						civics = random
+						auto_delete = no
+						flag = {
+							icon = {
+								category = "blocky"
+								file = "flag_blocky_21.dds"
+							}
+							background = {
+								category = "backgrounds"
+								file = "new_dawn.dds"
+							}
+							colors = {
+								"black"
+								"dark_blue"
+								"null"
+								"null"
 							}
 						}
-						create_country = {
-							name = "NAME_Awoken"
-							name_list = FUN3
-							species = ROBOT_POP_SPECIES_2_AWOKEN
-							type = default
-							ethos = {
-								ethic = ethic_fanatic_materialist
-								ethic = ethic_xenophile
-							}
-							authority = random
-							civics = random
-							auto_delete = no
-							flag = {
-								icon = {
-									category = "blocky"
-									file = "flag_blocky_21.dds"
-								}
-								background = {
-									category = "backgrounds"
-									file = "new_dawn.dds"
-								}
-								colors = {
-									"black"
-									"dark_blue"
-									"null"
-									"null"
+						day_zero_contact = no
+						effect = {
+							establish_communications_no_message = root
+							set_country_flag = limbo_country
+							set_country_flag = synthetic_empire
+							species = {
+								if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
+									change_species_characteristics = { portrait = "sd_fun_robot" }
 								}
 							}
-							day_zero_contact = no
-							effect = {
-								establish_communications_no_message = root
-								set_country_flag = limbo_country
-								set_country_flag = synthetic_empire
-								species = {
-									if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
-										change_species_characteristics = { portrait = "sd_fun_robot" }
-									}
-								}
-								create_leader = {
-									type = ruler
-									species = owner_main_species
-									name = random
-									skill = 5
-								}
-								set_leader = last_created_leader
-								copy_techs_from = {
-									target = root
-									except = {
+							create_leader = {
+								type = ruler
+								species = owner_main_species
+								name = random
+								skill = 5
+							}
+							set_leader = last_created_leader
+							copy_techs_from = {
+								target = root
+								except = {
 										# Food
 										tech_hydroponics
 										tech_gene_crops
@@ -686,134 +580,29 @@ country_event = {
 										tech_akx_worm_1
 										tech_akx_worm_2
 										tech_akx_worm_3
-									}
 								}
-							}		
-						}
-						else = {
-							create_country = {
-								name = "NAME_Awoken"
-								name_list = FUN3
-								species = ROBOT_POP_SPECIES_3_AWOKEN
-								type = default
-								ethos = {
-									ethic = ethic_fanatic_materialist
-									ethic = ethic_xenophile
-								}
-								authority = random
-								civics = random
-								auto_delete = no
-								flag = {
-									icon = {
-										category = "blocky"
-										file = "flag_blocky_21.dds"
-									}
-									background = {
-										category = "backgrounds"
-										file = "new_dawn.dds"
-									}
-									colors = {
-										"black"
-										"dark_blue"
-										"null"
-										"null"
-									}
-								}
-								day_zero_contact = no
-								effect = {
-									establish_communications_no_message = root
-									set_country_flag = limbo_country
-									set_country_flag = synthetic_empire
-									species = {
-										if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
-											change_species_characteristics = { portrait = "sd_fun_robot" }
-										}
-									}
-									create_leader = {
-										type = ruler
-										species = owner_main_species
-										name = random
-										skill = 5
-									}
-									set_leader = last_created_leader
-									copy_techs_from = {
-										target = root
-										except = {
-											# Food
-											tech_hydroponics
-											tech_gene_crops
-											tech_nano_vitality_crops
-											tech_nutrient_replication
-											# Misc
-											tech_frontier_health
-											tech_frontier_hospital
-											tech_telepathy
-											tech_precognition_interface
-											tech_psi_jump_drive_1
-											tech_galactic_markets
-											tech_subdermal_stimulation
-											tech_galactic_benevolence
-											tech_global_research_initiative
-											tech_neural_implants
-											tech_psionic_theory
-											# Genetics
-											tech_genome_mapping
-											tech_vitality_boosters
-											tech_epigenetic_triggers
-											tech_cloning
-											tech_gene_banks
-											tech_gene_seed_purification
-											tech_morphogenetic_field_mastery
-											tech_gene_tailoring
-											tech_glandular_acclimation
-											tech_gene_expressions
-											tech_selected_lineages
-											tech_capacity_boosters
-											# Horizon Signal
-											tech_akx_worm_1
-											tech_akx_worm_2
-											tech_akx_worm_3
-										}
-									}
-								}		
 							}
-						}
+						}		
 					}
-
 					set_owner = last_created_country
 					set_capital = yes
-					if = {
-						limit = {
-							root = {
-								has_technology = tech_droid_workers
-								NOT = { has_technology = tech_synthetic_workers }
-							}
-						}
-						while = {
-							count = 3
-							best_tile_for_pop = {
-								build_pop = {
-    								name = buildable_robot_pop_2_awoken
-    								grown = yes
-    							}
+					while = {
+						count = 3
+						best_tile_for_pop = {
+							build_pop = {
+    							name = buildable_robot_pop_3_awoken
+    							grown = yes
     						}
-						}
-						else = {
-							while = {
-								count = 3
-								best_tile_for_pop = {
-									build_pop = {
-    									name = buildable_robot_pop_3_awoken
-    									grown = yes
-    								}
-    							}
-							}
-						}
+    					}
 					}
 					event_target:og_bot = { kill_pop = yes }
 					root = { country_event = { id = anomaly.1196 days = 10 } }
 				}
 			}
+		}
+		else_if = {
+			# There are no colonizable planets outside the player's borders
+			country_event = { id = anomaly.1195 days = 40 }
 		}
 	}
 }
@@ -846,83 +635,83 @@ country_event = {
 }
 
 # Triggers event chain when those who previously didn't have robot tech gets it.
-country_event = {
-	id = anomaly.1191
-	hide_window = yes
-
-	is_triggered_only = yes
-
-	trigger = {
-		last_increased_tech = "tech_robotic_workers"
-		has_country_flag = limbo_downloaded
-		NOT = { 
-		has_policy_flag = ai_outlawed
-		}
-	}
-	immediate = { country_event = { id = anomaly.1192 days = 20 random = 20 } }
-}
+#country_event = {
+#	id = anomaly.1191
+#	hide_window = yes
+#
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		last_increased_tech = "tech_robotic_workers"
+#		has_country_flag = limbo_downloaded
+#		NOT = { 
+#		has_policy_flag = ai_outlawed
+#		}
+#	}
+#	immediate = { country_event = { id = anomaly.1192 days = 20 random = 20 } }
+#}
 
 # enabling research project to download neural patterns into robots. 
-country_event = {
-	id = anomaly.1192
-	title = "anomaly.1192.name"
-	desc = "anomaly.1192.desc"
-	show_sound = event_mystic_reveal
-	picture = GFX_evt_robot_assembly_plant
-	location = capital_scope
-
-	is_triggered_only = yes
-
-	trigger = {
-		NOT = { has_policy_flag = ai_outlawed }
-	}
-
-	option = {
-		name = anomaly.1192.a
-		trigger = {
-			NOT = { has_policy_flag = ai_outlawed }
-		}
-
-		allow = {
-			NOT = {
-				has_policy_flag = ai_outlawed
-			}
-		}
-		capital_scope = {
-			enable_special_project = {
-				name = "LIMBO_2_PROJECT"
-				location = this
-				owner = root
-			}
-		}
-		set_country_flag = project_limbo_2_enabled
-	}
-	#the players wait for better tech.
-	option = {
-		name = "anomaly.1192.b"
-		custom_tooltip = anomaly.1192.alt.tooltip
-		trigger = {
-			has_technology = tech_robotic_workers
-			NOR = {
-				has_technology = tech_droid_workers
-				has_technology = tech_synthetic_workers
-				has_policy_flag = ai_outlawed
-			}
-		}
-	}
-	# The players choose not to download the neural patterns, ending the chain.
-	option = {
-		name = anomaly.186.a
-		custom_tooltip = anomaly.186.a.alt.tooltip
-		add_monthly_resource_mult = {
-			resource = engineering_research
-			value = @tier4researchreward
-			min = @tier4researchmin
-			max = @tier4researchmax
-		}
-		hidden_effect = { remove_country_flag = limbo_downloaded }
-	}
-}
+#country_event = {
+#	id = anomaly.1192
+#	title = "anomaly.1192.name"
+#	desc = "anomaly.1192.desc"
+#	show_sound = event_mystic_reveal
+#	picture = GFX_evt_robot_assembly_plant
+#	location = capital_scope
+#
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		NOT = { has_policy_flag = ai_outlawed }
+#	}
+#
+#	option = {
+#		name = anomaly.1192.a
+#		trigger = {
+#			NOT = { has_policy_flag = ai_outlawed }
+#		}
+#
+#		allow = {
+#			NOT = {
+#				has_policy_flag = ai_outlawed
+#			}
+#		}
+#		capital_scope = {
+#			enable_special_project = {
+#				name = "LIMBO_2_PROJECT"
+#				location = this
+#				owner = root
+#			}
+#		}
+#		set_country_flag = project_limbo_2_enabled
+#	}
+#	#the players wait for better tech.
+#	option = {
+#		name = "anomaly.1192.b"
+#		custom_tooltip = anomaly.1192.alt.tooltip
+#		trigger = {
+#			has_technology = tech_robotic_workers
+#			NOR = {
+#				has_technology = tech_droid_workers
+#				has_technology = tech_synthetic_workers
+#				has_policy_flag = ai_outlawed
+#			}
+#		}
+#	}
+#	# The players choose not to download the neural patterns, ending the chain.
+#	option = {
+#		name = anomaly.186.a
+#		custom_tooltip = anomaly.186.a.alt.tooltip
+#		add_monthly_resource_mult = {
+#			resource = engineering_research
+#			value = @tier4researchreward
+#			min = @tier4researchmin
+#			max = @tier4researchmax
+#		}
+#		hidden_effect = { remove_country_flag = limbo_downloaded }
+#	}
+#}
 
 # Triggers event chain when players who previously didn't have the synth/droid tech gets it.
 
@@ -933,7 +722,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		last_increased_tech = "tech_droid_workers"
+		last_increased_tech = "tech_synthetic_workers"
 		has_country_flag = limbo_downloaded
 		NOT = {
 			has_policy_flag = ai_outlawed
@@ -950,6 +739,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_robot_assembly_plant
 	location = capital_scope
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -987,7 +777,7 @@ country_event = {
 	}
 }
 
-# Notification: The synths/droids are gone without a trace. Ends the event chain.
+# Notification: The synths are gone without a trace. Ends the event chain.
 country_event = {
 	id = anomaly.1195
 	title = "anomaly.1195.name"
@@ -1003,7 +793,7 @@ country_event = {
 	}
 }
 
-# Notification: the synths/droids have colonized a planet
+# Notification: the synths have colonized a planet
 country_event = {
 	id = anomaly.1196
 	title = "anomaly.1196.name"
@@ -1019,7 +809,7 @@ country_event = {
 	}
 }
 
-# If the players have droid or synth tech and colonizable planets inside but not outside their borders the robots offer to colonize a planet inside their borders, and the players can reject them upon which they leave without a trace.
+# If the players have synth tech and colonizable planets inside but not outside their borders the robots offer to colonize a planet inside their borders, and the players can reject them upon which they leave without a trace.
 country_event = {
 	id = anomaly.1198
 	title = "anomaly.1198.name"
@@ -1057,10 +847,10 @@ country_event = {
 				}
 				save_event_target_as = potential_target
 			}
-			else = {
-				capital_scope = {
-					save_event_target_as = potential_target
-				}
+		}
+		else_if = {
+			capital_scope = {
+				save_event_target_as = potential_target
 			}
 		}
 	}
@@ -1127,32 +917,12 @@ country_event = {
 				best_tile_for_pop = {
 					set_building = "building_colony_shelter"
 				}
-
-				if = {
-					limit = {
-						root = {
-							has_technology = tech_droid_workers
-							NOT = { has_technology = tech_synthetic_workers }
-						}
-					}
-					while = {
-						count = 2
-						best_tile_for_pop = {
-							build_pop = {
-    							name = buildable_robot_pop_2_awoken
-    							grown = yes	
-							}
-						}
-					}
-					else = {
-						while = {
-							count = 2
-							best_tile_for_pop = {
-								build_pop = {
-    								name = buildable_robot_pop_3_awoken
-    								grown = yes
-								}
-							}
+				while = {
+					count = 2
+					best_tile_for_pop = {
+						build_pop = {
+    						name = buildable_robot_pop_3_awoken
+    						grown = yes
 						}
 					}
 				}
@@ -1175,7 +945,7 @@ country_event = {
 	}
 }
 
-# If the players have droid or synth tech and colonizable planets outside but not inside their borders they tell the players they are eternally grateful but they'd like to strike out on their own and rebuild their empire again.
+# If the players have synth tech and colonizable planets outside but not inside their borders they tell the players they are eternally grateful but they'd like to strike out on their own and rebuild their empire again.
 country_event = {
 	id = anomaly.1199
 	title = "anomaly.1199.name"
@@ -1283,26 +1053,12 @@ country_event = {
 					}
 	
 					best_tile_for_pop = {
-						if = {
-							limit = {
-								root = { NOT = { has_technology = tech_synthetic_workers } }
-							}
-							build_pop = {
-								name = buildable_robot_pop_2_awoken
-								grown = yes
-							}
-							last_created_pop = {
-								save_event_target_as = og_bot
-							}
-	    					else = {
-	    						build_pop = {
-									name = buildable_robot_pop_3_awoken
-									grown = yes
-								}
-								last_created_pop = {
-									save_event_target_as = og_bot
-								}
-	    					}
+	    				build_pop = {
+							name = buildable_robot_pop_3_awoken
+							grown = yes
+						}
+						last_created_pop = {
+							save_event_target_as = og_bot
 						}
 	    			}
 
@@ -1328,154 +1084,57 @@ country_event = {
 	    				surveyor = root
 	    			}	
 	    			prevent_anomaly = yes 
-	
-					if = {
-						limit = {
-							root = { NOT = { has_technology = tech_synthetic_workers } }
+					create_country = {
+						name = "NAME_Awoken"
+						name_list = FUN3
+						species = ROBOT_POP_SPECIES_3_AWOKEN
+						type = default
+						ethos = {
+							ethic = ethic_fanatic_materialist
+							ethic = ethic_xenophile
 						}
-						create_country = {
-							name = "NAME_Awoken"
-							name_list = FUN3
-							species = ROBOT_POP_SPECIES_2_AWOKEN
-							type = default
-							ethos = {
-								ethic = ethic_fanatic_materialist
-								ethic = ethic_xenophile
+						authority = random
+						civics = random
+						auto_delete = no
+						flag = {
+							icon = {
+								category = "blocky"
+								file = "flag_blocky_21.dds"
 							}
-							authority = random
-							civics = random
-							auto_delete = no
-							flag = {
-								icon = {
-									category = "blocky"
-									file = "flag_blocky_21.dds"
-								}
-								background = {
-									category = "backgrounds"
-									file = "new_dawn.dds"
-								}
-								colors = {
-									"black"
-									"dark_blue"
-									"null"
-									"null"
-								}
+							background = {
+								category = "backgrounds"
+								file = "new_dawn.dds"
 							}
-							day_zero_contact = no
-							effect = {
-								establish_communications_no_message = root
-								add_trust = {
-									amount = 10
-									who = root
-								}
-								save_event_target_as = awoken_country
-								set_country_flag = limbo_country
-								set_country_flag = synthetic_empire
-								species = {
-									if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
-										change_species_characteristics = { portrait = "sd_fun_robot" }
-									}
-								}
-								create_leader = {
-									type = ruler
-									species = owner_main_species
-									name = random
-									skill = 5
-								}
-								set_leader = last_created_leader
-								copy_techs_from = {
-									target = root
-									except = {
-										# Food
-										tech_hydroponics
-										tech_gene_crops
-										tech_nano_vitality_crops
-										tech_nutrient_replication
-										# Misc
-										tech_frontier_health
-										tech_frontier_hospital
-										tech_telepathy
-										tech_precognition_interface
-										tech_psi_jump_drive_1
-										tech_galactic_markets
-										tech_subdermal_stimulation
-										tech_galactic_benevolence
-										tech_global_research_initiative
-										tech_neural_implants
-										tech_psionic_theory
-										# Genetics
-										tech_genome_mapping
-										tech_vitality_boosters
-										tech_epigenetic_triggers
-										tech_cloning
-										tech_gene_banks
-										tech_gene_seed_purification
-										tech_morphogenetic_field_mastery
-										tech_gene_tailoring
-										tech_glandular_acclimation
-										tech_gene_expressions
-										tech_selected_lineages
-										tech_capacity_boosters
-										# Horizon Signal
-										tech_akx_worm_1
-										tech_akx_worm_2
-										tech_akx_worm_3
-									}
-								}
+							colors = {
+								"black"
+								"dark_blue"
+								"null"
+								"null"
 							}
 						}
-						else = {
-							create_country = {
-								name = "NAME_Awoken"
-								name_list = FUN3
-								species = ROBOT_POP_SPECIES_3_AWOKEN
-								type = default
-								ethos = {
-									ethic = ethic_fanatic_materialist
-									ethic = ethic_xenophile
+						day_zero_contact = no
+						effect = {
+							establish_communications_no_message = root
+							add_trust = {
+								amount = 10
+								who = root
+							}
+							save_event_target_as = awoken_country
+							set_country_flag = limbo_country
+							set_country_flag = synthetic_empire
+							species = {
+								if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
+									change_species_characteristics = { portrait = "sd_fun_robot" }
 								}
-								authority = random
-								civics = random
-								auto_delete = no
-								flag = {
-									icon = {
-										category = "blocky"
-										file = "flag_blocky_21.dds"
-									}
-									background = {
-										category = "backgrounds"
-										file = "new_dawn.dds"
-									}
-									colors = {
-										"black"
-										"dark_blue"
-										"null"
-										"null"
-									}
-								}
-								day_zero_contact = no
-								effect = {
-									establish_communications_no_message = root
-									add_trust = {
-										amount = 10
-										who = root
-									}
-									save_event_target_as = awoken_country
-									set_country_flag = limbo_country
-									set_country_flag = synthetic_empire
-									species = {
-										if = { limit = { host_has_dlc = "Synthetic Dawn Story Pack" }
-											change_species_characteristics = { portrait = "sd_fun_robot" }
-										}
-									}
-									create_leader = {
-										type = ruler
-										species = owner_main_species
-										name = random
-										skill = 5
-									}
-									set_leader = last_created_leader
-									copy_techs_from = {
+							}
+							create_leader = {
+								type = ruler
+								species = owner_main_species
+								name = random
+								skill = 5
+							}
+							set_leader = last_created_leader
+							copy_techs_from = {
 										target = root
 										except = {
 											# Food
@@ -1513,41 +1172,20 @@ country_event = {
 											tech_akx_worm_2
 											tech_akx_worm_3
 										}
-									}
-								}
 							}
 						}
 					}
 					set_owner = event_target:awoken_country
 					set_capital = yes
-					if = { 
-						limit = {
-							root = {
-								NOT = { has_technology = tech_synthetic_workers }
-							}
-						}
-						while = {
-							count = 3
-							best_tile_for_pop = {
-								build_pop = {
-	    							name = buildable_robot_pop_2_awoken
-	    							grown = yes
-	    						}
+					while = {
+						count = 3
+						best_tile_for_pop = {
+							build_pop = {
+	    						name = buildable_robot_pop_3_awoken
+	    						grown = yes
 	    					}
-						}
-						else = {
-							while = {
-								count = 3
-								best_tile_for_pop = {
-									build_pop = {
-	    								name = buildable_robot_pop_3_awoken
-	    								grown = yes
-	    							}
-	    						}
-							}
-						}
+	    				}
 					}
-					
 					create_army = {
 						name = "NAME_Awoken_Army"
 						owner = event_target:awoken_country

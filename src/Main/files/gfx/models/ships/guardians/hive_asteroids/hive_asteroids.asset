@@ -1,8 +1,28 @@
+		#### Blue hive asteroids ####
+
 # Small belt asteriod 01
 entity = {
 	name = "hive_asteroid_01_entity"
 	pdxmesh = "hive_asteroid_01_mesh"
 	
+		meshsettings = {
+			name = "hive_asteroid_01Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_01Shape"
+			index = 1
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+		
 		state = { name = "idle" }	
 	
 		state = { name = "launch" state_time = 5
@@ -31,6 +51,24 @@ entity = {
 entity = {
 	name = "hive_asteroid_03_entity"
 	pdxmesh = "hive_asteroid_03_mesh"
+	
+		meshsettings = {
+			name = "hive_asteroid_03Shape"
+			index = 0
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_03Shape"
+			index = 1
+			texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
 	
 		state = { name = "idle" }	
 	
@@ -64,6 +102,24 @@ entity = {
 	name = "hive_asteroid_04_entity"
 	pdxmesh = "hive_asteroid_04_mesh"
 	
+		meshsettings = {
+			name = "hive_asteroid_04Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_04Shape"
+			index = 1
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	
 		state = { name = "idle" }	
 	
 		state = { name = "launch" state_time = 5
@@ -77,6 +133,24 @@ entity = {
 entity = {
 	name = "hive_asteroid_05_entity"
 	pdxmesh = "hive_asteroid_05_mesh"
+	
+	meshsettings = {
+			name = "hive_asteroid_05Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_05Shape"
+			index = 1
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+	}
 
 		state = { name = "idle" }	
 	
@@ -90,8 +164,34 @@ entity = {
 
 entity = {
 	name = "hive_asteroid_06_entity"
-#	pdxmesh = "asteroid_01_mesh"
 	pdxmesh = "hive_asteroid_06_mesh"
+	
+	meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_large_diffuse.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 1
+			texture_diffuse = "hive_asteroid_large_inside.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+	}
 	
 		state = { name = "idle" }	
 	
@@ -119,10 +219,308 @@ entity = {
 	name = "hive_asteroid_base_entity"
 	pdxmesh = "hive_asteroid_06_offset_mesh"
 	
+	meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_large_diffuse.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+	meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 1
+			texture_diffuse = "hive_asteroid_large_inside.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+	meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "hive_asteroid_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+	
 		default_state = "idle"
 		state = { name = "idle" state_time = 5
 			start_event = { trigger_once = yes sound = { soundeffect = "hive_asteroid_idle" } }
+	}
+	
+	scale = 20.0
+	game_data = {
+		size = 10
+	}
+}
+
+		#### Yellow hive asteroids ####
+
+# Small belt asteriod 01
+entity = {
+	name = "hive_asteroid_yellow_01_entity"
+	pdxmesh = "hive_asteroid_01_mesh"
+	
+	meshsettings = {
+			name = "hive_asteroid_01Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
 		}
+
+		meshsettings = {
+			name = "hive_asteroid_01Shape"
+			index = 1
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}
+	
+}
+
+# Small belt asteriod 02
+entity = {
+	name = "hive_asteroid_yellow_02_entity"
+	pdxmesh = "hive_asteroid_02_mesh"
+	
+		meshsettings = {
+			name = "polySurfaceShape78"
+			index = 0
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}
+	
+}
+
+# Small belt asteriod 03
+entity = {
+	name = "hive_asteroid_yellow_03_entity"
+	pdxmesh = "hive_asteroid_03_mesh"
+	
+		meshsettings = {
+			name = "hive_asteroid_03Shape"
+			index = 0
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_03Shape"
+			index = 1
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+}
+
+# Small belt asteriod 03 Planet version
+entity = {
+	name = "hive_asteroid_yellow_planet_01_entity"
+	pdxmesh = "hive_asteroid_03_mesh"
+	
+		meshsettings = {
+			name = "hive_asteroid_03Shape"
+			index = 0
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshPlanet"
+		}
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+}
+
+# Fighter 1
+entity = {
+	name = "hive_asteroid_yellow_04_entity"
+	pdxmesh = "hive_asteroid_04_mesh"
+		
+		meshsettings = {
+			name = "hive_asteroid_04Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_04Shape"
+			index = 1
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+	
+	scale = 1.5
+}
+
+# Fighter 2
+entity = {
+	name = "hive_asteroid_yellow_05_entity"
+	pdxmesh = "hive_asteroid_05_mesh"
+	
+	meshsettings = {
+			name = "hive_asteroid_05Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+
+		meshsettings = {
+			name = "hive_asteroid_05Shape"
+			index = 1
+			texture_diffuse = "asteroid_diffuse.dds"
+			texture_normal = "asteroid_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+	}
+
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+		
+	scale = 1.2
+}
+
+entity = {
+	name = "hive_asteroid_yellow_06_entity"
+	pdxmesh = "hive_asteroid_06_mesh"
+	
+	meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_large_diffuse.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+	}
+
+		meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 1
+			texture_diffuse = "hive_asteroid_large_inside.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+	}
+
+		meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+	}
+	
+		state = { name = "idle" }	
+	
+		state = { name = "launch" state_time = 5
+		event = { trigger_once = yes sound = { soundeffect = "hive_minions_moving_out" } }
+		event = { trigger_once = yes sound = { soundeffect = "hive_minion_idle" } }
+		}	
+	
+}
+
+entity = {
+	name = "hive_asteroid_yellow_entity"
+	locator = { name = "part1"			position = {  0 0 0	} }
+	
+	locator = { name = "target_locator_0"			position = {  0 -100 0	} }
+	
+	cull_radius = 100000
+	game_data = {
+		size = 30
+	}
+}
+
+# Large hive asteriod with holes in it. 
+entity = {
+	name = "hive_asteroid_yellow_base_entity"
+	pdxmesh = "hive_asteroid_06_offset_mesh"
+	
+	meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 0
+			texture_diffuse = "hive_asteroid_large_diffuse.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+	meshsettings = {
+			name = "hive_asteroid_06Shape"
+			index = 1
+			texture_diffuse = "hive_asteroid_large_inside.dds"
+			texture_normal = "hive_asteroid_large_normal.dds"
+			texture_specular = "asteroid_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+	meshsettings = {
+			name = "polySurfaceShape2"
+			index = 0
+			texture_diffuse = "hive_asteroid_yellow_crystals_diffuse.dds"
+			texture_normal = "hive_asteroid_crystals_normal.dds"
+			texture_specular = "hive_asteroid_crystals_specular.dds"
+			shader = "PdxMeshTerraAlphaBlend"
+		}
+	
+	default_state = "idle"
+		state = { name = "idle" state_time = 5
+			start_event = { trigger_once = yes sound = { soundeffect = "hive_asteroid_idle" } }
+	}
 	
 	scale = 20.0
 

@@ -1115,7 +1115,6 @@ country_event = {
 					gained_leader_trait_substance_abuser = { text = leader.substanceabuser }
 					gained_leader_trait_arrested_development = { text = leader.arresteddevelopment }
 					gained_leader_trait_meticulous = { text = leader.newtrait }
-					gained_leader_trait_careful = { text = leader.newtrait }
 					gained_leader_trait_spark_of_genius = { text = leader.newtrait }
 					gained_leader_trait_carefree = { text = leader.newtrait }
 					gained_leader_trait_roamer = { text = leader.newtrait }
@@ -1196,10 +1195,6 @@ country_event = {
 				if = { 
 					limit = { has_leader_flag = gained_leader_trait_meticulous }
 					add_trait = leader_trait_meticulous
-				}
-				if = { 
-					limit = { has_leader_flag = gained_leader_trait_careful }
-					add_trait = leader_trait_careful
 				}
 				if = { 
 					limit = { has_leader_flag = gained_leader_trait_spark_of_genius }

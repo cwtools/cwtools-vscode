@@ -8,67 +8,6 @@
 
 namespace = precursor
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
 ### The Vultaum Star Assembly
 
 # Vultaum Introduction
@@ -122,6 +61,7 @@ ship_event = {
 	desc = "precursor.5.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -179,6 +119,7 @@ ship_event = {
 	desc = "precursor.10.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -236,6 +177,7 @@ ship_event = {
 	desc = "precursor.15.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -293,6 +235,7 @@ ship_event = {
 	desc = "precursor.20.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -350,6 +293,7 @@ ship_event = {
 	desc = "precursor.25.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -407,6 +351,7 @@ ship_event = {
 	desc = "precursor.30.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -464,6 +409,7 @@ ship_event = {
 	desc = "precursor.35.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -521,6 +467,7 @@ ship_event = {
 	desc = "precursor.40.desc"
 	picture = GFX_evt_satellite_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -578,6 +525,7 @@ ship_event = {
 	desc = "precursor.45.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -635,6 +583,7 @@ ship_event = {
 	desc = "precursor.50.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -692,6 +641,7 @@ ship_event = {
 	desc = "precursor.55.desc"
 	picture = GFX_evt_mining_station
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -796,14 +746,14 @@ country_event = {
 					initializer = "vultaumar_system"
 				}
 			}
-			else = {
-				random_system = {
-					limit = { has_star_flag = precursor_1 }
-					spawn_system = {
-						min_distance = 20
-						max_distance = 50
-						initializer = "vultaumar_system"
-					}
+		}
+		else = {
+			random_system = {
+				limit = { has_star_flag = precursor_1 }
+				spawn_system = {
+					min_distance = 20
+					max_distance = 50
+					initializer = "vultaumar_system"
 				}
 			}
 		}
@@ -1037,6 +987,7 @@ ship_event = {
 	desc = "precursor.505.desc"
 	picture = GFX_evt_alien_nature
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -1094,6 +1045,7 @@ ship_event = {
 	desc = "precursor.510.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1151,6 +1103,7 @@ ship_event = {
 	desc = "precursor.515.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1208,6 +1161,7 @@ ship_event = {
 	desc = "precursor.520.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1265,6 +1219,7 @@ ship_event = {
 	desc = "precursor.525.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1322,6 +1277,7 @@ ship_event = {
 	desc = "precursor.530.desc"
 	picture = GFX_evt_satellite_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1379,6 +1335,7 @@ ship_event = {
 	desc = "precursor.535.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1436,6 +1393,7 @@ ship_event = {
 	desc = "precursor.540.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1493,6 +1451,7 @@ ship_event = {
 	desc = "precursor.545.desc"
 	picture = GFX_evt_mining_station
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1599,14 +1558,14 @@ country_event = {
 					initializer = "yuhtaan_system"
 				}
 			}
-			else = {
-				random_system = {
-					limit = { has_star_flag = precursor_2 }
-					spawn_system = {
-						min_distance = 20
-						max_distance = 50
-						initializer = "yuhtaan_system"
-					}
+		}
+		else = {
+			random_system = {
+				limit = { has_star_flag = precursor_2 }
+				spawn_system = {
+					min_distance = 20
+					max_distance = 50
+					initializer = "yuhtaan_system"
 				}
 			}
 		}
@@ -1828,6 +1787,7 @@ ship_event = {
 	desc = "precursor.1005.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1885,6 +1845,7 @@ ship_event = {
 	desc = "precursor.1010.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1942,6 +1903,7 @@ ship_event = {
 	desc = "precursor.1015.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -1999,6 +1961,7 @@ ship_event = {
 	desc = "precursor.1020.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2056,7 +2019,8 @@ ship_event = {
 	desc = "precursor.1025.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
-	
+	trackable = yes
+
 	is_triggered_only = yes 
 	
 	immediate = {
@@ -2113,7 +2077,8 @@ ship_event = {
 	desc = "precursor.1030.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
-	
+	trackable = yes
+
 	is_triggered_only = yes 
 	
 	immediate = {
@@ -2170,6 +2135,7 @@ ship_event = {
 	desc = "precursor.1035.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2227,6 +2193,7 @@ ship_event = {
 	desc = "precursor.1040.desc"
 	picture = GFX_evt_alien_nature
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2284,6 +2251,7 @@ ship_event = {
 	desc = "precursor.1045.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2341,6 +2309,7 @@ ship_event = {
 	desc = "precursor.1050.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2398,6 +2367,7 @@ ship_event = {
 	desc = "precursor.1055.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2455,6 +2425,7 @@ ship_event = {
 	desc = "precursor.1060.desc"
 	picture = GFX_evt_alien_nature
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2512,6 +2483,7 @@ ship_event = {
 	desc = "precursor.1065.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2569,6 +2541,7 @@ ship_event = {
 	desc = "precursor.1070.desc"
 	picture = GFX_evt_mining_station
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes 
 	
@@ -2679,14 +2652,14 @@ country_event = {
 					initializer = "fen_habbanis_system"
 				}
 			}
-			else = {
-				random_system = {
-					limit = { has_star_flag = precursor_3 }
-					spawn_system = {
-						min_distance = 20
-						max_distance = 50
-						initializer = "fen_habbanis_system"
-					}
+		}
+		else = {
+			random_system = {
+				limit = { has_star_flag = precursor_3 }
+				spawn_system = {
+					min_distance = 20
+					max_distance = 50
+					initializer = "fen_habbanis_system"
 				}
 			}
 		}
@@ -2927,6 +2900,7 @@ ship_event = {
 	desc = "precursor.1505.desc"
 	picture = GFX_evt_landing_ship
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -2984,6 +2958,7 @@ ship_event = {
 	desc = "precursor.1510.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3041,6 +3016,7 @@ ship_event = {
 	desc = "precursor.1515.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3098,6 +3074,7 @@ ship_event = {
 	desc = "precursor.1520.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3155,6 +3132,7 @@ ship_event = {
 	desc = "precursor.1525.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3212,6 +3190,7 @@ ship_event = {
 	desc = "precursor.1530.desc"
 	picture = GFX_evt_outpost
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3269,6 +3248,7 @@ ship_event = {
 	desc = "precursor.1535.desc"
 	picture = GFX_evt_alien_nature
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3326,6 +3306,7 @@ ship_event = {
 	desc = "precursor.1540.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3383,6 +3364,7 @@ ship_event = {
 	desc = "precursor.1545.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3440,6 +3422,7 @@ ship_event = {
 	desc = "precursor.1550.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3497,6 +3480,7 @@ ship_event = {
 	desc = "precursor.1555.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3607,14 +3591,14 @@ country_event = {
 					initializer = "irass_system"
 				}
 			}
-			else = {
-				random_system = {
-					limit = { has_star_flag = precursor_4 }
-					spawn_system = {
-						min_distance = 20
-						max_distance = 50
-						initializer = "irass_system"
-					}
+		}
+		else = {
+			random_system = {
+				limit = { has_star_flag = precursor_4 }
+				spawn_system = {
+					min_distance = 20
+					max_distance = 50
+					initializer = "irass_system"
 				}
 			}
 		}
@@ -3843,6 +3827,7 @@ ship_event = {
 	desc = "precursor.2005.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3900,6 +3885,7 @@ ship_event = {
 	desc = "precursor.2010.desc"
 	picture = GFX_evt_dead_city
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3957,6 +3943,7 @@ ship_event = {
 	desc = "precursor.2015.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4014,6 +4001,7 @@ ship_event = {
 	desc = "precursor.2020.desc"
 	picture = GFX_evt_city_ruins
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4071,6 +4059,7 @@ ship_event = {
 	desc = "precursor.2025.desc"
 	picture = GFX_evt_dead_city
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4128,6 +4117,7 @@ ship_event = {
 	desc = "precursor.2030.desc"
 	picture = GFX_evt_mining_station
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4185,6 +4175,7 @@ ship_event = {
 	desc = "precursor.2035.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4242,6 +4233,7 @@ ship_event = {
 	desc = "precursor.2040.desc"
 	picture = GFX_evt_small_space_battle
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4299,6 +4291,7 @@ ship_event = {
 	desc = "precursor.2045.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4356,6 +4349,7 @@ ship_event = {
 	desc = "precursor.2050.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4413,6 +4407,7 @@ ship_event = {
 	desc = "precursor.2055.desc"
 	picture = GFX_evt_ship_in_orbit
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4523,14 +4518,14 @@ country_event = {
 					initializer = "cybrex_system"
 				}
 			}
-			else = {
-				random_system = {
-					limit = { has_star_flag = precursor_5 }
-					spawn_system = {
-						min_distance = 20
-						max_distance = 50
-						initializer = "cybrex_system"
-					}
+		}
+		else = {
+			random_system = {
+				limit = { has_star_flag = precursor_5 }
+				spawn_system = {
+					min_distance = 20
+					max_distance = 50
+					initializer = "cybrex_system"
 				}
 			}
 		}
@@ -4827,6 +4822,7 @@ country_event = {
 	}
 	picture = GFX_evt_archaeological_dig
 	location = event_target:precursor_planet
+	trackable = yes
 	
 	trigger = {
 		is_ai = no

@@ -57,6 +57,7 @@ guiTypes = {
 			shortcut = "z"
 			clicksound = "tab_click"
 			pdx_tooltip = "EMPIRE_TOOLTIP"
+			oversound = no_sound
 		}
 		buttonType = {
 			name = "tab_government_active"
@@ -66,6 +67,7 @@ guiTypes = {
 			buttonText = "GOVERNMENT"
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
+			oversound = no_sound
 			shortcut = "z"
 			pdx_tooltip = "EMPIRE_TOOLTIP"
 		}
@@ -79,6 +81,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			shortcut = "x"
 			clicksound = "tab_click"
+			oversound = no_sound
 			pdx_tooltip = "BUDGET_TOOLTIP"
 		}
 		buttonType = {
@@ -89,6 +92,7 @@ guiTypes = {
 			buttonText = "BUDGET"
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
+			oversound = no_sound
 			shortcut = "x"
 			pdx_tooltip = "BUDGET_TOOLTIP"
 		}
@@ -102,6 +106,7 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			shortcut = "c"
 			clicksound = "tab_click"
+			oversound = no_sound
 			pdx_tooltip = "DEMOGRAPHICS_TOOLTIP"
 		}
 		buttonType = {
@@ -112,6 +117,7 @@ guiTypes = {
 			buttonText = "DEMOGRAPHICS"
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
+			oversound = no_sound
 			shortcut = "c"
 			pdx_tooltip = "DEMOGRAPHICS_TOOLTIP"
 		}
@@ -125,7 +131,9 @@ guiTypes = {
 			buttonFont = "cg_16b"
 			shortcut = "v"
 			clicksound = "tab_click"
+			oversound = no_sound
 			pdx_tooltip = "GOVERNMENT_ADVISOR_TAB_TOOLTIP"
+
 		}
 		buttonType = {
 			name = "tab_advisor_active"
@@ -135,6 +143,7 @@ guiTypes = {
 			buttonText = "GOVERNMENT_ADVISOR_TAB"
 			buttonFont = "cg_16b"
 			clicksound = "tab_click"
+			oversound = no_sound
 			shortcut = "v"
 			pdx_tooltip = "GOVERNMENT_ADVISOR_TAB_TOOLTIP"
 		}
@@ -306,6 +315,7 @@ guiTypes = {
 				text = "MOD_GOVERNMENT_TITLE"
 				position = { x = 99 y = 485  }
 				orientation = "UPPER_LEFT"
+				clicksound = confirm_click
 			}
 			
 			instantTextBoxType = {
@@ -505,7 +515,8 @@ guiTypes = {
 						name = "emergency_election_button"
 						quadTextureSprite = "GFX_government_emergency_selection"
 						position = { x = 135 y = 3 }
-						oversound = menu_over_01
+						oversound = mouse_over
+						clicksound = confirm_click
 					}
 				}
 				

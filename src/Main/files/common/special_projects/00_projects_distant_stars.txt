@@ -1,0 +1,1363 @@
+## SUPERFLARE PROJECT
+special_project = {
+	key = "SUPERFLARE_PROJECT"
+	picture = GFX_evt_star_chart
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	tech_department = physics_technology
+	days_to_research = 30 #TODO [DEE]
+	timelimit = 150
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.9 }
+	}
+	on_fail = {
+		country_event = { id = distar.10 }
+	}
+	abort_trigger = {
+		fromfrom = {
+			is_colony = no
+			is_under_colonization = no
+		}
+	}
+}
+
+## PRIMITIVE ROBOT PROJECT
+special_project = {
+	key = "PRIMITIVE_ROBOT_PROJECT"
+	picture = GFX_evt_robot_assembly_plant
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+	tech_department = society_technology
+	days_to_research = 30 #TODO [DEE]
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.28 }
+		ship_event = { id = distar.29 }
+	}
+	on_fail = {
+		
+	}
+}
+
+## RETROVIRUS PROJECT
+special_project = {
+	key = "RETROVIRUS_PROJECT"
+	cost = 60
+	tech_department = society_technology
+	picture = GFX_evt_burning_settlement
+	icon = "gfx/interface/icons/situation_log/situation_log_alert.dds"
+
+	event_scope = planet_event
+
+	on_success = {
+		owner = { remove_country_flag = started_retrovirus_project }
+		planet_event = { id = distar.36 }
+	}
+	on_fail = {
+		
+	}
+
+	on_start = {
+		owner = { set_country_flag = started_retrovirus_project }
+	}
+	
+	on_progress_50 = {
+		planet_event = { id = distar.35 }
+	}
+	
+}
+
+## DARK FLOW PROJECT
+special_project = {
+	key = "DARK_FLOW_PROJECT"
+	days_to_research = 30
+	tech_department = physics_technology
+	timelimit = -1
+	picture = GFX_evt_physics_research
+	icon = "gfx/interface/icons/situation_log/situation_log_physics.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+
+	on_success = {
+		ship_event = { id = distar.46 }
+	}
+
+	on_fail = {}
+
+	on_start = {}
+	
+}
+
+## DISSECTION PROJECT
+special_project = {
+	key = "DISSECTION_PROJECT"
+	days_to_research = 30
+	tech_department = society_technology
+	timelimit = 180
+	picture = GFX_evt_society_research
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		fleet_power > 90
+	}
+
+	on_success = {
+		ship_event = { id = distar.53 }
+	}
+
+	on_fail = {
+		country_event = { id = distar.54 }
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		NOT = { exists = FROMFROM }
+	}
+}
+
+##CRYO CLONES PROJECT
+special_project = {
+	key = "CRYO_CLONES_PROJECT"
+	days_to_research = 30
+	tech_department = society_technology
+	picture = GFX_evt_society_research
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+
+	on_success = {
+		ship_event = { id = distar.71 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+	
+}
+
+special_project = {
+	key = "RECOVER_WARFORM_PROJECT"
+	days_to_research = 60
+	tech_department = engineering_technology
+	timelimit = 1800
+	picture = GFX_evt_toxic
+	icon = "gfx/interface/icons/situation_log/situation_log_engineering.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_constructor = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.156 }
+	}
+
+	on_fail = {
+		country_event = { id = distar.157 }
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+	
+	}
+}
+
+special_project = {
+	key = "BRAINSLUG_PROJECT"
+	days_to_research = 60
+	tech_department = society_technology
+	picture = GFX_evt_alien_nature
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+
+	on_success = {
+		ship_event = { id = distar.171 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+	
+	}
+}
+
+special_project = {
+	key = "KETLING_PROJECT_1"
+	event_chain = "ketling_study_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = society_technology
+	picture = GFX_evt_junkheap
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.234 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = { #Abort if there are no Ketling pops on the planet
+		event_target:ratling_capital = {
+			OR = {
+				AND = {
+					exists = owner
+					OR = {
+						AND = {
+							exists = event_target:ratling_pre_space_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_pre_space_country
+								}
+							}
+						}
+						AND = {
+							exists = event_target:ratling_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_country
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					any_tile = {
+						has_pop = yes
+						pop = { is_same_species = event_target:ratling_species }
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "KETLING_PROJECT_2"
+	event_chain = "ketling_study_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = society_technology
+	picture = GFX_evt_junkheap
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	same_option_group_as = { KETLING_PROJECT_1 }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.234 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		event_target:ratling_planet_2 = {
+			OR = {
+				AND = {
+					exists = owner
+					OR = {
+						AND = {
+							exists = event_target:ratling_pre_space_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_pre_space_country
+								}
+							}
+						}
+						AND = {
+							exists = event_target:ratling_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_country
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					any_tile = {
+						has_pop = yes
+						pop = { is_same_species = event_target:ratling_species }
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "KETLING_PROJECT_3"
+	event_chain = "ketling_study_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = society_technology
+	picture = GFX_evt_junkheap
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	same_option_group_as = { KETLING_PROJECT_1 }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.234 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		event_target:ratling_planet_3 = {
+			OR = {
+				AND = {
+					exists = owner
+					OR = {
+						AND = {
+							exists = event_target:ratling_pre_space_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_pre_space_country
+								}
+							}
+						}
+						AND = {
+							exists = event_target:ratling_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_country
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					any_tile = {
+						has_pop = yes
+						pop = { is_same_species = event_target:ratling_species }
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "KETLING_PROJECT_4"
+	event_chain = "ketling_study_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = society_technology
+	picture = GFX_evt_junkheap
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	same_option_group_as = { KETLING_PROJECT_1 }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.234 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		event_target:ratling_planet_4 = {
+			OR = {
+				AND = {
+					exists = owner
+					OR = {
+						AND = {
+							exists = event_target:ratling_pre_space_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_pre_space_country
+								}
+							}
+						}
+						AND = {
+							exists = event_target:ratling_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_country
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					any_tile = {
+						has_pop = yes
+						pop = { is_same_species = event_target:ratling_species }
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "KETLING_PROJECT_5"
+	event_chain = "ketling_study_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = society_technology
+	picture = GFX_evt_junkheap
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	same_option_group_as = { KETLING_PROJECT_1 }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.234 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		event_target:ratling_planet_5 = {
+			OR = {
+				AND = {
+					exists = owner
+					OR = {
+						AND = {
+							exists = event_target:ratling_pre_space_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_pre_space_country
+								}
+							}
+						}
+						AND = {
+							exists = event_target:ratling_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_country
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					any_tile = {
+						has_pop = yes
+						pop = { is_same_species = event_target:ratling_species }
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "KETLING_PROJECT_6"
+	event_chain = "ketling_study_chain"
+	cost = 0
+	days_to_research = 180
+	tech_department = society_technology
+	picture = GFX_evt_junkheap
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+
+	event_scope = ship_event
+
+	same_option_group_as = { KETLING_PROJECT_1 }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.234 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		event_target:ratling_planet_6 = {
+			OR = {
+				AND = {
+					exists = owner
+					OR = {
+						AND = {
+							exists = event_target:ratling_pre_space_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_pre_space_country
+								}
+							}
+						}
+						AND = {
+							exists = event_target:ratling_country
+							owner = {
+								NOT = {
+									is_same_value = event_target:ratling_country
+								}
+							}
+						}
+					}
+				}
+				NOT = {
+					any_tile = {
+						has_pop = yes
+						pop = { is_same_species = event_target:ratling_species }
+					}
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "PHASESHIFT_PROJECT"
+	cost = 0
+	days_to_research = 180
+	tech_department = physics_technology
+	picture = GFX_evt_surreal_visions
+	icon = "gfx/interface/icons/situation_log/situation_log_planet.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+
+	on_success = {
+		ship_event = { id = distar.253 }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = { #Handled in distar.254
+	}
+}
+
+
+#	on_fail
+#	this = country (project owner)
+#	from = project creation scope (usually equals location)
+
+special_project = {
+	key = LCLUSTER_PROJECT
+	cost = 0
+	days_to_research = 180
+	tech_department = engineering_technology
+	picture = GFX_evt_surreal_visions
+	icon = "gfx/interface/icons/situation_log/situation_log_planet.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+
+	on_success = {
+		owner = { country_event = { id = distar.10950 } }
+	}
+
+	on_fail = {
+	}
+
+	on_start = {
+	}
+
+	abort_trigger = {
+		has_global_flag = l_cluster_opened # someone else got to it first
+	}
+}
+
+
+### Trojan Asteroid project ###
+special_project = {
+	key = "trojan_asteroid_project"
+	days_to_research = 30
+	#tech_department = physics_technology
+	timelimit = -1
+	picture = GFX_evt_asteroid_field
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	on_success = {
+		ship_event = { id = distar.3005 }
+	}
+
+	# abort project if it falls within foreign territory
+	abort_trigger = {
+		fromfrom.solar_system = {
+			exists = starbase
+			starbase = {
+				exists = owner
+				owner = {
+					NOT = { is_same_value = from }
+				}
+			}
+		}
+	}
+}
+
+### Impossible Organism project ###
+special_project = {
+	key = "impossible_organism_project_1"
+	tech_department = society_technology
+	cost = 1000
+	location = no
+	picture = GFX_evt_microscopic_life
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3011 }
+		}
+	}
+}
+
+special_project = {
+	key = "impossible_organism_project_2"
+	tech_department = society_technology
+	cost = 2000
+	location = no
+	picture = GFX_evt_microscopic_life
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3012 }
+		}
+	}
+}
+
+
+### Molluscoid Miners ###
+special_project = {
+	key = "molluscoid_miners_project_1"
+	days_to_research = 60
+	timelimit = -1
+	picture = GFX_evt_alien_cavemen
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3031 }
+		}
+	}
+
+	# abort project if it falls within foreign territory
+	# unsure if necessary in this case
+	abort_trigger = {
+		fromfrom.solar_system = {
+			exists = starbase
+			starbase = {
+				exists = owner
+				owner = {
+					NOT = { is_same_value = from }
+				}
+			}
+		}
+	}
+}
+
+special_project = {
+	key = "molluscoid_miners_project_2"
+	tech_department = society_technology
+	cost = 1500
+	location = no
+	picture = GFX_evt_colony_settlement
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3032 }
+		}
+	}
+}
+
+special_project = {
+	key = "molluscoid_miners_project_3"
+	tech_department = physics_technology
+	cost = 1000
+	location = no
+	picture = GFX_evt_physics_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3033 }
+		}
+	}
+}
+
+### Orbital Speed Demon ###
+special_project = {
+	key = "speed_demon_open_box_project"
+	tech_department = physics_technology
+	cost = 1200
+	location = no
+	picture = GFX_evt_physics_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3055 }
+		}
+	}
+}
+
+special_project = {
+	key = "speed_demon_learn_more_project"
+	tech_department = physics_technology
+	cost = 600
+	location = no
+	picture = GFX_evt_physics_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = distar.3056 }
+		}
+	}
+}
+
+### Breathing Rift ###
+special_project = {
+	key = "breathing_rift_project"
+	#tech_department = physics_technology
+	days_to_research = 180
+	timelimit = -1
+	location = no
+	picture = GFX_evt_wormhole
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	on_success = {
+		owner = {
+			random_list = {
+				50 = { country_event = { id = distar.3061 } }
+				50 = { country_event = { id = distar.3062 } }
+			}
+		}
+	}
+}
+
+special_project = {
+	key = TAME_LDRAGON_PROJECT
+	tech_department = society_technology
+	days_to_research = 180
+	timelimit = -1
+	picture = GFX_evt_space_dragon
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 4
+	}
+
+	on_success = {
+		owner = { country_event = { id = distar.13035 } }
+		solar_system.star = { set_planet_flag = ldragon_recruited }
+	}
+
+	abort_trigger = {
+		fromfrom = { # system star
+			OR = {
+				has_planet_flag = ldragon_recruited
+				AND = {
+					solar_system = {
+						any_ship_in_system = {
+							exists = owner
+							owner = { is_country_type = ldragon_country }
+							is_in_combat = yes
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+###### VECHTAR ZAVONIA CHAIN #######
+
+special_project = {
+	key = GENERATION_SHIP
+	days_to_research = 60
+	tech_department = engineering_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1001 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+special_project = {
+	key = HIDDEN_PLANET
+	event_chain = generation_ship_chain
+	days_to_research = 60
+	tech_department = society_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1003 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+###### STAR LIFTING #######
+
+special_project = {
+	key = STAR_LIFTING
+	days_to_research = 60
+	tech_department = engineering_technology
+	picture = GFX_evt_star_pulsar
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_constructor = 1
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1021 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+special_project = {
+	key = STAR_LIFTING_WEAPONS
+	days_to_research = 60
+	tech_department = physics_technology
+	picture = GFX_evt_engineering_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1022 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+###### THE BIG RIP #######
+
+special_project = {
+	key = BIG_RIP
+	days_to_research = 60
+	tech_department = engineering_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1031 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+###### THE CUBE #######
+
+special_project = {
+	key = THE_CUBE
+	days_to_research = 60
+	tech_department = engineering_technology
+	picture = GFX_evt_ship_in_orbit
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1056 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+###### STAR CRAZY #######
+
+special_project = {
+	key = STAR_CRAZY
+	days_to_research = 60
+	tech_department = physics_technology
+	picture = GFX_evt_ship_in_orbit_2
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		if = {
+			limit = {
+				exists = event_target:crazy_science_officer
+				leader = { is_same_value = event_target:crazy_science_officer }
+			}
+			owner = {
+				random_list = {
+					50 = { country_event = { id = distar.1072 } }
+					50 = { country_event = { id = distar.1073 } }
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOR = {
+					exists = event_target:crazy_science_officer
+					leader = { is_same_value = event_target:crazy_science_officer }
+				}
+			}
+			owner = {
+				country_event = { id = distar.1072 }
+			}
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+###### ICE ALIEN #######
+
+special_project = {
+	key = ICE_ALIEN
+	cost = 200
+	tech_department = society_technology
+	picture = GFX_evt_society_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = planet_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.1081 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+
+###### WEAPON TESTING #######
+
+special_project = {
+	key = WEAPONS_TESTING
+	days_to_research = 60
+	tech_department = physics_technology
+	picture = GFX_evt_engineering_research
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.2006 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+
+###### TIME LOOP WORLD #######
+
+# MEND SHIELD
+special_project = {
+	key = MEND_SHIELD
+	days_to_research = 60
+	tech_department = engineering_technology
+	picture = GFX_evt_shielded_planet
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.2031 }
+		}
+	}
+	
+	on_fail = {
+	}
+}
+# INTERRUPT TIME LOOP
+special_project = {
+	key = STOP_TIME_LOOP
+	days_to_research = 60
+	tech_department = physics_technology
+	picture = GFX_evt_shielded_planet
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		random_list = {
+			1 = {
+				owner = {
+					country_event = { id = distar.2032 }
+				}
+			}
+			100 = {
+				modifier = {
+					add = 1
+					owner = {
+						event_target:time_loop_world = {
+							solar_system = {
+								NOT = { exists = space_owner }
+							}
+						}
+					}
+				}
+				owner = { country_event = { id = distar.2033 } }
+			}
+		}
+	}
+	on_fail = {
+	}
+}
+
+# ENIGMATIC CACHE
+special_project = {
+	key = ENIGMATIC_CACHE_PROJECT
+	cost = 200
+	tech_department = engineering_technology
+	timelimit = -1
+	picture = GFX_evt_circuitry_modification
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = no
+
+	event_scope = planet_event
+
+	on_success = {
+		owner = { country_event = { id = distar.5058 } }
+	}
+}
+
+# INVISIBLE DEATH ( CLUENOMALY )
+
+special_project = {
+	key = INVISIBLE_DEATH
+	days_to_research = 140
+	tech_department = society_technology
+	picture = GFX_evt_dead_city
+
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	# TODO requirements
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+	
+	on_success = {
+		ship_event = { id = distar.2041 }
+	}
+	
+	on_fail = {
+	}
+}
+
+# INTERFERENCE BEAM
+special_project = {
+	key = GATEWAY_INTERFERENCE
+	days_to_research = 140
+	tech_department = engineering_technology
+	picture = GFX_evt_drifting_gateway
+
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	# TODO requirements
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 2
+	}
+	
+	on_success = {
+		ship_event = { id = distar.2046 }
+	}
+	
+	on_fail = {
+	}
+}
+
+###### GUARDIANS #######
+
+# Hatchling Dead
+
+special_project = {
+	key = SHATTERED_EGG
+	days_to_research = 140
+	tech_department = society_technology
+	picture = GFX_evt_toxic
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	
+	event_scope = ship_event
+	# TODO requirements
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = distar.5012 }
+		}
+	}
+	
+	on_fail = {
+	}
+}

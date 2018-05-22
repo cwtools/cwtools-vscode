@@ -82,6 +82,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 300 y = 20 }
 				position = { x= -600 y = -38  }
+				no_clicksound = yes
 			}
 
 			containerWindowType = {
@@ -93,9 +94,10 @@ guiTypes = {
 					quadTextureSprite = "GFX_white_stripe_button"
 					position = { x= -640  y = -150  }
 					shortCut = "n"
-					oversound = menu_over_01
+					oversound = mouse_over
 					navRight = "multiplayer"
 					defaultSelection = yes
+					clicksound = confirm_click
 				}
 				
 				instantTextBoxType={
@@ -116,9 +118,10 @@ guiTypes = {
 					quadTextureSprite = "GFX_white_stripe_button"
 					position = { x= -430 y = -150  }
 					shortCut = "m"
-					oversound = menu_over_01
+					oversound = mouse_over
 					navLeft = "start"
 					navRight = "load"
+					clicksound = confirm_click
 				}
 				
 				instantTextBoxType = {
@@ -139,9 +142,10 @@ guiTypes = {
 					quadTextureSprite = "GFX_white_stripe_button"
 					position = { x= -220 y = -150  }
 					shortCut = "l"
-					oversound = menu_over_01
+					oversound = mouse_over
 					navLeft = "multiplayer"
 					navRight = "credits"
+					clicksound = confirm_click
 				}
 				
 				instantTextBoxType = {
@@ -162,9 +166,10 @@ guiTypes = {
 					quadTextureSprite = "GFX_white_stripe_button"
 					position = { x= -10 y = -150  }
 					shortCut = "c"
-					oversound = menu_over_01
+					oversound = mouse_over
 					navLeft = "load"
 					navRight = "settings"
+					clicksound = confirm_click
 				}
 				
 				instantTextBoxType = {
@@ -185,9 +190,10 @@ guiTypes = {
 					quadTextureSprite = "GFX_white_stripe_button"
 					position = { x= 200 y = -150  }
 					shortCut = "s"
-					oversound = menu_over_01
+					oversound = mouse_over
 					navLeft = "credits"
 					navRight = "quit"
+					clicksound = confirm_click
 				}
 				
 				instantTextBoxType = {
@@ -208,7 +214,7 @@ guiTypes = {
 					quadTextureSprite = "GFX_white_stripe_button"
 					position = { x= 410 y = -150  }
 					shortCut = "e"
-					oversound = menu_over_01
+					oversound = mouse_over
 					navLeft = "settings"
 					actionShortCut = "cancel"
 				}

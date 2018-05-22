@@ -1,0 +1,102 @@
+
+pc_gray_goo = {
+	entity = "gray_goo_planet"
+	entity_scale = @planet_standard_scale
+	icon_frame = 11
+
+	atmosphere_color 		= hsv { 0.19 0.45 0.9 }		#DONE
+	atmosphere_intensity 	= 0.1
+	atmosphere_width 		= 1.2
+	
+	min_distance_from_sun = @habitable_min_distance
+	max_distance_from_sun = @habitable_max_distance
+	
+	spawn_odds = 0
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	chance_of_ring = 0.2
+	
+	planet_size = { min = 12 max = 25 }
+	moon_size = { min = 6 max = 10 }
+	
+	colonizable = no
+	starting_planet = no
+	show_city = no
+}
+
+pc_egg_cracked = {
+	entity = "shattered_infected_planet"
+	entity_scale = @planet_standard_scale
+	icon_frame = 10
+
+	enable_tilt = no
+
+	ringworld = yes
+	
+	atmosphere_color 		= hsv { 0.1 0.4 0.7 }
+	atmosphere_intensity 	= 1.0
+	atmosphere_width 		= 0.5
+
+	spawn_odds = 0
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	planet_size = 20
+	moon_size = { min = 6 max = 10 }
+	
+	colonizable = no
+}
+
+random_list = {
+	name = "rl_voidspawn_egg"
+	planets = {
+		pc_savannah
+		pc_desert
+		pc_arid
+	}
+}
+
+random_list = {
+	name = "rl_no_atmosphere_planets"
+	planets = {
+		"pc_molten"
+		"pc_barren"
+		"pc_barren_cold"
+		"pc_frozen"
+	}
+}
+random_list = {
+	name = "rl_cool_moist_planets"
+	planets = {
+		"pc_continental"
+		"pc_ocean"
+		"pc_tundra"
+		"pc_alpine"
+		"pc_gaia"
+	}
+}
+random_list = {
+	name = "rl_all_normal_planets"
+	planets = {
+		"pc_continental"
+		"pc_desert"
+		"pc_tropical"
+		"pc_arid"
+		"pc_ocean"
+		"pc_tundra"
+		"pc_arctic"
+		"pc_alpine"
+		"pc_savannah"
+		"pc_asteroid"
+		"pc_gas_giant"
+		"pc_molten"
+		"pc_barren"
+		"pc_barren_cold"
+		"pc_toxic"
+		"pc_frozen"
+		"pc_gaia"
+	}
+}

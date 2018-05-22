@@ -628,19 +628,8 @@ achievement_peacekeeper = {
 			has_ethic = ethic_fanatic_pacifist
 			has_ethic = ethic_pacifist
 		}	
-		NOT = {
-			any_country = {
-				OR = {
-					is_country_type = default
-					is_country_type = fallen_empire
-					is_country_type = awakened_fallen_empire
-				}
-				NOT = { exists = overlord }
-				NOR = {
-					has_ethic = ethic_fanatic_pacifist
-					has_ethic = ethic_pacifist
-				}
-			}
+		years_of_peace = {
+			value > 199
 		}
 	}
 }
@@ -755,7 +744,10 @@ achievement_enlightened_times = {
 	}
 
 	happened = {
-		has_country_flag = uplifted_bronze
+		OR = {
+			has_country_flag = uplifted_stone
+			has_country_flag = uplifted_bronze
+		}		
 	}
 }
 
@@ -1213,5 +1205,65 @@ achievement_no_khan_do = {
 
 	happened = {
 		has_country_flag = no_khan_do
+	}
+}
+
+achievement_scrapper = {
+	id = 81
+
+	possible = {
+		is_ironman = yes
+	}
+
+	happened = {
+		has_country_flag = scrapper_killed
+	}
+}
+
+achievement_hatchling = {
+	id = 82
+
+	possible = {
+		is_ironman = yes
+	}
+
+	happened = {
+		has_country_flag = hatchling_killed
+	}
+}
+
+achievement_tiyanki = {
+	id = 83
+
+	possible = {
+		is_ironman = yes
+	}
+
+	happened = {
+		has_country_flag = tiyanki_killed
+	}
+}
+
+achievement_amoeba = {
+	id = 84
+
+	possible = {
+		is_ironman = yes
+	}
+
+	happened = {
+		has_country_flag = amoeba_befriended
+	}
+}
+
+achievement_l-cluster = {
+	id = 85
+
+	possible = {
+		is_ironman = yes
+	}
+
+	happened = {
+		has_country_flag = l-cluster_opened
 	}
 }

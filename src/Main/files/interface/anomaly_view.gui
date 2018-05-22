@@ -48,7 +48,6 @@ guiTypes = {
 		instantTextBoxType = {
 			name = "title"
 			font = "cg_16b"
-			text = "669 Tunguska"
 			position = { x = 9 y = 28 }
 			maxWidth = 376
 			maxHeight = 40
@@ -88,13 +87,6 @@ guiTypes = {
 			moveable = no
 			clipping = no
 			orientation = center_up
-
-		#	iconType = {
-		#		name ="picture_bg"
-		#		spriteType = "GFX_event_picture_bg"
-		#		position = { x= 100 y = 0 }
-		#		Orientation = "UPPER_LEFT"
-		#	}
 
 			iconType = {
 				name ="picture"
@@ -140,7 +132,7 @@ guiTypes = {
 			buttonType = {
 				name = "picture_background"
 				position = { x= 92 y = 44 }
-				size = { x = 229 y = 91 }
+				size = { x = 200 y = 91 }
 				spriteType = "GFX_tiles_dark_area_cut_8"
 				alwaystransparent = yes
 			}
@@ -168,36 +160,9 @@ guiTypes = {
 				font = "cg_16b"
 				text = ""
 				position = { x = 14 y = 152 }
-				maxWidth = 426
-				maxHeight = 200
-				fixedSize = yes
-			}
-
-			buttonType = {
-				name = "value_slot_1"
-				spriteType = "GFX_value_slot"
-				position = { x = 331 y = 56 }
-				alwaystransparent = yes
-			}
-
-			buttonType = {
-				name = "value_slot_2"
-				spriteType = "GFX_value_slot"
-				position = { x = 331 y = 106 }
-				alwaystransparent = yes
-			}
-
-			instantTextBoxType = {
-				name = "level"
-				font = "cg_16b"
-				text = "5"
-				position = { x = -114 y = 62 }
-				maxWidth = 100
-				maxHeight = 20
-				fixedSize = yes
-				Orientation = "UPPER_RIGHT"
-				format = right
-				text_color_code = "Y"
+				maxWidth = 435
+				maxHeight = 95
+				scrollbartype = "standardtext_slider_small"
 			}
 
 			instantTextBoxType = {
@@ -209,42 +174,74 @@ guiTypes = {
 				maxHeight = 20
 				fixedSize = yes
 				Orientation = "UPPER_RIGHT"
+				alwaystransparent = yes
 			}
-
-			iconType = {
-					name = "level_icon"
-					spriteType = "GFX_discovery_level_icon"
-					position = { x = 334 y = 58 }
+			
+			buttonType = {
+				name = "level_background"
+				spriteType = "GFX_value_slot"
+				position = { x = 331 y = 56 }
 			}
 
 			instantTextBoxType = {
-				name = "risk"
+				name = "level"
 				font = "cg_16b"
-				text = "25%"
-				position = { x = -114 y = 112 }
+				text = "5"
+				position = { x = -125 y = 62 }
 				maxWidth = 100
 				maxHeight = 20
 				fixedSize = yes
 				Orientation = "UPPER_RIGHT"
-				format = right
-#				text_color_code = "R"
+				format = left
+				text_color_code = "Y"
+				alwaystransparent = yes
 			}
 
+			iconType = {
+				name = "level_icon"
+				spriteType = "GFX_discovery_level_icon"
+				position = { x = 295 y = 58 }
+				alwaystransparent = yes
+			}
+			
+			buttonType = {
+				name = "level_duration_background"
+				spriteType = "GFX_value_slot"
+				position = { x = 331 y = 105 }
+			}
+			
+			# lower
 			instantTextBoxType = {
-				name = "risk_label"
+				name = "research_time_label"
 				font = "cg_16b"
-				text = "FAILURE_RISK"
-				position = { x = -131 y = 90 }
+				text = "ANOMALY_TIME"
+				position = { x = -131 y = 89 }
 				maxWidth = 140
 				maxHeight = 20
 				fixedSize = yes
 				Orientation = "UPPER_RIGHT"
+				alwaystransparent = yes
+			}
+
+			instantTextBoxType = {
+				name = "level_duration"
+				font = "cg_16b"
+				text = "5"
+				position = { x = -125 y = 111 }
+				maxWidth = 100
+				maxHeight = 20
+				fixedSize = yes
+				Orientation = "UPPER_RIGHT"
+				format = left
+				text_color_code = "Y"
+				alwaystransparent = yes
 			}
 
 			iconType = {
-					name = "failure_risk_icon"
-					spriteType = "GFX_failure_risk_icon"
-					position = { x = 334 y = 108 }
+				name = "level_duration_icon"
+				spriteType = "GFX_mod_ship_anomaly_research_speed"
+				position = { x = 300 y = 103 }
+				alwaystransparent = yes
 			}
 
 			containerWindowType = {
@@ -254,12 +251,6 @@ guiTypes = {
 				moveable = no
 				clipping = no
 				orientation = upper_left
-
-#				background = {
-#					name = "picture_background"
-#					spriteType = "GFX_tiles_frame"
-#					alwaystransparent = yes
-#				}
 
 				containerWindowType = {
 					name = "portrait_window"
@@ -299,7 +290,7 @@ guiTypes = {
 					font = "cg_16b"
 					text = "Leader Name"
 					position = { x = 92 y = 12 }
-					maxWidth = 220
+					maxWidth = 185
 					maxHeight = 20
 					fixedSize = yes
 					Orientation = "UPPER_LEFT"
@@ -311,7 +302,7 @@ guiTypes = {
 					font = "cg_16b"
 					text = "STATUS"
 					position = { x = 92 y = 36 }
-					maxWidth = 220
+					maxWidth = 185
 					maxHeight = 33
 					fixedSize = yes
 					format = left
@@ -330,7 +321,7 @@ guiTypes = {
 					font = "cg_16b"
 					text = "SKILL"
 					position = { x = 92 y = 74 }
-					maxWidth = 220
+					maxWidth = 185
 					maxHeight = 20
 					fixedSize = yes
 					Orientation = "UPPER_LEFT"
@@ -343,7 +334,6 @@ guiTypes = {
 					frame = 5
 				}
 			}
-
 
 			containerWindowType = {
 				name = "no_leader_window"

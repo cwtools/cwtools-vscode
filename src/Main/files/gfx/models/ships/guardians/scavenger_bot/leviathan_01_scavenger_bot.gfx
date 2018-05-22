@@ -1,0 +1,90 @@
+objectTypes = {
+	pdxmesh = {
+		name = "leviathan_01_scavenger_bot_frame_mesh"
+		file = "gfx/models/ships/guardians/scavenger_bot/leviathan_01_scavenger_bot_frame.mesh"
+		
+		animation = { id = "idle"			type = "leviathan_01_scavenger_bot_frame_idle_animation" }
+		animation = { id = "moving"			type = "leviathan_01_scavenger_bot_frame_moving_animation" }
+		animation = { id = "death"			type = "leviathan_01_scavenger_bot_frame_death_animation" }
+
+		meshsettings = {
+			name = "leviathan_01_helper_bot_1_bodyShape"
+			index = 0
+			texture_diffuse = "leviathans_01_scavenger_bot_diffuse.dds"
+			texture_normal = "leviathans_01_scavenger_bot_normal.dds"
+			texture_specular = "leviathans_01_scavenger_bot_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "leviathan_01_scavenger_bot_core_mesh"
+		file = "gfx/models/ships/guardians/scavenger_bot/leviathan_01_scavenger_bot_core.mesh"
+		
+		animation = { id = "idle"			type = "leviathan_01_scavenger_bot_core_idle_animation" }
+		animation = { id = "death"			type = "leviathan_01_scavenger_bot_core_death_animation" }
+
+		meshsettings = {
+			name = "coreShape"
+			index = 0
+			texture_diffuse = "leviathans_01_scavenger_bot_diffuse.dds"
+			texture_normal = "leviathans_01_scavenger_bot_normal.dds"
+			texture_specular = "leviathans_01_scavenger_bot_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "leviathan_01_scavenger_bot_helper_bot_mesh"
+		file = "gfx/models/ships/guardians/scavenger_bot/leviathan_01_scavenger_bot_helper_bot.mesh"
+		
+		animation = { id = "idle"			type = "leviathan_01_scavenger_bot_helper_bot_idle_animation" }
+
+		meshsettings = {
+			name = "bodyShape"
+			index = 0
+			texture_diffuse = "leviathans_01_scavenger_bot_diffuse.dds"
+			texture_normal = "leviathans_01_scavenger_bot_normal.dds"
+			texture_specular = "leviathans_01_scavenger_bot_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	
+	##### Projectile #####
+	
+	pdxmesh = {
+		name = "scavenger_bot_projectile_01_mesh"
+		file = "gfx/models/ships/guardians/scavenger_bot/scavenger_bot_projectile_01.mesh"
+
+		meshsettings = {
+			name = "g_bodyShape"
+			index = 0
+			texture_diffuse = "scavenger_bot_projectile_01_diffuse.dds"
+			texture_normal = "scavenger_bot_projectile_01_normal.dds"
+			texture_specular = "scavenger_bot_projectile_01_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+	
+	pdxmesh = {
+		name = "scavenger_bot_missile_mesh"
+		file = "gfx/models/system_map/space_mine.mesh"
+		scale = 1.0
+		
+		animation = { id = "idle"					type = "arthropoid_01_missile_medium_idle_animation" }			
+		animation = { id = "miss"					type = "arthropoid_01_missile_medium_miss_animation" }			
+		animation = { id = "miss2"					type = "arthropoid_01_missile_medium_miss2_animation" }			
+		animation = { id = "miss_reversed"			type = "arthropoid_01_missile_medium_miss_reversed_animation" }			
+		animation = { id = "miss2_reversed"			type = "arthropoid_01_missile_medium_miss2_reversed_animation" }
+		
+		meshsettings = {
+			name = "pSphere16Shape"
+			index = 0
+			texture_diffuse = "space_mine_diffuse.dds"
+			texture_normal = "space_mine_normal.dds"
+			texture_specular = "space_mine_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

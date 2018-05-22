@@ -1,0 +1,50 @@
+objectTypes = {
+	pdxmesh = {
+		name = "leviathan_01_voidspawn_mesh"
+		file = "gfx/models/ships/guardians/voidspawn/leviathan_01_voidspawn.mesh"
+
+		animation = { id = "idle"				type = "leviathan_01_voidspawn_idle_animation" }
+		animation = { id = "moving"				type = "leviathan_01_voidspawn_moving_animation" }
+		animation = { id = "hatching"			type = "leviathan_01_voidspawn_hatching_animation" }
+		animation = { id = "death"				type = "leviathan_01_voidspawn_death_animation" }
+		
+		meshsettings = {
+			name = "leviathan_01_voidspawnShape"
+			index = 0
+			texture_diffuse = "leviathan_01_voidspawn_diffuse.dds"
+			texture_normal = "leviathan_01_voidspawn_normal.dds"
+			texture_specular = "leviathan_01_voidspawn_specular.dds"
+			shader = "PdxMeshShip"
+		}
+
+		meshsettings = {
+			name = "hair_lowShape"
+			index = 0
+			texture_diffuse = "leviathan_01_voidspawn_diffuse.dds"
+			texture_normal = "leviathan_01_voidspawn_normal.dds"
+			texture_specular = "leviathan_01_voidspawn_specular.dds"
+			shader = "AlphaBlendNoDepth_00"
+		}
+	}
+	
+	
+	pdxmesh = {
+		name = "leviathans_01_voidspawn_projectile_mesh"
+		file = "gfx/models/ships/guardians/voidspawn/leviathans_01_voidspawn_projectile.mesh"
+		
+		animation = { id = "idle"					type = "arthropoid_01_missile_medium_idle_animation" }			
+		animation = { id = "miss"					type = "arthropoid_01_missile_medium_miss_animation" }			
+		animation = { id = "miss2"					type = "arthropoid_01_missile_medium_miss2_animation" }			
+		animation = { id = "miss_reversed"			type = "arthropoid_01_missile_medium_miss_reversed_animation" }			
+		animation = { id = "miss2_reversed"			type = "arthropoid_01_missile_medium_miss2_reversed_animation" }
+		
+		meshsettings = {
+			name = "g_bodyShape"
+			index = 0
+			texture_diffuse = "leviathans_01_voidspawn_projectile_diffuse.dds"
+			texture_normal = "leviathans_01_voidspawn_projectile_normal.dds"
+			texture_specular = "leviathans_01_voidspawn_projectile_specular.dds"
+			shader = "PdxMeshShip"
+		}
+	}
+}

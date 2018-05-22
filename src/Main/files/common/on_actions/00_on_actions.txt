@@ -9,9 +9,9 @@ on_monthly_pulse = {
 		crisis.120 # Feral Prethoryn
 		crisis.123 # Feral Prethoryn infighting
 		marauder.113
-		guardian.170
-		guardian.172
-		guardian.174
+		leviathans.170
+		leviathans.172
+		leviathans.174
 		action.85 # flip planets to starbase owner
 		marauder.150 # AI hires Marauder raids
 		marauder.151 # AI hires Marauder mercs
@@ -20,13 +20,17 @@ on_monthly_pulse = {
 		action.90 # rebuild outpost for orphaned colonies
 		unrest.166
 		apoc.301
+		distar.1082
+		distar.5014
+		distar.5001
+		distar.301
 	}
 }
 
 # No scope, like on_game_start
 on_yearly_pulse = {
 	events = {
-		guardian.10	
+		leviathans.10	
 		pirate.4
 		crisis.204
 		crisis.205
@@ -47,7 +51,7 @@ on_yearly_pulse = {
 # No scope, like on_game_start
 on_bi_yearly_pulse = {
 	events = {
-		crisis.206	
+		crisis.206
 	}
 }
 
@@ -76,6 +80,10 @@ on_game_start = {
 		game_start.3
 		game_start.5
 		game_start.31
+		distar.290 # Spawn Sealed System
+		distar.252 # Phaseshifting Planet
+		distar.295 # Connect Ratling Systems to one another
+		distar.8000 # Randomize L-Cluster outcome
 	}
 }
 
@@ -91,12 +99,15 @@ on_game_start_country = {
 
 on_mid_game_pulse = {
 	events = {
-		guardian.2011 # spawn wraith
-		guardian.20101 # remove too-late wraith discovery
+		leviathans.2011 # spawn wraith
+		leviathans.20101 # remove too-late wraith discovery
+		distar.2050
 	}
 }
 
 on_late_game_pulse = {
+	events = {
+	}
 }
 
 # setup advanced colony. So far it has a pop on the capital and a colony shelter building matching the is_colony trigger
@@ -138,18 +149,18 @@ on_custom_diplomacy = {
 		crisis.1051
 		crisis.1052
 		nomad.30
-		guardian.100
-		guardian.103
-		guardian.104
-		#guardian.200
-		guardian.300
-		guardian.313
-		#guardian.400
-		guardian.500
-		guardian.157
-		guardian.160
-		guardian.163
-		guardian.597
+		leviathans.100
+		leviathans.103
+		leviathans.104
+		#leviathans.200
+		leviathans.300
+		leviathans.313
+		#leviathans.400
+		leviathans.500
+		leviathans.157
+		leviathans.160
+		leviathans.163
+		leviathans.597
 		utopia.3000
 		utopia.3010
 		crisis.2300
@@ -178,7 +189,7 @@ on_first_contact = {
 		#action.31
 		tutorial.59
 		nomad.6
-		guardian.9
+		leviathans.9
 	}
 }
 
@@ -197,6 +208,10 @@ on_enforce_borders = {
 # This = country, leader attacker
 # From = country, planet owner
 # FromFrom = planet
+# IDENTITIES: attacker is the side that "IsHostile" to
+# the planet controller; e.g. spawned monster armies
+# are attackers, but if they win and the player attempts
+# to retake the planet, the player is the attacker
 on_planet_attackers_win = {
 	events = {
 		colony.114
@@ -213,6 +228,9 @@ on_planet_attackers_win = {
 		crisis.2045
 		marauder.503
 		marauder.515
+		distar.37
+		distar.81
+		distar.235
 	}
 }
 
@@ -236,6 +254,7 @@ on_planet_defenders_win = {
 		colony.108
 		unrest.161
 		unrest.4235
+		distar.34
 	}
 }
 
@@ -252,6 +271,7 @@ on_planet_defenders_lose = {
 	}
 }
 
+# Fires when you first get intel (_low and up) on a new system
 # Scope = Country
 # From = System
 on_system_first_visited = {
@@ -293,13 +313,13 @@ on_entering_system = {
 		anomaly.4036
 		galactic_features.350
 		country.254
-		guardian.999
-		guardian.1001
-		guardian.3000
-		guardian.3100
-		guardian.2061
-		guardian.3202
-		guardian.2105
+		leviathans.999
+		leviathans.1001
+		leviathans.3000
+		leviathans.3100
+		leviathans.2061
+		leviathans.3202
+		leviathans.2105
 		utopia.2010
 		utopia.2012
 		utopia.2014
@@ -307,7 +327,9 @@ on_entering_system = {
 		precursor.2101
 		precursor.2102
 		apoc.1
+		apoc.3
 		apoc.5
+		distar.13030
 	}
 	random_events = {
 		100 = 0
@@ -326,7 +348,7 @@ on_entering_system_fleet = {
 		country.204
 		country.205
 		country.206
-		story.218
+		#story.218
 		story.220
 		story.330
 		#story.408
@@ -335,15 +357,22 @@ on_entering_system_fleet = {
 		nomad.3
 		nomad.7
 		nomad.8
-		guardian.96
-		guardian.1005
+		leviathans.96
+		leviathans.1005
 		pirate.10
-		guardian.610
-		guardian.1030
+		leviathans.610
+		leviathans.1030
 		akx.9200
 		akx.9300
 		akx.9600
 		akx.9610
+		distar.135
+		distar.211
+		distar.5011
+		distar.1002
+		distar.230
+		distar.240
+		distar.242
 	}
 	random_events = {
 		99 = 0
@@ -363,7 +392,7 @@ on_survey = {
 		country.52
 		progress.2
 		galactic_features.300
-		story.307
+		#story.307
 		anomaly.6660
 		anomaly.6661
 		colony_mod.100 #Setup event to add Titanic life blockers to planets with the modifier
@@ -381,7 +410,11 @@ on_survey = {
 		#precursor.2102
 		#precursor.2200
 		#precursor.2201
-		guardian.2010
+		leviathans.2010
+		distar.130
+		action.94 # strategic resource discovered
+		distar.256 #Phaseshifting Planet
+		distar.11002 # distar strategic resource discovered
 	}
 	
 	random_events = {
@@ -403,6 +436,7 @@ on_planet_surveyed = {
 	events = {
 		action.46
 		country.259
+		distar.13050 # strategic resource alert
 	}
 }
 
@@ -413,6 +447,9 @@ on_planet_surveyed = {
 on_system_survey = {
 	events = {
 		tutorial.18
+		distar.13060 # first wormhole is in foreign territory - apoc.5 duplicate
+		distar.13070 # first gateway is in foreign territory - apoc.1 duplicate
+		distar.13080 # first l-gate is in foreign territory - apoc.3 duplicate
 	}
 }
 
@@ -439,6 +476,7 @@ on_colonization_started = {
 		progress.3
 		progress.7
 		apoc.202 # lose new holy world status
+		distar.300 # Change junkheap planetview image
 	}
 	random_events = {
 		190 = 0
@@ -457,6 +495,13 @@ on_colonized = {
 		tutorial.444 #Increase num_colonies variable
 		#factions.105 # Colonialists New Colony
 		akx.9499
+		distar.5
+		distar.26
+		distar.1014
+		distar.72
+		distar.73
+		distar.5000
+		distar.262
 	}
 }
 
@@ -477,11 +522,11 @@ on_entering_battle = {
 		nomad.96
 		nomad.98
 		nomad.99
-		guardian.330
-		guardian.155
-		guardian.158
-		guardian.161
-		guardian.595
+		leviathans.330
+		leviathans.155
+		leviathans.158
+		leviathans.161
+		leviathans.595
 	}
 }
 
@@ -494,10 +539,10 @@ on_ship_destroyed_victim = {
 		syndaw.30
 		mandate.143
 		nomad.95
-		guardian.3002
-		guardian.3101
-		guardian.592
-		guardian.140
+		leviathans.3002
+		leviathans.3101
+		leviathans.592
+		leviathans.140
 		crisis.1281
 		crisis.1282
 		crisis.217
@@ -510,6 +555,8 @@ on_ship_destroyed_victim = {
 		marauder.509
 		crisis.80
 		marauder.525
+		distar.57
+		graygoo.6
 	}
 }
 
@@ -519,13 +566,17 @@ on_ship_destroyed_victim = {
 # FromFromFrom = ship 2
 on_ship_destroyed_perp = {
 	events = {
-		guardian.1016
-		guardian.2099
+		leviathans.1016
+		leviathans.2099
 		crisis.1283
 		crisis.218
 		crisis.2071
 		story.222
 		achievement.2
+		distar.137
+		distar.212
+		distar.243
+		distar.13020
 	}
 	random_events = {
 	}
@@ -563,9 +614,9 @@ on_fleet_destroyed_victim = {
 		country.1021
 		country.1060
 		anomaly.3097
-		guardian.331
-		guardian.3203
-		#guardian.649
+		leviathans.331
+		leviathans.3203
+		#leviathans.649
 		marauder.51
 		#marauder.13 - Marauder infighting aftermath - commented out for now
 		crisis.108
@@ -591,36 +642,37 @@ on_fleet_destroyed_perp = {
 		observation.5
 		story.109
 		#story.114
-		story.209
-		story.309
-		story.311
-		story.214
+		#story.209
+		#story.309
+		#story.311
+		#story.214
 		story.216
 		story.332
-		story.409
+		#story.409
 		anomaly.3101
 		anomaly.3120
 		anomaly.3121
 		galactic_features.360
 		crisis.1111
 		crisis.70
-		guardian.1009
-		guardian.1012
-		guardian.1015
-		guardian.1032
-		guardian.1040
-		guardian.648
-		guardian.655
-		guardian.670
-		guardian.334
-		guardian.2014
-		guardian.4
-		pirate.25
+		leviathans.1009
+		leviathans.1012
+		leviathans.1015
+		leviathans.1032
+		leviathans.1040
+		leviathans.648
+		leviathans.655
+		leviathans.670
+		leviathans.334
+		leviathans.2014
+		leviathans.4
+		pirate.24
 		akx.9318
 		akx.10030
 		factions.330
 		factions.10
 		crisis.2472
+		distar.5009
 	}
 	random_events = {
 		300 = 0
@@ -662,10 +714,15 @@ on_fleet_disbanded = {
 }
 
 # This = owner of fleet
-# From = fleet
+# From = fleet # And ship??
 # Only works if clear auto move on arrival is enabled
 on_fleet_auto_move_arrival = {
 	events = {
+		distar.5008
+		distar.136
+		distar.210
+		distar.5054
+		distar.1017
 	}
 }
 
@@ -683,7 +740,7 @@ on_building_mining_station = {
 		tutorial.1000
 		tutorial.56
 		pirate.3
-		guardian.3200
+		leviathans.3200
 	}
 }
 
@@ -697,6 +754,7 @@ on_building_research_station = {
 		tutorial.12
 		tutorial.1200
 		tutorial.56
+		distar.191
 	}
 }
 
@@ -725,6 +783,9 @@ on_building_wormhole_station = {
 on_building_starbase_outpost = {
 	events = {
 		tutorial.76
+		distar.254
+		distar.1007
+		distar.2036
 	}
 }
 
@@ -775,7 +836,8 @@ on_ship_disabled = {
 		country.212
 		country.217
 		country.222
-		guardian.2100
+		leviathans.2100
+		distar.5053
 	}
 }
 
@@ -849,6 +911,7 @@ on_terraforming_complete = {
 	events = {
 		action.68
 		syndaw.1320 # Planet of the Mechs achievement check
+		distar.197
 	}
 }
 
@@ -864,6 +927,7 @@ on_planet_zero_health = {
 		crisis.2475
 		crisis.2476
 		marauder.103
+		graygoo.2
 	}
 }
 
@@ -872,7 +936,8 @@ on_planet_zero_health = {
 # From = Bombarder
 on_planet_zero_pops = {
 	events = {
-		action.81	
+		action.81
+		distar.1015	
 	}
 }
 
@@ -922,7 +987,7 @@ on_post_communications_established = {
 	events = {
 		action.11
 		anomaly.4016
-		anomaly.4092
+		#anomaly.4092
 		tutorial.60
 		tutorial.61
 		tutorial.62
@@ -1071,10 +1136,11 @@ on_tech_increased = {
 		tutorial.64
 		tutorial.73
 		#crisis.2190
-		anomaly.1191
 		anomaly.1193
 		action.55
 		apoc.300
+		distar.12000
+		distar.1085
 	}
 }
 
@@ -1109,13 +1175,13 @@ on_planet_occupied = {
 on_emergency_ftl = {
 	events = {
 		nomad.97
-		guardian.1010
-		guardian.1013
-		guardian.1014
-		guardian.1020
-		guardian.1031
-		guardian.650
-		guardian.654
+		leviathans.1010
+		leviathans.1013
+		leviathans.1014
+		leviathans.1020
+		leviathans.1031
+		leviathans.650
+		leviathans.654
 	}
 	random_events = {
 		310 = 0
@@ -1176,7 +1242,7 @@ on_building_upgraded = {
 on_building_demolished = {
 	events = {
 		colony.2020
-		guardian.305
+		leviathans.305
 	}
 }
 
@@ -1186,7 +1252,7 @@ on_building_demolished = {
 on_building_replaced = {
 	events = {
 		colony.2020
-		guardian.305
+		leviathans.305
 		akx.10000
 	}
 }
@@ -1540,7 +1606,7 @@ on_colony_2_years_old = {
 		
 		15 = colony.2015 # Odd Factory
 		15 = colony.2025 # What Separates Us
-		15 = colony.2030 # Assassination
+		#15 = colony.2030 # Assassination
 		15 = colony.2035 # Infectious Disease
 		15 = colony.2050 # Clerical Errors
 
@@ -1586,7 +1652,7 @@ on_colony_3_years_old = {
 		10 = colony.2010 # A Change of Heart
 		10 = colony.2015 # Odd Factory
 		10 = colony.2025 # What Separates Us
-		10 = colony.2030 # Assassination
+		#10 = colony.2030 # Assassination
 		10 = colony.2035 # Infectious Disease
 		10 = colony.2050 # Clerical Errors
 
@@ -1657,6 +1723,7 @@ on_leader_spawned = {
 		utopia.2651	# New Leaders Get Psionic Trait
 		utopia.6000 # hive mind ruler gets hive mind trait to make them immortal
 		syndaw.1050 # Machine Intelligence ruler gets trait
+		distar.173 # New Leaders Get Brainslug Trait
 	}
 	random_events = {
 		80 = 0
@@ -1733,14 +1800,20 @@ on_entering_wormhole = {
 
 # THIS = Fleet
 on_jump_drive = {
-	events = {
-		action.89
-	}
 }
 
 # this = country
 on_pirate_spawn = {
 	events = {
 		pirate.49
+	}
+}
+
+# Called when a Starbase changes owner
+# THIS = Ship (Starbase)
+# FROM = Former Owner (Country)
+on_starbase_transfer = {
+	events = {
+		distar.254
 	}
 }

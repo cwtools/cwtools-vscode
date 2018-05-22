@@ -8,105 +8,6 @@
 
 namespace = marauder
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-@tier4unityreward = 24
-@tier4unitymin = 350
-@tier4unitymax = 2000
-@tier5unityreward = 48
-@tier5unitymin = 700
-@tier5unitymax = 4000
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
-
-@raidcooldown = 600
-
-# Mercenary Costs
-
-@largemercallow = 9000
-@largemerccost = -9000
-
-@mediummercallow = 6500
-@mediummerccost = -6500
-
-@smallmercallow = 4000
-@smallmerccost = -4000
-
-# Tribute Allow and Costs found in 01_scripted_triggers_marauder_tribute and marauder_tribute_effects
-
-@leaderallow = 2000
-@leadercost = -2000
-
-@raidallow = 3000
-@raidcost = -3000
-
 ### Marauders Researched
 country_event = {
 	id = marauder.1
@@ -2370,9 +2271,9 @@ country_event = {
 				}
 			}
 			country_event = { id = marauder.120 }
-			else = {
-				country_event = { id = marauder.123 }
-			}
+		}
+		else = {
+			country_event = { id = marauder.123 }
 		}
 	}
 }
@@ -4462,41 +4363,41 @@ country_event = {
 		# Determine tribute level
 		if = {
 			limit = { 
-				has_monthly_income = { resource = minerals value < 50 }
+				has_monthly_income = { resource = minerals value <= 50 }
 			}
 			set_country_flag = marauder_tribute_1@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 49 }
-				has_monthly_income = { resource = minerals value < 100 }
+				has_monthly_income = { resource = minerals value >= 51 }
+				has_monthly_income = { resource = minerals value <= 100 }
 			}
 			set_country_flag = marauder_tribute_2@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 99 }
-				has_monthly_income = { resource = minerals value < 150 }
+				has_monthly_income = { resource = minerals value >= 101 }
+				has_monthly_income = { resource = minerals value <= 150 }
 			}
 			set_country_flag = marauder_tribute_3@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 149 }
-				has_monthly_income = { resource = minerals value < 200 }
+				has_monthly_income = { resource = minerals value >= 151 }
+				has_monthly_income = { resource = minerals value <= 200 }
 			}
 			set_country_flag = marauder_tribute_4@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 199 }
-				has_monthly_income = { resource = minerals value < 250 }
+				has_monthly_income = { resource = minerals value >= 201 }
+				has_monthly_income = { resource = minerals value <= 250 }
 			}
 			set_country_flag = marauder_tribute_5@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 249 }
+				has_monthly_income = { resource = minerals value >= 251 }
 			}
 			set_country_flag = marauder_tribute_6@event_target:raiding_marauder
 		}
@@ -5079,15 +4980,15 @@ country_event = {
 				save_event_target_as = marauder_country
 			}
 			from = { save_event_target_as = marauder_raiding_country }
-			else = {
-				from = { save_event_target_as = marauder_country }
-				random_country = {
-					limit = {
-						is_country_type = marauder_raiders
-						from = { has_country_flag = parent_of@prev }
-					}
-					save_event_target_as = marauder_raiding_country
+		}
+		else = {
+			from = { save_event_target_as = marauder_country }
+			random_country = {
+				limit = {
+					is_country_type = marauder_raiders
+					from = { has_country_flag = parent_of@prev }
 				}
+				save_event_target_as = marauder_raiding_country
 			}
 		}
 	}
@@ -6705,9 +6606,9 @@ event = {
 					if = {
 						limit = { has_communications = event_target:raiding_marauder }
 						country_event = { id = marauder.120 days = 1 random = 30 }
-						else = {
-							country_event = { id = marauder.123  days = 1 random = 30 }
-						}
+					}
+					else = {
+						country_event = { id = marauder.123  days = 1 random = 30 }
 					}
 				}
 			}
@@ -7275,6 +7176,10 @@ country_event = {
 	mean_time_to_happen = {
 		years = 100
 		modifier = {
+			factor = 0.66
+			mid_game_years_passed >= 50
+		}
+		modifier = {
 			factor = 1.5
 			count_country = {
 				limit = { is_country_type = dormant_marauders }
@@ -7410,12 +7315,12 @@ country_event = {
 				establish_communications_no_message = root
 				country_event = { id = marauder.501 }
 			}
-			else = {
-				every_country = {
-					limit = { is_ai = no }
-					establish_communications_no_message = root
-					country_event = { id = marauder.526 }
-				}
+		}
+		else = {
+			every_country = {
+				limit = { is_ai = no }
+				establish_communications_no_message = root
+				country_event = { id = marauder.526 }
 			}
 		}
 
@@ -7715,12 +7620,12 @@ country_event = {
 				solar_system = {
 					starbase = { set_owner = root }
 				}
-				else = {
-					solar_system = {
-						create_starbase = {
-							size = "starbase_marauder"
-							owner = root
-						}
+			}
+			else = {
+				solar_system = {
+					create_starbase = {
+						size = "starbase_marauder"
+						owner = root
 					}
 				}
 			}
@@ -8197,20 +8102,7 @@ country_event = {
 		# If at fleet cap, check again later
 		if = {
 			limit = {
-				OR = {
-					AND = {
-						is_difficulty = 0 # Normal
-						fleet_power > 100000
-					}
-					AND = {
-						is_difficulty = 1 # Hard
-						fleet_power > 150000
-					}
-					AND = {
-						is_difficulty = 2 # Insane
-						fleet_power > 200000
-					}
-				}
+				fleet_power > 100000
 			}
 			country_event = { id = marauder.520 days = 340 }
 			break = yes

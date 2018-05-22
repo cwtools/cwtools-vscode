@@ -346,9 +346,9 @@ country_event = {
 					add_energy = 100
 				}
 			}			
-			else = {
-				add_food = 100
-			}
+		}
+		else = {
+			add_food = 100
 		}
 	}
 }
@@ -1013,16 +1013,18 @@ event = {
 						}
 						distance = {
 							source = prev
-							min_distance = 500
+							min_distance >= 500
 						}
 					}
 					prev = { # done this way to ensure we don't spawn "orphan" wormholes (wormholes that aren't linked to anything)
 							spawn_natural_wormhole = {
+							bypass_type = wormhole
 							random_pos = yes
 							orbit_angle = 360
 						}
 					}
 					spawn_natural_wormhole = {
+						bypass_type = wormhole
 						random_pos = yes
 						orbit_angle = 360
 					}

@@ -94,7 +94,7 @@ country_event = {
 		any_country = {
 			is_country_type = default
 			has_communications = root
-			NOT = { root = { opinion = { who = prev value = -99 } } }
+			root = { opinion = { who = prev value < -99 } }
 			NOT = { root = { has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_demand } } }
 			NOT = { has_country_flag = fe_demand_made }
 		}
@@ -106,8 +106,9 @@ country_event = {
 			limit = {
 				is_country_type = default
 				has_communications = root				
-				NOT = { root = { opinion = { who = prev value = -99 } } }
+				root = { opinion = { who = prev value < -99 } }
 				NOT = { root = { has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_demand } } }	
+				NOT = { has_country_flag = fe_demand_made }
 			}
 
 			root = { set_country_flag = fe_demand_made }
@@ -460,7 +461,7 @@ country_event = {
 						any_system = {
 							distance = {
 								source = root.capital_scope
-								max_distance = 200				
+								max_distance <= 200				
 							}
 						}						
 					}	

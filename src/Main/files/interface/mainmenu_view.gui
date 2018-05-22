@@ -36,13 +36,13 @@ guiTypes = {
 				buttonText = "MAIN_SAVE"
 				buttonFont = "malgun_goth_24"
 				Orientation = "CENTER_UP"
-				oversound = menu_over_01
+				oversound = mouse_over
 				navUp = "resume"
 				navDown = "load"
 			}
 
 			iconType = {
-				name = "ironman_icon"
+				name = "ironman_icon_save"
 				spriteType = "GFX_ironman_icon"
 				position = { x= 80 y = 64 }
 				Orientation = "CENTER_UP"
@@ -58,10 +58,19 @@ guiTypes = {
 				buttonText = "MAIN_LOAD"
 				buttonFont = "malgun_goth_24"
 				Orientation = "CENTER_UP"
-				oversound = menu_over_01
+				oversound = mouse_over
 				navUp = "save"
 				navDown = "settings"
 			}
+			
+			iconType = {
+				name = "ironman_icon_load"
+				spriteType = "GFX_ironman_icon"
+				position = { x= 80 y = 134 }
+				Orientation = "CENTER_UP"
+				alwaystransparent = yes
+			}
+			
 			buttonType =
 			{
 				id = "settings"
@@ -71,7 +80,7 @@ guiTypes = {
 				buttonText = "SETTINGS"
 				buttonFont = "malgun_goth_24"
 				Orientation = "CENTER_UP"
-				oversound = menu_over_01
+				oversound = mouse_over
 				navUp = "load"
 				navDown = "resign"
 			}
@@ -84,7 +93,7 @@ guiTypes = {
 				buttonText = "MAIN_RESIGN"
 				buttonFont = "malgun_goth_24"
 				Orientation = "CENTER_UP"
-				oversound = menu_over_01
+				oversound = mouse_over
 				navUp = "settings"
 				navDown = "quit"
 			}
@@ -97,7 +106,7 @@ guiTypes = {
 				buttonText = "MAIN_QUIT"
 				buttonFont = "malgun_goth_24"
 				Orientation = "CENTER_UP"
-				oversound = menu_over_01
+				oversound = mouse_over
 				navUp = "resign"
 				navDown = "resume"
 			}
@@ -112,7 +121,7 @@ guiTypes = {
 				shortcut = "ESCAPE"
 				Orientation = "CENTER_UP"
 				clicksound = "back_click"
-				oversound = menu_over_01
+				oversound = mouse_over
 				defaultSelection = yes
 				navUp = "quit"
 				navDown = "save"
@@ -134,6 +143,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 300 y = 20 }
 				position = { x= 12 y = 520  }
+				no_clicksound = yes	
 			}
 		}
 	}

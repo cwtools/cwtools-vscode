@@ -16,6 +16,10 @@ hostile_init_01 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	max_instances = 1
@@ -118,6 +122,10 @@ hostile_init_02 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	flags = { hostile_system blue2_system }
@@ -268,6 +276,10 @@ hostile_init_03 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 
 	max_instances = 1
@@ -411,6 +423,10 @@ hostile_init_04 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	flags = { hostile_system green2_system }
@@ -659,6 +675,10 @@ hostile_init_05 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	flags = { hostile_system red_system }
@@ -854,6 +874,10 @@ hostile_init_06 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	max_instances = 1
@@ -1088,12 +1112,16 @@ hostile_init_07 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 
 	max_instances = 1
 	spawn_chance = 100
 	
-	flags = { hostile_system elite_system }
+	flags = { hostile_system elite_system crystal_home_system }
 	
 	planet = {
 		class = star
@@ -1298,7 +1326,10 @@ hostile_init_07 = {
 # Cloud Entity
 hostile_init_08 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	
 	usage = misc_system_init
 	usage_odds = {
@@ -1311,6 +1342,10 @@ hostile_init_08 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	flags = { hostile_system void_system }
@@ -1335,14 +1370,14 @@ hostile_init_08 = {
 	change_orbit = 25
 	
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 0 max = 150 }
 	}
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
-		orbit_angle = { min = 160 max 330 }
+		orbit_angle = { min = 160 max = 330 }
 	}
 	
 	planet = {
@@ -1414,6 +1449,10 @@ hostile_init_09 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 
 	flags = { hostile_system void2_system }
@@ -1507,6 +1546,10 @@ hostile_init_10 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	flags = { hostile_system amoeba_1_system }
@@ -1764,7 +1807,10 @@ hostile_init_11 = {
 # Mining Drones
 hostile_init_12 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	
 	usage = misc_system_init
 	usage_odds = {
@@ -1801,12 +1847,12 @@ hostile_init_12 = {
 	change_orbit = 25
 	
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 0 max 150 }
 	}
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 160 max 330 }
 	}
@@ -1882,7 +1928,10 @@ hostile_init_12 = {
 # Mining Drones
 hostile_init_12_mining_drones = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	
 	usage = misc_system_init
 	usage_odds = {
@@ -1919,12 +1968,12 @@ hostile_init_12_mining_drones = {
 	change_orbit = 25
 	
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 0 max 150 }
 	}
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 160 max 330 }
 	}
@@ -2007,7 +2056,10 @@ hostile_init_12_mining_drones = {
 # Mining Drone Destroyers
 hostile_init_12_drone_destroyer = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	
 	usage = misc_system_init
 	usage_odds = {
@@ -2020,6 +2072,10 @@ hostile_init_12_drone_destroyer = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 	
 	flags = { hostile_system drone_destroyer_system }
@@ -2044,12 +2100,12 @@ hostile_init_12_drone_destroyer = {
 	change_orbit = 25
 	
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 0 max 150 }
 	}
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 160 max 330 }
 	}
@@ -2121,7 +2177,10 @@ hostile_init_12_drone_destroyer = {
 # Mining Drones ALTERNATE
 hostile_init_13 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 120
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 120
+	}
 
 	usage = misc_system_init
 	usage_odds = {
@@ -2325,7 +2384,10 @@ hostile_init_13 = {
 # Mining Drone Home
 hostile_init_14 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 120
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 120
+	}
 	
 	usage = misc_system_init
 	usage_odds = {
@@ -2338,6 +2400,10 @@ hostile_init_14 = {
             factor = 0
             has_star_flag = empire_cluster
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 
 	max_instances = 1
@@ -2362,7 +2428,7 @@ hostile_init_14 = {
 	
 	planet = {
 		count = 3
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 70
 
@@ -2583,8 +2649,11 @@ hostile_init_15 = {
 
 ### Privateer Conglomerate
 hostile_init_18 = {
-	class = random
-	asteroids_distance = 95
+	class = "rl_standard_stars"
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 	
 	usage = misc_system_init
 	usage_odds = {
@@ -2600,6 +2669,10 @@ hostile_init_18 = {
 				host_has_dlc = "Apocalypse"
 			}
         }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
 	}
 
 	max_instances = 1
@@ -2747,7 +2820,7 @@ hostile_init_18 = {
 	change_orbit = 95
 	
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 0 max 150 }
 
@@ -2760,7 +2833,7 @@ hostile_init_18 = {
 		}
 	}
 	planet = {
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 160 max 330 }
 

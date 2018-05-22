@@ -826,7 +826,10 @@ special_init_02 = {
 special_init_03 = {
 	name = "NAME_Sol"
 	class = "sc_g"
-	asteroids_distance = 145
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 145
+	}
 
 	flags = { primitive_sol sol }
 	
@@ -1438,7 +1441,10 @@ special_init_03 = {
 special_init_04 = {
 	name = "NAME_Sol"
 	class = "sc_g"
-	asteroids_distance = 140
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 145
+	}
 
 	flags = { nuked_sol sol }
 	
@@ -1615,9 +1621,18 @@ special_init_04 = {
 # Guardians of Zanaam
 special_init_06 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 150
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 150
+	}
 	usage = misc_system_init
-	usage_odds = 2000000
+	usage_odds = {
+		base = 2000000
+		modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
+	}
 	max_instances = 1
 	scaled_spawn_chance = 3	# scales by galaxy size (1000 stars = 10x base)
 	
@@ -1812,9 +1827,28 @@ special_init_06 = {
 # Crystal Lair
 special_init_07 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 150
-	
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 150
+	}
+
 	usage = misc_system_init
+
+	usage_odds = {
+		base = 5
+		modifier = {
+			factor = 0
+			NOT = { is_in_cluster = resource_cluster_1 }
+		}
+		modifier = {
+            factor = 0
+            has_star_flag = empire_cluster
+        }
+		modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
+	}
 	max_instances = 1
 	
 	flags = { hostile_system }
@@ -1914,58 +1948,106 @@ special_init_07 = {
 	planet = {
 		name = "NAME_Yormak's_Tusk"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 10
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_vast_mineral_deposit
+			}
+		}
 	}
 	planet = {
 		name = "NAME_Yormak's_Eye"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 46
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_vast_mineral_deposit
+			}
+		}
 	}
 	planet = {	
 		name = "NAME_Yormak's_Tongue"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 97
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_rich_mineral_deposit
+			}
+		}
 	}
 	planet = {
 		name = "NAME_Yormak's_Tail"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 145
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_rich_mineral_deposit
+			}
+		}
 	}
 	planet = {
 		name = "NAME_Yormak's_Heart"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 189
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_orillium = yes
+			}
+		}
 	}
 	planet = {
 		name = "NAME_Yormak's_Belly"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 231
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_vast_mineral_deposit
+			}
+		}
 	}
 	planet = {
 		name = "NAME_Yormak's_Snout"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 286
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_rich_mineral_deposit
+			}
+		}
 	}
 	planet = {
 		name = "NAME_Yormak's_Fist"
 		count = 1
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = 321
+		init_effect = {
+			orbital_deposit_tile = {
+				clear_deposits = yes
+				add_deposit = d_rich_mineral_deposit
+			}
+		}
 	}
 }
 
@@ -2029,7 +2111,10 @@ special_init_09 = {
 
 ### The Sanctuary
 sanctuary_system = {
-	asteroids_distance = 150
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 150
+	}
 	usage = misc_system_init
 	usage_odds = 2000000
 	max_instances = 1
@@ -2050,7 +2135,7 @@ sanctuary_system = {
 				type = faction
 			}
 			last_created_country = {
-				save_event_target_as = sanctuary
+				save_global_event_target_as = sanctuary
 				create_fleet = {
 					name = "NAME_Sanctuary_Core"
 					settings = { spawn_debris = no }
@@ -3951,7 +4036,7 @@ sanctuary_system = {
 	
 	planet = {
 		count = { min = 1 max = 4 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}
@@ -4043,7 +4128,10 @@ com_sol_system = {
 	name = "NAME_Sol"
 	
 	class = "sc_g"
-	asteroids_distance = 140
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 145
+	}
 	flags = { sol_system com_sol sol }
 	
 	planet = {
@@ -4319,7 +4407,10 @@ com_sol_system = {
 ai_system_1 = {
 	class = "rl_standard_stars"
 	flags = { ai_system }
-	asteroids_distance = 100
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 100
+	}
 	
 	planet = {
 		count = 1
@@ -4346,7 +4437,7 @@ ai_system_1 = {
 	
 	planet = {
 		count = 5
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 100 }
 		
@@ -4412,7 +4503,10 @@ ai_system_1 = {
 crystal_manufactory_system = {
 	class = "rl_standard_stars"
 	flags = { manufactory_system }
-	asteroids_distance = 120
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 120
+	}
 	
 	usage = misc_system_init
 	usage_odds = 5
@@ -4432,7 +4526,7 @@ crystal_manufactory_system = {
 	
 	planet = {
 		count = { min = 3 max = 6 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}

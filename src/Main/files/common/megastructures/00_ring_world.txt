@@ -48,6 +48,25 @@ ring_world_1 = {
 			fail_text = "requires_no_black_hole"
 			NOT = { is_star_class = sc_black_hole }
 		}
+		custom_tooltip = {
+			fail_text = "requires_no_binary_trinary"
+			NOR = {
+				is_star_class = sc_binary_1
+				is_star_class = sc_binary_2
+				is_star_class = sc_binary_3
+				is_star_class = sc_binary_4
+				is_star_class = sc_binary_5
+				is_star_class = sc_binary_6
+				is_star_class = sc_binary_7
+				is_star_class = sc_binary_8
+				is_star_class = sc_binary_9
+				is_star_class = sc_binary_10
+				is_star_class = sc_trinary_1
+				is_star_class = sc_trinary_2
+				is_star_class = sc_trinary_3
+				is_star_class = sc_trinary_4
+			}
+		}
 
 		custom_tooltip = {
 			fail_text = "requires_no_existing_megastructure"
@@ -123,7 +142,10 @@ ring_world_2_intermediate = {
 			limit = { is_star = no }
 			remove_planet = yes 
 		}
-		asteroids_distance = 0
+		set_asteroid_belt = {
+			radius = 0
+		}
+		
 		remove_megastructure = fromfrom
 		spawn_megastructure = {
 			name = "NAME_Ring_Section_A"

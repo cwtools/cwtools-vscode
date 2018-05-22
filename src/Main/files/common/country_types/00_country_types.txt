@@ -1376,6 +1376,7 @@ sentinels = {
 #################
 
 tiyanki = {
+	share_communications = no
 	is_space_critter = yes
 	government = no
 	ai = {
@@ -1399,6 +1400,7 @@ tiyanki = {
 }
 
 amoeba = {
+	share_communications = no
 	is_space_critter = yes
 	blocks_piracy = yes
 	government = no
@@ -1424,6 +1426,7 @@ amoeba = {
 }
 
 crystal = {
+	share_communications = no
 	is_space_critter = yes
 	blocks_piracy = yes
 	government = no
@@ -1444,6 +1447,7 @@ crystal = {
 }
 
 drone = {
+	share_communications = no
 	is_space_critter = yes
 	blocks_piracy = yes
 	government = no
@@ -1464,6 +1468,7 @@ drone = {
 }
 
 cloud = {
+	share_communications = no
 	is_space_critter = yes
 	blocks_piracy = yes
 	government = no
@@ -1568,5 +1573,138 @@ marauder_raiders = {
 		standard_event_module = {}
 		exclusive_diplomacy_module = {}
 		basic_technology_module = {}
+	}
+}
+
+vol = {
+	show_in_contacts_list = no
+	ai = {
+		enabled = no
+	}
+	faction = {
+		hostile = yes
+		needs_border_access = no
+		generate_borders = no
+		needs_colony = no
+		auto_delete = no
+	}
+	modules = {
+		basic_technology_module = {}
+		standard_event_module = {}
+		exclusive_diplomacy_module = {
+			contact_rule = script_only
+			can_receive = {
+				action_declare_war
+				action_offer_peace
+			}
+		}
+	}
+}
+
+ratlings = {
+	share_communications = no
+	ai = {
+		enabled = no
+		construction = no
+	}
+	faction = {
+		hostile = no
+		primitive = no
+		needs_border_access = no
+		generate_borders = no
+		needs_colony = yes
+	}
+	hide_names_if_no_communication = yes
+	
+	modules = {
+		standard_event_module = {}
+		basic_technology_module = {}
+		exclusive_diplomacy_module = {
+			contact_rule = script_only
+		}
+		#exclusive_diplomacy_module = {} # Nothing is allowed, but we need this for relationships.
+	}
+}
+
+nivlacs = {
+	show_in_contacts_list = yes
+	government = yes
+	ai = {
+		enabled = yes
+	}
+	faction = {
+		hostile = no
+		needs_border_access = no
+		generate_borders = yes
+		needs_colony = yes
+	}
+	modules = {
+		basic_technology_module = {}
+		standard_event_module = {}
+		exclusive_diplomacy_module = {
+			contact_rule = script_only
+			can_receive = {
+				action_declare_war
+				action_offer_peace
+			}
+		}
+	}
+}
+
+enigmatic_cache = {
+	is_space_critter = yes
+	destroys_starbases = no
+	#blocks_pirate = yes
+	ai = {
+		enabled = no
+	}
+	faction = {
+		neutral = yes
+		needs_border_access = no
+		generate_borders = no
+		needs_colony = no
+		auto_delete = no
+	}
+	modules = {
+		exclusive_diplomacy_module = {} # Nothing is allowed, but we need this for relationships.
+		basic_technology_module = {}
+		standard_event_module = {}
+	}
+}
+
+gray_goo = {
+	attack_unarmed_orbital_stations = yes
+	scaled_difficulty_bonuses = 1.0	# scales to setting
+	destroys_starbases = yes
+	show_in_contacts_list = no
+	share_survey_data = no
+	custom_diplomacy = no
+	mid_game_crisis = yes
+	enforces_borders = no
+	needs_survey = no
+	has_complete_sensor = yes
+	can_have_their_comms_shared = yes
+	ai = {
+		enabled = yes
+		modules = {
+			berserk_military_minister_module
+		}
+	}
+	
+	faction = {
+		hostile = yes
+		needs_border_access = no
+		generate_borders = yes
+		needs_colony = no
+	}
+	modules = {
+		exclusive_diplomacy_module = {
+			#contact_rule = script_only
+		} # Nothing is allowed, but we need this for relationships.
+		tiered_technology_module = {
+			tier = 3
+			rare = no
+		}
+		standard_event_module = {}
 	}
 }

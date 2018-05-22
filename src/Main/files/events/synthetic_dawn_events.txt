@@ -75,9 +75,9 @@ country_event = {
 									has_authority = auth_machine_intelligence
 								}
 								country_event = { id = syndaw.21 }
-								else = {
-									country_event = { id = action.71 }
-								}
+							}
+							else = {
+								country_event = { id = action.71 }
 							}
 						}
 					}
@@ -119,9 +119,9 @@ country_event = {
 									has_authority = auth_machine_intelligence
 								}
 								country_event = { id = syndaw.22 }
-								else = {
-									country_event = { id = action.72 }
-								}
+							}
+							else = {
+								country_event = { id = action.72 }
 							}
 						}
 					}
@@ -163,9 +163,9 @@ country_event = {
 									has_authority = auth_machine_intelligence
 								}
 								country_event = { id = syndaw.23 }
-								else = {
-									country_event = { id = action.73 }
-								}
+							}
+							else = {
+								country_event = { id = action.73 }
 							}
 						}
 					}
@@ -207,9 +207,9 @@ country_event = {
 									has_authority = auth_machine_intelligence
 								}
 								country_event = { id = syndaw.24 }
-								else = {
-									country_event = { id = action.74 }
-								}
+							}
+							else = {
+								country_event = { id = action.74 }
 							}
 						}
 					}
@@ -251,9 +251,9 @@ country_event = {
 									has_authority = auth_machine_intelligence
 								}
 								country_event = { id = syndaw.25 }
-								else = {
-									country_event = { id = action.75 }
-								}
+							}
+							else = {
+								country_event = { id = action.75 }
 							}
 						}
 					}
@@ -296,9 +296,9 @@ country_event = {
 									has_authority = auth_machine_intelligence
 								}
 								country_event = { id = syndaw.26 }
-								else = {
-									country_event = { id = action.76 }
-								}
+							}
+							else = {
+								country_event = { id = action.76 }
 							}
 						}
 					}
@@ -682,17 +682,15 @@ country_event = { # per-country gatekeeper
 						has_country_flag = triggered_syndaw_515
 						NOR = {
 							has_technology = tech_mine_garanthium
-							has_technology = tech_lythuric_gas
 							has_technology = tech_mine_teldar
-							has_technology = tech_mine_yuranic
+							has_technology = tech_mine_yurantic
+							has_technology = tech_mine_aldar
 							has_technology = tech_mine_orillium
-							has_technology = tech_pitharan_dust
 							has_technology = tech_engos_vapor
 							has_technology = tech_mine_neutronium
 							has_technology = tech_mine_living_metal
 							has_technology = tech_mine_zro
 							has_technology = tech_mine_dark_matter
-							has_technology = tech_mine_satramene
 							has_technology = tech_terrestrial_sculpting
 						}
 					}
@@ -1208,19 +1206,15 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_garanthium_deposit
+								add_garanthium = yes
 							}
 						}
 					}
 
 					50 = {
-						modifier = {
-							factor = 0
-							NOT = { has_technology = tech_lythuric_gas }
-						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_lythuric_gas_deposit
+								add_lythuric = yes
 							}
 						}
 					}
@@ -1232,7 +1226,7 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_teldar_deposit
+								add_teldar = yes
 							}
 						}
 					}
@@ -1240,11 +1234,23 @@ country_event = {
 					50 = {
 						modifier = {
 							factor = 0
-							NOT = { has_technology = tech_mine_yuranic }
+							NOT = { has_technology = tech_mine_yurantic }
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_yuranic_deposit
+								add_yurantic = yes
+							}
+						}
+					}
+
+					50 = {
+						modifier = {
+							factor = 0
+							NOT = { has_technology = tech_mine_aldar }
+						}
+						event_target:target_planetoid = {		
+							orbital_deposit_tile = {
+								add_aldar = yes
 							}
 						}
 					}
@@ -1256,19 +1262,15 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_orillium_deposit
+								add_orillium = yes
 							}
 						}
 					}
 
 					50 = {
-						modifier = {
-							factor = 0
-							NOT = { has_technology = tech_pitharan_dust }
-						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_pitharan_deposit
+								add_pitharan = yes
 							}
 						}
 					}
@@ -1280,7 +1282,7 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_engos_deposit
+								add_engos = yes
 							}
 						}
 					}
@@ -1292,7 +1294,7 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_neutronium_deposit
+								add_neutronium = yes
 							}
 						}
 					}
@@ -1316,7 +1318,7 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_zro_deposit
+								add_zro = yes
 							}
 						}
 					}
@@ -1326,33 +1328,29 @@ country_event = {
 							factor = 0
 							NOT = { has_technology = tech_mine_dark_matter }
 						}
-						event_target:target_planetoid = {		
+						event_target:target_planetoid = {
 							orbital_deposit_tile = {
-								add_deposit = d_dark_matter_deposit
+								add_dark_matter = yes
 							}
 						}
-					}					
+					}
 
 					50 = {
-						modifier = {
-							factor = 0
-							NOT = { has_technology = tech_mine_satramene }
-						}
-						event_target:target_planetoid = {		
+						event_target:target_planetoid = {
 							orbital_deposit_tile = {
-								add_deposit = d_satramene_deposit
+								add_satramene = yes
 							}
 						}
-					}						
+					}
 
 					50 = {
 						modifier = {
 							factor = 0
 							NOT = { has_technology = tech_terrestrial_sculpting }
 						}
-						event_target:target_planetoid = {		
+						event_target:target_planetoid = {
 							orbital_deposit_tile = {
-								add_deposit = d_terraforming_gas_deposit
+								add_terraforming_gases = yes
 							}
 						}
 					}
@@ -1364,7 +1362,7 @@ country_event = {
 						}
 						event_target:target_planetoid = {		
 							orbital_deposit_tile = {
-								add_deposit = d_terraforming_fluid_deposit
+								add_terraforming_liquids = yes
 							}
 						}
 					}
@@ -1924,57 +1922,53 @@ country_event = {
 				}
 				planet_event = { id = syndaw.1020 }
 			}
-			else = { # robots in core
-				if = {
-					limit = {
-						any_owned_planet = {
-							any_owned_pop = {
-								has_trait = trait_mechanical
-							}
-							is_capital = no
-						}
+		}
+		else_if = { # robots in core
+			limit = {
+				any_owned_planet = {
+					any_owned_pop = {
+						has_trait = trait_mechanical
 					}
-					random_owned_planet = {
-						limit = {
-							any_owned_pop = {
-								has_trait = trait_mechanical
-							}
-							is_capital = no
-						}
-						planet_event = { id = syndaw.1020 }
+					is_capital = no
+				}
+			}
+			random_owned_planet = {
+				limit = {
+					any_owned_pop = {
+						has_trait = trait_mechanical
 					}
-					else = { # random sector
-						if = {
-							limit = {
-								any_owned_planet = {
-									is_capital = no
-									exists = sector
-									sector = {
-										is_core_sector = no
-									}
-								}
-							}
-							random_owned_planet = {
-								limit = {
-									is_capital = no
-									exists = sector
-									sector = {
-										is_core_sector = no
-									}
-								}
-								planet_event = { id = syndaw.1020 }
-							}
-							else = { # random core
-								random_owned_planet = {
-									limit = {
-										is_capital = no
-									}
-									planet_event = { id = syndaw.1020 }
-								}
-							}
-						}
+					is_capital = no
+				}
+				planet_event = { id = syndaw.1020 }
+			}
+		}
+		else_if = { # random sector
+			limit = {
+				any_owned_planet = {
+					is_capital = no
+					exists = sector
+					sector = {
+						is_core_sector = no
 					}
 				}
+			}
+			random_owned_planet = {
+				limit = {
+					is_capital = no
+					exists = sector
+					sector = {
+						is_core_sector = no
+					}
+				}
+				planet_event = { id = syndaw.1020 }
+			}
+		}
+		else = { # random core
+			random_owned_planet = {
+				limit = {
+					is_capital = no
+				}
+				planet_event = { id = syndaw.1020 }
 			}
 		}
 	}
@@ -2365,12 +2359,12 @@ country_event = {
 						exists = starbase
 					}
 					starbase = { set_owner = root }
-					else = {
-						create_starbase = {
-							size = starbase_starport
-							module = shipyard
-							owner = root
-						}
+				}
+				else = {
+					create_starbase = {
+						size = starbase_starport
+						module = shipyard
+						owner = root
 					}
 				}
 			}
@@ -2423,15 +2417,14 @@ country_event = {
 						type = machine_assault_1
 					}
 				}
-
-				else = {
-					# regular armies
-					while = {
-						count = 3
-						create_army = {
-							owner = root
-							type = machine_assault_1
-						}
+			}
+			else = {
+				# regular armies
+				while = {
+					count = 3
+					create_army = {
+						owner = root
+						type = machine_assault_1
 					}
 				}
 			}
@@ -2532,15 +2525,14 @@ country_event = {
 								type = machine_assault_1
 							}
 						}
-
-						else = {
-							# regular armies
-							while = {
-								count = 3
-								create_army = {
-									owner = root
-									type = machine_assault_1
-								}
+					}
+					else = {
+						# regular armies
+						while = {
+							count = 3
+							create_army = {
+								owner = root
+								type = machine_assault_1
 							}
 						}
 					}
@@ -2661,28 +2653,25 @@ country_event = {
 					set_location = root.capital_scope
 				}
 			#}
-			
+		}
+		else = {
 			# regular fleets, 60% naval cap
-			else = {
-				create_fleet_from_naval_cap = 0.1
-				random_owned_planet = {
-					last_created_fleet = {
-						set_location = prev
-					}
+			create_fleet_from_naval_cap = 0.1
+			random_owned_planet = {
+				last_created_fleet = {
+					set_location = prev
 				}
-
-				create_fleet_from_naval_cap = 0.2
-				random_owned_planet = {
-					last_created_fleet = {
-						set_location = prev
-					}
+			}
+			create_fleet_from_naval_cap = 0.2
+			random_owned_planet = {
+				last_created_fleet = {
+					set_location = prev
 				}
-
-				create_fleet_from_naval_cap = 0.3
-				random_owned_planet = {
-					last_created_fleet = {
-						set_location = prev
-					}
+			}
+			create_fleet_from_naval_cap = 0.3
+			random_owned_planet = {
+				last_created_fleet = {
+					set_location = prev
 				}
 			}
 		}
@@ -2956,113 +2945,71 @@ country_event = {
 	title = syndaw.1205.name
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_materialist
-					has_ethic = ethic_fanatic_materialist
-				}
-			}
+			is_materialist = yes
 		}
 		text = syndaw.1205.desc.mater
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-				}
-			}
+			is_spiritualist = yes
 		}
 		text = syndaw.1205.desc.spiri
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_militarist
-					has_ethic = ethic_fanatic_militarist
-				}
-			}
+			is_militarist = yes
 		}
 		text = syndaw.1205.desc.milit
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_pacifist
-					has_ethic = ethic_fanatic_pacifist
-				}
-			}
+			is_pacifist = yes
 		}
 		text = syndaw.1205.desc.pacif
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_egalitarian
-					has_ethic = ethic_fanatic_egalitarian
-				}
-			}
+			is_egalitarian = yes
 		}
 		text = syndaw.1205.desc.egali
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_authoritarian
-					has_ethic = ethic_fanatic_authoritarian
-				}
-			}
+			is_authoritarian = yes
 		}
 		text = syndaw.1205.desc.autho
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_xenophile
-					has_ethic = ethic_fanatic_xenophile
-				}
-			}
+			is_xenophile = yes
 		}
 		text = syndaw.1205.desc.phile
 	}
 	desc = {
 		trigger = {
-			owner = {
-				OR = {
-					has_ethic = ethic_xenophobe
-					has_ethic = ethic_fanatic_xenophobe
-				}
-			}
+			is_xenophobe = yes
 		}
 		text = syndaw.1205.desc.phobe
 	}
 	desc = {
 		trigger = {
-			owner = {
-				NOR = {
-					has_ethic = ethic_xenophobe
-					has_ethic = ethic_fanatic_xenophobe
-					has_ethic = ethic_xenophile
-					has_ethic = ethic_fanatic_xenophile
-					has_ethic = ethic_authoritarian
-					has_ethic = ethic_fanatic_authoritarian
-					has_ethic = ethic_egalitarian
-					has_ethic = ethic_fanatic_egalitarian
-					has_ethic = ethic_pacifist
-					has_ethic = ethic_fanatic_pacifist
-					has_ethic = ethic_militarist
-					has_ethic = ethic_fanatic_militarist
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-					has_ethic = ethic_materialist
-					has_ethic = ethic_fanatic_materialist
-				}
+			NOR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_authoritarian
+				has_ethic = ethic_fanatic_authoritarian
+				has_ethic = ethic_egalitarian
+				has_ethic = ethic_fanatic_egalitarian
+				has_ethic = ethic_pacifist
+				has_ethic = ethic_fanatic_pacifist
+				has_ethic = ethic_militarist
+				has_ethic = ethic_fanatic_militarist
+				has_ethic = ethic_spiritualist
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_materialist
+				has_ethic = ethic_fanatic_materialist
 			}
 		}
 		text = syndaw.1205.desc

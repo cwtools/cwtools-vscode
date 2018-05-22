@@ -678,6 +678,12 @@ can_be_hostile_towards = {
 				NOT = { has_policy_flag = interference_passive }
 			}
 		}
+		else = {
+			if = {
+				limit = { is_country_type = ratlings }
+				always = yes
+			}
+		}
 	}
 }
 
@@ -806,6 +812,8 @@ can_orbital_bombard = {
 				is_country_type = marauder_raiders
 				is_country_type = ruined_marauders
 				is_country_type = awakened_marauders
+				is_country_type = gray_goo
+				is_country_type = vol
 			}
 		}
 	}
@@ -1099,11 +1107,7 @@ can_subjugate_empires = {
 
 # THIS = Fleet
 can_jump_drive = {
-	custom_tooltip = {
-		any_owned_ship = {
-			NOT = { has_modifier = jump_drive_cooldown }
-		}
-	}
+	always = yes	# Moved cooldown to code
 }
 
 # this = country
@@ -1121,6 +1125,37 @@ can_spawn_occupation_armies = {
 	OR = {
 		is_country_type = default
 		is_country_type = fallen_empire
-		is_country_type = awakened_fallen_empirefallen_empire
+		is_country_type = awakened_fallen_empire
+	}
+}
+
+# this = system
+# root = country
+system_blocks_sensors = {
+	OR = {
+		is_inside_nebula = yes
+		has_star_flag = lcluster
+		has_star_flag = sealed_system
+	}
+}
+
+# Root = country attempting to target system for movement
+# This = system being targeted
+can_enter_system_by_jump = {
+	custom_tooltip = {
+		success_text = "debug: can jump"
+		fail_text = cannot_jump_to_system
+
+		# Sealed system
+		OR = {	
+			NOT = { has_star_flag = sealed_system }
+			AND = {
+				root = { has_country_flag = entered_sealed_system }
+				has_star_flag = sealed_system
+			}
+		}
+
+		# L-Cluster
+		NOT = { has_star_flag = lcluster }
 	}
 }

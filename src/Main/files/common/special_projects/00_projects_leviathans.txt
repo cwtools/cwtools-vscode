@@ -1,0 +1,443 @@
+# First Contact
+special_project = {
+	key = "INVESTIGATE_ENCLAVE"
+	picture = GFX_evt_star_chart
+	icon = "gfx/interface/icons/situation_log/situation_log_radar.dds"
+	cost = 60
+	tech_department = society_technology
+	days_to_research = 0
+	location = no
+	sound = no
+	timelimit = -1
+	AI_wait_days = {
+		weight = 80		
+	}
+
+	event_scope = planet_event
+
+	requirements = {
+	}
+
+	abort_trigger = {
+		OR = {
+			NOT = { exists = FROMFROM }
+			has_communications = FROMFROM
+		}
+	}
+
+	on_success = {
+		owner = {
+			country_event = { id = leviathans.99 }
+		}
+	}
+
+	on_fail = {
+	}
+}
+
+# Stellarite biopsy
+special_project = {
+	key = "STELLARITE_DEAD_PROJECT"
+	cost = 0
+	days_to_research = 60
+	tech_department = physics_technology
+	picture = GFX_evt_stellarites
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	abort_trigger = {
+	}
+	
+	on_success = {
+		ship_event = { id = leviathans.1017 }
+	}
+	
+	on_fail = {
+	}
+}
+
+# Stellarite sun project
+special_project = {
+	key = "STELLARITE_STAR_PROJECT"
+	cost = 0
+	days_to_research = 90
+	tech_department = physics_technology
+	picture = GFX_evt_star_yellow
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	abort_trigger = {
+	}
+	
+	on_success = {
+		ship_event = { id = leviathans.1018 }
+	}
+	
+	on_fail = {
+	}
+}
+
+# Dimensional Horror Project
+special_project = {
+	key = "DIMENSIONAL_HORROR_PROJECT"
+	cost = 0
+	days_to_research = 140
+	tech_department = physics_technology
+	picture = GFX_evt_dimensional_horror
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	abort_trigger = {
+	}
+	
+	on_success = {
+		ship_event = { id = leviathans.3004 }
+	}
+	
+	on_fail = {
+	}
+}
+
+# Automated Dreadnought Project
+special_project = {
+	key = "DISABLED_DREADNOUGHT_PROJECT"
+	cost = 10000
+	#days_to_research = 360
+	tech_department = engineering_technology
+	picture = GFX_evt_automated_dreadnought
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_constructor = 1
+	}
+
+	abort_trigger = {
+	}
+	
+	on_success = {
+		ship_event = { id = leviathans.3103 }
+	}
+	
+	on_fail = {
+	}
+}
+
+# Dead Hivers Project
+special_project = {
+	key = "HIVE_ASTEROID_PROJECT"
+	cost = 0
+	days_to_research = 140
+	tech_department = physics_technology
+	picture = GFX_evt_hive
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	abort_trigger = {
+	}
+	
+	on_success = {
+		ship_event = { id = leviathans.3205 }
+	}
+	
+	on_fail = {
+	}
+}
+
+# Enigmatic Fortress: Demolitions Team
+special_project = {
+	key = "ENIGMATIC_FORTRESS_1A"
+	event_chain = "enigmatic_fortress_chain"
+	cost = 0
+	days_to_research = 30
+	tech_department = engineering_technology
+	timelimit = 1080
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_transport = 1
+	}
+	
+	on_success = {
+		ship_event = { id = leviathans.2112 }
+	}
+	
+	on_fail = {	country_event = { id = leviathans.2160 } }
+}
+
+# Enigmatic Fortress: Local Power Surge
+special_project = {
+	key = "ENIGMATIC_FORTRESS_1B"
+	event_chain = "enigmatic_fortress_chain"
+	cost = 0
+	days_to_research = 30
+	tech_department = engineering_technology
+	timelimit = 1080
+	
+	same_option_group_as = { ENIGMATIC_FORTRESS_1A }
+	
+	event_scope = ship_event
+	
+	requirements = {
+		shipclass_science_ship = 1
+	}
+
+	on_success = {
+		ship_event = { id = leviathans.2113 }
+	}
+	
+	on_fail = {	}
+}
+
+# Black Hole Research
+special_project = {
+	key = "ENIGMATIC_FORTRESS_5A"
+	event_chain = "enigmatic_fortress_chain"
+	cost = 0
+	days_to_research = 60
+	tech_department = engineering_technology
+	timelimit = 1080
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 5
+	}
+	
+	on_success = {
+		owner = { country_event = { id = leviathans.2151 } }
+	}
+	
+	on_fail = {	country_event = { id = leviathans.2160 } }
+}
+
+# Home System Research
+special_project = {
+	key = "ENIGMATIC_FORTRESS_5B"
+	event_chain = "enigmatic_fortress_chain"
+	cost = 0
+	days_to_research = 120
+	tech_department = engineering_technology
+	timelimit = 1080
+	
+	event_scope = ship_event
+
+	same_option_group_as = { ENIGMATIC_FORTRESS_5A }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+	
+	on_success = {
+		owner = { country_event = { id = leviathans.2152 } }
+	}
+	
+	on_fail = { }
+}
+
+# Supply Dark Matter
+special_project = {
+	key = "ENIGMATIC_FORTRESS_5C"
+	event_chain = "enigmatic_fortress_chain"
+	cost = 0
+	days_to_research = 30
+	tech_department = engineering_technology
+	timelimit = 1080
+	
+	event_scope = ship_event
+
+	same_option_group_as = { ENIGMATIC_FORTRESS_5A }
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+	}
+	
+	on_success = {
+		owner = { country_event = { id = leviathans.2156 } }
+	}
+	
+	on_fail = { }
+}
+
+# Use Force
+special_project = {
+	key = "ENIGMATIC_FORTRESS_5D"
+	event_chain = "enigmatic_fortress_chain"
+	cost = 0
+	days_to_research = 10
+	tech_department = engineering_technology
+	timelimit = 1080
+	
+	event_scope = ship_event
+
+	same_option_group_as = { ENIGMATIC_FORTRESS_5A }
+
+	requirements = {
+		shipclass_military = 1
+	}
+	
+	on_success = {
+		owner = { country_event = { id = leviathans.2157 } }
+	}
+	
+	on_fail = { }
+}
+
+# Investigate Technosphere
+special_project = {
+	key = "TECHNOSPHERE_PROJECT"
+	cost = 0
+	days_to_research = 360
+	tech_department = engineering_technology
+	picture = GFX_evt_technosphere
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 3
+	}
+	
+	on_success = {
+		owner = {
+			country_event = { id = leviathans.1051 }	
+		}
+	}
+}
+# Investigate Technosphere's black hole
+special_project = {
+	key = "TECHNOSPHERE_BLACKHOLE"
+	cost = 0
+	days_to_research = 1800
+	tech_department = engineering_technology
+	picture = GFX_evt_technosphere
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 5
+	}
+	
+	on_success = {
+		owner = {
+			random_list = {
+				50 = {
+					country_event = { id = leviathans.1061 } #succeeds
+				}
+				25 = {
+					country_event = { id = leviathans.1062 } #fails
+				}
+				25 = {
+					set_country_flag = technosphere_special
+					country_event = { id = leviathans.1062 } #secret awesome stuff
+				}
+			}
+		}
+	}
+}
+# Hack into the Technosphere
+special_project = {
+	key = "TECHNOSPHERE_HACKING"
+	cost = 0
+	days_to_research = 720
+	tech_department = engineering_technology
+	picture = GFX_evt_technosphere
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		skill = 5
+	}
+	
+	on_success = {
+		owner = {
+			random_list = {
+				50 = {
+					modifier = {
+						factor = 10
+						OR ={
+							has_technology = tech_self_aware_logic
+							has_technology = tech_sapient_ai
+							has_technology = tech_synthetic_leaders
+							any_owned_leader = {
+								OR = {
+									has_trait = leader_trait_expertise_computing
+									has_trait = leader_trait_spark_of_genius
+									has_trait = leader_trait_sapient_AI_assistant
+								}
+							}
+						}
+					}
+					country_event = { id = leviathans.1052 } #succeeds
+				}
+				50 = { country_event = { id = leviathans.1053 } } #fails
+			}
+		}
+	}
+}
+
+# Technosphere Demolition
+special_project = {
+	key = "TECHNOSPHERE_DESTRUCTION"
+	cost = 0
+	days_to_research = 10
+	tech_department = engineering_technology
+	picture = GFX_evt_technosphere
+	timelimit = -1
+	
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_transport = 1
+	}
+	
+	on_success = {
+		owner = { country_event = { id = leviathans.1040 } }
+		from = { fleet = { destroy_fleet = this } }
+	}
+	
+	on_fail = { }
+}
+
+# Dragon Incubation
+special_project = {
+	key = "DRAGON_INCUBATION_PROJECT"
+	cost = 5000
+	tech_department = society_technology
+	timelimit = 1800
+	
+	event_scope = planet_event
+
+	requirements = {
+	}
+	
+	on_success = {
+		planet_event = { id = leviathans.664 }
+	}
+	
+	on_fail = {	country_event = { id = leviathans.665 } }
+}
+

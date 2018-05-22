@@ -18,6 +18,7 @@ guiTypes = {
 			Orientation = "UPPER_LEFT"
 			shortcut = "o"
 			clicksound = interface
+			oversound = mouse_over
 		}
 	}
 
@@ -91,6 +92,7 @@ guiTypes = {
 			position = { x= -30 y = 17  }
 			pdx_tooltip = "OUTLINER_OPTIONS_TOOLTIP"
 			orientation = "UPPER_RIGHT"
+			oversound = no_sound
 		}		
 
 		smoothListBoxType = {
@@ -119,6 +121,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_outliner_header_bg"
 			clicksound = outliner_click_tab
 			size = { x = 256 y = 38 }
+			oversound = no_sound
 		}
 
 		containerWindowType = {
@@ -283,6 +286,7 @@ guiTypes = {
 			position = { x = -3 y = -5 }
 			orientation = "UPPER_LEFT"
 			clicksound = click_outliner
+			oversound =	no_sound
 		}
 
 		containerWindowType = {
@@ -410,6 +414,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_outliner_member_bg"
 			position = { x = -3 y = -5 }
 			clicksound = click_outliner
+			oversound = no_sound
 		}
 
 		containerWindowType = {
@@ -533,6 +538,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_outliner_member_bg"
 			position = { x = -3 y = -5 }
 			clicksound = "click_outliner"
+			oversound = no_sound
 		}
 
 		containerWindowType = {
@@ -722,7 +728,9 @@ guiTypes = {
 			quadTextureSprite = "GFX_outliner_member_bg"
 			position = { x = 0 y = -5 }
 			orientation = "UPPER_LEFT"
-			clicksound = click_outliner 
+			clicksound = click_outliner
+			oversound = no_sound
+
 		}
 
 		containerWindowType = {
@@ -741,7 +749,14 @@ guiTypes = {
 			position = { x = 8 y = 5 }
 			spriteType = "GFX_fleet_status_icon"
 			frame = 20
-			
+		}
+
+		iconType = {
+			name = "leader_level"
+			position = { x = 5 y = 20 }
+			spriteType = "GFX_outliner_leader_level"
+			frame = 10
+			alwaysTransparent = no
 		}
 
 		instantTextBoxType = {
@@ -1210,6 +1225,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_outliner_member_bg"
 			position = { x = -3 y = -5 }
 			clicksound = "click_outliner"
+			oversound = no_sound
 		}
 
 		containerWindowType = {
@@ -1290,6 +1306,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_outliner_member_bg"
 			position = { x = -3 y = -5 }
 			clicksound = "click_outliner"
+			oversound = no_sound
 		}
 
 		containerWindowType = {

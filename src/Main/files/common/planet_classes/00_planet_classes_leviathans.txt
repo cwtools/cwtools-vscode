@@ -1,0 +1,67 @@
+# Star glow from sun is set under atmosphere in   00_planet_classes
+# Star surface is set in worldgfx file for each star
+# Effects are set in particle effect for each star
+# New planets also need planet tiles (game\gfx\interface\icons\tile_backgrounds)
+# New planets need surface background (game\gfx\portraits\environments)
+
+### EXAMPLE:
+#pc_tropical = {
+#	entity = "gaia_planet"
+#	entity_scale = 8.0
+#
+#	picture = pc_tropical	# Use tropical portrait art instead of gaia
+#	
+#	atmosphere_color 		= hsv { 0.58	0.3 0.7 }
+#	atmosphere_intensity 	= 1.0
+#	atmosphere_width 		= 0.5
+#	
+#	city_color_lut = "gfx/portraits/misc/colorcorrection_neutral.tga"
+#
+#	min_distance_from_sun = 60
+#	max_distance_from_sun = 80
+#	spawn_odds = 10
+#	
+#	extra_orbit_size = 0
+#	extra_planet_count = 0
+#	
+#	chance_of_ring = 0.2
+#
+#	planet_size = { min = @habitable_planet_min_size max = @habitable_planet_max_size }
+#	moon_size = { min = @habitable_moon_min_size max = @habitable_moon_max_size }
+#	
+#	colonizable = yes
+#	#colonization_tech = { "tech_tropical_colonization@1" }
+#}
+###
+
+
+# Planet Variables
+
+@planet_standard_scale = 11
+@habitable_planet_max_size = 25
+@habitable_planet_min_size = 12
+@habitable_moon_max_size = 15
+@habitable_moon_min_size = 10
+@habitable_min_distance = 60
+@habitable_max_distance = 100
+@habitable_spawn_odds = 1
+
+pc_crystal_asteroid = {
+	entity = "hive_asteroid_planet"
+	entity_scale = 14
+	icon_frame = 18
+	
+	asteroid = yes
+	
+	spawn_odds = 0
+	
+	extra_orbit_size = 0
+	extra_planet_count = 0
+	
+	chance_of_ring = 0
+	
+	planet_size = 5
+	
+	colonizable = no
+	survey_time_factor = 0.5
+}

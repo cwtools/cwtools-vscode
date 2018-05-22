@@ -648,7 +648,10 @@ fallen_1_1_3 = {
 fallen_1_2 = {
 	usage = fallen_empire_init
 	class = "rl_standard_stars"
-	asteroids_distance = 50
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 50
+	}
 
 	planet = {
 		count = 1
@@ -663,7 +666,7 @@ fallen_1_2 = {
 
 	planet = {
 		count = { min = 1 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 100 }
 	}
@@ -822,7 +825,10 @@ fallen_1_2 = {
 fallen_1_2_2 = {
 	usage = fallen_empire_init
 	class = "rl_standard_stars"
-	asteroids_distance = 120
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 120
+	}
 
 	planet = {
 		count = 1
@@ -972,7 +978,10 @@ fallen_1_2_2 = {
 fallen_2 = {
 	usage = fallen_empire_init
 	class = "rl_standard_stars"
-	asteroids_distance = 50
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 50
+	}
 
 	planet = {
 		count = 1
@@ -987,7 +996,7 @@ fallen_2 = {
 
 	planet = {
 		count = { min = 1 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 100 }
 	}
@@ -1227,7 +1236,10 @@ fallen_2 = {
 fallen_3 = {
 	usage = fallen_empire_init
 	class = "rl_standard_stars"
-	asteroids_distance = 50
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 50
+	}
 
 	planet = {
 		count = 1
@@ -1242,7 +1254,7 @@ fallen_3 = {
 
 	planet = {
 		count = { min = 1 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 100 }
 	}
@@ -1474,7 +1486,10 @@ fallen_3 = {
 fallen_4 = {
 	usage = fallen_empire_init
 	class = "rl_standard_stars"
-	asteroids_distance = 50
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 50
+	}
 
 	planet = {
 		count = 1
@@ -1489,7 +1504,7 @@ fallen_4 = {
 
 	planet = {
 		count = { min = 0 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 100 }
 	}
@@ -1716,7 +1731,10 @@ fallen_4 = {
 
 fallen_col_1 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 50
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 50
+	}
 
 	planet = {
 		count = 1
@@ -1731,7 +1749,7 @@ fallen_col_1 = {
 
 	planet = {
 		count = { min = 1 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 100 }
 	}
@@ -1858,7 +1876,10 @@ fallen_col_1 = {
 
 fallen_col_2 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 115
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 115
+	}
 
 	planet = {
 		count = 1
@@ -1957,7 +1978,7 @@ fallen_col_2 = {
 
 	planet = {
 		count = { min = 2 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 40 max = 110 }
 	}
@@ -2008,6 +2029,8 @@ fallen_col_2 = {
 
 
 fallen_orbitals_1 = {
+	class = "rl_standard_stars"
+
 	planet = {
 		count = 1
 		class = star
@@ -2121,7 +2144,12 @@ fallen_orbitals_1 = {
 }
 
 fallen_orbitals_2 = {
-	asteroids_distance = 95
+	class = "rl_standard_stars"
+
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 
 	planet = {
 		count = 1
@@ -2144,7 +2172,7 @@ fallen_orbitals_2 = {
 
 	planet = {
 		count = { min = 1 max = 4 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}
@@ -2634,7 +2662,10 @@ fallen_holy_01 = {
 # Fallen Empire's Holy World 2
 fallen_holy_02 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 95
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 95
+	}
 
 	flags = { holy_system_2 }
 
@@ -2659,7 +2690,7 @@ fallen_holy_02 = {
 
 	planet = {
 		count = { min = 1 max = 4 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 90 max = 270 }
 	}
@@ -2792,7 +2823,10 @@ fallen_holy_03 = {
 # Fallen Empire's Holy World 4
 fallen_holy_04 = {
 	class = "rl_standard_stars"
-	asteroids_distance = 120
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 120
+	}
 
 	flags = { holy_system_4 }
 
@@ -2861,7 +2895,10 @@ fallen_holy_04 = {
 # Fallen Empire Xeno Zoo
 fallen_xeno_zoo = {
 	class = "rl_standard_stars"
-	asteroids_distance = 80
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 80
+	}
 
 	flags = { fe_xeno_zoo }
 
@@ -3555,15 +3592,6 @@ fallen_machine_5 = {
 	class = sc_black_hole
 
 	name = "NAME_Custodian_Nexus"
-
-	planet = {
-		count = 1
-		class = star
-		orbit_distance = 0
-		orbit_angle = 1
-		size = 25
-		has_ring = no
-	}
 
 	planet = {
 		class = star

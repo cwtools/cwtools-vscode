@@ -8,84 +8,6 @@
 
 namespace = country
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-@tier4unityreward = 24
-@tier4unitymin = 350
-@tier4unitymax = 2000
-@tier5unityreward = 48
-@tier5unitymin = 700
-@tier5unitymax = 4000
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
-
 ### Sublight Exploration Probes
 country_event = {
 	id = country.258
@@ -432,6 +354,7 @@ ship_event = {
 	picture = GFX_evt_satellite_in_orbit
 	show_sound = event_mystic_reveal
 	location = event_target:space_probe
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -1274,8 +1197,8 @@ country_event = {
 			limit = {
 				distance = {
 					source = event_target:capital
-					max_distance = 40
-					min_distance = 5
+					max_distance <= 40
+					min_distance >= 5
 				}
 				is_surveyed = {
 					who = ROOT
@@ -1295,8 +1218,8 @@ country_event = {
 			limit = {
 				distance = {
 					source = event_target:capital
-					max_distance = 20
-					min_distance = 5
+					max_distance <= 20
+					min_distance >= 5
 				}
 				is_surveyed = {
 					who = ROOT
@@ -1316,8 +1239,8 @@ country_event = {
 			limit = {
 				distance = {
 					source = event_target:capital
-					max_distance = 20
-					min_distance = 5
+					max_distance <= 20
+					min_distance >= 5
 				}
 				is_surveyed = {
 					who = ROOT
@@ -1337,8 +1260,8 @@ country_event = {
 			limit = {
 				distance = {
 					source = event_target:capital
-					max_distance = 20
-					min_distance = 5
+					max_distance <= 20
+					min_distance >= 5
 				}
 				is_surveyed = {
 					who = ROOT
@@ -1484,6 +1407,7 @@ country_event = {
 	desc = "country.53.desc"
 	picture = GFX_evt_society_research
 	show_sound = event_laboratory_sound
+	trackable = yes
 	
 	trigger = {
 		has_country_flag = museum_of_exobiology
@@ -2292,10 +2216,7 @@ country_event = {
 				add_ship_design = last_created_design
 				save_event_target_as = radical_cult
 				set_name = random
-				set_relation_flag = {
-					who = ROOT
-					flag = cultist_rebels
-				}
+				set_country_flag = cultist_rebels_of@root
 			}
 		}
 	}
@@ -2327,12 +2248,7 @@ ship_event = {
 	
 	trigger = {
 		has_ship_flag = cultist_ship
-		from.owner = {
-			reverse_has_relation_flag = {
-				who = root.owner
-				flag = cultist_rebels
-			}
-		}
+		owner = { has_country_flag = cultist_rebels_of@from.owner }
 	}
 	
 	immediate = {
@@ -2348,6 +2264,7 @@ country_event = {
 	picture = GFX_evt_sabotaged_ship
 	show_sound = event_space_battle
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -2380,12 +2297,7 @@ ship_event = {
 	trigger = {
 		has_ship_flag = cultist_ship
 		owner = {
-			NOT = {
-				has_relation_flag = {
-					who = from.owner
-					flag = cultist_rebels
-				}
-			}
+			NOT = { has_country_flag = cultist_rebels_of@from.owner }
 		}
 	}
 	
@@ -2393,12 +2305,7 @@ ship_event = {
 		random_playable_country = {
 			limit = {
 				root = {
-					owner = {
-						has_relation_flag = {
-							who = prevprev
-							flag = cultist_rebels
-						}
-					}
+					owner = { has_country_flag = cultist_rebels_of@prevprev }
 				}
 			}
 			country_event = { id = country.218 }
@@ -2414,6 +2321,7 @@ country_event = {
 	picture = GFX_evt_sabotaged_ship
 	show_sound = event_space_battle
 	location = FROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -2450,10 +2358,6 @@ ship_event = {
 				remove_point_of_interest = radical_cult_poi.1
 				capital_scope = { save_event_target_as = capital }
 				set_country_flag = searching_for_cultists
-				#abort_special_project = {
-				#	type = "BOARD_CULT_SHIP_1"
-				#	location = fromfrom
-				#}
 			}
 			fromfrom = {
 				owner = { save_event_target_as = cult_name }
@@ -2560,14 +2464,7 @@ fleet_event = {
 			has_country_flag = searching_for_cultists
 			NOT = { has_country_flag = cultists_sighted_1 }
 		}
-		from = {
-			has_star_flag = cultists_1
-				#is_point_of_interest = {
-				#	event_chain = radical_cult
-				#	id = cultist_search_poi.1
-				#	owner = prev
-				#}
-		}
+		from = { has_star_flag = cultists_1 }
 	}
 	
 	immediate = {
@@ -2587,12 +2484,7 @@ fleet_event = {
 		}
 		owner = {
 			random_country = {
-				limit = {
-					has_relation_flag = {
-						who = PREV
-						flag = cultist_rebels
-					}
-				}
+				limit = { has_country_flag = cultist_rebels_of@root.owner }
 				save_event_target_as = radical_cult
 				create_leader = {
 					type = admiral
@@ -2656,10 +2548,7 @@ country_event = {
 		FROMFROMFROM = { solar_system = { save_event_target_as = marauder_system } }
 		random_country = {
 			limit = {
-				reverse_has_relation_flag = {
-					who = from
-					flag = cultist_rebels
-				}
+				from = { has_country_flag = cultist_rebels_of@prev }
 			}
 			save_event_target_as = cultist_target
 			change_variable = {
@@ -2763,14 +2652,7 @@ fleet_event = {
 			has_country_flag = searching_for_cultists
 			NOT = { has_country_flag = cultists_sighted_2 }
 		}
-		from = {
-			has_star_flag = cultists_2
-			#is_point_of_interest = {
-			#	event_chain = radical_cult
-			#	id = cultist_search_poi.2
-			#	owner = root.owner
-			#}
-		}
+		from = { has_star_flag = cultists_2 }
 	}
 	
 	immediate = {
@@ -2790,12 +2672,7 @@ fleet_event = {
 		}
 		owner = {
 			random_country = {
-				limit = {
-					has_relation_flag = {
-						who = PREV
-						flag = cultist_rebels
-					}
-				}
+				limit = { has_country_flag = cultist_rebels_of@root.owner }
 				save_event_target_as = radical_cult
 				create_leader = {
 					type = admiral
@@ -2864,21 +2741,13 @@ fleet_event = {
 			has_country_flag = searching_for_cultists
 			NOT = { has_country_flag = cultists_sighted_3 }
 		}
-		from = {
-			has_star_flag = cultists_3
-			#is_point_of_interest = {
-			#	event_chain = radical_cult
-			#	id = cultist_search_poi.3
-			#	owner = prev
-			#}
-		}
+		from = { has_star_flag = cultists_3 }
 	}
 	
 	immediate = {
 		owner = {
 			set_country_flag = cultists_sighted_3
 			save_event_target_as = owner_country
-			#remove_country_flag = searching_for_cultists
 		}
 		from = {
 			random_system_planet = {
@@ -2891,12 +2760,7 @@ fleet_event = {
 			}
 		}
 		random_country = {
-			limit = {
-				has_relation_flag = {
-					who = root.owner
-					flag = cultist_rebels
-				}
-			}
+			limit = { has_country_flag = cultist_rebels_of@root.owner }
 			save_event_target_as = radical_cult
 			create_leader = {
 				type = admiral
@@ -2957,6 +2821,7 @@ country_event = {
 	desc = "country.207.desc"
 	picture = GFX_evt_exploding_ship
 	show_sound = event_space_battle
+	trackable = yes
 	
 	is_triggered_only = yes
 
@@ -2969,7 +2834,6 @@ country_event = {
 				set_star_flag = cultist_debris_system
 				create_ambient_object = {
 					type = "abandoned_ship_object"
-					#location = this
 				}
 				random_system_ambient_object = {
 					limit = { is_same_value = last_created_ambient_object }
@@ -2989,12 +2853,7 @@ country_event = {
 			from = { save_event_target_as = enemy_fleet_position }
 		}
 		random_country = {
-			limit = {
-				has_relation_flag = {
-					who = root
-					flag = cultist_rebels
-				}
-			}
+			limit = { has_country_flag = cultist_rebels_of@root }
 			save_event_target_as = radical_cult
 		}
 	}
@@ -3017,10 +2876,6 @@ country_event = {
 	
 	immediate = {
 		hidden_effect = {
-			#abort_special_project = {
-			#	type = "CULTIST_DEBRIS"
-			#	location = this
-			#}
 			random_system = {
 				limit = { has_star_flag = cultist_debris_system }
 				remove_star_flag = cultist_debris_system
@@ -3030,12 +2885,7 @@ country_event = {
 				}
 			}
 			random_country = {
-				limit = {
-					has_relation_flag = {
-						who = ROOT
-						flag = cultist_rebels
-					}
-				}
+				limit = { has_country_flag = cultist_rebels_of@root }
 				save_event_target_as = radical_cult
 			}
 			save_event_target_as = owner_country
@@ -3147,31 +2997,17 @@ country_event = {
 	id = country.215
 	hide_window = yes
 	
-	fire_only_once = yes
 	is_triggered_only = yes
 	
 	trigger = {
 		exists = fromfromfrom
 		FROMFROMFROM = { has_fleet_flag = cult_shipyard }
-		#FROM = {
-		#	reverse_has_relation_flag = {
-		#		who = ROOT
-		#		flag = cultist_rebels
-		#	}
-		#}
+		FROM = { has_country_flag = cultist_rebels_of@root }
 	}
 	
 	immediate = {
-		random_country = {
-			limit = {
-				reverse_has_relation_flag = {
-					who = from
-					flag = cultist_rebels
-				}
-			}
-			remove_point_of_interest = cultist_shipyard_poi.1
-			country_event = { id = country.209 } 
-		}
+		remove_point_of_interest = cultist_shipyard_poi.1
+		country_event = { id = country.209 } 
 	}
 }
 
@@ -3213,23 +3049,13 @@ country_event = {
 	
 	trigger = {
 		FROMFROM = { has_fleet_flag = cult_shipyard }
-		FROM = {
-			NOT = {
-				reverse_has_relation_flag = {
-					who = ROOT
-					flag = cultist_rebels
-				}
-			}
-		}
+		NOT = { has_country_flag = cultist_rebels_of@from }
 	}
 	
 	immediate = {
 		random_country = {
 			limit = {
-				reverse_has_relation_flag = {
-					who = ROOT
-					flag = cultist_rebels
-				}
+				root = { has_country_flag = cultist_rebels_of@prev }
 			}
 			country_event = { id = country.221 }
 			remove_point_of_interest = cultist_shipyard_poi.1
@@ -3325,14 +3151,6 @@ fleet_event = {
 		from = { has_star_flag = cult_flagship_system }
 	}
 
-	#picture_event_data = {
-	#	portrait = event_target:book_writer
-	#	planet_background = event_target:book_writer
-	#	graphical_culture = event_target:book_writer
-	#	city_level = event_target:book_writer
-	#	room = event_target:book_writer
-	#	#room = no_video_feed_room
-	#}
 	picture_event_data = {
 		portrait = event_target:radical_cult
 		room = ethic_spaceship_room
@@ -3342,9 +3160,6 @@ fleet_event = {
 		owner = {
 			remove_country_flag = hunting_cult_flagship
 			save_event_target_as = shipowner
-			#create_ship_design = {
-			#	random_existing_design = "corvette"
-			#}
 		}
 		from = { remove_star_flag = cult_flagship_system }
 		hidden_effect = {
@@ -3360,12 +3175,7 @@ fleet_event = {
 			}
 			owner = {
 				random_country = {
-					limit = {
-						has_relation_flag = {
-							who = PREV
-							flag = cultist_rebels
-						}
-					}
+					limit = { has_country_flag = cultist_rebels_of@root.owner }
 					save_event_target_as = radical_cult
 					create_fleet = {
 						name = "NAME_Cultist_Flagship"
@@ -3425,39 +3235,9 @@ ship_event = {
 	
 	is_triggered_only = yes
 	
-	#immediate = {
-	#	FROM = {
-	#		owner = { save_event_target_as = disabler_country }
-	#	}
-	#}
-	
 	trigger = {
-		#has_ship_flag = cultist_flagship
-		#owner = {
-		#	has_relation_flag = {
-		#		who = event_target:disabler_country
-		#		flag = cultist_rebels
-		#	}
-		#}
-		#FROM = {
-		#	owner = {
-		#		ROOT = {
-		#			owner = {
-		#				has_relation_flag = {
-		#					who = PREVPREV
-		#					flag = cultist_rebels
-		#				}
-		#			}
-		#		}
-		#	}
-		#}
 		has_ship_flag = cultist_flagship
-		owner = {
-			has_relation_flag = {
-				who = from.owner
-				flag = cultist_rebels
-			}
-		}
+		owner = { has_country_flag = cultist_rebels_of@from.owner }
 	}
 	
 	immediate = {
@@ -3478,6 +3258,7 @@ ship_event = {
 	picture = GFX_evt_interior_battle
 	show_sound = event_space_battle
 	location = from
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -3511,37 +3292,15 @@ ship_event = {
 	trigger = {
 		has_ship_flag = cultist_flagship
 		owner = {
-			NOT = {
-				has_relation_flag = {
-					who = from.owner
-					flag = cultist_rebels
-				}
-			}
+			NOT = { has_country_flag = cultist_rebels_of@from.owner }
 		}
-		#FROM = {
-		#	owner = {
-		#		ROOT = {
-		#			owner = {
-		#				NOT = {
-		#					has_relation_flag = {
-		#						who = PREVPREV
-		#						flag = cultist_rebels
-		#					}
-		#				}
-		#			}
-		#		}
-		#	}
-		#}
 	}
 	
 	immediate = {
 		solar_system = { save_event_target_as = flagship_system }
 		random_country = {
 			limit = {
-				reverse_has_relation_flag = {
-					who = root.owner
-					flag = cultist_rebels
-				}
+				root.owner = { has_country_flag = cultist_rebels_of@prev }
 			}
 			country_event = { id = country.223 }
 			remove_point_of_interest = cultist_flagship_poi.1
@@ -3571,7 +3330,7 @@ country_event = {
 	id = country.214
 	title = "country.214.name"
 	desc = "country.214.desc"
-	picture = GFX_evt_ship_in_orbit
+	picture = GFX_evt_interior_battle
 	show_sound = event_ground_battle
 	location = fromfrom
 	
@@ -3874,8 +3633,8 @@ country_event = {
 				solar_system = {
 					remove_star_flag = hyacinth_system_3
 					spawn_system = {
-						min_distance = 20
-						max_distance = 50
+						min_distance >= 20
+						max_distance <= 50
 						initializer = "hyacinth_system"
 					}
 				}
@@ -3977,8 +3736,8 @@ ship_event = {
 		#solar_system = { 
 		#	remove_star_flag = hyacinth_system_3
 		#	spawn_system = {
-		#		min_distance = 20
-		#		max_distance = 50
+		#		min_distance >= 20
+		#		max_distance <= 50
 		#		initializer = "hyacinth_system"
 		#	}
 		#}
@@ -3995,8 +3754,8 @@ ship_event = {
 			solar_system = { 
 				remove_star_flag = hyacinth_system_3
 				spawn_system = {
-					min_distance = 20
-					max_distance = 50
+					min_distance >= 20
+					max_distance <= 50
 					initializer = "hyacinth_system"
 				}
 			}
@@ -4023,6 +3782,7 @@ ship_event = {
 	picture = GFX_evt_ship_in_orbit
 	show_sound = event_radio_chatter_02
 	location = root
+	trackable = yes
 	
 	is_triggered_only = yes
 	

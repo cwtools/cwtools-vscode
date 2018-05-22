@@ -1,0 +1,1516 @@
+AST_WAVELENGTHS_1_CAT = {
+	desc = "AST_WAVELENGTHS_1_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.75
+		1 = anomaly.115
+		1 = anomaly.130
+		0 = {
+			modifier = {
+				add = 1
+				leader = {
+					OR = {
+						NOR = {
+							has_trait = leader_trait_expertise_statecraft
+							species = {
+								has_trait = trait_machine_unit
+							}
+						}
+						AND = {
+							NOT = {
+								has_trait = leader_trait_expertise_biology
+							}
+							species = {
+								has_trait = trait_machine_unit
+							}
+						}
+					}
+				}
+				owner = {
+					has_country_flag = birth_of_piracy
+				}
+			}
+			anomaly_event = anomaly.3065
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2500
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2600
+	#	}
+	#}
+}
+
+AST_DEBRIS_FIELD_1_CAT = {
+	desc = "AST_DEBRIS_FIELD_1_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+			OR = {
+				any_system = {
+					OR = {
+						has_star_flag = com_sol
+						has_star_flag = nuked_sol
+					}
+				}
+				any_country = {
+					OR = {
+						has_country_flag = human_1
+						has_country_flag = humans_early_space_age
+					}
+				}
+			}
+			FROM = {
+				owner = {
+					NOR = {
+						has_country_flag = found_voyager
+						has_country_flag = found_pioneer
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				any_system = {
+					OR = {
+						has_star_flag = com_sol
+						has_star_flag = nuked_sol
+					}
+				}
+				any_country = {
+					is_country_type = primitive
+					has_country_flag = humans_early_space_age
+				}
+				owner = {
+					NOR = {
+						species_portrait = human
+						has_country_flag = human_1
+						has_country_flag = human_2
+						has_country_flag = found_pioneer
+						has_country_flag = found_voyager
+					}
+				}
+			}
+			anomaly_event = anomaly.95
+		}
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					OR = {
+						has_country_flag = human_1
+						has_country_flag = human_2
+						species_portrait = human
+					}
+					NOT = {
+						has_country_flag = found_pioneer
+					}
+				}
+			}
+			anomaly_event = anomaly.100
+		}
+		0 = {
+			modifier = {
+				add = 1
+				any_system = {
+					OR = {
+						has_star_flag = com_sol
+						has_star_flag = nuked_sol
+					}
+				}
+				owner = {
+					NOR = {
+						species_portrait = human
+						has_country_flag = human_1
+						has_country_flag = human_2
+						has_country_flag = found_pioneer
+						has_country_flag = found_voyager
+					}
+				}
+			}
+			anomaly_event = anomaly.105
+		}
+		1 = anomaly.3040
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2501
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2601
+	#	}
+	#}
+}
+
+HBL_LUSH_PLANET_1_CAT = {
+	desc = "HBL_LUSH_PLANET_1_DESC"
+	picture = "GFX_evt_medieval_alien_civilization"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_continental
+				is_planet_class = pc_tropical
+			}
+			OR = {
+				any_system = {
+					OR = {
+						has_star_flag = com_sol
+						has_star_flag = nuked_sol
+					}
+				}
+				any_country = {
+					OR = {
+						has_country_flag = human_1
+						has_country_flag = humans_early_space_age
+					}
+				}
+			}
+			FROM = {
+				owner = {
+					NOT = {
+						has_country_flag = found_voyager
+						has_country_flag = found_pioneer
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.85
+		1 = anomaly.90
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					OR = {
+						has_country_flag = human_1
+						has_country_flag = human_2
+						species_portrait = human
+					}
+					NOT = {
+						has_country_flag = found_voyager
+					}
+				}
+			}
+			anomaly_event = anomaly.110
+		}
+		0 = {
+			modifier = {
+				add = 1
+				owner.capital_scope = {
+					colony_age > 240
+				}
+				owner = {
+					NOT = {
+						has_country_flag = SA
+					}
+				}
+			}
+			anomaly_event = anomaly.3130
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2502
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2602
+	#	}
+	#}
+}
+
+UHB_ANCIENT_RUINS_1_CAT = {
+	desc = "UHB_ANCIENT_RUINS_1_DESC"
+	picture = "GFX_evt_ancient_alien_temple"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_star = no
+			is_asteroid = no
+			is_ringworld = no
+			NOT = {
+				habitable_planet = yes
+				is_planet_class = pc_gas_giant
+			}
+		}
+	}
+	
+	on_success = anomaly.120
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2503
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2603
+	#	}
+	#}
+}
+
+#UHB_MOLTEN_CHART_CAT = {
+#	desc = "UHB_MOLTEN_CHART_DESC"
+#	picture = "GFX_evt_underground_civilization"
+#	level = 3
+#	
+#	spawn_chance = {
+#		modifier = {
+#			add = 3
+#			is_planet_class = pc_molten
+#		}
+#	}
+#	
+#	on_success = anomaly.125
+#	
+#	#on_fail = {
+#	#	1 = {
+#	#		ship_event = anomaly_failure.2504
+#	#	}
+#	#}
+#	#on_critical_fail = {
+#	#	1 = {
+#	#		ship_event = anomaly_failure.2604
+#	#	}
+#	#}
+#}
+
+GEN_PLAYGROUND_CAT = {
+	desc = "GEN_PLAYGROUND_DESC"
+	picture = "GFX_evt_alien_city"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = no
+			is_star = no
+			is_ringworld = no
+			NOT = {
+				is_planet_class = pc_gas_giant
+			}
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_authority = auth_machine_intelligence
+			}
+		}
+	}
+	
+	on_success = anomaly.135
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2535
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2635
+	#	}
+	#}
+}
+
+AST_SHRINE_1_CAT = {
+	desc = "AST_SHRINE_1_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+			FROM = {
+				owner = {
+					is_ai = no
+					NOR = {
+						species_portrait = human
+						capital_scope.solar_system = {
+							has_star_flag = sol
+						}
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+	
+	on_success = anomaly.140
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2540
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2640
+	#	}
+	#}
+}
+
+HBL_MUSIC_1_CAT = {
+	desc = "HBL_MUSIC_1_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			habitable_planet = yes
+		}
+	}
+	
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					has_technology = tech_biolab_1
+					NOT = {
+						has_country_flag = HBL_MUSIC_1_FLAG
+						has_technology = tech_biolab_2
+					}
+				}
+			}
+			anomaly_event = anomaly.145
+		}
+		1 = anomaly.3080
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2545
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2645
+	#	}
+	#}
+}
+
+GAS_ZRO_ICE_CAT = {
+	desc = "GAS_ZRO_ICE_DESC"
+	picture = "GFX_evt_gas_giant"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_gas_giant
+			FROM = {
+				owner = {
+					has_technology = tech_mine_zro
+				}
+			}
+		}
+	}
+	
+	on_success = anomaly.150
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2550
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2650
+	#	}
+	#}
+}
+
+AST_ILLICIT_DARK_CAT = {
+	desc = "AST_ILLICIT_DARK_DESC"
+	picture = "GFX_evt_asteroid_approaching_planet"
+	level = 7
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = anomaly.155
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2555
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2655
+	#	}
+	#}
+}
+
+TOX_PURPLE_RAIN_CAT = {
+	desc = "TOX_PURPLE_RAIN_DESC"
+	picture = "GFX_evt_big_landing_ship"
+	level = 7
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_toxic
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+	
+	on_success = anomaly.160
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2660
+	#	}
+	#}
+}
+
+FROZ_BASE_CAT = {
+	desc = "FROZ_BASE_DESC"
+	picture = "GFX_evt_outpost"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_frozen
+			FROM = {
+				owner = {
+					NOT = {
+						has_country_flag = FROZ_BASE_FLAG
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.170
+		1 = anomaly.175
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+TROP_PETS_CAT = {
+	desc = "TROP_PETS_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_tropical
+		}
+	}
+	
+	on_success = anomaly.180
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+BARR_BASE_CAT = {
+	desc = "BARR_BASE_DESC"
+	picture = "GFX_evt_archaeological_dig"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_barren
+		}
+	}
+	
+	on_success = anomaly.185
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+PROJ_MOON_CAT = {
+	desc = "PROJ_MOON_DESC"
+	picture = "GFX_evt_asteroid_approaching_planet"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			NOT = {
+				is_star = no
+				is_planet_class = pc_gas_giant
+			}
+			OR = {
+				is_planet_class = pc_toxic
+				is_planet_class = pc_barren
+				is_planet_class = pc_frozen
+				is_planet_class = pc_molten
+			}
+			has_moon = yes
+			num_moons < 2
+			any_moon = {
+				is_planet_class = pc_toxic
+				is_planet_class = pc_barren
+				is_planet_class = pc_frozen
+				is_planet_class = pc_molten
+			}
+		}
+	}
+
+	on_success = anomaly.190
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+SEA_CAT = {
+	desc = "SEA_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_ocean
+		}
+	}
+	
+	on_success = anomaly.195
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+MOLTEN_BASE_CAT = {
+	desc = "MOLTEN_BASE_DESC"
+	picture = "GFX_evt_dead_city"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_molten
+		}
+	}
+	
+	on_success = anomaly.200
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+LEVELED_CAT = {
+	desc = "LEVELED_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			habitable_planet = yes
+		}
+	}
+	
+	on_success = anomaly.205
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+DIMENSIONAL_POCKET_CAT = {
+	desc = "DIMENSIONAL_POCKET_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.210
+		1 = anomaly.295
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2500
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2601
+	#	}
+	#}
+}
+
+HAB_CORN_CAT = {
+	desc = "HAB_CORN_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_tropical
+				is_planet_class = pc_continental
+				is_planet_class = pc_ocean
+			}
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.215
+		1 = anomaly.3025
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+HAB_MAT_CAT = {
+	desc = "HAB_MAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_tropical
+				is_planet_class = pc_continental
+				is_planet_class = pc_arid
+			}
+		}
+	}
+	
+	on_success = anomaly.220
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+ATM_ANOMALY_CAT = {
+	desc = "ATM_ANOMALY_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = no
+			is_star = no
+			is_ringworld = no
+			habitable_planet = no
+			NOT = {
+				is_planet_class = pc_gas_giant
+			}
+		}
+	}
+	
+	on_success = anomaly.225
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+FRBR_GRIMACING_CAT = {
+	desc = "FRBR_GRIMACING_DESC"
+	picture = "GFX_evt_warm_barren"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_barren
+			planet_size < 26
+			planet_size > 9
+		}
+	}
+	
+	on_success = anomaly.230
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+FROZ_ILLUMINATED_CAT = {
+	desc = "FROZ_ILLUMINATED_DESC"
+	picture = "GFX_evt_frozen"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_frozen
+			from = {
+				owner = {
+					has_technology = tech_lasers_1
+					NOT = {
+						has_technology = tech_lasers_3
+						has_technology = tech_lasers_4
+						has_technology = tech_lasers_5
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = anomaly.235
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+GAS_CLOUDY_CAT = {
+	desc = "GAS_CLOUDY_DESC"
+	picture = "GFX_evt_gas_giant"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_gas_giant
+		}
+	}
+	
+	on_success = anomaly.240
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+GAIA_MOVE_CAT = {
+	desc = "GAIA_MOVE_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_gaia
+		}
+	}
+	
+	on_success = anomaly.245
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+FROZ_BOX_CAT = {
+	desc = "FROZ_BOX_DESC"
+	picture = "GFX_evt_frozen"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_frozen
+		}
+	}
+	
+	on_success = anomaly.250
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+CONT_SIGNS_CAT = {
+	desc = "CONT_SIGNS_DESC"
+	picture = "GFX_evt_alien_city"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_continental
+				is_planet_class = pc_tropical
+				is_planet_class = pc_tundra
+			}
+		}
+	}
+	
+	on_success = anomaly.255
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+FROZ_BASE2_CAT = {
+	desc = "FROZ_BASE2_DESC"
+	picture = "GFX_evt_arctic"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_arctic
+		}
+	}
+	
+	on_success = anomaly.260
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+AST_CRATER_CAT = {
+	desc = "AST_CRATER_DESC"
+	picture = "GFX_evt_asteroid_approaching_planet"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = {
+		1 = anomaly.265
+		1 = anomaly.270
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					NOT = {
+						has_technology = tech_thrusters_2
+					}
+				}
+			}
+			anomaly_event = anomaly.275
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+BAR_COLONY_CAT = {
+	desc = "BAR_COLONY_DESC"
+	picture = "GFX_evt_warm_barren"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_barren
+		}
+	}
+	
+	on_success = {
+		#1 = anomaly.280	# TODO [MO] was commented out
+		1 = anomaly.285
+		1 = anomaly.3015
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+TOX_MAT_CAT = {
+	desc = "TOX_MAT_DESC"
+	picture = "GFX_evt_toxic"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_toxic
+		}
+	}
+	
+	on_success = anomaly.290
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+AST_CLUSTER_CAT = {
+	desc = "AST_CLUSTER_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_asteroid = yes
+		}
+	}
+	
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				leader = {
+					NOR = {
+						has_trait = leader_trait_carefree
+						has_trait = leader_trait_meticulous
+					}
+				}
+			}
+			anomaly_event = anomaly.3000
+		}
+		0 = {
+			modifier = {
+				add = 1
+				leader = {
+					NOT = {
+						has_trait = leader_trait_expertise_voidcraft
+						has_trait = leader_trait_expertise_materials
+						has_trait = leader_trait_expertise_propulsion
+						has_trait = leader_trait_expertise_industry
+						has_trait = leader_trait_expertise_field_manipulation
+						has_trait = leader_trait_expertise_particles
+						has_trait = leader_trait_expertise_psionics
+						has_trait = leader_trait_expertise_computing
+						has_trait = leader_trait_expertise_new_worlds
+						has_trait = leader_trait_expertise_statecraft
+						has_trait = leader_trait_expertise_biology
+						has_trait = leader_trait_expertise_military_theory
+					}
+				}
+			}
+			anomaly_event = anomaly.3005
+		}
+		1 = anomaly.3010
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					any_relation = {
+						is_country_type = default
+						has_communications = prev
+					}
+				}
+			}
+			anomaly_event = anomaly.3085
+		}
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+GAEA_CHECKERED_CAT = {
+	desc = "GAEA_CHECKERED_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_gaia
+		}
+	}
+	
+	on_success = anomaly.3020
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+GEN_ABANDONED_SHIP_CAT = {
+	desc = "GEN_ABANDONED_SHIP_DESC"
+	picture = "GFX_evt_landing_ship"
+	level = 8
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_continental
+				is_planet_class = pc_arid
+			}
+		}
+	}
+	
+	on_success = anomaly.3030
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+GEN_DESERT_CAT = {
+	desc = "GEN_DESERT_DESC"
+	picture = "GFX_evt_landing_ship"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_desert
+		}
+	}
+	
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				leader = {
+					OR = {
+						has_trait = leader_trait_meticulous
+						has_trait = leader_trait_carefree
+					}
+				}
+				owner = {
+					energy > 49
+				}
+			}
+			anomaly_event = anomaly.3035
+		}
+		1 = anomaly.3135
+		1 = anomaly.3060
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+TOX_STRUCTURES_CAT = {
+	desc = "TOX_STRUCTURES_DESC"
+	picture = "GFX_evt_toxic"
+	level = 8
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_toxic
+		}
+	}
+	
+	on_success = anomaly.3050
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+TROP_WOODS_CAT = {
+	desc = "TROP_WOODS_DESC"
+	picture = "GFX_evt_tropical"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_planet_class = pc_tropical
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_authority = auth_machine_intelligence
+				NOT = {
+					has_civic = civic_machine_servitor
+				}
+			}
+		}
+	}
+	
+	on_success = anomaly.3055
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+HOLE_RADIATION_CAT = {
+	desc = "HOLE_RADIATION_DESC"
+	picture = "GFX_evt_black_hole"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			is_star_class = sc_black_hole
+		}
+	}
+	
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				leader = {
+					NOR = {
+						has_trait = leader_trait_paranoid
+						species = {
+							has_trait = trait_hive_mind
+						}
+					}
+				}
+			}
+			anomaly_event = anomaly.3070
+		}
+		1 = anomaly.3075
+	}
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+UHB_BUOY_CAT = {
+	desc = "UHB_BUOY_DESC"
+	picture = "GFX_evt_satellite_in_orbit"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_toxic
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_barren
+				is_planet_class = pc_frozen
+				is_planet_class = pc_nuked
+			}
+			from.owner = {
+				has_country_flag = birth_of_piracy
+				NOT = {
+					has_ethic = ethic_gestalt_consciousness
+				}
+			}
+		}
+	}
+	
+	on_success = anomaly.3090
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+GAIA_RECORD_CAT = {
+	desc = "GAIA_RECORD_DESC"
+	picture = "GFX_evt_alien_ruins"
+	level = 7
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			OR = {
+				is_planet_class = pc_gaia
+				is_planet_class = pc_continental
+			}
+		}
+	}
+	
+	on_success = anomaly.3110
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2560
+	#	}
+	#}
+	#on_critical_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2665
+	#	}
+	#}
+}
+
+CRYSTAL_MANUFACTORY_CAT = {
+	desc = "CRYSTAL_MANUFACTORY_DESC"
+	picture = "GFX_evt_mining_station"
+	level = 3
+	
+	spawn_chance = { # added manually
+		modifier = {
+			factor = 0
+		}
+	}
+	
+	on_success = anomaly.3125
+	
+	#on_fail = {
+	#	1 = {
+	#		ship_event = anomaly_failure.2670
+	#	}
+	#}
+}

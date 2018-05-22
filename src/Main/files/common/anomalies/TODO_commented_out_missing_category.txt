@@ -1,0 +1,165 @@
+# TODO [MO]
+# 1) There is some commented out script in 00_anomaly_categories_Uplifts.txt that you might want to check out
+# 2) The rest of this file is commented out anomalies that don't have a category, I just don't want them to get lost.
+
+
+## Nuclear Wasteland (Arctic/Tundra and Desert/Arid)
+#anomaly = {
+#	event = anomaly.675
+#	category = "HAB_PHY_1"
+#	
+#	potential = {
+#		orbit = {
+#			OR = {
+#				is_planet_class = pc_arctic
+#				is_planet_class = pc_tundra
+#				is_planet_class = pc_arid
+#				is_planet_class = pc_desert
+#			}
+#		}
+#	}
+#}
+#
+## Gamma-Ray Burst
+#anomaly = {
+#	event = anomaly.680
+#	category = "HAB_PHY_1"
+#	
+#	potential = {
+#		orbit = {
+#			always = yes
+#		}
+#	}
+#}
+
+
+## Splinter Colony
+#anomaly = {
+#	event = anomaly.710
+#	category = "HPL_INHABITED_CAT"
+#	
+#	potential = {
+#		orbit = {
+#			habitability = {
+#				who = prev
+#				value > 0.5
+#			}
+#		}
+#	}
+#}
+#
+## Primitive Industrial Civilization
+#anomaly = {
+#	event = primitive.1
+#	category = "HPL_INHABITED_CAT"
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+#
+## Primitive Medieval Civilization
+#anomaly = {
+#	event = primitive.2
+#	category = "HPL_INHABITED_CAT"
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+
+
+## Colony Ruins
+#anomaly = {
+#	event = anomaly.715
+#	category = "HAB_ENG_1"
+#	
+#	potential = {
+#		orbit = {
+#			always = yes
+#		}
+#	}
+#}
+
+
+## Upliftable Species ### TEMP ###
+#anomaly = {
+#	event = anomaly.6000
+#	category = "UPLIFTING"
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+## Rogue moon
+#anomaly = {
+#	event = anomaly.6000
+#	category = "rogue_moon_category"
+#	
+#	weight = 4
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+
+
+### Vultaum Introduction 1
+#anomaly = {
+#	event = precursor.1
+#	category = "vultaum_asteroid_category"
+#	
+#	weight = 500
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+#
+### Yuht Introduction 1
+#anomaly = {
+#	event = precursor.500
+#	category = "yuht_asteroid_category"
+#	
+#	weight = 500
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+#
+### First League Introduction 1
+#anomaly = {
+#	event = precursor.1000
+#	category = "league_asteroid_category"
+#	
+#	weight = 500
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+#
+### Irassian Introduction 1
+#anomaly = {
+#	event = precursor.1500
+#	category = "irassian_asteroid_category"
+#	
+#	weight = 500
+#	
+#	potential = {
+#		always = yes
+#	}
+#}
+#
+### Cybrex Introduction 1
+#anomaly = {
+#	event = precursor.2000
+#	category = "cybrex_asteroid_category"
+#	
+#	weight = 500
+#	
+#	potential = {
+#		always = yes
+#	}
+#}

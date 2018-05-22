@@ -355,3 +355,19 @@ defined_text = {
 		localization_key = sm_trading_hub
 	}
 }
+
+defined_text = {
+	name = GetGrayGooWorldDesc
+	text = {
+		trigger = {
+			has_global_flag = active_gray_goo
+		}
+		localization_key = gray_goo_world_active_nanites
+	}
+	text = {
+		trigger = {
+			NOT = { has_global_flag = active_gray_goo }
+		}
+		localization_key = gray_goo_world_inactive_nanites
+	}
+}

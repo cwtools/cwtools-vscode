@@ -41,6 +41,7 @@ guiTypes = {
 			position = { x = -3 y = -63 }
 			orientation = LOWER_LEFT
 			actionShortCut = "cancel"
+			clicksound = back_click
 		}
 		
 		instantTextBoxType = {
@@ -243,7 +244,7 @@ guiTypes = {
 				buttonFont = "malgun_goth_24"
 				buttonText = "LOAD_SELECTED_SAVE"
 				shortcut = "RETURN"
-				clicksound = confirmation
+				clicksound = confirm_click
 			}
 
 			instantTextBoxType = {
@@ -270,6 +271,8 @@ guiTypes = {
 			quadTextureSprite = "GFX_tiles_frame_light"
 			size = { x = 620 y = 102 }
 			position = { x = 0 y = -5 }
+			clicksound = "outliner_click_tab"
+			oversound = no_sound
 		}
 
 		containerWindowType = {
@@ -426,6 +429,9 @@ guiTypes = {
 			quadTextureSprite = "GFX_tiles_frame_light"
 			position = { x= 0 y = 0 }
 			size = { x=581 y=58 }
+			clicksound = "select_click"
+			oversound = no_sound
+
 		}
 
 		containerWindowType = {

@@ -115,7 +115,7 @@ country_event = {
 				is_patronizing_to = root			
 				is_patronizing_to = root
 				has_communications = root	
-				opinion = { who = root value = 75 }
+				opinion = { who = root value > 74 }
 			}
 		}
 		
@@ -128,7 +128,7 @@ country_event = {
 				is_patronizing_to = root			
 				is_patronizing_to = root
 				has_communications = root	
-				opinion = { who = root value = 100 }
+				opinion = { who = root value > 99 }
 			}
 		}
 		
@@ -141,7 +141,7 @@ country_event = {
 				is_patronizing_to = root			
 				is_patronizing_to = root
 				has_communications = root	
-				opinion = { who = root value = 150 }
+				opinion = { who = root value > 149 }
 			}
 		}
 		
@@ -151,10 +151,10 @@ country_event = {
 				is_valid_fallen_empire_for_task = yes
 				root = { NOT = { has_opinion_modifier = { who = prev modifier =  opinion_fallen_empire_gift } }	}
 				NOT = { has_opinion_modifier = { who = root modifier = opinion_spurned_fallen_empire_gift } }
-			is_patronizing_to = root				
+				is_patronizing_to = root				
 				is_patronizing_to = root
 				has_communications = root	
-				opinion = { who = root value = 200 }
+				opinion = { who = root value > 199 }
 			}
 		}
 	}

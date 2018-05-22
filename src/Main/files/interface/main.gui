@@ -33,7 +33,7 @@ guiTypes = {
 			pdx_tooltip = "topbar_button_government_instant"
 			pdx_tooltip_delayed = "topbar_button_government_delayed"
 			clicksound = interface
-			oversound = menu_over_01
+			oversound = no_sound
 			shortcut = "F1"
 		}
 	}
@@ -102,6 +102,7 @@ guiTypes = {
 				quadTextureSprite ="GFX_music_pause_button"
 				position = { x= 0 y = 0 }
 				clicksound = confirmation
+				oversound = no_sound
 			}
 
 			buttonType = {
@@ -109,6 +110,8 @@ guiTypes = {
 				quadTextureSprite ="GFX_music_next_button"
 				position = { x= 30 y = 0 }
 				pdx_tooltip = "MUSICPLAYER_NEXT"
+				oversound = no_sound
+				clicksound = increment_click
 			}
 
 			buttonType = {
@@ -117,6 +120,7 @@ guiTypes = {
 				position = { x= 60 y = 0 }
 				pdx_tooltip = "MUSICPLAYER_OPEN_PLAYER"
 				clicksound = interface
+				oversound = no_sound
 			}
 		}		
 	}
@@ -144,6 +148,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 60 y = 35 }
 				position = { x = 0 y = -8 }
+				oversound = no_sound
 			}
 
 			iconType = {
@@ -175,6 +180,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 60 y = 35 }
 				position = { x = 0 y = -8 }
+				oversound = no_sound
 			}
 
 			iconType = {
@@ -206,6 +212,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 60 y = 35 }
 				position = { x = 0 y = -8 }
+				no_clicksound = yes
 			}
 
 			iconType = {
@@ -237,6 +244,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 60 y = 35 }
 				position = { x = 0 y = -8 }
+				no_clicksound =	yes
 			}
 
 			iconType = {
@@ -301,6 +309,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_topbar_bar_04"
 			position = { x= -170 y = 11 }
 			Orientation = "UPPER_RIGHT"
+			oversound = no_sound
 		}
 
 		containerWindowType = {
@@ -377,6 +386,7 @@ guiTypes = {
 				spriteType = "GFX_invisible"
 				size = { x = 75 y = 18 }
 				position = { x = 5 y = 9 }
+				oversound = no_sound
 			}
 
 			instantTextBoxType={
@@ -443,6 +453,7 @@ guiTypes = {
 					spriteType = "GFX_invisible"
 					size = { x = 100 y = 35 }
 					position = { x = 0 y = 0 }
+					oversound = no_sound
 				}
 
 				iconType = {
@@ -474,6 +485,7 @@ guiTypes = {
 					spriteType = "GFX_invisible"
 					size = { x = 65 y = 35 }
 					position = { x = 0 y = 0 }
+					oversound = no_sound
 				}
 
 				iconType = {
@@ -505,6 +517,7 @@ guiTypes = {
 					spriteType = "GFX_invisible"
 					size = { x = 70 y = 35 }
 					position = { x = 0 y = 0 }
+					oversound = no_sound
 				}
 
 				iconType = {
@@ -536,6 +549,7 @@ guiTypes = {
 					spriteType = "GFX_invisible"
 					size = { x = 67 y = 35 }
 					position = { x = 0 y = 0 }
+					oversound = no_sound
 				}
 
 				iconType = {
@@ -577,6 +591,7 @@ guiTypes = {
 				name ="pause_bg_stop"
 				spriteType = "GFX_topbar_paused"
 				position = { x= -76 y = 0}
+				oversound = no_sound
 			}
 
 			iconType ={
@@ -605,6 +620,7 @@ guiTypes = {
 				quadTextureSprite = "GFX_topbar_date_minus"
 				position = { x= 125 y = 7  }
 				clicksound = ui_speed_down_time_click
+				oversound = no_sound
 			}
 
 			buttonType = {
@@ -612,6 +628,7 @@ guiTypes = {
 				quadTextureSprite = "GFX_topbar_date_plus"
 				position = { x= 100 y = 7 }
 				clicksound = ui_speed_up_time_click
+				oversound = no_sound
 			}
 
 			instantTextBoxType={
@@ -630,6 +647,7 @@ guiTypes = {
 				position = { x = -50 y = 6 }
 				frame = 1
 				clicksound = ui_click_pause
+				oversound = no_sound
 			}
 
 			instantTextBoxType = {
@@ -704,6 +722,7 @@ guiTypes = {
 			quadTextureSprite = "GFX_test_message_icon"
 			position = { x= -2 y = 12  }
 			clicksound = "confirmation"
+			oversound = no_sound
 		}
 
 		iconType = {
@@ -787,7 +806,7 @@ guiTypes = {
 			position = { x=0 y=0 }
 			quadTextureSprite = "GFX_topbar_situation_button"
 			clicksound = interface
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 	}
 
@@ -800,7 +819,7 @@ guiTypes = {
 			spriteType = "GFX_topbar_dropdown_background"
 			position = { x = -11 y = -9 }
 			clicksound = interface
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 
 		buttonType = {
@@ -808,7 +827,7 @@ guiTypes = {
 			position = { x = 6 y = 6 }
 			quadTextureSprite = "GFX_topbar_situation_button"
 			clicksound = interface
-			oversound = menu_over_01
+			oversound = mouse_over
 			alwaysTransparent = yes
 		}
 
@@ -853,7 +872,7 @@ guiTypes = {
 				pdx_tooltip = "topbar_button_dropdown_instant"
 				pdx_tooltip_delayed = "topbar_button_dropdown_delayed"
 				clicksound = interface
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 
 			expandedWindow = {

@@ -1,0 +1,63 @@
+#####    Stars    ######
+
+entity = { # M Giant
+	name = "m_giant_star_class_star_entity"
+	pdxmesh = "star_mesh"
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle"
+		event = { time = 0.0 node = "planet" particle = "m_class_star_particle"  keep_particle = no trigger_once = yes sound = { soundeffect = "amb_star_fusion" } }
+		event = { trigger_once = yes sound = { soundeffect = "space_ambient" } }  
+		event = { trigger_once = yes sound = { soundeffect = "falling_star" } }
+		event = { trigger_once = yes sound = { soundeffect = "space_ambient_layer_02" } }
+	 }
+	scale = 2.0
+}
+
+entity = {  # T Brown Dwarf
+	name = "t_star_class_star_entity"
+	pdxmesh = "planet_clouded_mesh"
+	
+	#planet surface texture override	
+	meshsettings = {
+		name = "planet_geosphereShape"
+		texture_diffuse = "brown_dwarf_01_diffuse.dds"
+		texture_normal = "brown_dwarf_01_normal.dds"
+		texture_specular = "brown_dwarf_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+	
+		
+	##cloud texture override
+	meshsettings = {
+		name = "clouds_geosphereShape"
+		texture_diffuse = "brown_dwarf_01_clouds_diffuse.dds"
+		texture_normal = "nonormal.dds"
+	texture_specular = "nospec.dds"
+	}
+	
+	##pole texture override
+	meshsettings = {
+		name = "polesShape"
+		texture_diffuse = "brown_dwarf_poles_01_diffuse.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+	}
+	
+			
+	##cloud shadow texture override
+	meshsettings = {
+		name = "clouds_shadow_geosphereShape"
+		texture_diffuse = "brown_dwarf_01_clouds_shadow_diffuse.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+	}
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" time_offset = { 0 100 }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+	}
+	
+	scale = 0.5
+}

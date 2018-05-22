@@ -1,0 +1,352 @@
+#####    Planet attachments    ######
+@astroid_scale = 30
+
+entity = {
+	name = "gray_goo_planet_01_entity"
+	pdxmesh = "planet_clouded_mesh"
+	
+	#planet surface texture override	
+	meshsettings = {
+		name = "planet_geosphereShape"
+		texture_diffuse = "gray_goo_planet_01_diffuse.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+	}
+	
+	##cloud texture override
+	meshsettings = {
+		name = "clouds_geosphereShape"
+		texture_diffuse = "gray_goo_planet_clouds.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+	}
+	
+	#cloud shadow texture override
+	meshsettings = {
+		name = "clouds_shadow_geosphereShape"
+		texture_diffuse = "gray_goo_planet_clouds_shadow.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+	}
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" time_offset = { 0 100 }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+		start_event = { node = "planet" particle = "gray_goo_planet_effect" keep_particle = yes trigger_once = yes }
+	}
+}
+
+		####### Infected Planet #######
+
+entity = {
+	name = "infected_planet_01_stage_1_entity"	
+	pdxmesh = "planet_clouded_mesh"
+	
+	meshsettings = {
+		name = "atmosphere_geosphereShape"
+		index = 0
+		shader = "PdxMeshAtmosphere"
+	}
+	
+	meshsettings = {
+		name = "planet_geosphereShape"
+		texture_diffuse = "infected_planet_01_stage_1_diffuse.dds"
+		texture_normal = "infected_planet_01_stage_1_normal.dds"
+		texture_specular = "infected_planet_01_stage_1_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+	
+	meshsettings = {
+		name = "clouds_geosphereShape"
+		texture_diffuse = "clouds_thin_diffuse.dds"
+		texture_normal = "clouds_thin_normal.dds"
+		texture_specular = "clouds_thin_specular.dds"
+		shader = "PdxMeshClouds"
+	}
+	
+	meshsettings = {
+		name = "clouds_shadow_geosphereShape"
+		texture_diffuse = "clouds_thin_shadow_diffuse.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+		shader = "PdxMeshClouds"
+	}
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" time_offset = { 0 100 }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+	}
+	
+}
+
+
+entity = {
+	name = "infected_planet_01_stage_2_entity"	
+	pdxmesh = "planet_clouded_mesh"
+	
+	meshsettings = {
+		name = "atmosphere_geosphereShape"
+		index = 0
+		shader = "PdxMeshAtmosphere"
+	}
+	
+	meshsettings = {
+		name = "planet_geosphereShape"
+		texture_diffuse = "infected_planet_01_stage_2_diffuse.dds"
+		texture_normal = "infected_planet_01_stage_2_normal.dds"
+		texture_specular = "infected_planet_01_stage_2_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+	
+	meshsettings = {
+		name = "clouds_geosphereShape"
+		texture_diffuse = "clouds_thin_diffuse.dds"
+		texture_normal = "clouds_thin_normal.dds"
+		texture_specular = "clouds_thin_specular.dds"
+		shader = "PdxMeshClouds"
+	}
+	
+	meshsettings = {
+		name = "clouds_shadow_geosphereShape"
+		texture_diffuse = "clouds_thin_shadow_diffuse.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+		shader = "PdxMeshClouds"
+	}
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" time_offset = { 0 100 }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+	}
+	
+}
+
+entity = {
+	name = "infected_planet_01_stage_3_entity"	
+	pdxmesh = "planet_clouded_mesh"
+	
+	meshsettings = {
+		name = "atmosphere_geosphereShape"
+		index = 0
+		shader = "PdxMeshAtmosphere"
+	}
+	
+	meshsettings = {
+		name = "planet_geosphereShape"
+		texture_diffuse = "infected_planet_01_stage_3_diffuse.dds"
+		texture_normal = "infected_planet_01_stage_3_normal.dds"
+		texture_specular = "infected_planet_01_stage_3_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+	
+	meshsettings = {
+		name = "clouds_geosphereShape"
+		texture_diffuse = "clouds_thin_diffuse.dds"
+		texture_normal = "clouds_thin_normal.dds"
+		texture_specular = "clouds_thin_specular.dds"
+		shader = "PdxMeshClouds"
+	}
+	
+	meshsettings = {
+		name = "clouds_shadow_geosphereShape"
+		texture_diffuse = "clouds_thin_shadow_diffuse.dds"
+		texture_normal = "nonormal.dds"
+		texture_specular = "nospec.dds"
+		shader = "PdxMeshClouds"
+	}
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" time_offset = { 0 100 }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class" } }
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_planet_class_02" } }
+	}
+	
+}
+
+	####### Shattered Infected Planet #######
+
+
+entity = {
+	name = "shattered_infected_planet_01_entity"
+	pdxmesh = "infected_cracked_planet_mesh"
+	
+	meshsettings = {
+		name = "triSphere1Shape"
+		index = 0
+		texture_diffuse = "cracked_planet_core_glow.dds"
+		texture_normal = "nospec.dds"
+		texture_specular = "nospec.dds"
+		shader = "PdxMeshAlphaAdditive"
+	}
+
+	meshsettings = {
+		name = "pieceShape1"
+		index = 0
+		texture_diffuse = "cracked_infected_planet_01_diffuse.dds"
+		texture_normal = "cracked_infected_planet_01_normal.dds"
+		texture_specular = "cracked_infected_planet_01_specular.dds"
+		shader = "PdxMeshPlanetEmissive"
+	}
+	
+	#scale = 1
+	scale = 0.23
+	
+	default_state = "idle"
+
+	# Will be used initially instead of default_state if set
+	state = { name = "class_change" animation = "idle" looping = no next_state = "explosion" animation_speed = 100.0 }
+	
+	state = { name = "explosion" animation = "explosion" looping = no next_state = "idle"
+	#	event = { time = 6.5 node = "planet_main" particle = "shattered_infected_planet_explosion_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_01" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1 node = "crack_locator_02" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1.5 node = "crack_locator_03" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_04" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.4 node = "crack_locator_05" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2 node = "crack_locator_06" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1 node = "crack_locator_07" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1.5 node = "crack_locator_08" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.4 node = "crack_locator_09" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2 node = "crack_locator_010" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_011" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2 node = "crack_locator_012" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.4 node = "crack_locator_013" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2 node = "crack_locator_014" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1 node = "crack_locator_015" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.4 node = "crack_locator_016" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2 node = "crack_locator_017" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_018" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1.5 node = "crack_locator_019" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2 node = "crack_locator_020" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1 node = "crack_locator_021" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_022" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 1.5 node = "crack_locator_023" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_024" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.4 node = "crack_locator_025" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 2.2 node = "crack_locator_026" particle = "shattered_infected_planet_crack_effect" keep_particle = yes trigger_once = yes }
+	
+		event = { time = 10 node = "planet_main" particle = "shattered_infected_planet_debris_effect" keep_particle = yes trigger_once = yes }
+
+		event = { trigger_once = yes sound = { soundeffect = "shattered_planet_explosion" } }
+	}
+	
+	state = { name = "idle" animation = "idle"
+		event = { time = 0 node = "planet_main" particle = "shattered_infected_planet_debris_effect" keep_particle = yes trigger_once = yes }
+	}
+}
+
+animation = {
+	name = "infected_cracked_planet_idle_animation"
+	file = "infected_cracked_planet_idle.anim"
+}
+
+animation = {
+	name = "infected_cracked_planet_explosion_animation"
+	file = "infected_cracked_planet_explosion.anim"
+}
+
+	##### Ice Asteroids #####
+
+entity = {
+	name = "asteroid_ice_large_01_entity"
+	pdxmesh = "asteroid_ice_large_01_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+
+entity = {
+	name = "asteroid_ice_small_01_entity"
+	pdxmesh = "asteroid_ice_small_01_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+
+entity = {
+	name = "asteroid_ice_small_02_entity"
+	pdxmesh = "asteroid_ice_small_02_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+entity = {
+	name = "asteroid_ice_small_03_entity"
+	pdxmesh = "asteroid_ice_small_03_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+entity = {
+	name = "asteroid_ice_small_04_entity"
+	pdxmesh = "asteroid_ice_small_04_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+
+		#### Crystal Asteroids ####
+
+entity = {
+	name = "asteroid_crystal_large_01_entity"
+	pdxmesh = "asteroid_crystal_large_01_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+
+entity = {
+	name = "asteroid_crystal_small_01_entity"
+	pdxmesh = "asteroid_crystal_small_01_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+
+
+entity = {
+	name = "asteroid_crystal_small_02_entity"
+	pdxmesh = "asteroid_crystal_small_02_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}
+
+
+entity = {
+	name = "asteroid_crystal_small_03_entity"
+	pdxmesh = "asteroid_crystal_small_03_mesh"
+	default_state = "idle"
+		state = { name = "idle" 
+			event = { sound = { soundeffect = "amb_astroid_fields" } }
+		}
+	#state = { name = "idle" animation = "idle" time_offset = { 0 100 } }
+	scale = @astroid_scale
+}

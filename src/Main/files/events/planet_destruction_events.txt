@@ -452,18 +452,20 @@ country_event = {
 				has_natural_wormhole = no
 				distance = {
 					source = event_target:sol_sys
-					min_distance = 50
-					max_distance = 300
+					min_distance >= 50
+					max_distance <= 300
 				}
 			}
 			event_target:sol_sys = {
 				# done this way to ensure we don't spawn "orphan" wormholes (wormholes that aren't linked to anything)
 					spawn_natural_wormhole = {
+					bypass_type = wormhole
 					random_pos = yes
 					orbit_angle = 360
 				}
 			}
 			spawn_natural_wormhole = {
+				bypass_type = wormhole
 				random_pos = yes
 				orbit_angle = 360
 			}

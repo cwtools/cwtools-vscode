@@ -864,6 +864,15 @@ ring_world_init_01 = {
 		orbit_distance = 0
 
 		init_effect = {
+			IF = {
+				limit = { has_distar = yes }
+				random_list = {
+					50 = { add_anomaly = DISTAR_CLONE_CAT }
+					50 = {
+						#nothing
+					}
+				}
+			}
 			create_ambient_object = {
 				type = "large_debris_object"
 				entity_offset_height = { min = -0 max = -25 }

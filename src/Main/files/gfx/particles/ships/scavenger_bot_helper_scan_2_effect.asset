@@ -1,0 +1,149 @@
+particle={
+	name="scavenger_bot_helper_scan_2_effect"
+	subsystem={
+		name="smoke"
+		max_amount=100
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 12.000 12.000 }
+		sphere_emitter_yaw={ 0.000 5.000 }
+		sphere_emitter_pitch={ 90.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud_low_alpha.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=255.000
+			y=240.000
+			z=255.000
+			alpha=100.000,fire_fade
+		}
+		position={
+			x=-60.000
+		}
+		duration=-1.000
+		emitter_yaw=90.000
+		emitter_pitch=0.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=4.500
+		emission=10.000
+		size=30.000
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 5.000 0.000 }
+		force=point
+	}
+	subsystem={
+		name="debris_sucking"
+		max_amount=100
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 12.000 12.000 }
+		sphere_emitter_yaw={ 0.000 5.000 }
+		sphere_emitter_pitch={ 90.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/shards.dds"
+			x=2
+			y=2
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=255.000
+			y=240.000
+			z=255.000
+			alpha=255.000,fire_fade
+		}
+		position={
+			x=-60.000
+		}
+		duration=-1.000
+		emitter_yaw=90.000
+		emitter_pitch=0.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=4.500
+		emission=10.000
+		size={ 2.000 1.000 }
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 5.000 0.000 }
+		force=point
+	}
+	subsystem={
+		name="smoke_static"
+		max_amount=100
+		slave_particles=0
+		emitter_type="sphere"
+		sphere_emitter_radius={ 15.000 15.000 }
+		sphere_emitter_yaw={ 0.000 45.000 }
+		sphere_emitter_pitch={ 90.000 180.000 }
+		invert=no
+		trail=no
+		local_space=yes
+		billboard=yes
+		hide=no
+		texture={
+			file="gfx/particles/cloud_low_alpha.dds"
+			x=1
+			y=1
+			shader="ParticleAlphaBlend"
+		}
+		color={
+			x=255.000
+			y=240.000
+			z=255.000
+			alpha=100.000,fire_fade
+		}
+		position={
+			x=-60.000
+		}
+		duration=-1.000
+		emitter_yaw=90.000
+		emitter_pitch=0.000
+		velocity_pitch={ 0.000 180.000 }
+		velocity_yaw={ 0.000 180.000 }
+		life=4.500
+		emission=10.000
+		size=30.000
+		rotation={ 0.000 180.000 }
+		rotation_speed={ 5.000 0.000 }
+	}
+	animation={
+		name="fire_fade"
+		start=0.000
+		duration=1.000
+		repeat=no
+		minValue=0.000
+		maxValue=1.000
+		curve={
+			0.000 0.000 0.185 1.000 0.829 1.000 1.000 0.000 
+		}
+		op="MUL"
+		time="life"
+	}
+	force={
+		type="point"
+		name="point"
+		position={
+			0.000 0.000 0.000 
+		}
+		direction={
+			0.000 1.000 0.000 
+		}
+		local_force=yes
+		yaw=0.000
+		division=16
+		amount=-5.000
+	}
+}

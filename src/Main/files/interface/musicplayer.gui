@@ -41,12 +41,12 @@ guiTypes = {
 		
 		instantTextboxType = {
 			name = "track_name"
-			position = { x = -123 y = 90 }
+			position = { x = -200 y = 91 }
 			font = "malgun_goth_24"
 			text = ""
-			maxWidth = 246
+			maxWidth = 346
 			maxHeight = 25
-			format = center
+			format = left
 			vertical_alignment = center
 			text_color_code = "H"
 			#fixedsize = yes
@@ -55,7 +55,7 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "track_elapsed"
-			position = { x = 134 y = 97 }
+			position = { x = 44 y = 97 }
 			font = "cg_16b"
 			text = "00:00"
 			maxWidth = 50
@@ -65,7 +65,7 @@ guiTypes = {
 		
 		instantTextboxType = {
 			name = "track_duration"
-			position = { x = 416 y = 97 }
+			position = { x = 426 y = 97 }
 			font = "cg_16b"
 			text = "02:58"
 			maxWidth = 50
@@ -82,17 +82,17 @@ guiTypes = {
 		
 			buttonType = {
 				name = "prev_button"
-				position = { x = 240 y = -5 }
+				position = { x = 240 y = -15 }
 				quadTextureSprite ="GFX_musicplayer_previous_button"
 				buttonFont = "cg_16b"
 				Orientation = "UPPER_LEFT"
-				clicksound = back_click
+				clicksound = decrement_click
 				pdx_tooltip = "MUSICPLAYER_PREV"
 			}
 			
 			buttonType = {
 				name = "play_button"
-				position = { x = 272 y = -5 }
+				position = { x = 272 y = -15 }
 				quadTextureSprite ="GFX_musicplayer_play_pause_button"
 				buttonFont = "cg_16b"
 				Orientation = "UPPER_LEFT"
@@ -101,11 +101,11 @@ guiTypes = {
 			
 			buttonType = {
 				name = "next_button"
-				position = { x = 303 y = -5 }
+				position = { x = 303 y = -15 }
 				quadTextureSprite ="GFX_musicplayer_next_button"
 				buttonFont = "cg_16b"
 				Orientation = "UPPER_LEFT"
-				clicksound = click_outliner
+				clicksound = increment_click
 				pdx_tooltip = "MUSICPLAYER_NEXT"
 			}
 
@@ -172,7 +172,7 @@ guiTypes = {
 			
 			buttonType = {
 				name = "shuffle_button"
-				position = { x = 80 y = -20 }
+				position = { x = 0 y = -20 }
 				quadTextureSprite ="GFX_toggle_shuffle_buttons"
 				buttonFont = "cg_16b"
 				Orientation = "LOWER_LEFT"

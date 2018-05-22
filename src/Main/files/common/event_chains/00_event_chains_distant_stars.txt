@@ -1,0 +1,52 @@
+# Event chains.
+
+# counter, counters that can be increased and checked from effects and triggers
+#
+# Localization needed:
+# event_chain_chainnkey_title, a title to show in the situation log.
+# event_chain_chainnkey_desc, a description to show in the situation log.
+
+living_planet_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_scanning_beam.dds"
+	picture = GFX_evt_ocean
+	counter = {
+		living_sea_station_built = {
+			max = 1
+		}
+	}
+}
+
+ketling_study_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
+	picture = GFX_evt_city_ruins
+}
+
+l_cluster_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_surreal_visions
+	counter = {
+		clues = {
+			max = 7
+		}
+	}
+}
+
+generation_ship_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_ship_in_orbit
+	counter = {
+     	planet_found = {
+     		max = 1
+     	}
+    }
+}
+
+star_crazy_chain = {
+	icon = "gfx/interface/icons/situation_log/situation_log_main_quest.dds"
+	picture = GFX_evt_ship_in_orbit
+	counter = {
+     	corrupt_data_investigated = {
+     		max = 3
+     	}
+    }
+}

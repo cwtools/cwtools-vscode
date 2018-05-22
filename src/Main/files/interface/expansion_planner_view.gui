@@ -219,6 +219,7 @@ guiTypes = {
 			spriteType = "GFX_entry_expand"
 			position = { x = -35 y = 14 }
 			orientation = UPPER_RIGHT
+			clicksound = outliner_click_tab
 		}
 
 		smoothListBoxType = {
@@ -548,7 +549,7 @@ guiTypes = {
 			spriteType = "GFX_close_button_planet"
 			position = { x = -45 y = 11 }
 			orientation = "UPPER_RIGHT"
-			oversound = menu_over_01
+			oversound = mouse_over
 		}
 	}
 
@@ -892,7 +893,7 @@ guiTypes = {
 				position = { x = 0 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_CLASS"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			buttonType={
@@ -903,7 +904,7 @@ guiTypes = {
 				position = { x = 98 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_HABITABILITY"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -922,7 +923,7 @@ guiTypes = {
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_NAME"
 				#format = left
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			buttonType={
@@ -933,7 +934,7 @@ guiTypes = {
 				position = { x = 407 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_SIZE"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			buttonType={
@@ -944,7 +945,7 @@ guiTypes = {
 				position = { x = 485 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_DISTANCE"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			buttonType={
@@ -955,7 +956,7 @@ guiTypes = {
 				position = { x = 563 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_FOOD"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -973,7 +974,7 @@ guiTypes = {
 				position = { x = 601 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_ENERGY"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -991,7 +992,7 @@ guiTypes = {
 				position = { x = 639 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_MINERALS"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -1009,7 +1010,7 @@ guiTypes = {
 				position = { x = 677 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_PHYSICS"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -1027,7 +1028,7 @@ guiTypes = {
 				position = { x = 715 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_SOCIETY"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -1045,7 +1046,7 @@ guiTypes = {
 				position = { x = 753 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_ENGINEERING"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -1063,7 +1064,7 @@ guiTypes = {
 				position = { x = 791 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_STRATEGIC_RESOURCES"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			iconType = {
@@ -1082,7 +1083,7 @@ guiTypes = {
 				position = { x = 830 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_MODIFIERS"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 			
 			buttonType={
@@ -1093,7 +1094,7 @@ guiTypes = {
 				position = { x = 983 y = @sort_button_height }
 				orientation = UPPER_LEFT
 				pdx_tooltip = "EXPANSION_PLANNER_SORT_STATUS"
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 
 			buttonType = {
@@ -1195,6 +1196,7 @@ guiTypes = {
 					size = { x = 195 y = 30 }
 					position = { x = 4 y = 4 }
 					pdx_tooltip = "EXPANSION_PLANNER_FILTER_HABITABILITY_DESC"
+					no_clicksound = yes
 				}
 				
 				instantTextBoxType = {
@@ -1214,7 +1216,7 @@ guiTypes = {
 					#pdx_tooltip = "topbar_button_dropdown_instant"
 					#pdx_tooltip_delayed = "topbar_button_dropdown_delayed"
 					clicksound = interface
-					oversound = menu_over_01
+					oversound = mouse_over
 					pdx_tooltip = "EXPANSION_PLANNER_FILTER_HABITABILITY_DESC"
 				}
 				
@@ -1258,6 +1260,7 @@ guiTypes = {
 					size = { x = 195 y = 30 }
 					position = { x = 4 y = 4 }
 					pdx_tooltip = "EXPANSION_PLANNER_FILTER_SPECIES_DESC"
+					no_clicksound = yes
 				}
 
 				instantTextBoxType = {
@@ -1277,7 +1280,7 @@ guiTypes = {
 					#pdx_tooltip = "topbar_button_dropdown_instant"
 					#pdx_tooltip_delayed = "topbar_button_dropdown_delayed"
 					clicksound = interface
-					oversound = menu_over_01
+					oversound = mouse_over
 					pdx_tooltip = "EXPANSION_PLANNER_FILTER_SPECIES_DESC"
 				}
 				

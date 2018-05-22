@@ -7,68 +7,6 @@
 
 namespace = action
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
-
 ### First Contact Diplomatic Message
 country_event = {
 	id = action.1
@@ -282,6 +220,10 @@ country_event = {
 						has_ethic = ethic_fanatic_xenophobe
 						has_ethic = ethic_xenophile
 						has_ethic = ethic_fanatic_xenophile
+					}
+					AND = {
+						exists = event_target:ratling_country
+						is_same_value = event_target:ratling_country
 					}
 				}
 				has_government = gov_irenic_bureaucracy
@@ -1007,7 +949,9 @@ country_event = {
 			event_target:contact_empire = {
 				is_country_type = default
 				has_authority = auth_hive_mind
-				NOT = { has_valid_civic = civic_hive_devouring_swarm }
+				NOT = {
+					has_valid_civic = civic_hive_devouring_swarm
+				}
 			}
 		}
 	}
@@ -1208,8 +1152,39 @@ country_event = {
 				has_authority = auth_machine_intelligence
 			}
 		}
+	}
+
+	# Junkheap Ratlings Empire (To those who have taken their systems)
+	desc = {
+		text = "action.1.desc_80"
+		trigger = {
+			NOT = { is_same_species = event_target:contact_empire }
+			exists = event_target:ratling_country
+			event_target:contact_empire = {
+				is_same_value = event_target:ratling_country
+			}
+			any_system_within_border = {
+				has_star_flag = ratling_system
+			}
+		}
+	}
+
+	# Junkheap Ratlings Empire (To those who have not taken their systems)
+	desc = {
+		text = "action.1.desc_81"
+		trigger = {
+			exists = event_target:ratling_country
+			event_target:contact_empire = {
+				is_same_value = event_target:ratling_country
+			}
+			NOR = {
+				is_same_species = event_target:contact_empire
+				any_system_within_border = {
+					has_star_flag = ratling_system
+				}
+			}
+		}
 	}	
-	
 	
 	# Fallen Empire 1
 	desc = {
@@ -2141,6 +2116,10 @@ country_event = {
 						has_ethic = ethic_xenophile
 						has_ethic = ethic_fanatic_xenophile
 					}
+					AND = {
+						exists = event_target:ratling_country
+						is_same_value = event_target:ratling_country
+					}
 				}
 				has_government = gov_irenic_bureaucracy
 			}
@@ -2999,7 +2978,9 @@ country_event = {
 			event_target:contact_empire = {
 				is_country_type = default
 				has_authority = auth_hive_mind
-				NOT = { has_valid_civic = civic_hive_devouring_swarm }
+				NOT = {
+					has_valid_civic = civic_hive_devouring_swarm
+				}
 			}
 		}
 	}
@@ -3201,6 +3182,37 @@ country_event = {
 		}
 	}
 
+	# Junkheap Ratlings Empire (To those who have taken their systems)
+	desc = {
+		text = "action.1.desc_80"
+		trigger = {
+			NOT = { is_same_species = event_target:contact_empire }
+			exists = event_target:ratling_country
+			event_target:contact_empire = {
+				is_same_value = event_target:ratling_country
+			}
+			any_system_within_border = {
+				has_star_flag = ratling_system
+			}
+		}
+	}
+
+	# Junkheap Ratlings Empire (To those who have not taken their systems)
+	desc = {
+		text = "action.1.desc_81"
+		trigger = {
+			exists = event_target:ratling_country
+			event_target:contact_empire = {
+				is_same_value = event_target:ratling_country
+			}
+			NOR = {
+				is_same_species = event_target:contact_empire
+				any_system_within_border = {
+					has_star_flag = ratling_system
+				}
+			}
+		}
+	}
 
 	diplomatic = yes
 	is_triggered_only = yes
@@ -3989,6 +4001,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4044,7 +4057,7 @@ country_event = {
 		trigger = {
 			fromfrom = { has_relation_flag = { who = root flag = AbandonedRefugees } }
 		}
-	}	
+	}
 	picture = GFX_evt_throne_room
 	show_sound = event_radio_chatter
 	
@@ -4071,6 +4084,7 @@ country_event = {
 			country_event = { id = action.13 }
 			save_event_target_as = contact_empire
 		}
+		country_event = { id = distar.238 days = 1 }
 	}
 
 	option = {
@@ -4332,6 +4346,7 @@ country_event = {
 		from = {
 			save_event_target_as = contact_empire
 		}
+		country_event = { id = distar.239 days = 1 }
 	}
 
 	option = {
@@ -4812,6 +4827,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4853,6 +4869,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4894,6 +4911,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4935,6 +4953,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -4976,6 +4995,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -5017,6 +5037,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -5090,6 +5111,7 @@ country_event = {
 	desc = "action.15.desc"
 	picture = GFX_evt_star_chart
 	location = FROMFROMFROM
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -6628,9 +6650,9 @@ pop_event = {
 				last_refugee_country = { save_event_target_as = RefugeeEscapedFrom }				
 				pop_event = { id = refugees.1 }
 			}
-			else = {
-				add_modifier = { modifier = recently_migrated days = 3600 }
-			}
+		}
+		else = {
+			add_modifier = { modifier = recently_migrated days = 3600 }
 		}
 		planet = { add_organic_sanctuaries = yes }
 	}
@@ -6638,7 +6660,7 @@ pop_event = {
 
 # Country Destroyed Notification Gatekeeper
 country_event = {
-	id = "action.61"
+	id = action.61
 	hide_window = yes
 
 	is_triggered_only = yes
@@ -6656,15 +6678,21 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { is_country_type = default }
-			every_country = { 
-				limit = { has_communications = root }
+			every_playable_country = { 
+				limit = {
+					has_communications = root
+					NOT = { is_same_value = root }
+				}
 				country_event = { id = action.62 } 
 			}
-			else = {
-				every_country = { 
-					limit = { has_communications = root }
-					country_event = { id = action.63 } 
+		}
+		else = {
+			every_playable_country = { 
+				limit = {
+					has_communications = root
+					NOT = { is_same_value = root }
 				}
+				country_event = { id = action.63 } 
 			}
 		}
 	}
@@ -6759,114 +6787,102 @@ planet_event = {
 							remove_self_modified = yes # scripted effect
 							root.owner = { generate_cyborg_treats = yes } # scripted effect
 						}
-						else = {
-							if = { # hive mind
-								limit = {
-									root.owner = {
-										has_authority = auth_hive_mind
-										NOT = { has_civic = civic_hive_devouring_swarm }
-									}
-								}
-								modify_species = {
-									species = this
-									add_trait = trait_hive_mind
-									add_traits_at_start_of_list = yes
-									#change_scoped_species = no
-								}
-								remove_culture_shock = yes
-								remove_self_modified = yes # scripted effect
-								else = {
-									if = { # ascended synths
-										limit = {
-											root.owner = {
-												has_country_flag = synthetic_empire
-											}
-										}
-										tile = {
-											kill_pop = yes
-											create_pop = {
-												species = root.owner
-												ethos = root.owner
-											}
-										}
-										else = {
-											if = { # cyborg empire
-												limit = {
-													root.owner = {
-														has_country_flag = flesh_weakened
-													}
-												}
-												modify_species = {
-													species = this
-													add_trait = trait_cybernetic
-													add_traits_at_start_of_list = yes
-													change_scoped_species = yes
-												}
-												remove_culture_shock = yes
-												remove_hive_minded = yes
-												remove_self_modified = yes # scripted effect
-												else = {
-													if = {
-														limit = {
-															root.owner = {
-																NOR = {
-																	has_ethic = ethic_gestalt_consciousness
-																	has_country_flag = synthetic_empire
-																	has_country_flag = flesh_weakened
-																}
-															}
-															has_trait = trait_hive_mind
-														}
-														modify_species = {
-															species = this
-															remove_trait = trait_hive_mind
-															change_scoped_species = yes
-															# change only this pop's species
-														}
-														else = { #### Psionic Assimilation
-															if = {
-																limit = {
-																	root.owner = {
-																		has_ascension_perk = ap_transcendence
-																	}
-																	NOR = {
-																		has_trait = trait_psionic
-																		has_trait = trait_latent_psionic
-																	}
-																	#has_living_standard = {
-																	#	country = root
-																	#	type = psionic_assimilation
-																	#}
-																}
-																modify_species = {
-																	species = this
-																	add_trait = trait_psionic
-																	add_traits_at_start_of_list = yes
-																	change_scoped_species = yes
-																}
-																else = {
-																	if = {
-																		limit = {
-																			NOT = { has_trait = trait_psionic}
-																			has_trait = trait_latent_psionic
-																		}
-																		modify_species = {
-																			species = this
-																			remove_trait = trait_latent_psionic
-																			add_traits_at_start_of_list = yes
-																			change_scoped_species = yes
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
+					}
+					else_if = { # hive mind
+						limit = {
+							root.owner = {
+								has_authority = auth_hive_mind
+								NOT = { has_civic = civic_hive_devouring_swarm }
+							}
+						}
+						modify_species = {
+							species = this
+							add_trait = trait_hive_mind
+							add_traits_at_start_of_list = yes
+							#change_scoped_species = no
+						}
+						remove_culture_shock = yes
+						remove_self_modified = yes # scripted effect
+					}
+					else_if = { # ascended synths
+						limit = {
+							root.owner = {
+								has_country_flag = synthetic_empire
+							}
+						}
+						tile = {
+							kill_pop = yes
+							create_pop = {
+								species = root.owner
+								ethos = root.owner
+							}
+						}
+					}
+					else_if = { # cyborg empire
+						limit = {
+							root.owner = {
+								has_country_flag = flesh_weakened
+							}
+						}
+						modify_species = {
+							species = this
+							add_trait = trait_cybernetic
+							add_traits_at_start_of_list = yes
+							change_scoped_species = yes
+						}
+						remove_culture_shock = yes
+						remove_hive_minded = yes
+						remove_self_modified = yes # scripted effect
+					}
+					else_if = {
+						limit = {
+							root.owner = {
+								NOR = {
+									has_ethic = ethic_gestalt_consciousness
+									has_country_flag = synthetic_empire
+									has_country_flag = flesh_weakened
 								}
 							}
+							has_trait = trait_hive_mind
+						}
+						modify_species = {
+							species = this
+							remove_trait = trait_hive_mind
+							change_scoped_species = yes
+							# change only this pop's species
+						}
+					}
+					else_if = { #### Psionic Assimilation
+						limit = {
+							root.owner = {
+								has_ascension_perk = ap_transcendence
+							}
+							NOR = {
+								has_trait = trait_psionic
+								has_trait = trait_latent_psionic
+							}
+							#has_living_standard = {
+							#	country = root
+							#	type = psionic_assimilation
+							#}
+						}
+						modify_species = {
+							species = this
+							add_trait = trait_psionic
+							add_traits_at_start_of_list = yes
+							change_scoped_species = yes
+						}
+					}
+					else_if = {
+						limit = {
+							NOT = { has_trait = trait_psionic}
+							has_trait = trait_latent_psionic
+						}
+						modify_species = {
+							species = this
+							remove_trait = trait_latent_psionic
+							add_traits_at_start_of_list = yes
+							change_scoped_species = yes
 						}
 					}
 
@@ -6876,11 +6892,11 @@ planet_event = {
 							type = citizenship_full_machine
 							country = root.owner
 						}
-						else = {
-							set_citizenship_type = {
-								type = citizenship_full
-								country = root.owner
-							}
+					}
+					else = {
+						set_citizenship_type = {
+							type = citizenship_full
+							country = root.owner
 						}
 					}
 
@@ -6933,114 +6949,102 @@ planet_event = {
 								remove_self_modified = yes # scripted effect
 								root.owner = { generate_cyborg_treats = yes } # scripted effect
 							}
-							else = {
-								if = { # hive mind
-									limit = {
-										root.owner = {
-											has_authority = auth_hive_mind
-											NOT = { has_civic = civic_hive_devouring_swarm }
-										}
-									}
-									modify_species = {
-										species = this
-										add_trait = trait_hive_mind
-										add_traits_at_start_of_list = yes
-										#change_scoped_species = no
-									}
-									remove_culture_shock = yes
-									remove_self_modified = yes # scripted effect
-									else = {
-										if = { # ascended synths
-											limit = {
-												root.owner = {
-													has_country_flag = synthetic_empire
-												}
-											}
-											tile = {
-												kill_pop = yes
-												create_pop = {
-													species = root.owner
-													ethos = root.owner
-												}
-											}
-											else = {
-												if = { # cyborg empire
-													limit = {
-														root.owner = {
-															has_country_flag = flesh_weakened
-														}
-													}
-													modify_species = {
-														species = this
-														add_trait = trait_cybernetic
-														add_traits_at_start_of_list = yes
-														change_scoped_species = yes
-													}
-													remove_hive_minded = yes
-													remove_culture_shock = yes
-													remove_self_modified = yes # scripted effect
-													else = {
-														if = {
-															limit = {
-																root.owner = {
-																	NOR = {
-																		has_ethic = ethic_gestalt_consciousness
-																		has_country_flag = synthetic_empire
-																		has_country_flag = flesh_weakened
-																	}
-																}
-																has_trait = trait_hive_mind
-															}
-															modify_species = {
-																species = this
-																remove_trait = trait_hive_mind
-																change_scoped_species = yes
-																# change only this pop's species
-															}
-															else = { #### Psionic Assimilation ADD OTHER RANDOM OPTIONS TOO
-																if = {
-																	limit = {
-																		root.owner = {
-																			has_ascension_perk = ap_transcendence
-																		}
-																		NOR = {
-																			has_trait = trait_psionic
-																			has_trait = trait_latent_psionic
-																		}
-																		#has_living_standard = {
-																		#	country = root
-																		#	type = psionic_assimilation
-																		#}
-																	}
-																	modify_species = {
-																		species = this
-																		add_trait = trait_psionic
-																		add_traits_at_start_of_list = yes
-																		change_scoped_species = yes
-																	}
-																	else = {
-																		if = {
-																			limit = {
-																				NOT = { has_trait = trait_psionic}
-																				has_trait = trait_latent_psionic
-																			}
-																			modify_species = {
-																				species = this
-																				remove_trait = trait_latent_psionic
-																				add_traits_at_start_of_list = yes
-																				change_scoped_species = yes
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}	
-											}
-										}
+						}
+						else_if = { # hive mind
+							limit = {
+								root.owner = {
+									has_authority = auth_hive_mind
+									NOT = { has_civic = civic_hive_devouring_swarm }
+								}
+							}
+							modify_species = {
+								species = this
+								add_trait = trait_hive_mind
+								add_traits_at_start_of_list = yes
+								#change_scoped_species = no
+							}
+							remove_culture_shock = yes
+							remove_self_modified = yes # scripted effect
+						}
+						else_if = { # ascended synths
+							limit = {
+								root.owner = {
+									has_country_flag = synthetic_empire
+								}
+							}
+							tile = {
+								kill_pop = yes
+								create_pop = {
+									species = root.owner
+									ethos = root.owner
+								}
+							}
+						}
+						else_if = { # cyborg empire
+							limit = {
+								root.owner = {
+									has_country_flag = flesh_weakened
+								}
+							}
+							modify_species = {
+								species = this
+								add_trait = trait_cybernetic
+								add_traits_at_start_of_list = yes
+								change_scoped_species = yes
+							}
+							remove_hive_minded = yes
+							remove_culture_shock = yes
+							remove_self_modified = yes # scripted effect
+						}
+						else_if = {
+							limit = {
+								root.owner = {
+									NOR = {
+										has_ethic = ethic_gestalt_consciousness
+										has_country_flag = synthetic_empire
+										has_country_flag = flesh_weakened
 									}
 								}
+								has_trait = trait_hive_mind
+							}
+							modify_species = {
+								species = this
+								remove_trait = trait_hive_mind
+								change_scoped_species = yes
+								# change only this pop's species
+							}
+						}
+						else_if = { #### Psionic Assimilation ADD OTHER RANDOM OPTIONS TOO
+							limit = {
+								root.owner = {
+									has_ascension_perk = ap_transcendence
+								}
+								NOR = {
+									has_trait = trait_psionic
+									has_trait = trait_latent_psionic
+								}
+								#has_living_standard = {
+								#	country = root
+								#	type = psionic_assimilation
+								#}
+							}
+							modify_species = {
+								species = this
+								add_trait = trait_psionic
+								add_traits_at_start_of_list = yes
+								change_scoped_species = yes
+							}
+						}
+						else_if = {
+							limit = {
+								NOT = { has_trait = trait_psionic}
+								has_trait = trait_latent_psionic
+							}
+							modify_species = {
+								species = this
+								remove_trait = trait_latent_psionic
+								add_traits_at_start_of_list = yes
+								change_scoped_species = yes
 							}
 						}
 	
@@ -7050,11 +7054,11 @@ planet_event = {
 								type = citizenship_full_machine
 								country = root.owner
 							}
-							else = {
-								set_citizenship_type = {
-									type = citizenship_full
-									country = root.owner
-								}
+						}
+						else = {
+							set_citizenship_type = {
+								type = citizenship_full
+								country = root.owner
 							}
 						}
 						
@@ -7108,114 +7112,102 @@ planet_event = {
 								remove_self_modified = yes # scripted effect
 								root.owner = { generate_cyborg_treats = yes } # scripted effect
 							}
-							else = {
-								if = { # hive mind
-									limit = {
-										root.owner = {
-											has_authority = auth_hive_mind
-											NOT = { has_civic = civic_hive_devouring_swarm }
-										}
-									}
-									modify_species = {
-										species = this
-										add_trait = trait_hive_mind
-										add_traits_at_start_of_list = yes
-										#change_scoped_species = no
-									}
-									remove_culture_shock = yes
-									remove_self_modified = yes # scripted effect
-									else = {
-										if = { # ascended synths
-											limit = {
-												root.owner = {
-													has_country_flag = synthetic_empire
-												}
-											}
-											tile = {
-												kill_pop = yes
-												create_pop = {
-													species = root.owner
-													ethos = root.owner
-												}
-											}
-											else = {
-												if = { # cyborg empire
-													limit = {
-														root.owner = {
-															has_country_flag = flesh_weakened
-														}
-													}
-													modify_species = {
-														species = this
-														add_trait = trait_cybernetic
-														add_traits_at_start_of_list = yes
-														change_scoped_species = yes
-													}
-													remove_hive_minded = yes
-													remove_culture_shock = yes
-													remove_self_modified = yes # scripted effect
-													else = {
-														if = {
-															limit = {
-																root.owner = {
-																	NOR = {
-																		has_ethic = ethic_gestalt_consciousness
-																		has_country_flag = synthetic_empire
-																		has_country_flag = flesh_weakened
-																	}
-																}
-																has_trait = trait_hive_mind
-															}
-															modify_species = {
-																species = this
-																remove_trait = trait_hive_mind
-																change_scoped_species = yes
-																# change only this pop's species
-															}
-															else = { #### Psionic Assimilation ADD OTHER RANDOM OPTIONS TOO
-																if = {
-																	limit = {
-																		root.owner = {
-																			has_ascension_perk = ap_transcendence
-																		}
-																		NOR = {
-																			has_trait = trait_psionic
-																			has_trait = trait_latent_psionic
-																		}
-																		#has_living_standard = {
-																		#	country = root
-																		#	type = psionic_assimilation
-																		#}
-																	}
-																	modify_species = {
-																		species = this
-																		add_trait = trait_psionic
-																		add_traits_at_start_of_list = yes
-																		change_scoped_species = yes
-																	}
-																	else = {
-																		if = {
-																			limit = {
-																				NOT = { has_trait = trait_psionic}
-																				has_trait = trait_latent_psionic
-																			}
-																			modify_species = {
-																				species = this
-																				remove_trait = trait_latent_psionic
-																				add_traits_at_start_of_list = yes
-																				change_scoped_species = yes
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
+						}
+						else_if = { # hive mind
+							limit = {
+								root.owner = {
+									has_authority = auth_hive_mind
+									NOT = { has_civic = civic_hive_devouring_swarm }
+								}
+							}
+							modify_species = {
+								species = this
+								add_trait = trait_hive_mind
+								add_traits_at_start_of_list = yes
+								#change_scoped_species = no
+							}
+							remove_culture_shock = yes
+							remove_self_modified = yes # scripted effect
+						}
+						else_if = { # ascended synths
+							limit = {
+								root.owner = {
+									has_country_flag = synthetic_empire
+								}
+							}
+							tile = {
+								kill_pop = yes
+								create_pop = {
+									species = root.owner
+									ethos = root.owner
+								}
+							}
+						}
+						else_if = { # cyborg empire
+							limit = {
+								root.owner = {
+									has_country_flag = flesh_weakened
+								}
+							}
+							modify_species = {
+								species = this
+								add_trait = trait_cybernetic
+								add_traits_at_start_of_list = yes
+								change_scoped_species = yes
+							}
+							remove_hive_minded = yes
+							remove_culture_shock = yes
+							remove_self_modified = yes # scripted effect
+						}
+						else_if = {
+							limit = {
+								root.owner = {
+									NOR = {
+										has_ethic = ethic_gestalt_consciousness
+										has_country_flag = synthetic_empire
+										has_country_flag = flesh_weakened
 									}
 								}
+								has_trait = trait_hive_mind
+							}
+							modify_species = {
+								species = this
+								remove_trait = trait_hive_mind
+								change_scoped_species = yes
+								# change only this pop's species
+							}
+						}
+						else_if = { #### Psionic Assimilation ADD OTHER RANDOM OPTIONS TOO
+							limit = {
+								root.owner = {
+									has_ascension_perk = ap_transcendence
+								}
+								NOR = {
+									has_trait = trait_psionic
+									has_trait = trait_latent_psionic
+								}
+								#has_living_standard = {
+								#	country = root
+								#	type = psionic_assimilation
+								#}
+							}
+							modify_species = {
+								species = this
+								add_trait = trait_psionic
+								add_traits_at_start_of_list = yes
+								change_scoped_species = yes
+							}
+						}
+						else_if = {
+							limit = {
+								NOT = { has_trait = trait_psionic}
+								has_trait = trait_latent_psionic
+							}
+							modify_species = {
+								species = this
+								remove_trait = trait_latent_psionic
+								add_traits_at_start_of_list = yes
+								change_scoped_species = yes
 							}
 						}
 	
@@ -7225,11 +7217,11 @@ planet_event = {
 								type = citizenship_full_machine
 								country = root.owner
 							}
-							else = {
-								set_citizenship_type = {
-									type = citizenship_full
-									country = root.owner
-								}
+						}
+						else = {
+							set_citizenship_type = {
+								type = citizenship_full
+								country = root.owner
 							}
 						}
 						
@@ -7543,6 +7535,7 @@ planet_event = {
 				is_country_type = default
 				is_country_type = fallen_empire
 				is_country_type = awakened_fallen_empire
+				is_country_type = vol
 			}
 		}
 		habitable_planet = yes
@@ -7750,20 +7743,6 @@ country_event = {
 	}
 }
 
-# Jump Drive cooldown modifier
-ship_event = {
-	id = action.89
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		add_modifier = {
-			modifier = jump_drive_cooldown
-			days = 200
-		}
-	}
-}
-
 event = {
 	id = action.90
 	hide_window = yes
@@ -7934,6 +7913,501 @@ event = {
 						modifier = "terraforming_candidate"
 						days = -1
 					}
+				}
+			}
+		}
+	}
+}
+
+ship_event = {
+	id = action.94
+	title = action.92.name
+	desc = {
+		trigger = {
+			success_text = {
+				text =					         action.92.garanthium
+				hidden:from = { has_resource = { type = sr_garanthium amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.lythuric
+				hidden:from = { has_resource = { type = sr_lythuric amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.teldar
+				hidden:from = { has_resource = { type = sr_teldar amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.yurantic
+				hidden:from = { has_resource = { type = sr_yurantic amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.aldar
+				hidden:from = { has_resource = { type = sr_aldar amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.orillium
+				hidden:from = { has_resource = { type = sr_orillium amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.pitharan
+				hidden:from = { has_resource = { type = sr_pitharan amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.engos
+				hidden:from = { has_resource = { type = sr_engos amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.neutronium
+				hidden:from = { has_resource = { type = sr_neutronium amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.zro
+				hidden:from = { has_resource = { type = sr_zro amount > 0 } }
+			}
+			success_text = {
+				text =					         action.92.dark_matter
+				hidden:from = { has_resource = { type = sr_dark_matter amount > 0 } }
+			}
+			success_text = {
+				text =						     action.92.satramene
+				hidden:from = { has_resource = { type = sr_satramene amount > 0 } }
+			}
+			success_text = {
+				text =						     action.92.living_metal
+				hidden:from = { has_resource = { type = sr_living_metal amount > 0 } }
+			}
+			success_text = {
+				text =						     action.92.terraform_liquids
+				hidden:from = { has_resource = { type = sr_terraform_liquids amount > 0 } }
+			}
+			success_text = {
+				text =						     action.92.terraform_gases
+				hidden:from = { has_resource = { type = sr_terraform_gases amount > 0 } }
+			}
+			success_text = {
+				text = action.92.has_tech
+				OR = {
+					hidden:from = { has_resource = { type = sr_pitharan amount > 0 } }
+					hidden:from = { has_resource = { type = sr_satramene amount > 0 } }
+					hidden:from = { has_resource = { type = sr_lythuric amount > 0 } }
+					AND = {
+						hidden:from = { has_resource = { type = sr_garanthium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_garanthium }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_engos amount > 0 } }
+						hidden:owner = { has_technology = tech_engos_vapor }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_teldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_teldar }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_yurantic amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_yurantic }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_aldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_aldar }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_orillium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_orillium }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_neutronium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_neutronium }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_zro amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_zro }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_dark_matter amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_dark_matter }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_living_metal amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_living_metal }
+					}
+					AND = {
+						hidden:from = {
+							OR = {
+								has_resource = { type = sr_terraform_liquids amount > 0 }
+								has_resource = { type = sr_terraform_gases amount > 0 }
+							}
+						}
+						hidden:owner = { has_technology = tech_terrestrial_sculpting }
+					}
+				}
+			}
+			success_text = {
+				text = action.92.no_tech
+				# same trigger as above
+				NOR = {
+					hidden:from = { has_resource = { type = sr_pitharan amount > 0 } }
+					hidden:from = { has_resource = { type = sr_satramene amount > 0 } }
+					hidden:from = { has_resource = { type = sr_lythuric amount > 0 } }
+					AND = {
+						hidden:from = { has_resource = { type = sr_garanthium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_garanthium }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_engos amount > 0 } }
+						hidden:owner = { has_technology = tech_engos_vapor }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_teldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_teldar }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_yurantic amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_yurantic }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_aldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_aldar }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_orillium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_orillium }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_neutronium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_neutronium }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_zro amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_zro }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_dark_matter amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_dark_matter }
+					}
+					AND = {
+						hidden:from = { has_resource = { type = sr_living_metal amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_living_metal }
+					}
+					AND = {
+						hidden:from = {
+							OR = {
+								has_resource = { type = sr_terraform_liquids amount > 0 }
+								has_resource = { type = sr_terraform_gases amount > 0 }
+							}
+						}
+						hidden:owner = { has_technology = tech_terrestrial_sculpting }
+					}
+				}
+			}
+		}
+	}
+	picture = GFX_evt_surreal_visions
+	show_sound = event_default
+	location = from
+
+	is_triggered_only = yes
+
+	trigger = {
+		from = { has_strategic_resource = yes } # basically a pre-trigger
+		owner = {
+			OR = {
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_garanthium
+						}
+					}
+					NOT = {
+						has_country_flag = 	   garanthium_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_lythuric
+						}
+					}
+					NOT = {
+						has_country_flag = 	   lythuric_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_teldar
+						}
+					}
+					NOT = {
+						has_country_flag = 	   teldar_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_yurantic
+						}
+					}
+					NOT = {
+						has_country_flag = 	   yurantic_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_aldar
+						}
+					}
+					NOT = {
+						has_country_flag = 	   aldar_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_orillium
+						}
+					}
+					NOT = {
+						has_country_flag = 	   orillium_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_pitharan
+						}
+					}
+					NOT = {
+						has_country_flag = 	   pitharan_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_engos
+						}
+					}
+					NOT = {
+						has_country_flag = 	   engos_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_neutronium
+						}
+					}
+					NOT = {
+						has_country_flag = 	   neutronium_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_living_metal
+						}
+					}
+					NOT = {
+						has_country_flag = 	   living_metal_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_zro
+						}
+					}
+					NOT = {
+						has_country_flag = 	   zro_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_dark_matter
+						}
+					}
+					NOT = {
+						has_country_flag = 	   dark_matter_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_satramene
+						}
+					}
+					NOT = {
+						has_country_flag = 	   satramene_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_terraform_liquids
+						}
+					}
+					NOT = {
+						has_country_flag = 	   terraform_liquids_found
+					}
+				}
+				AND = {
+					root.from = {
+						has_resource = {
+							amount > 0
+									type = 	sr_terraform_gases
+						}
+					}
+					NOT = {
+						has_country_flag = 	   terraform_gases_found
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		from = {
+			if = {
+				limit = { has_resource = { type = sr_garanthium amount > 0 } }
+				root.owner = { set_country_flag =    garanthium_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_lythuric amount > 0 } }
+				root.owner = { set_country_flag =    lythuric_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_teldar amount > 0 } }
+				root.owner = { set_country_flag =    teldar_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_yurantic amount > 0 } }
+				root.owner = { set_country_flag =    yurantic_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_aldar amount > 0 } }
+				root.owner = { set_country_flag =    aldar_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_orillium amount > 0 } }
+				root.owner = { set_country_flag =    orillium_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_pitharan amount > 0 } }
+				root.owner = { set_country_flag =    pitharan_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_engos amount > 0 } }
+				root.owner = { set_country_flag =    engos_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_neutronium amount > 0 } }
+				root.owner = { set_country_flag =    neutronium_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_zro amount > 0 } }
+				root.owner = { set_country_flag =    zro_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_dark_matter amount > 0 } }
+				root.owner = { set_country_flag =    dark_matter_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_satramene amount > 0 } }
+				root.owner = { set_country_flag =    satramene_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_living_metal amount > 0 } }
+				root.owner = { set_country_flag =    living_metal_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_terraform_liquids amount > 0 } }
+				root.owner = { set_country_flag =    terraform_gases_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_terraform_gases amount > 0 } }
+				root.owner = { set_country_flag =    terraform_gases_found }
+			}
+		}
+	}
+
+	option = {
+		name = OK
+		from = {
+			hidden_effect = {
+				if = {
+					limit = { has_resource = { type = sr_garanthium amount > 0 } }
+					custom_tooltip = action.92.garanthium.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_lythuric amount > 0 } }
+					custom_tooltip = action.92.lythuric.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_teldar amount > 0 } }
+					custom_tooltip = action.92.teldar.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_yurantic amount > 0 } }
+					custom_tooltip = action.92.yurantic.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_aldar amount > 0 } }
+					custom_tooltip = action.92.aldar.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_orillium amount > 0 } }
+					custom_tooltip = action.92.orillium.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_pitharan amount > 0 } }
+					custom_tooltip = action.92.pitharan.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_engos amount > 0 } }
+					custom_tooltip = action.92.engos.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_neutronium amount > 0 } }
+					custom_tooltip = action.92.neutronium.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_zro amount > 0 } }
+					custom_tooltip = action.92.zro.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_dark_matter amount > 0 } }
+					custom_tooltip = action.92.dark_matter.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_satramene amount > 0 } }
+					custom_tooltip = action.92.satramene.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_living_metal amount > 0 } }
+					custom_tooltip = action.92.living_metal.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_terraform_liquids amount > 0 } }
+					custom_tooltip = action.92.terraform_liquids.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_terraform_gases amount > 0 } }
+					custom_tooltip = action.92.terraform_gases.tooltip
 				}
 			}
 		}

@@ -88,3 +88,26 @@ trait_presapient_irradiated = {
 		leader_age = 30
 	}
 }
+
+trait_presapient_docile_livestock = {
+	cost = 1
+	opposites = { "trait_intelligent" "trait_erudite" "trait_natural_engineers" "trait_natural_physicists" "trait_natural_sociologists" }
+	initial = no
+	sapient = no
+	modification = yes
+	species_potential_add = { always = no }
+	randomized = no
+	advanced_trait = yes
+	forced_happiness = yes
+	icon = "gfx/interface/icons/traits/trait_primitive.dds"
+	allowed_archetypes = { BIOLOGICAL PRESAPIENT }
+	modifier = {
+		pop_growth_speed = 0.3
+		pop_other_species_owner_happiness = 0.05
+		tile_resource_unity_mult = 0.1
+		tile_resource_energy_mult = -0.5
+		tile_resource_physics_research_mult = -0.75
+		tile_resource_engineering_research_mult = -0.75
+		tile_resource_society_research_mult = -0.75
+	}
+}

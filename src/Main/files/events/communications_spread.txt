@@ -211,22 +211,20 @@ country_event = {
 	}
 }
 
-# Primitives gain comms with anyone that has comms with their system owner
+# Primitives gain comms with anyone that has surveyed their planet
 country_event = {
 	id = communications_spread.4
 	hide_window = yes
 	
 	trigger = {
 		is_country_type = primitive
-		capital_scope.solar_system = {
-			exists = owner
-			owner = {
-				NOT = { is_same_value = root }
-			}
-		}
 		any_playable_country = {
-			has_communications = capital_scope.solar_system.owner
-			NOT = { has_communications = root }
+			root = {
+				NOT = { has_communications = prev }
+				capital_scope = { 	
+					is_surveyed = { who = prevprev status = yes }
+				}				
+			}
 		}
 	}
 	
@@ -237,8 +235,12 @@ country_event = {
 	immediate = {
 		every_playable_country = {
 			limit = { 
-				has_communications = root.capital_scope.solar_system.owner 
-				NOT = { has_communications = root }
+				root = {
+					NOT = { has_communications = prev }
+					capital_scope = { 	
+						is_surveyed = { who = prevprev status = yes }
+					}				
+				}
 			}
 			establish_communications_no_message = root
 		}	

@@ -243,7 +243,7 @@ trait_charismatic = {
 	modifier = {
 		pop_other_species_owner_happiness = 0.05
 	}	
-	opposites = { "trait_repugnant" "trait_fertile" }
+	opposites = { "trait_repugnant" }
 	allowed_archetypes = { BIOLOGICAL }
 	custom_tooltip = TRAIT_CHARISMATIC_EFFECT
 }
@@ -253,7 +253,7 @@ trait_repugnant = {
 	modifier = {
 		pop_other_species_owner_happiness = -0.05
 	}
-	opposites = { "trait_charismatic" "trait_fertile" }
+	opposites = { "trait_charismatic" }
 	allowed_archetypes = { BIOLOGICAL }
 	custom_tooltip = TRAIT_REPUGNANT_EFFECT
 	ai_weight = {
@@ -481,12 +481,12 @@ trait_fertile = {
 	initial = no
 	randomized = no
 	advanced_trait = yes
-	opposites = { "trait_slow_breeders" "trait_rapid_breeders" "trait_charismatic" "trait_repugnant" }
+	opposites = { "trait_slow_breeders" "trait_rapid_breeders" }
 	allowed_archetypes = { BIOLOGICAL }
 	modifier = {
 		pop_growth_speed = 0.3
 		tile_resource_unity_mult = 0.1
-		pop_other_species_owner_happiness = 0.1
+		pop_other_species_owner_happiness = 0.05
 		pop_happiness = 0.05
 	}
 }

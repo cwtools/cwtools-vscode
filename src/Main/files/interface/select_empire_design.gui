@@ -94,6 +94,7 @@ guiTypes = {
 			buttonText = "CUSTOMIZE"
 			position = { x = -407 y = 296 }
 			orientation = CENTER
+			clicksound = confirm_click
 		}
 		buttonType = {
 			name = "delete"
@@ -119,7 +120,7 @@ guiTypes = {
 			buttonText = "SELECT"
 			position = { x = 321 y = 290 }
 			orientation = CENTER
-			clicksound = "confirmation"
+			clicksound = "confirm_click"
 			actionShortcut = "accept"
 		}
 
@@ -132,6 +133,7 @@ guiTypes = {
 			position = { x = -4 y = -68 }
 			orientation = LOWER_LEFT
 			actionShortCut = "cancel"
+			clicksound = back_click
 		}
 		
 		instantTextBoxType = {
@@ -187,7 +189,8 @@ guiTypes = {
 		background = {
 			name = "bg"
 			spriteType = "GFX_tiles_pre_scripted"
-			clicksound = "outliner_click_tab"
+			#clicksound = "outliner_click_tab"
+			clicksound = "select_click"
 		}
 		iconType = {
 			name = "select_random"
@@ -225,7 +228,8 @@ guiTypes = {
 		background = {
 			name = "bg"
 			spriteType = "GFX_tiles_pre_scripted"
-			clicksound = "outliner_click_tab"
+			#clicksound = "outliner_click_tab"
+			clicksound = "select_click"
 		}
 		iconType = {
 			name = "select_create_new"
@@ -263,7 +267,8 @@ guiTypes = {
 		background = {
 			name = "bg"
 			spriteType = "GFX_tiles_pre_scripted"
-			clicksound = "outliner_click_tab"
+			#clicksound = "outliner_click_tab"
+			clicksound = "select_click"
 		}
 		containerWindowType = {
 			name = "selected_overlay"
@@ -331,7 +336,7 @@ guiTypes = {
 		background = {
 			name = "bg"
 			spriteType = "GFX_tiles_user_created"
-			clicksound = outliner_click_tab
+			clicksound = select_click
 		}
 		containerWindowType = {
 			name = "selected_overlay"

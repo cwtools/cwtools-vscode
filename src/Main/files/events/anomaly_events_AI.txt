@@ -1,0 +1,478 @@
+#########################
+# AI-only Anomaly Events
+#########################
+
+namespace = aianom
+
+# ROOT = ship scope
+# FROM = planet scope
+
+### Mineral Sum
+ship_event = {
+	id = aianom.1minerallump
+	title = aianom.minerallump.name
+	desc = aianom.minerallump.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_bridge
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		owner = { # will spam error logs if debug tooltips are on
+			random_list = {
+				9 = {
+					add_monthly_resource_mult = {
+						resource = minerals
+						value = @tier1materialreward
+						min = @tier1materialmin
+						max = @tier1materialmax
+					}
+					incr_minerallump1_var = yes
+				}
+				6 = {
+					add_monthly_resource_mult = {
+						resource = minerals
+						value = @tier2materialreward
+						min = @tier2materialmin
+						max = @tier2materialmax
+					}
+					incr_minerallump2_var = yes
+				}
+				3 = {
+					add_monthly_resource_mult = {
+						resource = minerals
+						value = @tier3materialreward
+						min = @tier3materialmin
+						max = @tier3materialmax
+					}
+					incr_minerallump3_var = yes
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = minerals
+						value = @tier4materialreward
+						min = @tier4materialmin
+						max = @tier4materialmax
+					}
+					incr_minerallump4_var = yes
+				}
+			}
+		}
+	}
+}
+
+### Energy Credits Sum
+ship_event = {
+	id = aianom.2energylump
+	title = aianom.energylump.name
+	desc = aianom.energylump.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_bridge
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		owner = {
+			random_list = {
+				9 = {
+					add_monthly_resource_mult = {
+						resource = energy
+						value = @tier1materialreward
+						min = @tier1materialmin
+						max = @tier1materialmax
+					}
+					incr_energylump1_var = yes
+				}
+				6 = {
+					add_monthly_resource_mult = {
+						resource = energy
+						value = @tier2materialreward
+						min = @tier2materialmin
+						max = @tier2materialmax
+					}
+					incr_energylump2_var = yes
+				}
+				3 = {
+					add_monthly_resource_mult = {
+						resource = energy
+						value = @tier3materialreward
+						min = @tier3materialmin
+						max = @tier3materialmax
+					}
+					incr_energylump3_var = yes
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = energy
+						value = @tier4materialreward
+						min = @tier4materialmin
+						max = @tier4materialmax
+					}
+					incr_energylump4_var = yes
+				}
+			}
+		}
+	}
+}
+
+### Physics Sum
+ship_event = {
+	id = aianom.3physicslump
+	title = aianom.physicslump.name
+	desc = aianom.physicslump.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_bridge
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		owner = {
+			random_list = {
+				9 = {
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = @tier1researchreward
+						min = @tier1researchmin
+						max = @tier1researchmax
+					}
+					incr_physicslump1_var = yes
+				}
+				6 = {
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = @tier2researchreward
+						min = @tier2researchmin
+						max = @tier2researchmax
+					}
+					incr_physicslump2_var = yes
+				}
+				3 = {
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = @tier3researchreward
+						min = @tier3researchmin
+						max = @tier3researchmax
+					}
+					incr_physicslump3_var = yes
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = physics_research
+						value = @tier4researchreward
+						min = @tier4researchmin
+						max = @tier4researchmax
+					}
+					incr_physicslump4_var = yes
+				}
+			}
+		}
+	}
+}
+
+### Society Sum
+ship_event = {
+	id = aianom.4societylump
+	title = aianom.societylump.name
+	desc = aianom.societylump.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_bridge
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		owner = {
+			random_list = {
+				9 = {
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = @tier1researchreward
+						min = @tier1researchmin
+						max = @tier1researchmax
+					}
+					incr_societylump1_var = yes
+				}
+				6 = {
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = @tier2researchreward
+						min = @tier2researchmin
+						max = @tier2researchmax
+					}
+					incr_societylump2_var = yes
+				}
+				3 = {
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = @tier3researchreward
+						min = @tier3researchmin
+						max = @tier3researchmax
+					}
+					incr_societylump3_var = yes
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = society_research
+						value = @tier4researchreward
+						min = @tier4researchmin
+						max = @tier4researchmax
+					}
+					incr_societylump4_var = yes
+				}
+			}
+		}
+	}
+}
+
+### Engineering Sum
+ship_event = {
+	id = aianom.5engineeringlump
+	title = aianom.engineeringlump.name
+	desc = aianom.engineeringlump.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_bridge
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		owner = {
+			random_list = {
+				9 = {
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = @tier1researchreward
+						min = @tier1researchmin
+						max = @tier1researchmax
+					}
+					incr_engineeringlump1_var = yes
+				}
+				6 = {
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = @tier2researchreward
+						min = @tier2researchmin
+						max = @tier2researchmax
+					}
+					incr_engineeringlump2_var = yes
+				}
+				3 = {
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = @tier3researchreward
+						min = @tier3researchmin
+						max = @tier3researchmax
+					}
+					incr_engineeringlump3_var = yes
+				}
+				1 = {
+					add_monthly_resource_mult = {
+						resource = engineering_research
+						value = @tier4researchreward
+						min = @tier4researchmin
+						max = @tier4researchmax
+					}
+					incr_engineeringlump4_var = yes
+				}
+			}
+		}
+	}
+}
+
+### Mineral Deposit
+ship_event = {
+	id = aianom.6mineraldepo
+	title = aianom.mineraldepo.name
+	desc = aianom.mineraldepo.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_ship_bridge
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		from.orbital_deposit_tile = {
+			random_list = {
+				#9 = { add_deposit = d_mineral_deposit root = { incr_mineraldepo1_var = yes } } # 1
+				9 = { add_deposit = d_rich_mineral_deposit root = { incr_mineraldepo2_var = yes } } # 2
+				3 = { add_deposit = d_vast_mineral_deposit root = { incr_mineraldepo3_var = yes } } # 3
+				1 = { add_deposit = d_immense_mineral_deposit root = { incr_mineraldepo4_var = yes } } # 4
+			}
+		}
+	}
+}
+
+### Energy Deposit
+ship_event = {
+	id = aianom.7energydepo
+	title = aianom.energydepo.name
+	desc = aianom.energydepo.desc
+	picture = GFX_evt_mining_station
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		from.orbital_deposit_tile = {
+			random_list = {
+				#9 = { add_deposit = d_mineral_deposit root = { incr_energydepo1_var = yes } } # 1
+				9 = { add_deposit = d_rich_mineral_deposit root = { incr_energydepo2_var = yes } } # 2
+				3 = { add_deposit = d_vast_mineral_deposit root = { incr_energydepo3_var = yes } } # 3
+				1 = { add_deposit = d_immense_mineral_deposit root = { incr_energydepo4_var = yes } } # 4
+			}
+		}
+	}
+}
+
+### Physics Deposit
+ship_event = {
+	id = aianom.8physicsdepo
+	title = aianom.physicsdepo.name
+	desc = aianom.physicsdepo.desc
+	picture = GFX_evt_mining_station
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		from.orbital_deposit_tile = {
+			random_list = {
+				#9 = { add_deposit = d_physics_deposit root = { incr_physicsdepo1_var = yes } } # 1
+				9 = { add_deposit = d_rich_physics_deposit root = { incr_physicsdepo2_var = yes } } # 2
+				3 = { add_deposit = d_vast_physics_deposit root = { incr_physicsdepo3_var = yes } } # 3
+				1 = { add_deposit = d_immense_physics_deposit root = { incr_physicsdepo4_var = yes } } # 4
+			}
+		}
+	}
+}
+
+### Society Deposit
+ship_event = {
+	id = aianom.9societydepo
+	title = aianom.societydepo.name
+	desc = aianom.societydepo.desc
+	picture = GFX_evt_mining_station
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		from.orbital_deposit_tile = {
+			random_list = {
+				#9 = { add_deposit = d_society_deposit root = { incr_societydepo1_var = yes } } # 1
+				9 = { add_deposit = d_rich_society_deposit root = { incr_societydepo2_var = yes } } # 2
+				3 = { add_deposit = d_vast_society_deposit root = { incr_societydepo3_var = yes } } # 3
+				1 = { add_deposit = d_immense_society_deposit root = { incr_societydepo4_var = yes } } # 4
+			}
+		}
+	}
+}
+
+### Engineering Deposit
+ship_event = {
+	id = aianom.10engineeringdepo
+	title = aianom.engineeringdepo.name
+	desc = aianom.engineeringdepo.desc
+	picture = GFX_evt_mining_station
+	location = FROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		from.orbital_deposit_tile = {
+			random_list = {
+				#9 = { add_deposit = d_engineering_deposit root = { incr_engineeringdepo1_var = yes } } # 1
+				9 = { add_deposit = d_rich_engineering_deposit root = { incr_engineeringdepo2_var = yes } } # 2
+				3 = { add_deposit = d_vast_engineering_deposit root = { incr_engineeringdepo3_var = yes } } # 3
+				1 = { add_deposit = d_immense_engineering_deposit root = { incr_engineeringdepo4_var = yes } } # 4
+			}
+		}
+	}
+}
+
+### L-Cluster Clue
+ship_event = {
+	id = aianom.11
+	title = distar.9000.name
+	desc = distar.9000.fallback
+	picture = GFX_evt_atmospheric_entry
+	is_triggered_only = yes
+
+	option = {
+		name = OK
+		owner = { generate_lcluster_clue = yes }
+	}
+}
+
+# Debug
+country_event = {
+	id = aianom.0
+	title = aianom.0.name
+	desc = aianom.0.desc
+	picture = GFX_evt_mining_station
+
+	trigger = { always = no }
+
+	mean_time_to_happen = { months = 9999 }
+
+	option = {
+		name = OK
+	}
+
+	option = {
+		name = "Reset counters."
+		set_variable = { which = aianom_mineral_lump1 value = 0 }
+		set_variable = { which = aianom_mineral_lump2 value = 0 }
+		set_variable = { which = aianom_mineral_lump3 value = 0 }
+		set_variable = { which = aianom_mineral_lump4 value = 0 }
+		set_variable = { which = aianom_mineral_dep1 value = 0 }
+		set_variable = { which = aianom_mineral_dep2 value = 0 }
+		set_variable = { which = aianom_mineral_dep3 value = 0 }
+		set_variable = { which = aianom_mineral_dep4 value = 0 }
+		set_variable = { which = aianom_energy_lump1 value = 0 }
+		set_variable = { which = aianom_energy_lump2 value = 0 }
+		set_variable = { which = aianom_energy_lump3 value = 0 }
+		set_variable = { which = aianom_energy_lump4 value = 0 }
+		set_variable = { which = aianom_energy_dep1 value = 0 }
+		set_variable = { which = aianom_energy_dep2 value = 0 }
+		set_variable = { which = aianom_energy_dep3 value = 0 }
+		set_variable = { which = aianom_energy_dep4 value = 0 }
+		set_variable = { which = aianom_physics_lump1 value = 0 }
+		set_variable = { which = aianom_physics_lump2 value = 0 }
+		set_variable = { which = aianom_physics_lump3 value = 0 }
+		set_variable = { which = aianom_physics_lump4 value = 0 }
+		set_variable = { which = aianom_physics_dep1 value = 0 }
+		set_variable = { which = aianom_physics_dep2 value = 0 }
+		set_variable = { which = aianom_physics_dep3 value = 0 }
+		set_variable = { which = aianom_physics_dep4 value = 0 }
+		set_variable = { which = aianom_society_lump1 value = 0 }
+		set_variable = { which = aianom_society_lump2 value = 0 }
+		set_variable = { which = aianom_society_lump3 value = 0 }
+		set_variable = { which = aianom_society_lump4 value = 0 }
+		set_variable = { which = aianom_society_dep1 value = 0 }
+		set_variable = { which = aianom_society_dep2 value = 0 }
+		set_variable = { which = aianom_society_dep3 value = 0 }
+		set_variable = { which = aianom_society_dep4 value = 0 }
+		set_variable = { which = aianom_engineering_lump1 value = 0 }
+		set_variable = { which = aianom_engineering_lump2 value = 0 }
+		set_variable = { which = aianom_engineering_lump3 value = 0 }
+		set_variable = { which = aianom_engineering_lump4 value = 0 }
+		set_variable = { which = aianom_engineering_dep1 value = 0 }
+		set_variable = { which = aianom_engineering_dep2 value = 0 }
+		set_variable = { which = aianom_engineering_dep3 value = 0 }
+		set_variable = { which = aianom_engineering_dep4 value = 0 }
+	}
+}

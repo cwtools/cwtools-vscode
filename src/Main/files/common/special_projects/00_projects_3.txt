@@ -1,7 +1,7 @@
 # Available requirements:
 #
 #	SKILLS
-#	skill = 2
+#	#skill = 2
 #
 #	LEADER
 #	leader = scientist
@@ -44,7 +44,7 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		skill = 2
+		#skill = 2
 	}
 	
 	on_success = {
@@ -71,7 +71,7 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		skill = 2
+		#skill = 2
 	}
 
 	on_success = {
@@ -95,7 +95,7 @@ special_project = {
 #	requirements = {
 #		shipclass_science_ship = 1
 #		leader = scientist
-#		skill = 2
+#		#skill = 2
 #	}
 #
 #	on_success = {
@@ -120,7 +120,7 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		skill = 2
+		#skill = 2
 	}
 
 	on_success = {
@@ -143,22 +143,22 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		skill = 2
+		#skill = 2
 	}
 
 	on_success = {
 		if = {
 			limit = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_ethic = ethic_fanatic_spiritualist
 						has_ethic = ethic_spiritualist
 					} 
 				}
 			}
 			random_list = {
-				75 = { ship_event = { id = anomaly.4061 } }
-				25 = { ship_event = { id = anomaly.4062 } }
+				60 = { ship_event = { id = anomaly.4061 } }
+				40 = { ship_event = { id = anomaly.4062 } }
 			}
 		}
 		if = {
@@ -171,8 +171,8 @@ special_project = {
 				}
 			}
 			random_list = {
-				25 = { ship_event = { id = anomaly.4061 } }
-				75 = { ship_event = { id = anomaly.4062 } }
+				20 = { ship_event = { id = anomaly.4061 } }
+				80 = { ship_event = { id = anomaly.4062 } }
 			}
 		}
 	}
@@ -269,7 +269,7 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		skill = 2
+		#skill = 2
 	}
 
 	on_success = {
@@ -344,7 +344,7 @@ special_project = {
 	requirements = {
 		shipclass_military = 2
 		#leader = admiral
-		#skill = 2
+		##skill = 2
 	}
 
 	on_success = {
@@ -373,7 +373,7 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		skill = 3
+		#skill = 3
 	}
 
 	on_success = {
@@ -501,7 +501,7 @@ special_project = {
 		shipclass_military = 3
 		#shipclass_science_ship = 1
 		#leader = admiral
-		#skill = 2
+		##skill = 2
 		#has_trait = leader_trait_trickster
 	}
 

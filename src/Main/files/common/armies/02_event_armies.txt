@@ -1,4 +1,4 @@
-#Defensive armies can't transport of the planet
+#Defensive armies can't transport off the planet
 #maintenance is directly scripted here. 0.25 translates to 0.25 monthly cost (excluding other upkeep modifiers)
 #morale_damage = 1		# average morale damage of the army, default: auto (calculated from morale * MORALE_DAMAGE_MULT)
 #building spawned armies can't be built normally, but only created from pops working buildings
@@ -96,6 +96,7 @@ swarm_army = {
 	has_species = no
 	
 	potential = {
+		exists = owner
 		owner = {
 			is_country_type = "swarm"
 		}
@@ -117,6 +118,33 @@ tree_army = {
 	}
 }
 
+# Enraged Colonist Armies
+enraged_army = {
+	defensive = yes
+	damage = 0.5
+	health = 0.5
+	morale = 1.0
+	has_morale = no
+	icon_frame = 8
+	has_species = no
+	
+	potential = {
+		always = no
+	}
+}
+
+# Pre-Space Ketling Armies
+ketling_army = {
+	defensive = yes
+	damage = 0.6
+	health = 1.0
+	morale = 1.0
+	icon_frame = 5
+	
+	potential = {
+		always = no
+	}
+}
 
 # Titanic life troops
 # Can build on planets with titanic life if you get event + special project there
@@ -177,6 +205,67 @@ titanic_assault_army = {
 		owner = {
 			change_variable = {
 				which = "titanic_life_soldier_count" 
+				value = -1
+			}
+		}
+	}
+}
+
+# Azizian Army: Based on titanic life assault army
+titanic_azizian_assault_army = {
+	damage = 3.0
+	health = 5.0
+	morale = 2.0
+	morale_damage = 2.0
+	time = 90
+	maintenance = 1.0
+	icon_frame = 8
+	has_species = no
+	
+	cost = {
+		minerals = 250
+		energy = 50
+	}
+	
+	potential = {
+		custom_tooltip = {
+			text = azizian_troop_limit_tooltip
+			planet = { has_planet_flag = titanic_azizian_can_build }
+			owner = {
+				has_country_flag = titanic_azizian_soldiers
+			}
+		}
+	}
+	
+	allow = {
+		custom_tooltip = {
+			text = azizian_troop_limit_tooltip
+			planet = { has_planet_flag = titanic_azizian_can_build }
+			owner = {
+				has_country_flag = titanic_azizian_soldiers
+				NOT = { 
+					 check_variable = {
+						which = "titanic_azizian_soldier_count" 
+						value = 3
+					}
+				}
+			}
+		}
+	}
+	
+	on_queued = {
+		owner = {
+			change_variable = {
+				which = "titanic_azizian_soldier_count" 
+				value = 1
+			}
+		}
+	}
+	
+	on_unqueued = {
+		owner = {
+			change_variable = {
+				which = "titanic_azizian_soldier_count" 
 				value = -1
 			}
 		}

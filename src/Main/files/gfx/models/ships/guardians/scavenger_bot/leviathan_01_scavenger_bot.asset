@@ -1,0 +1,288 @@
+#entity = {
+#	name = "leviathan_01_scavenger_bot_entity"
+#	
+#	default_state = "idle"
+#	state = { name = "idle" state_time = 5 }
+#
+#	locator = { name = "part1" }
+#}
+
+entity = {
+	name = "leviathan_01_scavenger_bot_entity"
+	pdxmesh = "leviathan_01_scavenger_bot_frame_mesh"
+	
+	locator = { name = "part1" }
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+		event = { trigger_once = yes sound = { soundeffect = "scavenger_bot_idle" stop_on_state_change = yes } }
+	}
+	state = { name = "working" animation = "idle" animation_blend_time = 5 
+		event = { trigger_once = yes sound = { soundeffect = "scavenger_bot_work_start" } }
+		event = { time = 5.0 trigger_once = yes sound = { soundeffect = "scavenger_bot_work_loop" stop_on_state_change = yes } }
+	}
+	state = { name = "moving" animation = "moving" animation_blend_time = 5 
+		event = { trigger_once = yes sound = { soundeffect = "scavenger_bot_move_start" } }
+		event = { time = 7.0 trigger_once = yes sound = { soundeffect = "scavenger_bot_move_loop" stop_on_state_change = yes } }
+	}
+	state = { name = "death" animation = "death" looping = no
+		event = { time = 4.73 node = "bot_1_explosion" 	particle = "small_player_ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 4.5 node = "bot_2_explosion" 	particle = "small_player_ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { time = 4.93 node = "bot_3_explosion" 	particle = "small_player_ship_explosion_particle" keep_particle = yes trigger_once = yes }
+		event = { trigger_once = yes sound = { soundeffect = "scavenger_bot_death" } }
+	}
+	
+	#attach = { name = "core" root = "leviathan_01_scavenger_bot_core_entity" }   # Only for testing.
+	#attach = { bot_1_locator = "leviathan_01_scavenger_bot_helper_bot_entity" }  # Only for testing.
+	#attach = { bot_2_locator = "leviathan_01_scavenger_bot_helper_bot_entity" }  # Only for testing.
+	#attach = { bot_3_locator = "leviathan_01_scavenger_bot_helper_bot_entity" }  # Only for testing.
+}
+
+entity = {
+	name = "leviathan_01_scavenger_bot_section_entity"
+	pdxmesh = "leviathan_01_scavenger_bot_core_mesh"
+	
+	get_state_from_parent = yes
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" animation_blend_time = 10
+		event = { time = 0 node = "eye_effect" particle = "scavenger_bot_eye_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "eye_effect" particle = "scavenger_bot_body_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "scavenger_bot_engine" particle = "scavenger_bot_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
+
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "scavenger_bot_broken_light_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "moving" animation = "idle" animation_blend_time = 10
+		event = { time = 0 node = "eye_effect" particle = "scavenger_bot_eye_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "eye_effect" particle = "scavenger_bot_body_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "scavenger_bot_engine" particle = "scavenger_bot_exhaust_moving_effect" keep_particle = yes trigger_once = yes }
+		
+		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_02" particle = "scavenger_bot_broken_light_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_03" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_04" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 0 node = "light_locator_05" particle = "ship_light_blue_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "death" looping = no 
+		event = { time = 4.23 node = "root" particle = "scavenger_bot_explosion_effect" keep_particle = yes trigger_once = yes }
+	}
+}
+
+entity = {
+	name = "leviathan_01_scavenger_bot_helper_bot_entity"
+	pdxmesh = "leviathan_01_scavenger_bot_helper_bot_mesh"
+	
+	get_state_from_parent = yes
+	
+	default_state = "idle"
+	state = { name = "idle" animation = "idle" 
+		event = { time = 0 node = "bot_engine" particle = "scavenger_bot_helper_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "working" animation = "idle" 
+		event = { time = 0 node = "bot_engine" particle = "scavenger_bot_helper_exhaust_idle_effect" keep_particle = yes trigger_once = yes }
+		event = { time = 4 node = "turret_muzzle_01" particle = "scavenger_bot_helper_scan_1_effect" keep_particle = no trigger_once = yes }
+		event = { time = 4 node = "turret_muzzle_01" particle = "scavenger_bot_helper_scan_2_effect" keep_particle = no trigger_once = yes }
+	}
+	state = { name = "moving" animation = "idle" 
+		event = { time = 0 node = "bot_engine" particle = "scavenger_bot_helper_exhaust_moving_effect" keep_particle = yes trigger_once = yes }
+	}
+	state = { name = "death" animation = "idle" }
+}
+
+
+
+######
+# SCAVENGER BOT WEAPON
+######
+
+
+# WINDUP
+
+entity = {
+	name = "scavenger_bot_main_weapon_windup_entity"
+	
+	default_state = "attack"
+	get_state_from_parent = no
+	state = {
+		name = "attack" looping = yes state_time = 0.1
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_08 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_07 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_06 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_05 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_04 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_03 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_02 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		event = { time = 0.0 use_parent_nodes = yes node = primary_weapon_windup_01 particle = "scavenger_bot_main_weapon_windup_effect" trigger_once = yes }
+		
+		event = { time = 0.0 use_parent_nodes = yes node = xl_gun_01 particle = "scavenger_bot_main_weapon_muzzle_windup_effect" trigger_once = yes keep_particle = no }
+		event = { trigger_once = yes sound = {soundeffect =	"scavenger_bot_attack_main_weapon_windup"} }
+	}
+	state = { name = "stop" state_time = 0.5 looping = no }
+}
+
+# MUZZLE FLASH
+
+entity = {
+	name = "scavenger_bot_main_weapon_muzzle_entity"
+	cull_radius = 1.0
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 7 looping = no
+		event = { time = 0 particle = "scavenger_bot_main_weapon_muzzle_effect" keep_particle = yes sound = { soundeffect = kinectic_artillery_fire } }
+		# event = { trigger_once = yes sound = { soundeffect = "distance_kinectic_artillery_fire" } }
+		event = { trigger_once = yes sound = {soundeffect =	"scavenger_bot_attack_main_weapon_muzzle"} }
+	}
+}
+
+# PROJECTILE
+
+entity = {
+	name = "scavenger_bot_main_weapon_entity"
+	pdxmesh = "scavenger_bot_projectile_01_mesh"
+	
+	default_state = idle
+	state = { name = "idle"
+	#	start_event = { particle = "scavenger_bot_main_weapon_projectile_effect" keep_particle = yes }
+		start_event = { particle = "scavenger_bot_main_weapon_projectile_trail_effect" keep_particle = yes }
+	}
+	
+	scale = 2
+}
+
+# HIT EFFECT
+
+entity = {
+	name = "scavenger_bot_main_weapon_hit_entity"
+	cull_radius = 1.0
+	
+	state = { name = "explode_med_hp" state_time = 5.0 looping = no
+		event = { time = 0.0 particle = "scavenger_bot_main_weapon_hit_effect" sound = { soundeffect = kinectic_artillery_hit } }
+		event = { trigger_once = yes sound = { soundeffect = "distance_kinectic_artillery_hit" } }
+	}
+	default_state = "explode_med_hp"
+	scale = 3
+}
+
+entity = {
+	name = "scavenger_bot_main_weapon_shield_hit_entity"
+	cull_radius = 1.0
+	
+	state = { name = "explode_med_hp" state_time = 5 looping = no
+		event = { time = 0.0 particle = "scavenger_bot_main_weapon_hit_effect" }
+		event = { time = 0.0 particle = "projectile_medium_shield_hit_effect" }
+		event = { trigger_once = yes sound = { soundeffect = "shield_hit" } } 
+	}
+	default_state = "explode_med_hp"
+	scale = 2
+}
+
+############
+# SECONDARY WEAPON
+############
+
+# MUZZLE FLASH
+
+entity = {
+	name = "scavenger_bot_secondary_muzzle_flash_entity"
+	cull_radius = 0.01
+	
+	default_state = "idle"
+	state = { name = "idle" state_time = 7 looping = no
+		event = { time = 0 particle = "missile_large_muzzle_flash_particle" keep_particle = yes sound = { soundeffect = "scavenger_bot_attack_missile" } }
+	}
+}
+
+# PROJECTILE
+
+entity = {
+	name = "scavenger_bot_secondary_weapon_entity"
+	pdxmesh = "scavenger_bot_missile_mesh"
+	
+	default_state = idle
+	state = { name = "idle" animation = "idle"
+	#	start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss"
+		time_offset = { 0 1.4 }
+		animation_blend_time = 0.5
+	#	start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss2"
+		time_offset = { 0 1 }
+		animation_blend_time = 0.5
+	#	start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss_reversed"
+		time_offset = { 0 1.4 }
+		animation_blend_time = 0.5
+	#	start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+	state = { name = "stop"
+		looping = no
+		#state_time = 2.0
+		chance = 1
+		animation = "miss2_reversed"
+		time_offset = { 0 1 }
+		animation_blend_time = 0.5
+	#	start_event = { trigger_once = yes time = 0 node = exhaust particle = "voidspawn_missile_effect" keep_particle = yes }
+	}
+}
+
+# HIT EFFECT
+
+
+animation = {
+	name = "leviathan_01_scavenger_bot_frame_idle_animation"
+	file = "leviathan_01_scavenger_bot_frame_idle.anim"
+}
+
+animation = {
+	name = "leviathan_01_scavenger_bot_frame_moving_animation"
+	file = "leviathan_01_scavenger_bot_frame_moving.anim"
+}
+
+animation = {
+	name = "leviathan_01_scavenger_bot_frame_death_animation"
+	file = "leviathan_01_scavenger_bot_frame_death.anim"
+}
+
+animation = {
+	name = "leviathan_01_scavenger_bot_core_idle_animation"
+	file = "leviathan_01_scavenger_bot_core_idle.anim"
+}
+
+animation = {
+	name = "leviathan_01_scavenger_bot_core_death_animation"
+	file = "leviathan_01_scavenger_bot_core_death.anim"
+}
+
+animation = {
+	name = "leviathan_01_scavenger_bot_helper_bot_idle_animation"
+	file = "leviathan_01_scavenger_bot_helper_bot_idle.anim"
+}
+
+
+#### Projectile ####
+
+entity = {
+	name = "scavenger_bot_projectile_01_entity"
+	pdxmesh = "scavenger_bot_projectile_01_mesh"
+}
+

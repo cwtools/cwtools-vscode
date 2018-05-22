@@ -4,16 +4,6 @@
 
 namespace = utopia
 
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-
 ### Withdrawal added when Unblissed
 pop_event = {
 	id = utopia.91
@@ -22,6 +12,7 @@ pop_event = {
  
 	trigger = {
 		former_living_standard_type = living_standard_chemical_bliss
+		last_changed_species_rights_type = living_standard
 		NOT = {
 			has_living_standard = {
 				country = owner
@@ -233,6 +224,7 @@ country_event = {
 	desc = "utopia.2500.desc"
 	picture = GFX_evt_cybernetics
 	show_sound = event_laboratory_sound
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -705,6 +697,7 @@ country_event = {
 	desc = "utopia.2550.desc"
 	picture = GFX_evt_robot_assembly_plant
 	show_sound = event_laboratory_sound
+	trackable = yes
 	
 	is_triggered_only = yes
 	
@@ -779,8 +772,10 @@ country_event = {
 
 				rename_species = {
 					prompt_country = prev #If targeted country is a player they will get a popup asking for a name/plural/adjective combo. Otherwise the species will get a random name from the specified name_list
-					name_list = robots_test #TODO[DE] Make sure this points to a release-quality list
+					name_list = ascension_list
 				}
+				
+				save_event_target_as = new_robotic_species
 			}
 		}
 		every_owned_pop = {
@@ -789,7 +784,7 @@ country_event = {
 					has_trait = trait_cybernetic 
 				}
 			}
-			change_species = last_created
+			change_species = event_target:new_robotic_species
 			tile = {
 				if = {
 					limit = { has_building = building_hydroponics_farm_1 }
@@ -821,7 +816,7 @@ country_event = {
 					has_trait = trait_cybernetic
 				}
 			}
-			change_species = last_created
+			change_species = event_target:new_robotic_species
 		}
 
 		every_owned_army = {
@@ -831,16 +826,29 @@ country_event = {
 				species = {
 					has_trait = trait_cybernetic
 				}
+				army_type = assault_army
 			}
-			planet = {
-				create_army = {
-					name = random
-					owner = root
-					type = "android_army"
-					species = none
+			modify_army = {
+				name = random
+				type = "android_army"
+				species = event_target:new_robotic_species
+			}
+		}
+
+		every_owned_army = {
+			limit = {
+				exists = species
+				exists = planet
+				species = {
+					has_trait = trait_cybernetic
 				}
+				army_type = defense_army
 			}
-			remove_army = yes
+			modify_army = {
+				name = random
+				type = "android_defense_army"
+				species = event_target:new_robotic_species
+			}
 		}
 		
 		every_owned_leader = {
@@ -858,7 +866,7 @@ country_event = {
 					has_trait = leader_trait_scientist_synthetic
 				}
 			}
-			change_species = last_created
+			change_species = event_target:new_robotic_species
 			change_leader_portrait = species
 		}
 		every_pool_leader = {
@@ -876,10 +884,10 @@ country_event = {
 					has_trait = leader_trait_scientist_synthetic
 				}
 			}
-			change_species = last_created
+			change_species = event_target:new_robotic_species
 			change_leader_portrait = species
 		}
-		change_dominant_species = { species = last_created }
+		change_dominant_species = { species = event_target:new_robotic_species }
 		
 		every_owned_leader = {
 			limit = {
@@ -1007,16 +1015,16 @@ country_event = {
 				}
 				country_event = { id = utopia.2557 days = 15 }
 			}
-			else = {
-				random_country = {
-					limit = {
-						is_country_type = default
-						has_ethic = ethic_fanatic_spiritualist
-						has_communications = root
-						NOT = { is_same_value = root }
-					}
-					country_event = { id = utopia.2557 days = 15 }
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_country_type = default
+					has_ethic = ethic_fanatic_spiritualist
+					has_communications = root
+					NOT = { is_same_value = root }
 				}
+				country_event = { id = utopia.2557 days = 15 }
 			}
 		}
 
@@ -1810,6 +1818,7 @@ country_event = {
 	desc = "utopia.2655.desc"
 	picture = GFX_evt_psionics
 	show_sound = event_psionic
+	trackable = yes
 	
 	is_triggered_only = yes
 
@@ -1854,7 +1863,6 @@ country_event = {
 
 planet_event = {
 	id = utopia.2657
-	is_triggered_only = yes
 	hide_window = yes
 
 	is_triggered_only = yes

@@ -5,34 +5,6 @@
 #
 #################################
 
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier1unityreward = 6
-@tier1unitymin = 100
-@tier1unitymax = 500
-@tier2unityreward = 12
-@tier2unitymin = 150
-@tier2unitymax = 1000
-@tier3unityreward = 18
-@tier3unitymin = 250
-@tier3unitymax = 1500
-@tier4unityreward = 24
-@tier4unitymin = 350
-@tier4unitymax = 2000
-@tier5unityreward = 48
-@tier5unitymin = 700
-@tier5unitymax = 4000
-
 namespace = diplomatic
 
 # Insult broadcasted
@@ -452,6 +424,7 @@ country_event = {
 	picture = GFX_evt_genetic_modification
 	show_sound = event_conversation
 	location = event_target:encroaching_research_fleet
+	trackable = yes
 
 	is_triggered_only = yes
 	
@@ -668,6 +641,7 @@ country_event = {
 	picture = GFX_evt_outpost
 	show_sound = event_radio_chatter
 	location = music_listening_planet
+	trackable = yes
 
 	trigger = {
 		#

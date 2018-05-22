@@ -1,0 +1,110 @@
+tech_gargantuan_evolution = {
+	cost = @tier3cost1
+	area = society
+	category = { biology }
+	tier = 1
+	is_rare = yes
+	ai_update_type = all
+	weight = 0
+
+	weight_modifier = {
+		factor = 0
+	}
+
+	modifier = {
+		tile_resource_energy_mult = 0.05
+	}
+}
+
+tech_repeatable_lcluster_clue = {
+	area = engineering
+	cost = 2000
+	cost_per_level = @repeatableTechLevelCost
+	tier = 2
+	is_rare = yes
+	category = { voidcraft }
+	levels = -1
+	weight = 70
+
+	potential = {
+		has_country_flag = encountered_first_lgate
+		NOT = { has_country_flag = completed_lcluster_chain }
+	}
+	
+	ai_weight = {
+		factor = 1.0
+	}
+
+	weight_groups = {
+		#repeatable
+	}
+	mod_weight_if_group_picked = {
+		#repeatable = 0.01
+	}
+}
+
+tech_experimental_subspace_navigation = {
+	area = physics
+	cost = @tier2cost3
+	category = { field_manipulation }
+	tier = 2
+	is_rare = yes
+	prerequisites = { tech_sensors_2 }
+	weight = @tier2weight2
+
+	feature_flags = { experimental_subspace_navigation }
+
+	ai_weight = {
+		factor = 4 #FTL techs are good
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = physics
+				has_trait = "leader_trait_expertise_particles"
+			}
+		}
+	}
+}
+
+# ####################
+# Sealed System Reward
+# ####################
+
+#Neural Tissue Engineering
+tech_neuroregeneration = {
+	cost = @tier4cost2
+	area = society
+	tier = 4
+	category = { biology }
+	weight = 0
+	is_rare = yes
+
+	modifier = {
+		species_leader_exp_gain = 0.25
+		leader_skill_levels = 1
+	}
+
+	weight_modifier = {
+		factor = 0
+	}
+}
+
+
+# ####################
+# Scavenger Bot Reward
+# ####################
+
+#Auto-Repair Module
+tech_nanite_repair_system = {
+	area = engineering
+	cost = @tier5cost3
+	tier = 5
+	is_rare = yes
+	category = { voidcraft }
+	ai_update_type = military
+	weight = @tier5weight3
+	
+	weight_modifier = { 
+		factor = 0 		# Can only be reverse engineered from killing the Scavenger Bot
+	}
+}

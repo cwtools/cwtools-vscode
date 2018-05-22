@@ -1,0 +1,40 @@
+# Possible Deposit Variables
+# modifier - weight, will replace the weight value
+# modifier - factor, will multiply the weight value
+# resources, resource and amount
+# station = station class in orbit to gather
+# if you mix resources that are not supposed to be collected by an orbital station remember to put is_orbital_slot = no
+
+##################################
+############ MINERALS ############
+##################################
+
+d_guardian_dragon_hoard = {
+	resources = {
+		minerals = 30
+		energy = 30
+	}
+	station = shipclass_mining_station
+	orbital_weight = { weight = 0 }
+	drop_weight = { weight = 0 }
+}
+
+d_guardian_hiver_asteroid_1 = {
+	resources = {
+		minerals = 6
+	}
+	station = shipclass_mining_station
+	orbital_weight = { weight = 0 }
+	drop_weight = { weight = 0 }
+}
+
+d_guardian_hiver_asteroid_2 = {
+	resources = {
+		minerals = 8
+	}
+	station = shipclass_mining_station
+	orbital_weight = { weight = 0 }
+	drop_weight = { weight = 0 }
+}
+	
+	

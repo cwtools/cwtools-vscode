@@ -8,7 +8,11 @@ sol_system_initializer = {
 	name = "NAME_Sol"
 	
 	class = "sc_g"
-	asteroids_distance = 145
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 145
+	}
+	
 	flags = { empire_home_system sol_system sol }
 	
 	usage = custom_empire
@@ -290,7 +294,7 @@ sol_neighbor_t1 = {
 # Neighbor Tier 1 First Colony
 sol_neighbor_t1_first_colony = {	
 	name = "NAME_Alpha_Centauri"
-	class = sc_g
+	class = sc_trinary_1
 
 	init_effect = {
 		every_neighbor_system = {
@@ -304,22 +308,77 @@ sol_neighbor_t1_first_colony = {
 	planet = {
 		name = "NAME_Alpha_Centauri_A"
 		count = 1
-		class = star
+		class = pc_g_star
 		orbit_distance = 0
 		orbit_angle = 1
-		size = { min = 20 max = 30 }
+		size = 32
 		has_ring = no
 	}
-	
-	change_orbit = 45
-	
+
 	planet = {
-		count = { min = 0 max = 2 }
-		orbit_distance = 20
+		name = "NAME_Alpha_Centauri_B"
+		count = 1
+		class = pc_k_star
+		orbit_distance = 320
+		orbit_angle = 40
+		size = 27
+		has_ring = no
+
+		planet = {
+			name = "NAME_Alpha_Centauri_B_I"
+			class = pc_molten
+			size = 18
+			orbit_distance = 65
+		}
+		planet = {
+			name = "NAME_Alpha_Centauri_B_II"
+			class = pc_barren
+			size = 25
+			orbit_distance = 25
+
+		}
+		planet = {
+			name = "NAME_Alpha_Centauri_B_III"
+			class = pc_gas_giant
+			size = 35
+			orbit_angle = 330
+			orbit_distance = 25
+		}
+	}
+
+	planet = {
+		name = "NAME_Proxima_Centauri"
+		count = 1
+		class = pc_m_star
+		orbit_distance = 35
+		orbit_angle = 130
+		size = 15
+		has_ring = no
+
+		planet = {
+			name = "NAME_Proxima_Centauri_I"
+			class = pc_molten
+			size = 22
+			orbit_distance = 25
+		}
+
+		planet = {
+			name = "NAME_Proxima_Centauri_II"
+			class = pc_gas_giant
+			size = 28
+			orbit_distance = 25
+		}
+	}
+	
+	change_orbit = -320
+
+	planet = {
+		count = 2
+		orbit_distance = 25
 		
 		change_orbit = @base_moon_distance
 		
-		moon = {
+		moon = {			
 			count = { min = 0 max = 1 }
 			orbit_distance = 5
 		}
@@ -327,14 +386,14 @@ sol_neighbor_t1_first_colony = {
 	
 	planet = {
 		count = 1
-		orbit_distance = 25
+		orbit_distance = 30
 		class = ideal_planet_class
 		orbit_angle = { min = 90 max = 270 }
 		size = { min = 12 max = 18 }
 	}
 	
 	planet = {
-		count = { min = 2 max = 5 }
+		count = 3
 		orbit_distance = 25
 		
 		change_orbit = @base_moon_distance
@@ -355,8 +414,11 @@ sol_neighbor_t1_first_colony = {
 # Sol Neighbor Tier 2
 sol_neighbor_t2 = {
 	name = "NAME_Procyon"
-	class = sc_f
-	asteroids_distance = 70
+	class = sc_binary_8
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 120
+	}
 
 	init_effect = {
 		every_neighbor_system = {
@@ -370,23 +432,33 @@ sol_neighbor_t2 = {
 	planet = {
 		name = "NAME_Procyon_A"
 		count = 1
-		class = star
-		orbit_distance = 0
+		class = pc_f_star
+		orbit_distance = 30
 		orbit_angle = 1
-		size = { min = 20 max = 30 }
+		size = 35
+		has_ring = no
+	}
+
+	planet = {
+		name = "NAME_Procyon_B"
+		count = 1
+		class = pc_f_star
+		orbit_distance = 0
+		orbit_angle = 125
+		size = 20
 		has_ring = no
 	}
 	
 	planet = {
 		count = 1
-		orbit_distance = 45
+		orbit_distance = 65
 	}
 	
 	change_orbit = 25
 	
 	planet = {
 		count = { min = 1 max = 3 }
-		class = random_asteroid
+		class = pc_asteroid
 		orbit_distance = 0
 		orbit_angle = { min = 0 max = 360 }
 	}
@@ -407,7 +479,7 @@ sol_neighbor_t2 = {
 # Sol Neighbor Tier 2 Second Colony
 sol_neighbor_t2_second_colony = {
 	name = "NAME_Sirius"
-	class = sc_a
+	class = sc_binary_9
 
 	init_effect = {
 		every_neighbor_system = {
@@ -421,14 +493,24 @@ sol_neighbor_t2_second_colony = {
 	planet = {
 		name = "NAME_Sirius_A"
 		count = 1
-		class = star
-		orbit_distance = 0
+		class = pc_a_star
+		orbit_distance = 30
 		orbit_angle = 1
-		size = { min = 20 max = 30 }
+		size = 35
+		has_ring = no
+	}
+
+	planet = {
+		name = "NAME_Sirius_B"
+		count = 1
+		class = pc_f_star
+		orbit_distance = 0
+		orbit_angle = 120
+		size = 15
 		has_ring = no
 	}
 	
-	change_orbit = 25
+	change_orbit = 45
 	
 	planet = {
 		count = 2
@@ -479,7 +561,10 @@ sol_neighbor_t2_second_colony = {
 deneb_system = {
 	name = "NAME_Deneb"
 	class = "sc_a"
-	asteroids_distance = 90
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 90
+	}
 
 	init_effect = {
 		every_neighbor_system = {
@@ -646,7 +731,6 @@ deneb_system = {
 vultaumar_system = {
 	name = "NAME_Vultaumar"
 	class = "sc_b"
-	asteroids_distance = 0
 	flags = { vultaumar precursor_system }
 	
 	planet = {
@@ -788,7 +872,10 @@ vultaumar_system = {
 yuhtaan_system = {
 	name = "NAME_Yuhtaan"
 	class = "sc_m"
-	asteroids_distance = 125
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 125
+	}
 	flags = { yuhtaan precursor_system }
 	
 	planet = {
@@ -973,7 +1060,10 @@ yuhtaan_system = {
 fen_habbanis_system = {
 	name = "NAME_Fen_Habbanis"
 	class = "sc_g"
-	asteroids_distance = 85
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 85
+	}
 	flags = { fen_habbanis precursor_system }
 	
 	planet = {
@@ -1108,7 +1198,10 @@ fen_habbanis_system = {
 irass_system = {
 	name = "NAME_Irass"
 	class = "sc_f"
-	asteroids_distance = 125
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 125
+	}
 	flags = { irass precursor_system }
 	
 	planet = {

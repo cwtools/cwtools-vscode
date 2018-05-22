@@ -71,6 +71,8 @@ guiTypes = {
 				quadTextureSprite = "GFX_empire_flag_64"
 				position = { x= -257 y = 27  }
 				orientation = center_up
+				clicksound = interface
+				oversound = no_sound
 			}
 	
 
@@ -83,7 +85,7 @@ guiTypes = {
 				pdx_tooltip_anchor_offset = { x= 0 y = @tt_offset_y }
 				pdx_tooltip_anchor_orientation = lower_left
 				clicksound = ui_galaxy_map_open
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 
 			iconType = {
@@ -143,6 +145,7 @@ guiTypes = {
 				size = { x = 330 y = 45 }
 				orientation = center_up
 				pdx_tooltip = "RENAME_SYSTEM_TOOLTIP"
+				oversound = no_sound
 			}
 			
 			iconType = {
@@ -195,7 +198,7 @@ guiTypes = {
 				pdx_tooltip_anchor_offset = { x= 0 y = @tt_offset_y }
 				pdx_tooltip_anchor_orientation = lower_left
 				clicksound = ui_galaxy_map_close
-				oversound = menu_over_01
+				oversound = mouse_over
 			}
 
 			iconType = {
@@ -353,6 +356,7 @@ guiTypes = {
 				pdx_tooltip_anchor_offset = { x= 0 y = @tt_offset_y }
 				pdx_tooltip_anchor_orientation = lower_left
 				orientation = lower_right
+				clicksound = confirm_click
 			}
 
 			iconType = {
@@ -372,6 +376,7 @@ guiTypes = {
 				pdx_tooltip_anchor_offset = { x= 0 y = @tt_offset_y }
 				pdx_tooltip_anchor_orientation = lower_left
 				shortcut="alt+b"
+				clicksound = confirm_click
 			}
 
 			iconType = {
@@ -407,6 +412,7 @@ guiTypes = {
 				pdx_tooltip_anchor_offset = { x= 0 y = @tt_offset_y }
 				pdx_tooltip_anchor_orientation = lower_left
 				orientation = lower_right
+				clicksound = confirm_click
 			}
 
 			iconType = {
@@ -521,6 +527,7 @@ guiTypes = {
 				text = "ERROR"
 				buttonFont = "cg_16b"
 				Orientation = "LOWER_RIGHT"
+				oversound = no_sound
 			}
 		}
 	}
@@ -533,6 +540,7 @@ guiTypes = {
 			name ="background"
 			quadTextureSprite = "GFX_control_group_window_bg"
 			position = { x= 0 y = 10 }
+			clicksound = interface
 		}
 
 		iconType = {

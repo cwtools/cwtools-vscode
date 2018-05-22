@@ -1,0 +1,65 @@
+objectTypes = {
+	
+	# Gateway
+	pdxmesh = {
+		name = "gatebuilder_gateway_portal_mesh"
+		file = "gfx/models/ships/megastructures/gateway/gateway_portal.mesh"
+	
+		meshsettings = {
+			name = "pCylinderShape7"
+			index = 0
+			texture_diffuse = "gatebuilder_gateway_portal_connector_diffuse.dds"
+			texture_normal = "nospec.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshAlphaAdditiveAnimateUV"
+		}
+
+		meshsettings = {
+			name = "pCylinderShape2"
+			index = 0
+			texture_diffuse = "gatebuilder_gateway_portal_diffuse.dds"
+			texture_normal = "nospec.dds"
+			texture_specular = "nospec.dds"
+			shader = "PdxMeshAlphaAdditiveAnimateUV"
+		}
+	}
+
+	# Station
+	pdxmesh = {
+		name = "gatebuilder_01_station_frame_mesh"
+		file = "gfx/models/ships/gatebuilder_01/gatebuilder_01_station_frame.mesh"
+		
+		animation = { id = "idle" 			type = "gatebuilder_01_station_frame_idle_animation" }
+		animation = { id = "death" 			type = "gatebuilder_01_station_frame_death_animation" }
+	}
+
+	pdxmesh = {
+		name = "gatebuilder_01_space_station_mesh"
+		file = "gfx/models/ships/gatebuilder_01/gatebuilder_01_space_station.mesh"
+	}
+
+	# Ships
+	pdxmesh = {
+		name = "gatebuilder_01_ship_frame_mesh"
+		file = "gfx/models/ships/gatebuilder_01/gatebuilder_01_ship_frame.mesh"
+		
+		animation = { id = "idle" 			type = "gatebuilder_01_ship_frame_idle_animation" }
+		animation = { id = "death" 			type = "gatebuilder_01_ship_frame_death_animation" }
+	}
+	
+	pdxmesh = {
+		name = "gatebuilder_01_mothership_mesh"
+		file = "gfx/models/ships/gatebuilder_01/gatebuilder_01_mothership.mesh"
+	}
+	
+	pdxmesh = {
+		name = "gatebuilder_01_cruiser_mesh"
+		file = "gfx/models/ships/gatebuilder_01/gatebuilder_01_cruiser.mesh"
+	}
+	
+	pdxmesh = {
+		name = "gatebuilder_01_strikecraft_mesh"
+		file = "gfx/models/ships/gatebuilder_01/gatebuilder_01_strikecraft.mesh"
+	}
+
+}

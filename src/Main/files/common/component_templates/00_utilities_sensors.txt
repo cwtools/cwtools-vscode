@@ -17,6 +17,11 @@
 @sensor3 = 3
 @sensor4 = 4
 
+@hyperlane1 = 2
+@hyperlane2 = 4
+@hyperlane3 = 6
+@hyperlane4 = 8
+
 utility_component_template = {
 	key = "SENSOR_1"
 	size = medium
@@ -25,6 +30,7 @@ utility_component_template = {
 	power = @power1
 	cost = @cost1
 	sensor_range = @sensor1
+	hyperlane_range = @hyperlane1
 	
 	component_set = "sensor_components"
 	upgrades_to = "SENSOR_2"
@@ -42,6 +48,7 @@ utility_component_template = {
 	power = @power2
 	cost = @cost2
 	sensor_range = @sensor2
+	hyperlane_range = @hyperlane2
 	
 	prerequisites = { "tech_sensors_2" }
 	component_set = "sensor_components"
@@ -64,6 +71,7 @@ utility_component_template = {
 	power = @power3
 	cost = @cost3
 	sensor_range = @sensor3
+	hyperlane_range = @hyperlane3
 	
 	prerequisites = { "tech_sensors_3" }
 	component_set = "sensor_components"
@@ -86,6 +94,7 @@ utility_component_template = {
 	power = @power4
 	cost = @cost4
 	sensor_range = @sensor4
+	hyperlane_range = @hyperlane4
 	
 	ship_modifier = {
 		ship_tracking_add = @hit4

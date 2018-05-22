@@ -5,67 +5,6 @@
 
 namespace = story
 
-@tier1influencecontact = 7
-@tier1influencecontactxenophile = 8
-@tier1influencecontactmin = 20
-@tier1influencecontactmax = 80
-
-@tier2influencecontact = 10
-@tier2influencecontactxenophile = 12
-@tier2influencecontactmin = 40
-@tier2influencecontactmax = 100
-
-@tier1materialreward = 6
-@tier1materialmin = 100
-@tier1materialmax = 500
-@tier2materialreward = 12
-@tier2materialmin = 150
-@tier2materialmax = 1000
-@tier3materialreward = 18
-@tier3materialmin = 250
-@tier3materialmax = 1500
-@tier4materialreward = 24
-@tier4materialmin = 350
-@tier4materialmax = 2000
-@tier5materialreward = 48
-@tier5materialmin = 700
-@tier5materialmax = 4000
-
-@tier1influencereward = 6
-@tier1influencemin = 40
-@tier1influencemax = 100
-@tier2influencereward = 12
-@tier2influencemin = 80
-@tier2influencemax = 175
-@tier3influencereward = 18
-@tier3influencemin = 125
-@tier3influencemax = 250
-@tier4influencereward = 24
-@tier4influencemin = 150
-@tier4influencemax = 300
-@tier5influencereward = 36
-@tier5influencemin = 250
-@tier5influencemax = 500
-@tier6influencereward = 48
-@tier6influencemin = 300
-@tier6influencemax = 600
-
-@tier1researchreward = 6
-@tier1researchmin = 60
-@tier1researchmax = 150
-@tier2researchreward = 12
-@tier2researchmin = 90
-@tier2researchmax = 250
-@tier3researchreward = 18
-@tier3researchmin = 120
-@tier3researchmax = 350
-@tier4researchreward = 24
-@tier4researchmin = 150
-@tier4researchmax = 500
-@tier5researchreward = 48
-@tier5researchmin = 300
-@tier5researchmax = 1000
-
 ### 1 - Microbial, simple plant life
 country_event = {
 	id = story.1
@@ -270,7 +209,8 @@ country_event = {
 			limit = { NOT = { has_country_flag = first_alien_life } }
 			set_country_flag = first_alien_life
 		}
-		set_country_flag = Story3
+		#set_country_flag = Story3
+		set_country_flag = root
 	}
 
 	option = {
@@ -677,12 +617,6 @@ country_event = {
 
 	trigger = {
 		NOT = { has_country_flag = Story8 }
-		#FROM = {
-		#	is_guardian_country = yes
-		#	NOT = {
-		#		has_country_flag = day_0
-		#	}
-		#}
 	}
 
 	immediate = {
@@ -699,16 +633,6 @@ country_event = {
 			limit = { NOT = { has_country_flag = first_contact_event } }
 			set_country_flag = first_contact_event
 		}
-		#if = {
-		#	limit = {
-		#		from = {
-		#			debug_scope_type = country
-		#			is_guardian_country = yes
-		#		}
-		#		NOT = { has_communications = from }
-		#	}
-		#	establish_communications_no_message = from
-		#}
 	}
 
 	option = {
@@ -794,14 +718,34 @@ country_event = {
 	picture = GFX_evt_fleet_evil
 	show_sound = event_space_amoeba
 	location = fromfromfrom
+	trackable = yes
 
 	is_triggered_only = yes
-	
+
 	option = {
-		name = story.101.a
+		name = story.101.aa
+		trigger = {
+			OR = {
+				is_xenophobe = yes
+				is_militarist = yes
+				is_homicidal = yes
+			}
+		}
+		add_modifier = {
+			modifier = amoeba_hunting_buff
+			days = -1
+		}
+		custom_tooltip = story.101.aa.amoebahunt
+	}
+
+	option = {
+		name = story.101.bb
+		trigger = {
+			NOT = { has_civic = civic_machine_terminator }
+		}
 		capital_scope = {
 			enable_special_project = {
-				name = "AMOEBAS_1_PROJECT"
+				name = "AMOEBAS_PROJECT"
 				location = this
 				owner = root
 			}
@@ -809,17 +753,33 @@ country_event = {
 	}
 
 	option = {
-		name = story.101.b
+		name = story.101.bb.exter
 		trigger = {
-			NOR = {
-				has_ethic = ethic_fanatic_xenophile
-				has_ethic = ethic_fanatic_spiritualist
-				has_ethic = ethic_fanatic_pacifist
+			has_civic = civic_machine_terminator
+		}
+		capital_scope = {
+			enable_special_project = {
+				name = "AMOEBAS_PROJECT"
+				location = this
+				owner = root
 			}
 		}
-		begin_event_chain = {
-			event_chain = "amoebas_1_chain"
-			target = root
+	}
+
+	option = {
+		name = story.101.cc
+		trigger = {
+			OR = {
+				is_xenophile = yes
+				is_pacifist = yes
+			}
+		}
+		capital_scope = {
+			enable_special_project = {
+				name = "AMOEBAS_PACIFICATION_PROJECT"
+				location = this
+				owner = root
+			}
 		}
 	}
 }
@@ -848,15 +808,71 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = story.105.a
+		name = story.105.bb
 		add_modifier = {
-			modifier = "cosmic_ray_catalysis"
+			modifier = flagellating_movement # +5% evasion
 			days = -1
+		}
+	}
+
+	option = {
+		trigger = {
+			NOT = { has_technology = tech_regenerative_hull_tissue }
+		}
+		name = story.105.aa
+		add_research_option = tech_regenerative_hull_tissue
+		add_tech_progress = {
+			tech = tech_regenerative_hull_tissue
+			progress = 0.5
 		}
 	}
 }
 
-# Amoeba kill-check for chain 1
+# Pacification project complete
+country_event = {
+	id = story.107
+	title = story.107.name
+	desc = story.107.desc
+	picture = GFX_evt_fleet_neutral
+	show_sound = event_space_amoeba
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		every_country = {
+			limit = { is_country_type = amoeba }
+			set_faction_hostility = {
+				set_hostile = no
+				set_friendly = yes
+				target = root
+			}
+		}
+	}
+
+	option = {
+		name = story.107.a
+		custom_tooltip = story.107.a.tooltip
+		hidden_effect = {
+			add_modifier = {
+				modifier = pacified_amoebas # friendly amoebas
+				days = -1
+			}
+		}
+		add_research_option = tech_amoeba_strike_craft_1
+		IF = {
+			limit = {
+				NOR = {
+					has_tech_option = tech_regenerative_hull_tissue
+					has_technology = tech_regenerative_hull_tissue
+				}
+			}
+			add_research_option = tech_regenerative_hull_tissue
+		}
+	}
+}
+
+# Amoeba kill-check for hunting buff
 # This = owner of fleet 1 (combatant)
 # From = owner of fleet 2 (destroyed)
 # FromFrom = fleet 1
@@ -864,205 +880,18 @@ country_event = {
 country_event = {
 	id = story.109
 	trigger = {
+		#is_ai = no
 		exists = from
-		is_ai = no
-		has_event_chain = "amoebas_1_chain"
-		from = { is_country_type = amoeba}
+		from = { is_country_type = amoeba }
+		has_modifier = amoeba_hunting_buff
 	}
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
-		add_event_chain_counter = { 
-			event_chain = "amoebas_1_chain" 
-			counter = "specimen_procured" 
-			amount = 1 
-		}
-		country_event = { id = story.110 days = 5 }
+		add_energy = 1000
 	}
 }
-
-# One killed, chain 1 ends
-country_event = {
-	id = story.110
-	title = story.110.name
-	# Phobe
-	desc = {
-		trigger = {
-			OR = {
-				has_ethic = ethic_xenophobe
-				has_ethic = ethic_fanatic_xenophobe
-				} NOT = { has_ethic = ethic_militarist has_ethic = ethic_fanatic_militarist } }
-		text = story.110.desc.phobe
-	}
-	# Militarist
-	desc = {
-		trigger = { OR = { has_ethic = ethic_militarist has_ethic = ethic_fanatic_militarist } NOT = { has_ethic = ethic_xenophobe has_ethic = ethic_fanatic_xenophobe } }
-		text = story.110.desc.milit
-	}
-	# Gestalt Consciousness
-	desc = {
-		trigger = { has_ethic = ethic_gestalt_consciousness }
-		text = story.101.desc.gesta
-	}
-	desc = {
-		trigger = { NOT = { has_ethic = ethic_gestalt_consciousness has_ethic = ethic_militarist has_ethic = ethic_fanatic_militarist has_ethic = ethic_xenophobe has_ethic = ethic_fanatic_xenophobe } }
-		text = story.110.desc
-	}
-	picture = GFX_evt_fleet_evil
-	show_sound = event_space_amoeba
-	location = from
-
-	is_triggered_only = yes
-
-	option = {
-		name = story.110.a.phobe
-		trigger = {
-			OR = {
-				has_ethic = ethic_xenophobe
-				has_ethic = ethic_fanatic_xenophobe
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-			}
-		}
-		end_event_chain = "amoebas_1_chain"
-		#begin_event_chain = {
-		#	event_chain = "amoebas_2_chain"
-		#	target = this
-		#}
-		add_modifier = {
-			modifier = amoeba_extirpator
-			days = -1
-		}
-	}
-	option = {
-		name = story.110.b.milit
-		trigger = {
-			NOR = {
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-				has_ethic = ethic_xenophobe
-				has_ethic = ethic_fanatic_xenophobe
-			}
-		}
-		end_event_chain = "amoebas_1_chain"
-		#begin_event_chain = {
-		#	event_chain = "amoebas_2_chain"
-		#	target = this
-		#}
-		add_modifier = {
-			modifier = flagellating_movement
-			days = -1
-		}
-	}
-}
-
-## Amoeba kill-check for chain 2
-#country_event = {
-#	id = story.114
-#	trigger = {
-#		exists = from
-#		is_ai = no
-#		has_event_chain = "amoebas_2_chain"
-#		from = { is_country_type = amoeba}
-#	}
-#	hide_window = yes
-#	is_triggered_only = yes
-#
-#	immediate = {
-#		add_event_chain_counter = { 
-#			event_chain = "amoebas_2_chain"
-#			counter = "amoebas_slaughtered"  
-#			amount = 1
-#		}
-#		if = {
-#			limit = {
-#				has_completed_event_chain_counter = {
-#					event_chain = "amoebas_2_chain" 
-#					counter = "amoebas_slaughtered" 
-#				}
-#			}
-#			end_event_chain = amoebas_2_chain
-#			country_event = { id = story.115 }
-#		}
-#	}
-#}
-#
-## Chain complete
-#country_event = {
-#	id = story.115
-#	title = story.115.name
-#	# Phobe
-#	desc = {
-#		trigger = {
-#			OR = {
-#				has_ethic = ethic_xenophobe
-#				has_ethic = ethic_fanatic_xenophobe
-#				}
-#			NOR = {
-#				has_ethic = ethic_militarist
-#				has_ethic = ethic_fanatic_militarist
-#			}
-#		}
-#		text = story.115.desc.phobe
-#	}
-#	# Militarist
-#	desc = {
-#		trigger = {
-#			OR = {
-#				has_ethic = ethic_militarist
-#				has_ethic = ethic_fanatic_militarist
-#			}
-#			NOR = {
-#				has_ethic = ethic_xenophobe
-#				has_ethic = ethic_fanatic_xenophobe
-#			}
-#		}
-#		text = story.115.desc.milit
-#	}
-#	# Generic
-#	desc = {
-#		trigger = {
-#			NOR = {
-#				has_ethic = ethic_militarist
-#				has_ethic = ethic_fanatic_militarist
-#				has_ethic = ethic_xenophobe
-#				has_ethic = ethic_fanatic_xenophobe
-#			}
-#		}
-#		text = story.115.desc
-#	}
-#	picture = GFX_evt_fleet_evil
-#	show_sound = event_space_amoeba
-#	location = from
-#
-#	is_triggered_only = yes
-#
-#	option = {
-#		name = story.115.a.phobe
-#		trigger = {
-#			OR = {
-#				has_ethic = ethic_xenophobe
-#				has_ethic = ethic_fanatic_xenophobe
-#				has_ethic = ethic_militarist
-#				has_ethic = ethic_fanatic_militarist
-#			}
-#		}
-#		
-#	}
-#
-#	option = {
-#		name = story.115.c
-#		trigger = {
-#			NOR = {
-#				has_ethic = ethic_militarist
-#				has_ethic = ethic_fanatic_militarist
-#				has_ethic = ethic_xenophobe
-#				has_ethic = ethic_fanatic_xenophobe
-#			}
-#		}
-#
-#	}
-#}
 
 #### Crystals
 # Triggered by action.16
@@ -1160,38 +989,56 @@ country_event = {
 	picture = GFX_evt_fleet_evil
 	show_sound = event_crystal_ship
 	location = fromfromfrom
+	trackable = yes
 
 	is_triggered_only = yes
 
-	option = {
-		name = story.201.a
+	immediate = {
+		set_country_flag = crystal_hostile_approach
+		# changed on pacification project		
+	}
+
+	option = { # Hunting Buff
+		name = story.201.aa
+		trigger = {
+			OR = {
+				is_xenophobe = yes
+				is_militarist = yes
+				is_homicidal = yes
+			}
+		}
+		add_modifier = {
+			modifier = crystal_hunting_buff
+			days = -1
+		}
+		custom_tooltip = story.201.aa.crystalhunt
+	}
+
+	option = { # Special Project
+		name = story.201.bb
 		capital_scope = {
 			enable_special_project = {
-				name = "CRYSTALS_1_PROJECT"
+				name = "CRYSTALS_PROJECT"
 				location = this
 				owner = root
 			}
 		}
-		hidden_effect = {
-			set_country_flag = crystal_nonhostile_approach
-		}
 	}
 
 	option = {
-		name = story.201.b
+		name = story.201.cc
 		trigger = {
-			NOR = {
-				has_ethic = ethic_fanatic_xenophile
-				has_ethic = ethic_xenophile
-				has_ethic = ethic_fanatic_pacifist
+			OR = {
+				is_xenophile = yes
+				is_pacifist = yes
 			}
 		}
-		begin_event_chain = {
-			event_chain = "crystals_1_chain"
-			target = root
-		}
-		hidden_effect = {
-			set_country_flag = crystal_hostile_approach
+		capital_scope = {
+			enable_special_project = {
+				name = "CRYSTALS_PACIFICATION_PROJECT"
+				location = this
+				owner = root
+			}
 		}
 	}
 }
@@ -1214,7 +1061,6 @@ country_event = {
 				has_ethic = ethic_fanatic_xenophile
 			}
 		}
-
 		text = story.205.desc.phile
 	}
 	# Pacifist
@@ -1246,238 +1092,57 @@ country_event = {
 
 	is_triggered_only = yes
 
-	immediate = {
-		set_country_flag = crystal_armor_1_weight
-	}
-
 	option = {
-		name = story.205.a
-		custom_tooltip = story.205.a.tooltip
-		trigger = {
-			OR = {
-				has_ethic = ethic_xenophile
-				has_ethic = ethic_fanatic_xenophile
-				has_ethic = ethic_pacifist
-				has_ethic = ethic_fanatic_pacifist
-			}
-		}
-		hidden_effect = {
-			add_modifier = { modifier = prismatic_lenses days = -1 }
-		}
-	}
-
-	option = {
-		name = story.205.b
-		custom_tooltip = story.205.b.tooltip
-		hidden_effect = {
-			set_country_flag = crystal_sonar_edict_available
-		}
-	}
-}
-
-# Crystal kill-check for chain 1
-country_event = {
-	id = story.209
-	trigger = {
-		is_ai = no
-		exists = from
-		from = { is_country_type = crystal }
-		has_event_chain = "crystals_1_chain"
-	}
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		add_event_chain_counter = { 
-			event_chain = "crystals_1_chain" 
-			counter = "shard_collected" 
-			amount = 1 
-		}
-		country_event = { id = story.210 days = 5 }
-	}
-}
-
-# One killed, chain 1 and chain 2 begins
-country_event = {
-	id = story.210
-	title = story.210.name
-	desc = {
-		trigger = {
-			has_ethic = ethic_gestalt_consciousness
-		}
-		text = story.210.desc.gesta
-	}
-	# Militarist
-	desc = {
-		trigger = {
-			OR = {
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-			}
-		}
-		text = story.210.desc.milit
-	}
-	# Mater
-	desc = {
-		trigger = {
-			OR = {
-				has_ethic = ethic_materialist
-				has_ethic = ethic_fanatic_materialist
-			}
-		}
-		text = story.210.desc.mater
-	}
-	desc = {
-		trigger = {
-			NOT = {
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-				has_ethic = ethic_materialist
-				has_ethic = ethic_fanatic_materialist
-			}
-		}
-		text = story.210.desc
-	}
-	picture = GFX_evt_fleet_evil
-	show_sound = event_crystal_ship
-	location = from
-
-	is_triggered_only = yes
-
-	option = {
-		name = story.210.a
-		end_event_chain = "crystals_1_chain"
-		begin_event_chain = {
-			event_chain = "crystals_2_chain"
-			target = this
-		}
-	}
-}
-
-# Crystal kill-check for chain 2
-country_event = {
-	id = story.214
-	trigger = {
-		exists = from
-		from = { is_country_type = crystal }
-		has_event_chain = "crystals_2_chain"
-		is_ai = no
-	}
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		add_event_chain_counter = { 
-			event_chain = "crystals_2_chain"
-			counter = "crystals_shattered" 
-			amount = 1
-		}
-		if = {
-			limit = {
-				has_completed_event_chain_counter = {
-					event_chain = "crystals_2_chain" 
-					counter = "crystals_shattered" 
-				}
-			}
-			end_event_chain = crystals_2_chain
-			country_event = { id = story.215 }
-		}
-	}
-}
-
-# second chain concluded
-country_event = {
-	id = story.215
-	title = story.215.name
-	desc = {
-		trigger = {
-			has_ethic = ethic_gestalt_consciousness
-		}
-		text = story.215.desc.gesta
-	}
-	# Milit
-	desc = {
-		trigger = {
-			OR = {
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-			}
-		}
-		text = story.215.desc.milit
-	}
-	# Materialist
-	desc = {
-		trigger = {
-			OR = {
-				has_ethic = ethic_materialist
-				has_ethic = ethic_fanatic_materialist
-			}
-		}
-		text = story.215.desc.mater
-	}
-	desc = {
-		trigger = {
-			NOR = {
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-				has_ethic = ethic_materialist
-				has_ethic = ethic_fanatic_materialist
-			}
-		}
-		text = story.215.desc
-	}
-	picture = GFX_evt_fleet_evil
-	show_sound = event_crystal_ship
-	location = from
-
-	is_triggered_only = yes
-
-	immediate = {
-		set_country_flag = crystal_armor_1_weight
-	}
-
-	option = {
-		name = story.215.a.milit
-		trigger = {
-			OR = {
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
-				has_ethic = ethic_gestalt_consciousness
-			}
-		}
+		name = story.205.bb
 		add_modifier = {
-			modifier = crystal_breaker
+			modifier = crystal_focus # +5% energy
 			days = -1
 		}
 	}
 
 	option = {
-		name = story.215.b.mater
-		custom_tooltip = story.215.b.mater.tooltip
-		trigger = {
-			OR = {
-				has_ethic = ethic_materialist
-				has_ethic = ethic_fanatic_materialist
-				has_ethic = ethic_gestalt_consciousness
-			}
+		name = story.205.aa
+		add_research_option = tech_crystal_armor_1
+		add_tech_progress = {
+			tech = tech_crystal_armor_1
+			progress = 0.5
 		}
-		hidden_effect = {
-			set_country_flag = greater_crystal_bounty_edict_available
+	}
+}
+
+# Pacification Project complete
+country_event = {
+	id = story.207
+	title = story.207.name
+	desc = story.207.desc
+	picture = GFX_evt_fleet_evil
+	show_sound = event_crystal_ship
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = crystal_nonhostile_approach
+		every_country = {
+			limit = { is_country_type = crystal }
+			set_faction_hostility = {
+				set_hostile = no
+				set_friendly = yes
+				target = root
+			}
 		}
 	}
 
 	option = {
-		name = story.215.c
-		custom_tooltip = story.215.b.mater.tooltip
-		trigger = {
-			NOR = {
-				has_ethic = ethic_materialist
-				has_ethic = ethic_fanatic_materialist
-				has_ethic = ethic_militarist
-				has_ethic = ethic_fanatic_militarist
+		name = story.207.a
+		custom_tooltip = story.207.a.tooltip
+		hidden_effect = {
+			add_modifier = {
+				modifier = pacified_crystals # friendly crystals
+				days = -1
 			}
 		}
-		hidden_effect = {
-			set_country_flag = crystal_bounty_edict_available
-		}
+		add_research_option = tech_crystal_armor_1
 	}
 }
 
@@ -1489,98 +1154,16 @@ country_event = {
 	trigger = {
 		exists = from
 		from = { is_country_type = crystal }
+		has_modifier = crystal_hunting_buff
 		is_ai = no
 	}
 
 	immediate = {
-		if = {
-			limit = { has_edict = greater_crystal_bounty }
-			add_minerals = 500
-		}
-		if = {
-			limit = { has_edict = crystal_bounty }
-			add_minerals = 250
-		}
+		add_minerals = 500
 	}
 }
 
-fleet_event = {
-	id = story.218
-	hide_window = yes
-
-	is_triggered_only = yes
-
-	trigger = {
-		owner = {
-			is_ai = no
-			has_edict = crystal_sonar
-		}
-		from = {
-			any_ship_in_system = {
-				exists = owner
-				owner = {
-					is_country_type = crystal
-				}
-			}
-		}
-	}
-
-	immediate = {
-		owner = {
-			country_event = { id = story.219 }
-		}
-	}
-}
-
-country_event = {
-	id = story.219
-	title = story.219.name
-	desc = story.219.desc
-	picture = GFX_evt_fleet_evil
-	show_sound = event_crystal_ship
-	location = from
-
-	is_triggered_only = yes
-
-	trigger = {
-		fromfrom = {
-			any_planet = {
-				is_surveyed = {
-					who = root
-					status = no
-				}
-			}
-		}
-	}
-
-	option = {
-		name = story.219.a
-		custom_tooltip = story.219.a.tooltip
-		trigger = { energy > 29 }
-		hidden_effect = {
-			add_energy = -30
-			fromfrom = {
-				every_system_planet = {
-					surveyed = {
-						set_surveyed = yes
-						surveyor = root
-					}
-				}
-			}
-		}
-	}
-
-	option = {
-		name = story.219.b
-		trigger = { energy > 29 }
-	}
-
-	option = {
-		name = story.219.c
-		trigger = { energy < 30 }
-	}
-}
-
+# Crystal boss
 fleet_event = {
 	id = story.220
 	title = story.220.name
@@ -1596,7 +1179,7 @@ fleet_event = {
 		text = story.220.desc.hostile
 		trigger = {
 			owner = {
-				has_country_flag = crystal_hostile_approach
+				has_modifier = crystal_hunting_buff
 				NOT = { has_ethic = ethic_gestalt_consciousness }
 			}
 		}
@@ -1605,8 +1188,10 @@ fleet_event = {
 		text = story.220.desc.nonhostile
 		trigger = {
 			owner = {
-				has_country_flag = crystal_nonhostile_approach
-				NOT = { has_ethic = ethic_gestalt_consciousness }
+				NOR = {
+					has_country_flag = crystal_hunting_buff
+					has_ethic = ethic_gestalt_consciousness
+				}
 			}
 		}
 	}
@@ -1617,8 +1202,8 @@ fleet_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		solar_system = {
-			has_star_flag = elite_system
+		from = {
+			has_star_flag = crystal_home_system
 			any_ship_in_system = {
 				is_ship_size = crystal_station_large
 			}
@@ -1640,69 +1225,32 @@ fleet_event = {
 	}
 
 	option = {
-		name = story.220.a.nonhostile
+		name = OK
 		trigger = {
-			owner = { has_country_flag = crystal_nonhostile_approach }
-		}
-		owner = {
-			capital_scope = {
-				enable_special_project = {
-					name = CRYSTAL_CONSTRUCT_PROJECT
-					location = this
-					owner = root.owner
-				}
-			}
+			owner = { NOT = { has_modifier = crystal_hunting_buff } }
 		}
 	}
 
 	option = {
 		name = BATTLESTATIONS
 		trigger = {
-			owner = { has_country_flag = crystal_hostile_approach }
-		}
-	}
-}
-
-planet_event = {
-	id = story.221
-	title = story.221.name
-	desc = {
-		text = story.221.desc.gesta
-		trigger = {
-			owner = { has_ethic = ethic_gestalt_consciousness }
-		}
-	}
-	desc = {
-		text = story.221.desc
-		trigger = {
-			owner = { has_ethic = ethic_gestalt_consciousness }
-		}
-	}
-	picture = GFX_evt_fleet_evil
-	show_sound = event_crystal_ship
-	location = root
-
-	is_triggered_only = yes
-
-	option = {
-		name = story.221.a
-		owner = {
-			add_research_option = tech_crystal_armor_2
-			add_tech_progress = {
-				tech = tech_crystal_armor_2
-				progress = 0.25
-			}
+			owner = { has_modifier = crystal_hunting_buff }
 		}
 	}
 }
 
 country_event = {
 	id = story.222
-	hide_window = yes
+	title = story.222.name
+	desc = story.222.desc
+	picture = GFX_evt_fleet_evil
+	show_sound = event_crystal_ship
+	location = fromfrom
 
 	is_triggered_only = yes
 
 	trigger = {
+		is_country_type = default
 		from = {
 			is_country_type = crystal
 		}
@@ -1711,47 +1259,9 @@ country_event = {
 		}
 	}
 
-	immediate = {
-		every_country = {
-			limit = {
-				has_special_project = CRYSTAL_CONSTRUCT_PROJECT
-			}
-			country_event = { id = story.223 }
-		}
-	}
-}
-
-country_event = {
-	id = story.223
-	title = story.223.name
-	desc = {
-		trigger = {
-			has_ethic = ethic_gestalt_consciousness
-		}
-		text = story.223.desc.gesta
-	}
-	desc = {
-		trigger = {
-			NOT = { has_ethic = ethic_gestalt_consciousness }
-		}
-		text = story.223.desc
-	}
-	picture = GFX_evt_fleet_evil
-	show_sound = event_crystal_ship
-	location = capital_scope
-
-	is_triggered_only = yes
-
-	immediate = {
-		abort_special_project = {
-			type = CRYSTAL_CONSTRUCT_PROJECT
-			location = capital_scope
-		}
-	}
-
 	option = {
-		name = story.223.a
-		custom_tooltip = story.223.a.tooltip
+		name = OK
+		add_research_option = tech_crystal_armor_2
 	}
 }
 
@@ -1805,6 +1315,7 @@ country_event = {
 
 	show_sound = event_ancient_drone
 	location = from
+	trackable = yes
 
 	is_triggered_only = yes
 
@@ -1812,24 +1323,10 @@ country_event = {
 		name = story.301.a
 		capital_scope = {
 			enable_special_project = {
-				name = "DRONES_1_PROJECT"
+				name = "DRONES_PROJECT"
 				location = this
 				owner = root
 			}
-		}
-	}
-
-	option = {
-		name = story.301.b
-		trigger = {
-			NOR = {
-				has_ethic = ethic_pacifist
-				has_ethic = ethic_fanatic_pacifist
-			}
-		}
-		begin_event_chain = {
-			event_chain = "drones_1_chain"
-			target = root
 		}
 	}
 }
@@ -1864,697 +1361,19 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = story.305.a
-		custom_tooltip = story.305.a.tooltip
-		trigger = {
-			OR = {
-				has_ethic = ethic_xenophile
-				has_ethic = ethic_fanatic_xenophile
-				has_ethic = ethic_pacifist
-				has_ethic = ethic_fanatic_pacifist
-			}
-			NOT = { has_country_flag = droning_optimizations_edict_available }
-		}
-		hidden_effect = {
-			set_country_flag = droning_optimizations_edict_available
+		name = story.305.aa
+		add_modifier = {
+			modifier = drone_hunting_buff
+			days = -1
 		}
 	}
 
 	option = {
-		name = story.305.a
-		#custom_tooltip = story.305.a.tooltip
-		trigger = {
-			OR = {
-				has_ethic = ethic_xenophile
-				has_ethic = ethic_fanatic_xenophile
-				has_ethic = ethic_pacifist
-				has_ethic = ethic_fanatic_pacifist
-			}
-			has_country_flag = droning_optimizations_edict_available
+		name = story.305.bb
+		add_modifier = {
+			modifier = drone_mining_techniques #+5% minerals
+			days = -1
 		}
-		add_energy = 2000
-	}
-
-	option = {
-		name = story.305.b
-		custom_tooltip = story.305.b.tooltip
-		hidden_effect = {
-		# High-value targets
-			begin_event_chain = {
-				event_chain = "mineral_planet_chain"
-				target = root
-			}
-			country_event = { id = story.306 }
-		}
-	}
-}
-
-country_event = {
-	id = story.306
-	hide_window = yes
-
-	is_triggered_only = yes
-
-	immediate = {
-		capital_scope = { save_event_target_as = capital }
-		closest_system = {
-			min_steps = 5
-			limit = {
-				has_owner = no
-				NOT = {
-					has_star_flag = hostile_system
-					has_star_flag = drone_home_system
-					any_planet = { has_planet_flag = mineral_planet_1 }
-					any_planet = { has_planet_flag = mineral_planet_2 }
-					any_planet = { has_planet_flag = mineral_planet_3 }
-					any_planet = { has_planet_flag = mineral_planet_4 }
-					any_planet = { has_planet_flag = mineral_planet_5 }
-				}
-				any_planet = {
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-			}
-			random_system_planet = {
-				limit = {
-					NOT = {
-						has_planet_flag = mineral_planet_1
-						has_planet_flag = mineral_planet_2
-						has_planet_flag = mineral_planet_3
-						has_planet_flag = mineral_planet_4
-						has_planet_flag = mineral_planet_5
-					}
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-				save_event_target_as = mineral_planet_1
-				set_planet_flag = mineral_planet_1
-				root = { set_country_flag = mineral_planet_1_exists }
-			}
-		}
-		closest_system = {
-			min_steps = 5
-			limit = {
-				has_owner = no
-				NOT = {
-					has_star_flag = hostile_system
-					has_star_flag = drone_home_system
-					any_planet = { has_planet_flag = mineral_planet_1 }
-					any_planet = { has_planet_flag = mineral_planet_2 }
-					any_planet = { has_planet_flag = mineral_planet_3 }
-					any_planet = { has_planet_flag = mineral_planet_4 }
-					any_planet = { has_planet_flag = mineral_planet_5 }
-				}
-				any_planet = {
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-			}
-			random_system_planet = {
-				limit = {
-					NOT = {
-						has_planet_flag = mineral_planet_1
-						has_planet_flag = mineral_planet_2
-						has_planet_flag = mineral_planet_3
-						has_planet_flag = mineral_planet_4
-						has_planet_flag = mineral_planet_5
-					}
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-				save_event_target_as = mineral_planet_2
-				set_planet_flag = mineral_planet_2
-				root = { set_country_flag = mineral_planet_2_exists }
-			}
-		}
-		closest_system = {
-			min_steps = 5
-			limit = {
-				has_owner = no
-				NOT = {
-					has_star_flag = hostile_system
-					has_star_flag = drone_home_system
-					any_planet = { has_planet_flag = mineral_planet_1 }
-					any_planet = { has_planet_flag = mineral_planet_2 }
-					any_planet = { has_planet_flag = mineral_planet_3 }
-					any_planet = { has_planet_flag = mineral_planet_4 }
-					any_planet = { has_planet_flag = mineral_planet_5 }
-				}
-				any_planet = {
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-			}
-			random_system_planet = {
-				limit = {
-					NOT = {
-						has_planet_flag = mineral_planet_1
-						has_planet_flag = mineral_planet_2
-						has_planet_flag = mineral_planet_3
-						has_planet_flag = mineral_planet_4
-						has_planet_flag = mineral_planet_5
-					}
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-				save_event_target_as = mineral_planet_3
-				set_planet_flag = mineral_planet_3
-				root = { set_country_flag = mineral_planet_3_exists }
-			}
-		}
-		closest_system = {
-			min_steps = 5
-			limit = {
-				has_owner = no
-				NOT = {
-					has_star_flag = hostile_system
-					has_star_flag = drone_home_system
-					any_planet = { has_planet_flag = mineral_planet_1 }
-					any_planet = { has_planet_flag = mineral_planet_2 }
-					any_planet = { has_planet_flag = mineral_planet_3 }
-					any_planet = { has_planet_flag = mineral_planet_4 }
-					any_planet = { has_planet_flag = mineral_planet_5 }
-				}
-				any_planet = {
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-			}
-			random_system_planet = {
-				limit = {
-					NOT = {
-						has_planet_flag = mineral_planet_1
-						has_planet_flag = mineral_planet_2
-						has_planet_flag = mineral_planet_3
-						has_planet_flag = mineral_planet_4
-						has_planet_flag = mineral_planet_5
-					}
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-				save_event_target_as = mineral_planet_4
-				set_planet_flag = mineral_planet_4
-				root = { set_country_flag = mineral_planet_4_exists }
-			}
-		}
-		closest_system = {
-			limit = {
-				has_star_flag = drone_home_system
-			}
-			random_system_planet = {
-				limit = {
-					exists = orbital_deposit_tile
-					orbital_deposit_tile = {
-						has_resource = {
-							type = minerals
-							amount > 3
-						}
-					}
-				}
-				save_event_target_as = mineral_planet_5
-				set_planet_flag = mineral_planet_5
-				root = { set_country_flag = mineral_planet_5_exists }
-			}
-		}
-		country_event = { id = story.308 }
-	}
-}
-
-# eh
-country_event = {
-	id = story.308
-	hide_window = yes
-
-	is_triggered_only = yes
-
-	immediate = {
-		if = {
-			limit = { has_country_flag = mineral_planet_1_exists }
-			create_point_of_interest = {
-				id = mineral_planet_1_poi
-				name = mineral_planet_poi_title
-				desc = mineral_planet_poi_desc
-				event_chain = mineral_planet_chain
-				category = mineral_planet_chain_cat
-				location = event_target:mineral_planet_1
-			}
-		}
-		if = {
-			limit = { has_country_flag = mineral_planet_2_exists }
-			create_point_of_interest = {
-				id = mineral_planet_2_poi
-				name = mineral_planet_poi_title
-				desc = mineral_planet_poi_desc
-				event_chain = mineral_planet_chain
-				category = mineral_planet_chain_cat
-				location = event_target:mineral_planet_2
-			}
-		}
-		if = {
-			limit = { has_country_flag = mineral_planet_3_exists }
-			create_point_of_interest = {
-				id = mineral_planet_3_poi
-				name = mineral_planet_poi_title
-				desc = mineral_planet_poi_desc
-				event_chain = mineral_planet_chain
-				category = mineral_planet_chain_cat
-				location = event_target:mineral_planet_3
-			}
-		}
-		if = {
-			limit = { has_country_flag = mineral_planet_4_exists }
-			create_point_of_interest = {
-				id = mineral_planet_4_poi
-				name = mineral_planet_poi_title
-				desc = mineral_planet_poi_desc
-				event_chain = mineral_planet_chain
-				category = mineral_planet_chain_cat
-				location = event_target:mineral_planet_4
-			}
-		}
-		if = {
-			limit = { has_country_flag = mineral_planet_5_exists }
-			create_point_of_interest = {
-				id = mineral_planet_5_poi
-				name = mineral_planet_poi_title
-				desc = mineral_planet_poi_desc
-				event_chain = mineral_planet_chain
-				category = mineral_planet_chain_cat
-				location = event_target:mineral_planet_5
-			}
-		}
-
-		if = {
-			limit = {
-				any_system = {
-					any_planet = {
-						is_point_of_interest = {
-							id = mineral_planet_1_poi
-							owner = root
-							event_chain = mineral_planet_chain
-						}
-						is_surveyed = {
-							status = yes
-							who = root
-						}
-					}
-				}
-			}
-			remove_point_of_interest = mineral_planet_1_poi
-		}
-
-		if = {
-			limit = {
-				any_system = {
-					any_planet = {
-						is_point_of_interest = {
-							id = mineral_planet_2_poi
-							owner = root
-							event_chain = mineral_planet_chain
-						}
-						is_surveyed = {
-							status = yes
-							who = root
-						}
-					}
-				}
-			}
-			remove_point_of_interest = mineral_planet_2_poi
-		}
-
-		if = {
-			limit = {
-				any_system = {
-					any_planet = {
-						is_point_of_interest = {
-							id = mineral_planet_3_poi
-							owner = root
-							event_chain = mineral_planet_chain
-						}
-						is_surveyed = {
-							status = yes
-							who = root
-						}
-					}
-				}
-			}
-			remove_point_of_interest = mineral_planet_3_poi
-		}
-
-		if = {
-			limit = {
-				any_system = {
-					any_planet = {
-						is_point_of_interest = {
-							id = mineral_planet_4_poi
-							owner = root
-							event_chain = mineral_planet_chain
-						}
-						is_surveyed = {
-							status = yes
-							who = root
-						}
-					}
-				}
-			}
-			remove_point_of_interest = mineral_planet_4_poi
-		}
-
-		if = {
-			limit = {
-				any_system = {
-					any_planet = {
-						is_point_of_interest = {
-							id = mineral_planet_5_poi
-							owner = root
-							event_chain = mineral_planet_chain
-						}
-						is_surveyed = {
-							status = yes
-							who = root
-						}
-						is_same_value = event_target:mineral_planet_5
-					}
-				}
-			}
-			remove_point_of_interest = mineral_planet_5_poi
-		}
-
-		if = {
-			limit = {
-				has_completed_event_chain_counter = {
-					event_chain = "mineral_planet_chain"
-					counter = "systems_visited"
-				}
-			}
-			end_event_chain = "mineral_planet_chain"
-			country_event = { id = story.320 }
-		}
-	}
-}
-
-# A ship has surveyed a planet.
-# Scope = Ship
-# From = Planet
-ship_event = {
-	id = story.307
-	hide_window = yes
-
-	is_triggered_only = yes
-
-	trigger = {
-		owner = {
-			is_ai = no
-			has_event_chain = "mineral_planet_chain"
-		}
-		from = {
-			OR = {
-				has_planet_flag = mineral_planet_1
-				has_planet_flag = mineral_planet_2
-				has_planet_flag = mineral_planet_3
-				has_planet_flag = mineral_planet_4
-				has_planet_flag = mineral_planet_5
-			}
-		}
-	}
-
-	immediate = {
-		owner = { save_event_target_as = chainowner }
-		from = {
-			if = {
-				limit = { has_planet_flag = mineral_planet_1 }
-				root = {
-					owner = {
-						remove_point_of_interest = mineral_planet_1_poi
-						add_event_chain_counter = { 
-							event_chain = "mineral_planet_chain" 
-							counter = "systems_visited" 
-							amount = 1 
-						}
-					}
-				}
-				remove_planet_flag = mineral_planet_1
-			}
-			if = {
-				limit = { has_planet_flag = mineral_planet_2 }
-				root = {
-					owner = {
-						remove_point_of_interest = mineral_planet_2_poi
-						add_event_chain_counter = { 
-							event_chain = "mineral_planet_chain" 
-							counter = "systems_visited" 
-							amount = 1 
-						}
-					}
-				}
-				remove_planet_flag = mineral_planet_2
-			}
-			if = {
-				limit = { has_planet_flag = mineral_planet_3 }
-				root = {
-					owner = {
-						remove_point_of_interest = mineral_planet_3_poi
-						add_event_chain_counter = { 
-							event_chain = "mineral_planet_chain" 
-							counter = "systems_visited"
-							amount = 1 
-						}
-					}
-				}
-				remove_planet_flag = mineral_planet_3
-			}
-			if = {
-				limit = { has_planet_flag = mineral_planet_4 }
-				root = {
-					owner = {
-						remove_point_of_interest = mineral_planet_4_poi
-						add_event_chain_counter = { 
-							event_chain = "mineral_planet_chain" 
-							counter = "systems_visited" 
-							amount = 1 
-						}
-					}
-				}
-				remove_planet_flag = mineral_planet_4
-			}
-			if = {
-				limit = { has_planet_flag = mineral_planet_5 }
-				root = {
-					owner = {
-						remove_point_of_interest = mineral_planet_5_poi
-						add_event_chain_counter = { 
-							event_chain = "mineral_planet_chain" 
-							counter = "systems_visited" 
-							amount = 1 
-						}
-					}
-				}
-				remove_planet_flag = mineral_planet_5
-			}
-		}
-		if = {
-			limit = {
-				owner = {
-					has_completed_event_chain_counter = {
-						event_chain = "mineral_planet_chain"
-						counter = "systems_visited"
-					}
-				}
-			}
-			owner = {
-				end_event_chain = "mineral_planet_chain"
-				country_event = { id = story.320 }
-			}
-			break = yes
-		}
-		if = {
-			limit = {
-				NOT = {
-					any_system = {
-						any_planet = {
-							is_point_of_interest = {
-								id = mineral_planet_1_poi
-								owner = event_target:chainowner
-								event_chain = mineral_planet_chain
-							}
-						}
-					}
-				}
-				NOT = {
-					any_system = {
-						any_planet = {
-							is_point_of_interest = {
-								id = mineral_planet_2_poi
-								owner = event_target:chainowner
-								event_chain = mineral_planet_chain
-							}
-						}
-					}
-				}
-				NOT = {
-					any_system = {
-						any_planet = {
-							is_point_of_interest = {
-								id = mineral_planet_3_poi
-								owner = event_target:chainowner
-								event_chain = mineral_planet_chain
-							}
-						}
-					}
-				}
-				NOT = {
-					any_system = {
-						any_planet = {
-							is_point_of_interest = {
-								id = mineral_planet_4_poi
-								owner = event_target:chainowner
-								event_chain = mineral_planet_chain
-							}
-						}
-					}
-				}
-				NOT = {
-					any_system = {
-						any_planet = {
-							is_point_of_interest = {
-								id = mineral_planet_5_poi
-								owner = event_target:chainowner
-								event_chain = mineral_planet_chain
-							}
-						}
-					}
-				}
-			}
-			owner = {
-				end_event_chain = "mineral_planet_chain"
-				country_event = { id = story.320 }
-			}
-		}
-	}
-}
-
-# Drone kill-check for chain 1
-country_event = {
-	id = story.309
-	trigger = {
-		exists = from
-		is_ai = no
-		has_event_chain = "drones_1_chain"
-		from = { is_country_type = drone }
-	}
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		add_event_chain_counter = { 
-			event_chain = "drones_1_chain" 
-			counter = "drone_disassembled" 
-			amount = 1 
-		}
-		country_event = { id = story.310 days = 5 }
-	}
-}
-
-# One killed, chain 1 ends
-country_event = {
-	id = story.310
-	title = story.310.name
-	desc = {
-		trigger = { has_ethic = ethic_gestalt_consciousness }
-		text = story.310.desc.gesta
-	}
-	# Materialist
-	desc = {
-		trigger = { OR = { has_ethic = ethic_materialist has_ethic = ethic_fanatic_materialist } }
-		text = story.310.desc.mater
-	}
-	desc = {
-		trigger = { NOT = { has_ethic = ethic_materialist has_ethic = ethic_fanatic_materialist } }
-		text = story.310.desc
-	}
-	picture = GFX_evt_mining_station
-	show_sound = event_ancient_drone
-	location = from
-
-	is_triggered_only = yes
-
-	option = {
-		name = story.310.a
-		custom_tooltip = story.310.a.tooltip
-		end_event_chain = "drones_1_chain"
-		hidden_effect = {
-			set_country_flag = drone_bounty_edict_available
-		}
-	}
-}
-
-country_event = {
-	id = story.311
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		exists = from
-		is_ai = no
-		has_edict = drone_bounty
-		from = { is_country_type = drone }
-	}
-
-	immediate = {
-		add_energy = 500
-	}
-}
-
-# All deposits surveyed
-country_event = {
-	id = story.320
-	title = story.320.name
-	desc = story.320.desc
-	picture = GFX_evt_mining_station
-	show_sound = event_ancient_drone
-
-	is_triggered_only = yes
-
-	option = {
-		name = OK
 	}
 }
 
@@ -2603,63 +1422,15 @@ fleet_event = {
 	option = {
 		name = story.330.a
 	}
-
-	option = {
-		name = story.330.b
-		owner.capital_scope = {
-			enable_special_project = {
-				name = MINING_BASE_PROJECT
-				location = this
-				owner = root.owner
-			}
-		}
-	}
-}
-
-# project outcome
-planet_event = {
-	id = story.331
-	title = story.331.name
-	desc = {
-		text = story.331.desc
-		trigger = {
-			owner = {
-				NOT = { has_ethic = ethic_gestalt_consciousness }
-			}
-		}
-	}
-	desc = {
-		text = story.331.desc.gesta
-		trigger = {
-			owner = { has_ethic = ethic_gestalt_consciousness }
-		}
-	}
-	picture = GFX_evt_mining_station
-	show_sound = event_ancient_drone
-
-	is_triggered_only = yes
-
-	option = {
-		name = story.331.a
-		owner = {
-			if = {
-				limit = {
-					NOT = { has_country_flag = droning_optimizations_edict_available }
-				}
-				hidden_effect = { set_country_flag = droning_optimizations_edict_available }
-				custom_tooltip = story.305.a.tooltip
-				else = {
-					add_minerals = 2000
-				}
-			}
-		}
-	}
 }
 
 # station destroyed
 country_event = {
 	id = story.332
-	hide_window = yes
+	title = story.332.name
+	desc = story.332.desc
+	picture = GFX_evt_exploding_ship
+	location = fromfrom
 
 	is_triggered_only = yes
 
@@ -2671,70 +1442,11 @@ country_event = {
 		fromfromfrom = { has_fleet_flag = ore_grinder }
 	}
 
-	immediate = {
-		fromfromfrom.solar_system = {
-			random_system_planet = {
-				limit = { has_planet_flag = ore_grinder_planet }
-				save_event_target_as = location_planet
-				orbital_deposit_tile = {
-					add_deposit = d_immense_mineral_deposit
-					add_deposit = d_immense_mineral_deposit
-				}
-			}
-		}
-		every_country = {
-			limit = { has_country_flag = seen_drone_home }
-			country_event = { id = story.333 }
-		}
+	option = {
+		name = story.332.a
+		add_minerals = 12000
 	}
 }
-
-# notification / project cancellation event
-country_event = {
-	id = story.333
-	title = story.333.name
-	desc = {
-		text = story.333.desc
-		trigger = {
-			NOT = { has_ethic = ethic_gestalt_consciousness }
-		}
-	}
-	desc = {
-		text = story.333.desc.gesta
-		trigger = {
-			has_ethic = ethic_gestalt_consciousness
-		}
-	}
-	picture = GFX_evt_exploding_ship
-	location = event_target:location_planet
-
-	is_triggered_only = yes
-
-	immediate = {
-		if = {
-			limit = { has_special_project = MINING_BASE_PROJECT }
-			abort_special_project = {
-				type = MINING_BASE_PROJECT
-				location = capital_scope
-			}
-			set_country_flag = abort_1
-		}
-	}
-
-	option = {
-		name = story.333.a
-		custom_tooltip = story.333.a.tooltip
-		trigger = { has_country_flag = abort_1 }
-		hidden_effect = { remove_country_flag = abort_1 }
-	}
-
-	option = {
-		name = story.333.b
-		custom_tooltip = story.333.b.tooltip
-		trigger = { NOT = { has_country_flag = abort_1 } }
-	}
-}
-
 
 ### Space Clouds
 # Triggered by action.18
@@ -2773,20 +1485,16 @@ country_event = {
 	picture = GFX_evt_fleet_evil
 	show_sound = event_space_cloud
 	location = fromfromfrom
+	trackable = yes
 
 	is_triggered_only = yes
 
 	option = {
 		name = story.401.a.spiri
-		trigger = {
-			OR = {
-				has_ethic = ethic_spiritualist
-				has_ethic = ethic_fanatic_spiritualist
-			}
-		}
+		trigger = { is_spiritualist = yes }
 		capital_scope = {
 			enable_special_project = {
-				name = "CLOUDS_1_PROJECT"
+				name = "CLOUDS_PROJECT"
 				location = this
 				owner = root
 			}
@@ -2795,46 +1503,13 @@ country_event = {
 
 	option = {
 		name = story.401.c
-		trigger = {
-			OR = {
-				NOR = {
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-				}
-				has_ethic = ethic_gestalt_consciousness
-			}
-		}
+		trigger = { NOT = { is_spiritualist = yes } }
 		capital_scope = {
 			enable_special_project = {
-				name = "CLOUDS_1_PROJECT"
+				name = "CLOUDS_PROJECT"
 				location = this
 				owner = root
 			}
-		}
-	}
-
-	option = {
-		name = story.401.b.spiri
-		trigger = {
-			OR = {
-				has_ethic = ethic_spiritualist
-				has_ethic = ethic_fanatic_spiritualist
-			}
-		}
-		begin_event_chain = {
-			event_chain = "clouds_1_chain"
-			target = root
-		}
-	}
-
-	option = {
-		name = story.401.e
-		trigger = {
-			has_ethic = ethic_gestalt_consciousness
-		}
-		begin_event_chain = {
-			event_chain = "clouds_1_chain"
-			target = root
 		}
 	}
 }
@@ -2876,493 +1551,17 @@ country_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = story.405.a.spiri
-		trigger = {
-			OR = {
-				has_ethic = ethic_spiritualist
-				has_ethic = ethic_fanatic_spiritualist
-			}
-		}
-		add_modifier = { modifier = "grand_design" days = 7200 }
-	}
-
-	option = {
 		name = story.405.b
-		trigger = {
-			OR = {
-				NOR = {
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-				}
-				has_ethic = ethic_gestalt_consciousness
-			}
+		add_modifier = {
+			modifier = cloud_hunting_buff
+			days = -1
 		}
-		add_monthly_resource_mult = {
-			resource = physics_research
-			value = @tier1researchreward
-			min = @tier1researchmin
-			max = @tier1researchmax
-		}
-		add_modifier = { modifier = "cloudbuster" days = -1 }
 	}
-
-	#option = {
-	#	name = story.405.c
-	#	custom_tooltip = story.405.c.tooltip
-	#	trigger = { NOR = { has_ethic = ethic_spiritualist has_ethic = ethic_fanatic_spiritualist } }
-	#	hidden_effect = {
-	#		begin_event_chain = {
-	#			event_chain = "cloud_chain"
-	#			target = root
-	#		}
-	#		country_event = { id = story.406 }
-	#	}
-	#}
-}
-
-#country_event = {
-#	id = story.406
-#	hide_window = yes
-#
-#	is_triggered_only = yes
-#
-#	immediate = {
-#		capital_scope = {
-#			save_event_target_as = capital
-#			solar_system = {
-#				closest_system = {
-#					limit = {
-#						root = {
-#							intel_level = {
-#								level = none
-#								system = prev
-#							}
-#						}
-#						has_star_flag = hostile_system
-#						any_ship_in_system = { owner = { is_country_type = #cloud } }
-#						NOT = {
-#							has_star_flag = cloud_1
-#							has_star_flag = cloud_2
-#							has_star_flag = cloud_3
-#							has_star_flag = cloud_4
-#							has_star_flag = cloud_5
-#						}
-#					}
-#					save_event_target_as = cloud_1
-#					set_star_flag = cloud_1
-#					root = { set_country_flag = has_cloud_1 }
-#				}
-#				closest_system = {
-#					limit = {
-#						root = {
-#							intel_level = {
-#								level = none
-#								system = prev
-#							}
-#						}
-#						has_star_flag = hostile_system
-#						any_ship_in_system = { owner = { is_country_type = #cloud } }
-#						NOT = {
-#							has_star_flag = cloud_1
-#							has_star_flag = cloud_2
-#							has_star_flag = cloud_3
-#							has_star_flag = cloud_4
-#							has_star_flag = cloud_5
-#						}
-#					}
-#					save_event_target_as = cloud_2
-#					set_star_flag = cloud_2
-#					root = { set_country_flag = has_cloud_2 }
-#				}
-#				closest_system = {
-#					limit = {
-#						root = {
-#							intel_level = {
-#								level = none
-#								system = prev
-#							}
-#						}
-#						has_star_flag = hostile_system
-#						any_ship_in_system = { owner = { is_country_type = #cloud } }
-#						NOT = {
-#							has_star_flag = cloud_1
-#							has_star_flag = cloud_2
-#							has_star_flag = cloud_3
-#							has_star_flag = cloud_4
-#							has_star_flag = cloud_5
-#						}
-#					}
-#					save_event_target_as = cloud_3
-#					set_star_flag = cloud_3
-#					root = { set_country_flag = has_cloud_3 }
-#				}
-#				closest_system = {
-#					limit = {
-#						root = {
-#							intel_level = {
-#								level = none
-#								system = prev
-#							}
-#						}
-#						has_star_flag = hostile_system
-#						any_ship_in_system = { owner = { is_country_type = #cloud } }
-#						NOT = {
-#							has_star_flag = cloud_1
-#							has_star_flag = cloud_2
-#							has_star_flag = cloud_3
-#							has_star_flag = cloud_4
-#							has_star_flag = cloud_5
-#						}
-#					}
-#					save_event_target_as = cloud_4
-#					set_star_flag = cloud_4
-#					root = { set_country_flag = has_cloud_4 }
-#				}
-#				closest_system = {
-#					limit = {
-#						root = {
-#							intel_level = {
-#								level = none
-#								system = prev
-#							}
-#						}
-#						has_star_flag = hostile_system
-#						any_ship_in_system = { owner = { is_country_type = #cloud } }
-#						NOT = {
-#							has_star_flag = cloud_1
-#							has_star_flag = cloud_2
-#							has_star_flag = cloud_3
-#							has_star_flag = cloud_4
-#							has_star_flag = cloud_5
-#						}
-#					}
-#					save_event_target_as = cloud_5
-#					set_star_flag = cloud_5
-#					root = { set_country_flag = has_cloud_5 }
-#				}
-#			}
-#		}
-#		country_event = { id = story.407 }
-#	}
-#}
-#
-## eh
-#country_event = {
-#	id = story.407
-#	hide_window = yes
-#
-#	is_triggered_only = yes
-#
-#	immediate = {
-#		if = {
-#			limit = { has_country_flag = has_cloud_1 }
-#			create_point_of_interest = {
-#				id = cloud_1_poi
-#				name = cloud_poi_title
-#				desc = cloud_poi_desc
-#				event_chain = cloud_chain
-#				category = cloud_chain_cat
-#				location = event_target:cloud_1
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_2 }
-#			create_point_of_interest = {
-#				id = cloud_2_poi
-#				name = cloud_poi_title
-#				desc = cloud_poi_desc
-#				event_chain = cloud_chain
-#				category = cloud_chain_cat
-#				location = event_target:cloud_2
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_3 }
-#			create_point_of_interest = {
-#				id = cloud_3_poi
-#				name = cloud_poi_title
-#				desc = cloud_poi_desc
-#				event_chain = cloud_chain
-#				category = cloud_chain_cat
-#				location = event_target:cloud_3
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_4 }
-#			create_point_of_interest = {
-#				id = cloud_4_poi
-#				name = cloud_poi_title
-#				desc = cloud_poi_desc
-#				event_chain = cloud_chain
-#				category = cloud_chain_cat
-#				location = event_target:cloud_4
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_5 }
-#			create_point_of_interest = {
-#				id = cloud_5_poi
-#				name = cloud_poi_title
-#				desc = cloud_poi_desc
-#				event_chain = cloud_chain
-#				category = cloud_chain_cat
-#				location = event_target:cloud_5
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_1 }
-#			event_target:cloud_1 = {
-#				root = {
-#					clear_uncharted_space = {
-#						from = prev
-#						radius = 10
-#					}
-#				}
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_2 }
-#			event_target:cloud_2 = {
-#				root = {
-#					clear_uncharted_space = {
-#						from = prev
-#						radius = 10
-#					}
-#				}
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_3 }
-#			event_target:cloud_3 = {
-#				root = {
-#					clear_uncharted_space = {
-#						from = prev
-#						radius = 10
-#					}
-#				}
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_4 }
-#			event_target:cloud_4 = {
-#				root = {
-#					clear_uncharted_space = {
-#						from = prev
-#						radius = 10
-#					}
-#				}
-#			}
-#		}
-#		if = {
-#			limit = { has_country_flag = has_cloud_5 }
-#			event_target:cloud_5 = {
-#				root = {
-#					clear_uncharted_space = {
-#						from = prev
-#						radius = 10
-#					}
-#				}
-#			}
-#		}
-#	}
-#}
-#
-## Fleet enters Void Cloud system
-## Scope = Ship
-## From = System
-#fleet_event = {
-#	id = story.408
-#	hide_window = yes
-#
-#	is_triggered_only = yes
-#
-#	trigger = {
-#		owner = {
-#			is_ai = no
-#			has_event_chain = "cloud_chain"
-#		}
-#		from = {
-#			OR = {
-#				has_star_flag = cloud_1
-#				has_star_flag = cloud_2
-#				has_star_flag = cloud_3
-#				has_star_flag = cloud_4
-#				has_star_flag = cloud_5
-#			}
-#		}
-#	}
-#
-#	immediate = {
-#		from = {
-#			if = {
-#				limit = { has_star_flag = cloud_1 }
-#				root = {
-#					owner = {
-#						remove_point_of_interest = cloud_1_poi
-#						add_event_chain_counter = { 
-#							event_chain = "cloud_chain" 
-#							counter = "clouds_watched" 
-#							amount = 1 
-#						}
-#					}
-#				}
-#				remove_star_flag = cloud_1
-#			}
-#			if = {
-#				limit = { has_star_flag = cloud_2 }
-#				root = {
-#					owner = {
-#						remove_point_of_interest = cloud_2_poi
-#						add_event_chain_counter = { 
-#							event_chain = "cloud_chain" 
-#							counter = "clouds_watched" 
-#							amount = 1 
-#						}
-#					}
-#				}
-#				remove_star_flag = cloud_2
-#			}
-#			if = {
-#				limit = { has_star_flag = cloud_3 }
-#				root = {
-#					owner = {
-#						remove_point_of_interest = cloud_3_poi
-#						add_event_chain_counter = { 
-#							event_chain = "cloud_chain" 
-#							counter = "clouds_watched" 
-#							amount = 1 
-#						}
-#					}
-#				}
-#				remove_star_flag = cloud_3
-#			}
-#			if = {
-#				limit = { has_star_flag = cloud_4 }
-#				root = {
-#					owner = {
-#						remove_point_of_interest = cloud_4_poi
-#						add_event_chain_counter = { 
-#							event_chain = "cloud_chain" 
-#							counter = "clouds_watched" 
-#							amount = 1 
-#						}
-#					}
-#				}
-#				remove_star_flag = cloud_4
-#			}
-#			if = {
-#				limit = { has_star_flag = cloud_5 }
-#				root = {
-#					owner = {
-#						remove_point_of_interest = cloud_5_poi
-#						add_event_chain_counter = { 
-#							event_chain = "cloud_chain" 
-#							counter = "clouds_watched" 
-#							amount = 1 
-#						}
-#					}
-#				}
-#				remove_star_flag = cloud_5
-#			}
-#		}
-#		if = {
-#			limit = {
-#				owner = {
-#					has_completed_event_chain_counter = {
-#						event_chain = "cloud_chain"
-#						counter = "clouds_watched"
-#					}
-#				}
-#			}
-#			owner = { end_event_chain = "cloud_chain" }
-#		}
-#	}
-#}
-
-# Cloud kill-check for chain 1
-country_event = {
-	id = story.409
-	trigger = {
-		exists = from
-		from = { is_country_type = cloud }
-		is_ai = no
-		has_event_chain = "clouds_1_chain"
-	}
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		add_event_chain_counter = { 
-			event_chain = "clouds_1_chain" 
-			counter = "stardust_sifted" 
-			amount = 1 
-		}
-		country_event = { id = story.410 days = 5 }
-	}
-}
-
-country_event = {
-	id = story.410
-	title = story.410.name
-	desc = {
-		trigger = {
-			has_ethic = ethic_gestalt_consciousness
-		}
-		text = story.410.desc.gesta
-	}
-	# Phobe
-	desc = {
-		trigger = {
-			OR = {
-				has_ethic = ethic_spiritualist
-				has_ethic = ethic_fanatic_spiritualist
-			}
-		}
-		text = story.410.desc.spiri
-	}
-	desc = {
-		trigger = {
-			NOR = {
-				has_ethic = ethic_spiritualist
-				has_ethic = ethic_fanatic_spiritualist
-				has_ethic = ethic_gestalt_consciousness
-			}
-		}
-		text = story.410.desc
-	}
-	picture = GFX_evt_fleet_evil
-	show_sound = event_space_cloud
-	location = from
-
-	is_triggered_only = yes
 
 	option = {
-		name = story.410.a.spiri
-		trigger = {
-			OR = {
-				has_ethic = ethic_spiritualist
-				has_ethic = ethic_fanatic_spiritualist
-			}
-		}
-		end_event_chain = "clouds_1_chain"
+		name = story.405.a.spiri
 		add_modifier = {
-			modifier = "malefaction"
-			days = 1460
-		}
-	}
-	option = {
-		name = story.410.b
-		trigger = {
-			OR = {
-				NOR = {
-					has_ethic = ethic_spiritualist
-					has_ethic = ethic_fanatic_spiritualist
-				}
-				has_ethic = ethic_gestalt_consciousness
-			}
-		}
-		end_event_chain = "clouds_1_chain"
-		add_modifier = {
-			modifier = "cloudbuster"
+			modifier = void_loops
 			days = -1
 		}
 	}
@@ -3435,12 +1634,12 @@ country_event = {
 				tech = tech_space_whale_weapon_1
 				progress = 0.6
 			}
-			else = {
-				add_research_option = tech_space_whale_weapon_1
-				add_tech_progress = {
-					tech = tech_space_whale_weapon_1
-					progress = 0.2
-				}
+		}
+		else = {
+			add_research_option = tech_space_whale_weapon_1
+			add_tech_progress = {
+				tech = tech_space_whale_weapon_1
+				progress = 0.2
 			}
 		}
 	}
@@ -3462,12 +1661,12 @@ country_event = {
 				tech = tech_space_whale_weapon_1
 				progress = 0.3
 			}
-			else = {
-				add_research_option = tech_space_whale_weapon_1
-				add_tech_progress = {
-					tech = tech_space_whale_weapon_1
-					progress = 0.1
-				}
+		}
+		else = {
+			add_research_option = tech_space_whale_weapon_1
+			add_tech_progress = {
+				tech = tech_space_whale_weapon_1
+				progress = 0.1
 			}
 		}
 	}
@@ -3491,12 +1690,12 @@ country_event = {
 				tech = tech_space_whale_weapon_1
 				progress = 0.3
 			}
-			else = {
-				add_research_option = tech_space_whale_weapon_1
-				add_tech_progress = {
-					tech = tech_space_whale_weapon_1
-					progress = 0.1
-				}
+		}
+		else = {
+			add_research_option = tech_space_whale_weapon_1
+			add_tech_progress = {
+				tech = tech_space_whale_weapon_1
+				progress = 0.1
 			}
 		}
 	}

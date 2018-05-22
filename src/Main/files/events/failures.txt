@@ -1,0 +1,617 @@
+############################
+#
+# Failure Events
+#
+############################
+
+namespace = anomaly_failure
+
+# Crystal Manufactory and asteroid smash into sun
+ship_event = {
+	id = anomaly_failure.2670
+	title = "DISC_FAILURE"
+	desc = anomaly_failure.2670.desc
+	picture = GFX_evt_mining_station
+	show_sound = event_solar_fusion
+	location = fromfrom
+
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			random_system_ambient_object = {
+				limit = { has_ambient_object_flag = manufactory }
+				destroy_ambient_object = this
+			}
+			random_system_planet = {
+				limit = { is_star = yes }
+				save_event_target_as = thestar
+			}
+		}
+		create_country = {
+			name = " "
+			type = ambient
+		}
+		last_created_country = {
+			create_fleet = {
+				name = " "
+				effect = {
+					set_owner = prev
+					create_ship = {
+						name = ""
+						design = "NAME_Abandoned_Manufactory"
+					}
+					set_location = {
+						target = fromfrom
+						distance = 10
+						angle = random
+					}
+					set_fleet_stance = passive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 0
+					queue_actions = {
+						move_to = event_target:thestar
+						effect = {
+							id = manufactory.1.sunTest
+							destroy_fleet = this
+						}
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = anomaly_failure.2670.a
+		custom_tooltip = anomaly_failure.2670.a.tooltip
+		leader = { add_trait = leader_trait_expertise_computing }
+	}
+}
+
+#Derelict Ship Special Project
+ship_event = {
+	id = anomaly_failure.4011
+	title = PROJECT_FAILURE
+	desc = "anomaly_failure.4011.desc"
+	picture = GFX_evt_ship_in_orbit
+	location = FROMFROM
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "WORRYING"
+		hidden_effect = {
+			ship_event = { id = anomaly_failure.4012 days = 10 }
+			fromfrom = {
+				destroy_ambient_object = this
+			}
+		}
+	}
+}
+
+#AI Admiral - If special project fails
+country_event = {
+	id = anomaly_failure.4031
+	title = PROJECT_FAILURE
+	desc = "anomaly_failure.4031.desc"
+	picture = GFX_evt_sapient_AI
+	location = fromfrom
+	
+	is_triggered_only = yes
+
+	immediate = {
+		create_country = {
+			name = "NAME_Ancient_AI"
+			type = faction
+			auto_delete = yes
+		}
+		last_created_country = {
+			save_event_target_as = ancient_ship_ai
+			set_faction_hostility = { set_hostile = yes }
+			create_leader = {
+				type = admiral
+				species = last_created
+				name = "NAME_01000001_01001001"
+				skill = 2
+				traits = {
+					trait = leader_trait_aggressive
+					trait = leader_trait_fleet_logistician
+				}
+				event_leader = yes
+			}
+			create_fleet = {
+				name = "NAME_Ancient_AI_Fleet"
+				effect = {
+					set_owner = prev
+					assign_leader = last_created_leader
+					create_ship = {
+						name = "NAME_00110001"
+						design = "NAME_Beta"
+						graphical_culture = "fallen_empire_01"
+					}
+					create_ship = {
+						name = "NAME_00110010"
+						design = "NAME_Gamma"
+						graphical_culture = "fallen_empire_01"
+					}
+					create_ship = {
+						name = "NAME_00110011"
+						design = "NAME_Gamma"
+						graphical_culture = "fallen_empire_01"
+					}
+					create_ship = {
+						name = "NAME_00110100"
+						design = "NAME_Gamma"
+						graphical_culture = "fallen_empire_01"
+					}
+					create_ship = {
+						name = "NAME_00110101"
+						design = "NAME_Gamma"
+						graphical_culture = "fallen_empire_01"
+					}
+					set_location = fromfrom
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "anomaly_failure.4031.a"
+	}
+}
+
+# Ancient Mining Gear - Special Project Fail
+country_event = {
+	id = anomaly_failure.4066
+	title = PROJECT_FAILURE
+	desc = "anomaly_failure.4066.desc"
+	picture = GFX_evt_mining_station
+	location = fromfrom
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+		add_monthly_resource_mult = {
+			resource = minerals
+			value = @tier1materialreward
+			min = @tier1materialmin
+			max = @tier1materialmax
+		}
+	}
+}
+
+# Special Project Fail
+ship_event = {
+	id = anomaly_failure.4081
+	title = PROJECT_FAILURE
+	desc = "anomaly_failure.4081.desc"
+	picture = GFX_evt_star_chart
+	location = fromfromfrom
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+}
+
+# Grand Theft Orbit - Special Project Fail
+country_event = {
+	id = anomaly_failure.4086
+	title = PROJECT_FAILURE
+	desc = "anomaly_failure.4086.desc"
+	picture = GFX_evt_exploding_ship
+	show_sound = event_ship_explosion
+	location = fromfromfrom
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+	}
+	option = {
+		trigger = {
+			from = {
+				OR = {
+					has_ethic = "ethic_fanatic_materialist"
+					has_ethic = "ethic_materialist"
+					has_ethic = "ethic_fanatic_militarist"
+					has_ethic = "ethic_militarist"
+				}
+			}
+		}
+		name = "anomaly_failure.4086.military"
+	}
+}
+
+# Monsters on a Ship
+country_event = {
+	id = anomaly_failure.4116
+	title = "PROJECT_FAILURE"
+	desc = "anomaly_failure.4116.desc"
+	picture = GFX_evt_exploding_ship
+	show_sound = event_ship_explosion
+
+	is_triggered_only = yes
+
+	immediate = {	
+		fromfrom = {
+			fleet = {
+				kill_leader = { type = scientist show_notification = no}
+				destroy_fleet = this
+			}
+		}
+	}
+
+	option = {
+		name = anomaly_failure.4116.a
+		custom_tooltip = "anomaly_failure.4116.a.tooltip"
+	}
+}
+
+# Failed to translate POLITICS
+country_event = {
+	id = anomaly_failure.4136
+	title = "PROJECT_FAILURE"
+	desc = "anomaly_failure.4136.desc"
+	picture = GFX_evt_society_research
+	show_sound = event_conversation
+
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+		add_monthly_resource_mult = {
+			resource = influence
+			value = @tier2influencereward
+			min = @tier2influencemin
+			max = @tier2influencemax
+		}
+	}
+}
+
+# Failed to uncover vault
+ship_event = {
+	id = anomaly_failure.4156
+	title = "PROJECT_FAILURE"
+	desc = "anomaly_failure.4156.desc"
+	picture = GFX_evt_society_research
+	show_sound = event_activating_unknown_technology
+	location = event_target:WarriorHomePlanet
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_planet ={
+				limit = {
+					has_planet_flag = cryo_pod_planet
+				}
+				save_event_target_as = WarriorHomePlanet
+			}
+		}
+	}
+
+	option = {
+		name = UNFORTUNATE
+		hidden_effect = {
+			random_planet ={
+				limit = {
+					has_planet_flag = cryo_pod_planet
+				}
+				remove_planet_flag = cryo_pod_planet
+			}
+		}
+	}
+}
+
+# Cryopod contains tech 
+country_event = {
+	id = anomaly_failure.4157
+	title = "anomaly.4155.name"
+	desc = {
+		text = "anomaly_failure.4157.desc"
+		trigger = {
+			NOT = { has_technology = tech_biolab_3 }
+		}
+	}
+	desc = {
+		text = "anomaly_failure.4157.maxed.desc"
+		trigger = {
+			has_technology = tech_biolab_3
+		}
+	}
+	picture = GFX_evt_society_research
+	show_sound = event_administrative_work
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_planet ={
+				limit = {
+					has_planet_flag = cryo_pod_planet
+				}
+				save_event_target_as = WarriorHomePlanet
+				remove_planet_flag = cryo_pod_planet
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		trigger = {
+			NOT = {
+				has_technology = tech_biolab_1
+			}
+		}
+		if = {
+			limit = {
+				has_tech_option = tech_biolab_1
+			}
+			add_tech_progress = {
+				tech = tech_biolab_1
+				progress = 0.80
+			}
+			else = {
+				add_research_option = tech_biolab_1
+				add_tech_progress = {
+					tech = tech_biolab_1
+					progress = 0.5
+				}
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			has_technology = tech_biolab_1
+			NOT = {
+				has_technology = tech_biolab_2
+			}
+		}
+		if = {
+			limit = {
+				has_tech_option = tech_biolab_2
+			}
+			add_tech_progress = {
+				tech = tech_biolab_2
+				progress = 0.80
+			}
+			else = {
+				add_research_option = tech_biolab_2
+				add_tech_progress = {
+					tech = tech_biolab_2
+					progress = 0.4
+				}
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			has_technology = tech_biolab_2
+			NOT = {
+				has_technology = tech_biolab_3
+			}
+		}
+		if = {
+			limit = {
+				has_tech_option = tech_biolab_3
+			}
+			add_tech_progress = {
+				tech = tech_biolab_3
+				progress = 0.50
+			}
+			else = {
+				add_research_option = tech_biolab_3
+				add_tech_progress = {
+					tech = tech_biolab_3
+					progress = 0.25
+				}
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = {
+			has_technology = tech_biolab_3
+		}
+		add_monthly_resource_mult = {
+			resource = influence
+			value = @tier1influencereward
+			min = @tier1influencemin
+			max = @tier1influencemax
+		}
+	}
+}
+# Cryopod contains corpse
+country_event = {
+	id = anomaly_failure.4158
+	title = "PROJECT_FAILURE"
+	desc = "anomaly_failure.4158.desc"
+	picture = GFX_evt_society_research
+	show_sound = event_activating_unknown_technology
+
+	is_triggered_only = yes
+
+	immediate = {	
+		add_modifier = {
+			modifier = fertility_virus
+			days = 3600
+		}
+		hidden_effect = {
+			random_planet ={
+				limit = {
+					has_planet_flag = cryo_pod_planet
+				}
+				save_event_target_as = WarriorHomePlanet
+			}
+		}
+	}
+
+	option = {
+		name = CURSES
+		custom_tooltip = "anomaly_failure.4158.a.tooltip"
+		hidden_effect = {
+			random_planet ={
+				limit = {
+					has_planet_flag = cryo_pod_planet
+				}
+				remove_planet_flag = cryo_pod_planet
+			}
+		}
+	}
+}
+
+#Odd Star - When you investigate the wrong system
+ship_event = {	
+	id = anomaly_failure.4037
+	title = "anomaly.4035.name"
+	desc = "anomaly_failure.4037.desc"
+	picture = GFX_evt_ship_in_orbit
+	location = root
+	
+	is_triggered_only = yes
+
+	option = {
+		name = "anomaly_failure.4037.a"
+	}
+}
+
+# Gas Mining Backfires
+planet_event = {
+	id = anomaly_failure.4170
+	title = "FAILURE"
+	desc = {
+		text = "anomaly_failure.4170.individ.desc"
+		trigger = {
+			owner = {
+				OR = {
+					has_ethic = ethic_fanatic_egalitarian
+					has_ethic = ethic_egalitarian
+				}
+			}
+		}
+	}
+	desc = {
+		text = "anomaly_failure.4170.basic.desc"
+		trigger = {
+			owner = {
+				NOT = {
+					has_ethic = ethic_fanatic_egalitarian
+					has_ethic = ethic_egalitarian
+				}
+			}
+		}
+	}
+	picture = GFX_evt_nuclear_explosion
+	show_sound = event_ship_explosion
+	location = from
+
+	is_triggered_only = yes
+
+	immediate = {	
+		hidden_effect = {
+			from = {
+				if = {
+					limit = { num_pops > 4 }
+					random_pop = {
+						kill_pop = yes
+					}
+					random_pop = {
+						kill_pop = yes
+					}
+					random_pop = {
+						kill_pop = yes
+					}
+					owner = { set_country_flag = gas_explosion_deaths_3 }
+					break = yes
+				}
+				if = {
+					limit = { num_pops > 3 }
+					random_pop = {
+						kill_pop = yes
+					}
+					random_pop = {
+						kill_pop = yes
+					}
+					owner = { set_country_flag = gas_explosion_deaths_2 }
+					break = yes
+				}
+				if = {
+					limit = { num_pops > 2 }
+					random_pop = {
+						kill_pop = yes
+					}
+					owner = { set_country_flag = gas_explosion_deaths_1 }
+					break = yes
+				}
+				if = {
+					limit = {
+						OR = {
+							num_pops = 2
+							num_pops < 2
+						}
+					}
+					owner = { set_country_flag = gas_explosion_deaths_0 }
+					break = yes
+				}
+			}
+		}
+	}
+
+	option = {
+		name = CURSES
+		custom_tooltip = "anomaly_failure.4170.a.tooltip"
+		trigger = {
+			owner = { has_country_flag = gas_explosion_deaths_0 }
+		}
+	}
+	option = {
+		name = CURSES
+		custom_tooltip = "anomaly_failure.4170.b.tooltip"
+		trigger = {
+			owner = { has_country_flag = gas_explosion_deaths_1 }
+		}
+	}
+	option = {
+		name = CURSES
+		custom_tooltip = "anomaly_failure.4170.c.tooltip"
+		trigger = {
+			owner = { has_country_flag = gas_explosion_deaths_2 }
+		}
+	}
+	option = {
+		name = CURSES
+		custom_tooltip = "anomaly_failure.4170.d.tooltip"
+		trigger = {
+			owner = { has_country_flag = gas_explosion_deaths_3 }
+		}
+	}
+}
+
+#Derelict Ship Disaster
+ship_event = {
+	id = anomaly_failure.4012
+	title = "DISC_CRITICAL_FAILURE"
+	desc = "anomaly_failure.4012.desc"
+	picture = GFX_evt_exploding_ship
+	show_sound = event_ship_explosion
+	location = fromfrom
+	
+	is_triggered_only = yes
+
+	immediate = {
+		fromfrom = {
+			fleet = { kill_leader = {type = scientist show_notification = no} destroy_fleet = this}
+		}
+		owner = { country_event = { id = story.5 days = 30 } }
+	}
+
+	option = {
+		name = TERRIBLE
+		custom_tooltip = "anomaly_failure.4012.a.tooltip"
+	}
+}

@@ -1,0 +1,1589 @@
+
+DISTAR_WRECK_CAT = {
+	desc = "DISTAR_WRECK_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			from.owner = {
+				any_neighbor_country = {
+					is_ai = yes
+					is_country_type = default
+					has_communications = from.owner
+					NOR = {
+						is_at_war_with = from.owner
+						is_same_value = from.owner
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = distar.1
+}
+
+DISTAR_FLARE_CAT = {
+	desc = "DISTAR_FLARE_CAT_DESC"
+	picture = "GFX_evt_dead_city"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Handled in SysInit
+		}
+	}
+	
+	on_success = distar.6
+}
+
+DISTAR_RAINBOW_CAT = {
+	desc = "DISTAR_RAINBOW_CAT_DESC"
+	picture = "GFX_evt_black_hole"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_star = yes
+			is_star_class = sc_black_hole
+		}
+	}
+	
+	on_success = distar.15
+}
+
+DISTAR_HOLO_CAT = {
+	desc = "DISTAR_HOLO_CAT_DESC"
+	picture = "GFX_evt_black_hole"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_star = yes
+			is_star_class = sc_black_hole
+			from.owner = {
+				num_communications > 0
+			}
+		}
+	}
+	
+	on_success = distar.20
+}
+
+DISTAR_ROBO_CAT = {
+	desc = "DISTAR_ROBO_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Handled in SysInit
+		}
+	}
+
+	max_once_global = no
+	
+	on_success = distar.25
+}
+
+DISTAR_NANO_CAT = {
+	desc = "DISTAR_NANO_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			OR = {
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_frozen
+			}
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+	
+	on_success = {
+		1 =	{
+			anomaly_event = distar.40
+		}
+	}
+}
+
+DISTAR_FLOW_CAT = {
+	desc = "DISTAR_FLOW_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 100 #Intentional, as it competes with other is_star anomalies
+			has_distar = yes
+			is_star = yes
+			solar_system = {
+				any_system_megastructure = {
+					is_megastructure_type = gateway_ruined
+				}
+			}
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+	
+	on_success = distar.45
+}
+
+DISTAR_LOST_CAT = {
+	desc = "DISTAR_LOST_CAT_DESC"
+	picture = "GFX_evt_gas_giant"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			is_planet_class = pc_gas_giant
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_distar = no
+				solar_system = {
+					has_star_flag = tiyanki_home_system
+				}	
+			}
+		}
+	}
+	
+	on_success = distar.50
+}
+
+DISTAR_TIME_CAT = {
+	desc = "DISTAR_TIME_CAT_DESC"
+	picture = "GFX_evt_space_debris"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			is_star = yes
+			OR = {
+				is_star_class = sc_neutron_star
+				is_star_class = sc_pulsar
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_distar = no
+				from.owner = {
+					species_portrait = mol4
+				}
+			}
+		}
+	}
+
+	max_once_global = yes
+	
+	on_success = distar.60
+}
+
+DISTAR_CLONE_CAT = {
+	desc = "DISTAR_CLONE_CAT_DESC"
+	picture = "GFX_evt_megastructure_construction"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			factor = 0 #Set in utopia_initializers.txt
+		}
+	}
+
+	max_once_global = yes
+	
+	on_success = {
+		1 = {
+			anomaly_event = distar.70
+		}
+	}
+}
+
+DISTAR_GEODE_CAT = {
+	desc = "DISTAR_GEODE_CAT_DESC"
+	picture = "GFX_evt_space_debris"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 2
+			has_distar = yes
+			is_asteroid = yes
+			has_any_strategic_resource = no
+		}
+	}
+	
+	on_success = distar.75
+}
+
+DISTAR_DEAD_GOD_CAT = {
+	desc = "DISTAR_DEAD_GOD_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1000 #TODO:[DEE] Balance
+			has_distar = yes
+			is_moon = yes
+			solar_system = {
+				any_planet = {
+					exists = owner
+					owner = {
+						is_primitive = yes
+					}
+					has_moon = yes
+					any_moon = {
+						is_same_value = root
+					}
+				}
+			}
+		}
+	}
+
+	on_spawn = {
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					exists = owner
+					owner = { is_primitive = yes }
+					has_moon = yes
+					any_moon = { is_same_value = root }
+				}
+				add_modifier = { modifier = dead_god_planet_hidden days = -1 } 
+			}
+		}
+	}
+	
+	on_success = distar.80
+}
+
+DISTAR_ELECTRO_CAT = {
+	desc = "DISTAR_ELECTRO_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			OR = {
+				is_asteroid = yes
+				is_planet_class = pc_molten
+				is_planet_class = pc_barren
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_toxic
+				is_planet_class = pc_frozen
+			}
+		}
+	}
+	
+	on_success = distar.85
+}
+
+DISTAR_RUM_CAT = {
+	desc = "DISTAR_RUM_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = pc_gas_giant
+			is_inside_nebula = yes
+			OR = {
+				from.owner = {
+					NOT = {
+						has_ethic = ethic_gestalt_consciousness
+					}
+				}
+				from.owner = {
+					has_authority = auth_machine_intelligence
+					NOR = {
+						has_civic = civic_machine_terminator
+						has_civic = civic_machine_assimilator
+					}
+					any_neighbor_country = {
+						is_ai = yes
+						is_country_type = default
+						has_communications = from.owner
+						NOR = {
+							has_ethic = ethic_gestalt_consciousness
+							is_at_war_with = from.owner
+							is_same_value = from.owner
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = {
+		1 = {
+			modifier = {
+				factor = 0
+				owner = { has_authority = auth_machine_intelligence }
+			}
+			anomaly_event = distar.90
+		}
+		0 = {
+			modifier = {
+				add = 1
+				owner = {
+					has_authority = auth_machine_intelligence
+				}
+			}
+			anomaly_event = distar.91
+		}
+	}
+}
+
+DISTAR_SOOTHE_CAT = {
+	desc = "DISTAR_SOOTHE_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			habitable_planet = yes
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_distar = no
+				from.owner = { has_ethic = ethic_gestalt_consciousness }
+			}
+		}
+	}
+	
+	on_success = distar.95
+}
+
+DISTAR_SOOTHE_GC_CAT = {
+	desc = "DISTAR_SOOTHE_GC_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			habitable_planet = yes
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_distar = no
+				from.owner = { NOT = { has_ethic = ethic_gestalt_consciousness } }
+			}
+		}
+	}
+	
+	on_success = distar.100
+}
+
+DISTAR_EXO_CAT = {
+	desc = "DISTAR_EXO_CAT_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 99999 #TODO [DEE]
+			has_distar = yes
+			habitable_planet = yes
+			planet_size > 15
+		}
+	}
+
+	on_spawn = {
+		every_tile = {
+			limit = { has_blocker = yes	}
+			remove_blocker = yes
+			set_blocker = "tb_exofungus"
+		}
+		add_modifier = { modifier = exofungus days = -1 }
+	}
+	
+	on_success = distar.105
+}
+
+DISTAR_ICE_CAT = {
+	desc = "DISTAR_ICE_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = pc_frozen
+			NOT = { has_deposit_for = shipclass_mining_station }
+		}
+	}
+	
+	on_success = distar.110
+}
+
+DISTAR_METAL_CAT = {
+	desc = "DISTAR_METAL_CAT_DESC"
+	picture = "GFX_evt_toxic"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = pc_toxic
+			NOT = { has_deposit_for = shipclass_research_station }
+		}
+	}
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.115
+		}
+	}
+}
+
+DISTAR_OCEAN_CAT = {
+	desc = "DISTAR_OCEAN_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = pc_ocean
+		}
+	}
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.120
+		}
+	}
+}
+
+DISTAR_COLLAPSE_CAT  = {
+	desc = "DISTAR_COLLAPSE_CAT_DESC"
+	picture = "GFX_evt_space_station"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Handled in SysInit
+		}
+	}
+
+	max_once_global = no
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.125
+		}
+	}
+}
+
+DISTAR_FOES_CAT = {
+	desc = "DISTAR_FOES_CAT_DESC"
+	picture = "GFX_evt_alien_cavemen"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Handled in on_actions
+		}
+	}
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.131
+		}
+	}
+}
+
+DISTAR_DIAMOND_CAT = {
+	desc = "DISTAR_DIAMOND_CAT_DESC"
+	picture = "GFX_evt_star_white"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_star = yes #Necessary b/c is_star_class actually means is_system_class
+			is_star_class = sc_f
+		}
+	}
+
+	null_spawn_chance = 0.5  # 50% chance to spawn
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.140
+		}
+	}
+}
+
+DISTAR_MOLTEN_CAT = {
+	desc = "DISTAR_MOLTEN_CAT_DESC"
+	picture = "GFX_evt_molten"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = "pc_molten"
+		}
+	}
+
+	null_spawn_chance = 0.5  # 50% chance to spawn
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.145
+		}
+	}
+}
+
+DISTAR_MERCURY_CAT = {
+	desc = "DISTAR_MERCURY_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			OR = {
+				is_planet_class = "pc_molten"
+				is_planet_class = "pc_barren"
+				is_planet_class = "pc_barren_cold"
+				is_planet_class = "pc_frozen"
+				is_planet_class = "pc_toxic"
+			}
+		}
+	}
+	
+	on_success = {
+		1 = {
+			anomaly_event =	distar.150
+		}
+	}
+}
+
+DISTAR_WARFORM_CAT = {
+	desc = "DISTAR_WARFORM_CAT_DESC"
+	picture = "GFX_evt_toxic"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = "pc_toxic"
+		}
+	}
+
+	max_once_global = yes
+
+	on_success = {
+		1 = {
+			anomaly_event =	distar.155
+		}
+	}
+}
+
+DISTAR_BRAINSLUG_CAT = {
+	desc = "DISTAR_BRAINSLUG_CAT_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 4
+
+	spawn_chance = {
+		modifier = {
+			add = 9999 #TODO [DEE]
+			has_distar = yes
+			habitable_planet = yes
+			OR = {
+				any_tile = { has_blocker = "tb_dangerous_wildlife" }
+				has_planet_modifier = pm_dangerous_wildlife
+			}
+		}
+	}
+
+	on_spawn = {
+		random_tile = {
+			limit = {
+				has_blocker = no
+				has_building = no
+			}
+			set_building = "building_primitive_farm"
+		}
+	}
+
+	on_success = {
+		1 = {
+			anomaly_event =	distar.170
+		}
+	}
+}
+
+DISTAR_THIRSTY_CAT = {
+	desc = "DISTAR_THIRSTY_CAT_DESC"
+	picture = "GFX_evt_warm_barren"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_planet_class = "pc_barren"
+			NOT = { has_deposit_for = shipclass_research_station }
+		}
+	}
+
+	on_success = {
+		1 = {
+			anomaly_event =	distar.180
+		}
+	}
+}
+
+DISTAR_FLYTRAP_CAT = {
+	desc = "DISTAR_FLYTRAP_CAT_DESC"
+	picture = "GFX_evt_alien_nature"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 9999 #TODO [DEE]
+			habitable_planet = yes
+			NOR = { is_planet_class = pc_desert is_planet_class = pc_arctic }
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_distar = no
+				from.owner = {
+					has_authority = auth_machine_intelligence
+				}
+			}
+		}
+	}
+
+	on_spawn = {
+		add_modifier = { modifier = predatory_plants days = -1 }
+	}
+
+	on_success = {
+		1 = {
+			anomaly_event =	distar.185
+		}
+	}
+}
+
+DISTAR_LIVING_CAT = {
+	desc = "DISTAR_LIVING_CAT_DESC"
+	picture = "GFX_evt_ocean"
+	level = 2
+
+	spawn_chance = {
+		modifier = {
+			add = 0 #Handled in SysInit
+		}
+	}
+
+	on_success = distar.190
+}
+
+DISTAR_ZONE_CAT = {
+	desc = "DISTAR_ZONE_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			habitable_planet = yes
+			NOT = { exists = owner }
+			any_tile = {
+				is_orbital_tile = no
+				has_deposit = no
+			}
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+
+	on_spawn = {
+		random_tile = {
+			limit = { has_deposit = no is_orbital_tile = no }
+			IF = {
+				limit = { has_blocker = yes }
+				remove_blocker = yes
+			}
+			set_deposit = d_vast_unity_deposit
+			set_building = building_the_zone
+		}
+	}
+	
+	on_success = distar.220
+}
+
+DISTAR_RAT_CAT = {
+	desc = "DISTAR_RAT_CAT_DESC"
+	picture = "GFX_evt_city_ruins"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Handled in on_actions
+		}
+	}
+
+	max_once_global = no
+
+	on_spawn = {
+	}
+	
+	on_success = distar.231
+}
+
+DISTAR_MED_CAT = {
+	desc = "DISTAR_MED_CAT_DESC"
+	picture = "GFX_evt_space_debris"
+	level = 5
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Set in sys_init
+		}
+	}
+
+	on_spawn = {
+	}
+	
+	on_success = distar.244
+}
+
+DISTAR_POD_CAT = {
+	desc = "DISTAR_POD_CAT_DESC"
+	picture = "GFX_evt_space_debris"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Set in sys_init
+		}
+	}
+
+	on_spawn = {
+	}
+	
+	on_success = distar.245
+}
+
+DISTAR_PHASE_CAT = {
+	desc = "DISTAR_PHASE_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 #Set in sys_init
+		}
+	}
+
+	on_spawn = {
+	}
+	
+	on_success = distar.250
+}
+
+DISTAR_SOY_CAT = {
+	desc = "DISTAR_SOY_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 6
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			OR = {
+				is_planet_class = pc_tropical
+				is_planet_class = pc_continental
+				is_planet_class = pc_savannah
+				is_planet_class = pc_alpine
+				is_planet_class = pc_ocean
+				is_planet_class = pc_gaia
+			}
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_distar = no
+				AND = {
+					exists = owner
+					owner = { is_primitive = yes }
+				}
+			}
+		}
+	}
+
+	on_spawn = {
+		planet_event = { id = distar.260 }
+	}
+	
+	on_success = distar.261
+}
+
+DISTAR_SIGNAL_CAT = {
+	desc = "DISTAR_SIGNAL_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_star = yes
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+
+	on_spawn = {
+	}
+	
+	on_success = distar.265
+}
+
+DISTAR_PUZZLE_CAT = {
+	desc = "DISTAR_PUZZLE_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 1
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			is_asteroid = yes
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+
+	on_spawn = {
+	}
+	
+	on_success = distar.270
+}
+
+DISTAR_NANOCITY_CAT = {
+	desc = "DISTAR_NANOCITY_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			OR = {
+				is_planet_class = pc_barren_cold
+				is_planet_class = pc_frozen
+			}
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+	
+	on_success = {
+		1 =	{
+			anomaly_event = distar.275
+		}
+	}
+}
+
+DISTAR_NANOSAND_CAT = {
+	desc = "DISTAR_NANOSAND_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 2
+	
+	spawn_chance = {
+		modifier = {
+			add = 1
+			has_distar = yes
+			OR = {
+				is_planet_class = pc_desert
+				is_planet_class = pc_gaia
+				is_planet_class = pc_barren
+			}
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+	
+	on_success = {
+		1 =	{
+			anomaly_event = distar.280
+		}
+	}
+}
+
+DISTAR_MEDGAS_CAT = {
+	desc = "DISTAR_MEDGAS_CAT_DESC"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 3
+	
+	spawn_chance = {
+		modifier = { #Normal chance to spawn if player has completed chain
+			add = 1
+			is_planet_class = pc_gas_giant
+			from.owner = {
+				has_distar = yes
+				has_completed_event_chain_counter = {
+					event_chain = l_cluster_chain
+					counter = clues
+				}
+			}
+		}
+		modifier = { #Higher chance to spawn if player has ongoing chain
+			add = 5
+			is_planet_class = pc_gas_giant
+			from.owner = {
+				has_event_chain = "l_cluster_chain"
+			}
+		}
+		modifier = { #Will not spawn if the player has neither completed nor currently has the ongoing chain
+			factor = 0
+			NOT = { has_global_flag = l_cluster_opened }
+			from.owner = {
+				NOR = {
+					has_event_chain = "l_cluster_chain"
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+			}
+		}
+	}
+
+	max_once_global = no
+	max_once = yes
+	
+	on_success = {
+		1 =	{
+			anomaly_event = distar.285
+		}
+	}
+}
+
+############################
+###  ANOMALY CATEGORIES  ###
+############################
+
+
+debris_gasgiant_category_temp = {
+	desc = "debris_gasgiant_category_temp_desc"
+	picture = "GFX_evt_ship_in_orbit"
+	level = 3
+
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_planet_class = pc_gas_giant
+		}
+		modifier = {
+			add = 30
+			is_planet_class = pc_gas_giant
+			years_passed < 20
+		}
+		modifier = {
+			add = 10
+			is_planet_class = pc_gas_giant
+			years_passed > 20
+			years_passed < 50
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				NOR = {
+					species_portrait = mam5
+					species_portrait = fun4
+				}
+			}
+		}
+	}
+	
+	on_success = distar.1000
+}
+
+star_lifting_category = {
+	picture = "GFX_evt_star_pulsar"
+	level = 4
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 # added in system initializer
+		}
+	}
+	
+	on_success = distar.1020
+}
+
+abandoned_outpost_category = {
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 4 # added in system initializer
+			has_distar = yes
+			solar_system = { has_star_flag = big_rip_system }
+
+			from.owner = {
+	            NOT = {
+	                has_global_flag = l_cluster_opened
+	                has_completed_event_chain_counter = {
+	                    event_chain = l_cluster_chain 
+	                    counter = clues
+	                }
+	            }
+	            has_event_chain = l_cluster_chain
+	        }
+		}
+	}
+	
+	on_success = distar.1030
+}
+
+ast_debris_field_1_cat_2 = {
+	desc = "AST_DEBRIS_FIELD_1_DESC"
+	picture = "GFX_evt_space_debris"
+	level = 3
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_asteroid = yes
+		}
+	}
+	on_success = {
+		1 = {
+			modifier = {
+				factor = 3
+				owner = {
+					has_technology = tech_cloning
+				}
+			}
+			modifier = {
+				factor = 0
+				owner = {
+					NOT = {
+						has_ethic = ethic_gestalt_consciousness 
+						species_portrait = mol8
+					}
+				}
+			}
+			anomaly_event = distar.1080
+		}
+		1 = distar.1045
+		1 = distar.1050
+		1 = distar.2000
+	}
+}
+
+gaia_planet_cat = {
+	picture = "GFX_evt_alien_nature"
+	level = 3
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_planet_class = pc_gaia
+		}
+	}
+	
+	on_success = distar.1060
+}
+
+corrupt_data_cat = {
+	level = 4
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			habitable_planet = yes
+		}
+	}
+	
+	on_success = distar.1065
+}
+
+irregular_energy_cat = {
+	level = 4
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_star = yes
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				OR = {
+					has_ethic = ethic_gestalt_consciousness
+					owner_species = {
+						has_trait = trait_mechanical
+						has_trait = trait_machine_unit
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = distar.1070
+}
+
+peculiar_patterns_cat = {
+	level = 3
+		
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			OR = {
+				is_planet_class = pc_gaia
+				is_planet_class = pc_continental
+				is_planet_class = pc_savannah
+				is_planet_class = pc_tropical
+				is_planet_class = pc_ocean
+			}
+		}
+	}
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				From = {
+					OR = {
+						is_planet_class = pc_gaia
+						is_planet_class = pc_continental
+						is_planet_class = pc_savannah
+						is_planet_class = pc_tropical
+					}
+				}
+			}
+			anomaly_event = distar.1090
+		}
+
+		0 = {
+			modifier = {
+				add = 1
+				From = {
+					OR = {
+						is_planet_class = pc_gaia
+						is_planet_class = pc_continental
+						is_planet_class = pc_savannah
+						is_planet_class = pc_tropical
+					}
+				}
+			}
+			anomaly_event = distar.1095
+		}
+
+		0 = {
+			modifier = {
+				add = 1
+				From = {
+					is_planet_class = pc_ocean
+				}
+			}
+			anomaly_event = distar.2010
+		}
+	}
+}
+
+tomb_world_cat = {
+	level = 4
+	max_once_global = yes
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			OR = {
+				is_planet_class = pc_toxic
+				is_planet_class = pc_nuked
+				is_planet_class = pc_barren
+				is_planet_class = pc_barren_cold
+			}
+		}
+	}
+	on_success = {
+		0 = {
+			modifier = {
+				add = 1
+				From = {
+					OR = {
+						is_planet_class = pc_toxic
+						is_planet_class = pc_nuked
+					}
+				}
+			}
+			anomaly_event = distar.2005
+		}
+		0 = {
+			modifier = {
+				add = 1
+				From = {
+					OR = {
+						is_planet_class = pc_barren
+						is_planet_class = pc_barren_cold
+					}
+				}
+			}
+			anomaly_event = distar.2015
+		}
+	}
+}
+
+alien_life_cat = {
+	picture = GFX_evt_alien_nature
+	level = 3
+	max_once_global = yes
+
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			habitable_planet = yes
+		}
+	}
+	on_success = distar.2020
+}
+
+moon_cat = {
+	picture = GFX_evt_ship_in_orbit
+	level = 3
+	max_once_global = yes
+
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_moon = yes
+			habitable_planet = no
+			solar_system = {
+				any_planet = {
+					habitable_planet = yes
+					has_moon = yes
+					any_moon = {
+						is_same_value = prevprevprev
+					}
+				}
+			}
+		}
+	}
+	on_success = {
+		1 = { 
+			anomaly_event = distar.2025
+		}
+	}
+}
+
+time_loop_world = {
+	picture = "GFX_evt_ship_in_orbit"
+	level = 4
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 0 # added in system initializer
+		}
+	}
+	on_success = distar.2030
+}
+
+stolen_ship_cat = {
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 3
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_asteroid = yes
+		}
+		modifier = {
+			factor = 2
+			from.owner = {
+				NOT = {
+					has_global_flag = l_cluster_opened
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+				has_event_chain = l_cluster_chain
+			}
+		}
+	}
+	on_success = distar.2040
+}
+
+transmitter_cat = {
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 2
+	max_once_global = yes
+	
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_star = no
+			from.owner = {
+				NOT = {
+					has_global_flag = l_cluster_opened
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+				has_event_chain = l_cluster_chain
+			}
+			solar_system = {
+				any_system_megastructure = {
+					OR = {
+						is_megastructure_type = gateway_ruined
+						is_megastructure_type = gateway_restored
+						is_megastructure_type = gateway_final
+						is_megastructure_type = lgate_base
+					}
+				}
+			}
+		}
+	}
+	
+	on_success = distar.2045
+}
+
+
+### Trojan Asteroid ###
+disco_trojan_asteroid_cat = {
+	desc = "disco_trojan_asteroid_cat_desc"
+	picture = "GFX_evt_asteroid_field"
+	level = 3
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			is_asteroid = yes
+			has_any_strategic_resource = no
+		}
+		# fiction doesn't work for hive minds/robots, so they're blocked
+		modifier = {
+			factor = 0
+			from.owner = { has_ethic = ethic_gestalt_consciousness }
+		}
+	}
+
+	on_success = distar.3000
+}
+
+### Impossible Organism ###
+disco_impossible_organism_cat = {
+	desc = "disco_impossible_organism_cat_desc"
+	picture = "GFX_evt_toxic"
+	level = 6
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			is_planet_class = pc_toxic
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				exists = event_target:impossible_organism_species
+				from.owner = {
+					OR = { 
+						has_ethic = ethic_gestalt_consciousness
+						has_ethic = ethic_xenophobe
+						has_ethic = ethic_fanatic_xenophobe
+					}
+				}
+			}
+		}
+	}
+
+	on_success = distar.3010
+}
+
+### Stranded Scientist ###
+disco_stranded_scientist_cat = {
+	desc = "disco_stranded_scientist_cat_desc"
+	picture= "GFX_evt_asteroid_field"
+	level = 1
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			is_asteroid = yes
+			has_any_strategic_resource = no
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				NOR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_fanatic_xenophobe
+				}
+			}
+		}
+	}
+
+	on_success = distar.3020
+}
+
+### Molluscoid Miners ###
+disco_molluscoid_miners_cat = {
+	desc = "disco_molluscoid_miners_cat_desc"
+	picture = "GFX_evt_warm_barren"
+	level = 1
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			OR = {
+				is_planet_class = pc_desert
+				is_planet_class = pc_arid
+				is_planet_class = pc_savannah
+			}
+			has_any_strategic_resource = no
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				NOR = {
+					has_ethic = ethic_gestalt_consciousness
+					has_ethic = ethic_fanatic_xenophobe
+				}
+			}
+		}
+	}
+
+	on_success = distar.3030
+}
+
+### Alien Machine ###
+disco_alien_machine_cat = {
+	desc = "disco_alien_machine_cat_desc"
+	picture = "GFX_evt_asteroid_field"
+	level = 2
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			is_asteroid = yes
+			has_any_strategic_resource = no
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+
+	on_success = distar.3040
+}
+
+### Orbital Speed Demon ###
+disco_speed_demon_cat = {
+	desc = "disco_speed_demon_cat_desc"
+	picture = "GFX_evt_asteroid_field"
+	level = 1
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			is_asteroid = yes # could expand this into a bunch of stuff
+			has_any_strategic_resource = no
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+
+	on_success = distar.3050
+}
+
+### Breathing Rift ###
+disco_breathing_rift_cat = {
+	desc = "disco_breathing_rift_cat_desc"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 1
+
+	spawn_chance = {
+		modifier = {
+			add = 2
+			is_star = yes
+			OR = {
+				is_star_class = sc_black_hole
+				is_star_class = sc_neutron_star
+				is_star_class = sc_pulsar	
+			}
+		}
+		modifier = {
+			factor = 0
+			from.owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+	}
+
+	on_success = distar.3060
+}
