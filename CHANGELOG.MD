@@ -1,3 +1,6 @@
+# 0.4.27
+* Add nested if/else effect deprecation warning
+* Add temporary if/else effect ambiguity warning
 # 0.4.26
 * Update to 2.1.0
 * Add solar\_system\_initializer star class check
