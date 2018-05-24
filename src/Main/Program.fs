@@ -407,6 +407,8 @@ type Server(send : BinaryWriter) =
 
                     lintAgent.Post (UpdateRequest {uri = change.uri; version = 0})
                     //eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
+                |FileChangeType.Deleted ->
+                    LanguageServer.sendNotification send (PublishDiagnostics {uri = change.uri; diagnostics = []})
                 |_ ->                 ()
                 // if change.uri.AbsolutePath.EndsWith ".fsproj" then
                 //     projects.UpdateProjectFile change.uri 

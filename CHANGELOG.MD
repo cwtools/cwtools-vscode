@@ -1,3 +1,6 @@
+# 0.4.28
+* Support opening a folder containing `.mod` files (that isn't the mod folder)
+* Remove errors from list when a file is deleted
 # 0.4.27
 * Add nested if/else effect deprecation warning
 * Add temporary if/else effect ambiguity warning
