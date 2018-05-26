@@ -231,7 +231,7 @@ type Server(send : BinaryWriter) =
                         [configpath, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(configpath))).ReadToEnd()]
                 //let configs = [
                 eprintfn "%A" languages                
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, configs, languages, validateVanilla, experimental)
+                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, configs, languages, validateVanilla, experimental, experimental_completion)
                 gameObj <- Some game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
                 let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
@@ -427,7 +427,12 @@ type Server(send : BinaryWriter) =
                 // let extraKeywords = ["yes"; "no";]
                 // let eventIDs = game.References.EventIDs
                 // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                let items = comp |> List.map (function |Simple e -> {defaultCompletionItem with label = e} |Snippet (l, e) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet})
+                let items = 
+                    comp |> List.map (
+                        function 
+                        |Simple e -> {defaultCompletionItem with label = e} 
+                        |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> DocString d)}
+                        |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d -> DocString d)})
                 // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                 {isIncomplete = false; items = items}
             |None -> {isIncomplete = false; items = []}

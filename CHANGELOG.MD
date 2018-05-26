@@ -1,3 +1,4 @@
+* Check correct ordering of if/else/else_if
 # 0.4.28
 * Support opening a folder containing `.mod` files (that isn't the mod folder)
 * Remove errors from list when a file is deleted
