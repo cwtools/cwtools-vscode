@@ -1,3 +1,5 @@
+# 0.5.0
+* Add support for new config file format, see https://github.com/tboby/cwtools/wiki/.cwt-config-file-guidance
 * Check correct ordering of if/else/else_if
 # 0.4.28
 * Support opening a folder containing `.mod` files (that isn't the mod folder)

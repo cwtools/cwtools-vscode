@@ -15,6 +15,7 @@ alias[effect:create_starbase] = {
     effect = effect
 }
 
+
 ship_size = {
     ## cardinality = 0..1    
     formation_priority = int
@@ -120,6 +121,15 @@ ship_size = {
     
 }
 
+event = {
+    ## cardinality = 0..1
+    immediate = {
+        alias_name[effect] = alias_match_left[effect]
+    }
+}
+
+alias[effect:THIS] = { alias_name[effect] = alias_match_left[effect] }
+
 types = {
     type[ship_size] = {
         path = "game/common/ship_sizes"
@@ -139,6 +149,9 @@ types = {
     }
     type[technology] = {
         path = "game/common/technology"
+    }
+    type[event] = {
+        path = "game/events"
     }
 }
 

@@ -222,11 +222,13 @@ type Server(send : BinaryWriter) =
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
                 let configpath = "Main.files.config.cwt"
+                let configFiles = Directory.EnumerateFiles "./" |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
                 let configs = 
-                    match experimental_completion, File.Exists "./config.cwt" with
+                    match experimental_completion, configFiles.Length > 0 with
                     |false, _ -> []
                     |_, true ->
-                        ["./config.cwt", File.ReadAllText("./config.cwt")]
+                        configFiles |> List.map (fun f -> f, File.ReadAllText(f))
+                        //["./config.cwt", File.ReadAllText("./config.cwt")]
                     |_, false ->
                         [configpath, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(configpath))).ReadToEnd()]
                 //let configs = [
@@ -417,24 +419,33 @@ type Server(send : BinaryWriter) =
             let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
             match gameObj with
             |Some game ->
-                let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
-                let path = 
-                    let u = p.textDocument.uri
-                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
-                    then u.LocalPath.Substring(1)
-                    else u.LocalPath
-                let comp = game.Complete position (path) (docs.GetText p.textDocument.uri |> Option.defaultValue "")
-                // let extraKeywords = ["yes"; "no";]
-                // let eventIDs = game.References.EventIDs
-                // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                let items = 
-                    comp |> List.map (
-                        function 
-                        |Simple e -> {defaultCompletionItem with label = e} 
-                        |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> DocString d)}
-                        |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d -> DocString d)})
-                // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                {isIncomplete = false; items = items}
+                match experimental_completion with
+                |true ->
+                    let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
+                    let path = 
+                        let u = p.textDocument.uri
+                        if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                        then u.LocalPath.Substring(1)
+                        else u.LocalPath
+                    let comp = game.Complete position (path) (docs.GetText p.textDocument.uri |> Option.defaultValue "")
+                    // let extraKeywords = ["yes"; "no";]
+                    // let eventIDs = game.References.EventIDs
+                    // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                    let items = 
+                        comp |> List.map (
+                            function 
+                            |Simple e -> {defaultCompletionItem with label = e} 
+                            |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> DocString d)}
+                            |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d -> DocString d)})
+                    // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                    {isIncomplete = false; items = items}
+                |false ->
+                    let extraKeywords = ["yes"; "no";]
+                    let eventIDs = game.References.EventIDs
+                    let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                    let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                    let items = names |> List.map (fun n -> {defaultCompletionItem with label = n})
+                    {isIncomplete = false; items = items @ variables}
             |None -> {isIncomplete = false; items = []}
         member this.Hover(p: TextDocumentPositionParams): Hover = 
             eprintfn "Hover"
