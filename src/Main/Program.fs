@@ -220,9 +220,13 @@ type Server(send : BinaryWriter) =
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
                 let logspath = "Main.files.setup.log"
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
+
+                let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
+                let embeddedConfigFiles = embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
                 let configpath = "Main.files.config.cwt"
-                let configFiles = Directory.EnumerateFiles "./" |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+                let configFiles = Seq.append (if Directory.Exists "./.cwtools" then Directory.EnumerateFiles "./.cwtools" else Seq.empty) (Directory.EnumerateFiles "./")
+                let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
                 let configs = 
                     match experimental_completion, configFiles.Length > 0 with
                     |false, _ -> []
@@ -230,7 +234,7 @@ type Server(send : BinaryWriter) =
                         configFiles |> List.map (fun f -> f, File.ReadAllText(f))
                         //["./config.cwt", File.ReadAllText("./config.cwt")]
                     |_, false ->
-                        [configpath, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(configpath))).ReadToEnd()]
+                        embeddedConfigFiles
                 //let configs = [
                 eprintfn "%A" languages                
                 let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, configs, languages, validateVanilla, experimental, experimental_completion)
