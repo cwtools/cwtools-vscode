@@ -1,3 +1,6 @@
+# 0.5.1
+* Update config files
+* Add support for .cwtools folder with config files in it
 # 0.5.0
 * Add support for new config file format, see https://github.com/tboby/cwtools/wiki/.cwt-config-file-guidance
 * Check correct ordering of if/else/else_if
