@@ -1,3 +1,5 @@
+# 0.5.2
+* Add support for left hand side values for cwt config (e.g. `int = { }` for random_list `1 = { }`)
 # 0.5.1
 * Update config files
 * Add support for .cwtools folder with config files in it
