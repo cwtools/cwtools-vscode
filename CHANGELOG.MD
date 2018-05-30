@@ -1,3 +1,5 @@
+# 0.5.3
+* Add support for left hand side type values for cwt config (e.g. `<technology> = bool` for `tech_something = yes`)
 # 0.5.2
 * Add support for left hand side values for cwt config (e.g. `int = { }` for random_list `1 = { }`)
 # 0.5.1
