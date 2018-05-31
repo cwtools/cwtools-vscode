@@ -1,3 +1,6 @@
+# 0.5.5
+* Add support for more complicated keys in aliases for cwt config
+* Add support for `type\_key\_filter` on subtypes for cwt config
 # 0.5.4
 * Add support for multiple rules with the same key for cwt config
 # 0.5.3
