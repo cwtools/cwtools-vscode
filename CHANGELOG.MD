@@ -1,3 +1,5 @@
+# 0.5.4
+* Add support for multiple rules with the same key for cwt config
 # 0.5.3
 * Add support for left hand side type values for cwt config (e.g. `<technology> = bool` for `tech_something = yes`)
 # 0.5.2
