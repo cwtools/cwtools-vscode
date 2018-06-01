@@ -1,3 +1,7 @@
+# 0.5.8
+* Add support for 'complex_enum'
+# 0.5.7
+* Bugfix <types>
 # 0.5.6
 * Add support for `localisation` value for cwt config
 
