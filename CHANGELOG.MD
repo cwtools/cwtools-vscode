@@ -1,3 +1,5 @@
+# 0.5.9
+* Update config rules
 # 0.5.8
 * Add support for 'complex_enum'
 # 0.5.7

@@ -198,6 +198,17 @@ type Server(send : BinaryWriter) =
         let mutable out = "//" + s
         [1 .. count - 1] |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '\\' (out |> List.ofSeq)) |> Array.ofList |> String )
         out
+
+    let rec getAllFolders dirs =
+        if Seq.isEmpty dirs then Seq.empty else
+            seq { yield! dirs |> Seq.collect Directory.EnumerateDirectories
+                  yield! dirs |> Seq.collect Directory.EnumerateDirectories |> getAllFolders }
+    let getAllFoldersUnion dirs =
+        seq { 
+            yield! dirs
+            yield! getAllFolders dirs
+        }
+
     let processWorkspace (uri : option<Uri>) =
         LanguageServer.sendNotification send (LoadingBar {value = "Loading project..."; enable = true})
         match uri with
@@ -225,7 +236,7 @@ type Server(send : BinaryWriter) =
                 let embeddedConfigFiles = embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
                 let configpath = "Main.files.config.cwt"
-                let configFiles = Seq.append (if Directory.Exists "./.cwtools" then Directory.EnumerateFiles "./.cwtools" else Seq.empty) (Directory.EnumerateFiles "./")
+                let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
                 let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
                 let configs = 
                     match experimental_completion, configFiles.Length > 0 with
