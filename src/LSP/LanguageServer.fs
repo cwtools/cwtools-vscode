@@ -126,6 +126,8 @@ let processRequest (server: ILanguageServer) (send: BinaryWriter) (id: int) (req
     match request with 
     | Initialize p -> 
         server.Initialize p |> serializeInitializeResult |> respond send id
+    | Shutdown ->
+        server.Shutdown()
     | WillSaveWaitUntilTextDocument p -> 
         server.WillSaveWaitUntilTextDocument p |> serializeTextEditList |> respond send id
     | Completion p -> 
@@ -173,8 +175,6 @@ let processNotification (server: ILanguageServer) (send: BinaryWriter) (n: Notif
         eprintfn "Cancel request %d is not yet supported" id
     | Initialized ->
         server.Initialized()
-    | Shutdown ->
-        server.Shutdown()
     | DidChangeConfiguration p -> 
         server.DidChangeConfiguration p
     | DidOpenTextDocument p -> 

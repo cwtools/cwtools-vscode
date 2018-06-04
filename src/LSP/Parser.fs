@@ -126,7 +126,6 @@ let parseNotification (method: string) (maybeBody: option<JsonValue>): Notificat
     match method, maybeBody with 
     | "cancel", Some json -> Cancel (json?id.AsInteger())
     | "initialized", _ -> Initialized
-    | "shutdown", _ -> Shutdown 
     | "exit", _ -> raise (Exception "exit message should terminated stream before reaching this point") 
     | "workspace/didChangeConfiguration", Some json -> DidChangeConfiguration (parseDidChangeConfigurationParams json)
     | "textDocument/didOpen", Some json -> DidOpenTextDocument (parseDidOpenTextDocumentParams json)
@@ -373,6 +372,7 @@ let parseExecuteCommandParams (json: JsonValue): ExecuteCommandParams =
 let parseRequest (method: string) (json: JsonValue): Request = 
     match method with 
     | "initialize" -> Initialize (parseInitialize json)
+    | "shutdown" -> Shutdown 
     | "textDocument/willSaveWaitUntil" -> WillSaveWaitUntilTextDocument (parseWillSaveTextDocumentParams json)
     | "textDocument/completion" -> Completion (parseTextDocumentPositionParams json)
     | "textDocument/hover" -> Hover (parseTextDocumentPositionParams json)
