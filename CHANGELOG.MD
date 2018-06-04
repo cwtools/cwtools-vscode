@@ -1,3 +1,6 @@
+# 0.5.10
+* Update config rules
+* Add support for <type.subtype>
 # 0.5.9
 * Update config rules
 # 0.5.8
