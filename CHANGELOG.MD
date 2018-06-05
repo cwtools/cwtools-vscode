@@ -1,3 +1,6 @@
+# 0.5.11
+* Update config rules
+* Add support for localisation_synced rules
 # 0.5.10
 * Update config rules
 * Add support for <type.subtype>
