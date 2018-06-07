@@ -1,3 +1,7 @@
+# 0.5.12
+* Add scope information tooltip
+* Add support for `scope` rules
+* Update config rules
 # 0.5.11
 * Update config rules
 * Add support for localisation_synced rules
