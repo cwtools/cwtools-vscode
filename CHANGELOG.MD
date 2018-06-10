@@ -1,3 +1,7 @@
+# 0.5.14
+* Add tile blocker localisation
+* Add static_modifier desc localisation
+* Add `push_scope` for config rules
 # 0.5.13
 * Add planet_killer localisation and other validation
 # 0.5.12
