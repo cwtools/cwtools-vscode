@@ -24,7 +24,7 @@ open Microsoft.FSharp.Compiler.Range
 open Microsoft.FSharp.Compiler
 open CWTools.Validation.Rules
 open System.Xml.Schema
-
+open CWTools.Games.Files
 let private TODO() = raise (Exception "TODO")
 
 type LintRequestMsg =

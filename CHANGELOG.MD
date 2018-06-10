@@ -1,3 +1,5 @@
+# 0.5.13
+* Add planet_killer localisation and other validation
 # 0.5.12
 * Add scope information tooltip
 * Add support for `scope` rules
