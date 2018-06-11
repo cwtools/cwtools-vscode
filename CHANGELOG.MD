@@ -1,3 +1,7 @@
+# 0.5.15
+* Fix completion in multi-mod projects
+* Improve performance of config based validation
+* Fix negative value parsing
 # 0.5.14
 * Add tile blocker localisation
 * Add static_modifier desc localisation
