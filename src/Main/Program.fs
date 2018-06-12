@@ -25,6 +25,7 @@ open Microsoft.FSharp.Compiler
 open CWTools.Validation.Rules
 open System.Xml.Schema
 open CWTools.Games.Files
+open LSP.Json.Ser
 let private TODO() = raise (Exception "TODO")
 
 type LintRequestMsg =
@@ -32,8 +33,7 @@ type LintRequestMsg =
     | WorkComplete of unit
 
 
-type Server(send : BinaryWriter) =
-    let send = send
+type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
     let checker = FSharpChecker.Create()
@@ -93,8 +93,8 @@ type Server(send : BinaryWriter) =
         s |>  List.groupBy fst
             |> List.map ((fun (f, rs) -> f, rs |> List.filter (diagnosticFilter)) >>
                 (fun (f, rs) ->
-                    try PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A" rs)))
-            |> List.iter (fun f -> LanguageServer.sendNotification send f)
+                    try {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A" rs)))
+            |> List.iter (client.PublishDiagnostics)
 
     let lint (doc: Uri) (shallowAnalyze : bool) (forceDisk : bool) : Async<unit> =
         async {
@@ -102,10 +102,10 @@ type Server(send : BinaryWriter) =
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
                 then doc.LocalPath.Substring(1)
                 else doc.LocalPath
-            let filetext = if forceDisk then None else docs.GetText doc
+            let filetext = if forceDisk then None else docs.GetText (FileInfo(doc.LocalPath))
             let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
             let parserErrors =
-                match docs.GetText doc with
+                match docs.GetText (FileInfo(doc.LocalPath)) with
                 |None -> []
                 |Some t ->
                     let parsed = CKParser.parseString t name
@@ -124,7 +124,7 @@ type Server(send : BinaryWriter) =
                             let results = game.UpdateFile name filetext
                             results |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
             match errors with
-            | [] -> LanguageServer.sendNotification send (PublishDiagnostics {uri = doc; diagnostics = []})
+            | [] -> client.PublishDiagnostics {uri = doc; diagnostics = []}
             | x -> x
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
@@ -211,7 +211,7 @@ type Server(send : BinaryWriter) =
         }
 
     let processWorkspace (uri : option<Uri>) =
-        LanguageServer.sendNotification send (LoadingBar {value = "Loading project..."; enable = true})
+        client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Loading project...");  "enable", JsonValue.Boolean(true) |])
         match uri with
         |Some u ->
             let path =
@@ -257,7 +257,7 @@ type Server(send : BinaryWriter) =
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
 
-                LanguageServer.sendNotification send (LoadingBar {value = "Validating files..."; enable = true})
+                client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Validating files...");  "enable", JsonValue.Boolean(true) |])
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
                 let locErrors = game.LocalisationErrors() |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
@@ -275,51 +275,53 @@ type Server(send : BinaryWriter) =
                 | :? System.Exception as e -> eprintfn "%A" e
 
         |None -> ()
-        LanguageServer.sendNotification send (LoadingBar {value = ""; enable = false})
+        client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("");  "enable", JsonValue.Boolean(false) |])
 
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
         async {
             eprintfn "Hover before word"
-            let! word = LanguageServer.sendRequest send (GetWordRangeAtPosition {position = pos})
+            let json = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
+            let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(json) |])
             eprintfn "Hover after word"
-            return match gameObj with
-            |Some game ->
-                let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
-                let path =
-                    let u = doc
-                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
-                    then u.LocalPath.Substring(1)
-                    else u.LocalPath
-                let scopeContext = game.ScopesAtPos position (path) (docs.GetText doc |> Option.defaultValue "")
-                let allEffects = game.ScriptedEffects @ game.ScripteTriggers
-                eprintfn "Looking for effect %s in the %i effects loaded" word (allEffects.Length)
-                let unescapedword = word.Replace("\\\"", "\"").Trim('"')
-                let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
-                let lochover = game.References.Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
-                let scopesExtra = if scopeContext.IsNone then "" else
-                    let scopes = scopeContext.Value
-                    let header = "| Context | Scope |\n| ----- | -----|\n"
-                    let root = sprintf "| ROOT | %s |\n" (scopes.Root.ToString())
-                    let prevs = scopes.Scopes |> List.mapi (fun i s -> "| " + (if i = 0 then "THIS" else (String.replicate (i) "PREV")) + " | " + (s.ToString()) + " |\n") |> String.concat ""
-                    let froms = scopes.From |> List.mapi (fun i s -> "| " + (String.replicate (i+1) "FROM") + " | " + (s.ToString()) + " |\n") |> String.concat ""
-                    header + root + prevs + froms
+            return
+                match gameObj with
+                |Some game ->
+                    let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
+                    let path =
+                        let u = doc
+                        if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                        then u.LocalPath.Substring(1)
+                        else u.LocalPath
+                    let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
+                    let allEffects = game.ScriptedEffects @ game.ScripteTriggers
+                    eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
+                    let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
+                    let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
+                    let lochover = game.References.Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                    let scopesExtra = if scopeContext.IsNone then "" else
+                        let scopes = scopeContext.Value
+                        let header = "| Context | Scope |\n| ----- | -----|\n"
+                        let root = sprintf "| ROOT | %s |\n" (scopes.Root.ToString())
+                        let prevs = scopes.Scopes |> List.mapi (fun i s -> "| " + (if i = 0 then "THIS" else (String.replicate (i) "PREV")) + " | " + (s.ToString()) + " |\n") |> String.concat ""
+                        let froms = scopes.From |> List.mapi (fun i s -> "| " + (String.replicate (i+1) "FROM") + " | " + (s.ToString()) + " |\n") |> String.concat ""
+                        header + root + prevs + froms
 
-                match hovered, lochover with
-                |Some effect, _ ->
-                    match effect with
-                    | :? DocEffect as de ->
-                        let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                        let content = String.Join("\n***\n",["_"+de.Desc+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
-                        {contents = (MarkupContent ("markdown", content)) ; range = None}
-                    | e ->
-                        let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                        let content = String.Join("\n***\n",["_"+e.Name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
-                        {contents = (MarkupContent ("markdown", content)) ; range = None}
-                |None, Some (_, loc) ->
-                    {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
-                |None, None ->
-                    {contents = MarkupContent ("markdown", scopesExtra); range = None}
-            |_ -> {contents = MarkupContent ("markdown", ""); range = None}
+                    match hovered, lochover with
+                    |Some effect, _ ->
+                        match effect with
+                        | :? DocEffect as de ->
+                            let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                            let content = String.Join("\n***\n",["_"+de.Desc+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
+                            {contents = (MarkupContent ("markdown", content)) ; range = None}
+                        | e ->
+                            let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                            let content = String.Join("\n***\n",["_"+e.Name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
+                            {contents = (MarkupContent ("markdown", content)) ; range = None}
+                    |None, Some (_, loc) ->
+                        {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
+                    |None, None ->
+                        {contents = MarkupContent ("markdown", scopesExtra); range = None}
+                |_ -> {contents = MarkupContent ("markdown", ""); range = None}
         }
 
     let completionResolveItem (item :CompletionItem) =
@@ -338,18 +340,18 @@ type Server(send : BinaryWriter) =
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
-                                {item with documentation = Some (DocMarkup ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                             | :? ScriptedEffect as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
                                 let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some (DocMarkup ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                             | e ->
                                 let desc = "_" + e.Name.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some (DocMarkup ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
                     |None -> item
         }
@@ -361,187 +363,213 @@ type Server(send : BinaryWriter) =
 
 
     interface ILanguageServer with
-        member this.Initialize(p: InitializeParams): InitializeResult =
-            rootUri <- p.rootUri
-            { capabilities =
-                { defaultServerCapabilities with
-                    hoverProvider = true
-                    textDocumentSync =
-                        { defaultTextDocumentSyncOptions with
-                            openClose = true
-                            willSave = true
-                            save = Some { includeText = true }
-                            change = TextDocumentSyncKind.Full }
-                    completionProvider = Some {resolveProvider = true; triggerCharacters = []}
-                    codeActionProvider = true
-                    executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"]} } }
-        member this.Initialized(): unit =
-            ()
-        member this.Shutdown(): unit =
-            ()
-        member this.DidChangeConfiguration(p: DidChangeConfigurationParams): unit =
-            let newLanguages =
-                match p.settings.Item("cwtools").Item("localisation").Item("languages") with
-                | JsonValue.Array o ->
-                    o |> Array.choose (function |JsonValue.String s -> (match STLLang.TryParse<STLLang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
-                      |> List.ofArray
-                      |> (fun l ->  if List.isEmpty l then [STLLang.English] else l)
-                | _ -> [STLLang.English]
-            languages <- newLanguages |> List.map STL
-            let newVanillaOnly =
-                match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
-                | JsonValue.Boolean b -> b
-                | _ -> false
-            validateVanilla <- newVanillaOnly
-            let newExperimental =
-                match p.settings.Item("cwtools").Item("experimental") with
-                | JsonValue.Boolean b -> b
-                | _ -> false
-            experimental <- newExperimental
-            let newcompletion =
-                match p.settings.Item("cwtools").Item("experimental_completion") with
-                | JsonValue.Boolean b -> b
-                | _ -> false
-            experimental_completion <- newcompletion
-            let newIgnoreCodes =
-                match p.settings.Item("cwtools").Item("errors").Item("ignore") with
-                | JsonValue.Array o ->
-                    o |> Array.choose (function |JsonValue.String s -> Some s |_ -> None)
-                      |> List.ofArray
-                | _ -> []
-            ignoreCodes <- newIgnoreCodes
-            let newIgnoreFiles =
-                match p.settings.Item("cwtools").Item("errors").Item("ignorefiles") with
-                | JsonValue.Array o ->
-                    o |> Array.choose (function |JsonValue.String s -> Some s |_ -> None)
-                      |> List.ofArray
-                | _ -> []
-            ignoreFiles <- newIgnoreFiles
-            eprintfn "New configuration %s" (p.ToString())
-            let task = new Task((fun () -> processWorkspace(rootUri)))
-            task.Start()
+        member this.Initialize(p: InitializeParams) =
+            async {
+                rootUri <- p.rootUri
+                return { capabilities =
+                    { defaultServerCapabilities with
+                        hoverProvider = true
+                        textDocumentSync =
+                            { defaultTextDocumentSyncOptions with
+                                openClose = true
+                                willSave = true
+                                save = Some { includeText = true }
+                                change = TextDocumentSyncKind.Full }
+                        completionProvider = Some {resolveProvider = true; triggerCharacters = []}
+                        codeActionProvider = true
+                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"]} } }
+            }
+        member this.Initialized() =
+            async { () }
+        member this.Shutdown() =
+            async { () }
+        member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
+            async {
+                let newLanguages =
+                    match p.settings.Item("cwtools").Item("localisation").Item("languages") with
+                    | JsonValue.Array o ->
+                        o |> Array.choose (function |JsonValue.String s -> (match STLLang.TryParse<STLLang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [STLLang.English] else l)
+                    | _ -> [STLLang.English]
+                languages <- newLanguages |> List.map STL
+                let newVanillaOnly =
+                    match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
+                    | JsonValue.Boolean b -> b
+                    | _ -> false
+                validateVanilla <- newVanillaOnly
+                let newExperimental =
+                    match p.settings.Item("cwtools").Item("experimental") with
+                    | JsonValue.Boolean b -> b
+                    | _ -> false
+                experimental <- newExperimental
+                let newcompletion =
+                    match p.settings.Item("cwtools").Item("experimental_completion") with
+                    | JsonValue.Boolean b -> b
+                    | _ -> false
+                experimental_completion <- newcompletion
+                let newIgnoreCodes =
+                    match p.settings.Item("cwtools").Item("errors").Item("ignore") with
+                    | JsonValue.Array o ->
+                        o |> Array.choose (function |JsonValue.String s -> Some s |_ -> None)
+                          |> List.ofArray
+                    | _ -> []
+                ignoreCodes <- newIgnoreCodes
+                let newIgnoreFiles =
+                    match p.settings.Item("cwtools").Item("errors").Item("ignorefiles") with
+                    | JsonValue.Array o ->
+                        o |> Array.choose (function |JsonValue.String s -> Some s |_ -> None)
+                          |> List.ofArray
+                    | _ -> []
+                ignoreFiles <- newIgnoreFiles
+                eprintfn "New configuration %s" (p.ToString())
+                let task = new Task((fun () -> processWorkspace(rootUri)))
+                task.Start()
+            }
 
-        member this.DidOpenTextDocument(p: DidOpenTextDocumentParams): unit =
-            docs.Open p
-            lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
-        member this.DidChangeTextDocument(p: DidChangeTextDocumentParams): unit =
-            docs.Change p
-            lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
-        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams): unit = ()
+        member this.DidOpenTextDocument(p: DidOpenTextDocumentParams) =
+            async {
+                docs.Open p
+                lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
+            }
+        member this.DidChangeTextDocument(p: DidChangeTextDocumentParams) =
+            async {
+                docs.Change p
+                lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
+            }
+        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams) = async { () }
             //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument})
-        member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams): list<TextEdit> = TODO()
-        member this.DidSaveTextDocument(p: DidSaveTextDocumentParams): unit =
-            lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = 0})
-        member this.DidCloseTextDocument(p: DidCloseTextDocumentParams): unit =
-            docs.Close p
-        member this.DidChangeWatchedFiles(p: DidChangeWatchedFilesParams): unit =
-            for change in p.changes do
-                match change._type with
-                |FileChangeType.Created ->
+        member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams) = TODO()
+        member this.DidSaveTextDocument(p: DidSaveTextDocumentParams) =
+            async {
+                lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = 0})
+            }
+        member this.DidCloseTextDocument(p: DidCloseTextDocumentParams) =
+            async {
+                docs.Close p
+            }
+        member this.DidChangeWatchedFiles(p: DidChangeWatchedFilesParams) =
+            async {
+                for change in p.changes do
+                    match change.``type`` with
+                    |FileChangeType.Created ->
 
-                    lintAgent.Post (UpdateRequest {uri = change.uri; version = 0})
-                    //eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
-                |FileChangeType.Deleted ->
-                    LanguageServer.sendNotification send (PublishDiagnostics {uri = change.uri; diagnostics = []})
-                |_ ->                 ()
-                // if change.uri.AbsolutePath.EndsWith ".fsproj" then
-                //     projects.UpdateProjectFile change.uri
-                    //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
-        member this.Completion(p: TextDocumentPositionParams): CompletionList =
-            let defaultCompletionItem = { label = ""; additionalTextEdits = None; kind = None; detail = None; documentation = None; sortText = None; filterText = None; insertText = None; insertTextFormat = None; textEdit = None; commitCharacters = None; command = None; data = None}
-            match gameObj with
-            |Some game ->
-                match experimental_completion with
-                |true ->
-                    let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
-                    let path =
-                        let u = p.textDocument.uri
-                        if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
-                        then u.LocalPath.Substring(1)
-                        else u.LocalPath
-                    let comp = game.Complete position (path) (docs.GetText p.textDocument.uri |> Option.defaultValue "")
-                    // let extraKeywords = ["yes"; "no";]
-                    // let eventIDs = game.References.EventIDs
-                    // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                    let items =
-                        comp |> List.map (
-                            function
-                            |Simple e -> {defaultCompletionItem with label = e}
-                            |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> DocString d)}
-                            |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d -> DocString d)})
-                    // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                    {isIncomplete = false; items = items}
-                |false ->
-                    let extraKeywords = ["yes"; "no";]
-                    let eventIDs = game.References.EventIDs
-                    let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                    let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                    let items = names |> List.map (fun n -> {defaultCompletionItem with label = n})
-                    {isIncomplete = false; items = items @ variables}
-            |None -> {isIncomplete = false; items = []}
-        member this.Hover(p: TextDocumentPositionParams): Hover =
-            eprintfn "Hover"
-            hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously
+                        lintAgent.Post (UpdateRequest {uri = change.uri; version = 0})
+                        //eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
+                    |FileChangeType.Deleted ->
+                        client.PublishDiagnostics {uri = change.uri; diagnostics = []}
+                    |_ ->                 ()
+                    // if change.uri.AbsolutePath.EndsWith ".fsproj" then
+                    //     projects.UpdateProjectFile change.uri
+                        //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
+            }
+        member this.Completion(p: TextDocumentPositionParams) =
+            async {
+                return
+                    match gameObj with
+                    |Some game ->
+                        match experimental_completion with
+                        |true ->
+                            let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
+                            let path =
+                                let u = p.textDocument.uri
+                                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                                then u.LocalPath.Substring(1)
+                                else u.LocalPath
+                            let comp = game.Complete position (path) (docs.GetText (FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
+                            // let extraKeywords = ["yes"; "no";]
+                            // let eventIDs = game.References.EventIDs
+                            // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                            let items =
+                                comp |> List.map (
+                                    function
+                                    |Simple e -> {defaultCompletionItem with label = e}
+                                    |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
+                                    |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
+                            // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                            Some {isIncomplete = false; items = items}
+                        |false ->
+                            let extraKeywords = ["yes"; "no";]
+                            let eventIDs = game.References.EventIDs
+                            let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                            let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                            let items = names |> List.map (fun n -> {defaultCompletionItem with label = n})
+                            Some {isIncomplete = false; items = items @ variables}
+                    |None -> None
+            }
+        member this.Hover(p: TextDocumentPositionParams) =
+            async {
+                eprintfn "Hover"
+                return hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously |> Some
+            }
 
-        member this.ResolveCompletionItem(p: CompletionItem): CompletionItem =
-            completionResolveItem(p) |> Async.RunSynchronously
-        member this.SignatureHelp(p: TextDocumentPositionParams): SignatureHelp = TODO()
-        member this.GotoDefinition(p: TextDocumentPositionParams): list<Location> = TODO()
-        member this.FindReferences(p: ReferenceParams): list<Location> = TODO()
-        member this.DocumentHighlight(p: TextDocumentPositionParams): list<DocumentHighlight> = TODO()
-        member this.DocumentSymbols(p: DocumentSymbolParams): list<SymbolInformation> = TODO()
-        member this.WorkspaceSymbols(p: WorkspaceSymbolParams): list<SymbolInformation> = TODO()
-        member this.CodeActions(p: CodeActionParams): list<Command> =
-            match gameObj with
-            |Some game ->
-                let es = game.LocalisationErrors()
-                let les = es |> List.filter (fun (_, e, pos,_, _, _) -> (pos) |> (fun a -> (isPositionInRange a p.range) && a.FileName.Replace("\\","/") = p.textDocument.uri.LocalPath.Substring(1)) )
-                match les with
-                |[] -> []
-                |_ ->
-                    [
-                        {title = "Generate localisation .yml for this file"; command = "genlocfile"; arguments = [p.textDocument.uri.LocalPath.Substring(1) |> JsonValue.String]}
-                        {title = "Generate localisation .yml for all"; command = "genlocall"; arguments = []}
-                    ]
-            |None -> []
-        member this.CodeLens(p: CodeLensParams): List<CodeLens> = TODO()
-        member this.ResolveCodeLens(p: CodeLens): CodeLens = TODO()
-        member this.DocumentLink(p: DocumentLinkParams): list<DocumentLink> = TODO()
-        member this.ResolveDocumentLink(p: DocumentLink): DocumentLink = TODO()
-        member this.DocumentFormatting(p: DocumentFormattingParams): list<TextEdit> = TODO()
-        member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams): list<TextEdit> = TODO()
-        member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams): list<TextEdit> = TODO()
-        member this.Rename(p: RenameParams): WorkspaceEdit = TODO()
-        member this.ExecuteCommand(p: ExecuteCommandParams): unit =
-            match gameObj with
-            |Some game ->
-                match p with
-                | {command = "genlocfile"; arguments = x::_} ->
-                    let les = game.LocalisationErrors() |> List.filter (fun (_, e, pos,_, _, _) -> (pos) |> (fun a -> a.FileName.Replace("\\","/") = x.AsString()))
-                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
-                                   |> List.choose (fun (_, _, _, _, _, k) -> k)
-                                   |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
-                                   |> List.distinct
-                    let text = String.Join(Environment.NewLine,keys)
-                    let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
-                    LanguageServer.sendNotification send notif
-                | {command = "genlocall"; arguments = _} ->
-                    let les = game.LocalisationErrors()
-                    let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
-                                   |> List.choose (fun (_, _, _, _, _, k) -> k)
-                                   |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
-                                   |> List.distinct
-                    let text = String.Join(Environment.NewLine,keys)
-                    let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
-                    LanguageServer.sendNotification send notif
-                | {command = "outputerrors"; arguments = _} ->
-                    let errors = game.LocalisationErrors() @ game.ValidationErrors
-                    let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
-                    let text = String.Join(Environment.NewLine, (texts))
-                    let notif = CreateVirtualFile { uri = Uri "cwtools://errors.csv"; fileContent = text }
-                    LanguageServer.sendNotification send notif
-                |_ -> ()
-            |None -> ()
+        member this.ResolveCompletionItem(p: CompletionItem) =
+            async {
+                return completionResolveItem(p) |> Async.RunSynchronously
+            }
+        member this.SignatureHelp(p: TextDocumentPositionParams) = TODO()
+        member this.GotoDefinition(p: TextDocumentPositionParams) = TODO()
+        member this.FindReferences(p: ReferenceParams) = TODO()
+        member this.DocumentHighlight(p: TextDocumentPositionParams) = TODO()
+        member this.DocumentSymbols(p: DocumentSymbolParams) = TODO()
+        member this.WorkspaceSymbols(p: WorkspaceSymbolParams) = TODO()
+        member this.CodeActions(p: CodeActionParams) =
+            async {
+                return
+                    match gameObj with
+                    |Some game ->
+                        let es = game.LocalisationErrors()
+                        let les = es |> List.filter (fun (_, e, pos,_, _, _) -> (pos) |> (fun a -> (isPositionInRange a p.range) && a.FileName.Replace("\\","/") = p.textDocument.uri.LocalPath.Substring(1)) )
+                        match les with
+                        |[] -> []
+                        |_ ->
+                            [
+                                {title = "Generate localisation .yml for this file"; command = "genlocfile"; arguments = [p.textDocument.uri.LocalPath.Substring(1) |> JsonValue.String]}
+                                {title = "Generate localisation .yml for all"; command = "genlocall"; arguments = []}
+                            ]
+                    |None -> []
+            }
+        member this.CodeLens(p: CodeLensParams) = TODO()
+        member this.ResolveCodeLens(p: CodeLens) = TODO()
+        member this.DocumentLink(p: DocumentLinkParams) = TODO()
+        member this.ResolveDocumentLink(p: DocumentLink) = TODO()
+        member this.DocumentFormatting(p: DocumentFormattingParams) = TODO()
+        member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams) = TODO()
+        member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams) = TODO()
+        member this.DidChangeWorkspaceFolders(p: DidChangeWorkspaceFoldersParams) = TODO()
+        member this.Rename(p: RenameParams) = TODO()
+        member this.ExecuteCommand(p: ExecuteCommandParams) =
+            async {
+                return
+                    match gameObj with
+                    |Some game ->
+                        match p with
+                        | {command = "genlocfile"; arguments = x::_} ->
+                            let les = game.LocalisationErrors() |> List.filter (fun (_, e, pos,_, _, _) -> (pos) |> (fun a -> a.FileName.Replace("\\","/") = x.AsString()))
+                            let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
+                                           |> List.choose (fun (_, _, _, _, _, k) -> k)
+                                           |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
+                                           |> List.distinct
+                            let text = String.Join(Environment.NewLine,keys)
+                            //let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
+                            client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
+                        | {command = "genlocall"; arguments = _} ->
+                            let les = game.LocalisationErrors()
+                            let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
+                                           |> List.choose (fun (_, _, _, _, _, k) -> k)
+                                           |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
+                                           |> List.distinct
+                            let text = String.Join(Environment.NewLine,keys)
+                            client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
+                            //LanguageServer.sendNotification send notif
+                        | {command = "outputerrors"; arguments = _} ->
+                            let errors = game.LocalisationErrors() @ game.ValidationErrors
+                            let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
+                            let text = String.Join(Environment.NewLine, (texts))
+                            client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
+                        |_ -> ()
+                    |None -> ()
+            }
 
 
 [<EntryPoint>]
@@ -550,9 +578,9 @@ let main (argv: array<string>): int =
 
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
-    let server = Server(write)
+    let serverFactory(client) = Server(client) :> ILanguageServer
     eprintfn "Listening on stdin"
-    LanguageServer.connect server read write
+    LanguageServer.connect(serverFactory, read, write)
     0 // return an integer exit code
     //eprintfn "%A" (JsonValue.Parse "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"processId\":12660,\"rootUri\": \"file:///c%3A/Users/Thomas/Documents/Paradox%20Interactive/Stellaris\"},\"capabilities\":{\"workspace\":{}}}")
     //0

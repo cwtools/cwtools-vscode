@@ -1,4 +1,4 @@
-module LSP.Types 
+module LSP.Types
 
 open System
 open FSharp.Data
@@ -7,10 +7,24 @@ type DidChangeConfigurationParams = {
     settings: JsonValue
 }
 
+type WorkspaceFolder = {
+    uri: Uri
+    name: string
+}
+
+type WorkspaceFoldersChangeEvent = {
+    added: WorkspaceFolder list
+    removed: WorkspaceFolder list
+}
+
+type DidChangeWorkspaceFoldersParams = {
+    event: WorkspaceFoldersChangeEvent
+}
+
 type TextDocumentItem = {
-    uri: Uri 
-    languageId: string 
-    version: int 
+    uri: Uri
+    languageId: string
+    version: int
     text: string
 }
 
@@ -19,8 +33,8 @@ type DidOpenTextDocumentParams = {
 }
 
 type VersionedTextDocumentIdentifier = {
-    uri: Uri 
-    version: int 
+    uri: Uri
+    version: int
 }
 
 type Position = {
@@ -34,14 +48,14 @@ type Range = {
 }
 
 type TextDocumentContentChangeEvent = {
-    range: option<Range>
-    rangeLength: option<int>
+    range: Range option
+    rangeLength: int option
     text: string
 }
 
 type DidChangeTextDocumentParams = {
     textDocument: VersionedTextDocumentIdentifier
-    contentChanges: list<TextDocumentContentChangeEvent>
+    contentChanges: TextDocumentContentChangeEvent list
 }
 
 type TextDocumentIdentifier = {
@@ -49,10 +63,16 @@ type TextDocumentIdentifier = {
 }
 
 [<RequireQualifiedAccess>]
-type TextDocumentSaveReason = 
+type TextDocumentSaveReason =
 | Manual
 | AfterDelay
 | FocusOut
+
+let writeTextDocumentSaveReason i =
+    match i with
+    | TextDocumentSaveReason.Manual -> 1
+    | TextDocumentSaveReason.AfterDelay -> 2
+    | TextDocumentSaveReason.FocusOut -> 3
 
 type WillSaveTextDocumentParams = {
     textDocument: TextDocumentIdentifier
@@ -61,7 +81,7 @@ type WillSaveTextDocumentParams = {
 
 type DidSaveTextDocumentParams = {
     textDocument: TextDocumentIdentifier
-    text: option<string>
+    text: string option
 }
 
 type DidCloseTextDocumentParams = {
@@ -69,22 +89,27 @@ type DidCloseTextDocumentParams = {
 }
 
 [<RequireQualifiedAccess>]
-type FileChangeType = 
+type FileChangeType =
 | Created
-| Changed 
+| Changed
 | Deleted
 
+let writeFileChangeType i =
+    match i with
+    | FileChangeType.Created -> 1
+    | FileChangeType.Changed -> 2
+    | FileChangeType.Deleted -> 3
+
 type FileEvent = {
-    uri: Uri 
-    _type: FileChangeType
+    uri: Uri
+    ``type``: FileChangeType
 }
 
 type DidChangeWatchedFilesParams = {
-    changes: list<FileEvent>
+    changes: FileEvent list
 }
-    
-type Notification = 
-| Cancel of id: int 
+
+type Notification =
 | Initialized
 | DidChangeConfiguration of DidChangeConfigurationParams
 | DidOpenTextDocument of DidOpenTextDocumentParams
@@ -96,19 +121,19 @@ type Notification =
 | OtherNotification of method: string
 
 type Location = {
-    uri: Uri 
-    range: Range 
+    uri: Uri
+    range: Range
 }
 
 [<RequireQualifiedAccess>]
-type DiagnosticSeverity = 
+type DiagnosticSeverity =
 | Error
 | Warning
 | Information
 | Hint
 
-let writeDiagnosticSeverity (s : DiagnosticSeverity) =
-    match s with
+let writeDiagnosticSeverity i =
+    match i with
     | DiagnosticSeverity.Error -> 1
     | DiagnosticSeverity.Warning -> 2
     | DiagnosticSeverity.Information -> 3
@@ -116,30 +141,30 @@ let writeDiagnosticSeverity (s : DiagnosticSeverity) =
 
 type Diagnostic = {
     range: Range
-    severity: option<DiagnosticSeverity>
-    code: option<string>
-    source: option<string>
-    message: string;
+    severity: DiagnosticSeverity option
+    code: string option
+    source: string option
+    message: string
 }
 
 type Command = {
     title: string
-    command: string 
-    arguments: list<JsonValue>
+    command: string
+    arguments: JsonValue list
 }
 
 type TextEdit = {
-    range: Range 
+    range: Range
     newText: string
 }
 
 type TextDocumentEdit = {
     textDocument: VersionedTextDocumentIdentifier
-    edits: list<TextEdit>
+    edits: TextEdit list
 }
 
 type WorkspaceEdit = {
-    documentChanges: list<TextDocumentEdit>
+    documentChanges: TextDocumentEdit list
 }
 
 type TextDocumentPositionParams = {
@@ -148,47 +173,53 @@ type TextDocumentPositionParams = {
 }
 
 type DocumentFilter = {
-    language: string 
-    scheme: string 
-    pattern: string
+    language: string option
+    scheme: string option
+    pattern: string option
 }
 
-type DocumentSelector = list<DocumentFilter>
+type DocumentSelector = DocumentFilter list
 
 [<RequireQualifiedAccess>]
-type Trace = 
-| Off 
-| Messages 
+type Trace =
+| Off
+| Messages
 | Verbose
 
+let writeTrace i =
+    match i with
+    | Trace.Off -> "off"
+    | Trace.Messages -> "messages"
+    | Trace.Verbose -> "verbose"
+
 type InitializeParams = {
-    processId: option<int>
-    rootUri: option<Uri>
-    initializationOptions: option<JsonValue>
+    processId: int option
+    rootUri: Uri option
+    initializationOptions: JsonValue option
     capabilitiesMap: Map<string, bool>
-    trace: option<Trace>
+    trace: Trace option
 }
 
-let defaultInitializeParams: InitializeParams = {
-    processId = None 
-    rootUri = None 
-    initializationOptions = None 
-    capabilitiesMap = Map.empty 
+let defaultInitializeParams = {
+    processId = None
+    rootUri = None
+    initializationOptions = None
+    capabilitiesMap = Map.empty
     trace = None
 }
 
 [<RequireQualifiedAccess>]
-type InsertTextFormat = 
-| PlainText 
-| Snippet 
+type InsertTextFormat =
+| PlainText
+| Snippet
 
-let writeInsertTextFormat (i: InsertTextFormat) = 
-    match i with 
+let writeInsertTextFormat(i: InsertTextFormat) =
+    match i with
     | InsertTextFormat.PlainText -> 1
     | InsertTextFormat.Snippet -> 2
 
 [<RequireQualifiedAccess>]
-type CompletionItemKind = 
+type CompletionItemKind =
 | Text
 | Method
 | Function
@@ -207,9 +238,16 @@ type CompletionItemKind =
 | Color
 | File
 | Reference
+| Folder
+| EnumMember
+| Constant
+| Struct
+| Event
+| Operator
+| TypeParameter
 
-let writeCompletionItemKind (i: CompletionItemKind) = 
-    match i with 
+let writeCompletionItemKind(i: CompletionItemKind) =
+    match i with
     | CompletionItemKind.Text -> 1
     | CompletionItemKind.Method -> 2
     | CompletionItemKind.Function -> 3
@@ -228,34 +266,59 @@ let writeCompletionItemKind (i: CompletionItemKind) =
     | CompletionItemKind.Color -> 16
     | CompletionItemKind.File -> 17
     | CompletionItemKind.Reference -> 18
+    | CompletionItemKind.Folder -> 19
+    | CompletionItemKind.EnumMember -> 20
+    | CompletionItemKind.Constant -> 21
+    | CompletionItemKind.Struct -> 22
+    | CompletionItemKind.Event -> 23
+    | CompletionItemKind.Operator -> 24
+    | CompletionItemKind.TypeParameter -> 25
 
-type CompletionDocumentation =
-    |DocString of string
-    |DocMarkup of kind : string * value : string
+[<RequireQualifiedAccess>]
+type MarkupKind =
+| PlainText
+| Markdown
 
-let writeCompletionDocumentation (s: CompletionDocumentation): JsonValue = 
-    match s with 
-    | DocString(s) -> 
-        JsonValue.String s
-    | DocMarkup (kind, value) -> 
-        JsonValue.Record
-            [| "kind", (JsonValue.String kind);
-                "value", (JsonValue.String value)|]
+let writeMarkupKind(m: MarkupKind): string =
+    match m with
+    | MarkupKind.PlainText -> "plaintext"
+    | MarkupKind.Markdown -> "markdown"
+
+type MarkupContent = {
+    kind: MarkupKind
+    value: string
+}
 
 type CompletionItem = {
-    label: string 
-    kind: option<CompletionItemKind>
-    detail: option<string>
-    documentation: option<CompletionDocumentation>
-    sortText: option<string>
-    filterText: option<string>
-    insertText: option<string>
-    insertTextFormat: option<InsertTextFormat>
-    textEdit: option<TextEdit>
-    additionalTextEdits: option<list<TextEdit>>
-    commitCharacters: option<list<char>>
-    command: option<Command>
-    data: option<JsonValue>
+    label: string
+    kind: CompletionItemKind option
+    detail: string option
+    documentation: MarkupContent option
+    sortText: string option
+    filterText: string option
+    insertText: string option
+    insertTextFormat: InsertTextFormat option
+    textEdit: TextEdit option
+    additionalTextEdits: TextEdit list
+    commitCharacters: char list
+    command: Command option
+    data: JsonValue
+}
+
+let defaultCompletionItem: CompletionItem = {
+    label = ""
+    kind = None
+    detail = None
+    documentation = None
+    sortText = None
+    filterText = None
+    insertText = None
+    insertTextFormat = None
+    textEdit = None
+    additionalTextEdits = []
+    commitCharacters = []
+    command = None
+    data = JsonValue.Null
 }
 
 type ReferenceContext = {
@@ -277,7 +340,7 @@ type WorkspaceSymbolParams = {
 }
 
 type CodeActionContext = {
-    diagnostics: list<Diagnostic>
+    diagnostics: Diagnostic list
 }
 
 type CodeActionParams = {
@@ -291,8 +354,8 @@ type CodeLensParams = {
 }
 
 type CodeLens = {
-    range: Range 
-    command: option<Command>
+    range: Range
+    command: Command option
     data: JsonValue
 }
 
@@ -301,13 +364,13 @@ type DocumentLinkParams = {
 }
 
 type DocumentLink = {
-    range: Range 
-    target: option<Uri>
+    range: Range
+    target: Uri option
 }
 
 type DocumentFormattingOptions = {
-    tabSize: int 
-    insertSpaces: bool 
+    tabSize: int
+    insertSpaces: bool
 }
 
 type DocumentFormattingParams = {
@@ -328,7 +391,7 @@ type DocumentOnTypeFormattingParams = {
     options: DocumentFormattingOptions
     optionsMap: Map<string, string>
     position: Position
-    ch: char 
+    ch: char
 }
 
 type RenameParams = {
@@ -338,11 +401,11 @@ type RenameParams = {
 }
 
 type ExecuteCommandParams = {
-    command: string 
-    arguments: list<JsonValue>
+    command: string
+    arguments: JsonValue list
 }
 
-type Request = 
+type Request =
 | Initialize of InitializeParams
 | Shutdown
 | WillSaveWaitUntilTextDocument of WillSaveTextDocumentParams
@@ -365,31 +428,32 @@ type Request =
 | DocumentOnTypeFormatting of DocumentOnTypeFormattingParams
 | Rename of RenameParams
 | ExecuteCommand of ExecuteCommandParams
+| DidChangeWorkspaceFolders of DidChangeWorkspaceFoldersParams
 
 [<RequireQualifiedAccess>]
-type TextDocumentSyncKind = 
-| None 
+type TextDocumentSyncKind =
+| None
 | Full
 | Incremental
 
-let writeTextDocumentSyncKind (i: TextDocumentSyncKind) = 
-    match i with 
+let writeTextDocumentSyncKind(i: TextDocumentSyncKind) =
+    match i with
     | TextDocumentSyncKind.None -> 0
     | TextDocumentSyncKind.Full -> 1
     | TextDocumentSyncKind.Incremental -> 2
 
 type CompletionOptions = {
-    resolveProvider: bool 
-    triggerCharacters: list<char>
+    resolveProvider: bool
+    triggerCharacters: char list
 }
 
 let defaultCompletionOptions = {
-    resolveProvider = false 
+    resolveProvider = false
     triggerCharacters = ['.']
 }
 
 type SignatureHelpOptions = {
-    triggerCharacters: list<char>
+    triggerCharacters: char list
 }
 
 let defaultSignatureHelpOptions = {
@@ -397,7 +461,7 @@ let defaultSignatureHelpOptions = {
 }
 
 type CodeLensOptions = {
-    resolveProvider: bool  
+    resolveProvider: bool
 }
 
 let defaultCodeLensOptions = {
@@ -406,7 +470,7 @@ let defaultCodeLensOptions = {
 
 type DocumentOnTypeFormattingOptions = {
     firstTriggerCharacter: char
-    moreTriggerCharacter: list<char>
+    moreTriggerCharacter: char list
 }
 
 type DocumentLinkOptions = {
@@ -418,7 +482,7 @@ let defaultDocumentLinkOptions = {
 }
 
 type ExecuteCommandOptions = {
-    commands: list<string>
+    commands: string list
 }
 
 type SaveOptions = {
@@ -430,13 +494,13 @@ type TextDocumentSyncOptions = {
     change: TextDocumentSyncKind
     willSave: bool
     willSaveWaitUntil: bool
-    save: option<SaveOptions>
+    save: SaveOptions option
 }
 
 let defaultTextDocumentSyncOptions = {
     openClose = false
     change = TextDocumentSyncKind.None
-    willSave = false 
+    willSave = false
     willSaveWaitUntil = false
     save = None
 }
@@ -444,21 +508,21 @@ let defaultTextDocumentSyncOptions = {
 type ServerCapabilities = {
     textDocumentSync: TextDocumentSyncOptions
     hoverProvider: bool
-    completionProvider: option<CompletionOptions>
-    signatureHelpProvider: option<SignatureHelpOptions>
+    completionProvider: CompletionOptions option
+    signatureHelpProvider: SignatureHelpOptions option
     definitionProvider: bool
     referencesProvider: bool
     documentHighlightProvider: bool
     documentSymbolProvider: bool
     workspaceSymbolProvider: bool
     codeActionProvider: bool
-    codeLensProvider: option<CodeLensOptions>
+    codeLensProvider: CodeLensOptions option
     documentFormattingProvider: bool
     documentRangeFormattingProvider: bool
-    documentOnTypeFormattingProvider: option<DocumentOnTypeFormattingOptions>
+    documentOnTypeFormattingProvider: DocumentOnTypeFormattingOptions option
     renameProvider: bool
-    documentLinkProvider: option<DocumentLinkOptions>
-    executeCommandProvider: option<ExecuteCommandOptions>
+    documentLinkProvider: DocumentLinkOptions option
+    executeCommandProvider: ExecuteCommandOptions option
 }
 
 let defaultServerCapabilities: ServerCapabilities = {
@@ -486,78 +550,77 @@ type InitializeResult = {
 }
 
 type CompletionList = {
-    isIncomplete: bool 
-    items: list<CompletionItem>
+    isIncomplete: bool
+    items: CompletionItem list
 }
 
-type MarkedString = 
-| HighlightedString of value: string * language: string 
+type MarkedString =
+| HighlightedString of value: string * language: string
+// TODO this is very misnamed, this is actually markdown
 | PlainString of string
 
-let writeMarkedString (s: MarkedString): JsonValue = 
-    match s with 
-    | HighlightedString (value, language) -> 
-        JsonValue.Record 
+let writeMarkedString(s: MarkedString): JsonValue =
+    match s with
+    | HighlightedString (value, language) ->
+        JsonValue.Record
             [| "language", (JsonValue.String language);
                "value", (JsonValue.String value) |]
-    | PlainString value -> 
+    | PlainString value ->
         JsonValue.String value
-
 type HoverContent =
 |MarkedStrings of MarkedString[]
 |MarkupContent of kind: string * value: string
 
-let writeHoverContent (s: HoverContent): JsonValue = 
-    match s with 
-    | MarkedStrings(s) -> 
+let writeHoverContent (s: HoverContent): JsonValue =
+    match s with
+    | MarkedStrings(s) ->
         JsonValue.Array (s |> Array.map writeMarkedString)
-    | MarkupContent (kind, value) -> 
+    | MarkupContent (kind, value) ->
         JsonValue.Record
             [| "kind", (JsonValue.String kind);
                 "value", (JsonValue.String value)|]
-
 type Hover = {
     contents: HoverContent
-    range: option<Range>
+    range: Range option
 }
 
 type ParameterInformation = {
-    label: string 
-    documentation: option<string>
+    label: string
+    documentation: string option
 }
 
 type SignatureInformation = {
-    label: string 
-    documentation: option<string>
-    parameters: list<ParameterInformation>
+    label: string
+    documentation: string option
+    parameters: ParameterInformation list
 }
 
 type SignatureHelp = {
-    signatures: list<SignatureInformation>
-    activeSignature: option<int>
-    activeParameter: option<int>
+    signatures: SignatureInformation list
+    activeSignature: int option
+    activeParameter: int option
 }
 
 [<RequireQualifiedAccess>]
-type DocumentHighlightKind = 
-| Text 
-| Read 
-| Write 
+type DocumentHighlightKind =
+| Text
+| Read
+| Write
 
-let writeDocumentHighlightKind (i: DocumentHighlightKind) = 
-    match i with 
+let writeDocumentHighlightKind(i: DocumentHighlightKind) =
+    match i with
     | DocumentHighlightKind.Text -> 1
     | DocumentHighlightKind.Read -> 2
-    | DocumentHighlightKind.Write -> 3 
+    | DocumentHighlightKind.Write -> 3
 
 
 type DocumentHighlight = {
-    range: Range 
+    range: Range
     kind: DocumentHighlightKind
 }
 
 [<RequireQualifiedAccess>]
-type SymbolKind = 
+type SymbolKind =
 | File
 | Module
 | Namespace
@@ -577,7 +640,7 @@ type SymbolKind =
 | Boolean
 | Array
 
-let writeSymbolKind (i: SymbolKind) = 
+let writeSymbolKind(i: SymbolKind) =
     match i with
     | SymbolKind.File -> 1
     | SymbolKind.Module -> 2
@@ -599,49 +662,102 @@ let writeSymbolKind (i: SymbolKind) =
     | SymbolKind.Array -> 18
 
 type SymbolInformation = {
-    name: string 
-    kind: SymbolKind 
+    name: string
+    kind: SymbolKind
     location: Location
-    containerName: option<string>
+    containerName: string option
 }
 
-type ILanguageServer = 
-    abstract member Initialize: InitializeParams -> InitializeResult
-    abstract member Initialized: unit -> unit 
-    abstract member Shutdown: unit -> Unit 
-    abstract member DidChangeConfiguration: DidChangeConfigurationParams -> unit 
-    abstract member DidOpenTextDocument: DidOpenTextDocumentParams -> unit 
-    abstract member DidChangeTextDocument: DidChangeTextDocumentParams -> unit 
-    abstract member WillSaveTextDocument: WillSaveTextDocumentParams -> unit
-    abstract member WillSaveWaitUntilTextDocument: WillSaveTextDocumentParams -> list<TextEdit>
-    abstract member DidSaveTextDocument: DidSaveTextDocumentParams -> unit
-    abstract member DidCloseTextDocument: DidCloseTextDocumentParams -> unit
-    abstract member DidChangeWatchedFiles: DidChangeWatchedFilesParams -> unit
-    abstract member Completion: TextDocumentPositionParams -> CompletionList
-    abstract member Hover: TextDocumentPositionParams -> Hover
-    abstract member ResolveCompletionItem: CompletionItem -> CompletionItem
-    abstract member SignatureHelp: TextDocumentPositionParams -> SignatureHelp
-    abstract member GotoDefinition: TextDocumentPositionParams -> list<Location>
-    abstract member FindReferences: ReferenceParams -> list<Location>
-    abstract member DocumentHighlight: TextDocumentPositionParams -> list<DocumentHighlight>
-    abstract member DocumentSymbols: DocumentSymbolParams -> list<SymbolInformation>
-    abstract member WorkspaceSymbols: WorkspaceSymbolParams -> list<SymbolInformation>
-    abstract member CodeActions: CodeActionParams -> list<Command>
-    abstract member CodeLens: CodeLensParams -> List<CodeLens>
-    abstract member ResolveCodeLens: CodeLens -> CodeLens
-    abstract member DocumentLink: DocumentLinkParams -> list<DocumentLink>
-    abstract member ResolveDocumentLink: DocumentLink -> DocumentLink
-    abstract member DocumentFormatting: DocumentFormattingParams -> list<TextEdit>
-    abstract member DocumentRangeFormatting: DocumentRangeFormattingParams -> list<TextEdit>
-    abstract member DocumentOnTypeFormatting: DocumentOnTypeFormattingParams -> list<TextEdit>
-    abstract member Rename: RenameParams -> WorkspaceEdit
-    abstract member ExecuteCommand: ExecuteCommandParams -> unit
+type ILanguageServer =
+    abstract member Initialize: InitializeParams -> Async<InitializeResult>
+    abstract member Initialized: unit -> Async<unit>
+    abstract member Shutdown: unit -> Async<unit>
+    abstract member DidChangeConfiguration: DidChangeConfigurationParams -> Async<unit>
+    abstract member DidOpenTextDocument: DidOpenTextDocumentParams -> Async<unit>
+    abstract member DidChangeTextDocument: DidChangeTextDocumentParams -> Async<unit>
+    abstract member WillSaveTextDocument: WillSaveTextDocumentParams -> Async<unit>
+    abstract member WillSaveWaitUntilTextDocument: WillSaveTextDocumentParams -> Async<TextEdit list>
+    abstract member DidSaveTextDocument: DidSaveTextDocumentParams -> Async<unit>
+    abstract member DidCloseTextDocument: DidCloseTextDocumentParams -> Async<unit>
+    abstract member DidChangeWatchedFiles: DidChangeWatchedFilesParams -> Async<unit>
+    abstract member Completion: TextDocumentPositionParams -> Async<CompletionList option>
+    abstract member Hover: TextDocumentPositionParams -> Async<Hover option>
+    abstract member ResolveCompletionItem: CompletionItem -> Async<CompletionItem>
+    abstract member SignatureHelp: TextDocumentPositionParams -> Async<SignatureHelp option>
+    abstract member GotoDefinition: TextDocumentPositionParams -> Async<Location list>
+    abstract member FindReferences: ReferenceParams -> Async<Location list>
+    abstract member DocumentHighlight: TextDocumentPositionParams -> Async<DocumentHighlight list>
+    abstract member DocumentSymbols: DocumentSymbolParams -> Async<SymbolInformation list>
+    abstract member WorkspaceSymbols: WorkspaceSymbolParams -> Async<SymbolInformation list>
+    abstract member CodeActions: CodeActionParams -> Async<Command list>
+    abstract member CodeLens: CodeLensParams -> Async<CodeLens list>
+    abstract member ResolveCodeLens: CodeLens -> Async<CodeLens>
+    abstract member DocumentLink: DocumentLinkParams -> Async<DocumentLink list>
+    abstract member ResolveDocumentLink: DocumentLink -> Async<DocumentLink>
+    abstract member DocumentFormatting: DocumentFormattingParams -> Async<TextEdit list>
+    abstract member DocumentRangeFormatting: DocumentRangeFormattingParams -> Async<TextEdit list>
+    abstract member DocumentOnTypeFormatting: DocumentOnTypeFormattingParams -> Async<TextEdit list>
+    abstract member Rename: RenameParams -> Async<WorkspaceEdit>
+    abstract member ExecuteCommand: ExecuteCommandParams -> Async<unit>
+    abstract member DidChangeWorkspaceFolders: DidChangeWorkspaceFoldersParams -> Async<unit>
 
-// TODO IAsyncLanguageServer that supports request cancellation
 type PublishDiagnosticsParams = {
-    uri : Uri
-    diagnostics : Diagnostic list
-    }
+    uri: Uri
+    diagnostics: Diagnostic list
+}
+
+[<RequireQualifiedAccess>]
+type MessageType =
+| Error
+| Warning
+| Info
+| Log
+
+let writeMessageType(t: MessageType) =
+    match t with
+    | MessageType.Error -> 1
+    | MessageType.Warning -> 2
+    | MessageType.Info -> 3
+    | MessageType.Log -> 4
+
+type ShowMessageParams = {
+    ``type``: MessageType
+    message: string
+}
+
+module WatchKind =
+    let Create = 1
+    let Change = 2
+    let Delete = 4
+    let All = 7 // 1 | 2 | 4
+
+type FileSystemWatcher = {
+    globPattern: string
+    kind: int
+}
+
+[<RequireQualifiedAccess>]
+type RegisterCapability =
+    | DidChangeWatchedFiles of watchers: FileSystemWatcher list
+
+type DidChangeWatchedFilesOptions = {
+    watchers: FileSystemWatcher list
+}
+
+let writeRegisterCapability(r: RegisterCapability) =
+    match r with
+    | RegisterCapability.DidChangeWatchedFiles watchers -> {watchers=watchers}
+
+type Registration = {
+    id: string
+    method: string
+    registerOptions: RegisterCapability
+}
+
+type RegistrationParams = {
+    registrations: Registration list
+}
+
 type LoadingBarParams = {
     enable : bool
     value : string
@@ -650,7 +766,7 @@ type CreateVirtualFileParams = {
     uri : Uri
     fileContent : string
 }
-type ServerNotification = 
+type ServerNotification =
 | PublishDiagnostics of PublishDiagnosticsParams
 | LoadingBar of LoadingBarParams
 | CreateVirtualFile of CreateVirtualFileParams
@@ -664,6 +780,19 @@ type ApplyWorkspaceEditParams = {
     edit : WorkspaceEdit
 }
 
-type ServerRequest = 
+type ApplyWorkspaceEditResponse = {
+    applied : bool
+}
+
+type ServerRequest =
 | GetWordRangeAtPosition of GetWordRangeAtPositionParams
 | ApplyWorkspaceEdit of ApplyWorkspaceEditParams
+
+type ILanguageClient =
+    abstract member PublishDiagnostics: PublishDiagnosticsParams -> unit
+    abstract member ShowMessage: ShowMessageParams -> unit
+    abstract member RegisterCapability: RegisterCapability -> unit
+    abstract member CustomNotification: string * JsonValue -> unit
+    abstract member ApplyWorkspaceEdit: ApplyWorkspaceEditParams -> Async<JsonValue>
+    abstract member CustomRequest: string * JsonValue -> Async<JsonValue>
+

@@ -1,53 +1,62 @@
-module LSP.LanguageServer 
+module LSP.LanguageServer
 
-open FSharp.Data
+open LSP.Log
 open System
+open System.Threading
+open System.Threading.Tasks
 open System.IO
 open System.Text
-open Types 
-open Json
-open System.Collections.Concurrent
-open System.Threading.Tasks
-open System.Globalization
-open FSharp.Collections.ParallelSeq
-open System.Threading
+open FSharp.Data
+open Types
+open LSP.Json.Ser
+open JsonExtensions
 
-let jsonWriteOptions = 
-    { defaultJsonWriteOptions with 
-        customWriters = 
-            [ writeTextDocumentSyncKind;
+let private jsonWriteOptions =
+    { defaultJsonWriteOptions with
+        customWriters =
+            [ writeTextDocumentSaveReason;
+              writeFileChangeType;
+              writeTextDocumentSyncKind;
               writeDiagnosticSeverity;
+              writeTrace;
               writeInsertTextFormat;
               writeCompletionItemKind;
               writeMarkedString;
-              writeHoverContent;
               writeDocumentHighlightKind;
               writeSymbolKind;
-              writeCompletionDocumentation; ] }
+              writeRegisterCapability;
+              writeMessageType;
+              writeMarkupKind;
+              writeHoverContent ] }
 
 let private serializeInitializeResult = serializerFactory<InitializeResult> jsonWriteOptions
-let private serializeTextEditList = serializerFactory<list<TextEdit>> jsonWriteOptions
+let private serializeTextEditList = serializerFactory<TextEdit list> jsonWriteOptions
 let private serializeCompletionList = serializerFactory<CompletionList> jsonWriteOptions
+let private serializeCompletionListOption = Option.map serializeCompletionList
 let private serializeHover = serializerFactory<Hover> jsonWriteOptions
+let private serializeHoverOption = Option.map serializeHover
 let private serializeCompletionItem = serializerFactory<CompletionItem> jsonWriteOptions
 let private serializeSignatureHelp = serializerFactory<SignatureHelp> jsonWriteOptions
-let private serializeLocationList = serializerFactory<list<Location>> jsonWriteOptions
-let private serializeDocumentHighlightList = serializerFactory<list<DocumentHighlight>> jsonWriteOptions
-let private serializeSymbolInformationList = serializerFactory<list<SymbolInformation>> jsonWriteOptions
-let private serializeCommandList = serializerFactory<list<Command>> jsonWriteOptions
-let private serializeCodeLensList = serializerFactory<list<CodeLens>> jsonWriteOptions
+let private serializeSignatureHelpOption = Option.map serializeSignatureHelp
+let private serializeLocationList = serializerFactory<Location list> jsonWriteOptions
+let private serializeDocumentHighlightList = serializerFactory<DocumentHighlight list> jsonWriteOptions
+let private serializeSymbolInformationList = serializerFactory<SymbolInformation list> jsonWriteOptions
+let private serializeCommandList = serializerFactory<Command list> jsonWriteOptions
+let private serializeCodeLensList = serializerFactory<CodeLens list> jsonWriteOptions
 let private serializeCodeLens = serializerFactory<CodeLens> jsonWriteOptions
-let private serializeDocumentLinkList = serializerFactory<list<DocumentLink>> jsonWriteOptions
+let private serializeDocumentLinkList = serializerFactory<DocumentLink list> jsonWriteOptions
 let private serializeDocumentLink = serializerFactory<DocumentLink> jsonWriteOptions
 let private serializeWorkspaceEdit = serializerFactory<WorkspaceEdit> jsonWriteOptions
 let private serializePublishDiagnostics = serializerFactory<PublishDiagnosticsParams> jsonWriteOptions
+let private serializeShowMessage = serializerFactory<ShowMessageParams> jsonWriteOptions
+let private serializeRegistrationParams = serializerFactory<RegistrationParams> jsonWriteOptions
 let private serializeLoadingBarParams = serializerFactory<LoadingBarParams> jsonWriteOptions
 let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPositionParams> jsonWriteOptions
 let private serializeApplyWorkspaceEdit = serializerFactory<ApplyWorkspaceEditParams> jsonWriteOptions
 let private serializeCreateVirtualFileParams = serializerFactory<CreateVirtualFileParams> jsonWriteOptions
 type msg =
-    | Request of int * AsyncReplyChannel<string>
-    | Response of int * string
+    | Request of int * AsyncReplyChannel<JsonValue>
+    | Response of int * JsonValue
 let responseAgent = MailboxProcessor.Start(fun agent ->
     let rec loop state =
         async{
@@ -64,193 +73,198 @@ let responseAgent = MailboxProcessor.Start(fun agent ->
                 return! loop (state |> List.filter (fun (i, _) -> i <> id))
         }
     loop [])
+let private writeClient (client: BinaryWriter, messageText: string) =
+    let messageBytes = Encoding.UTF8.GetBytes(messageText)
+    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+    let headerBytes = Encoding.UTF8.GetBytes(headerText)
+    client.Write(headerBytes)
+    client.Write(messageBytes)
 
-type sendMsg =
-    | ServerResponse of BinaryWriter * int * string
-    | ServerNotification of BinaryWriter * string * string
-let messageQueue = MailboxProcessor.Start(fun agent ->
-    let rec loop = 
-        async {
-            let! msg = agent.Receive()
-            match msg with
-            | ServerResponse(client, requestId, jsonText) ->
-                let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
-                let messageBytes = Encoding.UTF8.GetBytes messageText
-                let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-                let headerBytes = Encoding.UTF8.GetBytes headerText
-                client.Write headerBytes
-                client.Write messageBytes
-            | ServerNotification(client, notificationMethod, jsonText) ->
-                let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
-                let messageBytes = Encoding.UTF8.GetBytes messageText
-                let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-                let headerBytes = Encoding.UTF8.GetBytes headerText
-                client.Write headerBytes
-                client.Write messageBytes
-            do! loop
-        }
-    loop)
+let respond(client: BinaryWriter, requestId: int, jsonText: string) =
+    let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
+    writeClient(client, messageText)
 
-let respond (client: BinaryWriter) (requestId: int) (jsonText: string) = 
-    messageQueue.Post(ServerResponse(client, requestId, jsonText))
-    // let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
-    // let messageBytes = Encoding.UTF8.GetBytes messageText
-    // let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-    // let headerBytes = Encoding.UTF8.GetBytes headerText
-    // client.Write headerBytes
-    // client.Write messageBytes
+let private notifyClient(client: BinaryWriter, method: string, jsonText: string) =
+    let messageText = sprintf """{"method":"%s","params":%s}""" method jsonText
+    writeClient(client, messageText)
 
-let notify (client: BinaryWriter) (notificationMethod: string) (jsonText: string) =
-    messageQueue.Post(ServerNotification(client, notificationMethod, jsonText))
-    // let messageText = sprintf """{"method":"%s","params":%s}""" notificationMethod jsonText
-    // let messageBytes = Encoding.UTF8.GetBytes messageText
-    // let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-    // let headerBytes = Encoding.UTF8.GetBytes headerText
-    // client.Write headerBytes
-    // client.Write messageBytes
-
-let request (client: BinaryWriter) (requestId: int) (requestMethod: string) (jsonText: string) =
-    async{
-        let reply = responseAgent.PostAndAsyncReply((fun replyChannel -> Request(requestId, replyChannel)))
-        let messageText = sprintf """{"id":%d,"method":"%s", "params":%s}""" requestId requestMethod jsonText
-        let messageBytes = Encoding.UTF8.GetBytes messageText
-        let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
-        let headerBytes = Encoding.UTF8.GetBytes headerText
-        client.Write headerBytes
-        client.Write messageBytes
+let private requestClient(client: BinaryWriter, id: int, method: string, jsonText: string) =
+    async {
+        let reply = responseAgent.PostAndAsyncReply((fun replyChannel -> Request(id, replyChannel)))
+        let messageText = sprintf """{"id":%d,"method":"%s", "params":%s}"""id method jsonText
+        writeClient(client, messageText)
         return! reply
     }
 
-
-let processRequest (server: ILanguageServer) (send: BinaryWriter) (id: int) (request: Request) = 
-    match request with 
-    | Initialize p -> 
-        server.Initialize p |> serializeInitializeResult |> respond send id
-    | Shutdown ->
-        server.Shutdown()
-    | WillSaveWaitUntilTextDocument p -> 
-        server.WillSaveWaitUntilTextDocument p |> serializeTextEditList |> respond send id
-    | Completion p -> 
-        server.Completion p |> serializeCompletionList |> respond send id
-    | Hover p -> 
-        server.Hover p |> serializeHover |> respond send id
-    | ResolveCompletionItem p -> 
-        server.ResolveCompletionItem p |> serializeCompletionItem |> respond send id 
-    | SignatureHelp p -> 
-        server.SignatureHelp p |> serializeSignatureHelp |> respond send id
-    | GotoDefinition p -> 
-        server.GotoDefinition p |> serializeLocationList |> respond send id
-    | FindReferences p -> 
-        server.FindReferences p |> serializeLocationList |> respond send id
-    | DocumentHighlight p -> 
-        server.DocumentHighlight p |> serializeDocumentHighlightList |> respond send id
-    | DocumentSymbols p -> 
-        server.DocumentSymbols p |> serializeSymbolInformationList |> respond send id
-    | WorkspaceSymbols p -> 
-        server.WorkspaceSymbols p |> serializeSymbolInformationList |> respond send id
-    | CodeActions p -> 
-        server.CodeActions p |> serializeCommandList |> respond send id
-    | CodeLens p -> 
-        server.CodeLens p |> serializeCodeLensList |> respond send id
-    | ResolveCodeLens p -> 
-        server.ResolveCodeLens p |> serializeCodeLens |> respond send id
-    | DocumentLink p -> 
-        server.DocumentLink p |> serializeDocumentLinkList |> respond send id
-    | ResolveDocumentLink p -> 
-        server.ResolveDocumentLink p |> serializeDocumentLink |> respond send id
-    | DocumentFormatting p -> 
-        server.DocumentFormatting p |> serializeTextEditList |> respond send id
-    | DocumentRangeFormatting p -> 
-        server.DocumentRangeFormatting p |> serializeTextEditList |> respond send id
-    | DocumentOnTypeFormatting p -> 
-        server.DocumentOnTypeFormatting p |> serializeTextEditList |> respond send id
-    | Rename p -> 
-        server.Rename p |> serializeWorkspaceEdit |> respond send id
-    | ExecuteCommand p -> 
-        server.ExecuteCommand p 
-
-let processNotification (server: ILanguageServer) (send: BinaryWriter) (n: Notification) = 
-    match n with 
-    | Cancel id ->
-        eprintfn "Cancel request %d is not yet supported" id
-    | Initialized ->
-        server.Initialized()
-    | DidChangeConfiguration p -> 
-        server.DidChangeConfiguration p
-    | DidOpenTextDocument p -> 
-        server.DidOpenTextDocument p
-    | DidChangeTextDocument p -> 
-        server.DidChangeTextDocument p
-    | WillSaveTextDocument p -> 
-        server.WillSaveTextDocument p 
-    | DidSaveTextDocument p -> 
-        server.DidSaveTextDocument p
-    | DidCloseTextDocument p -> 
-        server.DidCloseTextDocument p
-    | DidChangeWatchedFiles p -> 
-        server.DidChangeWatchedFiles p
-    | OtherNotification _ ->
-        ()
-
-let sendNotification (send: BinaryWriter) (n: ServerNotification) =
-    try
-        match n with
-        | PublishDiagnostics p ->
-            p |> serializePublishDiagnostics |> notify send "textDocument/publishDiagnostics"
-        | LoadingBar p->
-            p |> serializeLoadingBarParams |> notify send "loadingBar"
-        | CreateVirtualFile p ->
-            p |> serializeCreateVirtualFileParams |> notify send "createVirtualFile"
-    with
-    |e -> eprintfn "message %s failed with: %A" (n.ToString()) e
-
-let mutable callbacks = new ConcurrentDictionary<int, Delegate>()
-
-let sendRequest (send: BinaryWriter) (n: ServerRequest) =
+let private thenMap (f: 'A -> 'B) (result: Async<'A>): Async<'B> =
     async {
-        try
-            let id = System.Random().Next()
-            match n with
-            | GetWordRangeAtPosition p ->
-                eprintfn "send request %i" id
-                return! p |> serializeGetWordRangeAtPosition |> request send id "getWordRangeAtPosition"
-            | ApplyWorkspaceEdit p ->
-                eprintfn "send request %i" id
-                return! p |> serializeApplyWorkspaceEdit |> request send id "workspace/applyEdit"
-        with
-        |e -> eprintfn "message %s failed with: %A" (n.ToString()) e; return ""
+        let! a = result
+        return f a
     }
+let private thenSome = thenMap Some
+let private thenNone(result: Async<'A>): Async<string option> = result |> thenMap (fun _ -> None)
 
-let (|TrySuccess|TryFailure|) tryResult =  
-    match tryResult with
-    | true, value -> TrySuccess value
-    | _ -> TryFailure
-let processMessage (server: ILanguageServer) (send: BinaryWriter) (m: Parser.Message) = 
-    try
-        match m with 
-        | Parser.RequestMessage (id, method, json) -> 
-            processRequest server send id (Parser.parseRequest method json) 
-        | Parser.NotificationMessage (method, json) -> 
-            processNotification server send (Parser.parseNotification method json)
-        | Parser.ResponseMessage (id, result) ->
-            responseAgent.Post(Response(id, result.ToString()))
-    with
-    |e -> eprintfn "message %s failed with: %A" (m.ToString()) e
-   
-    
-
-let private notExit (message: Parser.Message) = 
-    match message with 
-    | Parser.NotificationMessage ("exit", _) -> false 
+let private notExit (message: Parser.Message) =
+    match message with
+    | Parser.NotificationMessage("exit", _) -> false
     | _ -> true
 
-let readMessages (receive: BinaryReader): seq<Parser.Message> = 
-    Tokenizer.tokenize receive |> Seq.map Parser.parseMessage |> Seq.takeWhile notExit
+let readMessages(receive: BinaryReader): seq<Parser.Message> =
+    let tokens = Tokenizer.tokenize(receive)
+    let parse = Seq.map Parser.parseMessage tokens
+    Seq.takeWhile notExit parse
 
-let connect (server: ILanguageServer) (receive: BinaryReader) (send: BinaryWriter) = 
-    eprintfn "%s" "Connecting"
-    let doProcessMessage = 
-        (fun m -> 
-            let task = new Task((fun () -> processMessage server send m))
-            task.Start())
-    readMessages receive |> Seq.iter doProcessMessage
+type RealClient (send: BinaryWriter) =
+    interface ILanguageClient with
+        member this.PublishDiagnostics(p: PublishDiagnosticsParams): unit =
+            let json = serializePublishDiagnostics(p)
+            notifyClient(send, "textDocument/publishDiagnostics", json)
+        member this.ShowMessage(p: ShowMessageParams): unit =
+            let json = serializeShowMessage(p)
+            notifyClient(send, "window/showMessage", json)
+        member this.RegisterCapability(p: RegisterCapability): unit =
+            match p with
+            | RegisterCapability.DidChangeWatchedFiles _ ->
+                let register = {id=Guid.NewGuid().ToString(); method="workspace/didChangeWatchedFiles"; registerOptions=p}
+                let message = {registrations=[register]}
+                let json = serializeRegistrationParams(message)
+                notifyClient(send, "client/registerCapability", json)
+        member this.CustomNotification(method: string, json: JsonValue): unit =
+            let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
+            notifyClient(send, method, jsonString)
+        member this.ApplyWorkspaceEdit(p : ApplyWorkspaceEditParams): Async<JsonValue> =
+            async {
+                let json = serializeApplyWorkspaceEdit(p)
+                let id = System.Random().Next()
+                return! requestClient(send, id, "workspace/applyEdit", json)
+            }
+        member this.CustomRequest(method: string, json: JsonValue): Async<JsonValue> =
+            async {
+                let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
+                let id = System.Random().Next()
+                return! requestClient(send, id, method, jsonString)
+            }
+
+
+type private PendingTask =
+| ProcessNotification of method: string * task: Async<unit>
+| ProcessRequest of id: int * task: Async<string option> * cancel: CancellationTokenSource
+| Quit
+
+let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryReader, send: BinaryWriter) =
+    let server = serverFactory(RealClient(send))
+    let processRequest(request: Request): Async<string option> =
+        match request with
+        | Initialize(p) ->
+            server.Initialize(p) |> thenMap serializeInitializeResult |> thenSome
+        | Shutdown ->
+            server.Shutdown() |> thenNone
+        | WillSaveWaitUntilTextDocument(p) ->
+            server.WillSaveWaitUntilTextDocument(p) |> thenMap serializeTextEditList |> thenSome
+        | Completion(p) ->
+            server.Completion(p) |> thenMap serializeCompletionListOption
+        | Hover(p) ->
+            server.Hover(p) |> thenMap serializeHoverOption |> thenMap (Option.defaultValue "null") |> thenSome
+        | ResolveCompletionItem(p) ->
+            server.ResolveCompletionItem(p) |> thenMap serializeCompletionItem |> thenSome
+        | SignatureHelp(p) ->
+            server.SignatureHelp(p) |> thenMap serializeSignatureHelpOption |> thenMap (Option.defaultValue "null") |> thenSome
+        | GotoDefinition(p) ->
+            server.GotoDefinition(p) |> thenMap serializeLocationList |> thenSome
+        | FindReferences(p) ->
+            server.FindReferences(p) |> thenMap serializeLocationList |> thenSome
+        | DocumentHighlight(p) ->
+            server.DocumentHighlight(p) |> thenMap serializeDocumentHighlightList |> thenSome
+        | DocumentSymbols(p) ->
+            server.DocumentSymbols(p) |> thenMap serializeSymbolInformationList |> thenSome
+        | WorkspaceSymbols(p) ->
+            server.WorkspaceSymbols(p) |> thenMap serializeSymbolInformationList |> thenSome
+        | CodeActions(p) ->
+            server.CodeActions(p) |> thenMap serializeCommandList |> thenSome
+        | CodeLens(p) ->
+            server.CodeLens(p) |> thenMap serializeCodeLensList |> thenSome
+        | ResolveCodeLens(p) ->
+            server.ResolveCodeLens(p) |> thenMap serializeCodeLens |> thenSome
+        | DocumentLink(p) ->
+            server.DocumentLink(p) |> thenMap serializeDocumentLinkList |> thenSome
+        | ResolveDocumentLink(p) ->
+            server.ResolveDocumentLink(p) |> thenMap serializeDocumentLink |> thenSome
+        | DocumentFormatting(p) ->
+            server.DocumentFormatting(p) |> thenMap serializeTextEditList |> thenSome
+        | DocumentRangeFormatting(p) ->
+            server.DocumentRangeFormatting(p) |> thenMap serializeTextEditList |> thenSome
+        | DocumentOnTypeFormatting(p) ->
+            server.DocumentOnTypeFormatting(p) |> thenMap serializeTextEditList |> thenSome
+        | Rename(p) ->
+            server.Rename(p) |> thenMap serializeWorkspaceEdit |> thenSome
+        | ExecuteCommand(p) ->
+            server.ExecuteCommand(p) |> thenNone
+        | DidChangeWorkspaceFolders(p) ->
+            server.DidChangeWorkspaceFolders(p) |> thenNone
+    let processNotification(n: Notification) =
+        match n with
+        | Initialized ->
+            server.Initialized()
+        | DidChangeConfiguration(p) ->
+            server.DidChangeConfiguration(p)
+        | DidOpenTextDocument(p) ->
+            server.DidOpenTextDocument(p)
+        | DidChangeTextDocument(p) ->
+            server.DidChangeTextDocument(p)
+        | WillSaveTextDocument(p) ->
+            server.WillSaveTextDocument(p)
+        | DidSaveTextDocument(p) ->
+            server.DidSaveTextDocument(p)
+        | DidCloseTextDocument(p) ->
+            server.DidCloseTextDocument(p)
+        | DidChangeWatchedFiles(p) ->
+            server.DidChangeWatchedFiles(p)
+        | OtherNotification(_) ->
+            async { () }
+    // Read messages and process cancellations on a separate thread
+    let pendingRequests = new System.Collections.Concurrent.ConcurrentDictionary<int, CancellationTokenSource>()
+    let processQueue = new System.Collections.Concurrent.BlockingCollection<PendingTask>(10)
+    Thread(fun () ->
+        // Read all messages on the main thread
+        for m in readMessages(receive) do
+            // Process cancellations immediately
+            match m with
+            | Parser.NotificationMessage("$/cancelRequest", Some json) ->
+                let id = json?id.AsInteger()
+                let stillRunning, pendingRequest = pendingRequests.TryGetValue(id)
+                if stillRunning then
+                    dprintfn "Cancelling request %d" id
+                    pendingRequest.Cancel()
+                else
+                    dprintfn "Request %d has already finished" id
+            // Process other requests on worker thread
+            | Parser.NotificationMessage(method, json) ->
+                let n = Parser.parseNotification(method, json)
+                let task = processNotification(n)
+                processQueue.Add(ProcessNotification(method, task))
+            | Parser.RequestMessage(id, method, json) ->
+                let task = processRequest(Parser.parseRequest(method, json))
+                let cancel = new CancellationTokenSource()
+                processQueue.Add(ProcessRequest(id, task, cancel))
+                pendingRequests.[id] <- cancel
+            | Parser.ResponseMessage(id, result) ->
+                responseAgent.Post(Response(id, result))
+        processQueue.Add(Quit)
+    ).Start()
+    // Process messages on main thread
+    let mutable quit = false
+    while not quit do
+        match processQueue.Take() with
+        | Quit -> quit <- true
+        | ProcessNotification(method, task) -> Async.RunSynchronously(task)
+        | ProcessRequest(id, task, cancel) ->
+            if cancel.IsCancellationRequested then
+                dprintfn "Skipping cancelled request %d" id
+            else
+                try
+                    match Async.RunSynchronously(task, 0, cancel.Token) with
+                    | Some(result) -> respond(send, id, result)
+                    | None -> ()
+                with :? OperationCanceledException ->
+                    dprintfn "Request %d was cancelled" id
+            pendingRequests.TryRemove(id) |> ignore
