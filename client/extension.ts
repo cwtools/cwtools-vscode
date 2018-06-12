@@ -36,17 +36,17 @@ export function activate(context: ExtensionContext) {
 	//let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
 	var serverExe : string;
 	if(os.platform() == "win32"){
-		serverExe = context.asAbsolutePath(path.join('out', 'server','win-x64', 'Main.exe'))
+		serverExe = context.asAbsolutePath(path.join('out', 'server','win-x64', 'CWTools Server.exe'))
 	}
 	else if (os.platform() == "darwin"){
-		serverExe = context.asAbsolutePath(path.join('out', 'server','osx.10.11-x64', 'Main'))
+		serverExe = context.asAbsolutePath(path.join('out', 'server', 'osx.10.11-x64', 'CWTools Server'))
 		fs.chmodSync(serverExe, '755');
 	}
 	else{
-		serverExe = context.asAbsolutePath(path.join('out', 'server','linux-x64', 'Main'))
+		serverExe = context.asAbsolutePath(path.join('out', 'server', 'linux-x64', 'CWTools Server'))
 		fs.chmodSync(serverExe, '755');
 	}
-	
+
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
 	let serverOptions: ServerOptions = {
@@ -55,7 +55,7 @@ export function activate(context: ExtensionContext) {
 		//debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 		// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 	}
-	
+
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for F# documents
@@ -64,7 +64,7 @@ export function activate(context: ExtensionContext) {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'cwtools',
 			// Notify the server about file changes to F# project files contain in the workspace
-			
+
 			fileEvents: [
 				workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries}/**/*.txt"),
 				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
@@ -74,7 +74,7 @@ export function activate(context: ExtensionContext) {
 				]
 		}
 	}
-	
+
 	let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
 	defaultClient = client;
 	console.log("client init")
@@ -122,13 +122,13 @@ export function activate(context: ExtensionContext) {
 			else{
 				return document.getText(wordRange);
 			}
-		})		
+		})
 	})
 	let disposable = client.start();
-	
+
 	// Create the language client and start the client.
-	
-	// Push the disposable to the context's subscriptions so that the 
+
+	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(new CwtoolsProvider());
