@@ -1,3 +1,6 @@
+# 0.5.16
+* Significantly improved general performance
+* Validated anomaly localisation
 # 0.5.15
 * Fix completion in multi-mod projects
 * Improve performance of config based validation
