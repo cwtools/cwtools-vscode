@@ -1,3 +1,5 @@
+# 0.5.17
+* Add command "Generate missing loc for all files"
 # 0.5.16
 * Significantly improved general performance
 * Validated anomaly localisation
