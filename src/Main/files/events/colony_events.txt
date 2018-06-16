@@ -37,7 +37,7 @@ planet_event = {
 			is_planet_class = pc_tundra
 			is_planet_class = pc_savannah
 		}
-		NOT = { 
+		NOR = { 
 			has_global_flag = migrating_forests_global
 			has_planet_flag = colony_event
 		}
@@ -271,7 +271,7 @@ planet_event = {
 	
 	trigger = {
 		has_planet_flag = burned_forests
-		NOT = {
+		NOR = {
 			has_planet_flag = burned_forest_precious
 			has_planet_flag = burned_forest_minerals
 		}
@@ -314,7 +314,7 @@ planet_event = {
 	
 	trigger = {
 		has_planet_flag = burned_forests
-		NOT = {
+		NOR = {
 			has_planet_flag = burned_forest_precious
 			has_planet_flag = burned_forest_minerals
 		}
@@ -561,7 +561,7 @@ planet_event = {
 		is_occupied_flag = no
 		num_pops > 0
 		is_capital = no
-		NOT = {
+		NOR = {
 			has_global_flag = seismic_disturbance_global
 			has_planet_flag = colony_event
 			is_planet_class = pc_nuked
@@ -1288,7 +1288,7 @@ planet_event = {
 		any_tile = {
 			AND = {
 				has_building = yes
-				NOT = { 
+				NOR = { 
 					has_building = "building_colony_shelter"
 					has_building = "building_capital_1"
 					has_building = "building_capital_2"
@@ -1312,7 +1312,7 @@ planet_event = {
 			limit = { 
 				has_building = yes
 				is_ruined = no
-				NOT = { 
+				NOR = { 
 					has_building = "building_colony_shelter"
 					has_building = "building_capital_1"
 					has_building = "building_capital_2"
@@ -1584,7 +1584,7 @@ planet_event = {
 		name = UNFORTUNATE
 		random_tile = {
 			limit = { 
-				NOT = { 
+				NOR = { 
 					has_building = "building_colony_shelter"
 					has_building = "building_capital_1"
 					has_building = "building_capital_2"
@@ -1837,7 +1837,7 @@ planet_event = {
 		hidden_effect = {
 			random_tile = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_building = "building_colony_shelter"
 						has_building = "building_capital_1"
 						has_building = "building_capital_2"
@@ -1859,7 +1859,7 @@ planet_event = {
 		hidden_effect = {
 			random_tile = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_building = "building_colony_shelter"
 						has_building = "building_capital_1"
 						has_building = "building_capital_2"
@@ -2193,7 +2193,7 @@ planet_event = {
 			limit = {
 				has_building = yes
 				is_ruined = no
-				NOT = {
+				NOR = {
 					has_building = "building_colony_shelter"
 					has_building = "building_capital_1"
 					has_building = "building_capital_2"
@@ -3526,7 +3526,7 @@ planet_event = {
 		custom_tooltip = colony.164.a.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = "ethic_militarist"
 					has_ethic = "ethic_fanatic_militarist"
 					has_ethic = "ethic_pacifist"
@@ -3971,19 +3971,19 @@ country_event = {
 				limit = { has_planet_flag = asteroid_sighted }
 				planet_event = { id = colony.182 }
 			}
-			else = {
-				random_country = {
-					limit = {
-						reverse_has_relation_flag = {
-							who = from
-							flag = asteroid_enemy
-						}
-						has_country_flag = asteroid_sighted_country
+		}
+		else = {
+			random_country = {
+				limit = {
+					reverse_has_relation_flag = {
+						who = from
+						flag = asteroid_enemy
 					}
-					random_owned_planet = {
-						limit = { has_planet_flag = asteroid_sighted }
-						planet_event = { id = colony.182 }
-					}
+					has_country_flag = asteroid_sighted_country
+				}
+				random_owned_planet = {
+					limit = { has_planet_flag = asteroid_sighted }
+					planet_event = { id = colony.182 }
 				}
 			}
 		}
@@ -4086,27 +4086,23 @@ planet_event = {
 				num_pops < 2
 			}
 			random_owned_pop = { kill_pop = yes }
-			else = {
-				if = {
-					limit = {
-						num_pops > 2
-						num_pops < 6
-					}
-					random_owned_pop = { kill_pop = yes }
-					random_owned_pop = { kill_pop = yes }
-					else = {
-						if = {
-							limit = {
-								num_pops > 6
-							}
-							random_owned_pop = { kill_pop = yes }
-							random_owned_pop = { kill_pop = yes }
-							random_owned_pop = { kill_pop = yes }
-							random_owned_pop = { kill_pop = yes }
-						}
-					}
-				}
+		}
+		else_if = {
+			limit = {
+				num_pops > 2
+				num_pops < 6
 			}
+			random_owned_pop = { kill_pop = yes }
+			random_owned_pop = { kill_pop = yes }
+		}
+		else_if = {
+			limit = {
+				num_pops > 6
+			}
+			random_owned_pop = { kill_pop = yes }
+			random_owned_pop = { kill_pop = yes }
+			random_owned_pop = { kill_pop = yes }
+			random_owned_pop = { kill_pop = yes }
 		}
 	}
 }

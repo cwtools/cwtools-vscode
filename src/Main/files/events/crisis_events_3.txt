@@ -566,23 +566,21 @@ country_event = {
 					days = -1
 				}
 			}
-			else = {
-				if = {
-					limit = { has_authority = auth_machine_intelligence }
-					add_notification_modifier = ghost_signal_5_machine
-					every_owned_pop = {
-						limit = { has_trait = trait_machine_unit }
-						add_modifier = {
-							modifier = "pop_ghost_signal_5_machine"
-							days = -1
-						}
-					}
-					enable_special_project = {
-						name = "AI_CRISIS_PROJECT"
-						location = capital_scope
-						owner = root
-					}
+		}
+		else_if = {
+			limit = { has_authority = auth_machine_intelligence }
+			add_notification_modifier = ghost_signal_5_machine
+			every_owned_pop = {
+				limit = { has_trait = trait_machine_unit }
+				add_modifier = {
+					modifier = "pop_ghost_signal_5_machine"
+					days = -1
 				}
+			}
+			enable_special_project = {
+				name = "AI_CRISIS_PROJECT"
+				location = capital_scope
+				owner = root
 			}
 		}
 		every_owned_ship = {
@@ -1303,12 +1301,10 @@ country_event = {
 				tech = tech_mine_living_metal
 				progress = 0.25
 			}
-			else = {
-				if  = {
-					limit = { NOT = { has_global_flag = first_machine_world_destroyed } }
-					add_research_option = tech_mine_living_metal
-				}
-			}
+		}
+		else_if = {
+			limit = { NOT = { has_global_flag = first_machine_world_destroyed } }
+			add_research_option = tech_mine_living_metal
 		}
 	}
 }
@@ -1831,6 +1827,7 @@ country_event = {
 	trigger = {
 		NOT = { is_country_type = "ai_empire" }	
 		fromfrom = {
+			exists = controller
 			controller = {
 				is_country_type = "ai_empire"
 			}					
@@ -3456,7 +3453,7 @@ country_event = {
 	trigger = {
 		has_global_flag = synth_terror
 		has_country_flag = synth_terror_country
-		NOT = {
+		NOR = {
 			has_country_flag = synth_detection_proj
 			has_country_flag = synth_detector
 		}
@@ -3582,7 +3579,7 @@ country_event = {
 	}	
 	
 	immediate = {
-		set_crisis_sound = ai_empire_ambient_stage_4
+		set_crisis_sound = ai_empire_ambient_stage_final
 		set_crisis_stage_4 = yes	
 	}
 }
@@ -4198,6 +4195,7 @@ planet_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		exists = owner
 		owner = { is_country_type = ai_empire }
 		NOT = { is_planet_class = pc_ai }
 		has_ground_combat = no

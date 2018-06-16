@@ -706,7 +706,7 @@ DISTAR_FLYTRAP_CAT = {
 DISTAR_LIVING_CAT = {
 	desc = "DISTAR_LIVING_CAT_DESC"
 	picture = "GFX_evt_ocean"
-	level = 2
+	level = 5
 
 	spawn_chance = {
 		modifier = {
@@ -809,18 +809,64 @@ DISTAR_POD_CAT = {
 DISTAR_PHASE_CAT = {
 	desc = "DISTAR_PHASE_CAT_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 4
+	level = 3
 	
 	spawn_chance = {
 		modifier = {
-			add = 0 #Set in sys_init
+			add = 0 #Set in distar.256
 		}
 	}
 
 	on_spawn = {
 	}
 	
-	on_success = distar.250
+	on_success = {
+		0 = { #Case where we don't own the system, and planet is still shifting
+			modifier = {
+				add = 1
+				from = {
+					has_planet_flag = phaseshifting_active
+					has_modifier = phaseshifted
+					OR = {
+						NOT = { exists = space_owner }
+						AND = {
+							exists = space_owner
+							space_owner = {
+								NOT = { is_same_value = root.owner }
+							}
+						}
+					}
+				}
+			}
+			anomaly_event = distar.250
+		}
+		0 = { #Case where we own the system, and planet is still shifting
+			modifier = {
+				add = 1
+				from = {
+					has_planet_flag = phaseshifting_active
+					has_modifier = phaseshifted
+					exists = space_owner
+					space_owner = {
+						is_same_value = root.owner
+					}
+				}
+			}
+			anomaly_event = distar.302
+		}
+		0 = { #Case where anyone has already completed the project and planet is locked
+			modifier = {
+				add = 1
+				from = {
+					NOR = {
+						has_planet_flag = phaseshifting_active
+						has_modifier = phaseshifted
+					}
+				}
+			}
+			anomaly_event = distar.303
+		}
+	}
 }
 
 DISTAR_SOY_CAT = {
@@ -966,7 +1012,6 @@ DISTAR_MEDGAS_CAT = {
 			add = 1
 			is_planet_class = pc_gas_giant
 			from.owner = {
-				has_distar = yes
 				has_completed_event_chain_counter = {
 					event_chain = l_cluster_chain
 					counter = clues
@@ -982,6 +1027,7 @@ DISTAR_MEDGAS_CAT = {
 		}
 		modifier = { #Will not spawn if the player has neither completed nor currently has the ongoing chain
 			factor = 0
+			has_distar = no
 			NOT = { has_global_flag = l_cluster_opened }
 			from.owner = {
 				NOR = {
@@ -1020,7 +1066,6 @@ debris_gasgiant_category_temp = {
 	spawn_chance = {
 		modifier = {
 			add = 3
-			has_distar = yes
 			is_planet_class = pc_gas_giant
 		}
 		modifier = {
@@ -1036,6 +1081,7 @@ debris_gasgiant_category_temp = {
 		}
 		modifier = {
 			factor = 0
+			has_distar = no
 			from.owner = {
 				NOR = {
 					species_portrait = mam5
@@ -1121,7 +1167,22 @@ ast_debris_field_1_cat_2 = {
 			anomaly_event = distar.1080
 		}
 		1 = distar.1045
-		1 = distar.1050
+		1 = {
+			modifier = {
+				factor = 0
+				owner = {
+					OR = {
+						has_authority = auth_machine_intelligence
+						is_synthetic_empire = yes
+						owner_species = {
+							has_trait = trait_mechanical
+							has_trait = trait_machine_unit
+						}
+					}
+				}
+			}
+			anomaly_event = distar.1050
+		}
 		1 = distar.2000
 	}
 }
@@ -1143,6 +1204,7 @@ gaia_planet_cat = {
 }
 
 corrupt_data_cat = {
+	picture = "GFX_evt_ship_in_orbit_2"
 	level = 4
 	max_once_global = yes
 	
@@ -1158,6 +1220,7 @@ corrupt_data_cat = {
 }
 
 irregular_energy_cat = {
+	picture = "GFX_evt_ship_in_orbit"
 	level = 4
 	max_once_global = yes
 	
@@ -1185,6 +1248,7 @@ irregular_energy_cat = {
 }
 
 peculiar_patterns_cat = {
+	picture = "GFX_evt_ship_in_orbit_2"
 	level = 3
 		
 	spawn_chance = {
@@ -1244,6 +1308,7 @@ peculiar_patterns_cat = {
 }
 
 tomb_world_cat = {
+	picture = "GFX_evt_ship_in_orbit_2"
 	level = 4
 	max_once_global = yes
 	spawn_chance = {
@@ -1302,7 +1367,7 @@ alien_life_cat = {
 }
 
 moon_cat = {
-	picture = GFX_evt_ship_in_orbit
+	picture = "GFX_evt_ship_in_orbit"
 	level = 3
 	max_once_global = yes
 

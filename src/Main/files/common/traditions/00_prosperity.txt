@@ -138,6 +138,19 @@ tr_prosperity_administrative_operations = {
 	}
 
 	tradition_swap = {
+		name = tr_prosperity_administrative_operations_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
 		name = tr_prosperity_administrative_operations_machine
 		inherit_effects = yes
 		inherit_icon = yes
@@ -162,6 +175,19 @@ tr_prosperity_fleet_logistical_corps = {
 	
 	modifier = {
 		ship_upkeep_mult = -0.10
+	}
+
+	tradition_swap = {
+		name = tr_prosperity_fleet_logistical_corps_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}
 	}
 
 	tradition_swap = {

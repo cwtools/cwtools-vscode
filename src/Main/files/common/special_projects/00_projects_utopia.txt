@@ -21,7 +21,8 @@ special_project = {
 	}
 	
 	on_success = {
-		owner = {
+		# use event target so a capital-conquering country is not affected
+		event_target:flesh_weak_owner = {
 			country_event = { id = utopia.2501 }
 		}
 	}
@@ -53,7 +54,7 @@ special_project = {
 	}
 	
 	on_success = {
-		owner = {
+		event_target:synth_evo_owner = {
 			if = {
 				limit = {
 					has_policy_flag = robots_outlawed
@@ -88,7 +89,7 @@ special_project = {
 	}
 	
 	on_success = {
-		owner = {
+		event_target:breach_shroud_owner = {
 			country_event = { id = utopia.2656 }
 			set_country_flag = breached_shroud
 		}

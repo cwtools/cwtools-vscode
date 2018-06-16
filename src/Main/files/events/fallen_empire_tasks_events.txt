@@ -178,10 +178,10 @@ country_event = {
 						if = {
 							limit = { mid_game_years_passed >= 0 }
 							set_country_flag = fe_gift_resources_large 
-							else = {
-								set_country_flag = fe_gift_resources_small
-							}
 						}									
+						else = {
+							set_country_flag = fe_gift_resources_small
+						}
 					}
 					20 = { set_country_flag = fe_gift_databanks }
 					15 = { set_country_flag = fe_gift_rare_tech }
@@ -189,18 +189,18 @@ country_event = {
 						if = {
 							limit = { mid_game_years_passed >= 0 }
 							set_country_flag = fe_gift_escorts 
-							else = {
-								set_country_flag = fe_gift_resources_large 
-							}
 						}					
+						else = {
+							set_country_flag = fe_gift_resources_large 
+						}
 					}
 					5 = { 
 						if = {
 							limit = { mid_game_years_passed >= 0 }
 							set_country_flag = fe_gift_battlecruiser 
-							else = {
-								set_country_flag = fe_gift_resources_large
-							}
+						}
+						else = {
+							set_country_flag = fe_gift_resources_large
 						}
 					}						
 				}			
@@ -682,9 +682,9 @@ country_event = {
 				}
 			}
 			custom_tooltip = fallen_empire_enigmatic_tooltip
-			else = {
-				custom_tooltip = fallen_empire_unhappy_tooltip
-			}
+		}
+		else = {
+			custom_tooltip = fallen_empire_unhappy_tooltip
 		}
 		hidden_effect = {
 			remove_country_flag = fe_gift_escorts

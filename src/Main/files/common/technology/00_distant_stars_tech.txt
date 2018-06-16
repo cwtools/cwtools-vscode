@@ -16,6 +16,30 @@ tech_gargantuan_evolution = {
 	}
 }
 
+tech_lgate_activation = {
+	cost = @tier3cost3
+	area = physics
+	tier = 3
+	is_rare = yes
+	category = { particles }
+	weight = 0
+
+	potential = {
+		NOT = { has_global_flag = l_cluster_opened }
+	}
+
+	prereqfor_desc = {
+		custom = {
+			title = lgate_activation_title
+			desc = lgate_activation_desc
+		}
+	}
+	
+	weight_modifier = {
+		factor = 0
+	}
+}
+
 tech_repeatable_lcluster_clue = {
 	area = engineering
 	cost = 2000
@@ -29,6 +53,13 @@ tech_repeatable_lcluster_clue = {
 	potential = {
 		has_country_flag = encountered_first_lgate
 		NOT = { has_country_flag = completed_lcluster_chain }
+	}
+
+	prereqfor_desc = {
+		custom = {
+			title = add_lcluster_clue
+			desc = tech_repeatable_lcluster_clue_desc
+		}
 	}
 	
 	ai_weight = {

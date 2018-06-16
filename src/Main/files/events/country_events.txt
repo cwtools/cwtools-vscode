@@ -30,9 +30,9 @@ country_event = {
 				}
 			}
 			country_event = { id = country.1 }
-			else = {
-				country_event = { id = country.258 days = 180 }
-			}
+		}
+		else = {
+			country_event = { id = country.258 days = 180 }
 		}
 	}
 }
@@ -68,7 +68,7 @@ country_event = {
 						min_jumps = 2
 						max_jumps = 6
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 					}
@@ -84,7 +84,7 @@ country_event = {
 						min_jumps = 2
 						max_jumps = 6
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = probe_system_1
 						has_star_flag = hostile_system
@@ -101,7 +101,7 @@ country_event = {
 						min_jumps = 2
 						max_jumps = 6
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = probe_system_1
 						has_star_flag = probe_system_2
@@ -119,7 +119,7 @@ country_event = {
 						min_jumps = 2
 						max_jumps = 6
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = probe_system_1
 						has_star_flag = probe_system_2
@@ -232,7 +232,7 @@ ship_event = {
 		if = {
 			limit = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_country_flag = probe_salvage_flag
 						has_country_flag = probe_subspace_anomaly_flag
 						has_country_flag = modified_probe_flag
@@ -250,7 +250,7 @@ ship_event = {
 			limit = {
 				owner = {
 					has_country_flag = probe_salvage_flag
-					NOT = {
+					NOR = {
 						has_country_flag = probe_subspace_anomaly_flag
 						has_country_flag = modified_probe_flag
 					}
@@ -266,7 +266,7 @@ ship_event = {
 			limit = {
 				owner = {
 					has_country_flag = probe_subspace_anomaly_flag
-					NOT = {
+					NOR = {
 						has_country_flag = probe_salvage_flag
 						has_country_flag = modified_probe_flag
 					}
@@ -282,7 +282,7 @@ ship_event = {
 			limit = {
 				owner = {
 					has_country_flag = modified_probe_flag
-					NOT = {
+					NOR = {
 						has_country_flag = probe_salvage_flag
 						has_country_flag = probe_subspace_anomaly_flag
 					}
@@ -444,7 +444,7 @@ ship_event = {
 			}
 			closest_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = probe_system_1
 						has_star_flag = probe_system_2
@@ -2371,7 +2371,7 @@ ship_event = {
 						min_jumps = 1
 						max_jumps = 5
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole
@@ -2388,7 +2388,7 @@ ship_event = {
 						min_jumps = 1
 						max_jumps = 5
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = cultists_1
 						has_star_flag = hostile_system
@@ -2406,7 +2406,7 @@ ship_event = {
 						min_jumps = 1
 						max_jumps = 5
 					}
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = cultists_1
 						has_star_flag = cultists_2
@@ -2586,34 +2586,30 @@ country_event = {
 					remove_star_flag = cultists_1
 				}
 			}
-			else = {
-				if = {
-					limit = {
-						FROMFROMFROM = {
-							solar_system = { has_star_flag = cultists_2 }
-						}
-					}
-					event_target:cultist_target = { remove_point_of_interest = cultist_search_poi.2 }
-					FROMFROMFROM = {
-						solar_system = {
-							remove_star_flag = cultists_2
-						}
-					}
-					else = {
-						if = {
-							limit = {
-								FROMFROMFROM = {
-									solar_system = { has_star_flag = cultists_3 }
-								}
-							}
-							event_target:cultist_target = { remove_point_of_interest = cultist_search_poi.3 }
-							FROMFROMFROM = {
-								solar_system = {
-									remove_star_flag = cultists_3
-								}
-							}
-						}
-					}
+		}
+		else_if = {
+			limit = {
+				FROMFROMFROM = {
+					solar_system = { has_star_flag = cultists_2 }
+				}
+			}
+			event_target:cultist_target = { remove_point_of_interest = cultist_search_poi.2 }
+			FROMFROMFROM = {
+				solar_system = {
+					remove_star_flag = cultists_2
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				FROMFROMFROM = {
+					solar_system = { has_star_flag = cultists_3 }
+				}
+			}
+			event_target:cultist_target = { remove_point_of_interest = cultist_search_poi.3 }
+			FROMFROMFROM = {
+				solar_system = {
+					remove_star_flag = cultists_3
 				}
 			}
 		}
@@ -2894,7 +2890,7 @@ country_event = {
 				closest_system = {
 					min_steps = 10
 					limit = {
-						NOT = { 
+						NOR = { 
 							has_star_flag = hostile_system
 							any_planet = { has_owner = yes }
 							root = { intel_level = { level > low system = prev } }
@@ -3101,7 +3097,7 @@ country_event = {
 			capital_scope = { save_event_target_as = capital }
 			closest_system = {
 				limit = {
-					NOT = { 
+					NOR = { 
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole
 						root = { intel_level = { level > low system = prev } }
@@ -3463,7 +3459,7 @@ country_event = {
 						min_jumps = 2
 						max_jumps = 5
 					}
-					NOT = { 
+					NOR = { 
 						has_star_flag = hyacinth_system_1
 						has_star_flag = hostile_system
 					}
@@ -3484,7 +3480,7 @@ country_event = {
 						min_jumps = 2
 						max_jumps = 5
 					}
-					NOT = { 
+					NOR = { 
 						has_star_flag = hyacinth_system_1
 						has_star_flag = hyacinth_system_2
 						has_star_flag = hostile_system
@@ -3609,11 +3605,11 @@ country_event = {
 						event_target:star_chart_owner = {
 							remove_point_of_interest = hunting_hyacinth_poi.1
 						}
-						else = {
-							remove_star_flag = hyacinth_system_2
-							event_target:star_chart_owner = {
-								remove_point_of_interest = hunting_hyacinth_poi.2
-							}
+					}
+					else = {
+						remove_star_flag = hyacinth_system_2
+						event_target:star_chart_owner = {
+							remove_point_of_interest = hunting_hyacinth_poi.2
 						}
 					}
 				}

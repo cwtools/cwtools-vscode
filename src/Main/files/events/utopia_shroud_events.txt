@@ -110,7 +110,7 @@ country_event = {
 			from = { is_country_type = shroud }
 			has_country_flag = shroud_intro
 		}
-		NOT = { 
+		NOR = { 
 			has_country_flag = shroud_diplomacy_engaged
 			has_modifier = shroud_cooldown
 			has_modifier = shroud_precog_cooldown
@@ -228,8 +228,8 @@ country_event = {
 					if = {
 						limit = { NOT = { has_country_flag = shroud_vision_1 } }
 						country_event = { id = utopia.3100 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
@@ -244,29 +244,29 @@ country_event = {
 							}
 						}
 						country_event = { id = utopia.3110 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
 						limit = { NOT = { has_country_flag = shroud_vision_3 } }
 						country_event = { id = utopia.3120 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
 						limit = { NOT = { has_country_flag = shroud_vision_4 } }
 						country_event = { id = utopia.3130 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
 						limit = { NOT = { has_country_flag = shroud_vision_5 } }
 						country_event = { id = utopia.3140 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
@@ -280,48 +280,50 @@ country_event = {
 							NOT = { has_country_flag = shroud_fallen_empire }
 						}
 						country_event = { id = utopia.3150 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
 						limit = { NOT = { has_technology = tech_psionic_shield } }
 						country_event = { id = utopia.3170 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
 						limit = { NOT = { has_technology = tech_precognition_interface } }
 						country_event = { id = utopia.3180 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = {
 					if = {
 						limit = { NOT = { has_technology = tech_psi_jump_drive_1 } }
 						country_event = { id = utopia.3160 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}				
 				10 = {
 					if = {
 						limit = { 
-							NOT = { 
+							NOR = { 
 								has_country_flag = shroud_vision_10
 								any_owned_leader = {
-									has_trait = leader_trait_admiral_chosen
-									has_trait = leader_trait_general_chosen
-									has_trait = leader_trait_governor_chosen
-									has_trait = leader_trait_ruler_chosen
-									has_trait = leader_trait_scientist_chosen
+									OR = {
+										has_trait = leader_trait_admiral_chosen
+										has_trait = leader_trait_general_chosen
+										has_trait = leader_trait_governor_chosen
+										has_trait = leader_trait_ruler_chosen
+										has_trait = leader_trait_scientist_chosen
+									}
 								}
 							} 
 
 						}
 						country_event = { id = utopia.3190 }
-						else = { country_event = { id = utopia.3200 } }
 					}
+					else = { country_event = { id = utopia.3200 } }
 				}
 				20 = {
 					if = {
@@ -332,8 +334,8 @@ country_event = {
 
 						}
 						country_event = { id = utopia.3300 }
-						else = { country_event = { id = utopia.3200 } }
 					}				
+					else = { country_event = { id = utopia.3200 } }
 				}
 				10 = { country_event = { id = utopia.3200 } }
 			}
@@ -3644,7 +3646,7 @@ country_event = {
 		}
 		random_owned_leader = {
 			limit = {
-				NOT = { 
+				NOR = { 
 					is_same_value = event_target:leader_1
 					is_same_value = event_target:leader_2
 				} 
@@ -4350,14 +4352,14 @@ country_event = {
 				save_event_target_as = chosen_one
 			}
 			set_country_flag = has_chosen_one
-			else = {
-				random_list = {
-					33 = { set_country_flag = patron_deity_chance_high }
-					33 = { set_country_flag = patron_deity_chance_medium }
-					33 = { set_country_flag = patron_deity_chance_low }
-				}			
-			}
 		}		
+		else = {
+			random_list = {
+				33 = { set_country_flag = patron_deity_chance_high }
+				33 = { set_country_flag = patron_deity_chance_medium }
+				33 = { set_country_flag = patron_deity_chance_low }
+			}			
+		}
 	}
 	
 	after = {
@@ -4534,15 +4536,15 @@ country_event = {
 						NOT = { has_global_flag = end_of_the_cycle }
 					}
 					country_event = { id = utopia.3308 }  # The End of the Cycle - extremely rare
-					else = {
-						random_list = {
-							25 = { country_event = { id = utopia.3304 } }	# The Whisperers in the Void
-							25 = { country_event = { id = utopia.3305 } }	# The Composer of Strands
-							25 = { country_event = { id = utopia.3306 } }	# The Eater of Worlds
-							25 = { country_event = { id = utopia.3307 } }	# The Instrument of Desire		
-						}
-					}					
-				}		
+				}
+				else = {
+					random_list = {
+						25 = { country_event = { id = utopia.3304 } }	# The Whisperers in the Void
+						25 = { country_event = { id = utopia.3305 } }	# The Composer of Strands
+						25 = { country_event = { id = utopia.3306 } }	# The Eater of Worlds
+						25 = { country_event = { id = utopia.3307 } }	# The Instrument of Desire		
+					}
+				}					
 			}	
 		}
 	}
@@ -5100,21 +5102,19 @@ country_event = {
 				}
 				destroy_colony = yes
 				remove_planet = yes						
-				else = {
-					if = {
-						limit = {
-							is_planet_class = pc_ringworld_habitable
-						}
-						change_pc = pc_ringworld_habitable_damaged
-						clear_planet_modifiers = yes
-						clear_deposits = yes				
-						else = {
-							change_pc = pc_shrouded
-							clear_planet_modifiers = yes
-							clear_deposits = yes
-						}
-					}
+			}
+			else_if = {
+				limit = {
+					is_planet_class = pc_ringworld_habitable
 				}
+				change_pc = pc_ringworld_habitable_damaged
+				clear_planet_modifiers = yes
+				clear_deposits = yes				
+			}
+			else = {
+				change_pc = pc_shrouded
+				clear_planet_modifiers = yes
+				clear_deposits = yes
 			}
 		}	
 		
@@ -5142,7 +5142,7 @@ country_event = {
 				spawn_debris = no
 				ai_ignore_strength = yes
 				is_boss = yes
-			}			
+			}
 			effect = {
 				save_global_event_target_as = the_end_of_the_cycle
 				set_name = "Absorbed [Root.GetSpeciesNamePlural]"
@@ -5161,70 +5161,64 @@ country_event = {
 							check_variable = {
 								which = "end_power"
 								value < 200
-							}						
+							}
 						}
 					}
 					add_modifier = {
 						modifier = "absorbed_consciousness_1"
 						days = -1
-					}	
-					else = {
-						if = {
-							limit = {
-								root = { 
-									check_variable = {
-										which = "end_power"
-										value < 400
-									}						
-								}
-							}
-							add_modifier = {
-								modifier = "absorbed_consciousness_2"
-								days = -1
-							}	
-							else = {
-								if = {
-									limit = {
-										root = { 
-											check_variable = {
-												which = "end_power"
-												value < 600
-											}						
-										}
-									}
-									add_modifier = {
-										modifier = "absorbed_consciousness_3"
-										days = -1
-									}	
-									else = {
-										if = {
-											limit = {
-												root = { 
-													check_variable = {
-														which = "end_power"
-														value < 800
-													}						
-												}
-											}
-											add_modifier = {
-												modifier = "absorbed_consciousness_4"
-												days = -1
-											}
-											else = {
-												add_modifier = {
-													modifier = "absorbed_consciousness_5"
-													days = -1
-												}											
-											}											
-										}	
-									}									
-								}					
-							}								
-						}						
 					}
-				}				
+				}
+				else_if = {
+					limit = {
+						root = { 
+							check_variable = {
+								which = "end_power"
+								value < 400
+							}
+						}
+					}
+					add_modifier = {
+						modifier = "absorbed_consciousness_2"
+						days = -1
+					}
+				}
+				else_if = {
+					limit = {
+						root = { 
+							check_variable = {
+								which = "end_power"
+								value < 600
+							}
+						}
+					}
+					add_modifier = {
+						modifier = "absorbed_consciousness_3"
+						days = -1
+					}
+				}
+				else_if = {
+					limit = {
+						root = { 
+							check_variable = {
+								which = "end_power"
+								value < 800
+							}
+						}
+					}
+					add_modifier = {
+						modifier = "absorbed_consciousness_4"
+						days = -1
+					}
+				}	
+				else = {
+					add_modifier = {
+						modifier = "absorbed_consciousness_5"
+						days = -1
+					}
+				}
 			}
-		}		
+		}
 	}
 
 	option = {
@@ -5421,21 +5415,19 @@ planet_event = {
 				is_planet_class = pc_habitat 
 			}
 			destroy_colony = yes					
-			else = {
-				if = {
-					limit = {
-						is_planet_class = pc_ringworld_habitable
-					}
-					change_pc = pc_ringworld_habitable_damaged
-					clear_planet_modifiers = yes
-					clear_deposits = yes				
-					else = {
-						change_pc = pc_shrouded
-						clear_planet_modifiers = yes
-						clear_deposits = yes
-					}
-				}
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_ringworld_habitable
 			}
+			change_pc = pc_ringworld_habitable_damaged
+			clear_planet_modifiers = yes
+			clear_deposits = yes				
+		}
+		else = {
+			change_pc = pc_shrouded
+			clear_planet_modifiers = yes
+			clear_deposits = yes
 		}
 	}
 	

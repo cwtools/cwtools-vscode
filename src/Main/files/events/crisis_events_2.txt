@@ -454,7 +454,7 @@ country_event = {
 		name = crisis.18.a
 		trigger = {
 			has_spiritualist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -466,7 +466,7 @@ country_event = {
 		name = crisis.18.b
 		trigger = {
 			has_militarist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -478,7 +478,7 @@ country_event = {
 		name = crisis.18.c
 		trigger = {
 			has_materialist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -490,7 +490,7 @@ country_event = {
 		name = crisis.18.d
 		trigger = {
 			has_pacifist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -502,7 +502,7 @@ country_event = {
 		name = crisis.18.e
 		trigger = {
 			has_government = gov_megacorporation
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -519,7 +519,7 @@ country_event = {
 				has_government = gov_elective_monarchy
 				has_government = gov_hive_mind
 			}
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -619,7 +619,7 @@ country_event = {
 		name = crisis.18.a
 		trigger = {
 			has_spiritualist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -631,7 +631,7 @@ country_event = {
 		name = crisis.18.b
 		trigger = {
 			has_militarist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -643,7 +643,7 @@ country_event = {
 		name = crisis.18.c
 		trigger = {
 			has_materialist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -655,7 +655,7 @@ country_event = {
 		name = crisis.18.d
 		trigger = {
 			has_pacifist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -667,7 +667,7 @@ country_event = {
 		name = crisis.18.e
 		trigger = {
 			has_government = gov_megacorporation
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -684,7 +684,7 @@ country_event = {
 				has_government = gov_elective_monarchy
 				has_government = gov_hive_mind
 			}
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -796,16 +796,16 @@ planet_event = {
 				modifier = "terraforming_candidate"
 				days = -1
 			}
-			else = {
-				if = {
-					limit = { is_planet_class = pc_ringworld_habitable }
-					change_pc = pc_ringworld_habitable_damaged
-					reset_planet = yes
-				}
-				if = {
-					limit = { is_planet_class = pc_habitat }
-					remove_planet = yes
-				}
+		}
+		else = {
+			if = {
+				limit = { is_planet_class = pc_ringworld_habitable }
+				change_pc = pc_ringworld_habitable_damaged
+				reset_planet = yes
+			}
+			if = {
+				limit = { is_planet_class = pc_habitat }
+				remove_planet = yes
 			}
 		}
 		if = {
@@ -890,19 +890,17 @@ country_event = {
 				}
 				country_event = { id = crisis.1013 }
 			}
-			else = {
-				if = {
-					limit = {
-						has_global_flag = extradimensional_second_portal
-						NOT = {
-							has_global_flag = extradimensional_second_portal_destroyed
-							has_global_flag = extradimensional_third_portal_destroyed
-						}
-					}
-					every_playable_country = {
-						country_event = { id = crisis.1016 }
-					}
+		}
+		else_if = {
+			limit = {
+				has_global_flag = extradimensional_second_portal
+				NOR = {
+					has_global_flag = extradimensional_second_portal_destroyed
+					has_global_flag = extradimensional_third_portal_destroyed
 				}
+			}
+			every_playable_country = {
+				country_event = { id = crisis.1016 }
 			}
 		}
 	}
@@ -964,7 +962,7 @@ country_event = {
 	desc = {
 		text = crisis.1050.desc_01
 		trigger = {
-			NOT = { owner_species = { has_trait = trait_psionic has_trait = trait_mechanical } has_authority = auth_machine_intelligence }
+			NOR = { owner_species = { has_trait = trait_psionic has_trait = trait_mechanical } has_authority = auth_machine_intelligence }
 		}
 	}
 	desc = {
@@ -976,7 +974,7 @@ country_event = {
 	desc = {
 		text = crisis.1050.desc_03
 		trigger = {
-			NOT = { owner_species = { has_trait = trait_psionic has_trait = trait_mechanical }  has_authority = auth_machine_intelligence }
+			NOR = { owner_species = { has_trait = trait_psionic has_trait = trait_mechanical }  has_authority = auth_machine_intelligence }
 		}
 	}
 	desc = {
@@ -1027,7 +1025,7 @@ country_event = {
 		name = crisis.1050.a
 		response_text = crisis.1050.a.response
 		trigger = {
-			NOT = {
+			NOR = {
 				has_authority = auth_machine_intelligence
 				owner_species = { has_trait = trait_mechanical }
 			}
@@ -1738,7 +1736,7 @@ country_event = {
 			limit = { is_country_type = extradimensional }
 			random_system_within_border = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_star_flag = extradimensional_origin_system
 						has_star_flag = extradimensional_second_portal_system
 					}
@@ -3243,7 +3241,7 @@ country_event = {
 		name = crisis.1271.a
 		trigger = {
 			has_spiritualist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3257,7 +3255,7 @@ country_event = {
 		name = crisis.1271.b
 		trigger = {
 			has_militarist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3271,7 +3269,7 @@ country_event = {
 		name = crisis.1271.c
 		trigger = {
 			has_materialist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3285,7 +3283,7 @@ country_event = {
 		name = crisis.1271.d
 		trigger = {
 			has_pacifist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3299,7 +3297,7 @@ country_event = {
 		name = crisis.1271.e
 		trigger = {
 			has_government = gov_megacorporation
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3319,7 +3317,7 @@ country_event = {
 				has_government = gov_hive_mind
 				has_authority = auth_machine_intelligence
 			}
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3649,7 +3647,7 @@ country_event = {
 			is_country_type = extradimensional_3
 		}
 		FROM = {
-			NOT = {
+			NOR = {
 				is_country_type = extradimensional
 				is_country_type = extradimensional_2
 				is_country_type = extradimensional_3
@@ -3822,7 +3820,7 @@ country_event = {
 	}
 
 	immediate = {
-		set_crisis_sound = extradimensional_crisis_ambient_stage_4
+		set_crisis_sound = extradimensional_crisis_ambient_stage_final
 		set_crisis_stage_4 = yes
 	}
 }

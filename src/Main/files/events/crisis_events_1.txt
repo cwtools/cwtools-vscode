@@ -102,7 +102,7 @@ country_event = {
 			limit = {
 				OR = {
 					# No owner or neighbors
-					NOT = {
+					NOR = {
 						any_neighbor_system = {
 							exists = space_owner
 						}
@@ -157,7 +157,7 @@ country_event = {
 			save_event_target_as = prethoryn_invasion_system
 			closest_system = {
 				limit = {
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_warning 
 						has_star_flag = swarm_invasion_target_1
 					}
@@ -167,7 +167,7 @@ country_event = {
 			}
 			closest_system = {
 				limit = {
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_warning 
 						has_star_flag = swarm_invasion_target_1
 					}
@@ -177,7 +177,7 @@ country_event = {
 			}
 			closest_system = {
 				limit = {
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_warning 
 						has_star_flag = swarm_invasion_target_1
 					}
@@ -187,7 +187,7 @@ country_event = {
 			}
 			closest_system = {
 				limit = {
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_warning 
 						has_star_flag = swarm_invasion_target_1
 					}
@@ -197,7 +197,7 @@ country_event = {
 			}
 			closest_system = {
 				limit = {
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_warning 
 						has_star_flag = swarm_invasion_target_1
 					}
@@ -530,7 +530,7 @@ country_event = {
 						max_distance <= 60
 						min_distance >= 5
 					}
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_target_1
 						has_star_flag = swarm_invasion_target_2
 					}
@@ -572,7 +572,7 @@ country_event = {
 						max_distance <= 60
 						min_distance >= 5
 					}
-					NOT = { 
+					NOR = { 
 						has_star_flag = swarm_invasion_target_1
 						has_star_flag = swarm_invasion_target_2
 						has_star_flag = swarm_invasion_target_3
@@ -636,7 +636,7 @@ country_event = {
 		name = crisis.18.a
 		trigger = {
 			has_spiritualist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -653,7 +653,7 @@ country_event = {
 		name = crisis.18.b
 		trigger = {
 			has_militarist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -670,7 +670,7 @@ country_event = {
 		name = crisis.18.c
 		trigger = {
 			has_materialist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -687,7 +687,7 @@ country_event = {
 		name = crisis.18.d
 		trigger = {
 			has_pacifist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -704,7 +704,7 @@ country_event = {
 		name = crisis.18.e
 		trigger = {
 			has_government = gov_megacorporation
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -727,7 +727,7 @@ country_event = {
 				has_government = gov_hive_mind
 				has_ethic = ethic_gestalt_consciousness
 			}
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_egalitarian"
 				has_ethic = "ethic_fanatic_authoritarian"
 				has_ethic = "ethic_fanatic_xenophile"
@@ -2717,19 +2717,19 @@ planet_event = {
 			}
 			change_pc = pc_infested
 			set_owner = controller
-			else = {
-				if = { # Habitable Ring Worlds can't be infested... they are destroyed instead
-					limit = { is_planet_class = pc_ringworld_habitable }
-					destroy_colony = yes
-					change_pc = pc_ringworld_habitable_damaged
-					reset_planet = yes
-				}
-				if = {
-					limit = { is_planet_class = pc_habitat }
-					remove_planet = yes
-				}
-			}
 			planet_event = { id = crisis.215 }
+		}
+		else = {
+			if = { # Habitable Ring Worlds can't be infested... they are destroyed instead
+				limit = { is_planet_class = pc_ringworld_habitable }
+				destroy_colony = yes
+				change_pc = pc_ringworld_habitable_damaged
+				reset_planet = yes
+			}
+			if = {
+				limit = { is_planet_class = pc_habitat }
+				remove_planet = yes
+			}
 		}
 	}
 }
@@ -2756,18 +2756,18 @@ planet_event = {
 			}
 			change_pc = pc_infested
 			reset_planet = yes
-			else = {
-				if = { # Habitable Ring Worlds can't be infested... they are destroyed instead
-					limit = { is_planet_class = pc_ringworld_habitable }
-					change_pc = pc_ringworld_habitable_damaged
-					reset_planet = yes
-				}
-				if = {
-					limit = { is_planet_class = pc_habitat }
-					remove_planet = yes
-				}
-			}
 			planet_event = { id = crisis.215 }
+		}
+		else = {
+			if = { # Habitable Ring Worlds can't be infested... they are destroyed instead
+				limit = { is_planet_class = pc_ringworld_habitable }
+				change_pc = pc_ringworld_habitable_damaged
+				reset_planet = yes
+			}
+			if = {
+				limit = { is_planet_class = pc_habitat }
+				remove_planet = yes
+			}
 		}
 	}
 }
@@ -3120,7 +3120,7 @@ country_event = {
 		name = crisis.211.a
 		trigger = {
 			has_spiritualist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3139,7 +3139,7 @@ country_event = {
 		name = crisis.211.b
 		trigger = {
 			has_militarist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3158,7 +3158,7 @@ country_event = {
 		name = crisis.211.c
 		trigger = {
 			has_materialist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3177,7 +3177,7 @@ country_event = {
 		name = crisis.211.d
 		trigger = {
 			has_pacifist_government = yes
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3196,7 +3196,7 @@ country_event = {
 		name = crisis.211.e
 		trigger = {
 			has_government = gov_megacorporation
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3221,7 +3221,7 @@ country_event = {
 				has_government = gov_hive_mind
 				has_ethic = ethic_gestalt_consciousness
 			}
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_xenophile"
 				has_ethic = "ethic_fanatic_xenophobe"
 			}
@@ -3472,7 +3472,7 @@ country_event = {
 	}	
 	
 	immediate = {
-		set_crisis_sound = swarm_crisis_ambient_stage_final_01
+		set_crisis_sound = swarm_crisis_ambient_stage_final
 		set_crisis_stage_4 = yes
 	}
 }

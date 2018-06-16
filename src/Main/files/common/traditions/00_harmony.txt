@@ -248,6 +248,19 @@ tr_harmony_mind_and_body = {
 	modifier = {
 		leader_age = 20
 	}
+
+	tradition_swap = {
+		name = tr_harmony_mind_and_body_hive
+		inherit_effects = yes
+		inherit_icon = yes
+		inherit_name = no
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		weight = {
+			factor = 1
+		}
+	}
 	
 	tradition_swap = {
 		name = tr_synchronicity_self_preservation

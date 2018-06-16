@@ -4654,6 +4654,24 @@ apply_robotic_pop_growth_behavior = {
 refugee_pop_effect = {
 	remove_modifier = "pop_recently_conquered"
 	remove_culture_shock = yes
+	planet = { 	
+		save_event_target_as = RefugeeEscapedPlanet 
+		if = {
+			limit = {
+				is_under_crisis_bombardment = yes
+			}
+			solar_system = {
+				random_fleet_in_system = {
+					limit = {
+						owner = {
+							is_crisis_faction = yes
+						}
+					}
+					owner = { save_event_target_as = RefugeeEscapedCrisis }
+				}
+			}
+		}		
+	}
 	owner = {
 		save_event_target_as = RefugeeEscapedFrom
 		random_relation = {
@@ -9358,7 +9376,7 @@ generate_lcluster_clue = {
 			}
 			custom_tooltip = l_cluster_openable
 			set_country_flag = completed_lcluster_chain
-			country_event = { id = distar.10900}
+			country_event = { id = distar.10904 }
 		}
 	}
 }
@@ -9389,7 +9407,10 @@ pop_lcluster_event = {
 					}
 				}
 			}
-			country_event = { id = distar.9000 days = 10 }
+			random_list = {
+				7 = {}
+				3 = { country_event = { id = distar.9000 days = 10 } }
+			}
 		}
 	}
 }

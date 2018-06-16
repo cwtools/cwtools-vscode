@@ -662,32 +662,28 @@ country_event = {
 				save_event_target_as = holy_target
 			}
 			country_event = { id = apoc.200 }
-			else = {
-				if = {
-					limit = {
-						any_planet_within_border = {
-							is_planet_class = pc_gaia
-							is_colony = no
-							NOT = { has_modifier = "holy_planet" }
-							NOT = { has_colony_progress > 0 }
-						}
-					}
-					random_planet_within_border = {
-						limit = {
-							is_planet_class = pc_gaia
-							is_colony = no
-							NOT = { has_modifier = "holy_planet" }
-							NOT = { has_colony_progress > 0 }
-						}
-						save_event_target_as = holy_target
-					}
-					country_event = { id = apoc.200 }
-					else = {
-						country_event = { id = apoc.201 }
-					}
-				}			
-			}
 		}	
+		else_if = {
+			limit = {
+				any_planet_within_border = {
+					is_planet_class = pc_gaia
+					is_colony = no
+					NOT = { has_modifier = "holy_planet" }
+					NOT = { has_colony_progress > 0 }
+				}
+			}
+			random_planet_within_border = {
+				limit = {
+					is_planet_class = pc_gaia
+					is_colony = no
+					NOT = { has_modifier = "holy_planet" }
+					NOT = { has_colony_progress > 0 }
+				}
+				save_event_target_as = holy_target
+			}
+			country_event = { id = apoc.200 }			
+		}
+		else = { country_event = { id = apoc.201 } }
 	}
 }
 

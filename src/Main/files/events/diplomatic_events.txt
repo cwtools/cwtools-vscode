@@ -670,7 +670,7 @@ country_event = {
 		random_neighbor_country = {
 			limit = {
 				has_communications = root
-				NOT = {
+				NOR = {
 					is_at_war_with = ROOT
 					is_subject = yes
 				}
@@ -714,7 +714,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						NOT = {
+						NOR = {
 							has_ethic = ethic_xenophile
 							pop_has_trait = trait_robotic_1
 							pop_has_trait = trait_robotic_2
@@ -732,7 +732,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						NOT = {
+						NOR = {
 							has_ethic = ethic_xenophile
 							pop_has_trait = trait_robotic_1
 							pop_has_trait = trait_robotic_2
@@ -750,7 +750,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						NOT = {
+						NOR = {
 							has_ethic = ethic_xenophile
 							pop_has_trait = trait_robotic_1
 							pop_has_trait = trait_robotic_2

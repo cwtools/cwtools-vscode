@@ -102,7 +102,7 @@ country_event = {
 	
 	immediate = {
 		set_timed_country_flag = { flag = fallen_empire_sent_warning days = 30 }
-		random_country = {
+		random_playable_country = {
 			limit = {
 				is_country_type = default
 				has_communications = root				
@@ -135,7 +135,7 @@ country_event = {
 				}					
 				country_event = { id = fallen_empires.5 }	
 				break = yes
-			}	
+			}
 
 			# Demand - ban slavery and purging (xenophile)
 			if = {
@@ -147,7 +147,7 @@ country_event = {
 				}			
 				country_event = { id = fallen_empires.6 }		
 				break = yes
-			}			
+			}	
 
 			# Demand - abandon colonies nearby (xenophobe)
 			if = {
@@ -155,21 +155,23 @@ country_event = {
 					root = { 
 						has_ai_personality_behaviour = demands_clear_borders
 					}
-					root = {
-						any_system_within_border = {
-							has_hyperlane_to = prevprev
-						}					
+					any_system_within_border = {
+						root = {
+							any_system_within_border = {
+								has_hyperlane_to = prevprev
+							}
+						}
 					}
 				}				
 				country_event = { id = fallen_empires.7 }
 				break = yes
-			}	
+			}
 
 			# Demand - prostrate yourself, mere mortal!				
 			if = {
 				limit = { NOT = { has_modifier = humiliated } }
 				country_event = { id = fallen_empires.8 }
-			}	
+			}
 		}
 	}
 }
@@ -429,10 +431,12 @@ country_event = {
 				# if we're both fallen empires, we know of each other
 				is_country_type = fallen_empire
 				# also contact if we border them
-				root = {
-					any_system_within_border = {
-						has_hyperlane_to = prevprev
-					}					
+				any_system_within_border = {
+					root = {
+						any_system_within_border = {
+							has_hyperlane_to = prevprev
+						}					
+					}
 				}
 				# always if we're awakened
 				root = { is_country_type = awakened_fallen_empire }
@@ -467,10 +471,12 @@ country_event = {
 					}	
 					# also contact if we border them
 					OR = {
-						root = {
-							any_system_within_border = {
-								has_hyperlane_to = prevprev
-							}					
+						any_system_within_border = {
+							root = {
+								any_system_within_border = {
+									has_hyperlane_to = prevprev
+								}					
+							}
 						}
 						any_owned_fleet = {
 							is_ship_class = shipclass_starbase

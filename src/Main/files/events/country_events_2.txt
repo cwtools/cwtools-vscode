@@ -31,9 +31,9 @@ country_event = {
 				}
 			}
 			country_event = { id = country.902 days = 60 random = 20 }
-			else = {
-				country_event = { id = country.901 days = 90 }
-			}
+		}
+		else = {
+			country_event = { id = country.901 days = 90 }
 		}
 	}
 }
@@ -51,26 +51,24 @@ country_event = {
 				capital_scope = { colony_age > 24 }
 			}
 			country_event = { id = country.902 days = 60 random = 20 }
-			else = {
-				if = {
-					limit = {
-						capital_scope.solar_system = {
-							NOT = {
-								any_planet = {
-									is_surveyed = {
-										who = ROOT
-										status = no
-									}
-								}
+		}
+		else_if = {
+			limit = {
+				capital_scope.solar_system = {
+					NOT = {
+						any_planet = {
+							is_surveyed = {
+								who = ROOT
+								status = no
 							}
 						}
 					}
-					country_event = { id = country.902 days = 60 random = 20 }
-					else = {
-						country_event = { id = country.901 days = 60 }
-					}
 				}
 			}
+			country_event = { id = country.902 days = 60 random = 20 }
+		}
+		else = {
+			country_event = { id = country.901 days = 60 }
 		}
 	}
 }
@@ -143,7 +141,7 @@ country_event = {
 	option = {
 		name = country.999.a
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_pacifist
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_fanatic_authoritarian
@@ -329,7 +327,7 @@ country_event = {
 			}
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_star_flag = hostile_system
 						has_star_flag = capital_system
 						has_star_flag = current_scientist_1_system
@@ -358,7 +356,7 @@ country_event = {
 			}
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_star_flag = hostile_system
 						has_star_flag = capital_system
 						has_star_flag = current_scientist_1_system
@@ -388,7 +386,7 @@ country_event = {
 			}
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_star_flag = hostile_system
 						has_star_flag = capital_system
 						has_star_flag = current_scientist_1_system
@@ -919,7 +917,7 @@ country_event = {
 		}
 		random_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					has_star_flag = hostile_system
 					has_star_flag = capital_system
 					has_star_flag = current_scientist_1_system
@@ -1403,7 +1401,7 @@ country_event = {
 			}
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						has_star_flag = hostile_system
 						has_star_flag = capital_system
 						has_star_flag = current_scientist_1_system
@@ -1737,7 +1735,7 @@ country_event = {
 		}
 		random_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					exists = space_owner
 					has_star_flag = hostile_system
 					is_star_class = sc_black_hole
@@ -1778,7 +1776,7 @@ country_event = {
 		}
 		random_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					exists = space_owner
 					has_star_flag = hostile_system
 					is_star_class = sc_black_hole
@@ -1819,7 +1817,7 @@ country_event = {
 		}
 		random_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					exists = space_owner
 					has_star_flag = hostile_system
 					is_star_class = sc_black_hole
@@ -1860,7 +1858,7 @@ country_event = {
 		}
 		random_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					exists = space_owner
 					has_star_flag = hostile_system
 					is_star_class = sc_black_hole
@@ -1901,7 +1899,7 @@ country_event = {
 		}
 		random_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					exists = space_owner
 					has_star_flag = hostile_system
 					is_star_class = sc_black_hole
@@ -2024,7 +2022,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = {
+		NOR = {
 			has_country_flag = massex_1_found
 			has_country_flag = massex_1_pending
 		}
@@ -2065,7 +2063,7 @@ country_event = {
 			capital_scope = { save_event_target_as = capital_location }
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole
@@ -2139,7 +2137,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = {
+		NOR = {
 			has_country_flag = massex_2_found
 			has_country_flag = massex_2_pending
 		}
@@ -2178,7 +2176,7 @@ country_event = {
 			capital_scope = { save_event_target_as = capital_location }
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole
@@ -2252,7 +2250,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = {
+		NOR = {
 			has_country_flag = massex_3_found
 			has_country_flag = massex_3_pending
 		}
@@ -2291,7 +2289,7 @@ country_event = {
 			capital_scope = { save_event_target_as = capital_location }
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole
@@ -2365,7 +2363,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = {
+		NOR = {
 			has_country_flag = massex_4_found
 			has_country_flag = massex_4_pending
 		}
@@ -2404,7 +2402,7 @@ country_event = {
 			capital_scope = { save_event_target_as = capital_location }
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole
@@ -2478,7 +2476,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = {
+		NOR = {
 			has_country_flag = massex_5_found
 			has_country_flag = massex_5_pending
 		}
@@ -2517,7 +2515,7 @@ country_event = {
 			capital_scope = { save_event_target_as = capital_location }
 			random_system = {
 				limit = {
-					NOT = {
+					NOR = {
 						exists = space_owner
 						has_star_flag = hostile_system
 						is_star_class = sc_black_hole

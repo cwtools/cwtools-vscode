@@ -354,12 +354,12 @@ country_event = {
 				tech = tech_biolab_1
 				progress = 0.80
 			}
-			else = {
-				add_research_option = tech_biolab_1
-				add_tech_progress = {
-					tech = tech_biolab_1
-					progress = 0.5
-				}
+		}
+		else = {
+			add_research_option = tech_biolab_1
+			add_tech_progress = {
+				tech = tech_biolab_1
+				progress = 0.5
 			}
 		}
 	}
@@ -379,12 +379,12 @@ country_event = {
 				tech = tech_biolab_2
 				progress = 0.80
 			}
-			else = {
-				add_research_option = tech_biolab_2
-				add_tech_progress = {
-					tech = tech_biolab_2
-					progress = 0.4
-				}
+		}
+		else = {
+			add_research_option = tech_biolab_2
+			add_tech_progress = {
+				tech = tech_biolab_2
+				progress = 0.4
 			}
 		}
 	}
@@ -404,12 +404,12 @@ country_event = {
 				tech = tech_biolab_3
 				progress = 0.50
 			}
-			else = {
-				add_research_option = tech_biolab_3
-				add_tech_progress = {
-					tech = tech_biolab_3
-					progress = 0.25
-				}
+		}
+		else = {
+			add_research_option = tech_biolab_3
+			add_tech_progress = {
+				tech = tech_biolab_3
+				progress = 0.25
 			}
 		}
 	}
@@ -483,7 +483,7 @@ ship_event = {
 # Gas Mining Backfires
 planet_event = {
 	id = anomaly_failure.4170
-	title = "FAILURE"
+	title = DISC_FAILURE
 	desc = {
 		text = "anomaly_failure.4170.individ.desc"
 		trigger = {
@@ -499,7 +499,7 @@ planet_event = {
 		text = "anomaly_failure.4170.basic.desc"
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_egalitarian
 					has_ethic = ethic_egalitarian
 				}

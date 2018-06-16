@@ -26,28 +26,26 @@ event = {
 			random_system = {
 				spawn_system = { initializer = "com_sol_system" }
 			}
-			else = {
-				# If there are no Sols
-				if = {
-					limit = {
-						NOT = {
-							any_system = {
-								has_star_flag = sol
-							}
-						}
+		}
+		else_if = {
+			# If there are no Sols
+			limit = {
+				NOT = {
+					any_system = {
+						has_star_flag = sol
 					}
-					random_list = {
-						50 = { }
-						40 = {
-							random_system = {
-								spawn_system = { initializer = "special_init_03" }
-							}
-						}
-						10 = {
-							random_system = {
-								spawn_system = { initializer = "special_init_04" }
-							}
-						}
+				}
+			}
+			random_list = {
+				50 = { }
+				40 = {
+					random_system = {
+						spawn_system = { initializer = "special_init_03" }
+					}
+				}
+				10 = {
+					random_system = {
+						spawn_system = { initializer = "special_init_04" }
 					}
 				}
 			}
@@ -342,10 +340,10 @@ country_event = {
 				}
 				add_energy = 50
 				add_food = 50
-				else = {
-					add_energy = 100
-				}
 			}			
+			else = {
+				add_energy = 100
+			}
 		}
 		else = {
 			add_food = 100
@@ -954,14 +952,14 @@ planet_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		if = { limit = { is_capital = yes }
+		if = {
+			limit = { is_capital = yes }
 
 			# 2-4 extra pops on capital planet
 			create_pop = { species = owner_main_species }
 			create_pop = { species = owner_main_species }
 			random_list = {
-				1 = {
-				}
+				1 = {}
 				1 = {
 					create_pop = { species = owner_main_species }
 				}
@@ -970,14 +968,13 @@ planet_event = {
 					create_pop = { species = owner_main_species }
 				}
 			}
-
-			else = {
-				# 4 extra pops on additional colony
-				create_pop = { species = owner_main_species }
-				create_pop = { species = owner_main_species }
-				create_pop = { species = owner_main_species }
-				create_pop = { species = owner_main_species }
-			}
+		}
+		else = {
+			# 4 extra pops on additional colony
+			create_pop = { species = owner_main_species }
+			create_pop = { species = owner_main_species }
+			create_pop = { species = owner_main_species }
+			create_pop = { species = owner_main_species }
 		}
 	}
 }

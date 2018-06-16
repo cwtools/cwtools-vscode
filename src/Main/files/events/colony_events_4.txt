@@ -29,7 +29,7 @@ planet_event = {
 				has_ethic = ethic_fanatic_pacifist
 				has_ethic = ethic_pacifist
 			}
-			NOT = {
+			NOR = {
 				has_country_flag = colony_event_ethic_diverge 
 				has_ethic = ethic_gestalt_consciousness
 			}
@@ -72,7 +72,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_pacifist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -83,7 +83,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_pacifist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -94,7 +94,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_pacifist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -119,7 +119,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_militarist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -130,7 +130,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_militarist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -141,7 +141,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_militarist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -156,7 +156,7 @@ planet_event = {
 		custom_tooltip = colony.2001.b.pacifism.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_pacifist
 					has_ethic = ethic_pacifist
 					has_ethic = ethic_fanatic_egalitarian
@@ -167,7 +167,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_pacifist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -190,7 +190,7 @@ planet_event = {
 		custom_tooltip = colony.2001.b.military.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_militarist
 					has_ethic = ethic_militarist
 					has_ethic = ethic_fanatic_egalitarian
@@ -201,7 +201,7 @@ planet_event = {
 			random_pop = {
 				limit = {
 					is_non_sapient_robot = no
-					NOT = {
+					NOR = {
 						has_ethic = ethic_militarist
 						has_pop_flag = pop_changed_ethics
 					}
@@ -299,7 +299,7 @@ planet_event = {
 		name = colony.2005.a
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_materialist
 					has_ethic = ethic_materialist
 				}
@@ -331,12 +331,12 @@ planet_event = {
 					tech = tech_destroyers
 					progress = 0.60
 				}
-				else = {
-					add_research_option = tech_destroyers
-					add_tech_progress = {
-						tech = tech_destroyers
-						progress = 0.20
-					}
+			}
+			else = {
+				add_research_option = tech_destroyers
+				add_tech_progress = {
+					tech = tech_destroyers
+					progress = 0.20
 				}
 			}
 		}
@@ -362,12 +362,12 @@ planet_event = {
 					tech = tech_cruisers
 					progress = 0.60
 				}
-				else = {
-					add_research_option = tech_cruisers
-					add_tech_progress = {
-						tech = tech_cruisers
-						progress = 0.20
-					}
+			}
+			else = {
+				add_research_option = tech_cruisers
+				add_tech_progress = {
+					tech = tech_cruisers
+					progress = 0.20
 				}
 			}
 		}
@@ -376,7 +376,7 @@ planet_event = {
 		name = colony.2005.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
@@ -392,12 +392,12 @@ planet_event = {
 					tech = tech_destroyers
 					progress = 0.60
 				}
-				else = {
-					add_research_option = tech_destroyers
-					add_tech_progress = {
-						tech = tech_destroyers
-						progress = 0.20
-					}
+			}
+			else = {
+				add_research_option = tech_destroyers
+				add_tech_progress = {
+					tech = tech_destroyers
+					progress = 0.20
 				}
 			}
 		}
@@ -406,7 +406,7 @@ planet_event = {
 		name = colony.2005.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
@@ -423,12 +423,12 @@ planet_event = {
 					tech = tech_cruisers
 					progress = 0.60
 				}
-				else = {
-					add_research_option = tech_cruisers
-					add_tech_progress = {
-						tech = tech_cruisers
-						progress = 0.20
-					}
+			}
+			else = {
+				add_research_option = tech_cruisers
+				add_tech_progress = {
+					tech = tech_cruisers
+					progress = 0.20
 				}
 			}
 		}
@@ -543,7 +543,7 @@ planet_event = {
 		custom_tooltip = colony.2006.a.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_xenophile
 					has_ethic = ethic_xenophile
 					has_ethic = ethic_fanatic_materialist
@@ -660,7 +660,7 @@ planet_event = {
 		custom_tooltip = colony.2007.a
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_xenophobe
 					has_ethic = ethic_xenophobe
 					has_ethic = ethic_fanatic_xenophile
@@ -768,7 +768,7 @@ planet_event = {
 		custom_tooltip = colony.2008.a.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_materialist
 					has_ethic = ethic_materialist
 					has_ethic = ethic_fanatic_spiritualist
@@ -1231,7 +1231,7 @@ planet_event = {
 		custom_tooltip = colony.2012.a.material.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
@@ -1255,7 +1255,7 @@ planet_event = {
 		is_homeworld = no
 		owner = {
 			is_ai = no
-			NOT = {
+			NOR = {
 				has_country_flag = colony_odd_factory 
 				has_authority = auth_machine_intelligence
 			}
@@ -1681,7 +1681,7 @@ planet_event = {
 		custom_tooltip = colony.2025.a.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_xenophile
 					has_ethic = ethic_xenophile
 					has_ethic = ethic_fanatic_xenophobe
@@ -1813,7 +1813,7 @@ planet_event = {
 		custom_tooltip = colony.2025.b.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_xenophobe
 					has_ethic = ethic_xenophobe
 					has_ethic = ethic_fanatic_militarist
@@ -2077,7 +2077,7 @@ planet_event = {
 		sector_controlled = no
 		owner = {
 			is_ai = no
-			NOT = {
+			NOR = {
 				has_country_flag = colony_infected
 				has_ethic = ethic_gestalt_consciousness
 			}
@@ -2189,7 +2189,7 @@ planet_event = {
 				limit = {
 					has_blocker = no
 					has_building = yes
-					NOT = {
+					NOR = {
 						has_building = building_capital_1
 						has_building = building_capital_2
 						has_building = building_capital_3
@@ -2205,7 +2205,7 @@ planet_event = {
 		trigger = {
 			owner = {
 				influence > 99
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_materialist
@@ -2260,7 +2260,7 @@ planet_event = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_materialist
 					has_ethic = ethic_materialist
 					has_ethic = ethic_fanatic_militarist
@@ -2321,7 +2321,7 @@ planet_event = {
 					has_government = gov_feudal_empire
 					has_government = gov_constitutional_dictatorship
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_materialist
@@ -2366,7 +2366,7 @@ planet_event = {
 					has_ethic = ethic_fanatic_materialist
 					has_ethic = ethic_materialist
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_militarist
@@ -2509,7 +2509,7 @@ planet_event = {
 				limit = {
 					has_blocker = no
 					has_building = yes
-					NOT = {
+					NOR = {
 						has_building = building_capital_1
 						has_building = building_capital_2
 						has_building = building_capital_3
@@ -2525,7 +2525,7 @@ planet_event = {
 		trigger = {
 			owner = {
 				influence > 49
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_materialist
@@ -2575,7 +2575,7 @@ planet_event = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_materialist
 					has_ethic = ethic_materialist
 					has_ethic = ethic_fanatic_militarist
@@ -2638,7 +2638,7 @@ planet_event = {
 					has_government = gov_feudal_empire
 					has_government = gov_constitutional_dictatorship
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_materialist
@@ -2685,7 +2685,7 @@ planet_event = {
 					has_ethic = ethic_fanatic_materialist
 					has_ethic = ethic_materialist
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_militarist
@@ -2751,7 +2751,7 @@ planet_event = {
 		random_pop = {
 			limit = {
 				is_growing = no
-				NOT = {
+				NOR = {
 					has_pop_flag = spreading_infection
 					has_pop_flag = alien_infection_immunity
 					has_modifier = alien_infection
@@ -2774,7 +2774,7 @@ planet_event = {
 		has_planet_flag = colony_infected_active
 		any_pop = {
 			has_pop_flag = spreading_infection
-			NOT = {
+			NOR = {
 				has_pop_flag = alien_infection_immunity
 				has_modifier = alien_infection
 			}
@@ -2834,7 +2834,7 @@ planet_event = {
 				limit = {
 					has_modifier = alien_infection
 					is_growing = no
-					NOT = {
+					NOR = {
 						has_pop_flag = alien_infection_timer
 						has_pop_flag = alien_infection_immunity
 					}
@@ -2846,23 +2846,23 @@ planet_event = {
 				}
 				kill_pop = yes
 			}
-			else = {
-				random_pop = {
-					limit = {
-						has_modifier = alien_infection
-						is_growing = yes
+		}
+		else = {
+			random_pop = {
+				limit = {
+					has_modifier = alien_infection
+					is_growing = yes
+					NOR = {
+						has_pop_flag = alien_infection_timer
+						has_pop_flag = alien_infection_immunity
+					}
+					tile = {
 						NOT = {
-							has_pop_flag = alien_infection_timer
-							has_pop_flag = alien_infection_immunity
-						}
-						tile = {
-							NOT = {
-								has_building = building_quarantine
-							}
+							has_building = building_quarantine
 						}
 					}
-					kill_pop = yes
 				}
+				kill_pop = yes
 			}
 		}
 		planet_event = { id = colony.2046 }
@@ -2882,7 +2882,7 @@ planet_event = {
 
 	trigger = {
 		has_planet_flag = colony_infected_active
-		NOT = {
+		NOR = {
 			has_planet_flag = infection_warning
 			owner = {
 				has_country_flag = alien_infection_2_cured
@@ -2966,7 +2966,7 @@ planet_event = {
 		name = CURSES
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
@@ -3002,7 +3002,7 @@ planet_event = {
 
 	trigger = {
 		has_planet_flag = colony_infected_active
-		NOT = {
+		NOR = {
 			has_planet_flag = healing_in_progress
 			has_planet_flag = plague_progress_made
 		}
@@ -3077,7 +3077,7 @@ planet_event = {
 
 	trigger = {
 		has_planet_flag = colony_infected_active
-		NOT = {
+		NOR = {
 			has_planet_flag = healing_in_progress
 			has_planet_flag = plague_progress_made
 		}
@@ -3330,7 +3330,7 @@ planet_event = {
 	trigger = {
 		has_planet_flag = colony_infected_active
 		owner = {
-			NOT = {
+			NOR = {
 				has_country_flag = alien_infection_2_cured
 				has_country_flag = alien_infection_isolated
 			}
@@ -3473,6 +3473,7 @@ planet_event = {
 		has_ground_combat = no
 		is_occupied_flag = no
 		num_pops > 0
+		free_pop_tiles > 2
 		free_building_tiles > 0
 		any_tile = { has_building = yes	}
 		NOR = {
@@ -3499,6 +3500,7 @@ planet_event = {
 				limit = {
 					has_blocker = no
 					has_building = no
+					has_pop = no
 				}
 				set_blocker = tb_decrepit_dwellings
 			}
@@ -3506,6 +3508,7 @@ planet_event = {
 				limit = {
 					has_blocker = no
 					has_building = no
+					has_pop = no
 				}
 				set_blocker = tb_failing_infrastructure
 			}
@@ -3518,7 +3521,7 @@ planet_event = {
 			owner = {
 				influence > 99
 				energy > 499
-				NOT = {
+				NOR = {
 					#has_policy = democratic_utopia
 					has_ethic = ethic_fanatic_authoritarian
 					has_ethic = ethic_authoritarian
@@ -3590,7 +3593,7 @@ planet_event = {
 			random_tile = {
 				limit = {
 					has_building = yes
-					NOT = {
+					NOR = {
 						has_building = building_capital_1
 						has_building = building_capital_2
 						has_building = building_capital_3
@@ -3608,7 +3611,7 @@ planet_event = {
 				limit = {
 					has_building = yes
 					is_ruined = no
-					NOT = {
+					NOR = {
 						has_building = building_capital_1
 						has_building = building_capital_2
 						has_building = building_capital_3

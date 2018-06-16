@@ -151,7 +151,10 @@ lgate = {
 	country_can_use = {
 		custom_tooltip = {
 			fail_text = LGATE_COUNTRY_CANNOT_USE
-			has_country_flag = lgates_activated
+			OR = {
+				has_global_flag = lgates_activated_globally
+				has_country_flag = lgates_activated
+			}
 		}
 	}
 	

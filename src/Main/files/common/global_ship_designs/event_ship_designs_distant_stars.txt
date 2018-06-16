@@ -2,6 +2,7 @@
 ship_design = {
 	name = "NAME_Voidspawn"
 	ship_size = leviathan_01_voidspawn
+	is_event_design = yes
 
 	section = {
 		template = "voidspawn_key"
@@ -92,6 +93,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_enigmatic_cache"
 	ship_size = enigmatic_cache
+	is_event_design = yes
 	hide_size = yes
 
 	section = {
@@ -107,6 +109,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_Nanite_Dragon"
 	ship_size = nanite_space_dragon_baby
+	is_event_design = yes
 
 	section = {
 		template = "nanite_space_dragon_baby_key"
@@ -200,6 +203,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_Nanite_Factory"
 	ship_size = graygoo_factory
+	is_event_design = yes
 
 	section = {
 		template = "nanite_factory_key"
@@ -375,6 +379,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_Nanite_Mothership"
 	ship_size = graygoo_mothership
+	is_event_design = yes
 
 	section = {
 		template = "nanite_mothership_key"
@@ -509,6 +514,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_Nanite_Interdictor"
 	ship_size = graygoo_interdictor
+	is_event_design = yes
 	section = {
 		template = "nanite_interdictor_key"
 		slot = "mid"
@@ -595,7 +601,8 @@ ship_design = {
 
 ship_design = {
 	name = "NAME_Reclaimer"
-		ship_size = leviathan_01_scavenger_bot
+	ship_size = leviathan_01_scavenger_bot
+	is_event_design = yes
 
 	section = {
 		template = "scavenger_bot_key"
@@ -771,7 +778,9 @@ ship_design = {
 
 ship_design = {
 	name = "NAME_S8751"
-		ship_size = eventship_02
+	ship_size = eventship_02
+	is_event_design = yes
+	is_special_buildable = yes
 
 	section = {
 		template = "eventship_02_section"
@@ -825,6 +834,7 @@ ship_design = {
 ship_design = {
 	name = "NAME_Progenitor"
 	ship_size = leviathan_01_elder_tiyanki
+	is_event_design = yes
 	hide_size = yes
 	
 	section = {
@@ -897,7 +907,9 @@ ship_design = {
 
 ship_design = {
 	name = "NAME_AH4B"
-		ship_size = eventship_04
+	ship_size = eventship_04
+	is_event_design = yes
+	is_special_buildable = yes
 
 	section = {
 		template = "ahab_section"
@@ -983,4 +995,111 @@ ship_design = {
 	required_component = "HYPER_DRIVE_3"
 	required_component = "COMBAT_COMPUTER_ARTILLERY_ADVANCED"
 	required_component = "BATTLESHIP_SHIP_THRUSTER_3"
+}
+
+
+#####################################
+#					                #
+#  	   Lost Amoeba Centenarian		#
+#				                  	#
+#####################################
+
+ship_design = {
+	name = "NAME_Adopted_Amoeba_Centenarian"
+	ship_size = space_amoeba_centenarian
+	is_event_design = yes
+	is_special_buildable = yes
+	hide_size = yes
+	
+	section = {
+		template = "space_amoeba_centenarian_key"
+		slot = "mid"
+		
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_03"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_04"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_05"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_06"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_07"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "LARGE_GUN_08"
+			template = "LARGE_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "SMALL_GUN_02"
+			template = "SMALL_SPACE_AMOEBA_WEAPON"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_01"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_02"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_03"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_04"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_05"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_06"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_07"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_08"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_09"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_10"
+			template = "AMOEBA_STRIKE_CRAFT"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AUTO_REPAIR"
+		}
+	}
+	
+	required_component="BIO_DRIVE"
 }

@@ -959,7 +959,7 @@ planet_event = {
 		if = {
 			limit = { 
 				has_modifier = titanic_life
-				NOT = { 
+				NOR = { 
 					has_planet_flag = titanic_life_colony_flag
 					owner = { has_ethic = ethic_gestalt_consciousness }
 				}
@@ -980,7 +980,7 @@ planet_event = {
 		if = {
 			limit = { 
 				has_modifier = "asteroid_belt"
-				NOT = { 
+				NOR = { 
 					has_modifier = "recent_comet" 
 					owner = { has_ethic = ethic_gestalt_consciousness }
 				}
@@ -992,7 +992,7 @@ planet_event = {
 		if = {
 			limit = { 
 				has_modifier = atmospheric_hallucinogen 
-				NOT = { 
+				NOR = {
 					has_planet_flag = atmospheric_hallucinogen_colony_flag
 					owner = { has_ethic = ethic_gestalt_consciousness } 
 				}

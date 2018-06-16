@@ -1504,7 +1504,7 @@ planet_event = {
 
 	trigger = {
 		is_planet_class = pc_desert
-		NOT = {
+		NOR = {
 			has_planet_flag = snakeoid_planet
 			has_planet_flag = upl_ongoing_planet
 		}
@@ -2164,7 +2164,7 @@ planet_event = {
 		custom_tooltip = uplift.7510.b.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = "ethic_xenophobe"
 					has_ethic = "ethic_fanatic_xenophobe"
 				}
@@ -2245,7 +2245,7 @@ planet_event = {
 		name = uplift.7520.a
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = "ethic_xenophobe"
 					has_ethic = "ethic_fanatic_xenophobe"
 				}

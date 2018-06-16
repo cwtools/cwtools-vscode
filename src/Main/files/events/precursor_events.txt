@@ -28,7 +28,7 @@ ship_event = {
 			is_star = no
 		}
 		owner = {
-			NOT = { 
+			NOR = { 
 				has_country_flag = vultaum_intro
 				has_country_flag = yuht_intro
 				has_country_flag = first_league_intro
@@ -695,7 +695,7 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				NOT = { 
+				NOR = {
 					has_global_flag = vultaum_system_discovered 
 					has_country_flag = vultaum_system
 				}
@@ -705,19 +705,17 @@ country_event = {
 				}
 			}
 			country_event = { id = precursor.98 }
-			else = {
-				if = {
-					limit = {
-						has_global_flag = vultaum_system_discovered
-						NOT = { has_country_flag = vultaum_system }
-						has_completed_event_chain_counter = {
-							event_chain = "vultaum_chain" 
-							counter = "vultaum_artifacts" 
-						}
-					}
-					country_event = { id = precursor.99 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = vultaum_system_discovered
+				NOT = { has_country_flag = vultaum_system }
+				has_completed_event_chain_counter = {
+					event_chain = "vultaum_chain" 
+					counter = "vultaum_artifacts" 
 				}
 			}
+			country_event = { id = precursor.99 }
 		}
 	}
 }
@@ -892,7 +890,7 @@ ship_event = {
 		text = precursor.102.desc.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_event_chain = vultaum_chain
 					has_event_chain = vultaum_homeworld_chain
 				}
@@ -954,7 +952,7 @@ ship_event = {
 			is_star = no
 		}
 		owner = { 
-			NOT = { 
+			NOR = { 
 				has_country_flag = vultaum_intro
 				has_country_flag = yuht_intro
 				has_country_flag = first_league_intro
@@ -1518,18 +1516,16 @@ country_event = {
 				}
 			}
 			country_event = { id = precursor.598 }
-			else = {
-				if = {
-					limit = {
-						has_global_flag = yuht_system_discovered
-						has_completed_event_chain_counter = {
-							event_chain = "yuht_chain" 
-							counter = "yuht_artifacts" 
-						}
-					}
-					country_event = { id = precursor.599 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = yuht_system_discovered
+				has_completed_event_chain_counter = {
+					event_chain = "yuht_chain" 
+					counter = "yuht_artifacts" 
 				}
 			}
+			country_event = { id = precursor.599 }
 		}
 	}
 }
@@ -1693,7 +1689,7 @@ ship_event = {
 		text = precursor.602.desc.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_event_chain = yuht_chain
 					has_event_chain = yuht_homeworld_chain
 				}
@@ -1754,7 +1750,7 @@ ship_event = {
 			is_star = no
 		}
 		owner = { 
-			NOT = { 
+			NOR = { 
 				has_country_flag = vultaum_intro
 				has_country_flag = yuht_intro
 				has_country_flag = first_league_intro
@@ -2601,7 +2597,7 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				NOT = { 
+				NOR = { 
 					has_global_flag = first_league_system_discovered 
 					has_country_flag = first_league_system
 				}
@@ -2611,19 +2607,17 @@ country_event = {
 				}
 			}
 			country_event = { id = precursor.1098 }
-			else = {
-				if = {
-					limit = {
-						has_global_flag = first_league_system_discovered
-						NOT = { has_country_flag = first_league_system }
-						has_completed_event_chain_counter = {
-							event_chain = "first_league_chain" 
-							counter = "first_league_artifacts" 
-						}
-					}
-					country_event = { id = precursor.1099 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = first_league_system_discovered
+				NOT = { has_country_flag = first_league_system }
+				has_completed_event_chain_counter = {
+					event_chain = "first_league_chain" 
+					counter = "first_league_artifacts" 
 				}
 			}
+			country_event = { id = precursor.1099 }
 		}
 	}
 }
@@ -2806,7 +2800,7 @@ ship_event = {
 		text = precursor.1102.desc.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_event_chain = first_league_chain
 					has_event_chain = first_league_homeworld_chain
 				}
@@ -2866,8 +2860,8 @@ ship_event = {
 			has_anomaly = no 
 			is_star = no
 		}
-		owner = { 
-			NOT = { 
+		owner = {
+			NOR = { 
 				has_country_flag = vultaum_intro
 				has_country_flag = yuht_intro
 				has_country_flag = first_league_intro
@@ -3540,7 +3534,7 @@ country_event = {
 	immediate = {
 		if = {
 			limit = {
-				NOT = { 
+				NOR = { 
 					has_global_flag = irassian_system_discovered 
 					has_country_flag = irassian_system
 				}
@@ -3550,19 +3544,17 @@ country_event = {
 				}
 			}
 			country_event = { id = precursor.1598 }
-			else = {
-				if = {
-					limit = {
-						has_global_flag = irassian_system_discovered
-						NOT = { has_country_flag = irassian_system }
-						has_completed_event_chain_counter = {
-							event_chain = "irassian_chain" 
-							counter = "irassian_artifacts" 
-						}
-					}
-					country_event = { id = precursor.1599 }
+		}
+		else_if = {
+			limit = {
+				has_global_flag = irassian_system_discovered
+				NOT = { has_country_flag = irassian_system }
+				has_completed_event_chain_counter = {
+					event_chain = "irassian_chain" 
+					counter = "irassian_artifacts" 
 				}
 			}
+			country_event = { id = precursor.1599 }
 		}
 	}
 }
@@ -3733,7 +3725,7 @@ ship_event = {
 		text = precursor.1602.desc.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_event_chain = irassian_chain
 					has_event_chain = irassian_homeworld_chain
 				}
@@ -3794,7 +3786,7 @@ ship_event = {
 			is_star = no
 		}
 		owner = {
-			NOT = { 
+			NOR = { 
 				has_country_flag = vultaum_intro
 				has_country_flag = yuht_intro
 				has_country_flag = first_league_intro
@@ -4471,25 +4463,23 @@ country_event = {
 					event_chain = "cybrex_chain" 
 					counter = "cybrex_artifacts" 
 				}
-				NOT = { 
+				NOR = { 
 					has_global_flag = cybrex_system_discovered 
 					has_country_flag = cybrex_system
 				}
 			}
 			country_event = { id = precursor.2098 }
-			else = {
-				if = {
-					limit = {
-						has_completed_event_chain_counter = {
-							event_chain = "cybrex_chain" 
-							counter = "cybrex_artifacts" 
-						}
-						has_global_flag = cybrex_system_discovered
-						NOT = { has_country_flag = cybrex_system }
-					}
-					country_event = { id = precursor.2099 }
+		}
+		else_if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = "cybrex_chain" 
+					counter = "cybrex_artifacts" 
 				}
+				has_global_flag = cybrex_system_discovered
+				NOT = { has_country_flag = cybrex_system }
 			}
+			country_event = { id = precursor.2099 }
 		}
 	}
 }
@@ -4676,7 +4666,7 @@ ship_event = {
 		name = "FASCINATING"
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_country_flag = cybrex_end1
 					has_country_flag = cybrex_end2
 				}
@@ -4725,7 +4715,7 @@ ship_event = {
 		text = precursor.2102.desc.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_event_chain = cybrex_chain
 					has_event_chain = cybrex_homeworld_chain
 				}
@@ -4741,7 +4731,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_ai = no
-			NOT = { 
+			NOR = { 
 				has_country_flag = cybrex_system 
 				has_country_flag = cybrex_world_found
 			}

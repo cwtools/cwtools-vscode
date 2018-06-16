@@ -18,6 +18,9 @@ pop_event = {
 	desc = {
 		text = refugees.1.desc.1
 		trigger = {
+			event_target:RefugeeEscapedPlanet = {
+				is_under_crisis_bombardment = no
+			}
 			event_target:RefugeeEscapedFrom = { 
 				root = {
 					OR = {
@@ -31,12 +34,23 @@ pop_event = {
 	desc = {
 		text = refugees.1.desc.2
 		trigger = {
+			event_target:RefugeeEscapedPlanet = {
+				is_under_crisis_bombardment = no
+			}		
 			event_target:RefugeeEscapedFrom = { 
 				root = {
 					has_citizenship_type = { type = citizenship_purge country = prev }
 					NOT = { has_purge_type = { type = purge_displacement country = prev } }
 				}
 			}
+		}
+	}	
+	desc = {
+		text = refugees.1.desc.3
+		trigger = {
+			event_target:RefugeeEscapedPlanet = {
+				is_under_crisis_bombardment = yes
+			}		
 		}
 	}		
 	
@@ -58,11 +72,11 @@ pop_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = default }
+		planet = { is_controlled_by = owner }	
 		is_robot_pop = no
 		OR = {
 			pop_can_live_on_planet = no
 			has_citizenship_type = { type = citizenship_purge }
-			is_pre_sapient_livestock = yes
 		}
 	}
 	
@@ -88,7 +102,7 @@ pop_event = {
 			factor = 0.1
 			pop_can_live_on_planet = no
 			planet = { is_planet_class = pc_machine }
-		}			
+		}
 	}
 	
 	immediate = {
@@ -107,13 +121,23 @@ pop_event = {
 	trigger = {
 		exists = owner
 		owner = { is_country_type = default }
-		has_citizenship_type = { type = citizenship_purge }
-		NOT = { has_purge_type = { type = purge_displacement } }		
+		planet = { is_controlled_by = owner }
+		OR = {
+			AND = {
+				has_citizenship_type = { type = citizenship_purge }
+				NOT = { has_purge_type = { type = purge_displacement } }		
+			}
+			planet = { is_under_crisis_bombardment = yes }
+		}	
 		is_valid_refugee_pop = yes
 	}
 	
 	mean_time_to_happen = {
 		years = 50
+		modifier = {
+			factor = 0.1
+			planet = { is_under_crisis_bombardment = yes }
+		}		
 	}
 	
 	immediate = {
@@ -132,13 +156,9 @@ pop_event = {
 
 	immediate = {
 		if = {
-			limit = {
-				is_valid_refugee_pop = yes								
-			}
+			limit = { is_valid_refugee_pop = yes }
 			refugee_pop_effect = yes
-			else = {
-				kill_pop = yes
-			}
 		}		
+		else = { kill_pop = yes }
 	}
 }

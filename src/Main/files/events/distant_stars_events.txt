@@ -104,7 +104,11 @@ country_event = {
 				modifier = opinion_stole_supplies
 			}
 		}
-		hidden_effect = { destroy_ambient_object = event_target:supply_wreckage_tar }
+		hidden_effect = {
+			event_target:supply_wreckage_tar = {
+				destroy_ambient_object = this
+			}
+		}
 	}
 
 	option = {
@@ -114,7 +118,11 @@ country_event = {
 		}
 		name = distar.2.b
 		add_minerals = -300
-		hidden_effect = { destroy_ambient_object = event_target:supply_wreckage_tar }
+		hidden_effect = {
+			event_target:supply_wreckage_tar = {
+				destroy_ambient_object = this
+			}
+		}
 	}
 
 	option = {
@@ -126,7 +134,11 @@ country_event = {
 				modifier = opinion_stole_supplies
 			}
 		}
-		hidden_effect = { destroy_ambient_object = event_target:supply_wreckage_tar }
+		hidden_effect = {
+			event_target:supply_wreckage_tar = {
+				destroy_ambient_object = this
+			}
+		}
 	}
 }
 
@@ -158,7 +170,9 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			destroy_ambient_object = event_target:supply_wreckage_tar
+			event_target:supply_wreckage_tar = {
+				destroy_ambient_object = this
+			}
 		}
 	}
 }
@@ -1150,7 +1164,7 @@ ship_event = {
 		}
 		text = "distar.50.desc.first_enc"
 	}
-	picture = GFX_evt_gas_giant
+	picture = GFX_evt_friendly_amoeba
 	show_sound = event_space_amoeba
 	location = from
 	
@@ -1238,6 +1252,7 @@ ship_event = {
 			owner = {
 				set_country_flag = amoeba_befriended # Achievement flag
 				country_event = { id = distar.51 days = 365 random = 60 }
+				country_event = { id = distar.304 days = 36500 }
 				IF = {
 					limit = {
 						NOT = { has_country_flag = amoeba_encountered }
@@ -1307,11 +1322,11 @@ ship_event = {
 	}
 }
 
-country_event = {
+country_event = { #Adopted Amoeba Evolves
 	id = distar.51
 	title = "distar.51.name"
 	desc = "distar.51.desc"
-	picture = GFX_evt_microscopic_life
+	picture = GFX_evt_friendly_amoeba
 	show_sound = event_space_amoeba
 	location = event_target:lost_amoeba_adult_fleet
 	
@@ -1339,9 +1354,6 @@ country_event = {
 					target = event_target:lost_amoeba_fleet
 				}
 				set_fleet_stance = passive
-				set_aggro_range_measure_from = return_point
-				set_aggro_range = 0
-				add_modifier = { modifier = "amoeba_speed_boost" days = -1 }
 				set_fleet_flag = lost_amoeba_adult_fleet@root
 				save_event_target_as = lost_amoeba_adult_fleet
 			}
@@ -1514,7 +1526,7 @@ country_event = {
 	id = distar.55
 	title = "distar.55.name"
 	desc = "distar.55.desc"
-	picture = GFX_evt_microscopic_life
+	picture = GFX_evt_friendly_amoeba
 	show_sound = event_space_amoeba
 	location = event_target:lost_amoeba_adult_fleet
 	
@@ -1624,7 +1636,7 @@ country_event = {
 	id = distar.56
 	title = "distar.55.name"
 	desc = "distar.56.desc"
-	picture = GFX_evt_microscopic_life
+	picture = GFX_evt_friendly_amoeba
 	show_sound = event_space_amoeba
 	location = event_target:lost_amoeba_adult_fleet
 	
@@ -1899,7 +1911,10 @@ country_event = { #Discovering Scientist becomes depressed if Amoeba dies
 
 	trigger = {
 		fromfrom.fleet = {
-			has_fleet_flag = lost_amoeba_adult_fleet@root
+			OR = {
+				has_fleet_flag = lost_amoeba_adult_fleet@root
+				has_fleet_flag = lost_amoeba_centenarian_fleet@root
+			}
 		}
 		exists = event_target:amoeba_finding_scientist
 	}
@@ -1909,6 +1924,72 @@ country_event = { #Discovering Scientist becomes depressed if Amoeba dies
 		event_target:amoeba_finding_scientist = {
 			add_trait = leader_trait_substance_abuser
 		}
+	}
+}
+
+
+country_event = { #Upgrade if Amoeba survives 100 years
+	id = distar.304
+	title = "distar.304.name"
+	desc = "distar.304.desc"
+	picture = GFX_evt_friendly_amoeba
+	show_sound = event_space_amoeba
+	location = event_target:lost_amoeba_centenarian_fleet
+	
+	is_triggered_only = yes
+
+	trigger = {
+		any_owned_fleet = { #Since each empire can have one, we don't want a GET
+			has_fleet_flag = lost_amoeba_adult_fleet@root
+		}
+	}
+
+	immediate = {
+		random_owned_fleet = {
+			limit = {
+				has_fleet_flag = lost_amoeba_adult_fleet@root
+			}
+			save_event_target_as = lost_amoeba_adult_fleet
+		}
+		create_fleet = {
+			name = event_target:lost_amoeba_adult_fleet
+			effect = {
+				set_owner = root
+				create_ship = {
+					name = event_target:lost_amoeba_adult_fleet
+					design = "NAME_Adopted_Amoeba_Centenarian"
+					prefix = no
+					upgradable = no
+				}
+				set_location = {
+					target = event_target:lost_amoeba_adult_fleet
+				}
+				set_fleet_stance = passive
+
+				add_modifier = { modifier = "amoeba_speed_boost" days = -1 }
+				add_modifier = { modifier = "evolved_weapon_boost_2" days = -1 }
+				add_modifier = { modifier = "evolved_firing_rate" days = -1 }
+				add_modifier = { modifier = "evolved_evasion" days = -1 }
+
+				set_fleet_flag = lost_amoeba_centenarian_fleet@root
+				save_event_target_as = lost_amoeba_centenarian_fleet
+			}
+			settings = {
+				can_upgrade = no
+				can_disband = no
+				can_change_composition = no
+				can_change_leader = no
+				uses_naval_capacity = no
+			}
+		}
+		event_target:lost_amoeba_adult_fleet = {
+			delete_fleet = this
+		}
+	}
+
+	option = {
+		name = ASTOUNDING
+		custom_tooltip = "distar.304.a.tooltip"
 	}
 }
 
@@ -3548,6 +3629,8 @@ fleet_event = { #Scrap bot!
 			is_country_type = default
 			NOT = { has_country_flag = encountered_scavenger_bot }
 		}
+		exists = event_target:scavenger_bot_fleet
+		exists = event_target:scavenger_bot_country
 	}
 
 	immediate = {
@@ -3557,6 +3640,7 @@ fleet_event = { #Scrap bot!
 		}
 		owner = {
 			set_country_flag = encountered_scavenger_bot
+			establish_communications_no_message = event_target:scavenger_bot_country
 			country_event = { id = story.8 days = 30 }
 		}
 	}
@@ -3575,6 +3659,7 @@ country_event = {
 	trigger = {
 		exists = event_target:scavenger_bot_country
 		is_same_value = event_target:scavenger_bot_country
+		exists = event_target:scavenger_bot_fleet
 		from = {
 			is_same_value = event_target:scavenger_bot_fleet
 		}
@@ -4017,7 +4102,10 @@ ship_event = {
 					class = ROBOT
 					portrait = sd_rep_robot
 					namelist = "AI"
-					traits = random
+					traits = {
+						trait = trait_mechanical
+						trait = random_traits
+					}
 					effect = {
 						save_event_target_as = warform_species
 					}
@@ -4029,7 +4117,10 @@ ship_event = {
 					class = ROBOT
 					portrait = default_robot
 					namelist = "AI"
-					traits = random
+					traits = {
+						trait = trait_mechanical
+						trait = random_traits
+					}
 					effect = {
 						save_event_target_as = warform_species
 					}
@@ -4699,6 +4790,7 @@ ship_event = {
 								has_trait = trait_cybernetic
 								has_trait = trait_mechanical
 								has_trait = trait_machine_unit
+								is_species_class = ROBOT
 							}
 						}
 					}
@@ -4727,6 +4819,7 @@ ship_event = {
 									has_trait = trait_cybernetic
 									has_trait = trait_mechanical
 									has_trait = trait_machine_unit
+									is_species_class = ROBOT
 								}
 							}
 						}
@@ -4734,7 +4827,17 @@ ship_event = {
 					}
 				}
 				random_owned_leader = {
-					LIMIT = { leader_class = governor }
+					LIMIT = {
+						leader_class = governor
+						species = {
+							NOR = {
+								has_trait = trait_cybernetic
+								has_trait = trait_mechanical
+								has_trait = trait_machine_unit
+								is_species_class = ROBOT
+							}
+						}
+					}
 					add_trait = leader_trait_governor_brainslug
 				}
 				country_event = { id = distar.174 } #Pool leaders get trait
@@ -4773,6 +4876,7 @@ ship_event = {
 								has_trait = trait_cybernetic
 								has_trait = trait_mechanical
 								has_trait = trait_machine_unit
+								is_species_class = ROBOT
 							}
 						}
 						is_sapient = yes
@@ -4817,6 +4921,7 @@ country_event = { #New leaders get Brainslug Trait
 				has_trait = trait_cybernetic
 				has_trait = trait_mechanical
 				has_trait = trait_machine_unit
+				is_species_class = ROBOT
 			}
 		}
 	}
@@ -4824,33 +4929,63 @@ country_event = { #New leaders get Brainslug Trait
 	immediate = {
 		from = {
 			if = {
-				limit = { leader_class = general }
-					random_list = {
-						66 = {
-							#Nothing
-						}
-						33 = {
-							add_trait = leader_trait_general_brainslug
-							add_ruler_trait = leader_trait_ruler_brainslug
+				limit = {
+					leader_class = general
+					species = {
+						NOR = {
+							has_trait = trait_cybernetic
+							has_trait = trait_mechanical
+							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
+				}
+				random_list = {
+					66 = {
+						#Nothing
+					}
+					33 = {
+						add_trait = leader_trait_general_brainslug
+						add_ruler_trait = leader_trait_ruler_brainslug
+					}
+				}
 				break = yes
 			}
 			if = {
-				limit = { leader_class = admiral }
-					random_list = {
-						66 = {
-							#Nothing
-						}
-						33 = {
-							add_trait = leader_trait_admiral_brainslug
-							add_ruler_trait = leader_trait_ruler_brainslug
+				limit = {
+					leader_class = admiral
+					species = {
+						NOR = {
+							has_trait = trait_cybernetic
+							has_trait = trait_mechanical
+							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
+				}
+				random_list = {
+					66 = {
+						#Nothing
+					}
+					33 = {
+						add_trait = leader_trait_admiral_brainslug
+						add_ruler_trait = leader_trait_ruler_brainslug
+					}
+				}
 				break = yes
 			}
 			if = {
-				limit = { leader_class = governor }
+				limit = {
+					leader_class = governor
+					species = {
+						NOR = {
+							has_trait = trait_cybernetic
+							has_trait = trait_mechanical
+							has_trait = trait_machine_unit
+							is_species_class = ROBOT
+						}
+					}
+				}
 				random_list = {
 					66 = {
 						#Nothing
@@ -4863,7 +4998,17 @@ country_event = { #New leaders get Brainslug Trait
 				break = yes
 			}
 			if = {
-				limit = { leader_class = scientist }
+				limit = {
+					leader_class = scientist
+					species = {
+						NOR = {
+							has_trait = trait_cybernetic
+							has_trait = trait_mechanical
+							has_trait = trait_machine_unit
+							is_species_class = ROBOT
+						}
+					}
+				}
 				random_list = {
 					66 = {
 						#Nothing
@@ -4876,7 +5021,17 @@ country_event = { #New leaders get Brainslug Trait
 				break = yes
 			}
 			if = {
-				limit = { leader_class = ruler }
+				limit = {
+					leader_class = ruler
+					species = {
+						NOR = {
+							has_trait = trait_cybernetic
+							has_trait = trait_mechanical
+							has_trait = trait_machine_unit
+							is_species_class = ROBOT
+						}
+					}
+				}
 				random_list = {
 					66 = {
 						#Nothing
@@ -4909,6 +5064,7 @@ country_event = { #Pool leaders get Brainslug Trait
 							has_trait = trait_cybernetic
 							has_trait = trait_mechanical
 							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
 				}
@@ -4931,6 +5087,7 @@ country_event = { #Pool leaders get Brainslug Trait
 							has_trait = trait_cybernetic
 							has_trait = trait_mechanical
 							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
 				}
@@ -4953,6 +5110,7 @@ country_event = { #Pool leaders get Brainslug Trait
 							has_trait = trait_cybernetic
 							has_trait = trait_mechanical
 							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
 				}
@@ -4975,6 +5133,7 @@ country_event = { #Pool leaders get Brainslug Trait
 							has_trait = trait_cybernetic
 							has_trait = trait_mechanical
 							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
 				}
@@ -4997,6 +5156,7 @@ country_event = { #Pool leaders get Brainslug Trait
 							has_trait = trait_cybernetic
 							has_trait = trait_mechanical
 							has_trait = trait_machine_unit
+							is_species_class = ROBOT
 						}
 					}
 				}
@@ -5227,7 +5387,10 @@ ship_event = { #On building the orbital research station
 	is_triggered_only = yes
 
 	trigger = {
-		owner = { has_country_flag = living_planet_started }
+		owner = {
+			has_country_flag = living_planet_started
+			has_event_chain = "living_planet_chain"
+		}
 		from = { has_modifier = living_sea }
 	}
 
@@ -5597,6 +5760,8 @@ fleet_event = { #Tiyanki Matriarch
 			is_country_type = default
 			NOT = { has_country_flag = encountered_elderly_tiyanki }
 		}
+		exists = event_target:elderly_tiyanki_fleet
+		exists = event_target:elderly_tiyanki_country
 	}
 
 	immediate = {
@@ -5608,6 +5773,7 @@ fleet_event = { #Tiyanki Matriarch
 			country_event = { id = story.8 days = 30 }
 			set_country_flag = encountered_elderly_tiyanki
 			capital_scope = { save_event_target_as = pc_home }
+			establish_communications_no_message = event_target:elderly_tiyanki_country
 		}
 	}
 
@@ -6546,42 +6712,52 @@ country_event = { #Alert that the pre-space Ketlings have emerged
 			}
 			IF = {
 				limit = { exists = event_target:ratling_planet_2 }
-				enable_special_project = {
-					name = "KETLING_PROJECT_2"
-					location = event_target:ratling_planet_2
-					owner = root
+				event_target:ratling_planet_2 = {
+					enable_special_project = {
+						name = "KETLING_PROJECT_2"
+						location = this
+						owner = root
+					}
 				}
 			}
 			IF = {
 				limit = { exists = event_target:ratling_planet_3 }
-				enable_special_project = {
-					name = "KETLING_PROJECT_3"
-					location = event_target:ratling_planet_3
-					owner = root
+				event_target:ratling_planet_3 = {
+					enable_special_project = {
+						name = "KETLING_PROJECT_3"
+						location = this
+						owner = root
+					}
 				}
 			}
 			IF = {
 				limit = { exists = event_target:ratling_planet_4 }
-				enable_special_project = {
-					name = "KETLING_PROJECT_4"
-					location = event_target:ratling_planet_4
-					owner = root
+				event_target:ratling_planet_4 = {
+					enable_special_project = {
+						name = "KETLING_PROJECT_4"
+						location = this
+						owner = root
+					}
 				}
 			}
 			IF = {
 				limit = { exists = event_target:ratling_planet_5 }
-				enable_special_project = {
-					name = "KETLING_PROJECT_5"
-					location = event_target:ratling_planet_5
-					owner = root
+				event_target:ratling_planet_5 = {
+					enable_special_project = {
+						name = "KETLING_PROJECT_5"
+						location = this
+						owner = root
+					}
 				}
 			}
 			IF = {
 				limit = { exists = event_target:ratling_planet_6 }
-				enable_special_project = {
-					name = "KETLING_PROJECT_6"
-					location = event_target:ratling_planet_6
-					owner = root
+				event_target:ratling_planet_6 = {
+					enable_special_project = {
+						name = "KETLING_PROJECT_6"
+						location = this
+						owner = root
+					}
 				}
 			}
 			IF = {
@@ -6619,34 +6795,52 @@ country_event = { #Alert that the pre-space Ketlings have emerged
 				}
 				IF = {
 					limit = { exists = event_target:ratling_planet_2 }
-					enable_special_project = {
-						name = "KETLING_PROJECT_2"
-						location = event_target:ratling_planet_2
-						owner = root
+					event_target:ratling_planet_2 = {
+						enable_special_project = {
+							name = "KETLING_PROJECT_2"
+							location = this
+							owner = root
+						}
 					}
 				}
 				IF = {
 					limit = { exists = event_target:ratling_planet_3 }
-					enable_special_project = {
-						name = "KETLING_PROJECT_3"
-						location = event_target:ratling_planet_3
-						owner = root
+					event_target:ratling_planet_3 = {
+						enable_special_project = {
+							name = "KETLING_PROJECT_3"
+							location = this
+							owner = root
+						}
 					}
 				}
 				IF = {
 					limit = { exists = event_target:ratling_planet_4 }
-					enable_special_project = {
-						name = "KETLING_PROJECT_4"
-						location = event_target:ratling_planet_4
-						owner = root
+					event_target:ratling_planet_4 = {
+						enable_special_project = {
+							name = "KETLING_PROJECT_4"
+							location = this
+							owner = root
+						}
 					}
 				}
 				IF = {
 					limit = { exists = event_target:ratling_planet_5 }
-					enable_special_project = {
-						name = "KETLING_PROJECT_5"
-						location = event_target:ratling_planet_5
-						owner = root
+					event_target:ratling_planet_5 = {
+						enable_special_project = {
+							name = "KETLING_PROJECT_5"
+							location = this
+							owner = root
+						}
+					}
+				}
+				IF = {
+					limit = { exists = event_target:ratling_planet_6 }
+					event_target:ratling_planet_6 = {
+						enable_special_project = {
+							name = "KETLING_PROJECT_6"
+							location = this
+							owner = root
+						}
 					}
 				}
 				IF = {
@@ -6661,7 +6855,7 @@ country_event = { #Alert that the pre-space Ketlings have emerged
 				}
 			}
 		}
-	}
+	} 
 }
 
 ship_event = { #Origin of the Ketlings Special Project success
@@ -6678,7 +6872,7 @@ ship_event = { #Origin of the Ketlings Special Project success
 	}
 	picture = GFX_evt_junkheap
 	show_sound = event_ghost_town
-	location = from
+	location = fromfrom
 	
 	is_triggered_only = yes
 
@@ -7984,7 +8178,9 @@ country_event = {
 			key = caretaker_leader
 		}
 		hidden_effect = {
-			destroy_ambient_object = event_target:droppod_tar
+			event_target:droppod_tar = {
+				destroy_ambient_object = this
+			}
 		}
 	}
 
@@ -8070,7 +8266,9 @@ country_event = { #Destroying the leader
 			max = @tier2researchmax
 		}
 		hidden_effect = {
-			destroy_ambient_object = event_target:droppod_tar
+			event_target:droppod_tar = {
+				destroy_ambient_object = this
+			}
 		}
 	}
 
@@ -8083,7 +8281,9 @@ country_event = { #Destroying the leader
 			max = @tier1influencemax
 		}
 		hidden_effect = {
-			destroy_ambient_object = event_target:droppod_tar
+			event_target:droppod_tar = {
+				destroy_ambient_object = this
+			}
 		}
 	}
 }
@@ -8211,6 +8411,112 @@ ship_event = {
 
 	option = {
 		name = INCREDIBLE
+		owner = {
+			add_monthly_resource_mult = {
+				resource = physics_research
+				value = @tier3researchreward
+				min = @tier3researchmin
+				max = @tier3researchmax
+			}
+		}
+	}
+}
+
+ship_event = { #If we own the system, and the planet is still shifting when researching the anomaly
+	id = distar.302
+	title = "distar.250.name"
+	desc = {
+		trigger = {
+			owner = {
+				has_special_project = PHASESHIFT_PROJECT
+			}
+		}
+		text = "distar.302.desc"
+	}
+	desc = {
+		trigger = {
+			owner = {
+				NOT = { has_special_project = PHASESHIFT_PROJECT }
+			}
+		}
+		text = "distar.302.desc.noproj"
+	}
+	picture = {
+		trigger = {
+			from = {
+				is_planet_class = pc_shrouded
+			}
+		}
+		picture = GFX_evt_shrouded
+	}
+	picture = {
+		trigger = {
+			from = {
+				is_planet_class = pc_gaia
+			}
+		}
+		picture = GFX_evt_gaia
+	}
+	show_sound = event_mystic_reveal_light
+	location = from
+	
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = surveyed_phaseshift_planet
+		}
+	}
+
+	option = {
+		name = FASCINATING
+		hidden_effect = {
+			from = {
+				set_name = "NAME_The_Veil"
+			}
+		}
+		owner = {
+			add_monthly_resource_mult = {
+				resource = physics_research
+				value = @tier3researchreward
+				min = @tier3researchmin
+				max = @tier3researchmax
+			}
+		}
+	}
+}
+
+ship_event = { #If the planet has already been locked into a Gaia World
+	id = distar.303
+	title = "distar.250.name"
+	desc = "distar.303.desc"
+	picture = GFX_evt_gaia
+	show_sound = event_mystic_reveal_light
+	location = from
+	
+	is_triggered_only = yes
+
+	immediate = {
+		owner = {
+			set_country_flag = surveyed_phaseshift_planet
+		}
+	}
+
+	option = {
+		name = INTERESTING
+		owner = {
+			add_monthly_resource_mult = {
+				resource = physics_research
+				value = @tier3researchreward
+				min = @tier3researchmin
+				max = @tier3researchmax
+			}
+		}
+		hidden_effect = {
+			from = {
+				set_name = "NAME_The_Veil"
+			}
+		} 
 	}
 }
 
@@ -8441,6 +8747,14 @@ ship_event = {
 
 	option = {
 		name = INCREDIBLE
+		owner = {
+			add_monthly_resource_mult = {
+				resource = physics_research
+				value = @tier3researchreward
+				min = @tier3researchmin
+				max = @tier3researchmax
+			}
+		}
 	}
 }
 
@@ -9506,7 +9820,7 @@ country_event = {
   				surveyor = root
   			}
 			change_pc = pc_gaia
-			change_planet_size = 25
+			set_planet_size = 25
 			set_name = "NAME_Paridayda"
 			clear_planet_modifiers = yes
 			add_modifier = {
@@ -10339,7 +10653,7 @@ planet_event = {
 	id = distar.1014
 	title = "distar.1014.name"
 	desc = "distar.1014.desc"
-	picture = GFX_evt_gaia_planet
+	picture = GFX_evt_gaia
 	show_sound = event_celebration
 	location = event_target:utopian_planet
 
@@ -10713,7 +11027,13 @@ country_event = {
 
 	option = {
 		name = distar.1031.a
-		hidden_effect = { 
+		exclusive_trigger = {
+			OR = {
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+		hidden_effect = {
 			set_country_flag = lcluster_clue_desc_2
 			pop_lcluster_event = yes
 		}
@@ -10762,7 +11082,7 @@ ship_event = {
 		name = distar.1040.a
 		custom_tooltip = distar.1040.a.tooltip
 		hidden_effect = { 
-			pop_lcluster_event = yes
+			owner = { pop_lcluster_event = yes }
 		}
 		owner = {
 			add_minerals = 100
@@ -10772,7 +11092,7 @@ ship_event = {
 		name = distar.1040.b
 		custom_tooltip = distar.1040.b.tooltip
 		hidden_effect = {
-			pop_lcluster_event = yes
+			owner = { pop_lcluster_event = yes }
 		}
 		owner = {
 			add_modifier = {
@@ -10784,7 +11104,7 @@ ship_event = {
 	option = {
 		name = distar.1040.c
 		hidden_effect = {
-			pop_lcluster_event = yes
+			owner = { pop_lcluster_event = yes }
 		}
 		custom_tooltip = distar.1040.c.tooltip
 	}
@@ -12545,7 +12865,7 @@ country_event = {
 	}
 }
 
-# They break free
+# They are freed
 country_event = {
 	id = distar.2033
 	title = "distar.2033.name"
@@ -13154,7 +13474,7 @@ planet_event = {
 	id = distar.5057
 	title = distar.5057.name
 	desc = distar.5057.desc
-	picture = GFX_evt_news_room
+	picture = GFX_evt_enigmatic_cache
 	show_sound = event_mystic_reveal
 	location = Root
 
@@ -13216,7 +13536,7 @@ country_event = {
 	id = distar.5058
 	title = distar.5058.name
 	desc = distar.5058.desc
-	picture = GFX_evt_circuitry_modification
+	picture = GFX_evt_enigmatic_cache
 	show_sound = event_mystic_reveal
 	location = fromfrom
 
@@ -13504,7 +13824,7 @@ planet_event = {
 		}
 		text = distar.5059.desc
 	}
-	picture = GFX_evt_news_room
+	picture = GFX_evt_enigmatic_cache
 	show_sound = event_mystic_reveal
 	location = this
 	
@@ -13866,16 +14186,11 @@ ship_event = {
 	option = {
 		name = distar.2040.a
 		hidden_effect = {
-			if = {
-				limit = {
-					any_system = {
-						has_owner = no
-					}
-				}
-			}
-			solar_system = {
+			owner.capital_scope = {
 				closest_system = {
+				min_steps = 2
 					limit = {
+						has_access_fleet = root.owner
 						any_planet = {
 							is_asteroid = yes
 						}
@@ -15517,6 +15832,7 @@ country_event = { # Alien Box opened
 					remove_trait = trait_strong
 					add_trait = trait_very_strong
 				}
+				set_country_flag = strong_removed_verystrong_added
 			}
 			else_if = {
 				limit = {
@@ -15527,6 +15843,7 @@ country_event = { # Alien Box opened
 					remove_trait = trait_weak
 					add_trait = trait_strong
 				}
+				set_country_flag = weak_removed_strong_added
 			}
 			else_if = {
 				limit = {
@@ -15540,6 +15857,7 @@ country_event = { # Alien Box opened
 					species = this
 					add_trait = trait_very_strong
 				}
+				set_country_flag = verystrong_added
 			}
 			set_country_flag = modification_stronger
 			country_event = { id = distar.3057 days = 5 }
@@ -15559,6 +15877,7 @@ country_event = { # Alien Box opened
 					remove_trait = trait_adaptive
 					add_trait = trait_extremely_adaptive
 				}
+				set_country_flag = adaptive_removed_extremelyadaptive_added
 			}
 			if = {
 				limit = {
@@ -15569,6 +15888,7 @@ country_event = { # Alien Box opened
 					remove_trait = trait_nonadaptive
 					add_trait = trait_adaptive
 				}
+				set_country_flag = nonadaptive_removed_adaptive_added
 			}
 			if = {
 				limit = {
@@ -15582,6 +15902,7 @@ country_event = { # Alien Box opened
 					species = this
 					add_trait = trait_extremely_adaptive
 				}
+				set_country_flag = extremelyadaptive_added
 			}
 			set_country_flag = modification_adaptive
 			country_event = { id = distar.3057 days = 5 }
@@ -15601,6 +15922,7 @@ country_event = { # Alien Box opened
 					remove_trait = trait_enduring
 					add_trait = trait_venerable
 				}
+				set_country_flag = enduring_removed_venerable_added
 			}
 			if = {
 				limit = {
@@ -15611,6 +15933,7 @@ country_event = { # Alien Box opened
 					remove_trait = trait_fleeting
 					add_trait = trait_enduring
 				}
+				set_country_flag = fleeting_removed_enduring_added
 			}
 			if = {
 				limit = {
@@ -15624,6 +15947,7 @@ country_event = { # Alien Box opened
 					species = this
 					add_trait = trait_venerable
 				}
+				set_country_flag = venerable_added
 			}
 			set_country_flag = modification_longlived
 			country_event = { id = distar.3057 days = 5 }
@@ -15724,6 +16048,151 @@ country_event = { # Genetic modifications applied
 
 	option = {
 		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = strong_removed_verystrong_added
+		}
+		hidden_effect = { remove_country_flag = strong_removed_verystrong_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				remove_trait = trait_strong
+				add_trait = trait_very_strong
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = weak_removed_strong_added
+		}
+		hidden_effect = { remove_country_flag = weak_removed_strong_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				remove_trait = trait_weak
+				add_trait = trait_strong
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = verystrong_added
+		}
+		hidden_effect = { remove_country_flag = verystrong_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				add_trait = trait_very_strong
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = adaptive_removed_extremelyadaptive_added
+		}
+		hidden_effect = { remove_country_flag = adaptive_removed_extremelyadaptive_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				remove_trait = trait_adaptive
+				add_trait = trait_extremely_adaptive
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = nonadaptive_removed_adaptive_added
+		}
+		hidden_effect = { remove_country_flag = nonadaptive_removed_adaptive_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				remove_trait = trait_nonadaptive
+				add_trait = trait_adaptive
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = extremelyadaptive_added
+		}
+		hidden_effect = { remove_country_flag = extremelyadaptive_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				add_trait = trait_extremely_adaptive
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = enduring_removed_venerable_added
+		}
+		hidden_effect = { remove_country_flag = enduring_removed_venerable_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				remove_trait = trait_enduring
+				add_trait = trait_venerable
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = fleeting_removed_enduring_added
+		}
+		hidden_effect = { remove_country_flag = fleeting_removed_enduring_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				remove_trait = trait_fleeting
+				add_trait = trait_enduring
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		exclusive_trigger = {
+			has_country_flag = venerable_added
+		}
+		hidden_effect = { remove_country_flag = venerable_added }
+		tooltip = {
+			modify_species = {
+				species = this
+				add_trait = trait_venerable
+			}
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		trigger = {
+			NOR = {
+				has_country_flag = strong_removed_verystrong_added
+				has_country_flag = weak_removed_strong_added
+				has_country_flag = verystrong_added
+				has_country_flag = adaptive_removed_extremelyadaptive_added
+				has_country_flag = nonadaptive_removed_adaptive_added
+				has_country_flag = extremelyadaptive_added
+				has_country_flag = enduring_removed_venerable_added
+				has_country_flag = fleeting_removed_enduring_added
+				has_country_flag = venerable_added
+			}
+		}
 	}
 }
 
@@ -16833,9 +17302,14 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				NOT = {
-					exists = event_target:egg_owner
-					is_same_value = event_target:egg_owner
+				OR = {
+					NOT = {
+						exists = event_target:egg_owner
+					}
+					AND = {
+						exists = event_target:egg_owner
+						is_same_value = event_target:egg_owner
+					}
 				}
 			}
 			add_monthly_resource_mult = {
@@ -17063,7 +17537,40 @@ country_event = {
 	}
 }
 
-# has gateway
+# Researched L-Gate tech
+country_event = {
+	id = distar.10903
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		last_increased_tech = tech_lgate_activation
+		NOT = { has_global_flag = l_cluster_opened }
+	}
+
+	immediate = {
+		country_event = { id = distar.10900 }
+	}
+}
+
+# Technology available upon gaining all insights
+country_event = {
+	id = distar.10904
+	title = "distar.10904.name"
+	desc = "distar.10904.desc"
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_mystic_reveal
+
+	is_triggered_only = yes
+
+	option = {
+		name = GOOD
+		add_research_option = tech_lgate_activation
+	}
+}
+
+# Project available
 country_event = {
 	id = distar.10905
 	title = "distar.10905.name"
@@ -17073,6 +17580,10 @@ country_event = {
 	location = event_target:candidate_gateway
 
 	is_triggered_only = yes
+
+	trigger = {
+		last_increased_tech = tech_lgate_activation
+	}
 
 	immediate = {
 		end_event_chain = "l_cluster_chain"
@@ -17100,6 +17611,7 @@ country_event = {
 
 	immediate = {
 		set_country_flag = lcluster_opener
+		set_global_flag = l_cluster_opened
 		# spawn L-Cluster
 		country_event = { id = distar.11000 }
 		# enable L-Gate
@@ -17156,15 +17668,14 @@ country_event = {
 				set_megastructure_flag = lgate_activated
 			}
 		}
+		set_global_flag = lgates_activated_globally
 		every_playable_country = {
-			set_country_flag = lgates_activated
 			if = {
-				limit = { has_special_project = LCLUSTER_PROJECT }
-				abort_special_project = { type = LCLUSTER_PROJECT }
-			}
-			if = {
-				limit = { has_event_chain = l_cluster_chain }
-				liquidate_clues = yes
+				limit = { is_researching_technology = tech_lgate_activation }
+				give_technology = {
+					tech = tech_lgate_activation
+					message = no
+				}
 			}
 		}
 	}
@@ -17193,22 +17704,22 @@ country_event = {
 		every_playable_country = {
 			limit = {
 				NOR = {
-					has_special_project = LCLUSTER_PROJECT
-					is_same_value = root 
-				}
-				has_event_chain = l_cluster_chain
-			}
-			country_event = { id = distar.10953 }
-		}
-		every_playable_country = {
-			limit = {
-				NOR = {
 					has_event_chain = l_cluster_chain
 					has_special_project = LCLUSTER_PROJECT
 					is_same_value = root 
 				}
 			}
 			country_event = { id = distar.10954 }
+		}
+		every_playable_country = {
+			limit = {
+				NOR = {
+					has_special_project = LCLUSTER_PROJECT
+					is_same_value = root 
+				}
+				has_event_chain = l_cluster_chain
+			}
+			country_event = { id = distar.10953 }
 		}
 	}
 
@@ -17247,6 +17758,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		liquidate_clues = yes
 		end_event_chain = "l_cluster_chain"
 	}
 

@@ -2460,6 +2460,7 @@ colonization_control_no = {
 					has_trait = trait_cybernetic
 					from = { has_valid_civic = civic_machine_assimilator }		
 				}
+				from = { has_valid_civic = civic_machine_servitor }
 			}			
 		}
 	}
@@ -2477,5 +2478,13 @@ colonization_control_no = {
 	}
 	ai_will_do = {
 		factor = 1
+		modifier = {
+			factor = 0
+			from = { has_valid_civic = civic_machine_servitor }
+			NOR = {
+				has_trait = trait_machine_unit
+				has_trait = trait_mechanical
+			}
+		}
 	}
 }

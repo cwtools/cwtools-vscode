@@ -90,7 +90,12 @@ imperialist = {
 		}
 
 		trigger = {
-			owner = { has_policy_flag = unrestricted_wars }
+			owner = { 
+				OR = {
+					has_policy_flag = unrestricted_wars 
+					has_policy_flag = liberation_wars
+				}
+			}
 		}
 	}
 

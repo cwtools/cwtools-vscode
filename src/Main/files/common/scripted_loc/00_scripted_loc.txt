@@ -371,3 +371,19 @@ defined_text = {
 		localization_key = gray_goo_world_inactive_nanites
 	}
 }
+
+defined_text = {
+	name = GetShieldedPlanetDesc
+	text = {
+		trigger = {
+			NOT = { has_planet_flag = is_time_loop_world }
+		}
+		localization_key = pc_shielded_desc_orig
+	}
+	text = {
+		trigger = {
+			has_planet_flag = is_time_loop_world
+		}
+		localization_key = pc_time_loop_world_desc
+	}
+}

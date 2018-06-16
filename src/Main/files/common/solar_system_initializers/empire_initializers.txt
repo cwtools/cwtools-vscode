@@ -660,6 +660,15 @@ random_empire_init_05 = {
 			orbit_distance = 5
 		}
 	}
+
+	neighbor_system = {
+		distance = { min = 10 max = @distance }		
+		initializer = "neighbor_t1"
+	}
+	neighbor_system = {
+		distance = { min = 10 max = @distance }		
+		initializer = "neighbor_t1_first_colony"
+	}
 }
 
 # Empire Initializer VI (Binary)

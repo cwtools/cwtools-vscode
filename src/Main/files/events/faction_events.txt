@@ -182,15 +182,13 @@ country_event = {
 						days = 7200 # 20 years
 					}
 				}
-				else = {
-					if = {
-						limit = { is_war_participant = { who = root side = defenders } }
-						root = {
-							set_timed_country_flag = {
-								flag = entered_war_as_defender
-								days = 7200 # 20 years
-							}
-						}
+			}
+			else_if = {
+				limit = { is_war_participant = { who = root side = defenders } }
+				root = {
+					set_timed_country_flag = {
+						flag = entered_war_as_defender
+						days = 7200 # 20 years
 					}
 				}
 			}

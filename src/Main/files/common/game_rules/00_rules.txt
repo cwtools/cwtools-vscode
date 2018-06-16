@@ -496,13 +496,33 @@ can_take_hostile_actions = {
 									if = {
 										limit = {
 											ROOT = { is_subject_type = satrapy }
+											is_country_type = faction
+											root = {
+												any_owned_planet = {
+													exists = controller
+													controller = {
+														is_same_value = prevprevprev
+													}
+												}
+											}
 										}
 										custom_tooltip = {
-											text = "CAN_TAKE_HOSTILE_ACTION_SATRAPY"
-											always = no
+											text = ""
+											always = yes
 										}
 										else = {
-											always = yes
+											if = {
+												limit = {
+													ROOT = { is_subject_type = satrapy }
+												}
+												custom_tooltip = {
+													text = "CAN_TAKE_HOSTILE_ACTION_SATRAPY"
+													always = no
+												}
+												else = {
+													always = yes
+												}
+											}
 										}
 									}
 								}
@@ -811,9 +831,17 @@ can_orbital_bombard = {
 				is_country_type = dormant_marauders
 				is_country_type = marauder_raiders
 				is_country_type = ruined_marauders
-				is_country_type = awakened_marauders
 				is_country_type = gray_goo
 				is_country_type = vol
+				AND = {
+					is_country_type = awakened_marauders
+					FROM.CONTROLLER = { 
+						NAND = {
+							is_subject_type = satrapy 
+							NOT = { has_country_flag = rebelling_satrapy }							
+						}
+					}
+				}
 			}
 		}
 	}

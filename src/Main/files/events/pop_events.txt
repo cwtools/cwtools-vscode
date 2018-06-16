@@ -259,7 +259,7 @@ pop_event = {
 		has_pop_flag = modified_pop_1
 		is_enslaved = no
 		is_being_purged = no
-		NOT = {
+		NOR = {
 			has_ethic = ethic_fanatic_pacifist
 			has_ethic = ethic_pacifist
 			has_ethic = ethic_xenophile
@@ -623,7 +623,7 @@ pop_event = {
 		is_being_purged = no
 		planet = {
 			any_pop = {
-				NOT = {
+				NOR = {
 					is_pop = ROOT
 					has_trait = trait_strong
 				}
@@ -645,7 +645,7 @@ pop_event = {
 			set_planet_flag = popmod_strength
 			random_pop = {
 				limit = {
-					NOT = {
+					NOR = {
 						is_pop = ROOT
 						has_trait = trait_strong
 					}

@@ -64,13 +64,11 @@ ship_event = {
 	desc = {
 		trigger = {
 			owner = {
-				AND = {
-					has_authority = auth_machine_intelligence
-					NOT = {
-						has_civic = civic_machine_terminator
-						has_civic = civic_machine_servitor
-						has_civic = civic_machine_assimilator
-					}
+				has_authority = auth_machine_intelligence
+				NOR = {
+					has_civic = civic_machine_terminator
+					has_civic = civic_machine_servitor
+					has_civic = civic_machine_assimilator
 				}
 			}
 		}
@@ -97,7 +95,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_ai = no
-			NOT = {
+			NOR = {
 				has_country_flag = first_alien_life
 				has_country_flag = Story1
 				has_country_flag = Story2
@@ -173,7 +171,7 @@ ship_event = {
 			owner = {
 				AND = {
 					has_authority = auth_machine_intelligence
-					NOT = {
+					NOR = {
 						has_civic = civic_machine_terminator
 						has_civic = civic_machine_servitor
 						has_civic = civic_machine_assimilator
@@ -492,7 +490,7 @@ country_event = {
 		is_ai = no
 		NOT = { has_country_flag = first_contact_event }
 		event_target:contact_empire = { 
-			NOT = {
+			NOR = {
 				is_country_type = fallen_empire
 				is_country_type = awakened_fallen_empire
 				#is_country_type = tiyanki

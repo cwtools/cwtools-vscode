@@ -77,7 +77,7 @@ ship_event = {
 		trigger = {
 			hidden:owner = { 
 				has_technology = tech_synthetic_workers
-				NOT = {
+				NOR = {
 					has_policy_flag = ai_outlawed
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_spiritualist
@@ -133,7 +133,7 @@ ship_event = {
 		trigger = {
 			owner = {
 				has_technology = tech_synthetic_workers
-				NOT = {
+				NOR = {
 					has_policy_flag = ai_outlawed
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_spiritualist
@@ -744,7 +744,8 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		NOT = { has_policy_flag = ai_outlawed
+		NOR = {
+			has_policy_flag = ai_outlawed
 			has_country_flag = project_limbo_2_enabled
 		}
 	}

@@ -514,8 +514,10 @@ wg_subjugation = {
 	casus_belli = cb_subjugation
 	
 	hide_if_no_cb = no
+	release_occupied_systems_on_status_quo = yes
 	
 	surrender_acceptance = -100
+	
 
 	potential = {
 		NOT = { has_valid_civic = civic_inwards_perfection }
@@ -541,6 +543,23 @@ wg_subjugation = {
 		}	
 	}
 	
+	on_status_quo = {
+		if = {
+			limit = {
+				last_created_country = { 
+					has_country_flag = released_empire 
+				}
+			}
+
+			last_created_country = { 
+				set_subject_of = {
+					who = root
+					subject_type = vassal
+				}
+			}
+		}	
+	}
+	
 	ai_weight = {
 		weight = 10
 		modifier = {
@@ -554,6 +573,7 @@ wg_tribute = {
 	casus_belli = cb_subjugation
 	
 	hide_if_no_cb = no
+	release_occupied_systems_on_status_quo = yes
 	
 	surrender_acceptance = -75
 
@@ -580,6 +600,23 @@ wg_tribute = {
 		}
 	}
 	
+	on_status_quo = {
+		if = {
+			limit = {
+				last_created_country = { 
+					has_country_flag = released_empire 
+				}
+			}
+
+			last_created_country = { 
+				set_subject_of = {
+					who = root
+					subject_type = tributary
+				}
+			}
+		}	
+	}
+	
 	ai_weight = {
 		weight = 10
 		modifier = {
@@ -593,6 +630,7 @@ wg_force_ideology = {
 	casus_belli = cb_ideology
 	
 	hide_if_no_cb = no
+	release_occupied_systems_on_status_quo = yes
 	
 	surrender_acceptance = -100
 	
@@ -606,6 +644,42 @@ wg_force_ideology = {
 	possible = {
 		always = yes
 	}
+	on_status_quo = {
+		if = {
+			limit = {
+				last_created_country = { 
+					has_country_flag = released_empire 
+				}
+			}
+
+			last_created_country = { add_modifier = { modifier = recently_liberated days = 7300 } }
+			
+			root = { add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country } }
+			last_created_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }			
+	
+			every_country = {
+				limit = { 	
+					OR = {
+						is_in_federation_with = root 
+						AND = {
+							is_subject = yes
+							exists = overlord
+							overlord = { is_same_value = root }
+						}
+					}
+				}
+				
+				add_opinion_modifier = { modifier = opinion_we_liberated who = last_created_country }
+				last_created_country = { add_opinion_modifier = { modifier = opinion_liberated_us who = prev } }	
+			}
+			from = {
+				add_threat = {
+					who = root
+					amount = 0.10
+				}				
+			}			
+		}
+	}
 	on_accept = {
 		custom_tooltip = wg_force_ideology_accept
 		custom_tooltip = wg_force_ideology_accept_2
@@ -617,7 +691,8 @@ wg_force_ideology = {
 		}
 		hidden_effect = {		
 			from = { copy_ethos_and_authority = root }
-			add_opinion_modifier = { modifier = opinion_we_liberated who = from }
+			from = { add_modifier = { modifier = recently_liberated days = 7300 } }		
+			add_opinion_modifier = { modifier = opinion_we_liberated who = from }	
 			from = { add_opinion_modifier = { modifier = opinion_liberated_us who = root } }
 			end_rivalry = from
 			from = { end_rivalry = root }
@@ -631,8 +706,8 @@ wg_force_ideology = {
 				limit = { 	
 					OR = {
 						is_in_federation_with = root 
-						is_subject = yes
 						AND = {
+							is_subject = yes
 							exists = overlord
 							overlord = { is_same_value = root }
 						}
@@ -652,7 +727,7 @@ wg_force_ideology = {
 			from = {
 				add_threat = {
 					who = root
-					amount = 0.25
+					amount = 0.10
 				}				
 			}
 			from = {

@@ -1555,6 +1555,7 @@ tech_terrestrial_sculpting = {
 	}
 	
 	weight_modifier = {
+		factor = 1.5 	# terraforming needs to be a bit more common
 		modifier = {
 			factor = 1.25
 			has_tradition = tr_expansion_adopt
@@ -1578,56 +1579,6 @@ tech_terrestrial_sculpting = {
 		}
 	}	
 }
-
-#tech_atmospheric_manipulation = {
-#	cost = @tier2cost3
-#	area = society
-#	tier = 2
-#	category = { new_worlds }
-#	prerequisites = { "tech_terrestrial_sculpting" }
-#	weight = @tier2weight3
-#	
-#	# unlocks additional terraforming-options
-#	
-#	prereqfor_desc = {
-#		diplo_action = {
-#			title = "TECH_UNLOCK_TERRAFORMING_TEMP_CHANGE_TITLE"
-#			desc = "TECH_UNLOCK_TERRAFORMING_TEMP_CHANGE_DESC"
-#		}
-#	}
-#	
-#	modifier = {
-#		max_energy = 5000
-#	}
-#	
-#	weight_modifier = {
-#		modifier = {
-#			factor = 1.25
-#			has_tradition = tr_expansion_adopt
-#		}
-#		modifier = {
-#			factor = 1.25
-#			research_leader = {
-#				area = society
-#				has_trait = "leader_trait_expertise_new_worlds"
-#			}
-#		}
-#		modifier = {
-#			factor = 3
-#			has_ascension_perk = ap_world_shaper
-#		}
-#	}
-#	
-#	ai_weight = {
-#		modifier = {
-#			factor = 1.25
-#			research_leader = {
-#				area = society
-#				has_trait = "leader_trait_expertise_new_worlds"
-#			}
-#		}
-#	}
-#}
 
 #Ecological Adaptation
 tech_ecological_adaptation = {
@@ -2605,7 +2556,7 @@ tech_doctrine_fleet_size_1 = {
 	}
 	
 	ai_weight = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -2657,7 +2608,7 @@ tech_doctrine_fleet_size_2 = {
 	}
 	
 	ai_weight = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -2709,7 +2660,7 @@ tech_doctrine_fleet_size_3 = {
 	}
 	
 	ai_weight = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -2761,7 +2712,7 @@ tech_doctrine_fleet_size_4 = {
 	}
 	
 	ai_weight = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -2813,7 +2764,7 @@ tech_doctrine_fleet_size_5 = {
 	}
 	
 	ai_weight = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -3016,7 +2967,7 @@ tech_doctrine_navy_size_1 = {
 	}
 	
 	ai_weight = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -3049,7 +3000,7 @@ tech_doctrine_navy_size_2 = {
 	}
 	
 	weight_modifier = {
-		factor = 3
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -3068,6 +3019,7 @@ tech_doctrine_navy_size_2 = {
 	}
 	
 	ai_weight = {
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -3119,6 +3071,7 @@ tech_doctrine_navy_size_3 = {
 	}
 	
 	ai_weight = {
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist
@@ -3170,6 +3123,7 @@ tech_doctrine_navy_size_4 = {
 	}
 	
 	ai_weight = {
+		factor = 10
 		modifier = {
 			factor = 1.25
 			has_ethic = ethic_militarist

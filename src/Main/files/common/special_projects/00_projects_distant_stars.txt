@@ -114,7 +114,7 @@ special_project = {
 	key = "DISSECTION_PROJECT"
 	days_to_research = 30
 	tech_department = society_technology
-	timelimit = 180
+	timelimit = 1800
 	picture = GFX_evt_society_research
 	icon = "gfx/interface/icons/situation_log/situation_log_society.dds"
 
@@ -623,7 +623,7 @@ special_project = {
 	requirements = {
 		shipclass_science_ship = 1
 		leader = scientist
-		#skill = 3
+		skill = 4
 	}
 
 	on_success = {
@@ -1126,9 +1126,12 @@ special_project = {
 		}
 		if = {
 			limit = {
-				NOR = {
-					exists = event_target:crazy_science_officer
-					leader = { is_same_value = event_target:crazy_science_officer }
+				OR = {
+					AND = {
+						exists = event_target:crazy_science_officer
+						NOT = { leader = { is_same_value = event_target:crazy_science_officer } }
+					}
+					NOT = { exists = event_target:crazy_science_officer }
 				}
 			}
 			owner = {
@@ -1241,19 +1244,17 @@ special_project = {
 	
 	on_success = {
 		random_list = {
-			1 = {
+			50 = {
 				owner = {
 					country_event = { id = distar.2032 }
 				}
 			}
-			100 = {
+			50 = {
 				modifier = {
-					add = 1
-					owner = {
-						event_target:time_loop_world = {
-							solar_system = {
-								NOT = { exists = space_owner }
-							}
+					factor = 0
+					event_target:time_loop_world = {
+						solar_system = {
+							exists = space_owner
 						}
 					}
 				}

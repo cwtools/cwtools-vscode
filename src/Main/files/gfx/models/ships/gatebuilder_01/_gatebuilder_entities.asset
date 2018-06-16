@@ -83,6 +83,9 @@ entity = {
 		event = { time = 3 node = "light_locator_07" particle = "ship_light_blue_effect" trigger_once = yes keep_particle = yes }
 		event = { time = 3 node = "light_locator_08" particle = "ship_light_blue_effect" trigger_once = yes keep_particle = yes }
 		event = { time = 3 node = "light_locator_09" particle = "ship_light_blue_effect" trigger_once = yes keep_particle = yes }
+
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_gatebuilder_01_space_station" } }
+
 	}
 	state = { name = "combat_idle" state_time = 5 
 		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" trigger_once = yes keep_particle = yes }
@@ -136,6 +139,8 @@ entity = {
 		start_event = { node = "engine_large_02" particle = "mammalian_01_8_0_exhaust_idle_particle" trigger_once = yes keep_particle = yes }
 		start_event = { node = "engine_medium_01" particle = "mammalian_01_5_0_exhaust_oblong_idle_particle" trigger_once = yes keep_particle = yes }
 		start_event = { node = "engine_medium_02" particle = "mammalian_01_5_0_exhaust_oblong_idle_particle" trigger_once = yes keep_particle = yes }
+
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_gatebuilder_01_mothership" } }
 	}
 	state = { name = "moving" state_time = 5 
 		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" trigger_once = yes keep_particle = yes }
@@ -187,6 +192,8 @@ entity = {
 		start_event = { node = "engine_large_01" particle = "mammalian_01_5_0_exhaust_idle_particle" trigger_once = yes keep_particle = yes }
 		start_event = { node = "engine_medium_01" particle = "mammalian_01_2_35_exhaust_idle_particle" trigger_once = yes keep_particle = yes }
 		start_event = { node = "engine_medium_02" particle = "mammalian_01_2_35_exhaust_idle_particle" trigger_once = yes keep_particle = yes }
+
+		start_event = { trigger_once = yes sound = { soundeffect = "amb_gatebuilder_01_cruiser" } }
 	}
 	state = { name = "moving" state_time = 5 
 		event = { time = 0 node = "light_locator_01" particle = "ship_light_blue_effect" trigger_once = yes keep_particle = yes }

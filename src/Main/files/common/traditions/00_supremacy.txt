@@ -107,16 +107,50 @@ tr_supremacy_great_game = {
 			OR = {
 				has_valid_civic = civic_fanatic_purifiers
 				has_valid_civic = civic_inwards_perfection
-				has_valid_civic = civic_machine_terminator
+				#has_valid_civic = civic_machine_terminator
 				has_valid_civic = civic_machine_assimilator
-				has_valid_civic = civic_hive_devouring_swarm
+				#has_valid_civic = civic_hive_devouring_swarm
 			}
 		}
 
 		weight = {
 			factor = 1
 		}
-	}	
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_above_the_fray_terminator
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			country_resource_unity_mult = 0.10
+		}
+		trigger = {
+			has_valid_civic = civic_machine_terminator
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_above_the_fray_devour
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			country_resource_unity_mult = 0.10
+		}
+		trigger = {
+			has_valid_civic = civic_hive_devouring_swarm
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
 	
 	tradition_swap = {
 		name = tr_supremacy_great_game_machine
@@ -187,10 +221,44 @@ tr_supremacy_right_of_conquest = {
 		trigger = {
 			OR = {
 				has_valid_civic = civic_fanatic_purifiers
-				has_valid_civic = civic_machine_terminator
+				#has_valid_civic = civic_machine_terminator
 				has_valid_civic = civic_machine_assimilator
-				has_valid_civic = civic_hive_devouring_swarm
+				#has_valid_civic = civic_hive_devouring_swarm
 			}
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_natural_preeminence_terminator
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			planet_unrest_mult = -0.20
+		}
+		trigger = {
+			has_valid_civic = civic_machine_terminator
+		}
+
+		weight = {
+			factor = 1
+		}
+	}
+
+	tradition_swap = {
+		name = tr_supremacy_natural_preeminence_devour
+		inherit_effects = no
+		inherit_icon = yes
+		inherit_name = no
+		modifier = {
+			planet_unrest_mult = -0.20
+		}
+		trigger = {
+			has_valid_civic = civic_hive_devouring_swarm
 		}
 
 		weight = {

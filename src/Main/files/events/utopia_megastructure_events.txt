@@ -1400,14 +1400,14 @@ country_event = {
 	option = {
 		name = utopia.40.a
 		tooltip = {
-			add_opinion_modifier = { who = event_target:dysonsphere_builder modifier = opinion_dysonsphere_terms_denied }
+			event_target:dyson_sphere_neighbor = { add_opinion_modifier = { who = root  modifier = opinion_dysonsphere_terms_denied } }
 		}
 	}
 
 	option = {
 		name = utopia.40.b
 		tooltip = {
-			add_opinion_modifier = { who = event_target:dysonsphere_builder modifier = opinion_dysonsphere_terms_denied }
+			event_target:dyson_sphere_neighbor = { add_opinion_modifier = { who = root  modifier = opinion_dysonsphere_terms_denied } }
 		}
 	}
 }
@@ -1581,16 +1581,14 @@ country_event = {
 					}
 				}
 				country_event = { id = utopia.59 days = 60 random = 20 } 
-				else = {
-					if = {
-						limit = {
-							NOT = { 
-								any_owned_leader = { leader_class = scientist } 
-							}
-						}
-						country_event = { id = utopia.60 days = 60 random = 20 }	
+			}
+			else_if = {
+				limit = {
+					NOT = { 
+						any_owned_leader = { leader_class = scientist } 
 					}
 				}
+				country_event = { id = utopia.60 days = 60 random = 20 }
 			}
 		}
 	}
@@ -1600,7 +1598,7 @@ country_event = {
 		trigger = {
 			energy < 1000
 		}
-			hidden_effect = {
+		hidden_effect = {
 			if = {
 				limit = {
 					any_owned_leader = {
@@ -1608,16 +1606,14 @@ country_event = {
 					}
 				}
 				country_event = { id = utopia.59 days = 60 random = 20 } 
-				else = {
-					if = {
-						limit = {
-							NOT = { 
-								any_owned_leader = { leader_class = scientist } 
-							}
-						}
-						country_event = { id = utopia.60 days = 60 random = 20 }	
+			}
+			else_if = {
+				limit = {
+					NOT = { 
+						any_owned_leader = { leader_class = scientist } 
 					}
 				}
+				country_event = { id = utopia.60 days = 60 random = 20 }
 			}
 		}
 	}
@@ -2091,18 +2087,16 @@ country_event = {
 				}
 				save_event_target_as = volunteer_leader
 			}
-			else = {
-				if = {
-					limit = {
-						any_owned_leader = { leader_class = scientist }
-					}	
+		}
+		else_if = {
+			limit = {
+				any_owned_leader = { leader_class = scientist }
+			}
+			random_owned_leader = {
+				limit = {
+					leader_class = scientist
 				}
-				random_owned_leader = {
-					limit = {
-						leader_class = scientist
-					}
-					save_event_target_as = volunteer_leader
-				}
+				save_event_target_as = volunteer_leader
 			}
 		}
 	}
@@ -2317,18 +2311,16 @@ country_event = {
 				}
 				save_event_target_as = volunteer_leader
 			}
-			else = {
-				if = {
-					limit = {
-						any_owned_leader = { leader_class = scientist  }
-					}	
+		}
+		else_if = {
+			limit = {
+				any_owned_leader = { leader_class = scientist  }
+			}	
+			random_owned_leader = {
+				limit = {
+					leader_class = scientist
 				}
-				random_owned_leader = {
-					limit = {
-						leader_class = scientist
-					}
-					save_event_target_as = volunteer_leader
-				}
+				save_event_target_as = volunteer_leader
 			}
 		}
 		set_country_flag = think_tank_event
@@ -2410,14 +2402,12 @@ country_event = {
 				NOT = { has_country_flag = started_first_think_tank }
 			}
 			set_country_flag = started_first_think_tank
-			else = {
-				if = {
-					limit = {
-						has_country_flag = started_first_think_tank
-					}
-					set_country_flag = started_first_think_tank_2
-				}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = started_first_think_tank
 			}
+			set_country_flag = started_first_think_tank_2
 		}
 	}
 }
@@ -2623,14 +2613,12 @@ country_event = {
 				NOT = { has_country_flag = started_first_spy_orb }
 			}
 			set_country_flag = started_first_spy_orb
-			else = {
-				if = {
-					limit = {
-						has_country_flag = started_first_spy_orb
-					}
-					set_country_flag = started_first_spy_orb_2
-				}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = started_first_spy_orb
 			}
+			set_country_flag = started_first_spy_orb_2
 		}
 	}
 }
@@ -2766,14 +2754,12 @@ country_event = {
 				NOT = { has_country_flag = started_first_dyson_sphere }
 			}
 			set_country_flag = started_first_dyson_sphere
-			else = {
-				if = {
-					limit = {
-						has_country_flag = started_first_dyson_sphere
-					}
-					set_country_flag = started_first_dyson_sphere_2
-				}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = started_first_dyson_sphere
 			}
+			set_country_flag = started_first_dyson_sphere_2
 		}
 	}
 }

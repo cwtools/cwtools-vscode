@@ -1117,7 +1117,7 @@ country_event = {
 			has_valid_civic = civic_fanatic_purifiers
 			has_valid_civic = civic_machine_terminator 
 		}
-		NOT = {
+		NOR = {
 			AND = {
 				has_relation_flag = {
 					who = from
@@ -1834,7 +1834,7 @@ country_event = {
 		random_relation = {
 			limit = {
 				root = { is_rival = prev }
-				NOT = {
+				NOR = {
 					is_same_value = event_target:raid_target_1
 					is_same_value = event_target:raid_target_2
 				}
@@ -1844,7 +1844,7 @@ country_event = {
 		random_relation = {
 			limit = {
 				root = { is_rival = prev }
-				NOT = {
+				NOR = {
 					is_same_value = event_target:raid_target_1
 					is_same_value = event_target:raid_target_2
 					is_same_value = event_target:raid_target_3
@@ -7841,12 +7841,12 @@ event = {
 
 	immediate = {
 		random_list = {
-			10 = {
+			2 = {
 				event_target:raider_khanate = {
 					country_event = { id = marauder.512 }
 				}
 			}
-			90 = {}
+			98 = {}
 		}
 	}
 }
@@ -8367,7 +8367,7 @@ country_event = {
 
 	trigger = {
 		from = { is_country_type = awakened_marauders }
-		NOT = { 
+		NOR = { 
 			has_country_flag = marauder_diplomacy_engaged 
 			has_global_flag = great_khan_dead
 		}
@@ -9564,7 +9564,10 @@ event = {
 			any_system_within_border = {
 				any_neighbor_system = {
 					exists = space_owner
-					space_owner = { is_country_type = dormant_marauders }
+					space_owner = { 
+						is_country_type = dormant_marauders
+						has_communications = prevprevprev
+					}
 				}
 			}
 		}
@@ -9576,7 +9579,10 @@ event = {
 				any_system_within_border = {
 					any_neighbor_system = {
 						exists = space_owner
-						space_owner = { is_country_type = dormant_marauders }
+						space_owner = { 
+							is_country_type = dormant_marauders
+							has_communications = prevprevprev 
+						}
 					}
 				}
 			}

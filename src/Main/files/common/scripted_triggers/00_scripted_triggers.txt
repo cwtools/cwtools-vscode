@@ -582,6 +582,27 @@ is_binary_star = {
 	}
 }
 
+is_under_crisis_bombardment = {
+	has_orbital_bombardment = yes	
+	any_fleet_in_orbit = { 
+		owner = {
+			is_crisis_faction = yes
+		}
+	}	
+}
+
+is_crisis_faction = {
+	OR = {
+		is_country_type = swarm
+		is_country_type = extradimensional
+		is_country_type = extradimensional_2
+		is_country_type = extradimensional_3
+		is_country_type = ai_empire
+		is_country_type = gray_goo
+		is_country_type = awakened_marauders
+	}
+}
+
 has_crisis = {
 	OR = {
 		has_global_flag = crisis_stage_1

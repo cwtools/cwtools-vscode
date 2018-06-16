@@ -125,9 +125,9 @@ country_event = {
 				}
 			}
 			country_event = { id = observation.4 }
-			else = { # observation post does not exist
-				country_event = { id = observation.3 }
-			}
+		}
+		else = { # observation post does not exist
+			country_event = { id = observation.3 }
 		}
 	}
 }
@@ -1587,7 +1587,7 @@ planet_event = {
 		observation_outpost = { has_mission = specimen_collection }
 		observation_outpost_owner = { 
 			is_ai = no
-			NOT = {
+			NOR = {
 				has_relation_flag = {
 					who = root.owner
 					flag = defense_force
@@ -2144,13 +2144,13 @@ country_event = {
 							who = root
 							subject_type = tributary
 						}
-						else = {
-							set_subject_of = {
-								who = root
-								subject_type = protectorate
-							}						
-						}
-					}				
+					}			
+					else = {
+						set_subject_of = {
+							who = root
+							subject_type = protectorate
+						}						
+					}
 				}
 				if = {
 					limit = {
@@ -5458,7 +5458,7 @@ country_event = {
 		name = "observation.3135.b"
 		custom_tooltip = observation.3135.b.tooltip
 		trigger = {
-			NOT = {
+			NOR = {
 				has_policy_flag = interference_passive
 				event_target:ObservationOutpost = {
 					has_mission = covert_infiltration
@@ -5532,7 +5532,7 @@ country_event = {
 					has_policy_flag = interference_passive
 				}
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_pacifist
 				has_ethic = ethic_pacifist
 			}
@@ -5738,13 +5738,13 @@ country_event = {
 				}
 			}
 			fromfrom = { observation_outpost = { add_mission_progress = 0.3 } }
-			else = {
-				add_monthly_resource_mult = {
-					resource = society_research
-					value = @tier2researchreward
-					min = @tier2researchmin
-					max = @tier2researchmax
-				}
+		}
+		else = {
+			add_monthly_resource_mult = {
+				resource = society_research
+				value = @tier2researchreward
+				min = @tier2researchmin
+				max = @tier2researchmax
 			}
 		}
 	}

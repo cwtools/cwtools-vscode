@@ -22,7 +22,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_1_chain
 			has_country_flag = waiting_tutorial_4
 			has_country_flag = tutorial_1
@@ -59,7 +59,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_ai = no
-			NOT = {
+			NOR = {
 				has_country_flag = waiting_tutorial_4
 				has_country_flag = tutorial_1
 				has_country_flag = tutorial_2
@@ -134,7 +134,7 @@ country_event = {
 		}
 		is_tutorial_level = 2
 		has_country_flag = tutorial_1
-		NOT = { 
+		NOR = { 
 			has_country_flag = tutorial_2
 			has_ethic = ethic_gestalt_consciousness
 		}
@@ -186,7 +186,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_2_chain
 			has_technology = tech_colonization_1
 			has_ethic = ethic_gestalt_consciousness
@@ -345,7 +345,7 @@ country_event = {
 			limit = { is_ship_class = shipclass_constructor }
 			count < 1
 		}
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_3_chain
 			has_ethic = ethic_gestalt_consciousness
 		}
@@ -428,7 +428,7 @@ country_event = {
 		is_ai = no
 		is_tutorial_level = 2
 		has_country_flag = waiting_tutorial_4
-		NOT = {
+		NOR = {
 			any_owned_ship = { is_ship_size = mining_station }
 			has_event_chain = tutorial_4_chain
 			has_ethic = ethic_gestalt_consciousness
@@ -549,7 +549,7 @@ country_event = {
 		is_ai = no
 		is_tutorial_level = 2
 		has_country_flag = waiting_tutorial_5
-		NOT = {
+		NOR = {
 			any_owned_ship = {is_ship_size = research_station }
 			has_event_chain = tutorial_5_chain
 			has_ethic = ethic_gestalt_consciousness
@@ -612,7 +612,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_tutorial_level = 2
-			NOT = {
+			NOR = {
 				has_event_chain = "tutorial_5_chain"
 				has_country_flag = "waiting_tutorial_5"
 			}
@@ -671,7 +671,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_6_chain
 			any_owned_planet = {
 				has_building_construction = yes
@@ -760,7 +760,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_country_flag = tutorial_cleared_early_16
 			has_event_chain = tutorial_7_chain
 			has_ethic = ethic_gestalt_consciousness
@@ -839,7 +839,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_8_chain
 			has_country_flag = tutorial_cleared_early_17
 			has_ethic = ethic_gestalt_consciousness
@@ -863,7 +863,7 @@ country_event = {
 				}
 				closest_system = {
 					limit = {
-						NOT = { 
+						NOR = { 
 							has_star_flag = home_system
 							has_star_flag = survey_target_1
 						}
@@ -873,7 +873,7 @@ country_event = {
 				}
 				closest_system = {
 					limit = {
-						NOT = { 
+						NOR = { 
 							has_star_flag = home_system
 							has_star_flag = survey_target_1
 							has_star_flag = survey_target_2
@@ -932,7 +932,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_tutorial_level = 2
-			NOT = {
+			NOR = {
 				has_country_flag = tutorial_cleared_early_17
 				has_event_chain = tutorial_8_chain
 				has_ethic = ethic_gestalt_consciousness
@@ -1090,7 +1090,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_9_chain
 			count_owned_ships = {
 				limit = { is_ship_class = shipclass_science_ship }
@@ -1184,7 +1184,7 @@ country_event = {
 			is_ship_class = shipclass_science_ship
 			NOT = { exists = leader }
 		}
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_10_chain
 			has_ethic = ethic_gestalt_consciousness
 		}
@@ -1260,7 +1260,7 @@ country_event = {
 			limit = { is_ship_class = shipclass_colonizer }
 			count < 1
 		}
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_11_chain
 			any_owned_planet = {
 				is_capital = no
@@ -1367,7 +1367,7 @@ country_event = {
 	trigger = {
 		is_tutorial_level = 2
 		has_technology = tech_colonization_1
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_12_chain
 			any_owned_planet = {
 				is_capital = no
@@ -1463,7 +1463,7 @@ country_event = {
 			is_capital = no
 			NOT = { exists = leader }
 		}
-		NOT = { 
+		NOR = { 
 			has_event_chain = tutorial_13_chain
 			has_ethic = ethic_gestalt_consciousness
 		}
@@ -1615,7 +1615,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_15_chain
 			has_monthly_income = { resource = energy value > 9 }
 			has_monthly_income = { resource = minerals value > 29 }
@@ -1821,7 +1821,7 @@ country_event = {
 			limit = { is_ship_size = destroyer }
 			count < 1
 		}
-		NOT = { 
+		NOR = { 
 			has_event_chain = tutorial_16_chain
 			has_ethic = ethic_gestalt_consciousness
 		}
@@ -2029,7 +2029,7 @@ country_event = {
 			which = "num_colonies" 
 			value > 2
  		}
- 		NOT = { 
+ 		NOR = { 
  			has_event_chain = tutorial_17_chain
  			has_ethic = ethic_gestalt_consciousness
  		}
@@ -2096,7 +2096,7 @@ country_event = {
 		any_sector = {
 			NOT = { exists = leader }
 		}
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_18_chain
 			has_ethic = ethic_gestalt_consciousness
 		}
@@ -2157,7 +2157,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_19_chain
 			has_country_flag = tutorial_cleared_early_48
 			has_ethic = ethic_gestalt_consciousness
@@ -2185,7 +2185,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = "tutorial_19_chain"
 			has_country_flag = tutorial_cleared_early_48
 		}
@@ -2238,7 +2238,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_tutorial_level = 2
-			NOT = {
+			NOR = {
 				has_event_chain = tutorial_20_chain
 				has_country_flag = finished_tutorial_20
 				has_ethic = ethic_gestalt_consciousness
@@ -2326,7 +2326,7 @@ ship_event = {
 		name = tutorial.52.a
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_spiritualist
 				}
@@ -2378,7 +2378,7 @@ ship_event = {
 		name = tutorial.53.a
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_xenophobe
 					has_ethic = ethic_fanatic_xenophobe
 					has_ethic = ethic_xenophile
@@ -2427,7 +2427,7 @@ ship_event = {
 		name = tutorial.54.a
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_spiritualist
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_materialist
@@ -2474,7 +2474,7 @@ ship_event = {
 	trigger = {
 		owner = {
 			is_tutorial_level = 2
-			NOT = {
+			NOR = {
 				has_event_chain = tutorial_21_chain
 				has_country_flag = finished_tutorial_21
 				has_ethic = ethic_gestalt_consciousness
@@ -2559,7 +2559,7 @@ country_event = {
 
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_21_chain
 			has_country_flag = finished_tutorial_21
 			has_ethic = ethic_gestalt_consciousness
@@ -2837,7 +2837,7 @@ country_event = {
 
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_22_chain
 			has_country_flag = finished_tutorial_22
 			has_ethic = ethic_gestalt_consciousness
@@ -2895,7 +2895,7 @@ country_event = {
 
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_23_chain
 			has_country_flag = finished_tutorial_23
 			FROM = { is_country_type = primitive }
@@ -3038,7 +3038,7 @@ country_event = {
 			last_increased_tech = "tech_gene_tailoring"
 			last_increased_tech = "tech_gene_expressions"
 		}
-		NOT = {
+		NOR = {
 			has_country_flag = tutorial_24
 			has_event_chain = tutorial_24_chain
 			has_ethic = ethic_gestalt_consciousness
@@ -3208,7 +3208,7 @@ country_event = {
 	
 	trigger = {
 		is_tutorial_level = 2
-		NOT = {
+		NOR = {
 			has_event_chain = tutorial_25_chain
 			has_country_flag = tutorial_cleared_early_75
 			has_ethic = ethic_gestalt_consciousness

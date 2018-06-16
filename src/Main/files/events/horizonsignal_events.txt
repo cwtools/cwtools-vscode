@@ -473,19 +473,19 @@ ship_event = {
 				limit = {
 					has_technology = tech_akx_worm_1
 				}
-				else = {
-					if = {
-						limit = {
-							NOT = {
-								has_tech_option = tech_akx_worm_1
-							}
+			}
+			else = {
+				if = {
+					limit = {
+						NOT = {
+							has_tech_option = tech_akx_worm_1
 						}
-						add_research_option = tech_akx_worm_1
 					}
-					add_tech_progress = {
-						tech = tech_akx_worm_1
-						progress = 0.1
-					}
+					add_research_option = tech_akx_worm_1
+				}
+				add_tech_progress = {
+					tech = tech_akx_worm_1
+					progress = 0.1
 				}
 			}
 		}
@@ -601,19 +601,19 @@ country_event = {
 			limit = {
 				has_technology = tech_akx_worm_1
 			}
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech_option = tech_akx_worm_1
-						}
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech_option = tech_akx_worm_1
 					}
-					add_research_option = tech_akx_worm_1
 				}
-				add_tech_progress = {
-					tech = tech_akx_worm_1
-					progress = 0.10
-				}
+				add_research_option = tech_akx_worm_1
+			}
+			add_tech_progress = {
+				tech = tech_akx_worm_1
+				progress = 0.10
 			}
 		}
 		# physics bump
@@ -985,28 +985,26 @@ country_event = {
 				}
 				save_global_event_target_as = researchingscientist
 			}
-			else = {
-				if = {
-					limit = {
-						any_owned_leader = {
-							is_researching_area = society
-						}
-					}
-					random_owned_leader = {
-						limit = {
-							is_researching_area = society
-						}
-						save_global_event_target_as = researchingscientist
-					}
-					else = {
-						random_owned_leader = {
-							limit = {
-								leader_class = scientist
-							}
-							save_global_event_target_as = researchingscientist
-						}
-					}
+		}
+		else_if = {
+			limit = {
+				any_owned_leader = {
+					is_researching_area = society
 				}
+			}
+			random_owned_leader = {
+				limit = {
+					is_researching_area = society
+				}
+				save_global_event_target_as = researchingscientist
+			}
+		}
+		else = {
+			random_owned_leader = {
+				limit = {
+					leader_class = scientist
+				}
+				save_global_event_target_as = researchingscientist
 			}
 		}
 	}
@@ -1032,17 +1030,17 @@ country_event = {
 				has_technology = tech_genome_mapping
 			}
 			break = yes
-			else = {
-				if = {
-					limit = {
-						NOT = { has_tech_option = tech_genome_mapping }
-					}
-					add_research_option = tech_genome_mapping
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = { has_tech_option = tech_genome_mapping }
 				}
-				add_tech_progress = {
-					tech = tech_genome_mapping
-					progress = 0.15
-				}
+				add_research_option = tech_genome_mapping
+			}
+			add_tech_progress = {
+				tech = tech_genome_mapping
+				progress = 0.15
 			}
 		}
 	}
@@ -1109,11 +1107,12 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { exists = event_target:researchingscientist }
-			else = {
-				random_owned_leader = {
-					limit = { leader_class = scientist }
-					save_global_event_target_as = researchingscientist
-				}
+			# nothing
+		}
+		else = {
+			random_owned_leader = {
+				limit = { leader_class = scientist }
+				save_global_event_target_as = researchingscientist
 			}
 		}
 		event_target:researchingscientist = {
@@ -1189,14 +1188,15 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { exists = event_target:researchingscientist }
-			else = {
-				random_owned_leader = {
-					limit = { leader_class = scientist }
-					save_global_event_target_as = researchingscientist
-				}
-				event_target:researchingscientist = {
-					make_unleashed_messenger = yes
-				}
+			# nothing
+		}
+		else = {
+			random_owned_leader = {
+				limit = { leader_class = scientist }
+				save_global_event_target_as = researchingscientist
+			}
+			event_target:researchingscientist = {
+				make_unleashed_messenger = yes
 			}
 		}
 	}
@@ -1288,11 +1288,11 @@ country_event = {
 			event_target:researchingscientist = {
 				save_global_event_target_as = researchingscientist9220
 			}
-			else = {
-				random_owned_leader = {
-					limit = { leader_class = scientist }
-					save_global_event_target_as = researchingscientist9220
-				}
+		}
+		else = {
+			random_owned_leader = {
+				limit = { leader_class = scientist }
+				save_global_event_target_as = researchingscientist9220
 			}
 		}
 		event_target:researchingscientist9220 = {
@@ -1368,14 +1368,14 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { exists = event_target:researchingscientist9220 }
-			else = {
-				random_owned_leader = {
-					limit = { leader_class = scientist }
-					save_global_event_target_as = researchingscientist9220
-				}
-				event_target:researchingscientist9220 = {
-					make_leashed_messenger = yes
-				}
+		}
+		else = {
+			random_owned_leader = {
+				limit = { leader_class = scientist }
+				save_global_event_target_as = researchingscientist9220
+			}
+			event_target:researchingscientist9220 = {
+				make_leashed_messenger = yes
 			}
 		}
 	}
@@ -1944,34 +1944,32 @@ country_event = {
 				}
 			}
 			country_event = { id = akx.9321 }
-			else = {
-				if = {
-					limit = {
-						has_country_flag = worm_events_available
-						exists = event_target:mirrored_syzygy_admiral
-						fromfrom = {
-							exists = leader
-							leader = {
-								is_same_value = event_target:mirrored_syzygy_admiral
-							}
-						}
-					}
-					country_event = { id = akx.9320 }
-					else = {
-						random_country = {
-							limit = {
-								has_country_flag = worm_events_available
-							}
-							root.fromfrom.solar_system = {
-								random_system_planet = {
-									limit = { is_star = no }
-									save_event_target_as = syzygy_location
-								}
-							}
-							country_event = { id = akx.9319 }
-						}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = worm_events_available
+				exists = event_target:mirrored_syzygy_admiral
+				fromfrom = {
+					exists = leader
+					leader = {
+						is_same_value = event_target:mirrored_syzygy_admiral
 					}
 				}
+			}
+			country_event = { id = akx.9320 }
+		}
+		else = {
+			random_country = {
+				limit = {
+					has_country_flag = worm_events_available
+				}
+				root.fromfrom.solar_system = {
+					random_system_planet = {
+						limit = { is_star = no }
+						save_event_target_as = syzygy_location
+					}
+				}
+				country_event = { id = akx.9319 }
 			}
 		}
 		from = { destroy_country = yes }
@@ -2328,19 +2326,19 @@ country_event = {
 				has_technology = tech_akx_worm_2
 			}
 			break = yes
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech_option = tech_akx_worm_2
-						}
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech_option = tech_akx_worm_2
 					}
-					add_research_option = tech_akx_worm_2
 				}
-				add_tech_progress = {
-					tech = tech_akx_worm_2
-					progress = 0.1
-				}
+				add_research_option = tech_akx_worm_2
+			}
+			add_tech_progress = {
+				tech = tech_akx_worm_2
+				progress = 0.1
 			}
 		}
 	}
@@ -2377,19 +2375,19 @@ country_event = {
 				has_technology = tech_akx_worm_2
 			}
 			break = yes
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech_option = tech_akx_worm_2
-						}
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech_option = tech_akx_worm_2
 					}
-					add_research_option = tech_akx_worm_2
 				}
-				add_tech_progress = {
-					tech = tech_akx_worm_2
-					progress = 0.1
-				}
+				add_research_option = tech_akx_worm_2
+			}
+			add_tech_progress = {
+				tech = tech_akx_worm_2
+				progress = 0.1
 			}
 		}
 	}
@@ -2441,19 +2439,19 @@ country_event = {
 				has_technology = tech_akx_worm_2
 			}
 			break = yes
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech_option = tech_akx_worm_2
-						}
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech_option = tech_akx_worm_2
 					}
-					add_research_option = tech_akx_worm_2
 				}
-				add_tech_progress = {
-					tech = tech_akx_worm_2
-					progress = 0.1
-				}
+				add_research_option = tech_akx_worm_2
+			}
+			add_tech_progress = {
+				tech = tech_akx_worm_2
+				progress = 0.1
 			}
 		}
 	}
@@ -2518,19 +2516,19 @@ country_event = {
 			limit = {
 				has_technology = tech_akx_worm_2
 			}
-			else = {
-				if = {
-					limit = {
-						NOT = {
-							has_tech_option = tech_akx_worm_2
-						}
+		}
+		else = {
+			if = {
+				limit = {
+					NOT = {
+						has_tech_option = tech_akx_worm_2
 					}
-					add_research_option = tech_akx_worm_2
 				}
-				add_tech_progress = {
-					tech = tech_akx_worm_2
-					progress = 0.3
-				}
+				add_research_option = tech_akx_worm_2
+			}
+			add_tech_progress = {
+				tech = tech_akx_worm_2
+				progress = 0.3
 			}
 		}
 	}
@@ -2951,19 +2949,19 @@ ship_event = {
 					has_technology = tech_akx_worm_1
 				}
 				break = yes
-				else = {
-					if = {
-						limit = {
-							NOT = {
-								has_tech_option = tech_akx_worm_1
-							}
+			}
+			else = {
+				if = {
+					limit = {
+						NOT = {
+							has_tech_option = tech_akx_worm_1
 						}
-						add_research_option = tech_akx_worm_1
 					}
-					add_tech_progress = {
-						tech = tech_akx_worm_1
-						progress = 0.1
-					}
+					add_research_option = tech_akx_worm_1
+				}
+				add_tech_progress = {
+					tech = tech_akx_worm_1
+					progress = 0.1
 				}
 			}
 		}
@@ -3143,19 +3141,19 @@ planet_event = {
 					has_technology = tech_akx_worm_1
 				}
 				break = yes
-				else = {
-					if = {
-						limit = {
-							NOT = {
-								has_tech_option = tech_akx_worm_1
-							}
+			}
+			else = {
+				if = {
+					limit = {
+						NOT = {
+							has_tech_option = tech_akx_worm_1
 						}
-						add_research_option = tech_akx_worm_1
 					}
-					add_tech_progress = {
-						tech = tech_akx_worm_1
-						progress = 0.1
-					}
+					add_research_option = tech_akx_worm_1
+				}
+				add_tech_progress = {
+					tech = tech_akx_worm_1
+					progress = 0.1
 				}
 			}
 		}

@@ -322,16 +322,16 @@ planet_event = {
 			}
 			change_pc =  pc_gray_goo
 			reset_planet = yes
-			else = {
-				if = {
-					limit = { is_planet_class = pc_ringworld_habitable }
-					change_pc = pc_ringworld_habitable_damaged
-					reset_planet = yes
-				}
-				if = {
-					limit = { is_planet_class = pc_habitat }
-					remove_planet = yes
-				}
+		}
+		else = {
+			if = {
+				limit = { is_planet_class = pc_ringworld_habitable }
+				change_pc = pc_ringworld_habitable_damaged
+				reset_planet = yes
+			}
+			if = {
+				limit = { is_planet_class = pc_habitat }
+				remove_planet = yes
 			}
 		}
 	}
@@ -370,47 +370,47 @@ country_event = {
 			# Reinforce at factory if someone else is in the cluster...
 			country_event = { id = graygoo.4 }
 			# Else spawn reinforcements...
-			else = {
-				every_system = {
-					limit = {
-						NOR = {
-							has_star_flag = lcluster_lgate
-							has_star_flag = lgate_originating_system
-						}
-						any_system_megastructure = { 
-							is_megastructure_type = lgate_base
-						}
+		}
+		else = {
+			every_system = {
+				limit = {
+					NOR = {
+						has_star_flag = lcluster_lgate
+						has_star_flag = lgate_originating_system
 					}
-					random_system_megastructure = {
-						limit = {
-							is_megastructure_type = lgate_base
-						}
-						create_ambient_object = {
-							type = "horror_spawn_object"
-							location = THIS
-							use_3d_location = yes
-							duration = 10
-						}
-						create_fleet = {
-							name = "NAME_Tempest_Fleet"
-							effect = {
-								set_owner = event_target:graygoo_country
-								create_graygoo_ships_1 = yes
-								set_formation_scale = 2
-								set_fleet_stance = aggressive
-								set_aggro_range_measure_from = self
-								set_aggro_range = 250
-								set_location = {
-									target = prev
-									distance = 0
-									angle = 0
-								}
+					any_system_megastructure = { 
+						is_megastructure_type = lgate_base
+					}
+				}
+				random_system_megastructure = {
+					limit = {
+						is_megastructure_type = lgate_base
+					}
+					create_ambient_object = {
+						type = "horror_spawn_object"
+						location = THIS
+						use_3d_location = yes
+						duration = 10
+					}
+					create_fleet = {
+						name = "NAME_Tempest_Fleet"
+						effect = {
+							set_owner = event_target:graygoo_country
+							create_graygoo_ships_1 = yes
+							set_formation_scale = 2
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 250
+							set_location = {
+								target = prev
+								distance = 0
+								angle = 0
 							}
 						}
 					}
 				}
-				country_event = { id = graygoo.3 days = 3600 }
 			}
+			country_event = { id = graygoo.3 days = 3600 }
 		}
 	}
 }
@@ -639,15 +639,49 @@ country_event = {
 
 ## Project Test 1
 #country_event = {
-#	id = graygoo.24
+#	id = graygoo.30
 #	hide_window = yes
 #
-#	is_triggered_only = yes
+#	trigger = {
+#		always = no
+#	}
 #
 #	immediate = {
 #		begin_event_chain = {
 #			event_chain = l_cluster_chain
 #			target = this
+#		}
+#	}
+#}
+#
+## Project Test 2
+#country_event = {
+#	id = graygoo.31
+#	hide_window = yes
+#
+#	trigger = {
+#		always = no
+#	}
+#
+#	immediate = {
+#		generate_lcluster_clue = yes
+#	}
+#}
+#
+## Test 3
+#country_event = {
+#	id = graygoo.32
+#	hide_window = yes
+#
+#	trigger = {
+#		always = no
+#	}
+#
+#	immediate = {
+#		add_research_option = tech_lgate_activation
+#		add_tech_progress = {
+#			tech = tech_lgate_activation
+#			progress = 0.999
 #		}
 #	}
 #}

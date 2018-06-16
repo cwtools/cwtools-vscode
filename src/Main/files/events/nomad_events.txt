@@ -21,7 +21,7 @@ country_event = {
 	immediate = {
 		random_rim_system = {
 			limit = {
-				NOT = {
+				NOR = {
 					#any_ship_in_system = {
 					#	exists = owner
 					#}
@@ -246,16 +246,16 @@ fleet_event = {
 					}
 				}
 			}
-			else = {
-				queue_actions = {
-					find_random_system = {
-						trigger = {
-							id = nomad.2.trigger.2
-							has_star_flag = nomad_end_point
-						}
-						found_system = {
-							move_to = this
-						}
+		}
+		else = {
+			queue_actions = {
+				find_random_system = {
+					trigger = {
+						id = nomad.2.trigger.2
+						has_star_flag = nomad_end_point
+					}
+					found_system = {
+						move_to = this
 					}
 				}
 			}
@@ -314,7 +314,7 @@ fleet_event = {
 							is_country_type = fallen_empire
 							is_country_type = awakened_fallen_empire
 						}
-						NOT = {
+						NOR = {
 							is_hostile = event_target:nomad_owner
 							has_communications = event_target:nomad_owner
 						}
@@ -396,58 +396,56 @@ fleet_event = {
 							}
 						}
 						fleet_event = { id = nomad.4 days = 1 } #Take action inside system
-						else = {
-							fleet_event = { id = nomad.2 days = 1 } #Take action inside system
+					}
+					else = {
+						fleet_event = { id = nomad.2 days = 1 } #Take action inside system
+					}
+				}
+			}
+		}
+		else_if = {
+			# If space owner is hostile
+			limit = {
+				from = {
+					exists = space_owner
+					space_owner = {
+						OR = {
+							is_country_type = default
+							is_country_type = fallen_empire
+							is_country_type = awakened_fallen_empire
+						}
+						is_hostile = event_target:nomad_owner
+					}
+				}
+			}
+			fleet_event = { id = nomad.2 } #Nomads fly towards current destination
+			owner = {
+				#country_event = { id = nomad.992 }
+			}
+		}
+		else_if = {
+			# If space owner should be ignored by Nomads
+			limit = {
+				from = {
+					exists = space_owner
+					space_owner = {
+						OR = {
+							is_country_type = default
+							is_country_type = fallen_empire
+							is_country_type = awakened_fallen_empire
 						}
 					}
 				}
 			}
-			else = {
-				if = { # If space owner is hostile
-					limit = {
-						from = {
-							exists = space_owner
-							space_owner = {
-								OR = {
-									is_country_type = default
-									is_country_type = fallen_empire
-									is_country_type = awakened_fallen_empire
-								}
-								is_hostile = event_target:nomad_owner
-							}
-						}
-					}
-					fleet_event = { id = nomad.2 } #Nomads fly towards current destination
-					owner = {
-						#country_event = { id = nomad.992 }
-					}
-					else = {
-						if = { # If space owner should be ignored by Nomads
-							limit = {
-								from = {
-									exists = space_owner
-									space_owner = {
-										OR = {
-											is_country_type = default
-											is_country_type = fallen_empire
-											is_country_type = awakened_fallen_empire
-										}
-									}
-								}
-							}
-							fleet_event = { id = nomad.2 } #Nomads fly towards current destination
-							owner = {
-								#country_event = { id = nomad.993 }
-							}
-							else = { #If no country owns this system
-								fleet_event = { id = nomad.5 } #Nomads hang out in ownerless system
-								owner = {
-									#country_event = { id = nomad.994 }
-								}
-							}
-						}
-					}
-				}
+			fleet_event = { id = nomad.2 } #Nomads fly towards current destination
+			owner = {
+				#country_event = { id = nomad.993 }
+			}
+		}
+		else = { #If no country owns this system
+			fleet_event = { id = nomad.5 } #Nomads hang out in ownerless system
+			owner = {
+				#country_event = { id = nomad.994 }
 			}
 		}
 	}
@@ -505,7 +503,7 @@ fleet_event = {
 				modifier = {
 					factor = 0
 					event_target:nomad_contact_country = {
-						NOT = {
+						NOR = {
 							any_owned_planet = {
 								free_pop_tiles > 3
 								OR = {
@@ -554,7 +552,7 @@ fleet_event = {
 				modifier = {
 					factor = 0
 					event_target:nomad_contact_country = {
-						NOT = {
+						NOR = {
 							any_planet_within_border = {
 								is_colony = no
 								OR = {
@@ -659,7 +657,7 @@ fleet_event = {
 		owner = { is_country_type = nomad }
 		NOT = { has_fleet_flag = nomad_on_mission }
 		solar_system = {
-			NOT = {
+			NOR = {
 				exists = space_owner
 				has_star_flag = hostile_system
 				has_star_flag = nomad_mid_point
@@ -702,21 +700,19 @@ fleet_event = {
 							which = nomads_built_ships
 							value = 0
 						}
-						else = {
-							if = {
-								limit = {
-									NOT = { 
-										check_variable = {
-											which = nomads_built_ships
-											value = 0
-										}
-									}
-								}
-								set_variable = {
+					}
+					else_if = {
+						limit = {
+							NOT = { 
+								check_variable = {
 									which = nomads_built_ships
 									value = 0
 								}
 							}
+						}
+						set_variable = {
+							which = nomads_built_ships
+							value = 0
 						}
 					}
 				}
@@ -1022,7 +1018,7 @@ country_event = {
 	option = {
 		name = "nomad.9.a"
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_xenophile
 				has_ethic = ethic_fanatic_xenophile
 				has_ethic = ethic_xenophobe
@@ -1093,7 +1089,7 @@ country_event = {
 		name = action.1.a
 		default_hide_option = yes
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_xenophobe
 				has_ethic = ethic_fanatic_xenophobe
 				has_ethic = ethic_xenophile
@@ -1618,21 +1614,19 @@ fleet_event = {
 					which = nomads_attacked_systems
 					value = 0
 				}
-				else = {
-					if = {
-						limit = {
-							NOT = { 
-								check_variable = {
-									which = nomads_attacked_systems
-									value = 0
-								}
-							}
-						}
-						set_variable = {
+			}
+			else_if = {
+				limit = {
+					NOT = { 
+						check_variable = {
 							which = nomads_attacked_systems
 							value = 0
 						}
 					}
+				}
+				set_variable = {
+					which = nomads_attacked_systems
+					value = 0
 				}
 			}
 		}
@@ -1859,7 +1853,7 @@ country_event = {
 	}
 
 	trigger = {
-		NOT = { 
+		NOR = { 
 			has_country_flag = nomad_ignores
 			has_authority = auth_hive_mind
 		}
@@ -1960,7 +1954,7 @@ country_event = {
 		text = nomad.30.desc_01
 		trigger = {
 			from = {
-				NOT = {
+				NOR = {
 					has_relation_flag = { who = root flag = nomad_relation_like }
 					#has_relation_flag = { who = root flag = nomad_relation_neutral }
 					has_relation_flag = { who = root flag = nomad_relation_dislike }
@@ -2023,7 +2017,7 @@ country_event = {
 		response_text = nomad.30.a.response
 		trigger = {
 			from = {
-				NOT = {
+				NOR = {
 					has_relation_flag = { who = root flag = nomad_relation_dislike }
 					has_relation_flag = { who = root flag = nomad_relation_hate }
 				}
@@ -2049,7 +2043,7 @@ country_event = {
 		response_text = nomad.30.b.response
 		trigger = {
 			from = {
-				NOT = {
+				NOR = {
 					has_relation_flag = { who = root flag = nomad_relation_dislike }
 					#has_relation_flag = { who = root flag = nomad_relation_neutral }
 					has_relation_flag = { who = root flag = nomad_relation_like }
@@ -2114,6 +2108,13 @@ fleet_event = {
 						is_planet_class = pc_ocean
 						is_planet_class = pc_arid
 					}
+					solar_system = {
+						NOT = {
+							any_planet = {
+								is_colony = yes
+							}
+						}
+					}
 				}
 				set_planet_flag = nomad_mission_location
 				solar_system = { set_star_flag = nomad_mission_waypoint }
@@ -2167,12 +2168,13 @@ fleet_event = {
 		}
 	}
 }
-#Nomads contact planet owner and asks for colony access
+#Nomads contact planet owner and asks to take over one of player's systems
 country_event = {
 	id = nomad.41
 	title = nomad.10.name
 	desc = nomad.41.desc
 	diplomatic = yes
+	location = event_target:NomadMissionPlanet
 	is_triggered_only = yes
 	
 	picture_event_data = {
@@ -2209,14 +2211,83 @@ country_event = {
 	}
 
 	option = {
+		name = nomad.41.b
+		response_text = nomad.41.b.response
+		custom_tooltip = nomad.41.b.tooltip
+		trigger = {
+			NOR = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_spiritualist
+			}
+		}
+		add_influence = -50
+		hidden_effect = {
+			event_target:nomad_fleet = {
+				remove_fleet_flag = nomad_on_mission
+				fleet_event = { id = nomad.2 }
+				owner = {
+					set_relation_flag = { who = event_target:planet_owners flag = nomad_relation_dislike }
+				}
+			}
+		}
+	}
+	option = {
+		name = nomad.41.b.phobe
+		response_text = nomad.41.b.response
+		custom_tooltip = nomad.41.b.tooltip
+		trigger = {
+			OR = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+			}
+		}
+		add_influence = -50
+		hidden_effect = {
+			event_target:nomad_fleet = {
+				remove_fleet_flag = nomad_on_mission
+				fleet_event = { id = nomad.2 }
+				owner = {
+					set_relation_flag = { who = event_target:planet_owners flag = nomad_relation_dislike }
+				}
+			}
+		}
+	}
+	option = {
+		name = nomad.41.b.spirit
+		response_text = nomad.41.b.response
+		custom_tooltip = nomad.41.b.tooltip
+		trigger = {
+			OR = {
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_spiritualist
+			}
+			NOR = {
+				has_ethic = ethic_fanatic_xenophobe
+				has_ethic = ethic_xenophobe
+			}
+		}
+		add_influence = -50
+		hidden_effect = {
+			event_target:nomad_fleet = {
+				remove_fleet_flag = nomad_on_mission
+				fleet_event = { id = nomad.2 }
+				owner = {
+					set_relation_flag = { who = event_target:planet_owners flag = nomad_relation_dislike }
+				}
+			}
+		}
+	}
+	option = {
 		name = nomad.41.a
 		response_text = nomad.41.a.response
 		custom_tooltip = nomad.41.a.tooltip
 		add_monthly_resource_mult = {
 			resource = influence
-			value = @tier1influencereward
-			min = @tier1influencemin
-			max = @tier1influencemax
+			value = @tier4influencereward
+			min = @tier4influencemin
+			max = @tier4influencemax
 		}
 		hidden_effect = {
 			event_target:planet_owners = { set_timed_country_flag = { flag = day_0 days = 1 } }
@@ -2228,7 +2299,11 @@ country_event = {
 					ignore_initial_colony_error = yes
 					day_zero_contact = no
 					authority = auth_democratic
-					ethos = random
+					ethos = {
+						ethic = "ethic_xenophile"
+						ethic = "ethic_spiritualist"
+						ethic = "ethic_egalitarian"
+					}
 					civics = random
 					flag = {
 						icon = {
@@ -2291,7 +2366,7 @@ country_event = {
 					save_event_target_as = nomad_new_country
 				}
 				create_colony = {
-					owner = last_created_country
+					owner = event_target:nomad_new_country
 					species = Namarian
 					ethos = {
 						ethic = "ethic_xenophile"
@@ -2312,7 +2387,7 @@ country_event = {
 						}
 					}
 				}
-				set_owner = last_created_country
+				set_owner = event_target:nomad_new_country
 				event_target:nomad_new_country = {
 					every_owned_pop = {
 						modify_species = {
@@ -2328,12 +2403,14 @@ country_event = {
 				solar_system = {
 					if = {
 						limit = { exists = starbase }
-						# nothin'
-						else = {
-							create_starbase = {
-								size = starbase_outpost
-								owner = event_target:nomad_new_country
-							}
+						starbase = {
+							set_owner = event_target:nomad_new_country
+						}
+					}
+					else = {
+						create_starbase = {
+							size = starbase_outpost
+							owner = event_target:nomad_new_country
 						}
 					}
 				}
@@ -2356,75 +2433,6 @@ country_event = {
 							fleet_event = { id = nomad.2 }
 						}
 					}
-				}
-			}
-		}
-	}
-	option = {
-		name = nomad.41.b
-		response_text = nomad.41.b.response
-		custom_tooltip = nomad.41.b.tooltip
-		trigger = {
-			NOT = {
-				has_ethic = ethic_fanatic_xenophobe
-				has_ethic = ethic_xenophobe
-				has_ethic = ethic_fanatic_spiritualist
-				has_ethic = ethic_spiritualist
-			}
-		}
-		add_influence = -50
-		hidden_effect = {
-			event_target:nomad_fleet = {
-				remove_fleet_flag = nomad_on_mission
-				fleet_event = { id = nomad.2 }
-				owner = {
-					set_relation_flag = { who = event_target:planet_owners flag = nomad_relation_dislike }
-				}
-			}
-		}
-	}
-	option = {
-		name = nomad.41.b.phobe
-		response_text = nomad.41.b.response
-		custom_tooltip = nomad.41.b.tooltip
-		trigger = {
-			OR = {
-				has_ethic = ethic_fanatic_xenophobe
-				has_ethic = ethic_xenophobe
-			}
-		}
-		add_influence = -50
-		hidden_effect = {
-			event_target:nomad_fleet = {
-				remove_fleet_flag = nomad_on_mission
-				fleet_event = { id = nomad.2 }
-				owner = {
-					set_relation_flag = { who = event_target:planet_owners flag = nomad_relation_dislike }
-				}
-			}
-		}
-	}
-	option = {
-		name = nomad.41.b.spirit
-		response_text = nomad.41.b.response
-		custom_tooltip = nomad.41.b.tooltip
-		trigger = {
-			OR = {
-				has_ethic = ethic_fanatic_spiritualist
-				has_ethic = ethic_spiritualist
-			}
-			NOT = {
-				has_ethic = ethic_fanatic_xenophobe
-				has_ethic = ethic_xenophobe
-			}
-		}
-		add_influence = -50
-		hidden_effect = {
-			event_target:nomad_fleet = {
-				remove_fleet_flag = nomad_on_mission
-				fleet_event = { id = nomad.2 }
-				owner = {
-					set_relation_flag = { who = event_target:planet_owners flag = nomad_relation_dislike }
 				}
 			}
 		}
@@ -2686,7 +2694,7 @@ country_event = {
 	option = {
 		name = OK
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_xenophile
 				has_ethic = ethic_xenophile
 				has_ethic = ethic_fanatic_xenophobe
@@ -2736,7 +2744,7 @@ country_event = {
 	option = {
 		name = OK
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_xenophile
 				has_ethic = ethic_xenophile
 				has_ethic = ethic_fanatic_xenophobe
@@ -3249,69 +3257,65 @@ country_event = {
 					30 = { country_event = { id = nomad.520 days = 10 } }
 					70 = { country_event = { id = nomad.530 days = 30 } }
 				}
-				else = {
-					if = {
-						limit = {
-							any_neighbor_country = {
-								opinion ={
-									who = root
-									value < -200
-								}
-								is_country_type = default
-								has_communications = root
-							}
+			}
+			else_if = {
+				limit = {
+					any_neighbor_country = {
+						opinion ={
+							who = root
+							value < -200
 						}
-						random_neighbor_country = {
-							limit = {
-								opinion ={
-									who = root
-									value < -200
-								}
-								is_country_type = default
-								has_communications = root
-							}
-							set_country_flag = nomad_doublecrossing
-							#save_event_target_as = other_empire
-						}
-						random_list = {
-							30 = { country_event = { id = nomad.520 days = 10 } }
-							70 = { country_event = { id = nomad.530 days = 30 } }
-						}
-						else = {
-							if = {
-								limit = {
-									any_neighbor_country = {
-										opinion ={
-											who = root
-											value < -50
-										}
-										is_country_type = default
-										has_communications = root
-									}
-								}
-								random_neighbor_country = {
-									limit = {
-										opinion ={
-											who = root
-											value < -50
-										}
-										is_country_type = default
-										has_communications = root
-									}
-									set_country_flag = nomad_doublecrossing
-									#save_event_target_as = other_empire
-								}
-								random_list = {
-									30 = { country_event = { id = nomad.520 days = 10 } }
-									70 = { country_event = { id = nomad.530 days = 30 } }
-								}
-								else = {
-									country_event = { id = nomad.530 days = 30 }
-								}
-							}
-						}
+						is_country_type = default
+						has_communications = root
 					}
 				}
+				random_neighbor_country = {
+					limit = {
+						opinion ={
+							who = root
+							value < -200
+						}
+						is_country_type = default
+						has_communications = root
+					}
+					set_country_flag = nomad_doublecrossing
+					#save_event_target_as = other_empire
+				}
+				random_list = {
+					30 = { country_event = { id = nomad.520 days = 10 } }
+					70 = { country_event = { id = nomad.530 days = 30 } }
+				}
+			}
+			else_if = {
+				limit = {
+					any_neighbor_country = {
+						opinion ={
+							who = root
+							value < -50
+						}
+						is_country_type = default
+						has_communications = root
+					}
+				}
+				random_neighbor_country = {
+					limit = {
+						opinion ={
+							who = root
+							value < -50
+						}
+						is_country_type = default
+						has_communications = root
+					}
+					set_country_flag = nomad_doublecrossing
+					#save_event_target_as = other_empire
+				}
+				random_list = {
+					30 = { country_event = { id = nomad.520 days = 10 } }
+					70 = { country_event = { id = nomad.530 days = 30 } }
+				}
+			}
+			else = {
+				country_event = { id = nomad.530 days = 30 }
 			}
 		}
 	}
@@ -3512,17 +3516,17 @@ country_event = {
 		text = nomad.525.desc
 		trigger = {
 			OR = {
-				energy > 2000
-				minerals > 2000
+				energy >= 2000
+				minerals >= 2000
 			}
 		}
 	}
 	desc = {
 		text = nomad.525.desc.poor
 		trigger = {
-			NOT = {
-				energy > 2000
-				minerals > 2000
+			NOR = {
+				energy >= 2000
+				minerals >= 2000
 			}
 		}
 	}

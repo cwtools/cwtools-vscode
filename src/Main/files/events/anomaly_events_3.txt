@@ -310,7 +310,7 @@ ship_event = {
 	desc = {
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_xenophobe
 					has_ethic = ethic_fanatic_xenophobe
 					has_ethic = ethic_xenophile
@@ -369,7 +369,7 @@ ship_event = {
 		name = anomaly.96.a.neutral
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_xenophobe
 					has_ethic = ethic_fanatic_xenophobe
 					has_ethic = ethic_xenophile
@@ -790,7 +790,7 @@ ship_event = {
 		custom_tooltip = anomaly.120.b.tooltip
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = "ethic_xenophobe"
 					has_ethic = "ethic_fanatic_xenophobe"
 					has_ethic = "ethic_xenophile"
@@ -813,7 +813,7 @@ ship_event = {
 					}
 					random_owned_pop = {
 						limit = {
-							NOT = {
+							NOR = {
 								pop_has_ethic = ethic_xenophile
 								pop_has_trait = trait_robotic_1
 								pop_has_trait = trait_robotic_2
@@ -827,7 +827,7 @@ ship_event = {
 					}
 					random_owned_pop = {
 						limit = {
-							NOT = {
+							NOR = {
 								pop_has_ethic = ethic_xenophile
 								pop_has_trait = trait_robotic_1
 								pop_has_trait = trait_robotic_2
@@ -841,7 +841,7 @@ ship_event = {
 					}
 					random_owned_pop = {
 						limit = {
-							NOT = {
+							NOR = {
 								pop_has_ethic = ethic_xenophile
 								pop_has_trait = trait_robotic_1
 								pop_has_trait = trait_robotic_2
@@ -855,7 +855,7 @@ ship_event = {
 					}
 					random_owned_pop = {
 						limit = {
-							NOT = {
+							NOR = {
 								pop_has_ethic = ethic_xenophile
 								pop_has_trait = trait_robotic_1
 								pop_has_trait = trait_robotic_2
@@ -869,7 +869,7 @@ ship_event = {
 					}
 					random_owned_pop = {
 						limit = {
-							NOT = {
+							NOR = {
 								pop_has_ethic = ethic_xenophile
 								pop_has_trait = trait_robotic_1
 								pop_has_trait = trait_robotic_2
@@ -883,7 +883,7 @@ ship_event = {
 					}
 					random_owned_pop = {
 						limit = {
-							NOT = {
+							NOR = {
 								pop_has_ethic = ethic_xenophile
 								pop_has_trait = trait_robotic_1
 								pop_has_trait = trait_robotic_2
@@ -897,62 +897,60 @@ ship_event = {
 					}
 					set_country_flag = eddic_1
 					country_event = { id = anomaly.121 days = 4 }
-					else = {
-						if = {
+				}
+				else_if = {
+					limit = {
+						count_owned_pops = {
 							limit = {
-								count_owned_pops = {
-									limit = {
-										NOT = { pop_has_ethic = ethic_xenophile }
-									}
-									count > 6
-								}
+								NOT = { pop_has_ethic = ethic_xenophile }
 							}
-							random_owned_pop = {
-								limit = {
-									NOT = {
-										pop_has_ethic = ethic_xenophile
-										pop_has_trait = trait_robotic_1
-										pop_has_trait = trait_robotic_2
-									}
-								}
-								if = {
-									limit = { pop_has_ethic = ethic_xenophobe }
-									pop_remove_ethic = ethic_xenophobe
-								}
-								pop_change_ethic = "ethic_xenophile"
-							}
-							random_owned_pop = {
-								limit = {
-									NOT = {
-										pop_has_ethic = ethic_xenophile
-										pop_has_trait = trait_robotic_1
-										pop_has_trait = trait_robotic_2
-									}
-								}
-								if = {
-									limit = { pop_has_ethic = ethic_xenophobe }
-									pop_remove_ethic = ethic_xenophobe
-								}
-								pop_change_ethic = "ethic_xenophile"
-							}
-							random_owned_pop = {
-								limit = {
-									NOT = {
-										pop_has_ethic = ethic_xenophile
-										pop_has_trait = trait_robotic_1
-										pop_has_trait = trait_robotic_2
-									}
-								}
-								if = {
-									limit = { pop_has_ethic = ethic_xenophobe }
-									pop_remove_ethic = ethic_xenophobe
-								}
-								pop_change_ethic = "ethic_xenophile"
-							}
-							set_country_flag = eddic_2
-							country_event = { id = anomaly.121 days = 4 }
+							count > 6
 						}
 					}
+					random_owned_pop = {
+						limit = {
+							NOR = {
+								pop_has_ethic = ethic_xenophile
+								pop_has_trait = trait_robotic_1
+								pop_has_trait = trait_robotic_2
+							}
+						}
+						if = {
+							limit = { pop_has_ethic = ethic_xenophobe }
+							pop_remove_ethic = ethic_xenophobe
+						}
+						pop_change_ethic = "ethic_xenophile"
+					}
+					random_owned_pop = {
+						limit = {
+							NOR = {
+								pop_has_ethic = ethic_xenophile
+								pop_has_trait = trait_robotic_1
+								pop_has_trait = trait_robotic_2
+							}
+						}
+						if = {
+							limit = { pop_has_ethic = ethic_xenophobe }
+							pop_remove_ethic = ethic_xenophobe
+						}
+						pop_change_ethic = "ethic_xenophile"
+					}
+					random_owned_pop = {
+						limit = {
+							NOR = {
+								pop_has_ethic = ethic_xenophile
+								pop_has_trait = trait_robotic_1
+								pop_has_trait = trait_robotic_2
+							}
+						}
+						if = {
+							limit = { pop_has_ethic = ethic_xenophobe }
+							pop_remove_ethic = ethic_xenophobe
+						}
+						pop_change_ethic = "ethic_xenophile"
+					}
+					set_country_flag = eddic_2
+					country_event = { id = anomaly.121 days = 4 }
 				}
 			}
 		}
@@ -1052,7 +1050,7 @@ ship_event = {
 
 	trigger = {
 		FROM = {
-			NOT = {
+			NOR = {
 				is_planet_class = pc_asteroid
 				is_planet_class = pc_gas_giant
 			}
@@ -1566,14 +1564,14 @@ country_event = {
 					}
 				}
 			}
-			else = {
-				add_monthly_resource_mult = {
-					resource = unity
-					value = @tier4unityreward
-					min = @tier4unitymin
-					max = @tier4unitymax
-				}			
-			}
+		}
+		else = {
+			add_monthly_resource_mult = {
+				resource = unity
+				value = @tier4unityreward
+				min = @tier4unitymin
+				max = @tier4unitymax
+			}			
 		}
 		end_event_chain = "old_gods_chain"		
 	}
@@ -1603,12 +1601,12 @@ ship_event = {
 					tech = tech_biolab_2
 					progress = 0.80
 				}
-				else = {
-					add_research_option = tech_biolab_2
-					add_tech_progress = {
-						tech = tech_biolab_2
-						progress = 0.5
-					}
+			}
+			else = {
+				add_research_option = tech_biolab_2
+				add_tech_progress = {
+					tech = tech_biolab_2
+					progress = 0.5
 				}
 			}
 		}
@@ -1865,7 +1863,7 @@ ship_event = {
 					has_civic = civic_machine_terminator
 					has_civic = civic_fanatic_purifiers
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_xenophile
 					has_ethic = ethic_xenophile
 					has_policy_flag = interference_passive
@@ -1908,7 +1906,7 @@ ship_event = {
 		trigger = {
 			owner = { 
 				has_civic = civic_hive_devouring_swarm
-				NOT = {
+				NOR = {
 					has_policy_flag = interference_passive
 					has_country_flag = timed_trop_pets
 				}
@@ -2938,6 +2936,7 @@ ship_event = {
 	desc = anomaly.265.desc
 	picture = GFX_evt_archaeological_dig
 	show_sound = event_ship_thrusters
+	location = from
 
 	is_triggered_only = yes
 
@@ -3002,6 +3001,7 @@ ship_event = {
 	desc = anomaly.275.desc
 	picture = GFX_evt_archaeological_dig
 	show_sound = event_ship_thrusters
+	location = from
 
 	is_triggered_only = yes
 
@@ -3012,13 +3012,13 @@ ship_event = {
 			if = {
 				limit = { NOT = { has_technology = tech_thrusters_2 } }
 				give_technology = { tech = tech_thrusters_2 }
-				else = {
-					add_monthly_resource_mult = {
-						resource = unity
-						value = @tier1unityreward
-						min = @tier1unitymin
-						max = @tier1unitymax
-					}
+			}
+			else = {
+				add_monthly_resource_mult = {
+					resource = unity
+					value = @tier1unityreward
+					min = @tier1unitymin
+					max = @tier1unitymax
 				}
 			}
 		}

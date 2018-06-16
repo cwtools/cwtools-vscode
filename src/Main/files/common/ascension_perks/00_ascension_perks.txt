@@ -501,15 +501,11 @@ ap_world_shaper = {
 		NOT = {
 			has_ascension_perk = ap_world_shaper
 		}
+		NOT = { has_authority = auth_machine_intelligence }
 	}
 	
 	ai_weight = {
-		factor = 10
-		modifier = {
-			factor = 0.1
-			has_authority = auth_machine_intelligence
-			NOT = { has_ascension_perk = ap_machine_worlds }
-		}
+		factor = 5
 	}
 }
 

@@ -242,7 +242,7 @@ ship_event = {
 				limit = {
 					from = { #Check if you built an orbital station and if it doesn't qualify to mine the right resources
 						has_mining_station = no
-						NOT = {
+						NOR = {
 							has_resource = {
 								type = energy
 								amount > 0
@@ -255,21 +255,21 @@ ship_event = {
 					}
 				}
 				###DO NOTHING
-				else = {
-					add_event_chain_counter = { 
-						event_chain = mandate_miner_chain 
-						counter = mining_stations_built
-						amount = 1
-					}
-					if = {
-						limit = {
-							has_completed_event_chain_counter = {
-								event_chain = mandate_miner_chain
-								counter = mining_stations_built
-							}
+			}
+			else = {
+				add_event_chain_counter = { 
+					event_chain = mandate_miner_chain 
+					counter = mining_stations_built
+					amount = 1
+				}
+				if = {
+					limit = {
+						has_completed_event_chain_counter = {
+							event_chain = mandate_miner_chain
+							counter = mining_stations_built
 						}
-						country_event = { id = mandate.111 }
 					}
+					country_event = { id = mandate.111 }
 				}
 			}
 		}
@@ -324,7 +324,7 @@ ship_event = {
 				limit = {
 					from = { #Check if you built an orbital station and if it doesn't qualify to mine the right resources
 						has_research_station = no
-						NOT = {
+						NOR = {
 							has_resource = {
 								type = physics_research
 								amount > 0
@@ -341,21 +341,21 @@ ship_event = {
 					}
 				}
 				###DO NOTHING
-				else = {
-					add_event_chain_counter = { 
-						event_chain = mandate_orbresearch_chain 
-						counter = orbresearch_built
-						amount = 1
-					}
-					if = {
-						limit = {
-							has_completed_event_chain_counter = {
-								event_chain = mandate_orbresearch_chain
-								counter = orbresearch_built
-							}
+			}
+			else = {
+				add_event_chain_counter = { 
+					event_chain = mandate_orbresearch_chain 
+					counter = orbresearch_built
+					amount = 1
+				}
+				if = {
+					limit = {
+						has_completed_event_chain_counter = {
+							event_chain = mandate_orbresearch_chain
+							counter = orbresearch_built
 						}
-						country_event = { id = mandate.121 }
 					}
+					country_event = { id = mandate.121 }
 				}
 			}
 		}
@@ -474,20 +474,18 @@ country_event = {
 				counter = military_presence_maintained
 				amount = 1
 			}
-			else = {
-				if = {
-					limit = {
-						has_completed_event_chain_counter = {
-							event_chain = mandate_shipwright_chain
-							counter = "military_presence_maintained"
-						}
-					}
-					add_event_chain_counter = {
-						event_chain = "mandate_shipwright_chain"
-						counter = "military_presence_maintained"
-						amount = -1
-					}
+		}
+		else_if = {
+			limit = {
+				has_completed_event_chain_counter = {
+					event_chain = mandate_shipwright_chain
+					counter = "military_presence_maintained"
 				}
+			}
+			add_event_chain_counter = {
+				event_chain = "mandate_shipwright_chain"
+				counter = "military_presence_maintained"
+				amount = -1
 			}
 		}
 	}

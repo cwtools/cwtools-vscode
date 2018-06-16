@@ -230,6 +230,7 @@ country_event = {
 	
 	option = {
 		name = "utopia.2500.a"
+		hidden_effect = { save_event_target_as = flesh_weak_owner }
 		capital_scope = {
 			enable_special_project = {
 				name = "FLESH_IS_WEAK_PROJECT"
@@ -703,6 +704,7 @@ country_event = {
 	
 	option = {
 		name = "utopia.2550.a"
+		hidden_effect = { save_event_target_as = synth_evo_owner }
 		capital_scope = {
 			enable_special_project = {
 				name = "SYNTHETIC_EVOLUTION_PROJECT"
@@ -1130,7 +1132,7 @@ country_event = {
 	option = {
 		name = utopia.2556.d
 		trigger = {
-			NOT = { 
+			NOR = { 
 				is_at_war_with = from 
 				has_ethic = ethic_fanatic_materialist
 				has_ethic = ethic_materialist
@@ -1395,7 +1397,7 @@ country_event = {
 	option = {
 		name = "utopia.2602.a"
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_materialist
 				has_ethic = ethic_fanatic_materialist
 				is_at_war_with = from
@@ -1411,7 +1413,7 @@ country_event = {
 					has_ethic = ethic_materialist
 					has_ethic = ethic_fanatic_materialist
 				}
-				NOT = {
+				NOR = {
 					is_at_war_with = from
 					species = { has_trait = trait_psionic }
 				}
@@ -1722,7 +1724,7 @@ country_event = {
 	option = {
 		name = AMAZING
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_materialist
 				has_ethic = ethic_fanatic_materialist
 				is_at_war_with = from
@@ -1738,7 +1740,7 @@ country_event = {
 					has_ethic = ethic_materialist
 					has_ethic = ethic_fanatic_materialist
 				}
-				NOT = {
+				NOR = {
 					is_at_war_with = from
 					species = { has_trait = trait_psionic }
 				}
@@ -1824,6 +1826,7 @@ country_event = {
 
 	option = {
 		name = "utopia.2655.a"
+		hidden_effect = { save_event_target_as = breach_shroud_owner }
 		capital_scope = {
 			enable_special_project = {
 				name = "BREACHING_SHROUD_PROJECT"

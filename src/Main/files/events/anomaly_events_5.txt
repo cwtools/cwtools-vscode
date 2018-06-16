@@ -212,7 +212,7 @@ ship_event = {
 						exists = space_owner
 						space_owner = {
 							is_country_type = default
-							NOT = {
+							NOR = {
 								is_same_value = event_target:MyCountry
 								has_established_contact = event_target:MyCountry
 							}
@@ -376,7 +376,7 @@ country_event = {
 				has_owner = yes
 				owner = {
 					is_country_type = "default"
-					NOT = {
+					NOR = {
 						has_country_flag = me
 						has_established_contact = root
 					}
@@ -766,7 +766,7 @@ ship_event = {
 						min_jumps = 3
 						max_jumps = 8
 					}
-					NOT = {
+					NOR = {
 						has_star_flag = current_system
 						has_star_flag = hostile_system
 					}
@@ -784,7 +784,7 @@ ship_event = {
 						min_jumps = 2
 						max_jumps = 7
 					}
-					NOT = {
+					NOR = {
 						has_star_flag = current_system
 						has_star_flag = hostile_system
 						has_star_flag = some_system_1
@@ -1050,12 +1050,12 @@ ship_event = {
 					tech = tech_fission_power
 					progress = 0.80
 				}
-				else = {
-					add_research_option = tech_fission_power
-					add_tech_progress = {
-						tech = tech_fission_power
-						progress = 0.40
-					}
+			}
+			else = {
+				add_research_option = tech_fission_power
+				add_tech_progress = {
+					tech = tech_fission_power
+					progress = 0.40
 				}
 			}
 			hidden_effect = { remove_country_flag = finished_star_power_chain }
@@ -1081,12 +1081,12 @@ ship_event = {
 					tech = tech_fusion_power
 					progress = 0.75
 				}
-				else = {
-					add_research_option = tech_fusion_power
-					add_tech_progress = {
-						tech = tech_fusion_power
-						progress = 0.37
-					}
+			}
+			else = {
+				add_research_option = tech_fusion_power
+				add_tech_progress = {
+					tech = tech_fusion_power
+					progress = 0.37
 				}
 			}
 			hidden_effect = { remove_country_flag = finished_star_power_chain }
@@ -1112,12 +1112,12 @@ ship_event = {
 					tech = tech_cold_fusion_power
 					progress = 0.70
 				}
-				else = {
-					add_research_option = tech_cold_fusion_power
-					add_tech_progress = {
-						tech = tech_cold_fusion_power
-						progress = 0.35
-					}
+			}
+			else = {
+				add_research_option = tech_cold_fusion_power
+				add_tech_progress = {
+					tech = tech_cold_fusion_power
+					progress = 0.35
 				}
 			}
 			hidden_effect = { remove_country_flag = finished_star_power_chain }
@@ -1143,12 +1143,12 @@ ship_event = {
 					tech = tech_antimatter_power
 					progress = 0.60
 				}
-				else = {
-					add_research_option = tech_antimatter_power
-					add_tech_progress = {
-						tech = tech_antimatter_power
-						progress = 0.30
-					}
+			}
+			else = {
+				add_research_option = tech_antimatter_power
+				add_tech_progress = {
+					tech = tech_antimatter_power
+					progress = 0.30
 				}
 			}
 			hidden_effect = { remove_country_flag = finished_star_power_chain }
@@ -1174,14 +1174,14 @@ ship_event = {
 					tech = tech_zero_point_power
 					progress = 0.50
 				}
-				else = {
-					add_research_option = tech_zero_point_power
-					add_tech_progress = {
-						tech = tech_zero_point_power
-						progress = 0.25
-					}
-				}
 			}	
+			else = {
+				add_research_option = tech_zero_point_power
+				add_tech_progress = {
+					tech = tech_zero_point_power
+					progress = 0.25
+				}
+			}
 			hidden_effect = { remove_country_flag = finished_star_power_chain }
 		}
 	}
@@ -1636,7 +1636,7 @@ ship_event = {
 		if = {
 			limit = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_modifier = media_coverage_negative_high
 						has_modifier = media_coverage_negative_medium
 						has_modifier = media_coverage_negative_low
@@ -1809,7 +1809,7 @@ ship_event = {
 		if = {
 			limit = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_modifier = media_coverage_positive_high
 						has_modifier = media_coverage_positive_medium
 						has_modifier = media_coverage_positive_low
@@ -1970,7 +1970,7 @@ ship_event = {
 		name = anomaly.4060.b
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
@@ -2083,7 +2083,7 @@ ship_event = {
 		name = BREAKTHROUGH
 		trigger = {
 			owner = {
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_spiritualist
 					has_ethic = ethic_spiritualist
 				}
@@ -2189,12 +2189,12 @@ ship_event = {
 					tech = tech_mining_network_2
 					progress = 0.5
 				}
-				else = {
-					add_research_option = tech_mining_network_2
-					add_tech_progress = {
-						tech = tech_mining_network_2
-						progress = 0.25
-					}
+			}
+			else = {
+				add_research_option = tech_mining_network_2
+				add_tech_progress = {
+					tech = tech_mining_network_2
+					progress = 0.25
 				}
 			}
 		}
@@ -2218,12 +2218,12 @@ ship_event = {
 					tech = tech_mining_network_3
 					progress = 0.4
 				}
-				else = {
-					add_research_option = tech_mining_network_3
-					add_tech_progress = {
-						tech = tech_mining_network_3
-						progress = 0.2
-					}
+			}
+			else = {
+				add_research_option = tech_mining_network_3
+				add_tech_progress = {
+					tech = tech_mining_network_3
+					progress = 0.2
 				}
 			}
 		}
@@ -2364,12 +2364,12 @@ country_event = {
 					tech = tech_shields_1
 					progress = 0.8
 				}
-				else = {
-					add_research_option = tech_shields_1
-					add_tech_progress = {
-						tech = tech_shields_1
-						progress = 0.4
-					}
+			}
+			else = {
+				add_research_option = tech_shields_1
+				add_tech_progress = {
+					tech = tech_shields_1
+					progress = 0.4
 				}
 			}
 		}
@@ -2393,12 +2393,12 @@ country_event = {
 					tech = tech_shields_2
 					progress = 0.6
 				}
-				else = {
-					add_research_option = tech_shields_2
-					add_tech_progress = {
-						tech = tech_shields_2
-						progress = 0.3
-					}
+			}
+			else = {
+				add_research_option = tech_shields_2
+				add_tech_progress = {
+					tech = tech_shields_2
+					progress = 0.3
 				}
 			}
 		}
@@ -2422,12 +2422,12 @@ country_event = {
 					tech = tech_shields_3
 					progress = 0.5
 				}
-				else = {
-					add_research_option = tech_shields_3
-					add_tech_progress = {
-						tech = tech_shields_3
-						progress = 0.25
-					}
+			}
+			else = {
+				add_research_option = tech_shields_3
+				add_tech_progress = {
+					tech = tech_shields_3
+					progress = 0.25
 				}
 			}
 		}
@@ -2451,12 +2451,12 @@ country_event = {
 					tech = tech_shields_4
 					progress = 0.4
 				}
-				else = {
-					add_research_option = tech_shields_4
-					add_tech_progress = {
-						tech = tech_shields_4
-						progress = 0.2
-					}
+			}
+			else = {
+				add_research_option = tech_shields_4
+				add_tech_progress = {
+					tech = tech_shields_4
+					progress = 0.2
 				}
 			}
 		}
@@ -2507,7 +2507,7 @@ ship_event = {
 					has_ethic = ethic_fanatic_authoritarian
 					has_ethic = ethic_authoritarian
 				}
-				NOT = {
+				NOR = {
 					has_ethic = ethic_fanatic_xenophobe
 					has_ethic = ethic_xenophobe
 				}
@@ -3431,7 +3431,7 @@ ship_event = {
 			if = {
 				limit = {
 					owner = {
-						NOT = {
+						NOR = {
 							has_ethic = "ethic_fanatic_xenophobe"
 							has_ethic = "ethic_fanatic_militarist"
 							has_ethic = "ethic_fanatic_egalitarian"
@@ -3561,7 +3561,7 @@ ship_event = {
 		if = {
 			limit = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_modifier = media_coverage_negative_high
 						has_modifier = media_coverage_negative_medium
 						has_modifier = media_coverage_negative_low
@@ -3673,7 +3673,7 @@ ship_event = {
 		if = {
 			limit = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_modifier = media_coverage_negative_high
 						has_modifier = media_coverage_negative_medium
 						has_modifier = media_coverage_negative_low
@@ -3809,7 +3809,7 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = {
+				NOR = {
 					has_modifier = media_coverage_positive_high
 					has_modifier = media_coverage_positive_medium
 					has_modifier = media_coverage_positive_low
@@ -4084,7 +4084,7 @@ ship_event = {
 	desc = {
 		trigger = {
 			leader = {
-				NOT = {
+				NOR = {
 					has_trait = leader_trait_spark_of_genius
 					has_trait = leader_trait_expertise_new_worlds
 				}
@@ -4157,7 +4157,7 @@ ship_event = {
 	option = {
 		trigger = {
 			leader = {
-				NOT = {
+				NOR = {
 					has_trait = leader_trait_spark_of_genius
 					has_trait = leader_trait_expertise_new_worlds
 				}
@@ -4702,7 +4702,7 @@ country_event = {
 	desc = {
 		text = "anomaly.4136.desc"
 		trigger = {
-			NOT = {
+			NOR = {
 				has_country_flag = masters_writings_philosophy_found
 				has_country_flag = masters_writings_diplomacy_found
 				has_country_flag = masters_writings_war_found
@@ -4738,7 +4738,7 @@ ship_event = {
 
 	trigger = {
 		owner = {
-			NOT = {
+			NOR = {
 				has_country_flag = masters_writings_philosophy_found
 				has_country_flag = anomaly_140_triggered
 			}
@@ -4804,7 +4804,7 @@ country_event = {
 	desc = {
 		text = "anomaly.4141.desc"
 		trigger = {
-			NOT = {
+			NOR = {
 				has_country_flag = masters_writings_politics_found
 				has_country_flag = masters_writings_diplomacy_found
 				has_country_flag = masters_writings_war_found
@@ -4904,7 +4904,7 @@ country_event = {
 	desc = {
 		text = "anomaly.4151.desc"
 		trigger = {
-			NOT = {
+			NOR = {
 				has_country_flag = masters_writings_politics_found
 				has_country_flag = masters_writings_philosophy_found
 				has_country_flag = masters_writings_war_found
@@ -5075,7 +5075,7 @@ country_event = {
 				has_ethic = ethic_fanatic_pacifist
 				has_ethic = ethic_pacifist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_materialist
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_militarist
@@ -5103,7 +5103,7 @@ country_event = {
 				has_ethic = ethic_fanatic_egalitarian
 				has_ethic = ethic_fanatic_materialist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_fanatic_pacifist
 				has_ethic = ethic_pacifist
@@ -5138,7 +5138,7 @@ country_event = {
 		response_text = anomaly.4158.b.response
 		is_dialog_only = yes
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_fanatic_militarist
@@ -5157,7 +5157,7 @@ country_event = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_militarist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_fanatic_xenophobe
@@ -5174,7 +5174,7 @@ country_event = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_militarist
 				has_ethic = ethic_fanatic_xenophobe
@@ -5187,7 +5187,7 @@ country_event = {
 		response_text = anomaly.4158.c.response
 		is_dialog_only = yes
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_xenophobe
 				has_ethic = ethic_xenophobe
 			}
@@ -5196,7 +5196,7 @@ country_event = {
 	option = { # Rejecting
 		name = anomaly.4158.d
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_pacifist
@@ -5222,7 +5222,7 @@ country_event = {
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_pacifist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_fanatic_materialist
 				has_ethic = ethic_fanatic_pacifist
@@ -5247,7 +5247,7 @@ country_event = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_fanatic_materialist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_fanatic_pacifist
@@ -5308,7 +5308,7 @@ country_event = {
 		response_text = anomaly.4158.b.response
 		is_dialog_only = yes
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_fanatic_militarist
@@ -5327,7 +5327,7 @@ country_event = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_militarist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_fanatic_xenophobe
@@ -5344,7 +5344,7 @@ country_event = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_militarist
 				has_ethic = ethic_fanatic_xenophobe
@@ -5357,7 +5357,7 @@ country_event = {
 		response_text = anomaly.4158.c.response
 		is_dialog_only = yes
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_xenophobe
 				has_ethic = ethic_xenophobe
 			}
@@ -5366,7 +5366,7 @@ country_event = {
 	option = { # Rejecting
 		name = anomaly.4158.d
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_pacifist
@@ -5392,7 +5392,7 @@ country_event = {
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_pacifist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_fanatic_materialist
 				has_ethic = ethic_fanatic_pacifist
@@ -5417,7 +5417,7 @@ country_event = {
 				has_ethic = ethic_fanatic_militarist
 				has_ethic = ethic_fanatic_materialist
 			}
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_spiritualist
 				has_ethic = ethic_spiritualist
 				has_ethic = ethic_fanatic_pacifist
@@ -5531,7 +5531,7 @@ country_event = {
 	option = {
 		name = anomaly.4161.b
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_pacifist
 				has_ethic = ethic_pacifist
 				has_ethic = ethic_fanatic_xenophile
@@ -5622,7 +5622,7 @@ country_event = {
 	option = {
 		name = anomaly.4163.a
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = ethic_fanatic_xenophobe
 				has_ethic = ethic_xenophobe
 			}
@@ -5713,7 +5713,7 @@ country_event = {
 	desc = {
 		text = "anomaly.4166.desc"
 		trigger = {
-			NOT = {
+			NOR = {
 				has_country_flag = masters_writings_politics_found
 				has_country_flag = masters_writings_philosophy_found
 				has_country_flag = masters_writings_diplomacy_found
@@ -5741,7 +5741,7 @@ country_event = {
 	}
 	option = {
 		trigger = {
-			NOT = {
+			NOR = {
 				has_ethic = "ethic_fanatic_militarist"
 				has_ethic = "ethic_militarist"
 			}
@@ -5776,7 +5776,7 @@ ship_event = {
 		trigger = {
 			root = {
 				owner = {
-					NOT = {
+					NOR = {
 						has_ethic = ethic_materialist
 						has_ethic = ethic_fanatic_materialist
 					}

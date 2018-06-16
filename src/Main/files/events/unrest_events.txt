@@ -20,7 +20,7 @@ planet_event = {
 		has_ground_combat = no
 		has_orbital_bombardment = no
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -157,7 +157,7 @@ planet_event = {
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
 		unrest < @unrestlevel3
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -229,7 +229,7 @@ planet_event = {
 		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -301,7 +301,7 @@ planet_event = {
 		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -373,7 +373,7 @@ planet_event = {
 		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -452,7 +452,7 @@ planet_event = {
 		exists = controller
 		controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -533,7 +533,7 @@ planet_event = {
 		any_owned_pop = {
 			is_same_species = owner
 		}
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -605,7 +605,7 @@ planet_event = {
 		exists = controller
 controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -679,7 +679,7 @@ planet_event = {
 		exists = controller
 controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -751,7 +751,7 @@ planet_event = {
 		exists = controller
 controller = { is_same_value = root.owner }
 		unrest > @unrestlevel2
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event
 			OR = {
 				has_modifier = riots_averted
@@ -828,7 +828,7 @@ controller = { is_same_value = root.owner }
 			is_sapient = yes
 			is_enslaved = yes
 		}
-		NOT = {
+		NOR = {
 			has_planet_flag = slave_stirring
 			has_planet_flag = recent_unrest_event
 			has_modifier = slave_hunger_strike 
@@ -892,7 +892,7 @@ controller = { is_same_value = root.owner }
 					is_enslaved = yes
 				}
 				has_planet_flag = slave_stirring
-				NOT = {
+				NOR = {
 					has_planet_flag = slave_resistance
 					has_planet_flag = recent_unrest_event
 				}
@@ -909,7 +909,7 @@ controller = { is_same_value = root.owner }
 					is_enslaved = yes
 				}
 				has_planet_flag = slave_resistance
-				NOT = {
+				NOR = {
 					has_planet_flag = slave_riots
 					has_planet_flag = recent_unrest_event
 				}
@@ -930,7 +930,7 @@ controller = { is_same_value = root.owner }
 					is_sapient = yes
 					is_enslaved = yes
 				}
-				NOT = { 
+				NOR = { 
 					has_planet_flag = slave_revolt
 					has_planet_flag = recent_unrest_event
 				}
@@ -961,7 +961,7 @@ controller = { is_same_value = root.owner }
 			is_enslaved = yes
 		}
 		has_planet_flag = slave_stirring
-		NOT = {
+		NOR = {
 			has_planet_flag = slave_resistance
 			has_planet_flag = recent_unrest_event
 		}
@@ -998,10 +998,10 @@ controller = { is_same_value = root.owner }
  					planet_event = { id = unrest.159 } 
  				}
  			}
- 			else = {
- 				planet_event = { id = unrest.159 } 
- 			}
 		}
+ 		else = {
+ 			planet_event = { id = unrest.159 } 
+ 		}
 		planet_event = { id = unrest.157 days = 720 random = 10 }
  	}
 }
@@ -1115,7 +1115,7 @@ controller = { is_same_value = root.owner }
 			is_enslaved = yes
 		}
 		has_planet_flag = slave_resistance
-		NOT = {
+		NOR = {
 			has_planet_flag = slave_riots
 			has_planet_flag = recent_unrest_event
 		}
@@ -1177,7 +1177,7 @@ controller = { is_same_value = root.owner }
  		any_owned_pop = {
 			is_enslaved = yes
 		}
-		NOT = { 
+		NOR = { 
 			has_planet_flag = slave_revolt
 			has_planet_flag = recent_unrest_event
 		}
@@ -1413,7 +1413,7 @@ country_event = {
   							min_distance >= 0
  						}
  					}
- 					NOT = {
+ 					NOR = {
  						is_in_federation_with = ROOT
  						is_same_value = ROOT
  					}
@@ -1435,7 +1435,7 @@ country_event = {
   							min_distance >= 0
  						}
  					}
- 					NOT = {
+ 					NOR = {
  						is_in_federation_with = ROOT
  						is_same_value = ROOT
  					}
@@ -1647,7 +1647,7 @@ event = {
 			any_owned_planet = {
 				has_planet_flag = slave_revolt_chain_active
 				unrest < @unrestlevel1
-				NOT = {
+				NOR = {
 					has_modifier = slave_hunger_strike
 					has_modifier = adding_unrest_slaves
 					has_modifier = slave_riots
@@ -1664,7 +1664,7 @@ event = {
 				any_owned_planet = {
 					has_planet_flag = slave_revolt_chain_active
 					unrest < @unrestlevel1
-					NOT = {
+					NOR = {
 						has_modifier = slave_hunger_strike
 						has_modifier = adding_unrest_slaves
 						has_modifier = slave_riots
@@ -1676,7 +1676,7 @@ event = {
 					AND = {
 						has_planet_flag = slave_revolt_chain_active
 						unrest < @unrestlevel1
-						NOT = {
+						NOR = {
 							has_modifier = slave_hunger_strike
 							has_modifier = adding_unrest_slaves
 							has_modifier = slave_riots
@@ -1750,29 +1750,25 @@ event = {
 					which = unrest_50
 					value = 1
 				}
-				else = {
-					if = {
-						limit = {
-							has_planet_flag = unrest_50_variable_set
-							unrest > @unrestlevel2
-						}
-						change_variable = {
-							which = unrest_50
-							value = 1
-						}
-						else = {
-							if = {
-								limit = {
-									has_planet_flag = unrest_50_variable_set
-									unrest < @unrestlevel2
-								}
-								set_variable = {
-									which = unrest_50
-									value = 0
-								}
-							}
-						}
-					}
+			}
+			else_if = {
+				limit = {
+					has_planet_flag = unrest_50_variable_set
+					unrest > @unrestlevel2
+				}
+				change_variable = {
+					which = unrest_50
+					value = 1
+				}
+			}
+			else_if = {
+				limit = {
+					has_planet_flag = unrest_50_variable_set
+					unrest < @unrestlevel2
+				}
+				set_variable = {
+					which = unrest_50
+					value = 0
 				}
 			}
 		}
@@ -1826,7 +1822,7 @@ planet_event = {
 			which = unrest_50
 			value > 36
 		}
-		NOT = {
+		NOR = {
 			has_planet_flag = recent_unrest_event 
 			has_planet_flag = slave_stirring
 			has_planet_flag = slave_resistance
@@ -1924,40 +1920,40 @@ controller = { is_same_value = root.owner }
 				flag = recent_unrest_event
 				days = 720
 			}
-			else = { # no original owner
-				create_rebels = {
-					species = this
-					ethos = random
-					authority = random
-					name = random
-					flag = random
-					effect = {
-						set_country_flag = standard_unrest_rebels
-						save_event_target_as = secessionist_rebels
-						establish_communications_no_message = root.owner
-						root = {
-							owner = {
-								every_relation = {
-									establish_communications_no_message = prevprevprev
-								}
+		}
+		else = { # no original owner
+			create_rebels = {
+				species = this
+				ethos = random
+				authority = random
+				name = random
+				flag = random
+				effect = {
+					set_country_flag = standard_unrest_rebels
+					save_event_target_as = secessionist_rebels
+					establish_communications_no_message = root.owner
+					root = {
+						owner = {
+							every_relation = {
+								establish_communications_no_message = prevprevprev
 							}
 						}
 					}
 				}
-				every_owned_pop = {
-					planet = {
-						create_army = {
-							owner = event_target:secessionist_rebels
-							species = event_target:secessionist_rebels
-							type = "assault_army"
-						}
+			}
+			every_owned_pop = {
+				planet = {
+					create_army = {
+						owner = event_target:secessionist_rebels
+						species = event_target:secessionist_rebels
+						type = "assault_army"
 					}
 				}
-				set_planet_flag = secessionist_revolt
-				set_timed_planet_flag = {
-					flag = recent_unrest_event
-					days = 720
-				}
+			}
+			set_planet_flag = secessionist_revolt
+			set_timed_planet_flag = {
+				flag = recent_unrest_event
+				days = 720
 			}
 		}
 	}
@@ -2034,9 +2030,9 @@ country_event = {
 				country_event = { id = unrest.4220 days = 5 } # request incorporation
 			}
 			from = { remove_planet_flag = nationalist_revolt }
-			else = {
-				from = { remove_planet_flag = secessionist_revolt }
-			}
+		}
+		else = {
+			from = { remove_planet_flag = secessionist_revolt }
 		}
 	}
 }

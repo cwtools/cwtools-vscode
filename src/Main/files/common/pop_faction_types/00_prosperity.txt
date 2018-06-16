@@ -180,6 +180,31 @@ prosperity = {
 	on_create = {
 		pop_faction_event = { id = factions.1 }
 	}
+	
+	demand = { 
+		title = "PROSPERITY_PHILOSOPHY"
+		unfulfilled_title = "PROSPERITY_NO_PHILOSOPHY"
+		desc = "PROSPERITY_PHILOSOPHY_DESC"
+
+		fulfilled_effect = 5
+
+		potential = {
+			exists = owner
+			owner = {
+				any_relation = {
+					has_communications = root.owner
+					is_country_type = default
+					NOT = { exists = overlord }
+				}
+			}
+		}
+
+		trigger = {
+			owner = {
+				NOT = { has_policy_flag = no_wars }
+			}
+		}
+	}
 
 	demand = {
 		title = "PROSPERITY_PEACE"

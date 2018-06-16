@@ -275,10 +275,11 @@ country_event = {
 	trigger = {
 		is_country_type = primitive
 		has_country_flag = early_space_age
+		exists = home_planet
 		home_planet = {
 			has_observation_outpost = yes
 		}
-		NOT = {
+		NOR = {
 			any_owned_ship = {
 				is_ship_size = primitive_space_station
 			}
@@ -355,6 +356,7 @@ country_event = {
 			AND = {
 				NOT = { has_country_flag = recently_advanced }
 				years_passed > 25
+				exists = home_planet
 				home_planet = { has_observation_outpost = no }			
 			}
 		}
@@ -524,17 +526,15 @@ country_event = {
 						size = starbase_outpost
 						owner = root
 					}
-					else = {
-						if = {
-							limit = {
-								starbase = {
-									NOT = { owner = { is_same_value = root } }
-								}								
-							}	
-							starbase = {
-								owner = { country_event = { id = primitive.180 days = 10 } }
-							}								
+				}
+				else_if = {
+					limit = {
+						starbase = {
+							NOT = { owner = { is_same_value = root } }
 						}
+					}	
+					starbase = {
+						owner = { country_event = { id = primitive.180 days = 10 } }
 					}
 				}
 			}				
@@ -1321,26 +1321,26 @@ planet_event = {
 					75 = { country_event = { id = primitive.133 } }
 				}
 			}	
-			else = {
-				owner = {
-					random_list = {
-						25 = {
-							country_event = { id = primitive.131 }
-							modifier = {
-								factor = 0 # won't turn planet uninhabitable if it's not a planet
-								root = {
-									OR = {
-										is_planet_class = pc_ringworld_habitable
-										is_planet_class = pc_habitat
-									}
+		}	
+		else = {
+			owner = {
+				random_list = {
+					25 = {
+						country_event = { id = primitive.131 }
+						modifier = {
+							factor = 0 # won't turn planet uninhabitable if it's not a planet
+							root = {
+								OR = {
+									is_planet_class = pc_ringworld_habitable
+									is_planet_class = pc_habitat
 								}
 							}
 						}
-						75 = { country_event = { id = primitive.133 } }
-					}				
-				}		
+					}
+					75 = { country_event = { id = primitive.133 } }
+				}
 			}
-		}	
+		}
 	}
 }
 

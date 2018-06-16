@@ -333,3 +333,96 @@ planet_event = {
 		}
 	}
 }
+
+country_event = {
+	id = henrik.40
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		capital_scope = {
+			create_fleet = {
+				name = "NAME_Raiding_Fleet"
+				effect = {
+					set_owner = root
+					while = {
+						count = 24
+						create_ship = {
+							name = random
+							design = "NAME_Outrider"
+							prefix = no
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 14
+						create_ship = {
+							name = random
+							design = "NAME_Lancer"
+							prefix = no
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 4
+						create_ship = {
+							name = random
+							design = "NAME_Void_Champion"
+							prefix = no
+							graphical_culture = "pirate_01"
+						}
+					}
+					set_location = prev
+				}
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = henrik.50
+	hide_window = yes
+
+	trigger = { always = no }
+
+	immediate = {
+		capital_scope = {
+			create_fleet = {
+				name = this
+				effect = {
+					set_owner = root
+					while = {
+						count = 24
+						create_ship = {
+							name = root
+							design = "NAME_Outrider"
+							prefix = no
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 14
+						create_ship = {
+							name = root
+							design = "NAME_Lancer"
+							prefix = no
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 4
+						create_ship = {
+							name = root
+							design = "NAME_Void_Champion"
+							prefix = no
+							graphical_culture = "pirate_01"
+						}
+					}
+					set_location = prev
+				}
+			}
+		}
+	}
+}

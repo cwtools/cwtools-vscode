@@ -29,14 +29,12 @@ planet_event = {
 				is_planet_class = pc_frozen
 			}
 			from.owner = { country_event = { id = planet_destruction.102 } }
-			else = {
-				if = {
-					limit = {
-						NOT = { is_planet_class = pc_ai }
-					}
-					from.owner = { country_event = { id = planet_destruction.101 } }
-				}
+		}
+		else_if = {
+			limit = {
+				NOT = { is_planet_class = pc_ai }
 			}
+			from.owner = { country_event = { id = planet_destruction.101 } }
 		}
 
 		# Contingency Machine World
@@ -141,17 +139,17 @@ planet_event = {
 							modifier = opinion_cracked_an_uninhabited_world
 							who = from.owner
 						}
-						else = {
-							add_opinion_modifier = {
-								modifier = opinion_cracked_a_world
-								who = from.owner
-							}
+					}
+					else = {
+						add_opinion_modifier = {
+							modifier = opinion_cracked_a_world
+							who = from.owner
 						}
 					}
 				}
-				else = {
-					add_threat = { who = from.owner amount = 1 }
-				}
+			}
+			else = {
+				add_threat = { who = from.owner amount = 1 }
 			}
 			# modifiers for victim
 			owner = {
@@ -161,11 +159,11 @@ planet_event = {
 						modifier = opinion_cracked_my_uninhabited_world
 						who = from.owner
 					}
-					else = {
-						add_opinion_modifier = {
-							modifier = opinion_cracked_my_world
-							who = from.owner
-						}
+				}
+				else = {
+					add_opinion_modifier = {
+						modifier = opinion_cracked_my_world
+						who = from.owner
 					}
 				}
 				if = {
@@ -176,56 +174,54 @@ planet_event = {
 					}
 				}
 			}
-			else = {
-				if = {
+			if = {
+				limit = {
+					exists = owner
+					owner = { is_country_type = primitive }
+				}
+				# modifier for allies + those upset by genocide
+				every_country = {
 					limit = {
-						exists = owner
-						owner = { is_country_type = primitive }
-					}
-					# modifier for allies + those upset by genocide
-					every_country = {
-						limit = {
-							NOT = { is_same_value = from.owner }
-							OR = {
-								has_communications = from.owner
-								has_communications = root.owner
-							}
-							OR = {
-								has_ai_personality = awakened_fallen_empire_xenophile
-								AND = {
-									is_country_type = default
-									NOR = {
-										is_xenophobe = yes
-										is_homicidal = yes
-										is_xenophile = yes
-									}
-								}
-							}
+						NOT = { is_same_value = from.owner }
+						OR = {
+							has_communications = from.owner
+							has_communications = root.owner
 						}
-						add_opinion_modifier = {
-							modifier = opinion_cracked_a_primitive_world
-							who = from.owner
-						}
-					}
-					every_country = {
-						limit = {
-							NOT = { is_same_value = from.owner }
-							OR = {
-								has_communications = from.owner
-								has_communications = root.owner
-							}
-							OR = {
-								has_ai_personality = awakened_fallen_empire_xenophile
-								AND = {
-									is_country_type = default
+						OR = {
+							has_ai_personality = awakened_fallen_empire_xenophile
+							AND = {
+								is_country_type = default
+								NOR = {
+									is_xenophobe = yes
+									is_homicidal = yes
 									is_xenophile = yes
 								}
 							}
 						}
-						add_opinion_modifier = {
-							modifier = opinion_cracked_a_primitive_world_phile
-							who = from.owner
+					}
+					add_opinion_modifier = {
+						modifier = opinion_cracked_a_primitive_world
+						who = from.owner
+					}
+				}
+				every_country = {
+					limit = {
+						NOT = { is_same_value = from.owner }
+						OR = {
+							has_communications = from.owner
+							has_communications = root.owner
 						}
+						OR = {
+							has_ai_personality = awakened_fallen_empire_xenophile
+							AND = {
+								is_country_type = default
+								is_xenophile = yes
+							}
+						}
+					}
+					add_opinion_modifier = {
+						modifier = opinion_cracked_a_primitive_world_phile
+						who = from.owner
 					}
 				}
 			}
@@ -257,48 +253,44 @@ planet_event = {
 			}
 			spawn_habitat_cracker_effect = yes
 			remove_planet = yes
-			else = {
-				if = {
-					limit = {
-						is_planet_class = pc_ringworld_habitable
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_ringworld_habitable
+			}
+			spawn_ringworld_cracker_effect = yes
+			change_pc = pc_ringworld_habitable_damaged
+		}
+		else_if = {
+			limit = { habitable_planet = yes }
+			change_pc = pc_shattered
+			clear_deposits = yes
+			orbital_deposit_tile = {
+				random_list = {
+					1 = {
+						add_deposit = d_immense_mineral_deposit
+						add_deposit = d_immense_mineral_deposit
+						add_deposit = d_immense_mineral_deposit
+						add_deposit = d_immense_mineral_deposit
 					}
-					spawn_ringworld_cracker_effect = yes
-					change_pc = pc_ringworld_habitable_damaged
-					else = {
-						if = {
-							limit = { habitable_planet = yes }
-							change_pc = pc_shattered
-							clear_deposits = yes
-							orbital_deposit_tile = {
-								random_list = {
-									1 = {
-										add_deposit = d_immense_mineral_deposit
-										add_deposit = d_immense_mineral_deposit
-										add_deposit = d_immense_mineral_deposit
-										add_deposit = d_immense_mineral_deposit
-									}
-									1 = {
-										add_deposit = d_immense_mineral_deposit
-										add_deposit = d_immense_mineral_deposit
-										add_deposit = d_immense_mineral_deposit
-									}
-									1 = {
-										add_deposit = d_immense_mineral_deposit
-										add_deposit = d_immense_mineral_deposit
-									}
-									1 = {
-										add_deposit = d_immense_mineral_deposit
-									}
-								}
-							}
-							else = {
-								change_pc = pc_shattered
-								clear_deposits = yes
-							}
-						}
+					1 = {
+						add_deposit = d_immense_mineral_deposit
+						add_deposit = d_immense_mineral_deposit
+						add_deposit = d_immense_mineral_deposit
+					}
+					1 = {
+						add_deposit = d_immense_mineral_deposit
+						add_deposit = d_immense_mineral_deposit
+					}
+					1 = {
+						add_deposit = d_immense_mineral_deposit
 					}
 				}
 			}
+		}
+		else = {
+			change_pc = pc_shattered
+			clear_deposits = yes
 		}
 	}
 }
@@ -623,21 +615,19 @@ planet_event = {
 				class = pc_habitat_shielded
 				inherit_entity = yes
 			}
-			else = {
-				if = {
-					limit = { is_planet_class = pc_ringworld_habitable }
-					spawn_ringworld_pacifier_effect = yes
-					change_pc = {
-						class = pc_ringworld_shielded
-						inherit_entity = yes
-					}
-					else = {
-						change_pc = {
-							class = pc_shielded
-							inherit_entity = yes
-						}
-					}
-				}
+		}
+		else_if = {
+			limit = { is_planet_class = pc_ringworld_habitable }
+			spawn_ringworld_pacifier_effect = yes
+			change_pc = {
+				class = pc_ringworld_shielded
+				inherit_entity = yes
+			}
+		}
+		else = {
+			change_pc = {
+				class = pc_shielded
+				inherit_entity = yes
 			}
 		}
 		orbital_deposit_tile = {
@@ -816,52 +806,50 @@ planet_event = {
 					}
 				}
 			}
-			else = {
-				if = {
-					limit = {
-						exists = owner
-						owner = { is_country_type = primitive }
+		}
+		else_if = {
+			limit = {
+				exists = owner
+				owner = { is_country_type = primitive }
+			}
+			# modifier for allies + those upset by genocide
+			every_country = {
+				limit = {
+					NOT = { is_same_value = from.owner }
+					OR = {
+						has_communications = from.owner
+						has_communications = root.owner
 					}
-					# modifier for allies + those upset by genocide
-					every_country = {
-						limit = {
-							NOT = { is_same_value = from.owner }
-							OR = {
-								has_communications = from.owner
-								has_communications = root.owner
-							}
+					is_country_type = default
+					NOR = {
+						is_xenophobe = yes
+						is_homicidal = yes
+						is_xenophile = yes
+					}
+				}
+				add_opinion_modifier = {
+					modifier = opinion_swept_a_primitive_world
+					who = from.owner
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = { is_same_value = from.owner }
+					OR = {
+						has_communications = from.owner
+						has_communications = root.owner
+					}
+					OR = {
+						has_ai_personality = awakened_fallen_empire_xenophile
+						AND = {
 							is_country_type = default
-							NOR = {
-								is_xenophobe = yes
-								is_homicidal = yes
-								is_xenophile = yes
-							}
-						}
-						add_opinion_modifier = {
-							modifier = opinion_swept_a_primitive_world
-							who = from.owner
+							is_xenophile = yes
 						}
 					}
-					every_country = {
-						limit = {
-							NOT = { is_same_value = from.owner }
-							OR = {
-								has_communications = from.owner
-								has_communications = root.owner
-							}
-							OR = {
-								has_ai_personality = awakened_fallen_empire_xenophile
-								AND = {
-									is_country_type = default
-									is_xenophile = yes
-								}
-							}
-						}
-						add_opinion_modifier = {
-							modifier = opinion_swept_a_primitive_world_phile
-							who = from.owner
-						}
-					}
+				}
+				add_opinion_modifier = {
+					modifier = opinion_swept_a_primitive_world_phile
+					who = from.owner
 				}
 			}
 		}
@@ -884,14 +872,12 @@ planet_event = {
 				is_planet_class = pc_habitat
 			}
 			spawn_habitat_neutron_effect = yes
-			else = {
-				if = {
-					limit = {
-						is_planet_class = pc_ringworld_habitable
-					}
-					spawn_ringworld_neutron_effect = yes
-				}
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_ringworld_habitable
 			}
+			spawn_ringworld_neutron_effect = yes
 		}
 		if = {
 			limit = {
@@ -901,19 +887,19 @@ planet_event = {
 				}
 			}
 			# nothing
-			else = {
-				switch = {
-					trigger = is_planet_class
-					pc_desert = { change_pc = pc_desert }
-					pc_arid = { change_pc = pc_arid }
-					pc_savannah = { change_pc = pc_savannah }
-					pc_ocean = { change_pc = pc_ocean }
-					pc_continental = { change_pc = pc_continental }
-					pc_tropical = { change_pc = pc_tropical }
-					pc_tundra = { change_pc = pc_tundra }
-					pc_arctic = { change_pc = pc_arctic }
-					pc_alpine = { change_pc = pc_alpine }
-				}
+		}
+		else = {
+			switch = {
+				trigger = is_planet_class
+				pc_desert = { change_pc = pc_desert }
+				pc_arid = { change_pc = pc_arid }
+				pc_savannah = { change_pc = pc_savannah }
+				pc_ocean = { change_pc = pc_ocean }
+				pc_continental = { change_pc = pc_continental }
+				pc_tropical = { change_pc = pc_tropical }
+				pc_tundra = { change_pc = pc_tundra }
+				pc_arctic = { change_pc = pc_arctic }
+				pc_alpine = { change_pc = pc_alpine }
 			}
 		}
 		# For Infested worlds
@@ -1136,14 +1122,12 @@ planet_event = {
 				is_planet_class = pc_habitat
 			}
 			spawn_habitat_divine_effect = yes
-			else = {
-				if = {
-					limit = {
-						is_planet_class = pc_ringworld_habitable
-					}
-					spawn_ringworld_divine_effect = yes
-				}
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_ringworld_habitable
 			}
+			spawn_ringworld_divine_effect = yes
 		}
 		if = {
 			limit = {
@@ -1153,19 +1137,19 @@ planet_event = {
 				}
 			}
 			# nothing
-			else = {
-				switch = {
-					trigger = is_planet_class
-					pc_desert = { change_pc = pc_desert }
-					pc_arid = { change_pc = pc_arid }
-					pc_savannah = { change_pc = pc_savannah }
-					pc_ocean = { change_pc = pc_ocean }
-					pc_continental = { change_pc = pc_continental }
-					pc_tropical = { change_pc = pc_tropical }
-					pc_tundra = { change_pc = pc_tundra }
-					pc_arctic = { change_pc = pc_arctic }
-					pc_alpine = { change_pc = pc_alpine }
-				}
+		}
+		else = {
+			switch = {
+				trigger = is_planet_class
+				pc_desert = { change_pc = pc_desert }
+				pc_arid = { change_pc = pc_arid }
+				pc_savannah = { change_pc = pc_savannah }
+				pc_ocean = { change_pc = pc_ocean }
+				pc_continental = { change_pc = pc_continental }
+				pc_tropical = { change_pc = pc_tropical }
+				pc_tundra = { change_pc = pc_tundra }
+				pc_arctic = { change_pc = pc_arctic }
+				pc_alpine = { change_pc = pc_alpine }
 			}
 		}
 		add_modifier = {
@@ -1284,52 +1268,50 @@ planet_event = {
 					}
 				}
 			}
-			else = {
-				if = {
-					limit = {
-						exists = owner
-						owner = { is_country_type = primitive }
+		}
+		else_if = {
+			limit = {
+				exists = owner
+				owner = { is_country_type = primitive }
+			}
+			# modifier for allies + those upset by genocide
+			every_country = {
+				limit = {
+					NOR = { is_same_value = from.owner }
+					OR = {
+						has_communications = from.owner
+						has_communications = root.owner
 					}
-					# modifier for allies + those upset by genocide
-					every_country = {
-						limit = {
-							NOR = { is_same_value = from.owner }
-							OR = {
-								has_communications = from.owner
-								has_communications = root.owner
-							}
+					is_country_type = default
+					NOR = {
+						is_xenophobe = yes
+						is_homicidal = yes
+						is_xenophile = yes
+					}
+				}
+				add_opinion_modifier = {
+					modifier = opinion_assimilated_a_primitive_world
+					who = from.owner
+				}
+			}
+			every_country = {
+				limit = {
+					NOR = { is_same_value = from.owner }
+					OR = {
+						has_communications = from.owner
+						has_communications = root.owner
+					}
+					OR = {
+						has_ai_personality = awakened_fallen_empire_xenophile
+						AND = {
 							is_country_type = default
-							NOR = {
-								is_xenophobe = yes
-								is_homicidal = yes
-								is_xenophile = yes
-							}
-						}
-						add_opinion_modifier = {
-							modifier = opinion_assimilated_a_primitive_world
-							who = from.owner
+							is_xenophile = yes
 						}
 					}
-					every_country = {
-						limit = {
-							NOR = { is_same_value = from.owner }
-							OR = {
-								has_communications = from.owner
-								has_communications = root.owner
-							}
-							OR = {
-								has_ai_personality = awakened_fallen_empire_xenophile
-								AND = {
-									is_country_type = default
-									is_xenophile = yes
-								}
-							}
-						}
-						add_opinion_modifier = {
-							modifier = opinion_assimilated_a_primitive_world_phile
-							who = from.owner
-						}
-					}
+				}
+				add_opinion_modifier = {
+					modifier = opinion_assimilated_a_primitive_world_phile
+					who = from.owner
 				}
 			}
 		}
@@ -1347,9 +1329,9 @@ planet_event = {
 				owner = { is_same_value = from.owner }
 			}
 			# already owned
-			else = {
-				set_owner = from.owner
-			}
+		}
+		else = {
+			set_owner = from.owner
 		}
 		every_owned_pop = {
 			limit = {
@@ -1390,14 +1372,12 @@ planet_event = {
 				is_planet_class = pc_habitat
 			}
 			spawn_habitat_nanobot_effect = yes
-			else = {
-				if = {
-					limit = {
-						is_planet_class = pc_ringworld_habitable
-					}
-					spawn_ringworld_nanobot_effect = yes
-				}
+		}
+		else_if = {
+			limit = {
+				is_planet_class = pc_ringworld_habitable
 			}
+			spawn_ringworld_nanobot_effect = yes
 		}
 		if = {
 			limit = {
@@ -1407,19 +1387,19 @@ planet_event = {
 				}
 			}
 			# nothing
-			else = {
-				switch = {
-					trigger = is_planet_class
-					pc_desert = { change_pc = pc_desert }
-					pc_arid = { change_pc = pc_arid }
-					pc_savannah = { change_pc = pc_savannah }
-					pc_ocean = { change_pc = pc_ocean }
-					pc_continental = { change_pc = pc_continental }
-					pc_tropical = { change_pc = pc_tropical }
-					pc_tundra = { change_pc = pc_tundra }
-					pc_arctic = { change_pc = pc_arctic }
-					pc_alpine = { change_pc = pc_alpine }
-				}
+		}
+		else = {
+			switch = {
+				trigger = is_planet_class
+				pc_desert = { change_pc = pc_desert }
+				pc_arid = { change_pc = pc_arid }
+				pc_savannah = { change_pc = pc_savannah }
+				pc_ocean = { change_pc = pc_ocean }
+				pc_continental = { change_pc = pc_continental }
+				pc_tropical = { change_pc = pc_tropical }
+				pc_tundra = { change_pc = pc_tundra }
+				pc_arctic = { change_pc = pc_arctic }
+				pc_alpine = { change_pc = pc_alpine }
 			}
 		}
 	}

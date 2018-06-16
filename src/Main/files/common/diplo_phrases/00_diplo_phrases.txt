@@ -18706,18 +18706,21 @@ action_offer_trade_deal = {
 			}
 		}
 		S_OFFER_TRADE_DEAL_PROPOSE = {
+			only_for_trade = yes
 			weight = { weight = 50 }
 			trigger = {
 				from = { has_ai_personality = servitors }
 			}
 		}
 		A_OFFER_TRADE_DEAL_PROPOSE = {
+			only_for_trade = yes
 			weight = { weight = 50 }
 			trigger = {
 				from = { has_ai_personality = assimilators }
 			}
 		}
 		E_OFFER_TRADE_DEAL_PROPOSE = {
+			only_for_trade = yes
 			weight = { weight = 50 }
 			trigger = {
 				from = { has_ai_personality = exterminators }
@@ -18725,6 +18728,7 @@ action_offer_trade_deal = {
 		}
 		# Gen Machine Empire
 		MECH_OFFER_TRADE_DEAL_PROPOSE = {
+			only_for_trade = yes
 			trigger = {
 				from = {
 					has_authority = auth_machine_intelligence
@@ -18732,6 +18736,7 @@ action_offer_trade_deal = {
 			}
 		}
 		ORG_TO_MECH_OFFER_TRADE_DEAL_PROPOSE_01 = {
+			only_for_trade = yes
 			weight = { weight = 50 }
 			trigger = {
 				has_authority = auth_machine_intelligence

@@ -297,7 +297,7 @@ country_event = {
 					}
 					any_planet = { 
 						is_planet_class = pc_gas_giant
-						NOT = { 
+						NOR = { 
 							has_planet_flag = baldarak 
 							has_planet_flag = tollok_rong
 						}
@@ -307,7 +307,7 @@ country_event = {
 				random_system_planet = {
 					limit = { 
 						is_planet_class = pc_gas_giant
-						NOT = { 
+						NOR = { 
 							has_planet_flag = baldarak 
 							has_planet_flag = tollok_rong
 						}
@@ -703,7 +703,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = baldarak_revolution_2
-		NOT = { 
+		NOR = { 
 			has_country_flag = baldarak_revolution_3 
 			has_country_flag = dathnak_blocked
 		}
@@ -742,7 +742,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = baldarak_revolution_3
-		NOT = { 
+		NOR = { 
 			has_country_flag = baldarak_revolution_4
 			has_country_flag = dathnak_blocked
 		}
@@ -923,7 +923,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = new_baldarak_settled
-		NOT = { 
+		NOR = { 
 			has_country_flag = new_baldarak_contact_lost
 			has_country_flag = baldarak_science_academy
 		}
@@ -962,7 +962,7 @@ country_event = {
 	
 	trigger = {
 		has_country_flag = new_baldarak_settled
-		NOT = { 
+		NOR = { 
 			has_country_flag = new_baldarak_contact_lost
 			has_country_flag = baldarak_spring_cleaning
 		}

@@ -68,7 +68,7 @@ leviathan_01_elder_tiyanki = {
 		ship_armor_add = 3000
 	}
 	max_hitpoints = 125000
-	fleet_slot_size = 6
+	fleet_slot_size = 32
 	size_multiplier = 6
 	section_slots = { "mid" = { locator = "part1" } }
 	num_target_locators = 0
@@ -161,4 +161,29 @@ nanite_space_dragon_baby = {
 	required_component_set = "sensor_components"
 	required_component_set = "thruster_components"
 	required_component_set = "combat_computers"
+}
+
+# Adopted Space Amoeba Centenarian
+space_amoeba_centenarian = {
+	entity = space_amoeba_large_section_bright_entity
+	graphical_culture = no
+	can_be_inspected = no
+	is_space_object = yes
+	max_speed = @speed_default
+	rotation_speed = 0.8
+	collision_radius = 5.0
+	acceleration = 1.0
+	modifier = {
+		ship_evasion_add = 15
+		ship_armor_add = 1500
+	}
+	max_hitpoints = 2000
+	size_multiplier = 4
+	fleet_slot_size = 4
+	section_slots = { "mid" = { locator = "part1" } }
+	num_target_locators = 0
+	icon_frame = 12
+	class = shipclass_military
+	is_designable = no
+	pre_communications_name = "NO_COMMUNICATIONS_AMOEBA"
 }

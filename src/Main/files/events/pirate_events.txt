@@ -204,7 +204,7 @@ country_event = {
 										find_closest_system = {
 											trigger = {
 												id = "pirate.1.trigger.1"
-												NOT = {
+												NOR = {
 													has_star_flag = hostile_system
 													is_same_value = event_target:capital_system
 												}
@@ -424,11 +424,11 @@ ship_event = {
 					which = "outer_system_mining_stations"
 					value = 1
 				}
-				else = {
-					change_variable = {
-						which = "outer_system_mining_stations"
-						value = 1
-					}
+			}
+			else = {
+				change_variable = {
+					which = "outer_system_mining_stations"
+					value = 1
 				}
 			}
 			if = {
@@ -1155,9 +1155,9 @@ country_event = {
 				80 = { country_event = { id = pirate.25 } }
 				20 = { country_event = { id = pirate.26 } }
 			}
-			else = {
-				country_event = { id = pirate.25 }
-			}
+		}
+		else = {
+			country_event = { id = pirate.25 }
 		}
 	}
 }
@@ -1377,6 +1377,7 @@ country_event = {
 							has_star_flag = precursor_system
 							has_star_flag = enclave
 							any_ship_in_system = {
+								exists = owner
 								owner = { is_hostile = root }
 							}
 							any_ship_in_system = {
@@ -1464,7 +1465,7 @@ country_event = {
 								system = prev
 							}
 						}
-						NOT = {
+						NOR = {
 							has_star_flag = pirates_spawned
 							has_star_flag = precursor_system
 							has_star_flag = enclave
@@ -1490,7 +1491,7 @@ country_event = {
 								system = prev
 							}
 						}
-						NOT = {
+						NOR = {
 							has_star_flag = pirates_spawned
 							has_star_flag = precursor_system
 							has_star_flag = enclave
@@ -1601,9 +1602,9 @@ country_event = {
 				50 = { country_event = { id = pirate.53 } }
 				50 = { country_event = { id = pirate.54 } }
 			}
-			else = {
-				country_event = { id = pirate.53 }
-			}
+		}
+		else = {
+			country_event = { id = pirate.53 }
 		}
 	}
 }
@@ -1688,9 +1689,9 @@ country_event = {
 				50 = { country_event = { id = pirate.56 } }
 				50 = { country_event = { id = pirate.57 } }
 			}
-			else = {
-				country_event = { id = pirate.56 }
-			}
+		}
+		else = {
+			country_event = { id = pirate.56 }
 		}
 	}
 }

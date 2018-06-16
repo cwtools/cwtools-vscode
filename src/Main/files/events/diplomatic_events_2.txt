@@ -25,30 +25,28 @@ country_event = {
 		is_at_war = no
 		is_subject = no
 		fleet_power > 8000
-		NOT = {
+		NOR = {
 			has_country_flag = fleet_exercise
 			has_ethic = ethic_gestalt_consciousness
 		}
 		any_owned_leader = { leader_class = admiral }
 		any_system_within_border = {
-			AND = {
-				any_bordering_country = { 
-					has_communications = root
-					is_country_type = default
-					is_subject = no
-					NOT = { 
-						has_country_flag = exercise_neighbor
-						is_at_war_with = root 
-						is_same_value = root
-						is_same_species = root
-						root = { is_protective_to = prev }
-						root = { is_friendly_to = prev }
-						root = { is_loyal_to = prev }
-					}
+			any_bordering_country = { 
+				has_communications = root
+				is_country_type = default
+				is_subject = no
+				NOR = { 
+					has_country_flag = exercise_neighbor
+					is_at_war_with = root 
+					is_same_value = root
+					is_same_species = root
+					root = { is_protective_to = prev }
+					root = { is_friendly_to = prev }
+					root = { is_loyal_to = prev }
 				}
-				any_planet = {
-					NOT = { is_capital = yes }
-				}
+			}
+			any_planet = {
+				NOT = { is_capital = yes }
 			}
 		}
 	}
@@ -70,7 +68,7 @@ country_event = {
 						has_communications = root
 						is_country_type = default
 						is_subject = no
-						NOT = { 
+						NOR = { 
 							has_country_flag = exercise_neighbor
 							is_at_war_with = root 
 							is_same_value = root
@@ -91,7 +89,7 @@ country_event = {
 					has_communications = root
 					is_country_type = default
 					is_subject = no
-					NOT = { 
+					NOR = { 
 						has_country_flag = exercise_neighbor
 						is_at_war_with = root 
 						is_same_value = root
@@ -413,7 +411,7 @@ country_event = {
 				exists = orbit
 				exists = leader
 				orbit = { is_same_value = event_target:exercise_location }
-				NOT = { 
+				NOR = { 
 					has_ship_flag = exercise_collision_1 
 					has_ship_flag = exercise_collision_2 
 				}
@@ -426,7 +424,7 @@ country_event = {
 				exists = orbit
 				exists = leader
 				orbit = { is_same_value = event_target:exercise_location }
-				NOT = { 
+				NOR = { 
 					has_ship_flag = exercise_collision_1 
 					has_ship_flag = exercise_collision_2
 					has_ship_flag = exercise_collision_3
@@ -440,7 +438,7 @@ country_event = {
 				exists = orbit
 				exists = leader
 				orbit = { is_same_value = event_target:exercise_location }
-				NOT = { 
+				NOR = { 
 					has_ship_flag = exercise_collision_1 
 					has_ship_flag = exercise_collision_2
 					has_ship_flag = exercise_collision_3
@@ -455,7 +453,7 @@ country_event = {
 				exists = orbit
 				exists = leader
 				orbit = { is_same_value = event_target:exercise_location }
-				NOT = { 
+				NOR = { 
 					has_ship_flag = exercise_collision_1 
 					has_ship_flag = exercise_collision_2
 					has_ship_flag = exercise_collision_3
