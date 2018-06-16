@@ -5,7 +5,7 @@
     "description": "Paradox Interactive scripting file support using CWTools",
     "author": "Dayshine",
     "license": "MIT",
-    "version": "0.5.17",
+    "version": "0.5.18",
     "preview": true,
     "publisher": "tboby",
     "qna": "https://forum.paradoxplaza.com/forum/index.php?threads/tool-cwtools-a-mod-validating-extension-for-vs-code.1066033/",
@@ -26,7 +26,8 @@
     ],
     "activationEvents": [
         "onLanguage:paradox",
-        "onLanguage:stellaris"
+        "onLanguage:stellaris",
+        "onLanguage:hoi4"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -142,6 +143,28 @@
                     "**/stellaris/**/*.gui",
                     "**/stellaris/**/*.gfx",
                     "**/stellaris/**/*.asset"
+                ]
+            },
+            {
+                "id": "hoi4",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/hearts of iron iv/**/*.txt",
+                    "**/hearts of iron iv/**/*.gui",
+                    "**/hearts of iron iv/**/*.gfx",
+                    "**/hearts of iron iv/**/*.asset"
                 ]
             }
         ],

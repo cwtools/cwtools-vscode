@@ -1,3 +1,5 @@
+# 0.5.18
+* Enable improved completion by default
 # 0.5.17
 * Add command "Generate missing loc for all files"
 # 0.5.16

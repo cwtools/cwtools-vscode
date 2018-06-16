@@ -72,7 +72,8 @@ export function activate(context: ExtensionContext) {
 				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.asset"),
 				workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
 				]
-		}
+		},
+		initializationOptions : {language : window.activeTextEditor.document.languageId}
 	}
 
 	let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);

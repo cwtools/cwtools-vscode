@@ -26,6 +26,8 @@ open CWTools.Validation.Rules
 open System.Xml.Schema
 open CWTools.Games.Files
 open LSP.Json.Ser
+open System.ComponentModel
+open CWTools.Game.Stellaris.STLLookup
 let private TODO() = raise (Exception "TODO")
 
 [<assembly: AssemblyDescription("CWTools language server for PDXScript")>]
@@ -35,7 +37,7 @@ type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier
     | WorkComplete of unit
 
-
+type GameLanguage = |STL |HOI4
 type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
@@ -45,7 +47,9 @@ type Server(client: ILanguageClient) =
         raise (Exception (sprintf "%s does not exist" (doc.ToString())))
     let mutable docErrors : DocumentHighlight list = []
 
-    let mutable gameObj : option<STLGame> = None
+    let mutable activeGame = STL
+    let mutable gameObj : option<IGame> = None
+    let mutable stlGameObj : option<IGame<STLComputedData>> = None
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
     let mutable validateVanilla : bool = false
@@ -254,17 +258,57 @@ type Server(client: ILanguageClient) =
                         embeddedConfigFiles
                 //let configs = [
                 eprintfn "%A" languages
-                let game = STLGame(path, FilesScope.All, "", triggers, effects, modifiers, embeddedFiles @ filelist, configs, languages, validateVanilla, experimental, experimental_completion)
-                gameObj <- Some game
+
+                let stlsettings = {
+                    CWTools.Games.StellarisSettings.rootDirectory = path
+                    scope = FilesScope.All
+                    modFilter = None
+                    validation = {
+                        validateVanilla = validateVanilla
+                        experimental = experimental
+                        langs = languages
+                    }
+                    rules = Some {
+                        ruleFiles = configs
+                        validateRules = experimental_completion
+                    }
+                    embedded = {
+                        triggers = triggers
+                        effects = effects
+                        modifiers = modifiers
+                        embeddedFiles = embeddedFiles @ filelist
+                    }
+                }
+
+                let hoi4settings = {
+                    HOI4.rootDirectory = path
+                    HOI4.embedded = {
+                        CWTools.Games.HOI4.embeddedFiles = []
+                    }
+                    HOI4.validation = {
+                        HOI4.validateVanilla = validateVanilla;
+                        HOI4.langs = [(Lang.HOI4 (HOI4Lang.English))]
+                    }
+                }
+
+                let game =
+                    match activeGame with
+                    |STL ->
+                        let game = STLGame(stlsettings)
+                        stlGameObj <- Some (game :> IGame<STLComputedData>)
+                        game :> IGame
+                    |HOI4 -> CWTools.Games.HOI4.HOI4Game(hoi4settings) :> IGame
+                gameObj <- Some (game :> IGame)
+                let game = game :> IGame
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
-                let parserErrors = game.ParserErrors |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
+                let parserErrors = game.ParserErrors() |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
                 parserErrors
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
 
                 client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Validating files...");  "enable", JsonValue.Boolean(true) |])
                 //eprintfn "%A" game.AllFiles
-                let valErrors = game.ValidationErrors |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
+                let valErrors = game.ValidationErrors() |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
                 let locRaw = game.LocalisationErrors(true)
                 locCache <- locRaw
                 let locErrors = locRaw |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
@@ -291,7 +335,7 @@ type Server(client: ILanguageClient) =
             let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(json) |])
             eprintfn "Hover after word"
             return
-                match gameObj with
+                match stlGameObj with
                 |Some game ->
                     let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
                     let path =
@@ -300,11 +344,11 @@ type Server(client: ILanguageClient) =
                         then u.LocalPath.Substring(1)
                         else u.LocalPath
                     let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
-                    let allEffects = game.ScriptedEffects @ game.ScripteTriggers
+                    let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                     eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
                     let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
                     let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
-                    let lochover = game.References.Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                    let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
                     let scopesExtra = if scopeContext.IsNone then "" else
                         let scopes = scopeContext.Value
                         let header = "| Context | Scope |\n| ----- | -----|\n"
@@ -336,7 +380,7 @@ type Server(client: ILanguageClient) =
             eprintfn "Completion resolve"
             return match gameObj with
                     |Some game ->
-                        let allEffects = game.ScriptedEffects @ game.ScripteTriggers
+                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
                         |Some effect ->
@@ -371,6 +415,15 @@ type Server(client: ILanguageClient) =
         member this.Initialize(p: InitializeParams) =
             async {
                 rootUri <- p.rootUri
+                match p.initializationOptions with
+                |Some opt ->
+                    match opt.Item("language") with
+                    | JsonValue.String "stellaris" ->
+                        activeGame <- STL
+                    | JsonValue.String "hoi4" ->
+                        activeGame <- HOI4
+                    | _ -> ()
+                |None -> ()
                 return { capabilities =
                     { defaultServerCapabilities with
                         hoverProvider = true
@@ -397,7 +450,7 @@ type Server(client: ILanguageClient) =
                           |> List.ofArray
                           |> (fun l ->  if List.isEmpty l then [STLLang.English] else l)
                     | _ -> [STLLang.English]
-                languages <- newLanguages |> List.map STL
+                languages <- newLanguages |> List.map Lang.STL
                 let newVanillaOnly =
                     match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
                     | JsonValue.Boolean b -> b
@@ -476,8 +529,8 @@ type Server(client: ILanguageClient) =
                 return
                     match gameObj with
                     |Some game ->
-                        match experimental_completion with
-                        |true ->
+                        // match experimental_completion with
+                        // |true ->
                             let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
                             let path =
                                 let u = p.textDocument.uri
@@ -496,13 +549,13 @@ type Server(client: ILanguageClient) =
                                     |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                             Some {isIncomplete = false; items = items}
-                        |false ->
-                            let extraKeywords = ["yes"; "no";]
-                            let eventIDs = game.References.EventIDs
-                            let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-                            let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                            let items = names |> List.map (fun n -> {defaultCompletionItem with label = n})
-                            Some {isIncomplete = false; items = items @ variables}
+                        // |false ->
+                        //     let extraKeywords = ["yes"; "no";]
+                        //     let eventIDs = game.References.EventIDs
+                        //     let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                        //     let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+                        //     let items = names |> List.map (fun n -> {defaultCompletionItem with label = n})
+                        //     Some {isIncomplete = false; items = items @ variables}
                     |None -> None
             }
         member this.Hover(p: TextDocumentPositionParams) =
@@ -572,7 +625,7 @@ type Server(client: ILanguageClient) =
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
                             //LanguageServer.sendNotification send notif
                         | {command = "outputerrors"; arguments = _} ->
-                            let errors = game.LocalisationErrors(true) @ game.ValidationErrors
+                            let errors = game.LocalisationErrors(true) @ game.ValidationErrors()
                             let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
                             let text = String.Join(Environment.NewLine, (texts))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
