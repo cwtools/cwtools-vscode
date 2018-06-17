@@ -50,6 +50,7 @@ type Server(client: ILanguageClient) =
     let mutable activeGame = STL
     let mutable gameObj : option<IGame> = None
     let mutable stlGameObj : option<IGame<STLComputedData>> = None
+    let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData>> = None
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
     let mutable validateVanilla : bool = false
@@ -297,7 +298,10 @@ type Server(client: ILanguageClient) =
                         let game = STLGame(stlsettings)
                         stlGameObj <- Some (game :> IGame<STLComputedData>)
                         game :> IGame
-                    |HOI4 -> CWTools.Games.HOI4.HOI4Game(hoi4settings) :> IGame
+                    |HOI4 ->
+                        let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
+                        hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData>)
+                        game :> IGame
                 gameObj <- Some (game :> IGame)
                 let game = game :> IGame
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
@@ -334,19 +338,19 @@ type Server(client: ILanguageClient) =
             let json = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
             let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(json) |])
             eprintfn "Hover after word"
+            let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
+            let path =
+                let u = doc
+                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                then u.LocalPath.Substring(1)
+                else u.LocalPath
+            let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
             return
-                match stlGameObj with
-                |Some game ->
-                    let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
-                    let path =
-                        let u = doc
-                        if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
-                        then u.LocalPath.Substring(1)
-                        else u.LocalPath
+                match stlGameObj, hoi4GameObj with
+                |Some game, _ ->
                     let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                     let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                     eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
-                    let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
                     let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
                     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
                     let scopesExtra = if scopeContext.IsNone then "" else
@@ -372,6 +376,13 @@ type Server(client: ILanguageClient) =
                         {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
                     |None, None ->
                         {contents = MarkupContent ("markdown", scopesExtra); range = None}
+                |_, Some game ->
+                    let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                    match lochover with
+                    |Some (_, loc) ->
+                        { contents = MarkupContent ("markdown", loc.desc); range = None }
+                    |None ->
+                        { contents = MarkupContent ("markdown", ""); range = None }
                 |_ -> {contents = MarkupContent ("markdown", ""); range = None}
         }
 

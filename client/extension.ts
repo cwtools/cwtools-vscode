@@ -59,7 +59,8 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for F# documents
-		documentSelector: [{scheme: 'file', language: 'paradox'}, {scheme: 'file', language: 'yaml'}, {scheme: 'file', language: 'stellaris'}],
+		documentSelector: [{scheme: 'file', language: 'paradox'}, {scheme: 'file', language: 'yaml'}, {scheme: 'file', language: 'stellaris'},
+							{scheme: 'file', language: 'hoi4'}],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'cwtools',
