@@ -27,7 +27,8 @@ open System.Xml.Schema
 open CWTools.Games.Files
 open LSP.Json.Ser
 open System.ComponentModel
-open CWTools.Game.Stellaris.STLLookup
+open CWTools.Games.Stellaris
+open CWTools.Games.Stellaris.STLLookup
 let private TODO() = raise (Exception "TODO")
 
 [<assembly: AssemblyDescription("CWTools language server for PDXScript")>]
@@ -261,7 +262,7 @@ type Server(client: ILanguageClient) =
                 eprintfn "%A" languages
 
                 let stlsettings = {
-                    CWTools.Games.StellarisSettings.rootDirectory = path
+                    CWTools.Games.Stellaris.StellarisSettings.rootDirectory = path
                     scope = FilesScope.All
                     modFilter = None
                     validation = {
