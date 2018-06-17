@@ -1,7 +1,9 @@
 # [CWTools-VSCode: Paradox Language Services](https://marketplace.visualstudio.com/items/tboby.cwtools-vscode)
 **Paradox Language Features for Visual Studio Code**
+
+*Works best with a syntax highlighting extension, such as [Paradox Syntax Highlighting](https://marketplace.visualstudio.com/items?itemName=tboby.paradox-syntax)*
 # Disclaimer
-This extension is still in preview, it may not work, it may stop working at any time. 
+This extension is still in preview, it may not work, it may stop working at any time.
 **Make backups of your mod files.**
 # Features
 * Immediate highlighting of syntax errors

@@ -1,3 +1,5 @@
+# 0.5.19
+* Add basic support for HOI4
 # 0.5.18
 * Enable improved completion by default
 # 0.5.17
