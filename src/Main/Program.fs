@@ -72,6 +72,18 @@ type Server(client: ILanguageClient) =
         | Severity.Warning -> DiagnosticSeverity.Warning
         | Severity.Information -> DiagnosticSeverity.Information
         | Severity.Hint -> DiagnosticSeverity.Hint
+
+    let convRangeToLSPRange (range : range) =
+        {
+            start = {
+                line = (int range.StartLine - 1)
+                character = (int range.StartColumn)
+            }
+            ``end`` = {
+                    line = (int range.EndLine - 1)
+                    character = (int range.EndColumn)
+            }
+        }
     let parserErrorToDiagnostics e =
         let code, sev, file, error, (position : range), length = e
         let startC, endC = match length with
@@ -335,10 +347,10 @@ type Server(client: ILanguageClient) =
 
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
         async {
-            eprintfn "Hover before word"
+            //eprintfn "Hover before word"
             let json = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
             let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(json) |])
-            eprintfn "Hover after word"
+            //eprintfn "Hover after word"
             let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
             let path =
                 let u = doc
@@ -351,7 +363,7 @@ type Server(client: ILanguageClient) =
                 |Some game, _ ->
                     let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                     let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                    eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
+                    // eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
                     let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
                     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
                     let scopesExtra = if scopeContext.IsNone then "" else
@@ -439,6 +451,7 @@ type Server(client: ILanguageClient) =
                 return { capabilities =
                     { defaultServerCapabilities with
                         hoverProvider = true
+                        definitionProvider = true
                         textDocumentSync =
                             { defaultTextDocumentSyncOptions with
                                 openClose = true
@@ -581,7 +594,24 @@ type Server(client: ILanguageClient) =
                 return completionResolveItem(p) |> Async.RunSynchronously
             }
         member this.SignatureHelp(p: TextDocumentPositionParams) = TODO()
-        member this.GotoDefinition(p: TextDocumentPositionParams) = TODO()
+        member this.GotoDefinition(p: TextDocumentPositionParams) =
+            async {
+                return
+                    match gameObj with
+                    |Some game ->
+                        let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
+                        let path =
+                            let u = p.textDocument.uri
+                            if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                            then u.LocalPath.Substring(1)
+                            else u.LocalPath
+                        let gototype = game.GoToType position (path) (docs.GetText (FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
+                        match gototype with
+                        |Some goto ->
+                            [{ uri = Uri(goto.FileName); range = (convRangeToLSPRange goto)}]
+                        |None -> []
+                    |None -> []
+                }
         member this.FindReferences(p: ReferenceParams) = TODO()
         member this.DocumentHighlight(p: TextDocumentPositionParams) = TODO()
         member this.DocumentSymbols(p: DocumentSymbolParams) = TODO()

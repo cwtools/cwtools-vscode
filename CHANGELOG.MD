@@ -1,3 +1,8 @@
+# 0.5.20
+* Add "Go to definition" (currently only works for mod defined types)
+* Support "FROM" scopes
+* Add `replace_scope` for config rules
+* Add unnecessary AND validator
 # 0.5.19
 * Add basic support for HOI4
 # 0.5.18
