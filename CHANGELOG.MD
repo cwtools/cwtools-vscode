@@ -1,3 +1,6 @@
+# 0.5.22
+* Add "Find all references" (currently only works when right clicking on a reference)
+* Update config rules with most of A-M
 # 0.5.21
 * Update config rules
 # 0.5.20
