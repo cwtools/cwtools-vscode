@@ -1,3 +1,5 @@
+# 0.5.21
+* Update config rules
 # 0.5.20
 * Add "Go to definition" (currently only works for mod defined types)
 * Support "FROM" scopes
