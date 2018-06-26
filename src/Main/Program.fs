@@ -87,8 +87,8 @@ type Server(client: ILanguageClient) =
     let parserErrorToDiagnostics e =
         let code, sev, file, error, (position : range), length = e
         let startC, endC = match length with
-        | 0 -> 0,( int position.StartColumn) - 1
-        | x ->(int position.StartColumn) - 1,(int position.StartColumn) + length - 1
+        | 0 -> 0,( int position.StartColumn)
+        | x ->(int position.StartColumn),(int position.StartColumn) + length
         let result = {
                         range = {
                                 start = {
@@ -452,6 +452,7 @@ type Server(client: ILanguageClient) =
                     { defaultServerCapabilities with
                         hoverProvider = true
                         definitionProvider = true
+                        referencesProvider = true
                         textDocumentSync =
                             { defaultTextDocumentSyncOptions with
                                 openClose = true
@@ -612,7 +613,24 @@ type Server(client: ILanguageClient) =
                         |None -> []
                     |None -> []
                 }
-        member this.FindReferences(p: ReferenceParams) = TODO()
+        member this.FindReferences(p: ReferenceParams) =
+            async {
+                return
+                    match gameObj with
+                    |Some game ->
+                        let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
+                        let path =
+                            let u = p.textDocument.uri
+                            if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                            then u.LocalPath.Substring(1)
+                            else u.LocalPath
+                        let gototype = game.FindAllRefs position (path) (docs.GetText (FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
+                        match gototype with
+                        |Some gotos ->
+                            gotos |> List.map (fun goto -> { uri = Uri(goto.FileName); range = (convRangeToLSPRange goto)})
+                        |None -> []
+                    |None -> []
+                }
         member this.DocumentHighlight(p: TextDocumentPositionParams) = TODO()
         member this.DocumentSymbols(p: DocumentSymbolParams) = TODO()
         member this.WorkspaceSymbols(p: WorkspaceSymbolParams) = TODO()
