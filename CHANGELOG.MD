@@ -1,3 +1,6 @@
+# 0.5.23
+* Add improved redundant AND and OR checks
+* Update config rules
 # 0.5.22
 * Add "Find all references" (currently only works when right clicking on a reference)
 * Update config rules with most of A-M
