@@ -1,3 +1,7 @@
+# 0.5.24
+* Reduce false-positives for localisation_synced references
+* Add remaining missing scope commands
+* Update config rules
 # 0.5.23
 * Add improved redundant AND and OR checks
 * Update config rules
