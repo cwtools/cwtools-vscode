@@ -1,3 +1,9 @@
+# 0.5.25
+* Add config rules for interface/gfx/sounds/music/fonts
+* Add `path_strict` option for types which prevents subfolders being searched
+* Add `severity = warning` option for types which reduces errors to warnings
+* Add Alliance scope
+* Add `percentage` value for config rules
 # 0.5.24
 * Reduce false-positives for localisation_synced references
 * Add remaining missing scope commands
