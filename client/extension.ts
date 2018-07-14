@@ -70,7 +70,7 @@ export function activate(context: ExtensionContext) {
 				workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries}/**/*.txt"),
 				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
 				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
-				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.asset"),
+				workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
 				workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
 				]
 		},

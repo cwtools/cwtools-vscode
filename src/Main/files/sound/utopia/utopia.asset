@@ -1,0 +1,1044 @@
+category = {
+ name = "Effects"
+ soundeffects = {
+	event_ringworld_build_start
+	event_ringworld_build_upgrade
+	event_ringworld_build_complete
+	select_megastructure
+	megastructure_upgraded
+	pc_ringworld_habitable
+	pc_ringworld_tech
+	ringworld_seam
+	ascension_perk_unlocked
+	choose_ascension_perk
+	event_the_flesh_is_weak
+	event_synthetic_evolution
+	event_mind_over_matter
+	event_the_great_awakening
+	event_public_unrest
+	unrest_alert
+	habitat_station_hum
+	pc_habitat
+	incoming_diplomatic_shroud_amb
+	shroud_ambient_thunder
+	event_think_tank_build_start
+	event_think_tank_build_upgrade
+	event_think_tank_build_complete
+	think_tank_core_amb
+	think_tank_structure_amb_01
+	think_tank_structure_amb_02
+	think_tank_destroyed
+	dyson_sphere_bass_hum
+	dyson_sphere_bass_hum_partial
+	dyson_sphere_treble_hum
+	dyson_sphere_destroyed
+	spy_orb_hum_dome
+	spy_orb_hum_spire
+	spy_orb_hum_antennas
+	spy_orb_hum_ring
+	spy_orb_destroyed
+	event_spy_orb_build_start
+	event_spy_orb_build_upgrade
+	event_spy_orb_build_complete
+	event_dyson_sphere_build_start
+	event_dyson_sphere_build_upgrade_frame
+	event_dyson_sphere_build_upgrade_panel
+	event_dyson_sphere_build_complete
+	event_mega_structure_other_empire_build_start
+	event_mega_structure_other_empire_build_complete
+	event_psionic
+	shroud_creature_idle_low
+	shroud_creature_idle_high
+	shroud_creature_corrupted_idle
+	shroud_creature_death
+	shroud_creature_thunder
+	event_engineered_evolution
+	event_evolution_mastery
+	construction_platform_hum
+ }
+}
+
+########### FALLOFF
+
+falloff = {
+	name = falloff_ringworld
+	
+	min_distance = 75
+	max_distance = 1600
+	height_scale = 0.7
+	#type = linear
+}
+falloff = {
+	name = falloff_dyson
+
+	min_distance = 250.0
+	max_distance = 3000.0
+	#type = linear
+}
+falloff = {
+	name = falloff_think
+	
+	min_distance = 200
+	max_distance = 3800
+	height_scale = 0.7
+	type = linear
+}
+	
+	
+########### ASSETS 
+
+########## MEGASTRUCTURES 
+sound =
+{
+	name = "megastructure_select_01"
+	file = "megastructure_select_01.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "megastructure_upgraded_01"
+	file = "megastructure_upgraded_01.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "event_ringworld_build_start"
+	file = "event_ringworld_build_start.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "event_ringworld_build_upgrade"
+	file = "event_ringworld_build_upgrade.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "event_ringworld_build_complete"
+	file = "event_ringworld_build_complete.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "event_mega_structure_other_empire_build_start_01"
+	file = "event_mega_structure_other_empire_build_start_01.wav"
+	volume = 0.6
+}
+sound = 
+{
+	name = "event_mega_structure_other_empire_build_complete_01"
+	file = "event_mega_structure_other_empire_build_complete_01.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "ringworld_pc_amb_01"
+	file = "ringworld_pc_amb_01.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "ringworld_pc_amb_02"
+	file = "ringworld_pc_amb_02.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "ringworld_pc_amb_03"
+	file = "ringworld_pc_amb_03.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "ringworld_hologram_construction_ambient_01"
+	file = "ringworld_hologram_construction_ambient_01.wav"
+	volume = 0.45
+}
+sound = 
+{
+	name = "dyson_sphere_bass_hum_01"
+	file = "dyson_sphere_bass_hum_01.wav"
+}
+sound = 
+{
+	name = "dyson_sphere_bass_hum_02"
+	file = "dyson_sphere_bass_hum_02.wav"
+}
+sound = 
+{
+	name = "dyson_sphere_bass_hum_03"
+	file = "dyson_sphere_bass_hum_03.wav"
+}
+sound = 
+{
+	name = "dyson_sphere_treble_hum_01"
+	file = "dyson_sphere_treble_hum_01.wav"
+}
+sound = 
+{
+	name = "dyson_sphere_destroyed_01"
+	file = "dyson_sphere_destroyed_01.wav"
+}
+sound = 
+{
+	name = "event_dyson_sphere_build_start_01"
+	file = "event_dyson_sphere_build_start_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "event_dyson_sphere_build_upgrade_01"
+	file = "event_dyson_sphere_build_upgrade_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "event_dyson_sphere_build_upgrade_02"
+	file = "event_dyson_sphere_build_upgrade_02.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "event_dyson_sphere_build_complete_01"
+	file = "event_dyson_sphere_build_complete_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "event_think_tank_build_start_01"
+	file = "event_think_tank_build_start_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "event_think_tank_build_upgrade_01"
+	file = "event_think_tank_build_upgrade_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "event_think_tank_build_complete_01"
+	file = "event_think_tank_build_complete_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "think_tank_core_amb_01"
+	file = "think_tank_core_amb_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "think_tank_structure_amb_01"
+	file = "think_tank_structure_amb_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "think_tank_structure_amb_02"
+	file = "think_tank_structure_amb_02.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "think_tank_destroyed_01"
+	file = "think_tank_destroyed_01.wav"
+	volume = 0.7
+}
+
+sound = 
+{
+	name = "spy_orb_hum_01"
+	file = "spy_orb_hum_01.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "spy_orb_hum_02"
+	file = "spy_orb_hum_02.wav"
+	volume = 0.7
+}
+sound = 
+{
+	name = "spy_orb_hum_03"
+	file = "spy_orb_hum_03.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "spy_orb_hum_04"
+	file = "spy_orb_hum_04.wav"
+	volume = 0.3
+}
+sound = 
+{
+	name = "spy_orb_destroyed_01"
+	file = "spy_orb_destroyed_01.wav"
+	volume = 0.3
+}
+sound = 
+{
+	name = "event_spy_orb_build_start_01"
+	file = "event_spy_orb_build_start_01.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "event_spy_orb_build_upgrade_01"
+	file = "event_spy_orb_build_upgrade_01.wav"
+	volume = 0.5
+}
+sound = 
+{
+	name = "event_spy_orb_build_complete_01"
+	file = "event_spy_orb_build_complete_01.wav"
+	volume = 0.5
+}
+########### GUI, UNITS & STATIONS
+
+sound =
+{
+	name = "ascension_perk_unlocked_01"
+	file = "ascension_perk_unlocked_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "choose_ascension_perk_01"
+	file = "choose_ascension_perk_01.wav"
+	volume = 0.7
+}
+sound =
+{
+	name = "unrest_alert_01"
+	file = "unrest_alert_01.wav"
+	volume = 0.9
+}
+sound =
+{
+	name = "habitat_station_hum_01"
+	file = "habitat_station_hum_01.wav"
+	volume = 1.0
+}
+sound =
+{
+	name = "habitat_pc_amb_01"
+	file = "habitat_pc_amb_01.wav"
+}
+sound =
+{
+	name = "habitat_pc_amb_02"
+	file = "habitat_pc_amb_02.wav"
+}
+sound =
+{
+	name = "habitat_pc_amb_03"
+	file = "habitat_pc_amb_03.wav"
+}
+sound =
+{
+	name = "incoming_diplomatic_shroud_amb_01"
+	file = "incoming_diplomatic_shroud_amb_01.wav"
+}
+sound =
+{
+	name = "shroud_creature_idle_01"
+	file = "shroud_creature_idle_01.wav"
+}
+sound =
+{
+	name = "shroud_creature_idle_02"
+	file = "shroud_creature_idle_02.wav"
+}
+sound =
+{
+	name = "shroud_creature_corrupted_layer_01"
+	file = "shroud_creature_corrupted_layer_01.wav"
+}
+sound =
+{
+	name = "shroud_creature_death_01"
+	file = "shroud_creature_death_01.wav"
+}
+sound =
+{
+	name = "construction_platform_hum_01"
+	file = "construction_platform_hum_01.wav"
+}
+
+########### EVENTS
+
+sound =
+{
+	name = "event_the_flesh_is_weak_01"
+	file = "event_the_flesh_is_weak_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_synthetic_evolution_01"
+	file = "event_synthetic_evolution_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_mind_over_matter_01"
+	file = "event_mind_over_matter_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_the_great_awakening_01"
+	file = "event_the_great_awakening_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_public_unrest_01"
+	file = "event_public_unrest_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_psionic_01"
+	file = "event_psionic_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_psionic_02"
+	file = "event_psionic_02.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_psionic_03"
+	file = "event_psionic_03.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_engineered_evolution_01"
+	file = "event_engineered_evolution_01.wav"
+	volume = 0.6
+}
+sound =
+{
+	name = "event_evolution_mastery_01"
+	file = "event_evolution_mastery_01.wav"
+	volume = 0.6
+}
+
+########### SOUNDEFFECTS
+
+########### GENERAL MEGASTRUCTURE SOUNDS
+soundeffect = {
+	name = select_megastructure
+	sounds = {
+		sound = megastructure_select_01
+	} 
+	volume = 0.4
+	max_audible = 2
+	max_audible_behaviour = fail
+	playbackrate_random_offset = { -15.0 15.0 }
+}
+soundeffect = {
+	name = megastructure_upgraded
+	sounds = {
+		sound = megastructure_upgraded_01
+	} 
+	volume = 0.4
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+
+########### RINGWORLD
+
+soundeffect = {
+	name = event_ringworld_build_start
+	sounds = {
+		sound = event_ringworld_build_start
+	}
+	volume = 0.3
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_ringworld_build_upgrade
+	sounds = {
+		sound = event_ringworld_build_upgrade
+	}
+	volume = 0.3
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_ringworld_build_complete
+	sounds = {
+		sound = event_ringworld_build_complete
+	}
+	volume = 0.4
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = pc_ringworld_habitable
+	sounds = {
+		sound = ringworld_pc_amb_01
+		sound = ringworld_pc_amb_02
+		sound = ringworld_pc_amb_03
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.3
+}
+soundeffect = {
+	name = pc_ringworld_tech
+	sounds = {
+		sound = ringworld_pc_amb_01
+		sound = ringworld_pc_amb_02
+		sound = ringworld_pc_amb_03
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.3
+}
+soundeffect = {
+	name = ringworld_seam
+	sounds = {
+		sound = ringworld_pc_amb_01
+		sound = ringworld_pc_amb_02
+		sound = ringworld_pc_amb_03
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.3
+}
+soundeffect = {
+	name = ringworld_construction_ambient
+	sounds = {
+		sound = ringworld_hologram_construction_ambient_01
+	}
+	volume = 0.5
+	loop = yes
+	is3d = yes
+	max_audible = 4
+	max_audible_behaviour = fail
+	falloff = falloff_ringworld
+}
+
+############# THINK TANK - SCIENCE NEXUS
+soundeffect = {
+	name = think_tank_core_amb
+	falloff = falloff_think
+	sounds = {
+		sound = think_tank_core_amb_01
+	}
+	volume = 0.35
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	loop = yes
+}
+soundeffect = {
+	name = think_tank_structure_amb_01
+	falloff = falloff_think
+	sounds = {
+		sound = think_tank_structure_amb_01
+	}
+	volume = 0.3
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	loop = yes
+}
+soundeffect = {
+	name = think_tank_structure_amb_02
+	falloff = falloff_think
+	sounds = {
+		sound = think_tank_structure_amb_02
+	}
+	volume = 0.33
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	loop = yes
+}
+soundeffect = {
+	name = think_tank_destroyed
+	falloff = falloff_think
+	sounds = {
+		sound = think_tank_destroyed_01
+	}
+	volume = 0.5
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	loop = yes
+}
+soundeffect = {
+	name = event_think_tank_build_start
+	sounds = {
+		sound = event_think_tank_build_start_01
+	}
+	volume = 0.83
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_think_tank_build_upgrade
+	sounds = {
+		sound = event_think_tank_build_upgrade_01
+	}
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_think_tank_build_complete
+	sounds = {
+		sound = event_think_tank_build_complete_01
+	}
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+
+############# DYSON SPHERE
+
+soundeffect = {
+	name = dyson_sphere_bass_hum
+	sounds = {
+		weighted_sound = { sound = dyson_sphere_bass_hum_01 weight = 5 }
+		sound = dyson_sphere_bass_hum_02
+	}
+	volume = 0.4
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_dyson
+}
+soundeffect = {
+	name = dyson_sphere_bass_hum_partial
+	sounds = {
+		sound = dyson_sphere_bass_hum_03
+	}
+	volume = 0.45
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_dyson
+}
+soundeffect = {
+	name = dyson_sphere_treble_hum
+	sounds = {
+		sound = dyson_sphere_treble_hum_01
+	}
+	volume = 0.25
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_weapons_close
+}
+soundeffect = {
+	name = dyson_sphere_destroyed
+	sounds = {
+		sound = dyson_sphere_destroyed_01
+	}
+	volume = 0.25
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_weapons_close
+}
+soundeffect = {
+	name = event_dyson_sphere_build_start
+	sounds = {
+		sound = event_dyson_sphere_build_start_01
+	}
+	volume = 0.63
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_dyson_sphere_build_upgrade_frame
+	sounds = {
+		sound = event_dyson_sphere_build_upgrade_01
+	}
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_dyson_sphere_build_upgrade_panel
+	sounds = {
+		sound = event_dyson_sphere_build_upgrade_02
+	}
+	volume = 0.65
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_dyson_sphere_build_complete
+	sounds = {
+		sound = event_dyson_sphere_build_complete_01
+	}
+	volume = 0.65
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+
+############# SPY ORB - SENTRY ARRAY
+
+soundeffect = {
+	name = spy_orb_hum_dome
+	sounds = {
+		sound = spy_orb_hum_01
+	}
+	volume = 0.65
+	loop = yes
+	is3d = yes
+	falloff = falloff_dyson
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = spy_orb_hum_spire
+	sounds = {
+		sound = spy_orb_hum_02
+	}
+	volume = 0.65
+	loop = yes
+	is3d = yes
+	falloff = falloff_dyson
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = spy_orb_hum_antennas
+	sounds = {
+		sound = spy_orb_hum_03
+	}
+	volume = 0.7
+	loop = yes
+	is3d = yes
+	falloff = falloff_dyson
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = spy_orb_hum_ring
+	sounds = {
+		sound = spy_orb_hum_04
+	}
+	volume = 0.4
+	loop = yes
+	is3d = yes
+	falloff = falloff_dyson
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = spy_orb_destroyed
+	sounds = {
+		sound = spy_orb_destroyed_01
+	}
+	volume = 0.4
+	loop = yes
+	is3d = yes
+	falloff = falloff_dyson
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+
+soundeffect = {
+	name = event_spy_orb_build_start
+	sounds = {
+		sound = event_spy_orb_build_start_01
+	}
+	volume = 0.3
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_spy_orb_build_upgrade
+	sounds = {
+		sound = event_spy_orb_build_upgrade_01
+	}
+	volume = 0.3
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_spy_orb_build_complete
+	sounds = {
+		sound = event_spy_orb_build_complete_01
+	}
+	volume = 0.4
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+############# GUI, UNITS & STATIONS
+
+soundeffect = {
+	name = ascension_perk_unlocked
+	sounds = {
+		sound = ascension_perk_unlocked_01
+	} 
+	volume = 0.6
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = choose_ascension_perk
+	sounds = {
+		sound = choose_ascension_perk_01
+	} 
+	volume = 0.5
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = unrest_alert
+	sounds = {
+		sound = unrest_alert_01
+	} 
+	volume = 0.45
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = habitat_station_hum
+	sounds = {
+		sound = habitat_station_hum_01
+	}
+	volume = 0.7
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_ambient
+}
+soundeffect = {
+	name = pc_habitat
+	sounds = {
+		sound = habitat_pc_amb_01
+		sound = habitat_pc_amb_02
+		sound = habitat_pc_amb_03
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.3
+	volume = 0.25
+	playbackrate_random_offset = { -10.0 10.0 }
+}
+soundeffect = {
+	name = incoming_diplomatic_shroud_amb
+	sounds = {
+		sound = incoming_diplomatic_shroud_amb_01
+	}
+	loop = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.3
+	volume = 0.6
+}
+soundeffect = {
+	name = shroud_ambient_thunder
+	sounds = {
+		sound = dimensional_horror_portal_thunder_01
+		sound = dimensional_horror_portal_thunder_02
+		sound = dimensional_horror_portal_thunder_03
+		sound = dimensional_horror_portal_thunder_04
+		sound = dimensional_horror_portal_thunder_05
+	}  
+	volume = 0.1
+	max_audible = 3
+	loop = yes
+	max_audible_behaviour = fail
+	playbackrate_random_offset = { -10.50 10.15 }
+	#delay_random_offset = { 0.0 3.0 }
+	volume_random_offset = { -0.8 0.5 }
+}
+soundeffect = {
+	name = shroud_creature_idle_low
+	loop = yes
+	falloff = falloff_fleet
+	sounds = {
+		sound = shroud_creature_idle_01
+	} 
+	volume = 0.35
+	is3d = yes
+	max_audible = 1
+	volume_random_offset = { -0.05 0.05 }
+	max_audible_behaviour = fail
+	fade_out = 0.7
+}
+soundeffect = {
+	name = shroud_creature_idle_high
+	loop = yes
+	falloff = falloff_fleet
+	sounds = {
+		sound = shroud_creature_idle_02
+	} 
+	volume = 0.2
+	is3d = yes
+	max_audible = 1
+	volume_random_offset = { -0.05 0.05 }
+	max_audible_behaviour = fail
+	fade_out = 0.7
+}
+soundeffect = {
+	name = shroud_creature_corrupted_idle
+	loop = yes
+	falloff = falloff_fleet
+	sounds = {
+		sound = shroud_creature_corrupted_layer_01
+	}
+	volume = 0.3
+	is3d = yes
+	max_audible = 1
+	volume_random_offset = { -0.05 0.05 }
+	max_audible_behaviour = fail
+	fade_out = 0.5
+}
+soundeffect = {
+	name = shroud_creature_death
+	falloff = falloff_fleet
+	sounds = {
+		sound = shroud_creature_death_01
+	}
+	is3d = yes
+	volume = 0.4
+	max_audible = 2
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = shroud_creature_thunder
+	sounds = {
+		sound = dimensional_horror_portal_thunder_01
+		sound = dimensional_horror_portal_thunder_02
+		sound = dimensional_horror_portal_thunder_03
+		sound = dimensional_horror_portal_thunder_04
+		sound = dimensional_horror_portal_thunder_05
+	}  
+	volume = 0.1
+	max_audible = 3
+	loop = yes
+	is3d = yes
+	falloff = falloff_fleet
+	max_audible_behaviour = fail
+	playbackrate_random_offset = { -10.50 10.15 }
+	delay_random_offset = { 0.0 4.0 }
+	volume_random_offset = { -0.8 0.5 }
+}
+soundeffect = {
+	name = construction_platform_hum
+	sounds = {
+		sound = construction_platform_hum_01
+	}
+	volume = 0.32
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_ambient
+}
+
+############### EVENTS
+
+soundeffect = {
+	name = event_the_flesh_is_weak
+	sounds = {
+		sound = event_the_flesh_is_weak_01
+	} 
+	volume = 0.5
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_synthetic_evolution
+	sounds = {
+		sound = event_synthetic_evolution_01
+	} 
+	volume = 0.5
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_mind_over_matter
+	sounds = {
+		sound = event_mind_over_matter_01
+	} 
+	volume = 0.55
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_the_great_awakening
+	sounds = {
+		sound = event_the_great_awakening_01
+	} 
+	volume = 0.5
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_public_unrest
+	sounds = {
+		sound = event_public_unrest_01
+	} 
+	volume = 0.7
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_mega_structure_other_empire_build_start
+	sounds = {
+		sound = event_mega_structure_other_empire_build_start_01
+	} 
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_mega_structure_other_empire_build_complete
+	sounds = {
+		sound = event_mega_structure_other_empire_build_complete_01
+	} 
+	volume = 0.8
+	max_audible = 1
+	max_audible_behaviour = fail
+}
+soundeffect = {
+	name = event_psionic
+	sounds = {
+		sound = event_psionic_01
+		sound = event_psionic_02
+		sound = event_psionic_03
+	} 
+	volume = 0.55
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_engineered_evolution
+	sounds = {
+		sound = event_engineered_evolution_01
+	} 
+	volume = 0.40
+	max_audible = 1
+	max_audible_behaviour = fail	
+}
+soundeffect = {
+	name = event_evolution_mastery
+	sounds = {
+		sound = event_evolution_mastery_01
+	} 
+	volume = 0.49
+	max_audible = 1
+	max_audible_behaviour = fail	
+}

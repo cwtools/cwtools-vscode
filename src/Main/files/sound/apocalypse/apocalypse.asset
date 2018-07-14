@@ -1,0 +1,2682 @@
+category = {
+ name = "Effects"
+ soundeffects = {
+	starbase_hum_stage_01
+	starbase_hum_stage_02
+	starbase_hum_stage_03
+	fallen_empire_starbase_amb
+	fallen_empire_starbase_energy_field
+	moving_out_colossus
+	plantoid_colossus_idle
+	plantoid_colossus_opening
+	plantoid_colossus_closing
+	molluscoid_colossus_idle
+	molluscoid_colossus_opening
+	molluscoid_colossus_closing
+	molluscoid_colossus_wind_up
+	molluscoid_colossus_wind_down
+	arthropoid_colossus_idle
+	arthropoid_colossus_opening
+	arthropoid_colossus_closing
+	arthropoid_colossus_wind_up
+	arthropoid_colossus_wind_down
+	avian_colossus_idle
+	avian_colossus_idle_layer
+	avian_colossus_opening
+	avian_colossus_closing
+	avian_colossus_death
+	avian_colossus_dome_opening
+	mammalian_colossus_idle
+	mammalian_colossus_opening
+	mammalian_colossus_closing
+	reptilian_colossus_idle
+	reptilian_colossus_opening
+	reptilian_colossus_closing
+	fungoid_colossus_idle
+	fungoid_colossus_opening
+	fungoid_colossus_closing
+	fallen_empire_colossus_idle
+	fallen_empire_colossus_energy_field
+	fallen_empire_colossus_opening
+	fallen_empire_colossus_closing
+	fallen_empire_colossus_death
+	megastructure_gate_way_portal_hum
+	megastructure_gate_way_station_death
+	megastructure_gate_way_station_hum
+	amb_titan_ship_hum_01
+	amb_titan_ship_hum_02
+	amb_titan_ship_hum_03
+	amb_titan_ship_death
+	moving_out_titan
+	select_starbase
+	click_upgrade_starbase
+	click_dismantle_starbase
+
+	sfx_humanoid_colossus_opening
+	sfx_humanoid_colossus_closing
+ }
+}
+
+category = {
+ name = "Weapon"
+ soundeffects = {
+
+	ion_cannon_windup
+	ion_cannon_fire
+	distance_ion_cannon_fire
+	ion_cannon_hit
+	distance_ion_cannon_hit
+	planet_killer_windup_layer_1
+	planet_killer_windup_layer_2
+	planet_killer_fire_layer_1
+	planet_killer_fire_layer_2
+	planet_killer_fire_layer_3
+	planet_killer_fire_layer_4
+	planet_killer_hit_layer_1
+	planet_killer_hit_layer_2
+	perdition_beam_fire_layer_01
+	perdition_beam_fire_layer_02
+	perdition_beam_fire_layer_03
+	distance_perdition_beam_fire_layer_01
+	distance_perdition_beam_fire_layer_02
+	distance_perdition_beam_fire_layer_03
+	perdition_beam_windup_layer_01
+	perdition_beam_windup_layer_02
+	perdition_beam_hit
+	distance_perdition_beam_hit
+	god_ray_windup_layer_1
+	god_ray_windup_layer_2
+	god_ray_fire_layer_1
+	god_ray_fire_layer_2
+	god_ray_fire_layer_3
+	god_ray_hit_layer_1
+	god_ray_hit_layer_2
+	shieled_windup_layer_1
+	shieled_windup_layer_2
+	shieled_fire_layer_1
+	shieled_fire_layer_2
+	shieled_fire_layer_3
+	shieled_hit_layer_1
+	shieled_hit_layer_2
+	neutron_windup_layer_1
+	neutron_windup_layer_2
+	neutron_fire_layer_1
+	neutron_fire_layer_2
+	neutron_fire_layer_3
+	neutron_hit_layer_1
+	neutron_hit_layer_2
+	assimilate_windup_layer_1
+	assimilate_windup_layer_2
+	assimilate_fire_layer_1
+	assimilate_fire_layer_2
+	assimilate_fire_layer_3
+	assimilate_hit_layer_1
+	assimilate_hit_layer_2
+	shattered_planet_explosion
+
+	colossus_god_beam
+	colossus_neutron_beam
+	colossus_shield_beam
+	colossus_shatter_beam
+	colossus_assimilate_beam
+
+	distance_planet_killer_fire_layer_1
+	distance_planet_killer_fire_layer_2
+	distance_planet_killer_fire_layer_3
+	distance_planet_killer_fire_layer_4
+	distance_planet_killer_hit_layer_1
+	distance_planet_killer_hit_layer_2
+	distance_god_ray_fire_layer_1
+	distance_god_ray_fire_layer_2
+	distance_god_ray_fire_layer_3
+	distance_god_ray_hit_layer_1
+	distance_god_ray_hit_layer_2
+	distance_shieled_fire_layer_1
+	distance_shieled_fire_layer_2
+	distance_shieled_fire_layer_3
+	distance_shieled_hit_layer_1
+	distance_shieled_hit_layer_2
+	distance_neutron_fire_layer_1
+	distance_neutron_fire_layer_2
+	distance_neutron_fire_layer_3
+	distance_neutron_hit_layer_1
+	distance_neutron_hit_layer_2
+	distance_assimilate_fire_layer_1
+	distance_assimilate_fire_layer_2
+	distance_assimilate_fire_layer_3
+	distance_assimilate_hit_layer_1
+	distance_assimilate_hit_layer_2
+	
+	}
+}
+
+category = {
+	name = "Menu"
+	soundEffects = {
+		main_menu
+	}
+}
+
+
+####### FALLOFF
+
+falloff = {
+	name = falloff_colossus
+
+	min_distance = 200.0
+	max_distance = 4000.0
+}
+
+#########################################################
+#														#
+#					     ASSETS			    			#
+#														#
+#########################################################
+
+
+############### FRONT END MENU
+
+sound = 
+{
+    name = "main_menu"
+    file = "main_menu.wav"
+    always_load = yes    
+    volume = 0.12
+}
+
+
+############### ALERTS, EVENTS & GUI
+
+sound =
+{
+	name = "war_exhaustion_alert"
+	file = "war_exhaustion_alert_01.wav"
+	volume = 0.65
+}
+
+
+############### STATIONS
+
+sound =
+{
+	name = "starbase_hum_layer_01"
+	file = "starbase_hum_layer_01.wav"
+	volume = 0.3
+}
+sound =
+{
+	name = "starbase_hum_layer_02"
+	file = "starbase_hum_layer_02.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "starbase_hum_layer_03"
+	file = "starbase_hum_layer_03.wav"
+	volume = 0.3
+}
+sound =
+{
+	name = "fallen_empire_starbase_amb_01"
+	file = "fallen_empire_starbase_amb_01.wav"
+	volume = 0.4
+}
+
+
+## STARBASE GUI
+sound = 
+{
+	name = "click_upgrade_starbase_01"
+	file = "click_upgrade_starbase_01.wav"
+}
+sound = 
+{
+	name = "click_dismantle_starbase_01"
+	file = "click_dismantle_starbase_01.wav"
+}
+sound = 
+{
+	name = "select_starbase_01"
+	file = "select_starbase_01.wav"
+}
+
+############### COLOSSI
+
+sound =
+{
+	name = "moving_out_colossus_01"
+	file = "moving_out_colossus_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "plantoid_colossus_idle_01"
+	file = "plantoid_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "plantoid_colossus_opening_01"
+	file = "plantoid_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "plantoid_colossus_closing_01"
+	file = "plantoid_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "molluscoid_colossus_idle_01"
+	file = "molluscoid_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "molluscoid_colossus_opening_01"
+	file = "molluscoid_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "molluscoid_colossus_closing_01"
+	file = "molluscoid_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "molluscoid_colossus_wind_up_01"
+	file = "molluscoid_colossus_wind_up_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "molluscoid_colossus_wind_down_01"
+	file = "molluscoid_colossus_wind_down_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "arthropoid_colossus_idle_01"
+	file = "arthropoid_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "arthropoid_colossus_opening_01"
+	file = "arthropoid_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "arthropoid_colossus_closing_01"
+	file = "arthropoid_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "arthropoid_colossus_wind_up_01"
+	file = "arthropoid_colossus_wind_up_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "arthropoid_colossus_wind_down_01"
+	file = "arthropoid_colossus_wind_down_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "avian_colossus_idle_01"
+	file = "avian_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "avian_colossus_idle_layer_01"
+	file = "avian_colossus_idle_layer_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "avian_colossus_opening_01"
+	file = "avian_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "avian_colossus_closing_01"
+	file = "avian_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "avian_colossus_death_01"
+	file = "avian_colossus_death_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "avian_colossus_dome_opening_01"
+	file = "avian_colossus_dome_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "mammalian_colossus_idle_01"
+	file = "mammalian_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "mammalian_colossus_opening_01"
+	file = "mammalian_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "mammalian_colossus_closing_01"
+	file = "mammalian_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "sfx_humanoid_colossus_opening_01"
+	file = "sfx_humanoid_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "sfx_humanoid_colossus_closing_01"
+	file = "sfx_humanoid_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "reptilian_colossus_idle_01"
+	file = "reptilian_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "reptilian_colossus_opening_01"
+	file = "reptilian_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "reptilian_colossus_closing_01"
+	file = "reptilian_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fungoid_colossus_idle_01"
+	file = "fungoid_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fungoid_colossus_opening_01"
+	file = "fungoid_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fungoid_colossus_closing_01"
+	file = "fungoid_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fallen_empire_colossus_idle_01"
+	file = "fallen_empire_colossus_idle_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fallen_empire_colossus_energy_field_01"
+	file = "fallen_empire_colossus_energy_field_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fallen_empire_colossus_opening_01"
+	file = "fallen_empire_colossus_opening_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fallen_empire_colossus_closing_01"
+	file = "fallen_empire_colossus_closing_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "fallen_empire_colossus_death_01"
+	file = "fallen_empire_colossus_death_01.wav"
+	volume = 0.4
+}
+
+############### GATE WAY
+
+sound =
+{
+	name = "megastructure_gate_way_portal_hum_01"
+	file = "megastructure_gate_way_portal_hum_01.wav"
+	volume = 0.3
+}
+sound =
+{
+	name = "megastructure_gate_way_station_death_01"
+	file = "megastructure_gate_way_station_death_01.wav"
+	volume = 0.4
+}
+sound =
+{
+	name = "megastructure_gate_way_station_hum_01"
+	file = "megastructure_gate_way_station_hum_01.wav"
+	volume = 0.3
+}
+
+############## PHENOTYPE TITAN
+
+sound =
+{
+	name = "amb_titan_ship_hum_01"
+	file = "amb_titan_ship_hum_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "amb_titan_ship_hum_02"
+	file = "amb_titan_ship_hum_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "amb_titan_ship_hum_03"
+	file = "amb_titan_ship_hum_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "amb_titan_ship_death_01"
+	file = "amb_titan_ship_death_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "moving_out_titan_01"
+	file = "moving_out_titan_01.wav"
+	volume = 0.45
+}
+
+############## WEAPONS ETC
+
+sound =
+{
+	name = "ion_cannon_windup_01"
+	file = "ion_cannon_windup_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "ion_cannon_fire_01"
+	file = "ion_cannon_fire_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_ion_cannon_fire_01"
+	file = "distance_ion_cannon_fire_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "ion_cannon_hit_01"
+	file = "ion_cannon_hit_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_ion_cannon_hit_01"
+	file = "distance_ion_cannon_hit_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_perdition_beam_fire_01"
+	file = "distance_perdition_beam_fire_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_perdition_beam_fire_02"
+	file = "distance_perdition_beam_fire_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_perdition_beam_fire_03"
+	file = "distance_perdition_beam_fire_03.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "perdition_beam_windup_01"
+	file = "perdition_beam_windup_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "perdition_beam_windup_02"
+	file = "perdition_beam_windup_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "perdition_beam_hit_01"
+	file = "perdition_beam_hit_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_perdition_beam_hit_01"
+	file = "distance_perdition_beam_hit_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "perdition_beam_fire_01"
+	file = "perdition_beam_fire_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "perdition_beam_fire_02"
+	file = "perdition_beam_fire_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "perdition_beam_fire_03"
+	file = "perdition_beam_fire_03.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "planet_killer_windup_01"
+	file = "planet_killer_windup_01.wav"
+}
+sound =
+{
+	name = "planet_killer_windup_02"
+	file = "planet_killer_windup_02.wav"
+}
+sound =
+{
+	name = "planet_killer_fire_01"
+	file = "planet_killer_fire_01.wav"
+}
+sound =
+{
+	name = "planet_killer_fire_02"
+	file = "planet_killer_fire_02.wav"
+}
+sound =
+{
+	name = "planet_killer_fire_03"
+	file = "planet_killer_fire_03.wav"
+}
+sound =
+{
+	name = "planet_killer_fire_04"
+	file = "planet_killer_fire_04.wav"
+}
+sound =
+{
+	name = "planet_killer_hit_01"
+	file = "planet_killer_hit_01.wav"
+}
+sound =
+{
+	name = "planet_killer_hit_02"
+	file = "planet_killer_hit_02.wav"
+}
+sound =
+{
+	name = "god_ray_windup_layer_01"
+	file = "god_ray_windup_layer_01.wav"
+}
+sound =
+{
+	name = "god_ray_windup_layer_02"
+	file = "god_ray_windup_layer_02.wav"
+}
+sound =
+{
+	name = "god_ray_fire_layer_01"
+	file = "god_ray_fire_layer_01.wav"
+}
+sound =
+{
+	name = "god_ray_fire_layer_02"
+	file = "god_ray_fire_layer_02.wav"
+	volume = 0.25
+}
+sound =
+{
+	name = "god_ray_fire_layer_03"
+	file = "god_ray_fire_layer_03.wav"
+}
+sound =
+{
+	name = "god_ray_hit_layer_01"
+	file = "god_ray_hit_layer_01.wav"
+}
+sound =
+{
+	name = "god_ray_hit_layer_02"
+	file = "god_ray_hit_layer_02.wav"
+}
+sound =
+{
+	name = "shieled_windup_layer_01"
+	file = "shieled_windup_layer_01.wav"
+}
+sound =
+{
+	name = "shieled_windup_layer_02"
+	file = "shieled_windup_layer_02.wav"
+}
+sound =
+{
+	name = "shieled_fire_layer_01"
+	file = "shieled_fire_layer_01.wav"
+}
+sound =
+{
+	name = "shieled_fire_layer_02"
+	file = "shieled_fire_layer_02.wav"
+}
+sound =
+{
+	name = "shieled_fire_layer_03"
+	file = "shieled_fire_layer_03.wav"
+}
+sound =
+{
+	name = "shieled_hit_layer_01"
+	file = "shieled_hit_layer_01.wav"
+}
+sound =
+{
+	name = "shieled_hit_layer_02"
+	file = "shieled_hit_layer_02.wav"
+}
+sound =
+{
+	name = "neutron_windup_layer_01"
+	file = "neutron_windup_layer_01.wav"
+}
+sound =
+{
+	name = "neutron_windup_layer_02"
+	file = "neutron_windup_layer_02.wav"
+}
+sound =
+{
+	name = "neutron_fire_layer_01"
+	file = "neutron_fire_layer_01.wav"
+}
+sound =
+{
+	name = "neutron_fire_layer_02"
+	file = "neutron_fire_layer_02.wav"
+}
+sound =
+{
+	name = "neutron_fire_layer_03"
+	file = "neutron_fire_layer_03.wav"
+}
+sound =
+{
+	name = "neutron_hit_layer_01"
+	file = "neutron_hit_layer_01.wav"
+}
+sound =
+{
+	name = "neutron_hit_layer_02"
+	file = "neutron_hit_layer_02.wav"
+}
+sound =
+{
+	name = "assimilate_windup_layer_01"
+	file = "assimilate_windup_layer_01.wav"
+	volume = 0.05
+}
+sound =
+{
+	name = "assimilate_windup_layer_02"
+	file = "assimilate_windup_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "assimilate_fire_layer_01"
+	file = "assimilate_fire_layer_01.wav"
+}
+sound =
+{
+	name = "assimilate_fire_layer_02"
+	file = "assimilate_fire_layer_02.wav"
+}
+sound =
+{
+	name = "assimilate_fire_layer_03"
+	file = "assimilate_fire_layer_03.wav"
+}
+sound =
+{
+	name = "assimilate_hit_layer_01"
+	file = "assimilate_hit_layer_01.wav"
+}
+sound =
+{
+	name = "assimilate_hit_layer_02"
+	file = "assimilate_hit_layer_02.wav"
+}
+sound =
+{
+	name = "distance_planet_killer_fire_01"
+	file = "distance_planet_killer_fire_01.wav"
+	volume = 0.5
+}
+sound =
+{
+	name = "distance_planet_killer_fire_02"
+	file = "distance_planet_killer_fire_02.wav"
+	volume = 0.5
+}
+sound =
+{
+	name = "distance_planet_killer_fire_03"
+	file = "distance_planet_killer_fire_03.wav"
+	volume = 0.5
+}
+sound =
+{
+	name = "distance_planet_killer_fire_04"
+	file = "distance_planet_killer_fire_04.wav"
+	volume = 0.5
+}
+sound =
+{
+	name = "distance_planet_killer_hit_01"
+	file = "distance_planet_killer_hit_01.wav"
+	volume = 0.25
+}
+sound =
+{
+	name = "distance_planet_killer_hit_02"
+	file = "distance_planet_killer_hit_02.wav"
+	volume = 0.25
+}
+sound =
+{
+	name = "distance_god_ray_fire_layer_01"
+	file = "distance_god_ray_fire_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_god_ray_fire_layer_02"
+	file = "distance_god_ray_fire_layer_02.wav"
+	volume = 0.15
+}
+sound =
+{
+	name = "distance_god_ray_fire_layer_03"
+	file = "distance_god_ray_fire_layer_03.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_god_ray_hit_layer_01"
+	file = "distance_god_ray_hit_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_god_ray_hit_layer_02"
+	file = "distance_god_ray_hit_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_shieled_fire_layer_01"
+	file = "distance_shieled_fire_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_shieled_fire_layer_02"
+	file = "distance_shieled_fire_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_shieled_fire_layer_03"
+	file = "distance_shieled_fire_layer_03.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_shieled_hit_layer_01"
+	file = "distance_shieled_hit_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_shieled_hit_layer_02"
+	file = "distance_shieled_hit_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_neutron_fire_layer_01"
+	file = "distance_neutron_fire_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_neutron_fire_layer_02"
+	file = "distance_neutron_fire_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_neutron_fire_layer_03"
+	file = "distance_neutron_fire_layer_03.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_neutron_hit_layer_01"
+	file = "distance_neutron_hit_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_neutron_hit_layer_02"
+	file = "distance_neutron_hit_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_assimilate_fire_layer_01"
+	file = "distance_assimilate_fire_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_assimilate_fire_layer_02"
+	file = "distance_assimilate_fire_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_assimilate_fire_layer_03"
+	file = "distance_assimilate_fire_layer_03.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_assimilate_hit_layer_01"
+	file = "distance_assimilate_hit_layer_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "distance_assimilate_hit_layer_02"
+	file = "distance_assimilate_hit_layer_02.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "shattered_planet_explosion_01"
+	file = "shattered_planet_explosion_01.wav"
+}
+sound =
+{
+	name = "colossus_god_beam_01"
+	file = "colossus_god_beam_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "colossus_neutron_beam_01"
+	file = "colossus_neutron_beam_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "colossus_shield_beam_01"
+	file = "colossus_shield_beam_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "colossus_shatter_beam_01"
+	file = "colossus_shatter_beam_01.wav"
+	volume = 0.45
+}
+sound =
+{
+	name = "colossus_assimilate_beam_01"
+	file = "colossus_assimilate_beam_01.wav"
+	volume = 0.45
+}
+#########################################################
+#														#
+#					  SOUNDEFFECTS		    			#
+#														#
+#########################################################
+
+############### ALERTS, EVENTS & GUI
+
+############### STATIONS
+
+soundeffect = {
+	name = starbase_hum_stage_01
+	sounds = {
+		sound = starbase_hum_layer_01
+	}
+	volume = 0.35
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = starbase_hum_stage_02
+	sounds = {
+		sound = starbase_hum_layer_02
+	}
+	volume = 0.35
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = starbase_hum_stage_03
+	sounds = {
+		sound = starbase_hum_layer_03
+	}
+	volume = 0.45
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = fallen_empire_starbase_amb
+	sounds = {
+		sound = fallen_empire_starbase_amb_01
+	}
+	volume = 0.65
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = fallen_empire_starbase_energy_field
+	sounds = {
+		sound = fallen_empire_colossus_energy_field_01
+	}
+	volume = 1.2
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+
+
+########### STARBASE GUI #############
+soundeffect = {
+	name = click_upgrade_starbase
+	sounds = {
+		sound = click_upgrade_starbase_01
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.2
+}
+soundeffect = {
+	name = click_dismantle_starbase
+	sounds = {
+		sound = click_dismantle_starbase_01
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.2
+}
+soundeffect = {
+	name = select_starbase
+	sounds = {
+		sound = select_starbase_01
+	}
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.2
+}
+
+############### COLOSSI
+
+soundeffect = {
+	name = moving_out_colossus
+	falloff = falloff_400
+	volume = 0.85
+	sounds = {
+		sound = moving_out_colossus_01
+	} 
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = plantoid_colossus_idle
+	sounds = {
+		sound = plantoid_colossus_idle_01
+	}
+	volume = 0.55
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = plantoid_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.8
+	sounds = {
+		sound = plantoid_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = plantoid_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.8
+	sounds = {
+		sound = plantoid_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = molluscoid_colossus_idle
+	sounds = {
+		sound = molluscoid_colossus_idle_01
+	}
+	volume = 0.32
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = molluscoid_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.65
+	sounds = {
+		sound = molluscoid_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = molluscoid_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.65
+	sounds = {
+		sound = molluscoid_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = molluscoid_colossus_wind_up
+	falloff = falloff_colossus
+	volume = 0.6
+	sounds = {
+		sound = molluscoid_colossus_wind_up_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = molluscoid_colossus_wind_down
+	falloff = falloff_colossus
+	volume = 0.6
+	sounds = {
+		sound = molluscoid_colossus_wind_down_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = arthropoid_colossus_idle
+	sounds = {
+		sound = arthropoid_colossus_idle_01
+	}
+	volume = 0.28
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = arthropoid_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.75
+	sounds = {
+		sound = arthropoid_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = arthropoid_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.6
+	sounds = {
+		sound = arthropoid_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = arthropoid_colossus_wind_up
+	falloff = falloff_colossus
+	volume = 0.8
+	sounds = {
+		sound = arthropoid_colossus_wind_up_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = arthropoid_colossus_wind_down
+	falloff = falloff_colossus
+	volume = 0.6
+	sounds = {
+		sound = arthropoid_colossus_wind_down_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = avian_colossus_idle
+	sounds = {
+		sound = avian_colossus_idle_01
+	}
+	volume = 0.27
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = avian_colossus_idle_layer
+	sounds = {
+		sound = avian_colossus_idle_layer_01
+	}
+	volume = 0.2
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = avian_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.8
+	sounds = {
+		sound = avian_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = avian_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = avian_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = avian_colossus_death
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = avian_colossus_death_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = avian_colossus_dome_opening
+	falloff = falloff_colossus
+	volume = 0.7
+	sounds = {
+		sound = avian_colossus_dome_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = mammalian_colossus_idle
+	sounds = {
+		sound = mammalian_colossus_idle_01
+	}
+	volume = 0.3
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = mammalian_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = mammalian_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = mammalian_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = mammalian_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = sfx_humanoid_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = sfx_humanoid_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = sfx_humanoid_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = sfx_humanoid_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = reptilian_colossus_idle
+	sounds = {
+		sound = reptilian_colossus_idle_01
+	}
+	volume = 0.45
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = reptilian_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = reptilian_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = reptilian_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = reptilian_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fungoid_colossus_idle
+	sounds = {
+		sound = fungoid_colossus_idle_01
+	}
+	volume = 0.28
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fungoid_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = fungoid_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fungoid_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = fungoid_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fallen_empire_colossus_idle
+	sounds = {
+		sound = fallen_empire_colossus_idle_01
+	}
+	volume = 0.27
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fallen_empire_colossus_energy_field
+	sounds = {
+		sound = fallen_empire_colossus_energy_field_01
+	}
+	volume = 0.5
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fallen_empire_colossus_opening
+	falloff = falloff_colossus
+	volume = 0.9
+	sounds = {
+		sound = fallen_empire_colossus_opening_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fallen_empire_colossus_closing
+	falloff = falloff_colossus
+	volume = 0.95
+	sounds = {
+		sound = fallen_empire_colossus_closing_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+soundeffect = {
+	name = fallen_empire_colossus_death
+	falloff = falloff_colossus
+	volume = 0.85
+	sounds = {
+		sound = fallen_empire_colossus_death_01
+	} 
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	fade_out = 0.2
+}
+
+############### GATE WAY
+
+soundeffect = {
+	name = megastructure_gate_way_portal_hum
+	sounds = {
+		sound = megastructure_gate_way_portal_hum_01
+		
+	}
+	volume = 0.75
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_ambient
+}
+soundeffect = {
+	name = megastructure_gate_way_station_death
+	sounds = {
+		sound = megastructure_gate_way_station_death_01
+		
+	}
+	volume = 0.65
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_ambient
+}
+soundeffect = {
+	name = megastructure_gate_way_station_hum
+	sounds = {
+		sound = megastructure_gate_way_station_hum_01
+		
+	}
+	volume = 0.35
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_ambient
+}
+
+############### PHENOTYPE TITAN
+
+soundeffect = {
+	name = amb_titan_ship_hum_01
+	sounds = {
+		sound = amb_titan_ship_hum_01
+		
+	}
+	volume = 0.28
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = amb_titan_ship_hum_02
+	sounds = {
+		sound = amb_titan_ship_hum_02
+		
+	}
+	volume = 0.2
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = amb_titan_ship_hum_03
+	sounds = {
+		sound = amb_titan_ship_hum_03
+		
+	}
+	volume = 0.28
+	loop = yes
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = amb_titan_ship_death
+	sounds = {
+		sound = amb_titan_ship_death_01
+		
+	}
+	volume = 0.7
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = falloff_fleet
+}
+soundeffect = {
+	name = moving_out_titan
+	sounds = {
+		sound = moving_out_titan_01
+		
+	}
+	volume = 0.7
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	falloff = "falloff_400"
+}
+
+############## WEAPONS ETC
+
+##### ION CANNON
+
+soundeffect = {
+	name = ion_cannon_windup
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = ion_cannon_windup_01
+	}
+	loop = yes
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	volume = 0.2
+}
+soundeffect = {
+	name = ion_cannon_fire
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = ion_cannon_fire_01
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_ion_cannon_fire
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_ion_cannon_fire_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.3
+}
+soundeffect = {
+	name = ion_cannon_hit
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = ion_cannon_hit_01
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	#delay_random_offset = { 0.0 0.5 }
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_ion_cannon_hit
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_ion_cannon_hit_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.3
+}
+
+
+##### COLOSSI LASER
+
+#### SHATTER PLANET
+
+soundeffect = {
+	name = planet_killer_windup_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_windup_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+}
+soundeffect = {
+	name = planet_killer_windup_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_windup_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+	loop = yes
+}
+soundeffect = {
+	name = planet_killer_fire_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_fire_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = planet_killer_fire_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_fire_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = planet_killer_fire_layer_3
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_fire_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = planet_killer_fire_layer_4
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_fire_04
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = planet_killer_hit_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_hit_01
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+soundeffect = {
+	name = planet_killer_hit_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_hit_02
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+
+#### GOD RAY
+
+soundeffect = {
+	name = god_ray_windup_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = god_ray_windup_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+}
+soundeffect = {
+	name = god_ray_windup_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = god_ray_windup_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+	loop = yes
+}
+soundeffect = {
+	name = god_ray_fire_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = god_ray_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = god_ray_fire_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = planet_killer_fire_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.6
+}
+soundeffect = {
+	name = god_ray_fire_layer_3
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = god_ray_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = god_ray_hit_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = god_ray_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = god_ray_hit_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = god_ray_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+
+##### Shieled
+
+soundeffect = {
+	name = shieled_windup_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_windup_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+}
+soundeffect = {
+	name = shieled_windup_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_windup_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+	loop = yes
+}
+soundeffect = {
+	name = shieled_fire_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = shieled_fire_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = shieled_fire_layer_3
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = shieled_hit_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = shieled_hit_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shieled_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+
+#### NEUTRON
+
+
+soundeffect = {
+	name = neutron_windup_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_windup_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = neutron_windup_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_windup_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+	loop = yes
+}
+soundeffect = {
+	name = neutron_fire_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = neutron_fire_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = neutron_fire_layer_3
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = neutron_hit_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = neutron_hit_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = neutron_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+
+
+#### ASSIMILATE
+
+soundeffect = {
+	name = assimilate_windup_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_windup_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+	loop = yes
+}
+soundeffect = {
+	name = assimilate_windup_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_windup_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.25
+	loop = yes
+}
+soundeffect = {
+	name = assimilate_fire_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = assimilate_fire_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = assimilate_fire_layer_3
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = assimilate_hit_layer_1
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.7
+}
+soundeffect = {
+	name = assimilate_hit_layer_2
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = assimilate_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+
+##### DISTANCE PLANET KILLERS
+
+#### SHATTER PLANET
+
+soundeffect = {
+	name = distance_planet_killer_fire_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_planet_killer_fire_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_planet_killer_fire_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_planet_killer_fire_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_planet_killer_fire_layer_3
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_planet_killer_fire_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_planet_killer_fire_layer_4
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_planet_killer_fire_04
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_planet_killer_hit_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_planet_killer_hit_01
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.25
+}
+soundeffect = {
+	name = distance_planet_killer_hit_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_planet_killer_hit_02
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.25
+}
+
+#### GOD RAY
+
+soundeffect = {
+	name = distance_god_ray_fire_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_god_ray_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_god_ray_fire_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_god_ray_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.15
+}
+soundeffect = {
+	name = distance_god_ray_fire_layer_3
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_god_ray_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_god_ray_hit_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_god_ray_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_god_ray_hit_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_god_ray_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.25
+}
+
+##### Shieled
+
+soundeffect = {
+	name = distance_shieled_fire_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_shieled_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_shieled_fire_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_shieled_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_shieled_fire_layer_3
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_shieled_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_shieled_hit_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_shieled_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_shieled_hit_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_shieled_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.25
+}
+
+#### NEUTRON
+
+
+soundeffect = {
+	name = distance_neutron_fire_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_neutron_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_neutron_fire_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_neutron_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_neutron_fire_layer_3
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_neutron_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_neutron_hit_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_neutron_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_neutron_hit_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_neutron_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.25
+}
+
+
+#### ASSIMILATE
+
+soundeffect = {
+	name = distance_assimilate_fire_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_assimilate_fire_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_assimilate_fire_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_assimilate_fire_layer_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_assimilate_fire_layer_3
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_assimilate_fire_layer_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_assimilate_hit_layer_1
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_assimilate_hit_layer_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume = 0.5
+}
+soundeffect = {
+	name = distance_assimilate_hit_layer_2
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_assimilate_hit_layer_02
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.25
+}
+
+##### SHATTERED PLANET
+
+soundeffect = {
+	name = shattered_planet_explosion
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = shattered_planet_explosion_01
+}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.75
+}
+
+#### COLOSSUS BEAMS
+
+soundeffect = {
+	name = colossus_god_beam
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = colossus_god_beam_01
+}
+	is3d = yes
+	loop = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.75
+}
+
+soundeffect = {
+	name = colossus_neutron_beam
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = colossus_neutron_beam_01
+}
+	is3d = yes
+	loop = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.75
+}
+
+soundeffect = {
+	name = colossus_shield_beam
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = colossus_shield_beam_01
+}
+	is3d = yes
+	loop = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.75
+}
+
+soundeffect = {
+	name = colossus_shatter_beam
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = colossus_shatter_beam_01
+}
+	is3d = yes
+	loop = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.75
+}
+
+soundeffect = {
+	name = colossus_assimilate_beam
+	falloff = "falloff_weapons_xl"
+	sounds = {
+		sound = colossus_assimilate_beam_01
+}
+	is3d = yes
+	loop = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.75
+}
+
+##### PERDITION BEAM
+
+soundeffect = {
+	name = perdition_beam_windup_layer_01
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = perdition_beam_fire_01
+	}
+	loop = yes
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	volume = 0.4
+}
+soundeffect = {
+	name = perdition_beam_windup_layer_02
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = perdition_beam_fire_02
+	}
+	loop = yes
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { 0.0 0.15 }
+	volume = 0.3
+}
+soundeffect = {
+	name = perdition_beam_fire_layer_01
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = perdition_beam_fire_01
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+soundeffect = {
+	name = perdition_beam_fire_layer_02
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = perdition_beam_fire_02
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+soundeffect = {
+	name = perdition_beam_fire_layer_03
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = perdition_beam_fire_03
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.7
+}
+soundeffect = {
+	name = distance_perdition_beam_fire_layer_01
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_perdition_beam_fire_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.4
+}
+soundeffect = {
+	name = distance_perdition_beam_fire_layer_02
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_perdition_beam_fire_02
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.4
+}
+soundeffect = {
+	name = distance_perdition_beam_fire_layer_03
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_perdition_beam_fire_03
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.4
+}
+soundeffect = {
+	name = perdition_beam_hit
+	falloff = "falloff_weapons_close"
+	sounds = {
+		sound = perdition_beam_hit_01
+	}
+	is3d = yes
+	max_audible = 2
+	max_audible_behaviour = fail
+	#delay_random_offset = { 0.0 0.5 }
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.6
+}
+soundeffect = {
+	name = distance_perdition_beam_hit
+	falloff = "falloff_weapons_distance"
+	sounds = {
+		sound = distance_perdition_beam_hit_01
+	}
+	is3d = yes
+	max_audible = 1
+	max_audible_behaviour = fail
+	volume_random_offset = { -0.05 0.05 }
+	playbackrate_random_offset = { -5.0 5.0 }
+	volume = 0.4
+}

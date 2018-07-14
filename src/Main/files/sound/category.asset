@@ -1,0 +1,833 @@
+
+################## Weapon #############################
+category = {
+ name = "Weapon"
+ soundeffects = {
+		####### WEAPONS
+	
+	####### CLOSE
+	laser_fire
+	laser_hit
+	missile_fire
+	missile_hit
+	energy_torpedo_fire
+	energy_torpedo_hit
+	torpedo_fire
+	torpedo_hit
+	auto_cannon_fire_large
+	auto_cannon_fire_medium
+	auto_cannon_fire_small
+	auto_cannon_hit_large
+	auto_cannon_hit_medium
+	auto_cannon_hit_small
+	mass_driver_fire
+	mass_driver_hit
+	plasma_fire
+	plasma_hit
+	kinectic_artillery_fire
+	adv_kinectic_fire
+	adv_kinectic_hit
+	kinectic_artillery_hit
+	arc_emitter_small_windup
+	arc_emitter_windup
+	arc_emitter_fire
+	xl_arc_emitter_fire
+	crystal_projectile_fire
+	crystal_projectile_hit
+	flak_weapon_fire
+	ship_destroyed
+	ship_destroyed_big_explosion
+	ship_explosion
+	ship_explosion_large
+	station_explosion_small
+	station_explosion_large
+	station_explosion_energy
+	shield_hit
+	swarm_scroge_missile_fire
+	swarm_scroge_missile_hit
+	swarmer_missile_fire
+	swarmer_missile_hit
+	railgun_fire
+	railgun_hit
+	energy_lance_fire
+	energy_lance_hit
+	tachyon_lance_windup
+	tachyon_lance_fire
+	tachyon_lance_hit
+	space_amoeba_fire
+	space_amoeba_hit
+	space_whale_fire
+	space_whale_hit
+	point_defense_fire
+	disruptor_fire
+	disruptor_hit
+	titan_laser_windup_01
+	titan_laser_windup_02
+	titan_laser_fire_01
+	titan_laser_fire_02
+	titan_laser_fire_03
+	titan_laser_hit
+	
+	####### FAR
+	distance_laser_fire
+	distance_laser_hit
+	distance_missile_fire
+	distance_missile_hit
+	distance_energy_torpedo_fire
+	distance_energy_torpedo_hit
+	distance_torpedo_fire
+	distance_torpedo_hit
+	distance_auto_cannon_fire_large
+	distance_auto_cannon_fire_medium
+	distance_auto_cannon_fire_small
+	distance_auto_cannon_hit_large
+	distance_auto_cannon_hit_medium
+	distance_auto_cannon_hit_small
+	distance_mass_driver_fire
+	distance_mass_driver_hit
+	distance_plasma_fire
+	distance_plasma_hit
+	distance_kinectic_artillery_fire
+	distance_kinectic_artillery_hit
+	distance_adv_kinectic_fire
+	distance_adv_kinectic_hit
+	distance_arc_emitter_fire
+	distance_xl_arc_emitter_fire
+	distance_crystal_projectile_fire
+	distance_crystal_projectile_hit
+	distance_flak_weapon_fire
+	distance_ship_destroyed
+	distance_ship_destroyed_big_explosion
+	distance_shield_hit
+	distance_swarm_scroge_missile_fire
+	distance_swarm_scroge_missile_hit
+	distance_swarmer_missile_fire
+	distance_swarmer_missile_hit
+	distance_railgun_fire
+	distance_railgun_hit
+	distance_energy_lance_fire
+	distance_energy_lance_hit
+	distance_achyon_lance_windup
+	distance_tachyon_lance_fire
+	distance_tachyon_lance_hit
+	distance_space_amoeba_fire
+	distance_space_amoeba_hit
+	distance_space_whale_fire
+	distance_space_whale_hit
+	distance_point_defense_fire
+	distance_disruptor_fire
+	distance_disruptor_hit
+	distance_titan_laser_fire_01
+	distance_titan_laser_fire_02
+	distance_titan_laser_fire_03
+	
+	######## BOMBARDMENT
+	
+	bombardment_explosion
+ }
+  
+ compressor = 
+ {
+ enabled = yes
+ pregain = 8.0
+ postgain = -10.5
+ ratio = 10.0
+ threshold = -20.0
+ attacktime = 0.500
+ releasetime = 0.02
+ }
+}
+
+################## EFFECTS ########################
+
+category = {
+ name = "Effects"
+ soundeffects = {
+	
+	####### DEBUG
+	test_interface
+	test_engine_up
+	test_engine_loop
+	placeholder_sfx
+	
+	####### UI
+	no_sound
+	dismiss_notification
+	click
+	back_click
+	interface
+	tab_click
+	mouse_over
+	click_decline_action
+	menu_slide_open
+	planet_view_menu_slide
+	planet_view_menu_click_01
+	spaceport_amb_view
+	menu_building_slide
+	research_click_01
+	ui_click_research_tab
+	ui_research_done
+	deactive_builing
+	active_building
+	destroy_building_01
+	confirmation
+	ui_deselect
+	select_click
+	assign_leader_click
+	ui_notification_leader_death
+	ui_galaxy_map_open
+	ui_galaxy_map_close
+	outliner_click_tab
+	click_outliner
+	click_army_menu
+	click_army_select
+	click_embark_all
+	click_land_all
+	notification_war
+	purge
+	enslave
+	ui_speed_down_time_click
+	ui_speed_up_time_click
+	ui_click_pause
+	click_move_fleet
+	ui_click_map_mode
+	invalid_action
+	reinforce_all
+	increment_click
+	decrement_click
+	confirm_click
+	randomizer_click
+
+
+	####### NOTIFICATION
+	discovery
+	alert_construction_complete
+	spaceport_complete_alert
+	army_construction_done
+	fleet_under_attack
+	army_combat
+	notification
+	survey_complete
+	alert_research_notification
+	alert_negative
+	diplomatic_notification
+	notification_hostile_fleet
+	notification_repair_fleet
+	tradition_available
+	research_scientist_missing
+	resources_capped
+	set_war_goal
+	powerful_factions
+	high_war_exhaustion
+	make_claims
+	
+	####### SELECT & ORDER FLEET + POPS
+	moving_pop_confirmation
+	robot_pops_move
+	arthopoid_pops_move
+	avian_pops_move
+	fungoid_pops_move
+	molluscoid_pops_move
+	reptilian_pops_move
+	select_fleet
+	select_colony_ship
+	select_construction_ship
+	select_science_ship
+	select_spacestation
+	select_mining_station
+	select_outpost_station
+	moving_out_corvette
+	moving_out_destroyer
+	moving_out_cruiser
+	moving_out_battleship
+	moving_out_science
+	moving_out_construction
+	moving_out_colony_ship
+	moving_out_transport
+	moving_out_fallen_empire_ship
+	ship_engine_off
+
+	
+	######## BUILDINGS
+	queuing_army
+	queuing_ship
+	queuing_building
+	queing_spaceport_module
+	place_construction
+	building_destroyed_01
+	building_built_01
+	
+	####### EVENTS SFX
+	event_space_battle
+	event_ship_explosion
+	event_ship_bridge
+	event_radio_chatter
+	event_radio_chatter_02
+	event_planetary_riot
+	event_alien_signal
+	event_airlock
+	event_super_explosion
+	event_air_raid_siren
+	event_alien_nature
+	event_construction
+	event_default
+	event_mystic_reveal
+	event_mystic_reveal_light
+	event_primitive_civilization
+	event_scanner
+	event_ship_thrusters
+	event_ground_battle
+	event_activating_unknown_technology
+	event_cityscape
+	event_structural_collapse
+	event_laboratory_sound
+	event_administrative_work
+	event_red_alert
+	event_ghost_town
+	event_life_support_fail
+	event_sensor_ping
+	event_conversation
+	event_space_cloud
+	event_crystal_ship
+	event_space_amoeba
+	event_space_whale
+	event_ancient_drone
+	event_swarm
+	event_solar_fusion
+	event_swarm_started
+	incoming_swarm_message_state_1
+	incoming_swarm_message_state_2
+	event_ex_started
+	incoming_ex_message_state_01
+	incoming_ex_message_state_02
+	incoming_ex_message_state_03
+	event_ai_started
+	incoming_ai_message_state_01
+	incoming_ai_message_beep
+	notification_uplift
+	event_celebration
+	event_yellow_alert
+	event_factions
+	
+	####### PLANET VIEW
+	pc_b_star
+	pc_a_star
+	pc_f_star
+	pc_g_star
+	pc_k_star
+	pc_m_star
+	pc_m_giant_star
+	pc_t_star
+	pc_ai
+	pc_arid
+	pc_barren
+	pc_continental
+	pc_desert
+	pc_frozen
+	pc_molten
+	pc_nuked
+	pc_ocean
+	pc_toxic
+	pc_tropical
+	pc_tundra
+	pc_asteroid
+	pc_ice_asteroid
+	pc_barren_cold
+	pc_arctic
+	pc_gas_giant
+	pc_infested
+	pc_gaia
+	pc_shielded
+	pc_savannah
+	pc_alpine
+	pc_shroud_eaten
+
+	########## PHENOTYPES
+	arthopoid_generic_greeting
+	avian_generic_greeting
+	fungoid_generic_greeting
+	human_female_greetings_01
+	human_female_greetings_02
+	human_female_greetings_03
+	human_female_greetings_04
+	human_female_greetings_05
+	human_male_greetings_01
+	human_male_greetings_02
+	human_male_greetings_03
+	human_male_greetings_04
+	human_male_greetings_05
+	human_generic_greeting
+	molluscoid_generic_greeting
+	reptilian_generic_greeting
+	arthropoid_01_greetings
+	cute_arthopoid_greetings
+	avian_01_greetings
+	fungoid_01_greetings
+	fungoid_02_greetings
+	cute_fungoid_greetings
+	mammalian_01_greetings
+	molluscoid_01_greetings
+	cute_molluscoid_snail_greetings
+	cute_molluscoid_starfish_greetings
+	reptilian_01_greetings
+	cute_reptilian_greetings
+	fallen_empire_01_greetings	
+	humanoid_male_greeting_a
+	humanoid_male_greeting_b
+	humanoid_male_greeting_c
+	humanoid_male_greeting_d
+	humanoid_female_greeting_a
+	humanoid_female_greeting_b
+	humanoid_female_greeting_c
+	humanoid_female_greeting_d
+	
+	######### SHIP DESIGNER
+	
+	designer_add_section
+	designer_add_utility
+	designer_add_weapon
+	
+	######### END GAME CRISIS AMBIENT
+	ai_empire_ambient_stage_final
+	ai_empire_ambient_stage_3
+	ai_empire_ambient_stage_2
+	ai_empire_ambient_stage_1
+	swarm_crisis_ambient_stage_final
+	swarm_crisis_ambient_stage_3
+	swarm_crisis_ambient_stage_2
+	swarm_crisis_ambient_stage_1
+	extradimensional_crisis_ambient_stage_final
+	extradimensional_crisis_ambient_stage_3
+	extradimensional_crisis_ambient_stage_2
+	extradimensional_crisis_ambient_stage_1
+ }
+ 
+ compressor = 
+ {
+ enabled = yes
+ pregain = 2.0
+ postgain = 1.5
+ ratio = 10.0
+ threshold = -8.0
+ attacktime = 0.30
+ releasetime = 0.020
+ }
+}
+ ################## VOICE ########################
+
+category = {
+ name = "Voice"
+ soundeffects = {
+	####### VIR
+	advisor_clicking_respons_01
+	advisor_clicking_respons_05
+	advisor_clicking_respons_06
+	advisor_clicking_respons_07
+	advisor_clicking_respons_08
+	advisor_clicking_respons_09
+	advisor_clicking_respons_10
+	advisor_clicking_respons_11
+	advisor_clicking_respons_12
+	advisor_clicking_respons_13
+	advisor_clicking_respons_14
+	advisor_clicking_respons_15
+	advisor_clicking_respons_16
+	generic_democratic_male_intro
+	generic_democratic_female_intro
+	generic_autocratic_intro
+	generic_plutocratic_intro
+	democratic_materialist_intro
+	plutocratic_materialist_intro
+	autocratic_materialist_intro
+	plutocratic_militarists_intro
+	democratic_militarists_intro
+	autocratic_militarists_intro
+	plutocratic_pacifist_intro
+	autocratic_pacifist_intro
+	democratic_pacifist_intro
+	spiritualists_intro
+	
+	autocratic_exceutor_intro
+	democratic_commissioner_intro
+	militarist_commissary_intro
+	militarist_imperator_intro
+	militarist_imperatrix_intro
+	militarist_warlord_intro
+	militarist_clan_speaker_intro
+	militarist_strategos_intro
+	pacifist_serene_protector_intro
+	materialist_primarch_intro
+	materialist_chairman_intro
+	materialist_chairwoman_intro
+	materialist_primus_intro
+	materialist_overseer_intro
+	materialist__first_spearker_intro
+	autocratic_protector_intro
+	
+	full_tut_advisor
+	limited_tut_advisor
+	no_tut_advior
+	########## FULL TUTORIAL
+	tut_build_colony_ship_intro
+	tut_colony_ship_success
+	tut_construction_intro
+	tut_construction_success
+	tut_establish_colony_intro
+	tut_establish_colony_success
+	tut_establish_sector_intro
+	tut_establish_sector_success
+	tut_increase_fleet_intro
+	tut_increase_fleet_success
+	tut_mining_station_intro
+	tut_mining_station_success
+	tut_modify_species_intro
+	tut_modify_species_success
+	tut_more_colonies_intro
+	tut_more_colonies_success
+	tut_new_first_contact_intro
+	tut_new_first_contact_monster_success
+	tut_new_first_contact_other_party
+	tut_new_first_contact_success
+	tut_observation_posts_intro
+	tut_observation_posts_success
+	tut_planetary_buildings_intro
+	tut_planetary_buildings_success
+	tut_pre_sapients_intro
+	tut_pre_sapients_success
+	tut_recruit_governor_intro
+	tut_recruit_governor_success
+	tut_recruit_scientist_intro
+	tut_recruit_scientist_success
+	tut_research_station_intro
+	tut_research_station_success
+	tut_resources_production_intro
+	tut_resources_production_success
+	tut_robot_pops_intro_01
+	tut_robot_pops_success
+	tut_science_ship_intro
+	tut_science_ship_success
+	tut_sector_governor_intro
+	tut_sector_governor_success
+	tut_ship_design_intro
+	tut_ship_design_success
+	tut_strategic_resources_intro
+	tut_strategic_resources_success
+	tut_survey_intro
+	tut_survey_success
+	tut_survey_system_success
+	tut_suvey_systems_intro
+	tut_technologies_intro
+	tut_technologies_success
+	tut_tile_blockers_intro
+	tut_tile_blockers_success
+	
+	tut_uplift_reminder
+	tut_strategic_resources_early
+	tut_ftl_wormhole_travel
+	tut_ftl_warp_travel
+	tut_ftl_hyperlane_travel
+	tut_frontier_station_success
+	tut_frontier_station_intro
+	
+	tut_no_tutorial_settings
+	tut_limited_tutorial_settings
+	tut_full_tutorial_settings
+
+	tut_msg_war_overview
+	tut_msg_anomaly_tracker	
+	
+	########## TUTORIAL MESSAGES
+	
+	tut_msg_PLANETVIEW_ADJACENCY_BONUS
+	tut_msg_UNKNOWN_ALIEN_FLEET
+	tut_msg_PLANETVIEW_COMBAT
+	tut_msg_GOVERNMENTVIEW_BUDGET
+	tut_msg_CONSTRUCTION_SHIP
+	tut_msg_CONTACTSVIEW_EMPIRES
+	tut_msg_CREATESECTOR
+	tut_msg_GOVERNMENTVIEW_DEMOGRAPHICS
+	tut_msg_DIPLOMACY_VIEW
+	tut_msg_PLANETVIEW_EDICTS
+	tut_msg_EMPIREVIEW_PLANETS
+	tut_msg_EMPIREVIEW_FACTIONS
+	tut_msg_GOVERNMENTVIEW_GOVERNMENT
+	tut_msg_EMPIREVIEW_LEADERS
+	tut_msg_MILITARY_FLEET
+	tut_msg_MILITARY_STATION
+	tut_msg_MINING_STATION
+	tut_msg_GENEMODIFICATION
+	tut_msg_OBSERVATION_STATION
+	tut_msg_PLANETVIEW_PLANET
+	tut_msg_GOVERNMENTVIEW_DECISIONS
+	tut_msg_RESEARCH_STATION
+	tut_msg_SCIENCE_SHIP
+	tut_msg_SHIP_DESIGNER
+	tut_msg_SITUATION_LOG
+	tut_msg_PLANETVIEW_SPACEPORT
+	tut_msg_CONTACTSVIEW_SPECIES
+	tut_msg_PLANETVIEW_TILES
+	tut_msg_SYSTEMVIEW
+	tut_msg_TECH_VIEW
+	tut_msg_PLANETVIEW_TERRAFORM
+	tut_msg_TERRAFORMING_STATION
+	tut_msg_TRANSPORT_SHIP
+	tut_msg_UPLIFTING
+	tut_msg_WORMHOLE_STATION
+	tut_msg_VICTORY
+	tut_msg_OUTPOST_STATION
+	tut_msg_WAR_GOAL
+	tut_msg_WAROVERVIEW
+	tut_msg_STRATEGIC_RESOURCES
+	tut_msg_EXPANSION_PLANNER
+	tut_msg_TRADITIONS
+	tut_msg_ASCENSION_PERKS
+	tut_msg_SPECIES_RIGHTS
+	tut_msg_FLEET_MANAGER
+	tut_msg_CLAIMS_VIEW
+	tut_msg_ANOMALIES
+	
+	tut_msg_victory_screen
+	tut_msg_galaxy_map
+	tut_msg_frontier_outpost
+	
+	########## LIMITED TUTORIAL
+	event_first_discovery_advisor
+	event_potential_colony_advisor
+	event_first_colony_advisor
+	event_negative_income_advisor
+	event_surverying_advisor
+	event_first_contact_neutral_advisor
+	event_first_contact_xenophile_advisor
+	event_first_contact_xenophobe_advisor
+	event_fallen_empire_advisor
+	advisor_generic_phrase
+	
+	########## NOTIFICATION
+	advisor_notification_system_survey_complete
+	advisor_notification_science_ship_destroyed
+	advisor_notification_science_ship_under_attack
+	advisor_notification_construction_complete
+	advisor_notification_construction_ship_destroyed
+	advisor_notification_construction_ship_under_attack
+	advisor_notification_colony_established
+	advisor_notification_colony_ship_under_attack
+	advisor_notification_colony_ship_destroyed_01
+	advisor_notification_hostile_fleet_detected
+	advisor_notification_hostile_fleet_engaged
+	advisor_notification_fleet_destroyed
+	advisor_notification_station_under_attack
+	advisor_notification_planet_in_revolt
+	advisor_notification_special_project_complete
+	advisor_notification_enemy_troops_landing
+	advisor_notification_incoming_transmission
+	advisor_notification_research_complete
+	advisor_notification_discovery_detected
+	
+	advisor_notification_military_station_lost
+	advisor_notification_mining_station_lost
+	advisor_notification_research_station_lost
+	advisor_notification_observation_post_lost
+	advisor_notification_outpost_station_lost
+	advisor_notification_wormhole_station_lost
+	advisor_notification_situation_log
+	advisor_notification_evade_hostile_fleet
+	advisor_notification_ships_upgraded
+	advisor_notification_spaceport_lost
+	advisor_notification_enemy_invasion_defeated
+	advisor_notification_invasion_enemy_won
+	advisor_notification_invasion_failed
+	advisor_notification_invasion_progress
+	advisor_notification_invasion_success
+	
+	advisor_notification_alien_spaceport_engaged
+	advisor_notification_building_ruined
+	advisor_notification_colonization_progress
+	advisor_notification_debris_analysed
+	advisor_notification_enemy_declared_war
+	advisor_notification_federation_formed
+	advisor_notification_frontier_outpost_lost
+	advisor_notification_hostile_station_engaged
+	advisor_notification_player_declare_war
+	advisor_notification_primitive_enlighted
+	advisor_notification_species_modified
+	advisor_notification_tile_blocker_clear
+	advisor_notification_unidentified_object
+	
+	advisor_notification_alien_empire_communication_01
+	advisor_notification_alien_federation_formed
+	advisor_notification_alien_vessel_encountered
+	advisor_notification_generic_war_declare
+	advisor_notification_pre_sapient_uplifted
+	advisor_notification_spacebourne_encounter
+	advisor_notification_spaceport_under_attack
+
+	########## ADVISOR SAMPLE VOICE TYPE
+	advisor_sample_voice_type
+	
+	
+ }
+ 
+ compressor = 
+ {
+ enabled = yes
+ pregain = 4.0
+ postgain = -2.2
+ ratio = 3.0
+ threshold = -25
+ attacktime = 0.30
+ releasetime = 0.8
+ }
+}
+
+category = {
+ name = "Ambient"
+ soundeffects = {
+
+	####### SYSTEM AMBIENT
+	amb_star_fusion
+	amb_planet_class
+	amb_planet_class_02
+	gas_giant_amb_hum
+	amb_molten_world_a
+	amb_molten_world_b
+	amb_toxic_world_a
+	amb_toxic_world_b
+	pulsar_star_idle_hum
+	neutron_star_idle_hum
+	amb_research_station_signals
+	amb_mining_station_signals
+	amb_wormhole_station_idle
+	amb_outpost_station_idle
+	amb_terraforming_station_idle_hum
+	amb_science_ship_hum
+	amb_construction_ship_hum
+	amb_colony_ship_hum
+	amb_transport_ship_hum
+	amb_corvette_hum
+	amb_destroyer_hum
+	amb_cruiser_hum
+	amb_battleship_hum
+	amb_battleship_bass
+	amb_astroid_fields
+	abandoned_ship_idle_amb
+	amb_wrecked_shipyard_idle
+	spaceport_hum_idle
+	fungoid_spaceport_cylinders
+	fungoid_colossus_cylinders
+	ringworld_hum_idle_01
+	ringworld_hum_idle_02
+	ringworld_construction_ambient
+	defense_station_idle_hum
+	blackhole_hum_idle
+	amb_event_ship_01_idle
+	amb_event_ship_02_idle
+	amb_event_ship_03_idle
+	amb_event_ship_04_idle
+	amb_event_ship_05_idle
+	amb_event_ship_06_idle
+	amb_event_ship_07_idle
+	amb_event_ship_08_idle
+	amb_event_ship_09_idle
+	pirate_battleship_idle
+	space_pirate_large_ship
+	space_pirate_small_ship
+	space_pirate_station
+	ex_battleship_hum
+	ex_corvette_hum
+	ex_mining_station_signals
+	ex_research_station_signals
+	ex_starship_hum
+	ex_dimensional_portal_idle
+	ex_dimensional_portal_thunder
+	extra_dimensional_station_death
+	distance_extra_dimensional_station_death
+	extra_dimensional_ship_death
+	distance_extra_dimensional_ship_death
+	ai_civ_civilship
+	ai_civ_station
+	ai_civ_warship
+	amb_fallen_empire_titan_idle
+	amb_fallen_empire_titan_death
+	amb_fallen_empire_warship_01
+	amb_fallen_empire_station_01
+	amb_fallen_empire_civilship_01
+	probe_idle
+	amb_cylinder_ship_01_idle
+	amb_cargo_ship_01_idle
+	abandoned_ship_idle
+	amb_sensor_station_01_idle
+	amb_generic_station_idle
+	amb_damaged_generic_station_idle
+	amb_primitive_station_idle
+	amb_ship_wreck_idle
+	swarm_small_warship_idle
+	swarm_large_warship_idle
+	swarm_large_warship_death
+	swarm_small_station_idle
+	swarm_station_explosion_small
+	swarm_station_explosion_large
+	swarm_big_station_idle
+	swarm_civlian_ship_idle
+	swarm_civilian_death
+	swarm_queen_idle_01
+	swarm_queen_idle_02
+	swarm_queen_death
+	swarm_generic_idle
+	space_cloud_idle
+	space_cloud_attack
+	space_cloud_death
+	crystal_ship_idle
+	crystal_ship_death
+	crystal_ship_large_idle
+	crystal_ship_large_death
+	distance_crystal_ship_large_death
+	ancient_drone_idle
+	ancient_drone_mining_idle
+	ancient_drone_station_idle
+	ark_ship_idle
+	space_whale_idle
+	space_whale_death
+	space_amoeba_idle
+	space_amoeba_death
+	survey_progress
+	construction_progress_loop
+	construction_progress_00
+	construction_progress_20
+	construction_progress_40
+	construction_progress_60
+	construction_progress_80
+	welding_bot
+	space_ambient
+	falling_star
+	space_ambient_layer_02
+	amb_galaxy_map_01
+	amb_galaxy_map_02
+	incoming_wormhole
+	amb_large_crystal_station_idle
+	amb_large_crystal_station_death
+	distance_amb_large_crystal_station_death
+	amb_terraforming_station_active
+	amb_super_explosion
+	
+	####### FTL
+	ftl_warp_jump_out_ship
+	ftl_warp_jump_in_ship
+	ftl_warp_charge_up_ship
+	ftl_hyperlane_in_coming_ship
+	ftl_hyperlane_out_coming_ship
+	ftl_hyperlane_charge_ship
+	ftl_wormhole_incoming_ship
+	ftl_wormhole_close_ship
+ }
+ 
+ compressor = 
+ {
+ enabled = yes
+ pregain = 7.0
+ postgain = 5.0
+ ratio = 5.0
+ threshold = -15.0
+ attacktime = 0.030
+ releasetime = 1.2
+ }
+}
