@@ -1,3 +1,5 @@
+# 0.5.26
+* Update config rules
 # 0.5.25
 * Add config rules for interface/gfx/sounds/music/fonts
 * Add `path_strict` option for types which prevents subfolders being searched
