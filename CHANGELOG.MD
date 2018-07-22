@@ -1,3 +1,5 @@
+# 0.5.28
+* Update config rules
 # 0.5.27
 * Fix completion bug
 # 0.5.26
