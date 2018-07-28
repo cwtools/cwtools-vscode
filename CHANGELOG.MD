@@ -1,7 +1,9 @@
+# 0.5.29
+* Add flag usage validator
 # 0.5.28
 * Update config rules
 # 0.5.27
-* Fix completion bug
+* Fix completion
 # 0.5.26
 * Update config rules
 # 0.5.25
