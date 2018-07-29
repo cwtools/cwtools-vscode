@@ -9,6 +9,11 @@ nuget FParsec
 nuget FSharp.Data 3.0.0-beta3
 nuget Newtonsoft.Json.Fsharp
 nuget FSharp.Collections.ParallelSeq
+nuget DotNet.Glob
+nuget FSharpx.Collections
+nuget Sandwych.QuickGraph.Core
+git https://github.com/tboby/cwtools
+
 
 source https://dotnet.myget.org/F/dotnet-core/api/v3/index.json
 nuget ILLink.Tasks 0.1.4-preview-981901
@@ -16,4 +21,4 @@ nuget ILLink.Tasks 0.1.4-preview-981901
 group build
     source https://www.nuget.org/api/v2
 
-    nuget Fake
+    nuget Fake ~> 4
