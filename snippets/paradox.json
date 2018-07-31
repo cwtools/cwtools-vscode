@@ -19,7 +19,7 @@
             "\t}",
             "\toption = {",
             "\t\t",
-            "\t}",  
+            "\t}",
             "}"
         ],
         "description": "Event show"
@@ -29,11 +29,11 @@
         "body":[
             "${1|country_event,ship_event,planet_event,fleet_event,pop_event,pop_faction_event,event|} = {",
             "\tid = ${2:id}",
-            "\thide_window = true",
+            "\thide_window = yes",
             "\ttrigger = {",
             "\t\t",
             "\t}",
-            "\tmean_time_to_happen = { }",
+            "\tis_triggered_only = yes",
             "\timmediate = {",
             "\t\t",
             "\t}",

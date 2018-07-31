@@ -3,7 +3,9 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetLatestRuntimePatch>True</TargetLatestRuntimePatch>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
  <PropertyGroup><EnableDefaultItems>false</EnableDefaultItems></PropertyGroup>
@@ -17,7 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />
-    <ProjectReference Include="../../paket-files/github.com/tboby/cwtools/CWTools/CWTools.fsproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

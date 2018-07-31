@@ -108,7 +108,7 @@ type Server(client: ILanguageClient) =
         (file, result)
 
     let sendDiagnostics s =
-        let diagnosticFilter (f, d) =
+        let diagnosticFilter ((f : string), d) =
             match (f, d) with
             | _, {code = Some code} when List.contains code ignoreCodes -> false
             | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
