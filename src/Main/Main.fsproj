@@ -5,8 +5,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
-
- <PropertyGroup><EnableDefaultItems>false</EnableDefaultItems></PropertyGroup>
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="ProjectManager.fs" />
     <Compile Include="Program.fs" />
@@ -18,5 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />
   </ItemGroup>
+  <Import Project="..\..\paket-files\localfilesystem/cwtools/" />
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
