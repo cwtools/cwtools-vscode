@@ -116,7 +116,7 @@ let rec private serializer (options: JsonWriteOptions, t: Type): obj -> string =
             let asEnum = outer :?> System.Collections.IEnumerable
             let asSeq = Seq.cast<obj>(asEnum)
             let inners = Seq.map serializeInner asSeq
-            let join = String.Join(',', inners)
+            let join = String.Join(",", inners)
             sprintf "[%s]" join
     elif isOption t then
         let [|innerType|] = t.GetGenericArguments()
