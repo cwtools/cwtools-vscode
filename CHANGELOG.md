@@ -1,3 +1,8 @@
+# 0.5.30
+* Update to 2.1.2
+* Reduce flag usage to a warning
+* Improve flag usage validator coverage
+* Add megastructure/planet_class model validator
 # 0.5.29
 * Add flag usage validator
 # 0.5.28
