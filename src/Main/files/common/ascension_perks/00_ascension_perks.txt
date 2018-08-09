@@ -501,7 +501,12 @@ ap_world_shaper = {
 		NOT = {
 			has_ascension_perk = ap_world_shaper
 		}
-		NOT = { has_authority = auth_machine_intelligence }
+		OR = {
+			NOT = { has_authority = auth_machine_intelligence }
+			has_valid_civic = civic_machine_servitor
+			has_valid_civic = civic_machine_assimilator
+		}
+		
 	}
 	
 	ai_weight = {

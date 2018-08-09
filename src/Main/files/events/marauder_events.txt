@@ -5744,6 +5744,7 @@ fleet_event = {
 			destroy_on_arrival = yes
 			clear_auto_move_on_arrival = yes
 		}
+		fleet_event = { id = marauder.118 days = 360 } # Kill fleet after 1 year regardless
 		random_country = {
 			limit = { 
 				is_country_type = dormant_marauders
@@ -6073,6 +6074,7 @@ event = {
 						destroy_on_arrival = yes
 						clear_auto_move_on_arrival = yes
 					}
+					fleet_event = { id = marauder.118 days = 360 } # Kill fleet after 1 year regardless
 				}
 			}
 			random_country = {
@@ -6226,6 +6228,18 @@ country_event = {
 
 	option = {
 		name = marauder.117.a
+	}
+}
+
+# Kill Raiding Fleet if it gets stuck
+fleet_event = {
+	id = marauder.118
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		delete_fleet = this
 	}
 }
 
@@ -8955,9 +8969,12 @@ country_event = {
 		owner_species = { save_event_target_as = marauder_species }
 		every_owned_fleet = {
 			limit = {
-				NOT = { any_ship = { is_ship_size = starbase_marauder } }
+				count_fleet_ships = {
+					count < 1
+					limit = { is_ship_size = starbase_marauder }
+				}
 			}
-			destroy_fleet = this
+			delete_fleet = this
 		}
 		every_country = {
 			limit = { has_modifier = satrapy_of_horde }
@@ -9023,13 +9040,12 @@ country_event = {
 		owner_species = { save_event_target_as = marauder_species }
 		every_owned_fleet = {
 			limit = {
-				OR = {
-					has_fleet_flag = satrapy_garrison
-					has_fleet_flag = satrapy_garrison_fleet
-					has_fleet_flag = horde_auxuliaries
+				count_fleet_ships = {
+					count < 1
+					limit = { is_ship_size = starbase_marauder }
 				}
 			}
-			destroy_fleet = this
+			delete_fleet = this
 		}
 		every_subject = {
 			country_event = { id = marauder.671 days = 10 }
@@ -9148,6 +9164,9 @@ country_event = {
 					owner = event_target:new_khanate
 				}
 			}
+			create_marauder_successor_fleet = yes
+			create_marauder_successor_fleet = yes
+			create_marauder_successor_fleet = yes
 		}
 		# Establish Communications
 		every_country = {
@@ -9175,6 +9194,15 @@ country_event = {
 
 	immediate = {
 		owner_species = { save_event_target_as = marauder_species }
+		every_owned_fleet = {
+			limit = {
+				count_fleet_ships = {
+					count < 1
+					limit = { is_ship_size = starbase_marauder }
+				}
+			}
+			delete_fleet = this
+		}
 		create_country = {
 			name_list = random
 			species = event_target:marauder_species
@@ -9279,6 +9307,9 @@ country_event = {
 					owner = event_target:new_khanate
 				}
 			}
+			create_marauder_successor_fleet = yes
+			create_marauder_successor_fleet = yes
+			create_marauder_successor_fleet = yes
 		}
 
 		# Establish Communications

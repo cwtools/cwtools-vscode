@@ -1,6 +1,7 @@
 #an_anomaly_category = {				# Anomaly category ID key
 #
 #	should_ai_use = yes/no			# Allows AI empires to generate the category. Default: no
+#	should_ai_and_humans_use = yes/no # If yes, both AI and human empires can use this anomaly (overrides should_ai_use)
 #
 #	desc = "key"					# Optional, if no desc is given "<category key>_desc" is assumed
 #

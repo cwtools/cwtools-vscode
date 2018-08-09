@@ -1087,6 +1087,7 @@ country_event = {
 			NOT = { has_opinion_modifier = { who = prev modifier = opinion_majorly_failed_fallen_empire_task } }
 			
 			any_country = {
+				is_country_type = default
 				root = { is_rival = prev }
 				allows_purge = yes
 				
@@ -1111,6 +1112,7 @@ country_event = {
 				NOT = { has_opinion_modifier = { who = prev modifier = opinion_refused_fallen_empire_task } }
 				
 				any_country = {
+					is_country_type = default
 					root = { is_rival = prev }
 					allows_purge = yes
 					
@@ -1121,6 +1123,7 @@ country_event = {
 			
 			random_country = {	
 				limit = {
+					is_country_type = default
 					root = { is_rival = prev }
 					allows_purge = yes
 					
@@ -1490,6 +1493,7 @@ country_event = {
 			factor = 0.5
 			
 			any_country = {
+				is_country_type = default
 				root = { is_rival = prev }
 				OR = {
 					has_policy_flag = ai_full_rights
@@ -1505,6 +1509,7 @@ country_event = {
 			factor = 0.5
 			
 			any_country = {
+				is_country_type = default
 				root = { is_rival = prev }
 				OR = {
 					has_policy_flag = ai_full_rights
@@ -1550,6 +1555,7 @@ country_event = {
 			NOT = { has_opinion_modifier = { who = prev modifier = opinion_majorly_failed_fallen_empire_task } }
 			
 			any_country = {
+				is_country_type = default	
 				root = { is_rival = prev }
 				OR = {
 					has_policy_flag = ai_full_rights
@@ -1590,6 +1596,7 @@ country_event = {
 			
 			random_country = {	
 				limit = {
+					is_country_type = default
 					root = { is_rival = prev }
 					OR = {
 						has_policy_flag = ai_full_rights

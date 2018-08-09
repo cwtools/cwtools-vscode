@@ -592,10 +592,17 @@ BARR_BASE_CAT = {
 	picture = "GFX_evt_archaeological_dig"
 	level = 5
 	
+	max_once_global = yes
 	spawn_chance = {
 		modifier = {
 			add = 3
 			is_planet_class = pc_barren
+		}
+		modifier = {
+			factor = 0
+			owner = {
+				has_ethic = ethic_gestalt_consciousness
+			}
 		}
 	}
 	
@@ -1229,7 +1236,7 @@ AST_CLUSTER_CAT = {
 GAEA_CHECKERED_CAT = {
 	desc = "GAEA_CHECKERED_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 4
+	level = 2
 	
 	spawn_chance = {
 		modifier = {

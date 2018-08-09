@@ -19,6 +19,7 @@ ship_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		owner = { set_country_flag = upl_snakeoid }
 		owner = { set_country_flag = found_presapients }
 		owner = { country_event = { id = tutorial.57 days = 5 } }
 		owner = { country_event = { id = story.4 days = 30 } }
@@ -106,6 +107,10 @@ planet_event = {
 
 	trigger = {
 		has_planet_flag = snakeoid_planet
+	}
+
+	immediate = {
+		owner = { remove_country_flag = upl_snakeoid }
 	}
 
 	option = {
@@ -1529,6 +1534,7 @@ ship_event = {
 	is_triggered_only = yes
 
 	immediate = {
+		owner = { set_country_flag = upl_ongoing_generic }
 		owner = { set_country_flag = found_presapients }
 		owner = { country_event = { id = tutorial.57 days = 5 } }
 		owner = { country_event = { id = story.4 days = 30 } }

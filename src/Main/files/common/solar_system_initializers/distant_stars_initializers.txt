@@ -316,6 +316,10 @@ toxic_planet_toxic_moon = {
 			factor = 0
 			has_distar = no
 		}
+		modifier = {
+	        factor = 0
+	        has_star_flag = empire_cluster
+	    }
 	}
 
 	max_instances = 1
@@ -384,6 +388,10 @@ shattered_world_system = {
 			factor = 0
 			has_distar = no
 		}
+		modifier = {
+	        factor = 0
+	        has_star_flag = empire_cluster
+	    }
 	}
 
 	max_instances = 1
@@ -454,6 +462,10 @@ asteroid_system = {
 			factor = 0
 			has_distar = no
 		}
+		modifier = {
+	        factor = 0
+	        has_star_flag = empire_cluster
+	    }
 	}
 
 	max_instances = 1
@@ -738,6 +750,10 @@ hostile_init_amoeba = {
 			factor = 0
 			is_bottleneck_system = yes
 		}
+		modifier = {
+            factor = 0
+            has_star_flag = empire_cluster
+        }
 	}
 	
 	flags = { hostile_system amoeba_4_system }
@@ -832,6 +848,10 @@ hostile_init_void_cloud = {
 			factor = 0
 			is_bottleneck_system = yes
 		}
+		modifier = {
+            factor = 0
+            has_star_flag = empire_cluster
+        }
 	}
 
 	flags = { hostile_system void3_system }
@@ -1057,6 +1077,10 @@ ice_system = {
 			factor = 0
 			has_distar = no
 		}
+		modifier = {
+	        factor = 0
+	        has_star_flag = empire_cluster
+	    }
 	}
 
 	max_instances = 1
@@ -1164,6 +1188,10 @@ high_energy_system = {
 			factor = 0
 			has_distar = no
 		}
+		modifier = {
+	        factor = 0
+	        has_star_flag = empire_cluster
+	    }
 	}
 
 	max_instances = 1
@@ -1747,7 +1775,8 @@ primitive_robot_system = {
 				pop_ethics = no
 				#More will not be buildable due to 0 pop growth
 				effect = {
-					save_event_target_as = primitive_robot_species
+					set_species_flag = primitive_robots_flag
+					save_global_event_target_as = primitive_robot_species
 				}
 			}
 			every_tile = {
@@ -1924,9 +1953,6 @@ primitive_robot_system = {
 						}
 					}
 				}
-			}
-			event_target:primitive_robot_species = {
-				set_species_flag = primitive_robots_flag
 			}
 		}
 	}

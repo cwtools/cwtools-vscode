@@ -121,7 +121,7 @@ DISTAR_NANO_CAT = {
 DISTAR_FLOW_CAT = {
 	desc = "DISTAR_FLOW_CAT_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 1
+	level = 2
 	
 	spawn_chance = {
 		modifier = {
@@ -236,11 +236,11 @@ DISTAR_GEODE_CAT = {
 DISTAR_DEAD_GOD_CAT = {
 	desc = "DISTAR_DEAD_GOD_CAT_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 1
+	level = 2
 	
 	spawn_chance = {
 		modifier = {
-			add = 1000 #TODO:[DEE] Balance
+			add = 1000
 			has_distar = yes
 			is_moon = yes
 			solar_system = {
@@ -407,7 +407,7 @@ DISTAR_EXO_CAT = {
 	
 	spawn_chance = {
 		modifier = {
-			add = 99999 #TODO [DEE]
+			add = 10
 			has_distar = yes
 			habitable_planet = yes
 			planet_size > 15
@@ -570,11 +570,11 @@ DISTAR_MOLTEN_CAT = {
 DISTAR_MERCURY_CAT = {
 	desc = "DISTAR_MERCURY_CAT_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 2
+	level = 7
 	
 	spawn_chance = {
 		modifier = {
-			add = 1
+			add = 0.1
 			has_distar = yes
 			OR = {
 				is_planet_class = "pc_molten"
@@ -622,7 +622,7 @@ DISTAR_BRAINSLUG_CAT = {
 
 	spawn_chance = {
 		modifier = {
-			add = 9999 #TODO [DEE]
+			add = 10
 			has_distar = yes
 			habitable_planet = yes
 			OR = {
@@ -641,6 +641,8 @@ DISTAR_BRAINSLUG_CAT = {
 			set_building = "building_primitive_farm"
 		}
 	}
+
+	max_once_global = yes
 
 	on_success = {
 		1 = {
@@ -677,7 +679,7 @@ DISTAR_FLYTRAP_CAT = {
 	
 	spawn_chance = {
 		modifier = {
-			add = 9999 #TODO [DEE]
+			add = 10
 			habitable_planet = yes
 			NOR = { is_planet_class = pc_desert is_planet_class = pc_arctic }
 		}
@@ -720,7 +722,7 @@ DISTAR_LIVING_CAT = {
 DISTAR_ZONE_CAT = {
 	desc = "DISTAR_ZONE_CAT_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 1
+	level = 2
 	
 	spawn_chance = {
 		modifier = {
@@ -756,7 +758,7 @@ DISTAR_ZONE_CAT = {
 DISTAR_RAT_CAT = {
 	desc = "DISTAR_RAT_CAT_DESC"
 	picture = "GFX_evt_city_ruins"
-	level = 2
+	level = 3
 	
 	spawn_chance = {
 		modifier = {
@@ -1059,7 +1061,7 @@ DISTAR_MEDGAS_CAT = {
 debris_gasgiant_category_temp = {
 	desc = "debris_gasgiant_category_temp_desc"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 3
+	level = 8
 
 	max_once_global = yes
 	
@@ -1083,7 +1085,7 @@ debris_gasgiant_category_temp = {
 			factor = 0
 			has_distar = no
 			from.owner = {
-				NOR = {
+				OR = {
 					species_portrait = mam5
 					species_portrait = fun4
 				}
@@ -1158,7 +1160,7 @@ ast_debris_field_1_cat_2 = {
 			modifier = {
 				factor = 0
 				owner = {
-					NOT = {
+					OR = {
 						has_ethic = ethic_gestalt_consciousness 
 						species_portrait = mol8
 					}
@@ -1528,7 +1530,7 @@ disco_impossible_organism_cat = {
 disco_stranded_scientist_cat = {
 	desc = "disco_stranded_scientist_cat_desc"
 	picture= "GFX_evt_asteroid_field"
-	level = 1
+	level = 4
 
 	spawn_chance = {
 		modifier = {
@@ -1539,7 +1541,7 @@ disco_stranded_scientist_cat = {
 		modifier = {
 			factor = 0
 			from.owner = {
-				NOR = {
+				OR = {
 					has_ethic = ethic_gestalt_consciousness
 					has_ethic = ethic_fanatic_xenophobe
 				}
@@ -1554,7 +1556,7 @@ disco_stranded_scientist_cat = {
 disco_molluscoid_miners_cat = {
 	desc = "disco_molluscoid_miners_cat_desc"
 	picture = "GFX_evt_warm_barren"
-	level = 1
+	level = 3
 
 	spawn_chance = {
 		modifier = {
@@ -1584,7 +1586,7 @@ disco_molluscoid_miners_cat = {
 disco_alien_machine_cat = {
 	desc = "disco_alien_machine_cat_desc"
 	picture = "GFX_evt_asteroid_field"
-	level = 2
+	level = 3
 
 	spawn_chance = {
 		modifier = {
@@ -1607,7 +1609,7 @@ disco_alien_machine_cat = {
 disco_speed_demon_cat = {
 	desc = "disco_speed_demon_cat_desc"
 	picture = "GFX_evt_asteroid_field"
-	level = 1
+	level = 4
 
 	spawn_chance = {
 		modifier = {
@@ -1630,7 +1632,7 @@ disco_speed_demon_cat = {
 disco_breathing_rift_cat = {
 	desc = "disco_breathing_rift_cat_desc"
 	picture = "GFX_evt_ship_in_orbit_2"
-	level = 1
+	level = 3
 
 	spawn_chance = {
 		modifier = {

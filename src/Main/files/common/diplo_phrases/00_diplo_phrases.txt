@@ -7594,6 +7594,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			NOR = { 
 				has_civic = civic_machine_terminator
@@ -7612,6 +7613,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			NOR = { 
 				has_civic = civic_machine_terminator
@@ -7633,6 +7635,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			NOR = { 
 				has_civic = civic_machine_terminator
@@ -7651,6 +7654,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			NOR = { 
 				has_civic = civic_machine_terminator
@@ -8048,6 +8052,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			OR = {
 				has_authority = auth_machine_intelligence
 				is_species_class = ROBOT
@@ -8068,6 +8073,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			NOR = { 
 				has_civic = civic_machine_terminator 
@@ -8085,6 +8091,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			NOR = { 
 				has_civic = civic_machine_terminator 
@@ -8102,6 +8109,7 @@ greetings = {
 			weight = 1000
 		}
 		trigger = {
+			is_country_type = default
 			OR = {
 				has_authority = auth_machine_intelligence
 				is_species_class = ROBOT
@@ -11115,6 +11123,7 @@ greetings = {
 		}
 		trigger = {
 			is_at_war_with = from
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			from = {
 				has_country_flag = synthetic_empire
@@ -11128,6 +11137,7 @@ greetings = {
 		}
 		trigger = {
 			is_at_war_with = from
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			from = {
 				has_country_flag = synthetic_empire
@@ -11141,6 +11151,7 @@ greetings = {
 		}
 		trigger = {
 			is_at_war_with = from
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			from = {
 				has_country_flag = synthetic_empire
@@ -11154,6 +11165,7 @@ greetings = {
 		}
 		trigger = {
 			is_at_war_with = from
+			is_country_type = default
 			has_authority = auth_machine_intelligence
 			from = {
 				has_country_flag = synthetic_empire
@@ -15456,7 +15468,6 @@ action_invite_to_federation = {
 				from = {
 					has_federation = no
 					NOT = { has_ethic = ethic_gestalt_consciousness }
-					NOT = { is_same_species_class = ROOT }
 				}
 			}
 		}
@@ -15465,7 +15476,6 @@ action_invite_to_federation = {
 				from = {
 					has_federation = yes
 					NOT = { has_ethic = ethic_gestalt_consciousness }
-					is_same_species_class = ROOT
 				}
 			}
 		}

@@ -75,16 +75,26 @@ guiTypes = {
 			scale = 1.0
 		}
 		
+		buttonType = {
+			name = "rename"
+			quadTextureSprite = "gfx_transparency_button"
+			position = { x = 60 y = 35 }
+			size = { x = 248 y = 40 }
+			pdx_tooltip = "RENAME_FACTION_TOOLTIP"
+			oversound = no_sound
+		}
+		
 		instantTextBoxType = {
 			name = "selected_faction_name_label"
 			font = "malgun_goth_24"
 			text = "Klaxxagons liberation front"
 			position = { x = 64 y = 35 }
 			maxWidth = 250
-			maxHeight = 45
+			maxHeight = 35
 			fixedSize = no
 			format = left
 			vertical_alignment = center
+			alwaysTransparent = yes
 		}	
 		
 		instantTextBoxType = {

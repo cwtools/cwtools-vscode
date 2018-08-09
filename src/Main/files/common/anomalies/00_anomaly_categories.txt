@@ -1061,7 +1061,7 @@ terraforming_candidate_category = {
 	
 	spawn_chance = {		
 		modifier = {
-			add = 2
+			add = 0.5
 			NOT = { has_modifier = terraforming_candidate }
 			OR = {
 				is_planet_class = pc_barren
@@ -1095,7 +1095,7 @@ living_metal_category = {
 	
 	spawn_chance = {	
 		modifier = {
-			add = 1
+			add = 0.1
 			OR = {
 				is_planet_class = pc_barren
 				is_planet_class = pc_barren_cold

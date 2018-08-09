@@ -455,7 +455,9 @@ planet_event = {
 	trigger = {
 		has_planet_flag = primitive_robot_planet
 		any_pop = {
-			is_same_species = event_target:primitive_robot_species
+			species = {
+				has_species_flag = primitive_robots_flag
+			}
 		}
 		owner = {
 			is_country_type = default
@@ -3051,6 +3053,7 @@ ship_event = {
 				}
 			}
 		}
+		hidden_effect = { ship_event = { id = distar.305 days = 1 } }
 	}
 }
 
@@ -3948,6 +3951,7 @@ ship_event = {
 				}
 			}
 		}
+		hidden_effect = { ship_event = { id = distar.305 days = 1 } }
 	}
 }
 
@@ -3971,11 +3975,17 @@ ship_event = {
 	option = {
 		name = CURIOUS
 		owner = {
-			add_monthly_resource_mult = {
-				resource = engineering_research
-				value = @tier1researchreward
-				min = @tier1researchmin
-				max = @tier1researchmax
+			if = {
+				limit = {
+					has_tech_option = tech_mine_living_metal
+				}
+				add_tech_progress = {
+					tech = tech_mine_living_metal
+					progress = 0.25
+				}
+			}
+			else = {
+				add_research_option = tech_mine_living_metal
 			}
 		}
 		from.orbital_deposit_tile = {
@@ -6253,6 +6263,7 @@ ship_event = {
 		}
 		hidden_effect = {
 			owner = { pop_lcluster_event = yes }
+			ship_event = { id = distar.305 days = 1 }
 		}
 	}
 }
@@ -9594,6 +9605,501 @@ event = {
 	}
 }
 
+ship_event = { #Duplicated action.94 for SRs that are created by events, not on system init
+	id = distar.305
+	title = distar.305.name
+	desc = {
+		trigger = {
+			success_text = {
+				text =					         distar.305.garanthium
+				hidden:fromfrom = { has_resource = { type = sr_garanthium amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.lythuric
+				hidden:fromfrom = { has_resource = { type = sr_lythuric amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.teldar
+				hidden:fromfrom = { has_resource = { type = sr_teldar amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.yurantic
+				hidden:fromfrom = { has_resource = { type = sr_yurantic amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.aldar
+				hidden:fromfrom = { has_resource = { type = sr_aldar amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.orillium
+				hidden:fromfrom = { has_resource = { type = sr_orillium amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.pitharan
+				hidden:fromfrom = { has_resource = { type = sr_pitharan amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.engos
+				hidden:fromfrom = { has_resource = { type = sr_engos amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.neutronium
+				hidden:fromfrom = { has_resource = { type = sr_neutronium amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.zro
+				hidden:fromfrom = { has_resource = { type = sr_zro amount > 0 } }
+			}
+			success_text = {
+				text =					         distar.305.dark_matter
+				hidden:fromfrom = { has_resource = { type = sr_dark_matter amount > 0 } }
+			}
+			success_text = {
+				text =						     distar.305.satramene
+				hidden:fromfrom = { has_resource = { type = sr_satramene amount > 0 } }
+			}
+			success_text = {
+				text =						     distar.305.living_metal
+				hidden:fromfrom = { has_resource = { type = sr_living_metal amount > 0 } }
+			}
+			success_text = {
+				text =						     distar.305.terraform_liquids
+				hidden:fromfrom = { has_resource = { type = sr_terraform_liquids amount > 0 } }
+			}
+			success_text = {
+				text =						     distar.305.terraform_gases
+				hidden:fromfrom = { has_resource = { type = sr_terraform_gases amount > 0 } }
+			}
+			success_text = {
+				text = action.92.has_tech
+				OR = {
+					hidden:fromfrom = { has_resource = { type = sr_pitharan amount > 0 } }
+					hidden:fromfrom = { has_resource = { type = sr_satramene amount > 0 } }
+					hidden:fromfrom = { has_resource = { type = sr_lythuric amount > 0 } }
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_garanthium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_garanthium }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_engos amount > 0 } }
+						hidden:owner = { has_technology = tech_engos_vapor }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_teldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_teldar }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_yurantic amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_yurantic }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_aldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_aldar }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_orillium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_orillium }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_neutronium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_neutronium }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_zro amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_zro }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_dark_matter amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_dark_matter }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_living_metal amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_living_metal }
+					}
+					AND = {
+						hidden:fromfrom = {
+							OR = {
+								has_resource = { type = sr_terraform_liquids amount > 0 }
+								has_resource = { type = sr_terraform_gases amount > 0 }
+							}
+						}
+						hidden:owner = { has_technology = tech_terrestrial_sculpting }
+					}
+				}
+			}
+			success_text = {
+				text = action.92.no_tech
+				# same trigger as above
+				NOR = {
+					hidden:fromfrom = { has_resource = { type = sr_pitharan amount > 0 } }
+					hidden:fromfrom = { has_resource = { type = sr_satramene amount > 0 } }
+					hidden:fromfrom = { has_resource = { type = sr_lythuric amount > 0 } }
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_garanthium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_garanthium }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_engos amount > 0 } }
+						hidden:owner = { has_technology = tech_engos_vapor }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_teldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_teldar }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_yurantic amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_yurantic }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_aldar amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_aldar }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_orillium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_orillium }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_neutronium amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_neutronium }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_zro amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_zro }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_dark_matter amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_dark_matter }
+					}
+					AND = {
+						hidden:fromfrom = { has_resource = { type = sr_living_metal amount > 0 } }
+						hidden:owner = { has_technology = tech_mine_living_metal }
+					}
+					AND = {
+						hidden:fromfrom = {
+							OR = {
+								has_resource = { type = sr_terraform_liquids amount > 0 }
+								has_resource = { type = sr_terraform_gases amount > 0 }
+							}
+						}
+						hidden:owner = { has_technology = tech_terrestrial_sculpting }
+					}
+				}
+			}
+		}
+	}
+	picture = GFX_evt_surreal_visions
+	show_sound = event_default
+	location = fromfrom
+
+	is_triggered_only = yes
+
+	trigger = {
+		fromfrom = { has_strategic_resource = yes } # basically a pre-trigger
+		owner = {
+			OR = {
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_garanthium
+						}
+					}
+					NOT = {
+						has_country_flag = 	   garanthium_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_lythuric
+						}
+					}
+					NOT = {
+						has_country_flag = 	   lythuric_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_teldar
+						}
+					}
+					NOT = {
+						has_country_flag = 	   teldar_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_yurantic
+						}
+					}
+					NOT = {
+						has_country_flag = 	   yurantic_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_aldar
+						}
+					}
+					NOT = {
+						has_country_flag = 	   aldar_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_orillium
+						}
+					}
+					NOT = {
+						has_country_flag = 	   orillium_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_pitharan
+						}
+					}
+					NOT = {
+						has_country_flag = 	   pitharan_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_engos
+						}
+					}
+					NOT = {
+						has_country_flag = 	   engos_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_neutronium
+						}
+					}
+					NOT = {
+						has_country_flag = 	   neutronium_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_living_metal
+						}
+					}
+					NOT = {
+						has_country_flag = 	   living_metal_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_zro
+						}
+					}
+					NOT = {
+						has_country_flag = 	   zro_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_dark_matter
+						}
+					}
+					NOT = {
+						has_country_flag = 	   dark_matter_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_satramene
+						}
+					}
+					NOT = {
+						has_country_flag = 	   satramene_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_terraform_liquids
+						}
+					}
+					NOT = {
+						has_country_flag = 	   terraform_liquids_found
+					}
+				}
+				AND = {
+					root.fromfrom = {
+						has_resource = {
+							amount > 0
+									type = 	sr_terraform_gases
+						}
+					}
+					NOT = {
+						has_country_flag = 	   terraform_gases_found
+					}
+				}
+			}
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			if = {
+				limit = { has_resource = { type = sr_garanthium amount > 0 } }
+				root.owner = { set_country_flag =    garanthium_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_lythuric amount > 0 } }
+				root.owner = { set_country_flag =    lythuric_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_teldar amount > 0 } }
+				root.owner = { set_country_flag =    teldar_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_yurantic amount > 0 } }
+				root.owner = { set_country_flag =    yurantic_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_aldar amount > 0 } }
+				root.owner = { set_country_flag =    aldar_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_orillium amount > 0 } }
+				root.owner = { set_country_flag =    orillium_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_pitharan amount > 0 } }
+				root.owner = { set_country_flag =    pitharan_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_engos amount > 0 } }
+				root.owner = { set_country_flag =    engos_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_neutronium amount > 0 } }
+				root.owner = { set_country_flag =    neutronium_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_zro amount > 0 } }
+				root.owner = { set_country_flag =    zro_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_dark_matter amount > 0 } }
+				root.owner = { set_country_flag =    dark_matter_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_satramene amount > 0 } }
+				root.owner = { set_country_flag =    satramene_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_living_metal amount > 0 } }
+				root.owner = { set_country_flag =    living_metal_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_terraform_liquids amount > 0 } }
+				root.owner = { set_country_flag =    terraform_gases_found }
+			}
+			else_if = {
+				limit = { has_resource = { type = sr_terraform_gases amount > 0 } }
+				root.owner = { set_country_flag =    terraform_gases_found }
+			}
+		}
+	}
+
+	option = {
+		name = OK
+		fromfrom = {
+			hidden_effect = {
+				if = {
+					limit = { has_resource = { type = sr_garanthium amount > 0 } }
+					custom_tooltip = action.92.garanthium.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_lythuric amount > 0 } }
+					custom_tooltip = action.92.lythuric.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_teldar amount > 0 } }
+					custom_tooltip = action.92.teldar.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_yurantic amount > 0 } }
+					custom_tooltip = action.92.yurantic.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_aldar amount > 0 } }
+					custom_tooltip = action.92.aldar.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_orillium amount > 0 } }
+					custom_tooltip = action.92.orillium.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_pitharan amount > 0 } }
+					custom_tooltip = action.92.pitharan.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_engos amount > 0 } }
+					custom_tooltip = action.92.engos.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_neutronium amount > 0 } }
+					custom_tooltip = action.92.neutronium.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_zro amount > 0 } }
+					custom_tooltip = action.92.zro.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_dark_matter amount > 0 } }
+					custom_tooltip = action.92.dark_matter.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_satramene amount > 0 } }
+					custom_tooltip = action.92.satramene.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_living_metal amount > 0 } }
+					custom_tooltip = action.92.living_metal.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_terraform_liquids amount > 0 } }
+					custom_tooltip = action.92.terraform_liquids.tooltip
+				}
+				else_if = {
+					limit = { has_resource = { type = sr_terraform_gases amount > 0 } }
+					custom_tooltip = action.92.terraform_gases.tooltip
+				}
+			}
+		}
+	}
+}
+
 
 #################################
 #
@@ -9654,6 +10160,7 @@ ship_event = {
 
 	option = {
 		name = distar.1000.b
+		owner = { add_influence = 50 }
 	}
 }
 
@@ -9738,6 +10245,7 @@ country_event = {
 				add_trait = leader_trait_maniacal
 			}
 		}
+		add_influence = 50
 		name = distar.1001.b
 	}
 }
@@ -9798,6 +10306,7 @@ fleet_event = {
 		name = distar.1002.b
 		owner = {
 			end_event_chain = "generation_ship_chain"
+			add_influence = 50
 		}
 	}
 }
@@ -10185,8 +10694,8 @@ country_event = {
 		name = distar.1006.b
 		hidden_effect = {
 			country_event = { id = distar.1009 }
-			#country_event = { id = distar.1011 days = 3 }
-			country_event = { id = distar.1011 }
+			country_event = { id = distar.1011 days = 60 random = 20 }
+			#country_event = { id = distar.1011 days = 5 }
 		}
 	}
 
@@ -10197,7 +10706,7 @@ country_event = {
 		}
 		hidden_effect = {
 			country_event = { id = distar.1009 }
-			country_event = { id = distar.1011 days = 3 }
+			country_event = { id = distar.1011 days = 60 random = 20 }
 		}
 	}
 }
@@ -10509,7 +11018,7 @@ country_event = {
 				save_global_event_target_as = mardak_vol_haters_fleet
 				auto_move_to_planet = {
 					target = event_target:utopian_planet
-					clear_auto_move_on_arrival = no		# distar.136 sets a new auto move target
+					clear_auto_move_on_arrival = no
 				}
 				set_leader = event_target:mardak_vol_haters_leader
 			}
@@ -10550,14 +11059,7 @@ planet_event = {
 					target = event_target:new_target
 					clear_auto_move_on_arrival = no
 				}
-			}
-		}
-		if = {
-			limit = {
-				exists = event_target:mardak_vol_country
-			}
-			event_target:mardak_vol_country = {
-				destroy_country = yes
+				set_fleet_flag = mardak_vol_purgers_die # Flags the ship for destruction now that their mission is done
 			}
 		}
 		if = {
@@ -10630,19 +11132,20 @@ country_event = {
 	trigger = {
 		from = {
 			has_fleet_flag = vol_exterminators
+			has_fleet_flag = mardak_vol_purgers_die
 		}
 	}
 
 	immediate = {
-		event_target:mardak_vol_haters_country = {
-			destroy_country = yes
-		}
 		from = {
 			delete_fleet = this
 			create_ambient_object = {
 				location = this
 				type = horror_spawn_object
 			}
+		}
+		event_target:mardak_vol_haters_country = {
+			destroy_country = yes
 		}
 	}
 }
@@ -11599,23 +12102,6 @@ country_event = {
 
 	option = {
 		name = distar.1072.a
-		from.leader = {
-			add_trait = leader_trait_meticulous
-			add_experience = 200
-		}
-		event_target:anomalous_star = {
-			orbital_deposit_tile = {
-				add_deposit = d_immense_energy_deposit
-				add_deposit = d_immense_energy_deposit
-			}
-			surveyed = {
- 				set_surveyed = yes
-   				surveyor = root
- 			}
-		}
-	}
-	option = {
-		name = distar.1072.b
 		from.leader = {
 			add_trait = leader_trait_meticulous
 			add_experience = 200
@@ -14794,6 +15280,12 @@ country_event = { # Planetfall on planet X after being shoot into deep space. Re
 				is_colony = no
 				habitable_planet = yes
 				has_anomaly = no
+				NOR = {
+					has_modifier = "holy_planet"
+					solar_system = {
+						has_star_flag = hostile_system
+					}
+				}
 				distance = {
 					source = root.owner.capital_scope
 					max_distance <= 300
@@ -14814,6 +15306,12 @@ country_event = { # Planetfall on planet X after being shoot into deep space. Re
 				is_colony = no
 				habitable_planet = yes
 				has_anomaly = no
+				NOR = {
+					has_modifier = "holy_planet"
+					solar_system = {
+						has_star_flag = hostile_system
+					}
+				}
 				distance = {
 					source = root.owner.capital_scope
 					max_distance <= 300
@@ -14972,6 +15470,12 @@ country_event = { # Helpful relocation was a success
 				is_colony = no
 				habitable_planet = yes
 				has_anomaly = no
+				NOR = {
+					has_modifier = "holy_planet"
+					solar_system = {
+						has_star_flag = hostile_system
+					}
+				}
 				distance = {
 					source = root.owner.capital_scope
 					max_distance <= 300
@@ -14992,6 +15496,12 @@ country_event = { # Helpful relocation was a success
 				is_colony = no
 				habitable_planet = yes
 				has_anomaly = no
+				NOR = {
+					has_modifier = "holy_planet"
+					solar_system = {
+						has_star_flag = hostile_system
+					}
+				}
 				distance = {
 					source = root.owner.capital_scope
 					max_distance <= 300
@@ -15580,83 +16090,75 @@ ship_event = {
 	desc = "distar.3041.desc"
 	picture = GFX_evt_binary_stars
 	show_sound = event_scanner
-	location = from
+	location = fromfrom
 	
 	is_triggered_only = yes
 
 	immediate = {
-		event_target:sol_sys = {
+		fromfrom = {
 			if = {
 				limit = {
 					closest_system = {
-						min_steps = 2
-						max_steps = 80
-						has_natural_wormhole = no
-						is_surveyed = { who = root.owner status = no }
-						NOT = { exists = starbase }
-						#distance = {
-						#	source = event_target:sol_sys
-						#	min_distance >= 2
-						#	max_distance <= 50
-						#}
-					}
-					closest_system = {
-						min_steps = 90
-						max_steps = 300
-						has_natural_wormhole = no
-						is_surveyed = { who = root.owner status = no }
-						NOT = { exists = starbase }
-						#distance = {
-						#	source = event_target:sol_sys
-						#	min_distance >= 60
-						#	max_distance <= 300
-						#}
-					}
-				}
-	
-				closest_system = {
-					min_steps = 2
-					max_steps = 80
-					limit = {
-						has_natural_wormhole = no
-						is_surveyed = { who = root.owner status = no }
-						NOT = { exists = starbase }
-						#distance = {
-						#	source = event_target:sol_sys
-						#	min_distance >= 10
-						#	max_distance <= 100
-						#}
-					}
-					closest_system = {
-						min_steps = 90
-						max_steps = 300
 						limit = {
 							has_natural_wormhole = no
 							is_surveyed = { who = root.owner status = no }
-							NOT = { exists = starbase }
-							#distance = {
-							#	source = event_target:sol_sys
-							#	min_distance >= 200
-							#	max_distance <= 600
-							#}
+							has_owner = no
+						}
+						min_steps = 2
+						max_steps = 8
+						#exists = this
+					}
+					closest_system = {
+						limit = {
+							has_natural_wormhole = no
+							is_surveyed = { who = root.owner status = no }
+							has_owner = no
+						}
+						min_steps = 15
+						max_steps = 50
+						#exists = this
+					}
+				}
+				closest_system = {
+					limit = {
+						has_natural_wormhole = no
+						is_surveyed = { who = root.owner status = no }
+						has_owner = no
+					}
+					min_steps = 2
+					max_steps = 8
+					save_event_target_as = system_one
+				}
+				closest_system = {
+					limit = {
+						has_natural_wormhole = no
+						is_surveyed = { who = root.owner status = no }
+						has_owner = no
+					}
+					min_steps = 15
+					max_steps = 50
+					save_event_target_as = system_two
+				}
+				event_target:system_one = {
+					event_target:system_two = {
+						prev = {
+							spawn_natural_wormhole = {
+								bypass_type = wormhole
+								random_pos = yes
+								orbit_angle = 360
+							}
 						}
 						spawn_natural_wormhole = {
 							bypass_type = wormhole
 							random_pos = yes
 							orbit_angle = 360
 						}
-						save_event_target_as = system_two
+						link_wormholes = prev
 					}
-					spawn_natural_wormhole = {
-						bypass_type = wormhole
-						random_pos = yes
-						orbit_angle = 360
-					}
-					link_wormholes = event_target:system_two
-					save_event_target_as = system_one
-					root.owner = { country_event = { id = distar.3042 days = 10 random = 30 } }
 				}
+				root.owner = { country_event = { id = distar.3042 days = 10 } }
 			}
+			#else nothin
 		}
 	}
 
@@ -15701,7 +16203,7 @@ country_event = { # Spike in energy readings from a nearby solar system observed
 	desc = "distar.3042.desc"
 	picture = GFX_evt_wormhole
 	show_sound = event_scanner
-	location = event_target:sol_sys
+	location = event_target:system_one
 	
 	is_triggered_only = yes
 
@@ -17522,6 +18024,7 @@ country_event = {
 				any_owned_megastructure = {
 					is_megastructure_type = lgate_base
 				}
+				has_technology = tech_lgate_activation
 			}
 			random_owned_megastructure = {
 				limit = {
@@ -17581,10 +18084,6 @@ country_event = {
 
 	is_triggered_only = yes
 
-	trigger = {
-		last_increased_tech = tech_lgate_activation
-	}
-
 	immediate = {
 		end_event_chain = "l_cluster_chain"
 		event_target:candidate_gateway = {
@@ -17626,6 +18125,9 @@ country_event = {
 					}
 				}
 				set_star_flag = lgate_originating_system
+			}
+			else = {
+				root = { set_country_flag = only_one_lgate }
 			}
 			random_system_megastructure = {
 				limit = {
@@ -18122,8 +18624,6 @@ ship_event = {
 }
 
 # Curator Buy Clue Menu
-
-# Curator Hire Scientist Menu
 country_event = {
 	id = distar.11501
 	title = distar.11501.name
@@ -18156,7 +18656,6 @@ country_event = {
 		custom_gui = "enclave_curator_option"
 		allow = {
 			energy > 5000
-			free_leader_slots > 0 
 			hidden_trigger = {
 				NOR = {
 					has_completed_event_chain_counter = {

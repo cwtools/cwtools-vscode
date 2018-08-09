@@ -118,7 +118,20 @@ AIANOM_CLUE_CAT = {
 	spawn_chance = {
 		modifier = {
 			add = 1
-			is_planet_class = pc_toxic
+			is_planet_class = pc_barren
+			from.owner = {
+				has_event_chain = l_cluster_chain
+				NOT = {
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+			}
+		}
+		modifier = {
+			add = 2
+			years_passed >= 100
 			from.owner = {
 				has_event_chain = l_cluster_chain
 				NOT = {

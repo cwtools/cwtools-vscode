@@ -965,11 +965,20 @@ will_anger_fallen_empire = {
 can_species_have_rights = {
 	exists = root
 	exists = this
-	is_sapient = yes
-	NOT = {
-		has_trait = trait_robotic_1
-		has_trait = trait_robotic_2
-		has_trait = trait_robotic_3
+	OR = {
+		AND = {
+			root = { has_authority = auth_machine_intelligence }
+			is_sapient = yes
+		}
+		AND = {
+			root = { NOT = { has_authority = auth_machine_intelligence } }
+			is_sapient = yes
+			NOR = {
+				has_trait = trait_robotic_1
+				has_trait = trait_robotic_2
+				has_trait = trait_robotic_3
+			}
+		}
 	}
 }
 

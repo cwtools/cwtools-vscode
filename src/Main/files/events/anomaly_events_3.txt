@@ -1632,17 +1632,15 @@ ship_event = {
 
 	option = {
 		name = FASCINATING
+		custom_tooltip = "anomaly.150.a.tooltip"
 		FROM = {
-			add_modifier = {
-				modifier = "zro_ice"
-				days = -1
-			}
 			hidden_effect = {
 				orbital_deposit_tile = {
 					add_zro = yes
 				}
 			}
 		}
+		hidden_effect = { ship_event = { id = distar.305 days = 1 } }
 	}
 }
 
@@ -1662,7 +1660,10 @@ ship_event = {
 
 	option = {
 		name = FASCINATING
-		hidden_effect = { owner = { country_event = { id = story.5 days = 30 } } }
+		hidden_effect = {
+			owner = { country_event = { id = story.5 days = 30 } }
+			ship_event = { id = distar.305 days = 1 }
+		}
 		FROM = {
 			custom_tooltip = anomaly.155.a.tooltip
 			hidden_effect = {

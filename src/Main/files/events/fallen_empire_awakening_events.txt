@@ -128,6 +128,12 @@ country_event = {
 						}
 						set_country_flag = sleepers_awake_ancient_rival
 						set_timed_country_flag = { flag = timed_ancient_rival days = 3650 }
+						set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+						root = { set_timed_country_flag = { flag = ai_no_wars days = 3650 } }
+						every_country = {
+							limit = { is_country_type = default }
+							set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+						}	
 					}
 				}
 				20 = { # War in Heaven with Fallen Empire of different ethos
@@ -139,6 +145,14 @@ country_event = {
 						}
 						set_country_flag = sleepers_awake_ancient_rival
 						set_timed_country_flag = { flag = timed_ancient_rival days = 3650 }
+						set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+						root = { set_timed_country_flag = { flag = ai_no_wars days = 3650 } }
+						every_country = {
+							limit = {
+								is_country_type = default
+							}
+							set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+						}						
 					}
 				}
 				40 = { } # No War in Heaven

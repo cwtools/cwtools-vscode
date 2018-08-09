@@ -2082,7 +2082,10 @@ planet_event = {
 				has_ethic = ethic_gestalt_consciousness
 			}
 		}
-		num_pops > 0
+		count_pops = {
+			limit = { is_robot_pop = no }
+			count > 2
+		}
 		has_ground_combat = no
 		is_occupied_flag = no
 		NOR = {

@@ -830,6 +830,10 @@ special_init_03 = {
 		type = rocky_asteroid_belt
 		radius = 145
 	}
+	asteroid_belt = {
+		type = icy_asteroid_belt
+		radius = 290
+	}
 
 	flags = { primitive_sol sol }
 	
@@ -1435,6 +1439,38 @@ special_init_03 = {
 			has_ring = no
 		}
 	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 30
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
 }
 
 # Sol System (Nuclear Wasteland)
@@ -1444,6 +1480,10 @@ special_init_04 = {
 	asteroid_belt = {
 		type = rocky_asteroid_belt
 		radius = 145
+	}
+	asteroid_belt = {
+		type = icy_asteroid_belt
+		radius = 290
 	}
 
 	flags = { nuked_sol sol }
@@ -1615,6 +1655,38 @@ special_init_04 = {
 			orbit_angle = 115
 			has_ring = no
 		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 30
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
 	}
 }
 
@@ -4132,6 +4204,10 @@ com_sol_system = {
 		type = rocky_asteroid_belt
 		radius = 145
 	}
+	asteroid_belt = {
+		type = icy_asteroid_belt
+		radius = 290
+	}
 	flags = { sol_system com_sol sol }
 	
 	planet = {
@@ -4392,6 +4468,42 @@ com_sol_system = {
 			orbit_angle = 115
 			has_ring = no
 		}
+	}
+
+	planet = {
+		name = "NAME_134340_Pluto"
+		class = "pc_asteroid"
+		orbit_distance = 30
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_136472_Makemake"
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_136108_Haumea"
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		name = "NAME_20000_Varuna"
+		class = "pc_ice_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
 	}
 
 	init_effect = {

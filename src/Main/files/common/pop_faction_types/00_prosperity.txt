@@ -201,7 +201,7 @@ prosperity = {
 
 		trigger = {
 			owner = {
-				NOT = { has_policy_flag = no_wars }
+				has_policy_flag = no_wars
 			}
 		}
 	}
@@ -354,6 +354,10 @@ prosperity = {
 						has_ethic = ethic_pacifist
 					}
 				}
+				modifier = {
+					factor = 0
+					owner = { has_valid_civic = civic_fanatic_purifiers }
+				}				
 				modifier = {
 					factor = 0
 					NOT = { 

@@ -521,7 +521,15 @@ country_event = {
 country_event = {
 	id = graygoo.10
 	title = "graygoo.10.name"
-	desc = "graygoo.10.desc"
+	desc = {
+		trigger = { NOT = { has_country_flag = only_one_lgate } }
+		text = "graygoo.10.desc"
+	}
+	desc = {
+		trigger = { has_country_flag = only_one_lgate }
+		text = "graygoo.10.b.desc"
+	}
+
 	picture = GFX_evt_drifting_gateway
 	show_sound = event_radio_chatter
 

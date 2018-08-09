@@ -80,7 +80,11 @@ country_event = {
 		}
 	}
 
-	immediate = {
+	immediate = {	
+		every_country = {
+			limit = { is_country_type = default }
+			set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+		}
 		random_country = {
 			limit = { 
 				is_country_type = awakened_fallen_empire
@@ -88,7 +92,7 @@ country_event = {
 			}
 			save_event_target_as = FirstSleeper
 			set_timed_country_flag = { flag = ai_no_wars days = 3650 }
-		}			
+		}	
 		set_timed_country_flag = { flag = ai_no_wars days = 3650 }
 		set_timed_country_flag = { flag = war_in_heaven_timer days = 730 }
 		set_timed_country_flag = { flag = war_in_heaven_timer_2 days = 3650 }
@@ -180,7 +184,7 @@ country_event = {
 
 	
 	mean_time_to_happen = {
-		years = 5	
+		years = 1	
 		modifier = {
 			factor = 0.01
 			OR = {
@@ -250,7 +254,12 @@ country_event = {
 		name = war_in_heaven.4.a
 		trigger = { 
 			is_subject = no 
-			is_at_war = no
+			NOT = {
+				any_country = {
+					is_country_type = awakened_fallen_empire
+					is_at_war_with = prev
+				}
+			}
 			is_country_type = default
 		}
 		ai_chance = {
@@ -400,7 +409,12 @@ country_event = {
 		name = war_in_heaven.4.b	
 		trigger = { 
 			is_subject = no 
-			is_at_war = no
+			NOT = {
+				any_country = {
+					is_country_type = awakened_fallen_empire
+					is_at_war_with = prev
+				}
+			}
 			is_country_type = default
 		}
 		ai_chance = {
@@ -555,23 +569,23 @@ country_event = {
 			factor = 100
 			modifier = {
 				factor = 0.5
-				fleet_power < 5000
+				fleet_power < 20000
 			}			
 			modifier = {
 				factor = 0.5
-				fleet_power < 10000
-			}
-			modifier = {
-				factor = 1.5
-				fleet_power > 20000
+				fleet_power < 40000
 			}
 			modifier = {
 				factor = 2
-				fleet_power > 30000
+				fleet_power > 60000
+			}
+			modifier = {
+				factor = 2
+				fleet_power > 80000
 			}			
 			modifier = {
-				factor = 10
-				fleet_power > 40000
+				factor = 2
+				fleet_power > 100000
 			}	
 			modifier = {
 				factor = 5
@@ -718,12 +732,22 @@ country_event = {
 		NOT = { has_global_flag = war_in_heaven_seeking_league_leader }
 		any_country = {
 			is_subject = no
-			is_at_war = no
+			NOT = {
+				any_country = {
+					is_country_type = awakened_fallen_empire
+					is_at_war_with = prev
+				}
+			}
 			is_country_type = default
 			
 			any_country = {
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -745,7 +769,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -766,7 +795,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -787,7 +821,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -808,7 +847,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -829,7 +873,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -850,7 +899,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -871,7 +925,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -892,7 +951,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -913,7 +977,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -934,7 +1003,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -955,7 +1029,12 @@ country_event = {
 		random_country = {
 			limit = {	
 				is_subject = no
-				is_at_war = no
+				NOT = {
+					any_country = {
+						is_country_type = awakened_fallen_empire
+						is_at_war_with = prev
+					}
+				}
 				is_country_type = default
 				NOR = {
 					has_valid_civic = civic_hive_devouring_swarm
@@ -1057,7 +1136,12 @@ country_event = {
 	trigger = {
 		has_global_flag = war_in_heaven_nonaligned_league
 		is_subject = no
-		is_at_war = no
+		NOT = {
+			any_country = {
+				is_country_type = awakened_fallen_empire
+				is_at_war_with = prev
+			}
+		}
 		is_country_type = default
 		NOR = {
 			has_valid_civic = civic_hive_devouring_swarm
@@ -1210,7 +1294,12 @@ country_event = {
 	
 	trigger = {
 		is_subject = no
-		is_at_war = no
+		NOT = {
+			any_country = {
+				is_country_type = awakened_fallen_empire
+				is_at_war_with = prev
+			}
+		}
 		has_federation = yes
 		is_country_type = default
 		has_country_flag = war_in_heaven_league_leader
@@ -1259,6 +1348,7 @@ country_event = {
 			root = {
 				declare_war = {
 					target = prev
+					name = "NAME_The_War_in_Heaven"
 					attacker_war_goal = "wg_war_in_heaven"
 				}
 			}	

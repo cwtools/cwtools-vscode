@@ -7,10 +7,58 @@ opinion_stole_supplies = {
 	opinion = {
 		base = -20
 	}
+	unique = yes
+
+	decay = {
+		base = 5
+		modifier = {
+			add = 1
+			has_ethic = "ethic_xenophile"
+		}
+
+		modifier = {
+			add = 2
+			has_ethic = "ethic_fanatic_xenophile"
+		}
+
+		modifier = {
+			add = -1
+			has_ethic = "ethic_xenophobe"
+		}
+
+		modifier = {
+			add = -2
+			has_ethic = "ethic_fanatic_xenophobe"
+		}
+	}
 }
 opinion_returned_supplies = {
 	opinion = {
 		base = 20
+	}
+	unique = yes
+	
+	decay = {
+		base = 5
+		modifier = {
+			add = 1
+			has_ethic = "ethic_fanatic_xenophobe"
+		}
+
+		modifier = {
+			add = 2
+			has_ethic = "ethic_xenophobe"			
+		}
+
+		modifier = {
+			add = -1
+			has_ethic = "ethic_xenophile"
+		}
+
+		modifier = {
+			add = -2
+			has_ethic = "ethic_fanatic_xenophile"
+		}
 	}
 }
 ## Space Rum Opinions
@@ -18,15 +66,87 @@ opinion_gave_space_rum = {
 	opinion = {
 		base = 20
 	}
+	unique = yes
+	
+	decay = {
+		base = 5
+		modifier = {
+			add = 1
+			has_ethic = "ethic_fanatic_xenophobe"
+		}
+
+		modifier = {
+			add = 2
+			has_ethic = "ethic_xenophobe"			
+		}
+
+		modifier = {
+			add = -1
+			has_ethic = "ethic_xenophile"
+		}
+
+		modifier = {
+			add = -2
+			has_ethic = "ethic_fanatic_xenophile"
+		}
+	}
 }
 opinion_space_rum_failed = {
 	opinion = {
 		base = -20
+	}
+	unique = yes
+	
+	decay = {
+		base = 3
+		modifier = {
+			add = 1
+			has_ethic = "ethic_xenophile"
+		}
+
+		modifier = {
+			add = 2
+			has_ethic = "ethic_fanatic_xenophile"
+		}
+
+		modifier = {
+			add = -1
+			has_ethic = "ethic_xenophobe"
+		}
+
+		modifier = {
+			add = -2
+			has_ethic = "ethic_fanatic_xenophobe"
+		}
 	}
 }
 ## Ratling System Stolen
 opinion_ratling_system_stolen = {
 	opinion = {
 		base = -20
+	}
+	unique = yes
+	
+	decay = {
+		base = 5
+		modifier = {
+			add = 1
+			has_ethic = "ethic_xenophile"
+		}
+
+		modifier = {
+			add = 2
+			has_ethic = "ethic_fanatic_xenophile"
+		}
+
+		modifier = {
+			add = -1
+			has_ethic = "ethic_xenophobe"
+		}
+
+		modifier = {
+			add = -2
+			has_ethic = "ethic_fanatic_xenophobe"
+		}
 	}
 }

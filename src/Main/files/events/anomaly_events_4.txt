@@ -2501,7 +2501,10 @@ ship_event = {
 			create_mining_station = { owner = event_target:shipowner }
 			hidden_effect = { orbital_deposit_tile = { clear_deposits = yes add_teldar = yes } }
 		}
-		hidden_effect = { owner = { remove_country_flag = opt2 } }
+		hidden_effect = {
+			owner = { remove_country_flag = opt2 }
+			ship_event = { id = distar.305 days = 1 }
+		}
 	}
 
 	option = {
@@ -2521,7 +2524,10 @@ ship_event = {
 			create_mining_station = { owner = event_target:shipowner }
 			hidden_effect = { orbital_deposit_tile = { clear_deposits = yes add_teldar = yes } }
 		}
-		hidden_effect = { owner = { remove_country_flag = opt3 } }
+		hidden_effect = {
+			owner = { remove_country_flag = opt3 }
+			ship_event = { id = distar.305 days = 1 }
+		}
 	}
 }
 
