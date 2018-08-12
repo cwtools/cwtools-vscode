@@ -67,7 +67,7 @@ export function activate(context: ExtensionContext) {
 			// Notify the server about file changes to F# project files contain in the workspace
 
 			fileEvents: [
-				workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries}/**/*.txt"),
+				workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries,flags}/**/*.txt"),
 				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
 				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
 				workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),

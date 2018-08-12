@@ -1,0 +1,64 @@
+voor = {
+	name = "Voor Technocracy"
+	adjective = "PRESCRIPTED_adjective_voor"
+	spawn_enabled = yes # yes / no / always
+	ignore_portrait_duplication = yes
+	
+	ship_prefix = "PRESCRIPTED_ship_prefix_voor"
+	
+	species = {
+		class = "HUM"
+		portrait= "humanoid_hp_06"
+		name = "PRESCRIPTED_species_name_voor"
+		plural = "PRESCRIPTED_species_plural_voor"
+		adjective = "PRESCRIPTED_species_adjective_voor"
+		name_list = "HUM2"
+		trait = "trait_quick_learners"
+		trait = "trait_adaptive"
+		trait = "trait_repugnant"
+	}
+	
+	room = "personality_erudite_explorers_room"
+	
+	ethic = ethic_fanatic_authoritarian
+	ethic = ethic_materialist
+	flags = { the_voor }
+	authority = "auth_dictatorial"
+	government = gov_technocratic_dictatorship
+	civics = { "civic_technocracy" "civic_environmentalist" }
+	
+	planet_name = PRESCRIPTED_planet_name_voor
+	planet_class = "pc_arctic"
+	system_name = PRESCRIPTED_system_name_voor
+	initializer = ""
+
+	graphical_culture = "humanoid_01"
+	city_graphical_culture = "humanoid_01"
+
+	empire_flag = {
+		icon = {
+			category = "spherical"
+			file= "flag_spherical_6.dds"
+		}
+		background = {
+			category = "backgrounds"
+			file = "circle.dds"
+		}
+		colors = {
+			"dark_teal"
+			"dark_teal"
+			"null"
+			"null"
+		}
+	}	
+	
+	ruler = {
+		name = "PRESCRIPTED_ruler_name_voor"
+		gender = male
+		portrait = "humanoid_hp_06"
+		texture = 0
+		hair = 0
+		clothes = 3
+		ruler_title = "PRESCRIPTED_ruler_title_voor"
+	}
+}
