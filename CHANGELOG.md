@@ -1,3 +1,8 @@
+# 0.5.31
+* Improved config base validation
+* Validation of value clauses
+* Fix prescripted_countries embedded content
+* Include syntax highlighting by default
 # 0.5.30
 * Update to 2.1.2
 * Reduce flag usage to a warning
