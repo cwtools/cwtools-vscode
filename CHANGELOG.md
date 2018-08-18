@@ -1,3 +1,6 @@
+# 0.5.32
+* Performance improvements
+* Hotfix some rules
 # 0.5.31
 * Improved config base validation
 * Validation of value clauses
