@@ -65,7 +65,8 @@ Target "DotNetRestore" <| fun () ->
 
 
 Target "BuildServer" <| fun () ->
-    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
+    // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
+    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/linux-x64"; Runtime = "linux-x64"; Configuration = "Release"})
 
 Target "PublishServer" <| fun () ->
     DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
@@ -79,7 +80,7 @@ let runTsc additionalArgs noTimeout =
     run cmd additionalArgs ""
 Target "RunScript" (fun _ ->
     // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
-    Shell.Exec @"C:\Users\Thomas\AppData\Roaming\npm\tsc.cmd" |> ignore
+    Shell.Exec @"/home/thomas/.npm-global/bin/tsc" |> ignore
 )
 
 // Target "Watch" (fun _ ->

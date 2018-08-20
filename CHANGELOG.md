@@ -1,3 +1,6 @@
+# 0.5.33
+* Fix locale issue with floats
+* Fix scope hover info
 # 0.5.32
 * Performance improvements
 * Hotfix some rules
