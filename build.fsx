@@ -1,36 +1,32 @@
-open Fake.ProcessHelper
-open Fake
 // --------------------------------------------------------------------------------------
 // FAKE build script
 // --------------------------------------------------------------------------------------
 
-#I "packages/build/FAKE/tools"
-#r "FakeLib.dll"
-open System
+// #I "packages/build/FAKE/tools"
+// #r "FakeLib.dll"
+#r "paket: groupref build //"
+#load "./.fake/build.fsx/intellisense.fsx"
+
 open System.Diagnostics
-open System.IO
-open Fake
-open Fake.Git
-open Fake.ProcessHelper
-open Fake.ReleaseNotesHelper
-open Fake.NpmHelper
-open Fake.ZipHelper
-open TypeScript
+open Fake.Core
+open Fake.DotNet
+open Fake.JavaScript
+open Fake.IO
+open Fake.IO.Globbing.Operators
 
 let run cmd args dir =
-    if execProcess( fun info ->
-        info.FileName <- cmd
-        if not( String.IsNullOrWhiteSpace dir) then
-            info.WorkingDirectory <- dir
-        info.Arguments <- args
-    ) System.TimeSpan.MaxValue = false then
+    if Process.execSimple( fun info ->
+        let info = { info with FileName = cmd; Arguments = args }
+        if not( String.isNullOrWhiteSpace dir) then
+            { info with WorkingDirectory = dir } else info
+    ) System.TimeSpan.MaxValue <> 0 then
         failwithf "Error while running '%s' with args: %s" cmd args
 
 
 let platformTool tool path =
-    match isUnix with
+    match Environment.isUnix with
     | true -> tool
-    | _ ->  match ProcessHelper.tryFindFileOnPath path with
+    | _ ->  match Process.tryFindFileOnPath path with
             | None -> failwithf "can't find tool %s on PATH" tool
             | Some v -> v
 
@@ -46,39 +42,54 @@ let fsacBin         = "paket-files/github.com/fsharp/FsAutoComplete/bin/release"
 let releaseBinNetcore = releaseBin + "_netcore"
 let fsacBinNetcore = fsacBin + "_netcore"
 
+let cwtoolsPath = ""
+let cwtoolsProjectName = "Main.fsproj"
+
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
 // --------------------------------------------------------------------------------------
 
-Target "Clean" (fun _ ->
-    CleanDir "./temp"
-    CleanDir "./out/server"
+Target.create "Clean" (fun _ ->
+    Shell.cleanDir "./temp"
+    Shell.cleanDir "./out/server"
     // CopyFiles "release" ["README.md"; "LICENSE.md"]
     // CopyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
 )
 
-Target "YarnInstall" <| fun () ->
-    Npm (fun p -> { p with Command = Install Standard })
+Target.create "YarnInstall" <| fun _ ->
+    Npm.install id
 
-Target "DotNetRestore" <| fun () ->
-    DotNetCli.Restore (fun p -> { p with WorkingDir = "src/Main" } )
+Target.create "DotNetRestore" <| fun _ ->
+    DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
 
+let publishParams (framework : string) (release : bool) = 
+    (fun (p : DotNet.PublishOptions) ->
+        { p with 
+            Common = 
+                {
+                    p.Common with
+                        WorkingDirectory = "src/Main"
+                        CustomParams = Some ("--self-contained true" + (if release then "" else " /p:LinkDuringPublish=false"))
+                }
+            OutputPath = Some ("../../out/server/" + framework)
+            Runtime = Some framework
+            Configuration = DotNet.BuildConfiguration.Release
+        })
 
-Target "BuildServer" <| fun () ->
+Target.create "BuildServer" <| fun _ ->
     // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
-    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/linux-x64"; Runtime = "linux-x64"; Configuration = "Release"})
+    DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
-Target "PublishServer" <| fun () ->
-    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Debug"})
-    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/linux-x64"; Runtime = "linux-x64"; Configuration = "Debug"})
-    DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"]; Output = "../../out/server/osx.10.11-x64"; Runtime = "osx.10.11-x64"; Configuration = "Debug"})
-    //DotNetCli.Publish (fun p -> {p with Output = "../../out/server"; Configuration = "Debug";})
+Target.create "PublishServer" <| fun _ ->
+    DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName 
+    DotNet.publish (publishParams "linux-x64" true) cwtoolsProjectName 
+    DotNet.publish (publishParams "osx.10.11-x64" true) cwtoolsProjectName 
 
 let runTsc additionalArgs noTimeout =
     let cmd = "tsc"
-    let timeout = if noTimeout then TimeSpan.MaxValue else TimeSpan.FromMinutes 30.
+    // let timeout = if noTimeout then System.TimeSpan.MaxValue else System.TimeSpan.FromMinutes 30.
     run cmd additionalArgs ""
-Target "RunScript" (fun _ ->
+Target.create "RunScript" (fun _ ->
     // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
     Shell.Exec @"/home/thomas/.npm-global/bin/tsc" |> ignore
 )
@@ -94,48 +105,48 @@ Target "RunScript" (fun _ ->
 //     //DotNetCli.RunCommand id cmd
 //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
 // )
-Target "PaketRestore" (fun _ ->
+Target.create "PaketRestore" (fun _ ->
     Paket.PaketRestoreDefaults |> ignore)
 
-Target "CopyFSAC" (fun _ ->
-    ensureDirectory releaseBin
-    CleanDir releaseBin
+Target.create "CopyFSAC" (fun _ ->
+    Directory.ensure releaseBin
+    Shell.cleanDir releaseBin
 
-    !! (fsacBin + "/*")
-    |> CopyFiles releaseBin
+    !!(fsacBin + "/*")
+    |> Shell.copyFiles releaseBin
 )
 
-Target "CopyFSACNetcore" (fun _ ->
-    ensureDirectory releaseBinNetcore
-    CleanDir releaseBinNetcore
+Target.create "CopyFSACNetcore" (fun _ ->
+    Directory.ensure releaseBinNetcore
+    Shell.cleanDir releaseBinNetcore
 
-    CopyDir releaseBinNetcore fsacBinNetcore (fun _ -> true)
+    Shell.copyDir releaseBinNetcore fsacBinNetcore (fun _ -> true)
 )
 
 
 
-Target "InstallVSCE" ( fun _ ->
-    killProcess "npm"
+Target.create "InstallVSCE" ( fun _ ->
+    Process.killAllByName "npm"
     run npmTool "install -g vsce" ""
 )
 
 
-Target "BuildPackage" ( fun _ ->
-    killProcess "vsce"
+Target.create "BuildPackage" ( fun _ ->
+    Process.killAllByName "vsce"
     run vsceTool.Value "package" ""
-    killProcess "vsce"
-    !! "*.vsix"
-    |> Seq.iter(MoveFile "./temp/")
+    Process.killAllByName "vsce"
+    !!("*.vsix")
+    |> Seq.iter(Shell.moveFile "./temp/")
 )
 
 
-Target "PublishToGallery" ( fun _ ->
+Target.create "PublishToGallery" ( fun _ ->
     let token =
-        match getBuildParam "vsce-token" with
-        | s when not (String.IsNullOrWhiteSpace s) -> s
-        | _ -> getUserPassword "VSCE Token: "
+        match Environment.environVarOrDefault "vsce-token" System.String.Empty with
+        | s when not (String.isNullOrWhiteSpace s) -> s
+        | _ -> UserInput.getUserPassword "VSCE Token: "
 
-    killProcess "vsce"
+    Process.killAllByName "vsce"
     run vsceTool.Value (sprintf "publish patch --pat %s" token) ""
 )
 
@@ -145,9 +156,9 @@ Target "PublishToGallery" ( fun _ ->
 // Run generator by default. Invoke 'build <Target>' to override
 // --------------------------------------------------------------------------------------
 
-Target "Build" DoNothing
-Target "Release" DoNothing
-Target "DryRelease" DoNothing
+Target.create "Build" ignore
+Target.create "Release" ignore
+Target.create "DryRelease" ignore
 
 //"YarnInstall" ?=> "RunScript"
 //"DotNetRestore" ?=> "RunScript"
@@ -155,6 +166,8 @@ Target "DryRelease" DoNothing
 // "Clean"
 // //==> "RunScript"
 // ==> "Default"
+
+open Fake.Core.TargetOperators
 
 "Clean"
 //==> "RunScript"
@@ -186,4 +199,4 @@ Target "DryRelease" DoNothing
 "BuildPackage"
 ==> "DryRelease"
 
-RunTargetOrDefault "Build"
+Target.runOrDefaultWithArguments "Build"
