@@ -18,6 +18,8 @@ build:
     - git remote set-url origin "../cwtools"
     - git remote update --prune
     - cd $CI_PROJECT_DIR
+    - GIT_TRACE=$CI_PROJECT_DIR/git.log
+    - cat git.log
     - mono ./.paket/paket.exe restore --verbose
     - chmod +x ./build.sh
     - bash ./build.sh
