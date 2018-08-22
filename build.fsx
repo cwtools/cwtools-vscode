@@ -106,6 +106,7 @@ Target.create "RunScript" (fun _ ->
 //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
 // )
 Target.create "PaketRestore" (fun _ ->
+    Shell.replaceInFiles ["../cwtools",IO.Path.getFullName("../cwtools")] ["paket.lock"]
     Paket.PaketRestoreDefaults |> ignore)
 
 Target.create "CopyFSAC" (fun _ ->
