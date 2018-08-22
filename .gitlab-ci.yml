@@ -16,6 +16,7 @@ build:
     - CWTOOLSPATH=$(readlink -f "../cwtools")
     - git clone --verbose --mirror "../cwtools" "/root/.paket/git/db/cwtools"
     - cd /root/.paket/git/db/cwtools
+    - echo $CWTOOLSPATH
     - git remote set-url origin $CWTOOLSPATH
   #  - GIT_TRACE=${CI_PROJECT_DIR}/git.log GIT_CURL_VERBOSE=${CI_PROJECT_DIR}/git.log GIT_TRACE_CURL=${CI_PROJECT_DIR}/git2.log git remote update --prune
     - cd $CI_PROJECT_DIR
