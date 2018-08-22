@@ -19,7 +19,6 @@ build:
     - GIT_TRACE=${CI_PROJECT_DIR}/git.log GIT_CURL_VERBOSE=${CI_PROJECT_DIR}/git.log GIT_TRACE_CURL=${CI_PROJECT_DIR}/git2.log git remote update --prune
     - cd $CI_PROJECT_DIR
     - GIT_CURL_VERBOSE=${CI_PROJECT_DIR}/git.log GIT_TRACE=${CI_PROJECT_DIR}/git.log GIT_TRACE_CURL=${CI_PROJECT_DIR}/git2.log mono ./.paket/paket.exe restore -v --log-file ${CI_PROJECT_DIR}/git3.log || cat ${CI_PROJECT_DIR}/git.log || cat ${CI_PROJECT_DIR}/git2.log || cat ${CI_PROJECT_DIR}/git3.log
-    - cat ${CI_PROJECT_DIR}/git2.log
     - cat ${CI_PROJECT_DIR}/git3.log
     - chmod +x ./build.sh
     - bash ./build.sh
