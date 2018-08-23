@@ -12,7 +12,7 @@ build:
     stage: build
     script:
     - cd ..
-    - git clone https://www.github.com/tboby/cwtools
+    - git clone https://www.github.com/tboby/cwtools || true
     - cd cwtools-vscode
     - npm install -g typescript
     - npm install --unsafe-perm
@@ -37,7 +37,7 @@ release:
     stage: release
     script:
     - cd ..
-    - git clone https://www.github.com/tboby/cwtools
+    - git clone https://www.github.com/tboby/cwtools || true
     - cd cwtools-vscode
     - npm install -g typescript
     - npm install --unsafe-perm
