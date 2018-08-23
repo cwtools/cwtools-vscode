@@ -11,7 +11,7 @@ stages:
 build:
     stage: build
     script:
-    - git submodule init
+    - git submodule update
     - cd ..
     - git clone https://www.github.com/tboby/cwtools || true
     - cd cwtools-vscode
@@ -37,7 +37,7 @@ build:
 release:
     stage: release
     script:
-    - git submodule init
+    - git submodule update
     - cd ..
     - git clone https://www.github.com/tboby/cwtools || true
     - cd cwtools-vscode
@@ -51,4 +51,9 @@ release:
     cache:
       paths:
       - nupkgs/
+    artifacts:
+      paths:
+      - temp/
+      expire_in: 1 week
+
     when: manual
