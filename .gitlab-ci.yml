@@ -6,6 +6,7 @@ variables:
 
 stages:
   - build
+  - release
       
 build:
     stage: build
@@ -31,3 +32,21 @@ build:
     cache:
       paths:
       - packages/
+
+release:
+    stage: release
+    script:
+    - cd ..
+    - git clone https://www.github.com/tboby/cwtools
+    - cd cwtools-vscode
+    - npm install -g typescript
+    - npm install --unsafe-perm
+    - rm ./.paket/paket.exe
+    - mv ./.paket/paket.bootstrapper.exe ./.paket/paket.exe
+    - chmod +x ./build.sh
+    - bash ./build.sh DryRelease
+    cache:
+      paths:
+      - packages/
+    when:
+    - manual
