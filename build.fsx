@@ -98,8 +98,7 @@ let runTsc additionalArgs noTimeout =
     // let timeout = if noTimeout then System.TimeSpan.MaxValue else System.TimeSpan.FromMinutes 30.
     run cmd additionalArgs ""
 Target.create "RunScript" (fun _ ->
-    // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
-    Shell.Exec @"/home/thomas/.npm-global/bin/tsc" |> ignore
+    Shell.Exec @"tsc" |> ignore
 )
 
 // Target "Watch" (fun _ ->
