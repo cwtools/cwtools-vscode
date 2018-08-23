@@ -7,7 +7,7 @@ dotnet tool install fake-cli \
     --tool-path ./$BUILD_PACKAGES \
     --version 5.*
 fi
-./$BUILD_PACKAGES/fake run --nocache build.fsx $@
+./$BUILD_PACKAGES/fake run --nocache build.fsx --target $@
 # if test "$OS" = "Windows_NT"
 # then
 #   # use .Net

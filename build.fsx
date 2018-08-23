@@ -4,7 +4,15 @@
 
 // #I "packages/build/FAKE/tools"
 // #r "FakeLib.dll"
-#r "paket: groupref build //"
+// #r "paket: groupref build //"
+#r "paket:
+    nuget Fake.Core
+    nuget Fake.Core.Target
+    nuget Fake.IO.FileSystem
+    nuget Fake.DotNet.Cli
+    nuget Fake.DotNet.Paket
+    nuget Fake.JavaScript.Npm
+    nuget Fake.Core.UserInput //"
 #load "./.fake/build.fsx/intellisense.fsx"
 
 open System.Diagnostics
@@ -90,8 +98,7 @@ let runTsc additionalArgs noTimeout =
     // let timeout = if noTimeout then System.TimeSpan.MaxValue else System.TimeSpan.FromMinutes 30.
     run cmd additionalArgs ""
 Target.create "RunScript" (fun _ ->
-    // Ideally we would want a production (minized) build but UglifyJS fail on PerMessageDeflate.js as it contains non-ES6 javascript.
-    Shell.Exec @"/home/thomas/.npm-global/bin/tsc" |> ignore
+    Shell.Exec @"tsc" |> ignore
 )
 
 // Target "Watch" (fun _ ->
@@ -106,8 +113,11 @@ Target.create "RunScript" (fun _ ->
 //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
 // )
 Target.create "PaketRestore" (fun _ ->
-    Shell.replaceInFiles ["../cwtools",IO.Path.getFullName("../cwtools")] ["paket.lock"]
-    Paket.PaketRestoreDefaults |> ignore)
+    Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
+    Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
+    // Paket.PaketRestoreDefaults |> ignore
+    Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
+    )
 
 Target.create "CopyFSAC" (fun _ ->
     Directory.ensure releaseBin
@@ -143,7 +153,7 @@ Target.create "BuildPackage" ( fun _ ->
 
 Target.create "PublishToGallery" ( fun _ ->
     let token =
-        match Environment.environVarOrDefault "vsce-token" System.String.Empty with
+        match Environment.environVarOrDefault "VSCE_TOKEN" System.String.Empty with
         | s when not (String.isNullOrWhiteSpace s) -> s
         | _ -> UserInput.getUserPassword "VSCE Token: "
 
