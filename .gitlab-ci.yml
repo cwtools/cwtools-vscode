@@ -31,7 +31,7 @@ build:
     - bash ./build.sh # || bash ./build.sh
     cache:
       paths:
-      - packages/
+      - nupkgs/
 
 release:
     stage: release
@@ -47,5 +47,5 @@ release:
     - bash ./build.sh DryRelease
     cache:
       paths:
-      - packages/
+      - nupkgs/
     when: manual
