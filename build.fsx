@@ -114,7 +114,8 @@ Target.create "RunScript" (fun _ ->
 // )
 Target.create "PaketRestore" (fun _ ->
     Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
-    Paket.PaketRestoreDefaults |> ignore
+    Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
+    // Paket.PaketRestoreDefaults |> ignore
     Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
     )
 
