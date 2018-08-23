@@ -153,7 +153,7 @@ Target.create "BuildPackage" ( fun _ ->
 
 Target.create "PublishToGallery" ( fun _ ->
     let token =
-        match Environment.environVarOrDefault "vsce-token" System.String.Empty with
+        match Environment.environVarOrDefault "VSCE_TOKEN" System.String.Empty with
         | s when not (String.isNullOrWhiteSpace s) -> s
         | _ -> UserInput.getUserPassword "VSCE Token: "
 

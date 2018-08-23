@@ -11,6 +11,7 @@ stages:
 build:
     stage: build
     script:
+    - git submodule init
     - cd ..
     - git clone https://www.github.com/tboby/cwtools || true
     - cd cwtools-vscode
@@ -36,10 +37,12 @@ build:
 release:
     stage: release
     script:
+    - git submodule init
     - cd ..
     - git clone https://www.github.com/tboby/cwtools || true
     - cd cwtools-vscode
     - npm install -g typescript
+    - npm install -g vsce
     - npm install --unsafe-perm
     - rm ./.paket/paket.exe
     - mv ./.paket/paket.bootstrapper.exe ./.paket/paket.exe
