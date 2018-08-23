@@ -33,8 +33,9 @@ build:
     cache:
       paths:
       - nupkgs/
+      - node_modules/
 
-release:
+dry-release:
     stage: release
     script:
     - git submodule update
@@ -51,9 +52,29 @@ release:
     cache:
       paths:
       - nupkgs/
+      - node_modules/
     artifacts:
       paths:
       - temp/
       expire_in: 1 week
+    when: manual
 
+release:
+    stage: release
+    script:
+    - git submodule update
+    - cd ..
+    - git clone https://www.github.com/tboby/cwtools || true
+    - cd cwtools-vscode
+    - npm install -g typescript
+    - npm install -g vsce
+    - npm install --unsafe-perm
+    - rm ./.paket/paket.exe
+    - mv ./.paket/paket.bootstrapper.exe ./.paket/paket.exe
+    - chmod +x ./build.sh
+    - bash ./build.sh Release
+    cache:
+      paths:
+      - nupkgs/
+      - node_modules/
     when: manual
