@@ -4,7 +4,15 @@
 
 // #I "packages/build/FAKE/tools"
 // #r "FakeLib.dll"
-#r "paket: groupref build //"
+// #r "paket: groupref build //"
+#r "paket:
+    nuget Fake.Core
+    nuget Fake.Core.Target
+    nuget Fake.IO.FileSystem
+    nuget Fake.DotNet.Cli
+    nuget Fake.DotNet.Paket
+    nuget Fake.JavaScript.Npm
+    nuget Fake.Core.UserInput //"
 #load "./.fake/build.fsx/intellisense.fsx"
 
 open System.Diagnostics
@@ -106,8 +114,10 @@ Target.create "RunScript" (fun _ ->
 //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
 // )
 Target.create "PaketRestore" (fun _ ->
-    Shell.replaceInFiles ["../cwtools",IO.Path.getFullName("../cwtools")] ["paket.lock"]
-    Paket.PaketRestoreDefaults |> ignore)
+    Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
+    Paket.PaketRestoreDefaults |> ignore
+    Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
+    )
 
 Target.create "CopyFSAC" (fun _ ->
     Directory.ensure releaseBin
