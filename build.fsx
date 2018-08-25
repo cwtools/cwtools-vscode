@@ -70,10 +70,10 @@ Target.create "YarnInstall" <| fun _ ->
 Target.create "DotNetRestore" <| fun _ ->
     DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
 
-let publishParams (framework : string) (release : bool) = 
+let publishParams (framework : string) (release : bool) =
     (fun (p : DotNet.PublishOptions) ->
-        { p with 
-            Common = 
+        { p with
+            Common =
                 {
                     p.Common with
                         WorkingDirectory = "src/Main"
@@ -89,16 +89,19 @@ Target.create "BuildServer" <| fun _ ->
     DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
 Target.create "PublishServer" <| fun _ ->
-    DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName 
-    DotNet.publish (publishParams "linux-x64" true) cwtoolsProjectName 
-    DotNet.publish (publishParams "osx.10.11-x64" true) cwtoolsProjectName 
+    DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName
+    DotNet.publish (publishParams "linux-x64" true) cwtoolsProjectName
+    DotNet.publish (publishParams "osx.10.11-x64" true) cwtoolsProjectName
 
 let runTsc additionalArgs noTimeout =
     let cmd = "tsc"
     // let timeout = if noTimeout then System.TimeSpan.MaxValue else System.TimeSpan.FromMinutes 30.
     run cmd additionalArgs ""
 Target.create "RunScript" (fun _ ->
-    Shell.Exec @"tsc" |> ignore
+    match Process.tryFindFileOnPath "tsc" with
+    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc)) |> ignore
+    |_ -> ()
+    // Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName("tsc").WithLoadUserProfile(true).WithUseShellExecute(false)) |> ignore
 )
 
 // Target "Watch" (fun _ ->
@@ -107,14 +110,16 @@ Target.create "RunScript" (fun _ ->
 
 // Target "CompileTypeScript" (fun _ ->
 //     // !! "**/*.ts"
-//     //     |> TypeScriptCompiler (fun p -> { p with OutputPath = "./out/client", Projec }) 
+//     //     |> TypeScriptCompiler (fun p -> { p with OutputPath = "./out/client", Projec })
 //     //let cmd = "tsc -p ./"
 //     //DotNetCli.RunCommand id cmd
 //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
 // )
 Target.create "PaketRestore" (fun _ ->
     Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
-    Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
+    match Environment.isWindows with
+    |true -> Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
+    |_ -> Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
     // Paket.PaketRestoreDefaults |> ignore
     Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
     )
