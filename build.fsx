@@ -166,7 +166,7 @@ Target.create "PublishToGallery" ( fun _ ->
         | _ -> UserInput.getUserPassword "VSCE Token: "
 
     Process.killAllByName "vsce"
-    run vsceTool.Value "publish patch" ""
+    run vsceTool.Value (sprintf "publish patch -p %s" token ""
 )
 
 
