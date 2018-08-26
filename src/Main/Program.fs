@@ -4,7 +4,6 @@ open LSP
 open LSP.Types
 open System
 open System.IO
-open Microsoft.FSharp.Compiler.SourceCodeServices
 open CWTools.Parser
 open CWTools.Parser.Types
 open CWTools.Common
@@ -20,8 +19,6 @@ open FSharp.Data
 open LSP
 open CWTools.Validation.ValidationCore
 open System
-open Microsoft.FSharp.Compiler.Range
-open Microsoft.FSharp.Compiler
 open CWTools.Validation.Rules
 open System.Xml.Schema
 open CWTools.Games.Files
@@ -29,6 +26,10 @@ open LSP.Json.Ser
 open System.ComponentModel
 open CWTools.Games.Stellaris
 open CWTools.Games.Stellaris.STLLookup
+open MBrace.FsPickler
+open CWTools.Process
+open CWTools.Utilities.Position
+
 let private TODO() = raise (Exception "TODO")
 
 [<assembly: AssemblyDescription("CWTools language server for PDXScript")>]
@@ -42,8 +43,6 @@ type GameLanguage = |STL |HOI4
 type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
-    let checker = FSharpChecker.Create()
-    let emptyProjectOptions = checker.GetProjectOptionsFromCommandLineArgs("NotFound.fsproj", [||])
     let notFound (doc: Uri) (): 'Any =
         raise (Exception (sprintf "%s does not exist" (doc.ToString())))
     let mutable docErrors : DocumentHighlight list = []
@@ -251,6 +250,20 @@ type Server(client: ILanguageClient) =
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
 
+                let registry = new CustomPicklerRegistry()
+                registry.DeclareSerializable<FParsec.Position>()
+                registry.DeclareSerializable<Lazy<Leaf array>>()
+                let cache = PicklerCache.FromCustomPicklerRegistry registry
+                let binarySerializer = FsPickler.CreateBinarySerializer(picklerResolver = cache)
+                let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
+                let cacheFile = File.ReadAllBytes(assemblyLocation+"/../../../embedded/pickled.cwb")
+                // let cacheFile = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.pickled.cwb")
+                //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
+                let cached = binarySerializer.UnPickle<CachedResourceData> cacheFile
+                fileIndexTable <- cached.fileIndexTable
+                let cached = cached.resources
+
+
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
                 let logspath = "Main.files.setup.log"
@@ -291,6 +304,7 @@ type Server(client: ILanguageClient) =
                         effects = effects
                         modifiers = modifiers
                         embeddedFiles = embeddedFiles @ filelist
+                        cachedResourceData = cached
                     }
                 }
 
@@ -379,11 +393,13 @@ type Server(client: ILanguageClient) =
                         match effect with
                         | :? DocEffect as de ->
                             let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                            let content = String.Join("\n***\n",["_"+de.Desc+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
+                            let desc = de.Desc.Replace("_", "\\_").Trim() |> (fun s -> if s = "" then "" else "_"+s+"_" )
+                            let content = String.Join("\n***\n",[desc; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
                             {contents = (MarkupContent ("markdown", content)) ; range = None}
                         | e ->
                             let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                            let content = String.Join("\n***\n",["_"+e.Name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
+                            let name = e.Name.Replace("_","\\_").Trim()
+                            let content = String.Join("\n***\n",["_"+name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
                             {contents = (MarkupContent ("markdown", content)) ; range = None}
                     |None, Some (_, loc) ->
                         {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}

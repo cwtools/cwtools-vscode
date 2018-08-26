@@ -15,8 +15,8 @@ IF EXIST "build.fsx.lock" (DEL         "build.fsx.lock")
 "%BUILD_PACKAGES%/fake.exe" run build.fsx --target %*
 
 REM .paket\paket.exe restore
-REM if errorlevel 1 (
-REM   exit /b %errorlevel%
-REM )
+if errorlevel 1 (
+  exit /b %errorlevel%
+)
 
 REM packages\build\FAKE\tools\FAKE.exe build.fsx %* --nocache

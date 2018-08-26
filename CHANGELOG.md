@@ -1,6 +1,9 @@
 # 0.5.33
 * Fix locale issue with floats
 * Fix scope hover info
+* Slightly improve startup speed
+* Fix crash on tooltip hover
+* Add validation of localisation file encoding, header and name
 # 0.5.32
 * Performance improvements
 * Hotfix some rules

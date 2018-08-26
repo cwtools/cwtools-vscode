@@ -119,10 +119,12 @@ export function activate(context: ExtensionContext) {
 			let position = new Position(param.position.line, param.position.character)
 			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
 			if(wordRange === undefined){
-				return "";
+				return "none";
 			}
 			else{
-				return document.getText(wordRange);
+				let text = document.getText(wordRange);
+				console.log("wordAtPos "+ text);
+				return text;
 			}
 		})
 	})

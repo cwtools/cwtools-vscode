@@ -85,8 +85,11 @@ let publishParams (framework : string) (release : bool) =
         })
 
 Target.create "BuildServer" <| fun _ ->
+    match Environment.isWindows with
+    |true -> DotNet.publish (publishParams "win-x64" false) cwtoolsProjectName
+    |false -> DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName
     // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
-    DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
+    // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
 Target.create "PublishServer" <| fun _ ->
     DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName
