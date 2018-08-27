@@ -250,9 +250,18 @@ type Server(client: ILanguageClient) =
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
 
+                let mkPickler (resolver : IPicklerResolver) =
+                    let arrayPickler = resolver.Resolve<Leaf array> ()
+                    let writer (w : WriteState) (ns : Lazy<Leaf array>) =
+                        arrayPickler.Write w "value" (ns.Force())
+                    let reader (r : ReadState) =
+                        let v = arrayPickler.Read r "value" in Lazy<Leaf array>.CreateFromValue v
+                    Pickler.FromPrimitives(reader, writer)
                 let registry = new CustomPicklerRegistry()
+                do registry.RegisterFactory mkPickler
                 registry.DeclareSerializable<FParsec.Position>()
-                registry.DeclareSerializable<Lazy<Leaf array>>()
+                // registry.DeclareSerializable<System.LazyHelper>()
+                // registry.DeclareSerializable<Lazy>()
                 let cache = PicklerCache.FromCustomPicklerRegistry registry
                 let binarySerializer = FsPickler.CreateBinarySerializer(picklerResolver = cache)
                 let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
