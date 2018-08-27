@@ -1,3 +1,6 @@
+# 0.5.34
+* Hotfix vanilla embedded files
+* Performance improvements
 # 0.5.33
 * Fix locale issue with floats
 * Fix scope hover info
