@@ -13,7 +13,7 @@ build:
     script:
     - git submodule update
     - cd ..
-    - git clone https://www.github.com/tboby/cwtools || true
+    - git clone https://www.github.com/tboby/cwtools || git -C ./cwtools pull
     - cd cwtools-vscode
     - npm install -g typescript
     - npm install --unsafe-perm
@@ -39,7 +39,7 @@ dry-release:
     script:
     - git submodule update
     - cd ..
-    - git clone https://www.github.com/tboby/cwtools || true
+    - git clone https://www.github.com/tboby/cwtools || git -C ./cwtools pull
     - cd cwtools-vscode
     - npm install -g typescript
     - npm install -g vsce
@@ -61,7 +61,7 @@ release:
     script:
     - git submodule update
     - cd ..
-    - git clone https://www.github.com/tboby/cwtools || true
+    - git clone https://www.github.com/tboby/cwtools || git -C ./cwtools pull
     - cd cwtools-vscode
     - npm install -g typescript
     - npm install -g vsce
