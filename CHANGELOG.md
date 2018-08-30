@@ -1,3 +1,5 @@
+# 0.5.35
+* Add "Reload config rules" command to reload config rules
 # 0.5.34
 * Hotfix vanilla embedded files
 * Performance improvements

@@ -37,7 +37,7 @@ do()
 
 type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier
-    | WorkComplete of unit
+    | WorkComplete of DateTime
 
 type GameLanguage = |STL |HOI4
 type Server(client: ILanguageClient) =
@@ -160,20 +160,29 @@ type Server(client: ILanguageClient) =
             //     for error in checkResults.Errors do
             //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
         }
+    let delayedAnalyze() =
+        match gameObj with
+        |Some game -> game.RefreshCaches()
+        |None -> ()
 
     let lintAgent =
         MailboxProcessor.Start(
             (fun agent ->
+            let mutable nextAnalyseTime = DateTime.Now
             let analyzeTask uri =
                 new Task(
                     fun () ->
+                    let mutable nextTime = nextAnalyseTime
                     try
                         try
                             lint uri false false |> Async.RunSynchronously
+                            if DateTime.Now > nextTime
+                            then delayedAnalyze(); nextTime <- DateTime.Now.AddSeconds(30.0);
+                            else ()
                         with
                         | e -> eprintfn "uri %A \n exception %A" uri.LocalPath e
                     finally
-                        agent.Post (WorkComplete ()))
+                        agent.Post (WorkComplete (nextTime)))
             let analyze (file : VersionedTextDocumentIdentifier) =
                 //eprintfn "Analyze %s" (file.uri.ToString())
                 let task = analyzeTask file.uri
@@ -196,7 +205,8 @@ type Server(client: ILanguageClient) =
                                 return! loop inprogress state
                         else
                             return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
-                    | WorkComplete _, _ ->
+                    | WorkComplete time, _ ->
+                        nextAnalyseTime <- time
                         if Map.isEmpty state
                         then
                             return! loop false state
@@ -231,6 +241,23 @@ type Server(client: ILanguageClient) =
             yield! dirs
             yield! getAllFolders dirs
         }
+
+    let getConfigFiles() =
+        let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
+        let embeddedConfigFiles = embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
+        let configpath = "Main.files.config.cwt"
+        let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
+        let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+        let configs =
+            match experimental_completion, configFiles.Length > 0 with
+            |false, _ -> []
+            |_, true ->
+                configFiles |> List.map (fun f -> f, File.ReadAllText(f))
+                //["./config.cwt", File.ReadAllText("./config.cwt")]
+            |_, false ->
+                embeddedConfigFiles
+        configs
+
 
     let processWorkspace (uri : option<Uri>) =
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Loading project...");  "enable", JsonValue.Boolean(true) |])
@@ -277,21 +304,9 @@ type Server(client: ILanguageClient) =
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
                 let logspath = "Main.files.setup.log"
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
-
-                let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
-                let embeddedConfigFiles = embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
-                let configpath = "Main.files.config.cwt"
-                let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
-                let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
-                let configs =
-                    match experimental_completion, configFiles.Length > 0 with
-                    |false, _ -> []
-                    |_, true ->
-                        configFiles |> List.map (fun f -> f, File.ReadAllText(f))
-                        //["./config.cwt", File.ReadAllText("./config.cwt")]
-                    |_, false ->
-                        embeddedConfigFiles
+
+                let configs = getConfigFiles()
                 //let configs = [
                 eprintfn "%A" languages
 
@@ -486,7 +501,7 @@ type Server(client: ILanguageClient) =
                                 change = TextDocumentSyncKind.Full }
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
-                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"]} } }
+                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -714,6 +729,9 @@ type Server(client: ILanguageClient) =
                             let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
                             let text = String.Join(Environment.NewLine, (texts))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
+                        | {command = "reloadrulesconfig"; arguments = _} ->
+                            let configs = getConfigFiles()
+                            game.ReplaceConfigRules configs
                         |_ -> ()
                     |None -> ()
             }

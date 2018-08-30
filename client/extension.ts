@@ -124,7 +124,12 @@ export function activate(context: ExtensionContext) {
 			else{
 				let text = document.getText(wordRange);
 				console.log("wordAtPos "+ text);
-				return text;
+				if (text.trim().length == 0){
+					return "none";
+				}
+				else{
+					return text;
+				}
 			}
 		})
 	})

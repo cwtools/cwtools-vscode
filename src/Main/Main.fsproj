@@ -20,9 +20,8 @@
     <ProjectReference Include="..\LSP\LSP.fsproj" />
     <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
   <ItemGroup>
-  <LinkerRootDescriptors Include="rootDescriptor.xml" />
-</ItemGroup>
-
+    <LinkerRootDescriptors Include="rootDescriptor.xml" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
