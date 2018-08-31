@@ -13,8 +13,7 @@
     nuget Fake.DotNet.Cli
     nuget Fake.DotNet.Paket
     nuget Fake.JavaScript.Npm
-    nuget Fake.Core.UserInput
-    nuget Fake.BuildServer.GitLab //"
+    nuget Fake.Core.UserInput //"
 #load "./.fake/build.fsx/intellisense.fsx"
 
 open System.Diagnostics
@@ -25,7 +24,7 @@ open Fake.IO
 open Fake.IO.Globbing.Operators
 open Fake.BuildServer
 
-BuildServer.install [ GitLab.Installer ]
+// BuildServer.install [ GitLab.Installer ]
 
 let run cmd args dir =
     if Process.execSimple( fun info ->
