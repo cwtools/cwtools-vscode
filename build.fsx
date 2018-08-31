@@ -5,8 +5,8 @@
 // #I "packages/build/FAKE/tools"
 // #r "FakeLib.dll"
 // #r "paket: groupref build //"
+    // cache .././nupkgs versions: current
 #r "paket:
-    cache .././nupkgs versions: current
     nuget Fake.Core
     nuget Fake.Core.Target
     nuget Fake.IO.FileSystem
