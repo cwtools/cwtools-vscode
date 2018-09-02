@@ -22,7 +22,7 @@ open Fake.DotNet
 open Fake.JavaScript
 open Fake.IO
 open Fake.IO.Globbing.Operators
-open Fake.BuildServer
+// open Fake.BuildServer
 
 // BuildServer.install [ GitLab.Installer ]
 

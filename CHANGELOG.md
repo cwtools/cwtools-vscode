@@ -1,3 +1,5 @@
+# 0.5.36
+* Performance improvements and hotfix
 # 0.5.35
 * Add "Reload config rules" command to reload config rules
 # 0.5.34

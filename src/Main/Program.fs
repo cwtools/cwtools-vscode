@@ -36,7 +36,7 @@ let private TODO() = raise (Exception "TODO")
 do()
 
 type LintRequestMsg =
-    | UpdateRequest of VersionedTextDocumentIdentifier
+    | UpdateRequest of VersionedTextDocumentIdentifier * bool
     | WorkComplete of DateTime
 
 type GameLanguage = |STL |HOI4
@@ -136,15 +136,12 @@ type Server(client: ILanguageClient) =
                     | _, Success(_,_,_) -> []
                     | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0)]
             let errors =
-                match shallowAnalyze with
-                |true -> parserErrors
-                |false ->
-                    parserErrors @
-                    match gameObj with
-                        |None -> []
-                        |Some game ->
-                            let results = game.UpdateFile name filetext
-                            results |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
+                parserErrors @
+                match gameObj with
+                    |None -> []
+                    |Some game ->
+                        let results = game.UpdateFile shallowAnalyze name filetext
+                        results |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
             match errors with
             | [] -> client.PublishDiagnostics {uri = doc; diagnostics = []}
             | x -> x
@@ -169,51 +166,52 @@ type Server(client: ILanguageClient) =
         MailboxProcessor.Start(
             (fun agent ->
             let mutable nextAnalyseTime = DateTime.Now
-            let analyzeTask uri =
+            let analyzeTask uri force =
                 new Task(
                     fun () ->
                     let mutable nextTime = nextAnalyseTime
                     try
                         try
-                            lint uri false false |> Async.RunSynchronously
-                            if DateTime.Now > nextTime
+                            let shallowAnalyse = DateTime.Now < nextTime
+                            lint uri (shallowAnalyse && (not(force))) false |> Async.RunSynchronously
+                            if not(shallowAnalyse)
                             then delayedAnalyze(); nextTime <- DateTime.Now.AddSeconds(30.0);
                             else ()
                         with
                         | e -> eprintfn "uri %A \n exception %A" uri.LocalPath e
                     finally
                         agent.Post (WorkComplete (nextTime)))
-            let analyze (file : VersionedTextDocumentIdentifier) =
+            let analyze (file : VersionedTextDocumentIdentifier) force =
                 //eprintfn "Analyze %s" (file.uri.ToString())
-                let task = analyzeTask file.uri
+                let task = analyzeTask file.uri force
                 //let task = new Task((fun () -> lint (file.uri) false false |> Async.RunSynchronously; agent.Post (WorkComplete ())))
                 task.Start()
-            let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier>) =
+            let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier * bool>) =
                 async{
                     let! msg = agent.Receive()
                     match msg, inprogress with
-                    | UpdateRequest (ur), false ->
-                        analyze ur
+                    | UpdateRequest (ur, force), false ->
+                        analyze ur force
                         return! loop true state
-                    | UpdateRequest (ur), true ->
+                    | UpdateRequest (ur, force), true ->
                         if Map.containsKey ur.uri.LocalPath state
                         then
-                            if (Map.find ur.uri.LocalPath state) |> (fun {VersionedTextDocumentIdentifier.version = v} -> v < ur.version)
+                            if (Map.find ur.uri.LocalPath state) |> (fun ({VersionedTextDocumentIdentifier.version = v}, _) -> v < ur.version)
                             then
-                                return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
+                                return! loop inprogress (state |> Map.add ur.uri.LocalPath (ur, force))
                             else
                                 return! loop inprogress state
                         else
-                            return! loop inprogress (state |> Map.add ur.uri.LocalPath ur)
+                            return! loop inprogress (state |> Map.add ur.uri.LocalPath (ur, force))
                     | WorkComplete time, _ ->
                         nextAnalyseTime <- time
                         if Map.isEmpty state
                         then
                             return! loop false state
                         else
-                            let key, next = state |> Map.pick (fun k v -> (k, v) |> function | (k, v) -> Some (k, v))
+                            let key, (next, force) = state |> Map.pick (fun k v -> (k, v) |> function | (k, v) -> Some (k, v))
                             let newstate = state |> Map.remove key
-                            analyze next
+                            analyze next force
                             return! loop true newstate
                 }
             loop false Map.empty
@@ -554,7 +552,7 @@ type Server(client: ILanguageClient) =
         member this.DidOpenTextDocument(p: DidOpenTextDocumentParams) =
             async {
                 docs.Open p
-                lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
+                lintAgent.Post (UpdateRequest ({uri = p.textDocument.uri; version = p.textDocument.version}, true))
                 match gameObj with
                 |Some game -> locCache <- game.LocalisationErrors(true)
                 |None -> ()
@@ -562,14 +560,16 @@ type Server(client: ILanguageClient) =
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams) =
             async {
                 docs.Change p
-                lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
+                lintAgent.Post (UpdateRequest ({uri = p.textDocument.uri; version = p.textDocument.version}, false))
             }
-        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams) = async { () }
-            //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument})
+        member this.WillSaveTextDocument(p: WillSaveTextDocumentParams) =
+            async {
+                lintAgent.Post (UpdateRequest ({uri = p.textDocument.uri; version = 0}, true))
+            }
         member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams) = TODO()
         member this.DidSaveTextDocument(p: DidSaveTextDocumentParams) =
             async {
-                lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = 0})
+                lintAgent.Post (UpdateRequest ({uri = p.textDocument.uri; version = 0}, false))
             }
         member this.DidCloseTextDocument(p: DidCloseTextDocumentParams) =
             async {
@@ -581,7 +581,7 @@ type Server(client: ILanguageClient) =
                     match change.``type`` with
                     |FileChangeType.Created ->
 
-                        lintAgent.Post (UpdateRequest {uri = change.uri; version = 0})
+                        lintAgent.Post (UpdateRequest ({uri = change.uri; version = 0}, true))
                         //eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
                     |FileChangeType.Deleted ->
                         client.PublishDiagnostics {uri = change.uri; diagnostics = []}
