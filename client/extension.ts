@@ -33,7 +33,7 @@ export function activate(context: ExtensionContext) {
 	}
 
 	// The server is implemented using dotnet core
-	//let serverDll = context.asAbsolutePath(path.join('src', 'Main', 'bin', 'Debug', 'netcoreapp2.0', 'Main.dll'));
+	let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
 	var serverExe : string;
 	if(os.platform() == "win32"){
 		serverExe = context.asAbsolutePath(path.join('out', 'server','win-x64', 'CWTools Server.exe'))
@@ -51,8 +51,8 @@ export function activate(context: ExtensionContext) {
 	// Otherwise the run options are used
 	let serverOptions: ServerOptions = {
 		run : { command: serverExe, transport: TransportKind.stdio },
-		debug : { command: serverExe, transport: TransportKind.stdio }
-		//debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
+		// debug : { command: serverExe, transport: TransportKind.stdio }
+		debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 		// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 	}
 

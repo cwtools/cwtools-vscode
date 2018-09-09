@@ -35,24 +35,38 @@
         },
         {
             "preLaunchTask": "Build",
-			"name": "Build and Launch Extension",
+			"name": "Quick Build and Launch Extension",
 			"type": "extensionHost",
 			"runtimeExecutable": "${execPath}",
 			"args": ["C:\\PRogramming\\Stellaris\\stellaris",  "--extensionDevelopmentPath=${workspaceRoot}" ],
 			"stopOnEntry": false,
 			"request": "launch",
-			"sourceMaps": false
+            "sourceMaps": false,
+            "debugServer": 0
 		},
 		{
-			"name": "Launch Only",
+            "name": "Launch Only",
 			"type": "extensionHost",
 			"runtimeExecutable": "${execPath}",
 			"args": ["--extensionDevelopmentPath=${workspaceRoot}" ],
 			"stopOnEntry": false,
 			"request": "launch",
             "sourceMaps": false,
-    
-		}
+
+        },
+        {
+            "preLaunchTask": "Full Build",
+            "name": "Build and Launch Extension",
+            "type": "extensionHost",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "C:\\PRogramming\\Stellaris\\stellaris",
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ],
+            "stopOnEntry": false,
+            "request": "launch",
+            "sourceMaps": false
+        }
 
     ]
 }

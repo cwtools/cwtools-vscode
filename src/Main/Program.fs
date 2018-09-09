@@ -471,6 +471,16 @@ type Server(client: ILanguageClient) =
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)
         && range.start.character >= int start.StartColumn && range.``end``.character <= (int start.StartColumn + length)
+    let catchError (defaultValue) (a : Async<_>) =
+        async {
+            try
+                return! a
+            with
+                | ex ->
+                    eprintfn "%A" ex
+                    return defaultValue
+        }
+
 
 
     interface ILanguageServer with
@@ -623,17 +633,16 @@ type Server(client: ILanguageClient) =
                         //     let items = names |> List.map (fun n -> {defaultCompletionItem with label = n})
                         //     Some {isIncomplete = false; items = items @ variables}
                     |None -> None
-            }
+            } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                eprintfn "Hover"
                 return hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously |> Some
-            }
+            } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =
             async {
                 return completionResolveItem(p) |> Async.RunSynchronously
-            }
+            } |> catchError p
         member this.SignatureHelp(p: TextDocumentPositionParams) = TODO()
         member this.GotoDefinition(p: TextDocumentPositionParams) =
             async {

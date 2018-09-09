@@ -88,6 +88,22 @@ let publishParams (framework : string) (release : bool) =
             Configuration = DotNet.BuildConfiguration.Release
         })
 
+let buildParams (release : bool) =
+    (fun (b : DotNet.BuildOptions) ->
+        { b with
+            Common =
+                {
+                    b.Common with
+                        WorkingDirectory = "src/Main"
+                        CustomParams = Some ((if release then "" else " /p:LinkDuringPublish=false"))
+                }
+            OutputPath = Some ("../../out/server/local")
+            Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
+        })
+
+Target.create "BuildDll" <| fun _ ->
+    DotNet.build (buildParams false) cwtoolsProjectName
+
 Target.create "BuildServer" <| fun _ ->
     match Environment.isWindows with
     |true -> DotNet.publish (publishParams "win-x64" false) cwtoolsProjectName
@@ -179,26 +195,18 @@ Target.create "PublishToGallery" ( fun _ ->
 // Run generator by default. Invoke 'build <Target>' to override
 // --------------------------------------------------------------------------------------
 
+Target.create "QuickBuild" ignore
 Target.create "Build" ignore
 Target.create "Release" ignore
 Target.create "DryRelease" ignore
 
-//"YarnInstall" ?=> "RunScript"
-//"DotNetRestore" ?=> "RunScript"
-
-// "Clean"
-// //==> "RunScript"
-// ==> "Default"
 
 open Fake.Core.TargetOperators
 
+"RunScript" ==> "QuickBuild"
+"BuildDll" ==> "QuickBuild"
+
 "Clean"
-//==> "RunScript"
-//==> "CopyFSAC"
-//==> "CopyFSACNetcore"
-//==> "CopyForge"
-//==> "CopyGrammar"
-//==> "CopySchemas"
 ==> "BuildServer"
 ==> "Build"
 
@@ -206,16 +214,10 @@ open Fake.Core.TargetOperators
 "RunScript" ==> "PublishServer"
 "PaketRestore" ==> "BuildServer"
 "PaketRestore" ==> "PublishServer"
-// "CompileTypeScript" ==> "Build"
-//"DotNetRestore" ==> "BuildServer"
-//"DotNetRestore" ==> "Build"
 
 "Clean"
-//==> "SetVersion"
-// ==> "InstallVSCE"
 ==> "PublishServer"
 ==> "BuildPackage"
-//==> "ReleaseGitHub"
 ==> "PublishToGallery"
 ==> "Release"
 
