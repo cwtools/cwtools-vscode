@@ -1,3 +1,7 @@
+# 0.5.37
+* Improved autocompletion (should now work everywhere)
+* Increased resiliancy to errors, now won't restart on error
+* Performance improvements
 # 0.5.36
 * Performance improvements and hotfix
 # 0.5.35
