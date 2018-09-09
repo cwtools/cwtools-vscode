@@ -3083,20 +3083,28 @@ planet_event = {
 		create_country = {
 			name = "NAME_Mutant_Horrors"
 			type = faction
+			auto_delete = yes
+			effect = {
+				establish_communications_no_message = root.owner
+				establish_contact = { who = root.owner location = root.solar_system }
+			}
+		}
+		last_created_country = {
+			save_global_event_target_as = mutant_horror_country
 		}
 		create_army = {
 			name = "NAME_Mutant_Horrors"
-			owner = last_created
+			owner = event_target:mutant_horror_country
 			type = "mutant_army"
 		}
 		create_army = {
 			name = "NAME_Mutant_Horrors"
-			owner = last_created
+			owner = event_target:mutant_horror_country
 			type = "mutant_army"
 		}
 		create_army = {
 			name = "NAME_Mutant_Horrors"
-			owner = last_created
+			owner = event_target:mutant_horror_country
 			type = "mutant_army"
 		}
 	}

@@ -2898,8 +2898,21 @@ country_event = {
 		NOR = {
 			has_event_chain = tutorial_23_chain
 			has_country_flag = finished_tutorial_23
-			FROM = { is_country_type = primitive }
+			#FROM = { is_country_type = primitive }
 			has_ethic = ethic_gestalt_consciousness
+		}
+		from = {
+			OR = {
+				is_country_type = default
+				is_country_type = fallen_empire
+				is_country_type = dormant_marauders
+				is_country_type = pirate
+				is_country_type = tiyanki
+				is_country_type = amoeba
+				is_country_type = crystal
+				is_country_type = drone
+				is_country_type = cloud
+			}
 		}
 	}
 

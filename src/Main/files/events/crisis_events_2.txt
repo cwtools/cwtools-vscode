@@ -269,6 +269,10 @@ country_event = {
 				owner = event_target:extradimensionals
 			}
 		}
+		# make portal invincible
+		event_target:extradimensionals = {
+			random_owned_ship = { ship_event = { id = crisis.1280 } }
+		}
 		every_country = {
 			limit = {
 				OR = {
@@ -447,7 +451,14 @@ country_event = {
 			desc = "extradimensional_invasion_4_poi_desc"
 			event_chain = "extradimensional_invasion_chain"
 		}
-		hidden_effect = { country_event = { id = crisis.1010 } }
+		hidden_effect = {
+			add_event_chain_counter = {
+				event_chain = "extradimensional_invasion_chain"
+				counter = "dimensional_anchors_1"
+				amount = 1
+			}
+			country_event = { id = crisis.1010 }
+		}
 	}
 
 	option = {
@@ -612,7 +623,14 @@ country_event = {
 			desc = "extradimensional_invasion_4_poi_desc"
 			event_chain = "extradimensional_invasion_chain"
 		}
-		hidden_effect = { country_event = { id = crisis.1010 } }
+		hidden_effect = {
+			add_event_chain_counter = {
+				event_chain = "extradimensional_invasion_chain"
+				counter = "dimensional_anchors_1"
+				amount = 1
+			}
+			country_event = { id = crisis.1010 }
+		}
 	}
 
 	option = {
@@ -797,16 +815,14 @@ planet_event = {
 				days = -1
 			}
 		}
-		else = {
-			if = {
-				limit = { is_planet_class = pc_ringworld_habitable }
-				change_pc = pc_ringworld_habitable_damaged
-				reset_planet = yes
-			}
-			if = {
-				limit = { is_planet_class = pc_habitat }
-				remove_planet = yes
-			}
+		else_if = {
+			limit = { is_planet_class = pc_ringworld_habitable }
+			change_pc = pc_ringworld_habitable_damaged
+			reset_planet = yes
+		}
+		else_if = {
+			limit = { is_planet_class = pc_habitat }
+			remove_planet = yes
 		}
 		if = {
 			limit = { FROM = { is_country_type = extradimensional } }
@@ -818,9 +834,8 @@ planet_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { FROM = { is_country_type = extradimensional_2 } }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_2" }
@@ -830,9 +845,8 @@ planet_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { FROM = { is_country_type = extradimensional_3 } }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_3" }
@@ -842,7 +856,6 @@ planet_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
 	}
 
@@ -1359,6 +1372,10 @@ country_event = {
 				owner = event_target:extradimensionals2
 			}
 		}
+		# make portal invincible
+		event_target:extradimensionals2 = {
+			random_owned_ship = { ship_event = { id = crisis.1280 } }
+		}
 		every_country = {
 			limit = {
 				OR = {
@@ -1522,6 +1539,13 @@ country_event = {
 			event_chain = "extradimensional_invasion_chain_2"
 			location = event_target:second_portal_system
 		}
+		hidden_effect = {
+			add_event_chain_counter = {
+				event_chain = "extradimensional_invasion_chain_2"
+				counter = "dimensional_anchors_2"
+				amount = 1
+			}
+		}
 	}
 }
 
@@ -1640,13 +1664,14 @@ country_event = {
 					days = 360
 				}
 			}
-			break = yes
 		}
-		every_country = {
-			limit = {
-				is_country_type = default
+		else = {
+			every_country = {
+				limit = {
+					is_country_type = default
+				}
+				country_event = { id = crisis.1117 }
 			}
-			country_event = { id = crisis.1117 }
 		}
 	}
 }
@@ -1899,6 +1924,10 @@ country_event = {
 			}
 			establish_communications_no_message = event_target:extradimensional_trespassers
 		}
+		# make portal invincible
+		event_target:extradimensionals3 = {
+			random_owned_ship = { ship_event = { id= crisis.1280 } }
+		}
 		every_country = {
 			limit = {
 				OR = {
@@ -2060,7 +2089,14 @@ country_event = {
 			location = event_target:third_portal_system
 		}
 		hidden_effect = {
-			country_event = { id = crisis.1211 }
+			hidden_effect = {
+				add_event_chain_counter = {
+					event_chain = "extradimensional_invasion_chain_3"
+					counter = "dimensional_anchors_3"
+					amount = 1
+				}
+				country_event = { id = crisis.1211 }
+			}
 		}
 	}
 }
@@ -2128,13 +2164,14 @@ country_event = {
 					days = 360
 				}
 			}
-			break = yes
 		}
-		every_country = {
-			limit = {
-				is_country_type = default
+		else = {
+			every_country = {
+				limit = {
+					is_country_type = default
+				}
+				country_event = { id = crisis.1217 }
 			}
-			country_event = { id = crisis.1217 }
 		}
 	}
 }
@@ -2338,118 +2375,106 @@ country_event = {
 				num_ships > 2000
 			}
 			country_event = { id = crisis.1260 days = 600 random = 200 } # Check again later
-			break = yes
 		}
 		# If no Anchors
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count < 1
 				}
 			}
 			country_event = { id = crisis.1265 days = 1500 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 1
 				}
 			}
 			country_event = { id = crisis.1265 days = 1300 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 2
 				}
 			}
 			country_event = { id = crisis.1265 days = 1100 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 3
 				}
 			}
 			country_event = { id = crisis.1265 days = 900 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 4
 				}
 			}
 			country_event = { id = crisis.1265 days = 600 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 5
 				}
 			}
 			country_event = { id = crisis.1265 days = 400 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 6
 				}
 			}
 			country_event = { id = crisis.1265 days = 400 random = 200 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 7
 				}
 			}
 			country_event = { id = crisis.1265 days = 300 random = 100 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 8
 				}
 			}
 			country_event = { id = crisis.1265 days = 250 random = 50 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count = 9
 				}
 			}
 			country_event = { id = crisis.1265 days = 200 random = 50 }
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
+					limit = { is_ship_size = starbase_exd }
 					count > 9
 				}
 			}
 			country_event = { id = crisis.1265 days = 150 random = 50 }
-			break = yes
 		}
 	}
 }
@@ -2580,7 +2605,7 @@ country_event = {
 		}
 
 		# Extradimensionals 2
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_2 }
 
 			# Create Admiral
@@ -2661,11 +2686,10 @@ country_event = {
 					set_aggro_range_measure_from = self
 				}
 			}
-			break = yes
 		}
 
 		# Extradimensionals 3
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_3 }
 
 			# Create Admiral
@@ -2746,7 +2770,6 @@ country_event = {
 					set_aggro_range_measure_from = self
 				}
 			}
-			break = yes
 		}
 	}
 }
@@ -2815,11 +2838,10 @@ country_event = {
 					}
 				}
 			}
-			break = yes
 		}
 
 		# Extradimensionals 2
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_2 }
 			while = {
 				count = 2
@@ -2839,11 +2861,10 @@ country_event = {
 					}
 				}
 			}
-			break = yes
 		}
 
 		# Extradimensionals 3
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_3 }
 			while = {
 				count = 2
@@ -2863,7 +2884,6 @@ country_event = {
 					}
 				}
 			}
-			break = yes
 		}
 	}
 }
@@ -2876,7 +2896,7 @@ ship_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		is_ship_size = starbase_citadel
+		#is_ship_size = starbase_exd # now implicit
 		owner = {
 			OR = {
 				is_country_type = extradimensional
@@ -3009,7 +3029,7 @@ ship_event = {
 			}
 
 			# Extradimensionals 2
-			if = {
+			else_if = {
 				limit = { is_country_type = extradimensional_2 }
 
 				# Create Admiral
@@ -3090,11 +3110,10 @@ ship_event = {
 						set_aggro_range_measure_from = self
 					}
 				}
-				break = yes
 			}
 
 			# Extradimensionals 3
-			if = {
+			else_if = {
 				limit = { is_country_type = extradimensional_3 }
 
 				# Create Admiral
@@ -3175,7 +3194,6 @@ ship_event = {
 						set_aggro_range_measure_from = self
 					}
 				}
-				break = yes
 			}
 		}
 	}
@@ -3364,7 +3382,7 @@ ship_event = {
 				is_country_type = extradimensional_3
 			}
 		}
-		is_ship_size = starbase_citadel
+		#is_ship_size = starbase_exd # now implicit
 	}
 
 	immediate = {
@@ -3393,9 +3411,8 @@ ship_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { owner = { is_country_type = extradimensional_2 } }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_2" }
@@ -3405,9 +3422,8 @@ ship_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { owner = { is_country_type = extradimensional_3 } }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_3" }
@@ -3417,7 +3433,6 @@ ship_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
 	}
 }
@@ -3430,7 +3445,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		FROMFROM = { is_ship_size = starbase_citadel }
+		FROMFROM = { is_ship_size = starbase_exd }
 	}
 
 	immediate = {
@@ -3438,8 +3453,8 @@ country_event = {
 		if = {
 			limit = {
 				count_owned_ships = {
-					limit = { is_ship_size = starbase_citadel }
-					count = 1
+					limit = { is_ship_size = starbase_exd }
+					count < 1
 				}
 			}
 			switch = {
@@ -3501,9 +3516,8 @@ country_event = {
 					amount = -1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_2 }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_2" }
@@ -3513,9 +3527,8 @@ country_event = {
 					amount = -1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_3 }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_3" }
@@ -3525,7 +3538,6 @@ country_event = {
 					amount = -1
 				}
 			}
-			break = yes
 		}
 	}
 }
@@ -3559,7 +3571,7 @@ country_event = {
 				}
 			}
 		}
-		if = {
+		else_if = {
 			limit = {
 				is_country_type = extradimensional_2
 				FROM = { has_event_chain = "extradimensional_invasion_chain_2" }
@@ -3572,7 +3584,7 @@ country_event = {
 				}
 			}
 		}
-		if = {
+		else_if = {
 			limit = {
 				is_country_type = extradimensional_3
 				FROM = { has_event_chain = "extradimensional_invasion_chain_3" }
@@ -3598,9 +3610,8 @@ country_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_2 }
 			every_country = {
 				limit = {
@@ -3613,9 +3624,8 @@ country_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_3 }
 			every_country = {
 				limit = {
@@ -3628,7 +3638,6 @@ country_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
 	}
 }
@@ -3666,9 +3675,8 @@ country_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_2 }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_2" }
@@ -3678,9 +3686,8 @@ country_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
-		if = {
+		else_if = {
 			limit = { is_country_type = extradimensional_3 }
 			every_country = {
 				limit = { has_event_chain = "extradimensional_invasion_chain_3" }
@@ -3690,7 +3697,6 @@ country_event = {
 					amount = 1
 				}
 			}
-			break = yes
 		}
 	}
 }

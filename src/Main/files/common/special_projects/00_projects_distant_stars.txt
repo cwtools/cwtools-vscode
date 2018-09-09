@@ -1,3 +1,53 @@
+# Available requirements:
+#
+#	SKILLS
+#	#skill = 2
+#
+#	LEADER
+#	leader = scientist
+#	leader = admiral
+#	leader = general
+#	leader = ruler
+#	leader = governor
+#	
+#	MILITARY SHIPS
+#	shipclass_military = 1
+#	
+#	CIVILIAN SHIPS
+#	shipclass_constructor = 2
+#	shipclass_science_ship = 1
+#	shipclass_colonizer = 2
+#	
+#	ARMIES
+#	shipclass_transport = 1
+#	assault_armies = 2
+#	defense_armies = 1
+#	
+#	STATIONS
+#	research_station = yes
+#	mining_station = yes
+#	observation_station = yes
+#
+#	SCOPES
+#	abort_trigger
+#	this = country (project owner)
+#	from = event scope (planet or ship, MIGHT NOT EXIST)
+#	fromfrom = project creation scope (usually equals location)
+#	
+#	on_success
+#	this = event scope (ship or planet)
+#	from = project creation scope (usually equals location)
+#	
+#	on_cancel 
+#	this = country (project owner)
+#	from = event scope (planet or ship, MIGHT NOT EXIST)
+#	fromfrom = project creation scope (usually equals location)
+#
+#	on_fail
+#	this = country (project owner)
+#	from = project creation scope (usually equals location)
+
+
 ## SUPERFLARE PROJECT
 special_project = {
 	key = "SUPERFLARE_PROJECT"
@@ -1269,7 +1319,7 @@ special_project = {
 # ENIGMATIC CACHE
 special_project = {
 	key = ENIGMATIC_CACHE_PROJECT
-	cost = 200
+	cost = 900
 	tech_department = engineering_technology
 	timelimit = -1
 	picture = GFX_evt_circuitry_modification
@@ -1280,6 +1330,134 @@ special_project = {
 
 	on_success = {
 		owner = { country_event = { id = distar.5058 } }
+	}
+}
+
+# ENIGMATIC UPLIFTING
+special_project = {
+	key = ENIGMATIC_UPLIFTING
+	days_to_research = 730
+	tech_department = society_technology
+	timelimit = -1
+	picture = GFX_evt_circuitry_modification
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = no
+
+	event_scope = ship_event
+
+	requirements = {
+		shipclass_science_ship = 1
+		leader = scientist
+		#skill = 1
+	}
+
+	abort_trigger = {
+		OR = {
+			has_country_flag = aborted_enigmatic_uplift
+			capital_scope = { 
+				NOT = {
+					solar_system = {
+						any_ship_in_system = {
+							fleet = {
+								has_fleet_flag = enigmatic_cache_fleet
+								exists = orbit
+								orbit = { is_same_value = root.capital_scope }
+								exists = owner
+								owner = { is_same_value = event_target:enigmatic_cache_country }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	on_start = {
+		from.owner = { 
+			country_event = { id = distar.5066 } # triggers uplifting dreams
+			country_event = { id = distar.5076 } # triggers uplifting resumed
+		}
+	}
+
+	on_cancel = {
+		country_event = { id = distar.5075 }
+	}
+
+	on_success = {
+		random_list = {
+			60 = { # previously unintelligent players may become unhappy
+				modifier = {
+					factor = 0
+					owner = { has_country_flag = enigmatic_cache_broken }
+					owner_species = {
+						OR = {
+							has_trait = trait_intelligent
+							has_trait = trait_quick_learners
+						}
+					}
+				}
+				owner = { country_event = { id = distar.5068 } }
+			}
+
+			20 = { # a succesful uplifting
+				modifier = {
+					factor = 0
+					owner = { has_country_flag = enigmatic_cache_broken }
+				}
+				owner = { country_event = { id = distar.5063 } }
+			}
+
+			100 = { # the cache breaks
+				modifier = {
+					factor = 0
+					owner = { NOT = { has_country_flag = enigmatic_cache_broken } }
+				}
+				owner = { country_event = { id = distar.5074 } }
+			}
+		}
+	}
+}
+
+# ENIGMATIC REPAIR
+
+special_project = {
+	key = ENIGMATIC_REPAIR
+	days_to_research = 180
+	tech_department = engineering_technology
+	timelimit = 360
+	picture = GFX_evt_circuitry_modification
+	icon = "gfx/interface/icons/situation_log/situation_log_quest.dds"
+	location = no
+
+	event_scope = ship_event
+
+	abort_trigger = {
+		OR = {
+			has_country_flag = aborted_enigmatic_uplift
+			capital_scope = { 
+				NOT = {
+					solar_system = {
+						any_ship_in_system = {
+							fleet = {
+								has_fleet_flag = enigmatic_cache_fleet
+								exists = orbit
+								orbit = { is_same_value = root.capital_scope }
+								exists = owner
+								owner = { is_same_value = event_target:enigmatic_cache_country }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	requirements = {
+		shipclass_constructor = 1
+	}
+
+	on_success = {
+		owner = { country_event = { id = distar.5073 } } # triggers repairs complete
 	}
 }
 

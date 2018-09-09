@@ -313,6 +313,9 @@ is_guardian_country = {
 		is_country_type = guardian_hiver
 		is_country_type = guardian_stellarite
 		is_country_type = guardian_dreadnought
+		is_country_type = guardian_scavenger_bot
+		is_country_type = guardian_elderly_tiyanki
+		is_country_type = guardian_hatchling
 	}
 }
 
@@ -584,7 +587,8 @@ is_binary_star = {
 
 is_under_crisis_bombardment = {
 	has_orbital_bombardment = yes	
-	any_fleet_in_orbit = { 
+	any_fleet_in_orbit = {
+		exists = owner
 		owner = {
 			is_crisis_faction = yes
 		}

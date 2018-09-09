@@ -24,6 +24,9 @@ on_monthly_pulse = {
 		distar.5014
 		distar.5001
 		distar.301
+		graygoo.183
+		graygoo.510
+		distar.10955
 	}
 }
 
@@ -52,6 +55,7 @@ on_yearly_pulse = {
 on_bi_yearly_pulse = {
 	events = {
 		crisis.206
+		distar.5060
 	}
 }
 
@@ -171,6 +175,13 @@ on_custom_diplomacy = {
 		marauder.550
 		marauder.112
 		marauder.665
+		graygoo.120
+		graygoo.130
+		graygoo.500
+		graygoo.501
+		graygoo.502
+		graygoo.503
+		graygoo.504
 	}
 }
 
@@ -231,6 +242,7 @@ on_planet_attackers_win = {
 		distar.37
 		distar.81
 		distar.235
+		graygoo.150
 	}
 }
 
@@ -286,6 +298,8 @@ on_system_first_visited = {
 on_entering_system_first_time = {
 	events = {
 		country.2
+		graygoo.160
+		graygoo.550
 	}
 	random_events = {
 		200 = 0
@@ -330,6 +344,7 @@ on_entering_system = {
 		apoc.3
 		apoc.5
 		distar.13030
+		graygoo.162
 	}
 	random_events = {
 		100 = 0
@@ -527,6 +542,7 @@ on_entering_battle = {
 		leviathans.158
 		leviathans.161
 		leviathans.595
+		graygoo.155
 	}
 }
 
@@ -557,6 +573,7 @@ on_ship_destroyed_victim = {
 		marauder.525
 		distar.57
 		graygoo.6
+		graygoo.180
 	}
 }
 
@@ -723,6 +740,7 @@ on_fleet_auto_move_arrival = {
 		distar.210
 		distar.5054
 		distar.1017
+		distar.5061
 	}
 }
 
@@ -799,8 +817,13 @@ on_building_starbase_ai = {
 	}
 }
 
+# This = construction ship
+# Fires when construction is complete,
+# immediately before station is created
 on_building_starbase_exd = {
 	events = {
+		crisis.1267 # EXD anchors
+		crisis.1280 # EXD anchors
 	}
 }
 
@@ -1103,8 +1126,6 @@ on_ship_designed = {
 on_ship_upgraded = {
 	events = {
 		crisis.2057
-		crisis.1267 # EXD anchors
-		crisis.1280 # EXD anchors
 	}
 }
 

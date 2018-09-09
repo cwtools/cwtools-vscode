@@ -766,10 +766,16 @@ type CreateVirtualFileParams = {
     uri : Uri
     fileContent : string
 }
+
+type LogMessageParams = {
+    ``type`` : MessageType
+    message : string
+}
 type ServerNotification =
 | PublishDiagnostics of PublishDiagnosticsParams
 | LoadingBar of LoadingBarParams
 | CreateVirtualFile of CreateVirtualFileParams
+| LogMessage of LogMessageParams
 
 type GetWordRangeAtPositionParams = {
     position : Position
@@ -795,4 +801,5 @@ type ILanguageClient =
     abstract member CustomNotification: string * JsonValue -> unit
     abstract member ApplyWorkspaceEdit: ApplyWorkspaceEditParams -> Async<JsonValue>
     abstract member CustomRequest: string * JsonValue -> Async<JsonValue>
+    abstract member LogMessage: LogMessageParams -> unit
 

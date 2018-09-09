@@ -520,8 +520,27 @@ can_take_hostile_actions = {
 													always = no
 												}
 												else = {
-													always = yes
-												}
+													if = {
+    												    limit = {
+    												        is_country_type = faction
+    												        root = {
+    												            any_owned_planet = {
+    												                exists = controller
+    												                controller = {
+    												                    is_same_value = prevprevprev
+    												                }
+    												            }
+    												        }
+    												    }
+    												    custom_tooltip = {
+    												        text = ""
+    												        always = yes
+    												    }
+    												    else = {
+															always = yes
+														}
+    												}
+    											}
 											}
 										}
 									}
@@ -844,6 +863,15 @@ can_orbital_bombard = {
 				}
 			}
 		}
+		AND = {
+    	    from.controller = {
+    	        is_country_type = faction
+    	        NOT = { is_same_value = root.owner }
+    	    }
+    	    from.owner = {
+    	        is_same_value = root.owner
+    	    }
+		}
 	}
 }
 
@@ -940,7 +968,7 @@ is_extradimensional_anchor = {
 			is_country_type = extradimensional_3
 		}
 	}
-	is_ship_size = starbase_citadel
+	any_owned_ship = { is_ship_size = starbase_exd }
 	owner = { is_same_value = root }
 }
 

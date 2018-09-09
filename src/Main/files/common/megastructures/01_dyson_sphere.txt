@@ -20,6 +20,7 @@ dyson_sphere_0 = {
 	}
 	
 	possible = {
+		exists = starbase
 		custom_tooltip = {
 			fail_text = "requires_inside_border"
 			is_inside_border = from
@@ -116,7 +117,8 @@ dyson_sphere_0 = {
 		
 		modifier = {
 			factor = 0.1
-			any_neighbor_system = { 
+			any_neighbor_system = {
+				exists = owner
 				NOT = { 
 					owner = { is_same_value = from } 
 				}

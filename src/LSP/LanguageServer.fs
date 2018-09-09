@@ -54,6 +54,7 @@ let private serializeLoadingBarParams = serializerFactory<LoadingBarParams> json
 let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPositionParams> jsonWriteOptions
 let private serializeApplyWorkspaceEdit = serializerFactory<ApplyWorkspaceEditParams> jsonWriteOptions
 let private serializeCreateVirtualFileParams = serializerFactory<CreateVirtualFileParams> jsonWriteOptions
+let private serializeLogMessageParams = serializerFactory<LogMessageParams> jsonWriteOptions
 type msg =
     | Request of int * AsyncReplyChannel<JsonValue>
     | Response of int * JsonValue
@@ -116,6 +117,9 @@ let readMessages(receive: BinaryReader): seq<Parser.Message> =
 
 type RealClient (send: BinaryWriter) =
     interface ILanguageClient with
+        member this.LogMessage(p : LogMessageParams): unit =
+            let json = serializeLogMessageParams(p)
+            notifyClient(send, "window/logMessage", json)
         member this.PublishDiagnostics(p: PublishDiagnosticsParams): unit =
             let json = serializePublishDiagnostics(p)
             notifyClient(send, "textDocument/publishDiagnostics", json)

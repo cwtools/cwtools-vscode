@@ -267,7 +267,7 @@ type Server(client: ILanguageClient) =
                 else u.LocalPath
             try
                 eprintfn "%s" path
-                let filelist = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.vanilla_files_2.1.2.csv")
+                let filelist = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.vanilla_files_2.1.3.csv")
                                 |> (fun f -> (new StreamReader(f)).ReadToEnd().Split(Environment.NewLine))
                                 |> Array.toList |> List.map (fun f -> f, "")
                 let docspath = "Main.files.trigger_docs_2.1.2.txt"
@@ -477,7 +477,7 @@ type Server(client: ILanguageClient) =
                 return! a
             with
                 | ex ->
-                    eprintfn "%A" ex
+                    client.LogMessage { ``type`` = MessageType.Error; message = (sprintf "%A" ex)}
                     return defaultValue
         }
 

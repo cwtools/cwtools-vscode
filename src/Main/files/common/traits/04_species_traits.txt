@@ -24,7 +24,7 @@ trait_industrious = {
 
 trait_intelligent = {
 	cost = 2
-	opposites = { "trait_nerve_stapled" "trait_erudite" }
+	opposites = { "trait_nerve_stapled" "trait_erudite" "trait_enigmatic_intelligence" "trait_enigmatic_intelligence_poor" }
 	allowed_archetypes = { BIOLOGICAL }
 	modifier = {
 		tile_resource_engineering_research_mult = 0.1
@@ -111,7 +111,7 @@ trait_slow_breeders = {
 trait_talented = {
 	cost = 1
 	allowed_archetypes = { BIOLOGICAL }
-	opposites = { "trait_nerve_stapled" }
+	opposites = { "trait_nerve_stapled" "trait_enigmatic_intelligence" }
 	modifier = {
 		leader_skill_levels = 1
 	}
@@ -119,7 +119,7 @@ trait_talented = {
 
 trait_quick_learners = {
 	cost = 1
-	opposites = { "trait_slow_learners" }
+	opposites = { "trait_slow_learners" "trait_enigmatic_intelligence" }
 	allowed_archetypes = { BIOLOGICAL }
 	modifier = {
 		species_leader_exp_gain = 0.25
@@ -128,7 +128,7 @@ trait_quick_learners = {
 
 trait_slow_learners = {
 	cost = -1
-	opposites = { "trait_quick_learners" }
+	opposites = { "trait_quick_learners" "trait_enigmatic_intelligence" }
 	allowed_archetypes = { BIOLOGICAL }
 	modifier = {
 		species_leader_exp_gain = -0.25
@@ -530,5 +530,55 @@ trait_survivor = {
 	modifier = {
 		pc_nuked_habitability = 0.7
 		leader_age = 10
+	}
+}
+
+trait_enigmatic_intelligence = {
+	cost = 0
+	initial = no
+	randomized = no
+	modification = no
+	improves_leaders = yes
+	advanced_trait = yes
+	opposites = { "trait_nerve_stapled" "trait_erudite" "trait_slow_learners" "trait_intelligent" "trait_quick_learners" "trait_talented" }
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		tile_resource_engineering_research_mult = 0.1
+		tile_resource_physics_research_mult = 0.1
+		tile_resource_society_research_mult = 0.1
+		species_leader_exp_gain = 0.25
+	}
+}
+
+trait_enigmatic_intelligence_poor = {
+	cost = 0
+	initial = no
+	randomized = no
+	modification = no
+	improves_leaders = yes
+	advanced_trait = yes
+	opposites = { "trait_intelligent"}
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		tile_resource_engineering_research_mult = 0.1
+		tile_resource_physics_research_mult = 0.1
+		tile_resource_society_research_mult = 0.1
+	}
+}
+
+trait_enigmatic_intelligence_failed = {
+	cost = 0
+	initial = no
+	randomized = no
+	modification = no
+	improves_leaders = yes
+	advanced_trait = yes
+	opposites = { "trait_intelligent"}
+	allowed_archetypes = { BIOLOGICAL }
+	modifier = {
+		
+		tile_resource_physics_research_mult = -0.6
+		tile_resource_engineering_research_mult = -0.6
+		tile_resource_society_research_mult = -0.6
 	}
 }

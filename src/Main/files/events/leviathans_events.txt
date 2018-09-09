@@ -14280,6 +14280,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		exists = from
 		exists = event_target:fortress_country
 		from = { is_same_value = event_target:fortress_country }
 		exists = event_target:fortress_vault_core

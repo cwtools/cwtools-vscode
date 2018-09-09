@@ -12,7 +12,7 @@ guiTypes = {
 			name = "window"
 			orientation = center
 			origo = center
-			size = { width = 360 height = 545 }
+			size = { width = 360 height = 600 }
 			position = { x = 0 y = -10 }
 
 			background = {
@@ -84,6 +84,7 @@ guiTypes = {
 				navUp = "load"
 				navDown = "resign"
 			}
+
 			buttonType =
 			{
 				id = "resign"
@@ -97,6 +98,7 @@ guiTypes = {
 				navUp = "settings"
 				navDown = "quit"
 			}
+
 			buttonType =
 			{
 				id = "quit"
@@ -110,6 +112,7 @@ guiTypes = {
 				navUp = "resign"
 				navDown = "resume"
 			}
+
 			buttonType =
 			{
 				id = "resume"
@@ -124,6 +127,23 @@ guiTypes = {
 				oversound = mouse_over
 				defaultSelection = yes
 				navUp = "quit"
+				navDown = "privacy"
+				actionShortcut = "cancel"
+			}
+
+			buttonType =
+			{
+				id = "privacy"
+				name = "privacy"
+				quadTextureSprite = "GFX_standard_button_large_211_40"
+				position = { x= -115 y = 520  }
+				buttonText = "MAIN_VIEW_PP"
+				buttonFont = "malgun_goth_24"
+				Orientation = "CENTER_UP"
+				clicksound = "back_click"
+				oversound = mouse_over
+				defaultSelection = yes
+				navUp = "resume"
 				navDown = "save"
 				actionShortcut = "cancel"
 			}
@@ -132,7 +152,7 @@ guiTypes = {
 				name = "version"
 				font = "cg_16b"
 				text = "1337"
-				position = { x= 12 y = 520  }
+				position = { x= 12 y = 580  }
 				maxWidth = 300
 				maxHeight = 20
 				fixedSize = yes

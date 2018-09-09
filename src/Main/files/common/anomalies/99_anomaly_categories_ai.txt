@@ -130,8 +130,21 @@ AIANOM_CLUE_CAT = {
 			}
 		}
 		modifier = {
-			add = 2
-			years_passed >= 100
+			add = 1
+			mid_game_years_passed >= 0
+			from.owner = {
+				has_event_chain = l_cluster_chain
+				NOT = {
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+			}
+		}
+		modifier = {
+			add = 1
+			end_game_years_passed >= 0
 			from.owner = {
 				has_event_chain = l_cluster_chain
 				NOT = {

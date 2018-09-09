@@ -1369,6 +1369,62 @@ sentinels = {
 	}
 }
 
+gate_builders = {
+	scaled_difficulty_bonuses = 3.0
+	custom_diplomacy = yes
+	share_survey_data = no
+	enforces_borders = no
+	needs_survey = no
+	has_complete_sensor = yes
+	custom_starbase = starbase_gatebuilders
+	ai = {
+		enabled = yes
+		modules = {
+			anti_crisis_military_minister_module
+		}
+	}
+	faction = {
+		hostile = no
+		needs_border_access = no
+		needs_colony = no
+		generate_borders = yes
+	}
+	
+	custom_diplomacy = yes
+	
+	modules = {
+		exclusive_diplomacy_module = {} # Nothing is allowed, but we need this for relationships.
+		all_technology_module = {}
+		standard_event_module = {}
+		standard_economy_module = {}
+	}
+}
+
+gray = {
+	show_in_contacts_list = yes
+	minimalist_contacts_list_profile = yes
+	share_communications = no
+	default_ships = no
+	government = no
+	ai = {
+		enabled = no
+	}
+	faction = {
+		hostile = no
+		needs_border_access = no
+		generate_borders = no
+		needs_colony = no
+		auto_delete = no
+	}
+	custom_diplomacy = yes
+	modules = {
+		basic_technology_module = {}
+		exclusive_diplomacy_module = {
+			contact_rule = script_only
+		}
+	}
+}
+
 
 
 #################

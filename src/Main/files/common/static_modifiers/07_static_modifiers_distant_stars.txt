@@ -133,6 +133,10 @@ building_blocks = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_seismological_disturbances.dds"
 	icon_frame = 1
 }
+nanite_network = {
+	icon = "gfx/interface/icons/planet_modifiers/pm_faith_in_science.dds"
+	icon_frame = 1
+}
 ##########################################################################
 # Pop Modifiers
 ##########################################################################
@@ -262,6 +266,22 @@ enigmatic_cache_in_orbit_phobe = {
 	pop_happiness = -0.1
 }
 
+enigmatic_fatigue = {
+	pop_resource_output = -0.3
+}
+
+enigmatic_sadness = {
+	pop_happiness = -0.10
+}
+
+enigmatic_madness = {
+	pop_happiness = -0.20
+}
+
+enigmatic_slumber = {
+	pop_resource_output = -0.8
+}
+
 ##########################################################################
 # Empire Modifiers
 ##########################################################################
@@ -289,6 +309,15 @@ enigmatic_power = {
 	ship_hull_mult = 4
 }
 
+dessanu_gift = {
+	icon = "gfx/interface/icons/modifiers/mod_country_previous_deals.dds"
+	icon_frame = 1
+	country_resource_sr_distar_nanodust_add = 1
+	country_resource_sr_distar_nanocrystal_add = 1
+	country_resource_sr_distar_nanoscale_add = 1
+	country_resource_sr_distar_nanoactuator_add = 1
+}
+
 ##########################################################################
 # Guardians
 ##########################################################################
@@ -307,4 +336,22 @@ mineral_mapping = {
 
 disregard_for_alien_life = {
 	pop_happiness = -0.10
+}
+
+##########################################################################
+# Gray Modifiers
+##########################################################################
+
+gray_warship = {
+	ship_shield_mult = 0.8
+	ship_weapon_damage = 0.8
+	ship_fire_rate_mult = 0.8
+	ship_hull_mult = 0.8
+	ship_speed_mult = 0.5
+	ship_hull_regen_add_static = 4
+	ship_armor_regen_add_static = 6
+}
+
+gray_scattered = {
+	icon = "gfx/interface/icons/modifiers/mod_shroud_unavailable.dds"
 }

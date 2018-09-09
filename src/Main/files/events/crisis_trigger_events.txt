@@ -77,88 +77,37 @@ event = {
 				### Contingency (AI)
 				10 = {
 					modifier = {
-						factor = 1.5
-						any_country = {
-							is_country_type = default
-							pop_percentage = {
-								percentage > 0.1
-								limit = {
-									has_trait = "trait_robotic_3" 
-									is_growing = no
+						factor = 0
+						NOT = {
+							any_country = {
+								is_country_type = default
+								any_owned_pop = {
+									has_trait = trait_robotic_3
 								}
 							}
 						}
-					}
+					}				
 					modifier = {
-						factor = 1.2
+						factor = 1.5
 						any_country = {
 							is_country_type = fallen_empire
 							has_authority = auth_machine_intelligence
 						}
 					}	
 					modifier = {
-						factor = 1.25
-						any_country = {
-							has_authority = auth_machine_intelligence
-						}
-					}
-					modifier = {
 						factor = 2
-						any_country = {
-							has_authority = auth_machine_intelligence
-							AND = {
-								count_owned_pops = {
-									limit = { has_trait = trait_machine_unit }
-									count >= 50
+						NOT = {
+							any_country = {
+								is_country_type = default
+								pop_percentage = {
+									percentage >= 0.50
+									limit = {
+										has_trait = "trait_robotic_3" 
+										is_growing = no
+									}
 								}
-								count_owned_pops = {
-									limit = { has_trait = trait_machine_unit }
-									count < 99
-								}
-							}
+							}						
 						}
-					}
-					modifier = {
-						factor = 3
-						any_country = {
-							has_authority = auth_machine_intelligence
-							AND = {
-								count_owned_pops = {
-									limit = { has_trait = trait_machine_unit }
-									count >= 99
-								}
-								count_owned_pops = {
-									limit = { has_trait = trait_machine_unit }
-									count < 199
-								}
-							}
-						}
-					}
-					modifier = {
-						factor = 4
-						any_country = {
-							has_authority = auth_machine_intelligence
-							count_owned_pops = {
-								limit = { has_trait = trait_machine_unit }
-								count >= 199
-							}
-						}
-					}
-					modifier = {
-						factor = 2
-						any_country = {
-							is_country_type = default
-							pop_percentage = {
-								percentage < 0.25
-								limit = {
-									has_trait = "trait_robotic_3" 
-									is_growing = no
-								}
-							}
-						}
-					}
-					modifier = {
-						factor = 3
 						any_country = {
 							is_country_type = default
 							AND = {
@@ -188,17 +137,6 @@ event = {
 								limit = {
 									has_trait = "trait_robotic_3" 
 									is_growing = no
-								}
-							}
-						}
-					}
-					modifier = {
-						factor = 0
-						NOT = {
-							any_country = {
-								is_country_type = default
-								any_owned_pop = {
-									has_trait = trait_mechanical
 								}
 							}
 						}

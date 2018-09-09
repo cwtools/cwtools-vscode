@@ -2,7 +2,7 @@
 building_ancient_factory = {
 	is_listed = no
 	base_buildtime = @fetime	# For repair
-	
+
 	cost = {
 		minerals = @fecost	# For repair
 	}
@@ -10,18 +10,18 @@ building_ancient_factory = {
 	allow = {
 		always = no
 	}
-	
+
 	produced_resources = {
 		minerals = @feproduction
 	}
-	
+
 	required_resources = {
 		energy = @feupkeep
-	}	
-	
+	}
+
 	prerequisites = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -33,18 +33,18 @@ building_dark_matter_power_plant = {
 	cost = {
 		minerals = @fecost	# For repair
 	}
-	
+
 	allow = {
 		always = no
 	}
-	
+
 	produced_resources = {
 		energy = @feproduction
 	}
-	
+
 	prerequisites = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -52,26 +52,26 @@ building_dark_matter_power_plant = {
 building_ancient_archives = {
 	is_listed = no
 	base_buildtime = @fetime	# For repair
-	
+
 	cost = {
 		minerals = @fecost	# For repair
 	}
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		engineering_research = 8
 		society_research = 8
 		physics_research = 8
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -80,19 +80,19 @@ building_ancient_archives = {
 building_agri_processing_complex = {
 	is_listed = no
 	base_buildtime = @fetime	# For repair
-	
+
 	cost = {
 		minerals = @fecost	# For repair
 	}
-	
+
 	produced_resources = {
 		food = @feproduction
 	}
-	
+
 	required_resources = {
 		energy = @feupkeep
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -101,22 +101,22 @@ building_agri_processing_complex = {
 # Obelisk of Zanaam
 building_zanaam_obelisk = {
 	is_listed = no
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		engineering_research = 10
 		society_research = 10
 		physics_research = 10
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 	immune_to_bombardment = yes
@@ -126,21 +126,21 @@ building_zanaam_obelisk = {
 building_great_pyramid = {
 	is_listed = no
 	icon = "building_great_pyramid"
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		food = 2
 		society_research = 2
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -160,7 +160,7 @@ building_toy_factory = {
 
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -171,22 +171,22 @@ building_primitive_farm = {
 	icon = "building_primitive_farm"
 
 	cost = {}
-	
+
 	produced_resources = {
 		food = 1
 	}
-	
+
 	required_resources = {}
-	
+
 	upgrades = {
 		building_hydroponics_farm_1
 	}
-	
+
 	destroy_if = {
 		exists = owner
 		owner = { has_authority = auth_machine_intelligence }
 	}
-	
+
 	ai_replace = yes
 	event_building = yes
 }
@@ -197,39 +197,39 @@ building_primitive_factory = {
 	icon = "building_primitive_factory"
 
 	cost = {}
-	
+
 	produced_resources = {
 		minerals = 1
 	}
-	
+
 	required_resources = {}
-	
+
 	upgrades = {
 		building_mining_network_1
-	}	
+	}
 
 	ai_replace = yes
-	event_building = yes	
+	event_building = yes
 }
 
 # Mutant Landfill
 building_mutant_landfill = {
 	is_listed = no
 	icon = "building_hive_ruins"
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		society_research = 8
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -238,20 +238,20 @@ building_mutant_landfill = {
 building_vault = {
 	is_listed = no
 	icon = "building_primitive_farm"
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		society_research = 8
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -260,21 +260,21 @@ building_vault = {
 building_vault_2 = {
 	is_listed = no
 	icon = "building_primitive_farm"
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		engineering_research = 3
 		minerals = 6
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -283,20 +283,20 @@ building_vault_2 = {
 building_particle_accelerator = {
 	is_listed = no
 	icon = "building_primitive_factory"
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 		physics_research = 6
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -315,7 +315,7 @@ building_odd_factory = {
 
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -324,19 +324,19 @@ building_odd_factory = {
 building_quarantine = {
 	is_listed = no
 	icon = "building_primitive_farm"
-	
+
 	cost = {
 	}
 
 	required_resources = {
 	}
-	
+
 	produced_resources = {
 	}
-	
+
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -348,7 +348,7 @@ building_plague_memorial = {
 	planet_modifier = {
 		pop_happiness = 0.05
 	}
-	
+
 	cost = {
 	}
 	required_resources = {
@@ -358,7 +358,7 @@ building_plague_memorial = {
 	}
 	upgrades = {
 	}
-	
+
 	ai_replace = no
 	event_building = yes
 }
@@ -372,13 +372,13 @@ building_fe_xeno_zoo = {
 	}
 	required_resources = {
 	}
-	produced_resources = {		
+	produced_resources = {
 		society_research = 2
 		food = 1
 	}
 	upgrades = {
-	}	
-	
+	}
+
 	ai_replace = no
 	event_building = yes
 }
@@ -392,12 +392,12 @@ building_cryonic_clones = {
 	}
 	required_resources = {
 	}
-	produced_resources = {		
+	produced_resources = {
 		society_research = 6
 	}
 	upgrades = {
-	}	
-	
+	}
+
 	ai_replace = no
 	event_building = yes
 }
@@ -411,14 +411,14 @@ building_the_zone = {
 	}
 	required_resources = {
 	}
-	produced_resources = {		
+	produced_resources = {
 		unity = 3
 		engineering_research = 3
 		physics_research = 3
 	}
 	upgrades = {
-	}	
-	
+	}
+
 	ai_replace = no
 	event_building = yes
 }
@@ -434,8 +434,8 @@ building_junkheap = {
 	produced_resources = {
 	}
 	upgrades = {
-	}	
-	
+	}
+
 	ai_replace = no
 	event_building = yes
 }
@@ -453,8 +453,8 @@ building_livestock_processing_center = {
 		food = 12
 	}
 	upgrades = {
-	}	
-	
+	}
+
 	ai_replace = no
 	event_building = yes
 }

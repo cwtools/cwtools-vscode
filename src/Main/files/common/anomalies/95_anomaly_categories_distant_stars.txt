@@ -811,7 +811,7 @@ DISTAR_POD_CAT = {
 DISTAR_PHASE_CAT = {
 	desc = "DISTAR_PHASE_CAT_DESC"
 	picture = "GFX_evt_ship_in_orbit"
-	level = 3
+	level = 7
 	
 	spawn_chance = {
 		modifier = {
@@ -1071,12 +1071,12 @@ debris_gasgiant_category_temp = {
 			is_planet_class = pc_gas_giant
 		}
 		modifier = {
-			add = 30
+			add = 4
 			is_planet_class = pc_gas_giant
 			years_passed < 20
 		}
 		modifier = {
-			add = 10
+			add = 2
 			is_planet_class = pc_gas_giant
 			years_passed > 20
 			years_passed < 50
@@ -1490,7 +1490,7 @@ disco_trojan_asteroid_cat = {
 		# fiction doesn't work for hive minds/robots, so they're blocked
 		modifier = {
 			factor = 0
-			from.owner = { has_ethic = ethic_gestalt_consciousness }
+			from.owner = { has_authority = auth_machine_intelligence }
 		}
 	}
 
@@ -1513,10 +1513,11 @@ disco_impossible_organism_cat = {
 			OR = {
 				exists = event_target:impossible_organism_species
 				from.owner = {
-					OR = { 
-						has_ethic = ethic_gestalt_consciousness
+					OR = {
 						has_ethic = ethic_xenophobe
 						has_ethic = ethic_fanatic_xenophobe
+						has_civic = civic_machine_terminator
+						has_authority = auth_hive_mind
 					}
 				}
 			}
@@ -1594,12 +1595,6 @@ disco_alien_machine_cat = {
 			is_asteroid = yes
 			has_any_strategic_resource = no
 		}
-		modifier = {
-			factor = 0
-			from.owner = {
-				has_ethic = ethic_gestalt_consciousness
-			}
-		}
 	}
 
 	on_success = distar.3040
@@ -1620,7 +1615,7 @@ disco_speed_demon_cat = {
 		modifier = {
 			factor = 0
 			from.owner = {
-				has_ethic = ethic_gestalt_consciousness
+				has_authority = auth_machine_intelligence
 			}
 		}
 	}
@@ -1644,13 +1639,32 @@ disco_breathing_rift_cat = {
 				is_star_class = sc_pulsar	
 			}
 		}
+	}
+
+	on_success = distar.3060
+}
+
+### Gray ###
+disco_gray_cat = {
+	desc = "disco_gray_cat_desc"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 3
+
+	spawn_chance = {
+		modifier = {
+			add = 6
+			is_planet_class = pc_gray_goo
+			solar_system = { has_star_flag = lcluster }
+		}
 		modifier = {
 			factor = 0
-			from.owner = {
-				has_ethic = ethic_gestalt_consciousness
+			OR = {
+				has_global_flag = gray_goo_crisis_set
+				has_global_flag = dragon_season
+				has_global_flag = gray_goo_empire_set
 			}
 		}
 	}
 
-	on_success = distar.3060
+	on_success = graygoo.400
 }

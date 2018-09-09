@@ -1,0 +1,63 @@
+setup_scenario = {
+	name = "large"
+	priority = 3					#priority decides in which order the scenarios are listed
+	num_stars = 800
+	radius = 450					#should be less than 500, preferably less than ~460
+	num_empires = { min = 0 max = 24 }	#limits player customization
+	num_empire_default = 12
+	fallen_empire_default = 3
+	fallen_empire_max = 4	
+	marauder_empire_default = 2
+	marauder_empire_max = 3
+	advanced_empire_default = 3
+	colonizable_planet_odds = 1.0
+	primitive_odds = 1.0
+	crisis_strength = 1.25
+	
+	cluster_count = {
+		method = one_every_x_empire
+		#method = constant
+		value = 1
+		max = 6
+	}
+	cluster_radius = 150
+	cluster_distance_from_core = 300
+	
+	max_hyperlane_distance = 50
+
+	home_system_partitions = {
+		max_systems = 15
+		min_systems= 8
+
+		min_bridges = 2
+		max_bridges = 4
+
+		method = breadth_first
+	}
+
+	open_space_partitions = {
+		max_systems = 10
+		min_systems= 4
+
+		min_bridges = 2
+		max_bridges = 2
+
+		method = depth_first
+	}
+
+	num_nebulas	= 8
+	nebula_size = 60
+	nebula_min_dist = 200
+	
+	num_wormhole_pairs = { min = 0 max = 5 }
+	num_wormhole_pairs_default = 1
+	num_gateways = { min = 0 max = 5 }
+	num_gateways_default = 1
+	num_hyperlanes = { min=0.5 max= 3 }
+	num_hyperlanes_default = 1
+
+	supports_shape = elliptical
+	supports_shape = spiral_2
+	supports_shape = spiral_4
+	supports_shape = ring
+}

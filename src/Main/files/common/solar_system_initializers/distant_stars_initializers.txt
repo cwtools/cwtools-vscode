@@ -965,7 +965,7 @@ hostile_init_void_cloud = {
 			has_ring = no
 		}
 		moon = {
-			class = "pc_nuked"
+			class = "pc_barren_cold"
 			size = { min = 11 max = 16 }
 			orbit_distance = 6
 			orbit_angle = { min = 90 max = 270 }
@@ -991,7 +991,7 @@ hostile_init_void_cloud = {
 	}
 
 	planet = {
-		class = "pc_nuked"
+		class = "pc_barren_cold"
 		orbit_distance = 25
 		orbit_angle = { min = 90 max = 270 }
 		size = { min = 10 max = 20 }
@@ -2114,6 +2114,7 @@ collapse_system = {
             has_star_flag = empire_cluster
         }
 	}
+	primitive_system = yes
 	scaled_spawn_chance = 8
 	max_instances = 1
 
@@ -2286,6 +2287,7 @@ old_foes_system = {
             has_star_flag = empire_cluster
         }
 	}
+	primitive_system = yes
 	scaled_spawn_chance = 8
 	max_instances = 1
 

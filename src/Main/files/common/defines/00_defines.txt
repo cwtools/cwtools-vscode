@@ -395,10 +395,6 @@
 		SITUATION_LOG_MODIFICATION_ICON_FILENAME 	= "gfx/interface/icons/situation_log/situation_log_modification.dds" 
 
 		MIN_GUI_SCALE							= 0.5 # Minimum UI scale factor
-		BROWSER_BASE_URL						= "http://www.stellariswiki.com/"
-
-		INGAME_HELP_URL							= "http://www.stellariswiki.com/"
-		INGAME_HELP_URL_TGP						= "http://plat.tgp.qq.com/forum/index.html#!/2000011"		
 		
 		TOPBAR_BUTTONS_SHORTCUTS				= { "contacts" "F2" "situation" "F3" "technology" "F4" "empire" "F5" "policies" "F6" "factions" "F7" "traditions" "F8" "expansion_planner" "F9" "ship_designer" "F10"}	# Shortcuts for topbar buttons
 		TOPBAR_BUTTONS_PRIORITY					= { "contacts" "situation" "technology" "empire" "policies" "factions" "claims" "strategic_resource" "species" "leaders" "traditions" "expansion_planner" "ship_designer" "fleet_manager" }	# The order of topbar buttons
@@ -1085,6 +1081,8 @@
 		COMBAT_SHIP_DISTANCE_TARGETING_WEIGHT_MIN = 0.10	# Target weight can't be multiplied by less than this due to distance
 		COMBAT_SHIP_UNARMED_TARGETING_WEIGHT = 0.05		# The lower this is, the less likely ships are to target unarmed enemies over armed ones
 		COMBAT_SHIP_STARBASE_TARGETING_WEIGHT = 0.75	# The lower this is, the less likely ships are to target Starbases over military ships & defensive platforms
+		COMBAT_SHIP_EVASION_AVOID_MIN_SHIP_SIZE	= 8		# Minimum size of ships that should try to avoid firing on highly evasive targets
+		COMBAT_SHIP_EVASION_AVOID_THRESHOLD		= 0.7	# Above this level of evasion, try to find a less evasive target
 		
 		COMBAT_DETECT_RANGE_MULT				= 1.05	# Range to engage in combat with other ships is <fleets max attack range> * COMBAT_DETECT_RANGE_MULT
 		COMBAT_DETECT_RANGE_MIN					= 10

@@ -647,6 +647,7 @@ wg_force_ideology = {
 	on_status_quo = {
 		if = {
 			limit = {
+				exists = last_created_country
 				last_created_country = { 
 					has_country_flag = released_empire 
 				}

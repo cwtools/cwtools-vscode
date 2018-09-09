@@ -39,6 +39,7 @@ graygoo_mothership = {
 	collision_radius = 5
 	modifier = {
 		ship_evasion_add = 10
+		ship_upkeep_mult = -1
 	}
 	max_hitpoints = 20000
 	size_multiplier = 16
@@ -67,6 +68,7 @@ graygoo_interdictor = {
 	collision_radius = 4
 	modifier = {
 		ship_evasion_add = 20
+		ship_upkeep_mult = -1
 	}
 	max_hitpoints = 2000
 	size_multiplier = 4
@@ -74,7 +76,7 @@ graygoo_interdictor = {
 	section_slots = { "mid" = { locator = "part1" } }
 	num_target_locators = 0
 	is_space_station = no
-	icon_frame = 4		
+	icon_frame = 4
 	class = shipclass_military
 	
 	is_designable = no

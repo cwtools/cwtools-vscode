@@ -32,12 +32,13 @@ humanoid_hp_02_clothes = {
 	ruler = { #for rulers
 		default = "gfx/models/portraits/mammalian/mammalian_slender_outfit_ruler_blue.dds"
 
-		"gfx/models/portraits/mammalian/mammalian_slender_outfit_ruler_blue.dds" = { owner = { has_generic_government = yes } }
-		"gfx/models/portraits/mammalian/mammalian_slender_outfit_general.dds" = { owner = { has_militarist_government = yes } }
-		"gfx/models/portraits/mammalian/mammalian_slender_outfit_ruler_blue.dds" = { owner = { has_spiritualist_government = yes } }
-		"gfx/models/portraits/mammalian/mammalian_slender_outfit_governor.dds" = { owner = { has_pacifist_government = yes } }
-		"gfx/models/portraits/mammalian/mammalian_slender_outfit_governor.dds" = { owner = { has_primitive_government = yes } }
-		"gfx/models/portraits/mammalian/mammalian_slender_outfit_scientist_teal.dds" = { owner = { has_materialist_government = yes } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_ruler_blue.dds" = { owner = { has_generic_government = yes NOT = { has_authority = auth_imperial } } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_general.dds" = { owner = { has_militarist_government = yes NOT = { has_authority = auth_imperial } } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_ruler_blue.dds" = { owner = { has_spiritualist_government = yes NOT = { has_authority = auth_imperial } } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_governor.dds" = { owner = { has_pacifist_government = yes NOT = { has_authority = auth_imperial } } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_governor.dds" = { owner = { has_primitive_government = yes NOT = { has_authority = auth_imperial } } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_scientist_teal.dds" = { owner = { has_materialist_government = yes NOT = { has_authority = auth_imperial } } }
+		"gfx/models/portraits/mammalian/mammalian_slender_outfit_royal.dds" = { owner = { has_authority = auth_imperial } }
 	}
 }
 

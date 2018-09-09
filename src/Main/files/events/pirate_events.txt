@@ -391,6 +391,7 @@ ship_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		exists = owner
 		owner = { is_country_type = default }
 		from = {
 			solar_system = {
@@ -943,6 +944,7 @@ fleet_event = {
 	is_triggered_only = yes
 
 	trigger = {
+		exists = owner
 		from = {
 			has_star_flag = pirate_home_system
 			any_ship_in_system = {
@@ -1415,6 +1417,7 @@ country_event = {
 							has_star_flag = precursor_system
 							has_star_flag = enclave
 							any_ship_in_system = {
+								exists = owner
 								owner = { is_hostile = root }
 							}
 							any_ship_in_system = {
@@ -1470,6 +1473,7 @@ country_event = {
 							has_star_flag = precursor_system
 							has_star_flag = enclave
 							any_ship_in_system = {
+								exists = owner
 								owner = { is_hostile = root }
 							}
 							any_ship_in_system = {
@@ -1496,6 +1500,7 @@ country_event = {
 							has_star_flag = precursor_system
 							has_star_flag = enclave
 							any_ship_in_system = {
+								exists = owner
 								owner = { is_hostile = root }
 							}
 							any_ship_in_system = {
