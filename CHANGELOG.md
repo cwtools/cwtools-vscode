@@ -1,3 +1,8 @@
+# 0.5.38
+* Updated rules
+* Potential fix for linux/osx
+* Reduced severity of localisation naming validators
+* Add `severity` option for rules to manually set the severity of that rule (normally lower, from error to warning)
 # 0.5.37
 * Improved autocompletion (should now work everywhere)
 * Increased resiliancy to errors, now won't restart on error
