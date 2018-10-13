@@ -288,9 +288,9 @@ type Server(client: ILanguageClient) =
                 // registry.DeclareSerializable<System.LazyHelper>()
                 // registry.DeclareSerializable<Lazy>()
                 let cache = PicklerCache.FromCustomPicklerRegistry registry
-                let binarySerializer = FsPickler.CreateBinarySerializer(picklerResolver = cache)
+                let binarySerializer = FsPickler.CreateXmlSerializer(picklerResolver = cache)
                 let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
-                let cacheFile = File.ReadAllBytes(assemblyLocation+"/../../../embedded/pickled.cwb")
+                let cacheFile = File.ReadAllBytes(assemblyLocation+"/../../../embedded/pickled.xml")
                 // let cacheFile = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.pickled.cwb")
                 //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
                 let cached = binarySerializer.UnPickle<CachedResourceData> cacheFile
