@@ -29,6 +29,7 @@ open CWTools.Games.Stellaris.STLLookup
 open MBrace.FsPickler
 open CWTools.Process
 open CWTools.Utilities.Position
+open CWTools.Games.EU4
 
 let private TODO() = raise (Exception "TODO")
 
@@ -39,7 +40,7 @@ type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier * bool
     | WorkComplete of DateTime
 
-type GameLanguage = |STL |HOI4
+type GameLanguage = |STL |HOI4 |EU4
 type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
@@ -51,6 +52,8 @@ type Server(client: ILanguageClient) =
     let mutable gameObj : option<IGame> = None
     let mutable stlGameObj : option<IGame<STLComputedData>> = None
     let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData>> = None
+    let mutable eu4GameObj : option<IGame<EU4ComputedData>> = None
+
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
     let mutable validateVanilla : bool = false
@@ -341,6 +344,22 @@ type Server(client: ILanguageClient) =
                     }
                 }
 
+
+                let eu4settings = {
+                    EU4.rootDirectory = path
+                    EU4.embedded = {
+                        CWTools.Games.EU4.embeddedFiles = []
+                    }
+                    EU4.validation = {
+                        EU4.validateVanilla = validateVanilla;
+                        EU4.langs = [(Lang.EU4 (EU4Lang.English))]
+                    }
+                    EU4.rules = Some {
+                        ruleFiles = configs
+                        validateRules = experimental_completion
+                    }
+                }
+
                 let game =
                     match activeGame with
                     |STL ->
@@ -350,6 +369,10 @@ type Server(client: ILanguageClient) =
                     |HOI4 ->
                         let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
                         hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData>)
+                        game :> IGame
+                    |EU4 ->
+                        let game = CWTools.Games.EU4.EU4Game(eu4settings)
+                        eu4GameObj <- Some (game :> IGame<EU4ComputedData>)
                         game :> IGame
                 gameObj <- Some (game :> IGame)
                 let game = game :> IGame
@@ -395,8 +418,8 @@ type Server(client: ILanguageClient) =
                 else u.LocalPath
             let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
             return
-                match stlGameObj, hoi4GameObj with
-                |Some game, _ ->
+                match stlGameObj, hoi4GameObj, eu4GameObj with
+                |Some game, _, _ ->
                     let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                     let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                     // eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
@@ -427,7 +450,14 @@ type Server(client: ILanguageClient) =
                         {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
                     |None, None ->
                         {contents = MarkupContent ("markdown", scopesExtra); range = None}
-                |_, Some game ->
+                |_, Some game, _ ->
+                    let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                    match lochover with
+                    |Some (_, loc) ->
+                        { contents = MarkupContent ("markdown", loc.desc); range = None }
+                    |None ->
+                        { contents = MarkupContent ("markdown", ""); range = None }
+                |_, _, Some game ->
                     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
                     match lochover with
                     |Some (_, loc) ->
@@ -494,6 +524,8 @@ type Server(client: ILanguageClient) =
                         activeGame <- STL
                     | JsonValue.String "hoi4" ->
                         activeGame <- HOI4
+                    | JsonValue.String "eu4" ->
+                        activeGame <- EU4
                     | _ -> ()
                 |None -> ()
                 return { capabilities =
