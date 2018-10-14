@@ -27,7 +27,8 @@
     "activationEvents": [
         "onLanguage:paradox",
         "onLanguage:stellaris",
-        "onLanguage:hoi4"
+        "onLanguage:hoi4",
+        "onLanguage:eu4"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -171,6 +172,28 @@
                     "**/hearts of iron iv/**/*.gui",
                     "**/hearts of iron iv/**/*.gfx",
                     "**/hearts of iron iv/**/*.asset"
+                ]
+            },
+            {
+                "id": "eu4",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/europa universalis iv/**/*.txt",
+                    "**/europa universalis iv/**/*.gui",
+                    "**/europa universalis iv/**/*.gfx",
+                    "**/europa universalis iv/**/*.asset"
                 ]
             }
         ],
