@@ -5,6 +5,7 @@ open LSP.Types
 open System
 open System.IO
 open CWTools.Parser
+open CWTools.Parser.EU4Parser
 open CWTools.Parser.Types
 open CWTools.Common
 open CWTools.Common.STLConstants
@@ -50,9 +51,9 @@ type Server(client: ILanguageClient) =
 
     let mutable activeGame = STL
     let mutable gameObj : option<IGame> = None
-    let mutable stlGameObj : option<IGame<STLComputedData>> = None
-    let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData>> = None
-    let mutable eu4GameObj : option<IGame<EU4ComputedData>> = None
+    let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope>> = None
+    let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData, string>> = None
+    let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -302,7 +303,7 @@ type Server(client: ILanguageClient) =
 
 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
-                let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs p))
+                let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p))
                 let logspath = "Main.files.setup.log"
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
@@ -343,12 +344,13 @@ type Server(client: ILanguageClient) =
                         HOI4.langs = [(Lang.HOI4 (HOI4Lang.English))]
                     }
                 }
-
-
+                let eu4modpath = "Main.files.eu4.modifiers"
+                let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
                 let eu4settings = {
                     EU4.rootDirectory = path
                     EU4.embedded = {
                         CWTools.Games.EU4.embeddedFiles = []
+                        EU4.modifiers = eu4Mods
                     }
                     EU4.validation = {
                         EU4.validateVanilla = validateVanilla;
@@ -364,15 +366,15 @@ type Server(client: ILanguageClient) =
                     match activeGame with
                     |STL ->
                         let game = STLGame(stlsettings)
-                        stlGameObj <- Some (game :> IGame<STLComputedData>)
+                        stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Scope>)
                         game :> IGame
                     |HOI4 ->
                         let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
-                        hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData>)
+                        hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData, string>)
                         game :> IGame
                     |EU4 ->
                         let game = CWTools.Games.EU4.EU4Game(eu4settings)
-                        eu4GameObj <- Some (game :> IGame<EU4ComputedData>)
+                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Scope>)
                         game :> IGame
                 gameObj <- Some (game :> IGame)
                 let game = game :> IGame
@@ -417,39 +419,40 @@ type Server(client: ILanguageClient) =
                 then u.LocalPath.Substring(1)
                 else u.LocalPath
             let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
+            let hoverFunction (game : IGame<_, 'a>) =
+                let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
+                let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
+                eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
+                let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
+                let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                let scopesExtra = if scopeContext.IsNone then "" else
+                    let scopes = scopeContext.Value
+                    let header = "| Context | Scope |\n| ----- | -----|\n"
+                    let root = sprintf "| ROOT | %s |\n" (scopes.Root.ToString())
+                    let prevs = scopes.Scopes |> List.mapi (fun i s -> "| " + (if i = 0 then "THIS" else (String.replicate (i) "PREV")) + " | " + (s.ToString()) + " |\n") |> String.concat ""
+                    let froms = scopes.From |> List.mapi (fun i s -> "| " + (String.replicate (i+1) "FROM") + " | " + (s.ToString()) + " |\n") |> String.concat ""
+                    header + root + prevs + froms
+
+                match hovered, lochover with
+                |Some effect, _ ->
+                    match effect with
+                    | :? DocEffect<'a> as de ->
+                        let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                        let desc = de.Desc.Replace("_", "\\_").Trim() |> (fun s -> if s = "" then "" else "_"+s+"_" )
+                        let content = String.Join("\n***\n",[desc; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
+                        {contents = (MarkupContent ("markdown", content)) ; range = None}
+                    | e ->
+                        let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                        let name = e.Name.Replace("_","\\_").Trim()
+                        let content = String.Join("\n***\n",["_"+name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
+                        {contents = (MarkupContent ("markdown", content)) ; range = None}
+                |None, Some (_, loc) ->
+                    {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
+                |None, None ->
+                    {contents = MarkupContent ("markdown", scopesExtra); range = None}
             return
                 match stlGameObj, hoi4GameObj, eu4GameObj with
-                |Some game, _, _ ->
-                    let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
-                    let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                    // eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
-                    let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
-                    let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
-                    let scopesExtra = if scopeContext.IsNone then "" else
-                        let scopes = scopeContext.Value
-                        let header = "| Context | Scope |\n| ----- | -----|\n"
-                        let root = sprintf "| ROOT | %s |\n" (scopes.Root.ToString())
-                        let prevs = scopes.Scopes |> List.mapi (fun i s -> "| " + (if i = 0 then "THIS" else (String.replicate (i) "PREV")) + " | " + (s.ToString()) + " |\n") |> String.concat ""
-                        let froms = scopes.From |> List.mapi (fun i s -> "| " + (String.replicate (i+1) "FROM") + " | " + (s.ToString()) + " |\n") |> String.concat ""
-                        header + root + prevs + froms
-
-                    match hovered, lochover with
-                    |Some effect, _ ->
-                        match effect with
-                        | :? DocEffect as de ->
-                            let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                            let desc = de.Desc.Replace("_", "\\_").Trim() |> (fun s -> if s = "" then "" else "_"+s+"_" )
-                            let content = String.Join("\n***\n",[desc; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
-                            {contents = (MarkupContent ("markdown", content)) ; range = None}
-                        | e ->
-                            let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                            let name = e.Name.Replace("_","\\_").Trim()
-                            let content = String.Join("\n***\n",["_"+name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
-                            {contents = (MarkupContent ("markdown", content)) ; range = None}
-                    |None, Some (_, loc) ->
-                        {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
-                    |None, None ->
-                        {contents = MarkupContent ("markdown", scopesExtra); range = None}
+                |Some game, _, _ -> hoverFunction game
                 |_, Some game, _ ->
                     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
                     match lochover with
@@ -457,21 +460,16 @@ type Server(client: ILanguageClient) =
                         { contents = MarkupContent ("markdown", loc.desc); range = None }
                     |None ->
                         { contents = MarkupContent ("markdown", ""); range = None }
-                |_, _, Some game ->
-                    let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
-                    match lochover with
-                    |Some (_, loc) ->
-                        { contents = MarkupContent ("markdown", loc.desc); range = None }
-                    |None ->
-                        { contents = MarkupContent ("markdown", ""); range = None }
+                |_, _, Some game -> hoverFunction game
                 |_ -> {contents = MarkupContent ("markdown", ""); range = None}
+
         }
 
     let completionResolveItem (item :CompletionItem) =
         async {
             eprintfn "Completion resolve"
-            return match gameObj with
-                    |Some game ->
+            return match stlGameObj, eu4GameObj with
+                    |Some game, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -496,7 +494,32 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |None -> item
+                    |_, Some game ->
+                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
+                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
+                        match hovered with
+                        |Some effect ->
+                            match effect with
+                            | :? DocEffect<EU4Constants.Scope> as de ->
+                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                                let usage = de.Usage
+                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
+                                //{item with documentation = (MarkupContent ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | :? ScriptedEffect<EU4Constants.Scope> as se ->
+                                let desc = se.Name.Replace("_", "\\_")
+                                let comments = se.Comments.Replace("_", "\\_")
+                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | e ->
+                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                        |None -> item
+                    |None, None -> item
         }
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)
@@ -682,6 +705,7 @@ type Server(client: ILanguageClient) =
                     match gameObj with
                     |Some game ->
                         let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
+                        eprintfn "goto fn %A" p.textDocument.uri
                         let path =
                             let u = p.textDocument.uri
                             if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
@@ -690,6 +714,7 @@ type Server(client: ILanguageClient) =
                         let gototype = game.GoToType position (path) (docs.GetText (FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
                         match gototype with
                         |Some goto ->
+                            eprintfn "goto %s" goto.FileName
                             [{ uri = Uri(goto.FileName); range = (convRangeToLSPRange goto)}]
                         |None -> []
                     |None -> []
