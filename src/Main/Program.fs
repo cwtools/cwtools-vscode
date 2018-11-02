@@ -324,6 +324,7 @@ type Server(client: ILanguageClient) =
                     rules = Some {
                         ruleFiles = configs
                         validateRules = experimental_completion
+                        debugRulesOnly = false
                     }
                     embedded = {
                         triggers = triggers
@@ -409,8 +410,11 @@ type Server(client: ILanguageClient) =
     let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
         async {
             //eprintfn "Hover before word"
-            let json = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
-            let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(json) |])
+            let pjson = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
+            let ujson = doc |> (serializerFactory<Uri> defaultJsonWriteOptions)
+            let json = serializerFactory<GetWordRangeAtPositionParams> defaultJsonWriteOptions ({ position = pos; uri = doc })
+            let! word = client.CustomRequest("getWordRangeAtPosition", json)
+            // let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(pjson); "uri", doc |])
             //eprintfn "Hover after word"
             let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
             let path =

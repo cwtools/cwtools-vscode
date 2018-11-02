@@ -115,7 +115,9 @@ export function activate(context: ExtensionContext) {
 		})
 		client.onRequest(request, (param : any, _) => {
 			console.log("recieved request " + request.method + " "+ param)
-			let document = window.activeTextEditor.document;
+			let uri = Uri.parse(param.uri);
+			let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
+			//let document = window.activeTextEditor.document;
 			let position = new Position(param.position.line, param.position.character)
 			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
 			if(wordRange === undefined){
