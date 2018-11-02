@@ -779,6 +779,7 @@ type ServerNotification =
 
 type GetWordRangeAtPositionParams = {
     position : Position
+    uri : Uri
 }
 
 type ApplyWorkspaceEditParams = {
@@ -800,6 +801,6 @@ type ILanguageClient =
     abstract member RegisterCapability: RegisterCapability -> unit
     abstract member CustomNotification: string * JsonValue -> unit
     abstract member ApplyWorkspaceEdit: ApplyWorkspaceEditParams -> Async<JsonValue>
-    abstract member CustomRequest: string * JsonValue -> Async<JsonValue>
+    abstract member CustomRequest: string * string -> Async<JsonValue>
     abstract member LogMessage: LogMessageParams -> unit
 

@@ -142,11 +142,11 @@ type RealClient (send: BinaryWriter) =
                 let id = System.Random().Next()
                 return! requestClient(send, id, "workspace/applyEdit", json)
             }
-        member this.CustomRequest(method: string, json: JsonValue): Async<JsonValue> =
+        member this.CustomRequest(method: string, json: string): Async<JsonValue> =
             async {
-                let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
+                // let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
                 let id = System.Random().Next()
-                return! requestClient(send, id, method, jsonString)
+                return! requestClient(send, id, method, json)
             }
 
 
