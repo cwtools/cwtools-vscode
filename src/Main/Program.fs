@@ -67,7 +67,6 @@ type Server(client: ILanguageClient) =
 
     let mutable ignoreCodes : string list = []
     let mutable ignoreFiles : string list = []
-    let mutable experimental_completion : bool = false
     let mutable locCache = []
 
     let (|TrySuccess|TryFailure|) tryResult =
@@ -263,12 +262,11 @@ type Server(client: ILanguageClient) =
         let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
         let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
         let configs =
-            match experimental_completion, configFiles.Length > 0 with
-            |false, _ -> []
-            |_, true ->
+            match configFiles.Length > 0 with
+            |true ->
                 configFiles |> List.map (fun f -> f, File.ReadAllText(f))
                 //["./config.cwt", File.ReadAllText("./config.cwt")]
-            |_, false ->
+            |false ->
                 embeddedConfigFiles
         eprintfn "stellaris rules version %A" stellarisCacheVersion
         configs
@@ -336,7 +334,7 @@ type Server(client: ILanguageClient) =
                     }
                     rules = Some {
                         ruleFiles = configs
-                        validateRules = experimental_completion
+                        validateRules = true
                         debugRulesOnly = false
                     }
                     embedded = {
@@ -372,7 +370,7 @@ type Server(client: ILanguageClient) =
                     }
                     EU4.rules = Some {
                         ruleFiles = configs
-                        validateRules = experimental_completion
+                        validateRules = true
                     }
                 }
 
@@ -630,11 +628,6 @@ type Server(client: ILanguageClient) =
                     | JsonValue.Boolean b -> b
                     | _ -> false
                 experimental <- newExperimental
-                let newcompletion =
-                    match p.settings.Item("cwtools").Item("experimental_completion") with
-                    | JsonValue.Boolean b -> b
-                    | _ -> false
-                experimental_completion <- newcompletion
                 let newIgnoreCodes =
                     match p.settings.Item("cwtools").Item("errors").Item("ignore") with
                     | JsonValue.Array o ->
