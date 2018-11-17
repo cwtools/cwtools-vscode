@@ -671,7 +671,7 @@ type SymbolInformation = {
 type ILanguageServer =
     abstract member Initialize: InitializeParams -> Async<InitializeResult>
     abstract member Initialized: unit -> Async<unit>
-    abstract member Shutdown: unit -> Async<unit>
+    abstract member Shutdown: unit -> Async<int option>
     abstract member DidChangeConfiguration: DidChangeConfigurationParams -> Async<unit>
     abstract member DidOpenTextDocument: DidOpenTextDocumentParams -> Async<unit>
     abstract member DidChangeTextDocument: DidChangeTextDocumentParams -> Async<unit>
