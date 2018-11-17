@@ -12,9 +12,15 @@ import { workspace, ExtensionContext, window, Disposable, Position, Uri, Workspa
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 import { create } from 'domain';
 
+import * as simplegit from 'simple-git/promise';
+
+const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
+const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
+
 let defaultClient: LanguageClient;
 
 export function activate(context: ExtensionContext) {
+
 
 	class CwtoolsProvider
 	{
@@ -32,117 +38,152 @@ export function activate(context: ExtensionContext) {
 		}
 	}
 
-	// The server is implemented using dotnet core
-	let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
-	var serverExe : string;
-	if(os.platform() == "win32"){
-		serverExe = context.asAbsolutePath(path.join('out', 'server','win-x64', 'CWTools Server.exe'))
+	const rulesChannel: string = workspace.getConfiguration('cwtools').get('rules_version')
+	const isDevDir = simplegit().checkIsRepo()
+	const cacheDir = isDevDir ? context.storagePath + '/.cwtools' : context.extensionPath + '/.cwtools'
+	var initOrUpdateRules = function(folder : string, repoPath : string) {
+		const gameCacheDir = isDevDir ? context.storagePath + '/.cwtools/' + folder : context.extensionPath + '/.cwtools/' + folder
+		var rulesVersion = "embedded"
+		if (rulesChannel != "none") {
+			!isDevDir || fs.existsSync(context.storagePath) || fs.mkdirSync(context.storagePath)
+			fs.existsSync(cacheDir) || fs.mkdirSync(cacheDir)
+			fs.existsSync(gameCacheDir) || fs.mkdirSync(gameCacheDir)
+			const git = simplegit(gameCacheDir)
+			return git.checkIsRepo()
+				.then(isRepo => !isRepo && git.clone(repoPath, gameCacheDir))
+				.then(() => git.fetch())
+				.then(() => git.checkout("master"))
+				//@ts-ignore
+				.then(() => rulesChannel == "latest" ? git.pull() : git.checkoutLatestTag())
+				.then(() => git.revparse(['--abbrev-ref', 'HEAD']))
+				// .then((version) => init(version))
+				// .catch(() => callback())//init("embedded"))
+		}
+		else {
+			return Promise.resolve("embedded")
+		}
 	}
-	else if (os.platform() == "darwin"){
-		serverExe = context.asAbsolutePath(path.join('out', 'server', 'osx.10.11-x64', 'CWTools Server'))
-		fs.chmodSync(serverExe, '755');
-	}
-	else{
-		serverExe = context.asAbsolutePath(path.join('out', 'server', 'linux-x64', 'CWTools Server'))
-		fs.chmodSync(serverExe, '755');
-	}
+	Promise.all([initOrUpdateRules("stellaris", stellarisRemote), initOrUpdateRules("eu4", eu4Remote)])
+		.then((versions) => init(versions))
+		.catch(() => init(["embedded", "embedded"]))
 
-	// If the extension is launched in debug mode then the debug server options are used
-	// Otherwise the run options are used
-	let serverOptions: ServerOptions = {
-		run : { command: serverExe, transport: TransportKind.stdio },
-		// debug : { command: serverExe, transport: TransportKind.stdio }
-		debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
-		// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
-	}
+	var init = function(rulesVersion : string[]) {
+		// The server is implemented using dotnet core
+		let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
+		var serverExe: string;
+		if (os.platform() == "win32") {
+			serverExe = context.asAbsolutePath(path.join('out', 'server', 'win-x64', 'CWTools Server.exe'))
+		}
+		else if (os.platform() == "darwin") {
+			serverExe = context.asAbsolutePath(path.join('out', 'server', 'osx.10.11-x64', 'CWTools Server'))
+			fs.chmodSync(serverExe, '755');
+		}
+		else {
+			serverExe = context.asAbsolutePath(path.join('out', 'server', 'linux-x64', 'CWTools Server'))
+			fs.chmodSync(serverExe, '755');
+		}
 
-	// Options to control the language client
-	let clientOptions: LanguageClientOptions = {
-		// Register the server for F# documents
-		documentSelector: [{scheme: 'file', language: 'paradox'}, {scheme: 'file', language: 'yaml'}, {scheme: 'file', language: 'stellaris'},
-							{scheme: 'file', language: 'hoi4'}, {scheme: 'file', language: 'eu4'}],
-		synchronize: {
-			// Synchronize the setting section 'languageServerExample' to the server
-			configurationSection: 'cwtools',
-			// Notify the server about file changes to F# project files contain in the workspace
+		// If the extension is launched in debug mode then the debug server options are used
+		// Otherwise the run options are used
+		let serverOptions: ServerOptions = {
+			run: { command: serverExe, transport: TransportKind.stdio },
+			// debug : { command: serverExe, transport: TransportKind.stdio }
+			debug: { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
+			// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
+		}
 
-			fileEvents: [
-				workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries,flags}/**/*.txt"),
-				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
-				workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
-				workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
-				workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
+		// Options to control the language client
+		let clientOptions: LanguageClientOptions = {
+			// Register the server for F# documents
+			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
+			{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }],
+			synchronize: {
+				// Synchronize the setting section 'languageServerExample' to the server
+				configurationSection: 'cwtools',
+				// Notify the server about file changes to F# project files contain in the workspace
+
+				fileEvents: [
+					workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries,flags,decisions,missions}/**/*.txt"),
+					workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
+					workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
+					workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
+					workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
 				]
-		},
-		initializationOptions : {language : window.activeTextEditor.document.languageId}
-	}
+			},
+			initializationOptions: { language: window.activeTextEditor.document.languageId, rulesCache: cacheDir, rulesVersion: rulesVersion }
+		}
 
-	let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
-	defaultClient = client;
-	console.log("client init")
-	client.registerProposedFeatures();
-	interface loadingBarParams { enable : boolean; value : string }
-	let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
-	interface CreateVirtualFile { uri : string; fileContent : string }
-	let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
-	let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
-	let status : Disposable;
-	client.onReady().then(() => {
-		client.onNotification(loadingBarNotification, (param: loadingBarParams) =>{
-			if(param.enable){
-				if (status !== undefined) {
+		let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
+		defaultClient = client;
+		console.log("client init")
+		client.registerProposedFeatures();
+		interface loadingBarParams { enable: boolean; value: string }
+		let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
+		interface CreateVirtualFile { uri: string; fileContent: string }
+		let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
+		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
+		let status: Disposable;
+		client.onReady().then(() => {
+			client.onNotification(loadingBarNotification, (param: loadingBarParams) => {
+				if (param.enable) {
+					if (status !== undefined) {
+						status.dispose();
+					}
+					status = window.setStatusBarMessage(param.value);
+				}
+				else if (!param.enable) {
 					status.dispose();
 				}
-				status = window.setStatusBarMessage(param.value);
-			}
-			else if(!param.enable){
-				status.dispose();
-			}
-			else if(status !== undefined){
-				status.dispose();
-			}
-		})
-		client.onNotification(createVirtualFile, (param : CreateVirtualFile) => {
-			let uri = Uri.parse(param.uri);
-			let doc = workspace.openTextDocument(uri).then(doc => {
-				let edit = new WorkspaceEdit();
-				let range = new Range(0, 0, doc.lineCount, doc.getText().length);
-				edit.set(uri, [new TextEdit(range, param.fileContent)]);
-				workspace.applyEdit(edit);
-				window.showTextDocument(uri);
-				//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
-			});
-		})
-		client.onRequest(request, (param : any, _) => {
-			console.log("recieved request " + request.method + " "+ param)
-			let uri = Uri.parse(param.uri);
-			let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
-			//let document = window.activeTextEditor.document;
-			let position = new Position(param.position.line, param.position.character)
-			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
-			if(wordRange === undefined){
-				return "none";
-			}
-			else{
-				let text = document.getText(wordRange);
-				console.log("wordAtPos "+ text);
-				if (text.trim().length == 0){
+				else if (status !== undefined) {
+					status.dispose();
+				}
+			})
+			client.onNotification(createVirtualFile, (param: CreateVirtualFile) => {
+				let uri = Uri.parse(param.uri);
+				let doc = workspace.openTextDocument(uri).then(doc => {
+					let edit = new WorkspaceEdit();
+					let range = new Range(0, 0, doc.lineCount, doc.getText().length);
+					edit.set(uri, [new TextEdit(range, param.fileContent)]);
+					workspace.applyEdit(edit);
+					window.showTextDocument(uri);
+					//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
+				});
+			})
+			client.onRequest(request, (param: any, _) => {
+				console.log("recieved request " + request.method + " " + param)
+				let uri = Uri.parse(param.uri);
+				let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
+				//let document = window.activeTextEditor.document;
+				let position = new Position(param.position.line, param.position.character)
+				let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
+				if (wordRange === undefined) {
 					return "none";
 				}
-				else{
-					return text;
+				else {
+					let text = document.getText(wordRange);
+					console.log("wordAtPos " + text);
+					if (text.trim().length == 0) {
+						return "none";
+					}
+					else {
+						return text;
+					}
 				}
-			}
+			})
 		})
-	})
-	let disposable = client.start();
 
-	// Create the language client and start the client.
 
-	// Push the disposable to the context's subscriptions so that the
-	// client can be deactivated on extension deactivation
-	context.subscriptions.push(disposable);
-	context.subscriptions.push(new CwtoolsProvider());
+
+		let disposable = client.start();
+
+		// Create the language client and start the client.
+
+		// Push the disposable to the context's subscriptions so that the
+		// client can be deactivated on extension deactivation
+		context.subscriptions.push(disposable);
+		context.subscriptions.push(new CwtoolsProvider());
+
+	}
 }
 
 export default defaultClient;
