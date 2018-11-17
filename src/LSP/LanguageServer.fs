@@ -55,6 +55,8 @@ let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPo
 let private serializeApplyWorkspaceEdit = serializerFactory<ApplyWorkspaceEditParams> jsonWriteOptions
 let private serializeCreateVirtualFileParams = serializerFactory<CreateVirtualFileParams> jsonWriteOptions
 let private serializeLogMessageParams = serializerFactory<LogMessageParams> jsonWriteOptions
+
+let private serializeShutdownResponse = serializerFactory<int option> jsonWriteOptions
 type msg =
     | Request of int * AsyncReplyChannel<JsonValue>
     | Response of int * JsonValue
@@ -162,7 +164,7 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
         | Initialize(p) ->
             server.Initialize(p) |> thenMap serializeInitializeResult |> thenSome
         | Shutdown ->
-            server.Shutdown() |> thenNone
+            server.Shutdown() |> thenMap serializeShutdownResponse|> thenSome
         | WillSaveWaitUntilTextDocument(p) ->
             server.WillSaveWaitUntilTextDocument(p) |> thenMap serializeTextEditList |> thenSome
         | Completion(p) ->
@@ -246,6 +248,8 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
                 let n = Parser.parseNotification(method, json)
                 let task = processNotification(n)
                 processQueue.Add(ProcessNotification(method, task))
+            | Parser.NotificationMessage("exit", json) ->
+                processQueue.Add(Quit)
             | Parser.RequestMessage(id, method, json) ->
                 let task = processRequest(Parser.parseRequest(method, json))
                 let cancel = new CancellationTokenSource()
@@ -272,3 +276,4 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
                 with :? OperationCanceledException ->
                     dprintfn "Request %d was cancelled" id
             pendingRequests.TryRemove(id) |> ignore
+    System.Environment.Exit(1)

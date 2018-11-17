@@ -7,6 +7,7 @@
 import * as path from 'path';
 import * as os from 'os';
 import * as fs from 'fs';
+import * as vs from 'vscode';
 
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
@@ -41,7 +42,7 @@ export function activate(context: ExtensionContext) {
 	const rulesChannel: string = workspace.getConfiguration('cwtools').get('rules_version')
 	const isDevDir = simplegit().checkIsRepo()
 	const cacheDir = isDevDir ? context.storagePath + '/.cwtools' : context.extensionPath + '/.cwtools'
-	var initOrUpdateRules = function(folder : string, repoPath : string) {
+	var initOrUpdateRules = function(folder : string, repoPath : string, logger : vs.OutputChannel, first? : boolean) {
 		const gameCacheDir = isDevDir ? context.storagePath + '/.cwtools/' + folder : context.extensionPath + '/.cwtools/' + folder
 		var rulesVersion = "embedded"
 		if (rulesChannel != "none") {
@@ -49,25 +50,26 @@ export function activate(context: ExtensionContext) {
 			fs.existsSync(cacheDir) || fs.mkdirSync(cacheDir)
 			fs.existsSync(gameCacheDir) || fs.mkdirSync(gameCacheDir)
 			const git = simplegit(gameCacheDir)
-			return git.checkIsRepo()
+			let ret = git.checkIsRepo()
 				.then(isRepo => !isRepo && git.clone(repoPath, gameCacheDir))
 				.then(() => git.fetch())
-				.then(() => git.checkout("master"))
+				.then(() => git.log())
+				.then((log) => { logger.appendLine("cwtools current rules version: " + log.latest.hash); return log.latest.hash })
+				.then((prevHash : string) => { return Promise.all([prevHash, git.checkout("master")]) })
 				//@ts-ignore
-				.then(() => rulesChannel == "latest" ? git.pull() : git.checkoutLatestTag())
-				.then(() => git.revparse(['--abbrev-ref', 'HEAD']))
-				// .then((version) => init(version))
-				// .catch(() => callback())//init("embedded"))
-		}
+				.then(function ([prevHash, _]) { return Promise.all([prevHash, rulesChannel == "latest" ? git.reset(["--hard", "origin/master"]) : git.checkoutLatestTag()])} )
+				.then(function ([prevHash, _]) { return Promise.all([prevHash, git.log()]) })
+				.then(function ([prevHash, log]) { return log.latest.hash == prevHash ? undefined : log.latest.date })
+				.catch(() => { logger.appendLine("cwtools git error, recovering"); git.reset(["--hard", "origin/master"]); first && initOrUpdateRules(folder, repoPath, logger, false) })
+			return ret;
+			}
 		else {
-			return Promise.resolve("embedded")
+			return Promise.resolve()
 		}
 	}
-	Promise.all([initOrUpdateRules("stellaris", stellarisRemote), initOrUpdateRules("eu4", eu4Remote)])
-		.then((versions) => init(versions))
-		.catch(() => init(["embedded", "embedded"]))
 
-	var init = function(rulesVersion : string[]) {
+
+	var init = function() {
 		// The server is implemented using dotnet core
 		let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
 		var serverExe: string;
@@ -110,12 +112,15 @@ export function activate(context: ExtensionContext) {
 					workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
 				]
 			},
-			initializationOptions: { language: window.activeTextEditor.document.languageId, rulesCache: cacheDir, rulesVersion: rulesVersion }
+			initializationOptions: { language: window.activeTextEditor.document.languageId,
+				 rulesCache: cacheDir,
+				rules_version: workspace.getConfiguration('cwtools').get('rules_version') }
 		}
 
 		let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
+		let log = client.outputChannel
 		defaultClient = client;
-		console.log("client init")
+		log.appendLine("client init")
 		client.registerProposedFeatures();
 		interface loadingBarParams { enable: boolean; value: string }
 		let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
@@ -170,6 +175,20 @@ export function activate(context: ExtensionContext) {
 					}
 				}
 			})
+			var promise = (function(language : string) : Promise<string | void>{
+			switch (language){
+				case "stellaris": return initOrUpdateRules("stellaris", stellarisRemote, log);
+				case "eu4": return initOrUpdateRules("eu4", eu4Remote, log);
+				default: return initOrUpdateRules("stellaris", stellarisRemote, log);
+				}
+			})(window.activeTextEditor.document.languageId)
+
+			promise.then((version) =>
+				{
+					if (version !== undefined) {
+						 reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + version + ".\n\r Reload to use.", "Reload")
+					}
+				})
 		})
 
 
@@ -182,8 +201,27 @@ export function activate(context: ExtensionContext) {
 		// client can be deactivated on extension deactivation
 		context.subscriptions.push(disposable);
 		context.subscriptions.push(new CwtoolsProvider());
-
+		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
+			for (const sub of context.subscriptions) {
+				try {
+					sub.dispose();
+				} catch (e) {
+					console.error(e);
+				}
+			}
+			activate(context);
+		}));
 	}
+	init()
 }
 
 export default defaultClient;
+
+export async function reloadExtension(prompt?: string, buttonText?: string) {
+	const restartAction = buttonText || "Restart";
+	const actions = [restartAction];
+	const chosenAction = prompt && await window.showInformationMessage(prompt, ...actions);
+	if (!prompt || chosenAction === restartAction) {
+		commands.executeCommand("cwtools.reloadExtension");
+	}
+}

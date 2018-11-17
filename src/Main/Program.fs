@@ -60,6 +60,8 @@ type Server(client: ILanguageClient) =
     let mutable cachePath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
+
+    let mutable useEmbeddedRules : bool = false
     let mutable validateVanilla : bool = false
     let mutable experimental : bool = false
 
@@ -249,12 +251,12 @@ type Server(client: ILanguageClient) =
 
     let getConfigFiles() =
         let embeddedConfigFiles =
-            match cachePath with
-            | Some path ->
+            match cachePath, useEmbeddedRules with
+            | Some path, false ->
                 let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
                 let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
                 configFiles |> List.map (fun f -> f, File.ReadAllText(f))
-            | None ->
+            | None, _ ->
                 let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
                 embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
         let configpath = "Main.files.config.cwt"
@@ -573,14 +575,21 @@ type Server(client: ILanguageClient) =
                         |EU4 -> cachePath <- Some (x + "/eu4")
                         | _ -> ()
                     | _ -> ()
-                    match opt.Item("rulesVersion") with
-                    | JsonValue.Array x ->
+                    // match opt.Item("rulesVersion") with
+                    // | JsonValue.Array x ->
+                    //     match x with
+                    //     |[|JsonValue.String s; JsonValue.String e|] ->
+                    //         stellarisCacheVersion <- Some s
+                    //         eu4CacheVersion <- Some e
+                    //     | _ -> ()
+                    // | _ -> ()
+                    match opt.Item("rules_version") with
+                    | JsonValue.String x ->
                         match x with
-                        |[|JsonValue.String s; JsonValue.String e|] ->
-                            stellarisCacheVersion <- Some s
-                            eu4CacheVersion <- Some e
+                        |"none" -> useEmbeddedRules <- true
                         | _ -> ()
                     | _ -> ()
+
                 |None -> ()
                 return { capabilities =
                     { defaultServerCapabilities with
@@ -600,7 +609,7 @@ type Server(client: ILanguageClient) =
         member this.Initialized() =
             async { () }
         member this.Shutdown() =
-            async { () }
+            async { return None }
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
             async {
                 let newLanguages =
