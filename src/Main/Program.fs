@@ -57,6 +57,9 @@ type Server(client: ILanguageClient) =
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
+    let mutable cachePath : string option = None
+    let mutable stellarisCacheVersion : string option = None
+    let mutable eu4CacheVersion : string option = None
     let mutable validateVanilla : bool = false
     let mutable experimental : bool = false
 
@@ -245,8 +248,15 @@ type Server(client: ILanguageClient) =
         }
 
     let getConfigFiles() =
-        let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
-        let embeddedConfigFiles = embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
+        let embeddedConfigFiles =
+            match cachePath with
+            | Some path ->
+                let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
+                let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+                configFiles |> List.map (fun f -> f, File.ReadAllText(f))
+            | None ->
+                let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
+                embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
         let configpath = "Main.files.config.cwt"
         let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
         let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
@@ -258,6 +268,7 @@ type Server(client: ILanguageClient) =
                 //["./config.cwt", File.ReadAllText("./config.cwt")]
             |_, false ->
                 embeddedConfigFiles
+        eprintfn "stellaris rules version %A" stellarisCacheVersion
         configs
 
 
@@ -553,6 +564,22 @@ type Server(client: ILanguageClient) =
                         activeGame <- HOI4
                     | JsonValue.String "eu4" ->
                         activeGame <- EU4
+                    | _ -> ()
+                    match opt.Item("rulesCache") with
+                    | JsonValue.String x ->
+                        match activeGame with
+                        |STL -> cachePath <- Some (x + "/stellaris")
+                        |HOI4 -> cachePath <- Some (x + "/hoi4")
+                        |EU4 -> cachePath <- Some (x + "/eu4")
+                        | _ -> ()
+                    | _ -> ()
+                    match opt.Item("rulesVersion") with
+                    | JsonValue.Array x ->
+                        match x with
+                        |[|JsonValue.String s; JsonValue.String e|] ->
+                            stellarisCacheVersion <- Some s
+                            eu4CacheVersion <- Some e
+                        | _ -> ()
                     | _ -> ()
                 |None -> ()
                 return { capabilities =

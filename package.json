@@ -126,6 +126,17 @@
                     "type": "boolean",
                     "default": "false",
                     "description": "Whether or not to enable experimental completion"
+                },
+                "cwtools.rules_version": {
+                    "scope": "application",
+                    "type":"string",
+                    "enum":[
+                        "stable",
+                        "latest",
+                        "none"
+                    ],
+                    "default":"stable",
+                    "description": "Which version of rules to auto-update to"
                 }
             }
         },
@@ -213,6 +224,7 @@
     },
     "dependencies": {
         "npm": "^6.4.0",
+        "simple-git": "^1.106.0",
         "vscode": "^1.1.21",
         "vscode-languageclient": "^5.0.1"
     },
