@@ -122,10 +122,12 @@
                     "description": "Whether or not to enable experimental features"
                 },
                 "cwtools.experimental_completion": {
+
                     "scope": "window",
                     "type": "boolean",
                     "default": "false",
-                    "description": "Whether or not to enable experimental completion"
+                    "description": "Whether or not to enable experimental completion",
+                    "deprecationMessage": "This feature is now enabled for all users"
                 },
                 "cwtools.rules_version": {
                     "scope": "application",
@@ -137,6 +139,7 @@
                     ],
                     "default":"stable",
                     "description": "Which version of rules to auto-update to"
+
                 }
             }
         },
