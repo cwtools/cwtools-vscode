@@ -5,7 +5,7 @@
     "description": "Paradox Interactive scripting file support using CWTools",
     "author": "Dayshine",
     "license": "MIT",
-    "version": "0.5.38",
+    "version": "0.6.0",
     "preview": true,
     "publisher": "tboby",
     "qna": "https://forum.paradoxplaza.com/forum/index.php?threads/tool-cwtools-a-mod-validating-extension-for-vs-code.1066033/",
@@ -122,7 +122,6 @@
                     "description": "Whether or not to enable experimental features"
                 },
                 "cwtools.experimental_completion": {
-
                     "scope": "window",
                     "type": "boolean",
                     "default": "false",
@@ -131,15 +130,14 @@
                 },
                 "cwtools.rules_version": {
                     "scope": "application",
-                    "type":"string",
-                    "enum":[
+                    "type": "string",
+                    "enum": [
                         "stable",
                         "latest",
                         "none"
                     ],
-                    "default":"stable",
+                    "default": "stable",
                     "description": "Which version of rules to auto-update to"
-
                 }
             }
         },
