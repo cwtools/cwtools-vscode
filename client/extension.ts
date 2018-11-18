@@ -135,6 +135,7 @@ export function activate(context: ExtensionContext) {
 						status.dispose();
 					}
 					status = window.setStatusBarMessage(param.value);
+					context.subscriptions.push(status);
 				}
 				else if (!param.enable) {
 					status.dispose();

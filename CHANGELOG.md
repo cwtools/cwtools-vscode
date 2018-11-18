@@ -1,3 +1,7 @@
+# 0.6.0
+* Enabled rule-based validation by default. Every file in your mod now gets detailed validation!
+* Enabled completion by default. Every file in your mod should get intelligent auto-completion!
+* Added auto-updating rules, controlled by the setting `cwtools.rules_version`.
 # 0.5.38
 * Updated rules
 * Potential fix for linux/osx
