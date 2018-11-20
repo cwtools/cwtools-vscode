@@ -52,7 +52,7 @@ type Server(client: ILanguageClient) =
     let mutable activeGame = STL
     let mutable gameObj : option<IGame> = None
     let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope>> = None
-    let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData, string>> = None
+    let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData, HOI4Constants.Scope>> = None
     let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope>> = None
 
     let mutable languages : Lang list = []
@@ -255,7 +255,7 @@ type Server(client: ILanguageClient) =
                 let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
                 let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
                 configFiles |> List.map (fun f -> f, File.ReadAllText(f))
-            | None, _ ->
+            | _ ->
                 let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
                 embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
         let configpath = "Main.files.config.cwt"
@@ -382,7 +382,7 @@ type Server(client: ILanguageClient) =
                         game :> IGame
                     |HOI4 ->
                         let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
-                        hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData, string>)
+                        hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData, HOI4Constants.Scope>)
                         game :> IGame
                     |EU4 ->
                         let game = CWTools.Games.EU4.EU4Game(eu4settings)

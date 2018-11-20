@@ -1,3 +1,5 @@
+# 0.6.1
+* Hotfixes!
 # 0.6.0
 * Enabled rule-based validation by default. Every file in your mod now gets detailed validation!
 * Enabled completion by default. Every file in your mod should get intelligent auto-completion!
