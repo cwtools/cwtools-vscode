@@ -17,6 +17,7 @@ import * as simplegit from 'simple-git/promise';
 
 const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
+const hoi4Remote = `https://github.com/tboby/cwtools-hoi4-config`;
 
 let defaultClient: LanguageClient;
 
@@ -180,6 +181,7 @@ export function activate(context: ExtensionContext) {
 			switch (language){
 				case "stellaris": return initOrUpdateRules("stellaris", stellarisRemote, log);
 				case "eu4": return initOrUpdateRules("eu4", eu4Remote, log);
+				case "hoi4": return initOrUpdateRules("hoi4", hoi4Remote, log);
 				default: return initOrUpdateRules("stellaris", stellarisRemote, log);
 				}
 			})(window.activeTextEditor.document.languageId)
