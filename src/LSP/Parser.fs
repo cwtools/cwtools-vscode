@@ -12,6 +12,7 @@ type RawMessage = {
     method: string option
     ``params``: JsonValue option
     result: JsonValue option
+    error: JsonValue option
 }
 
 let parseTextDocumentSaveReason(i: int): TextDocumentSaveReason =
@@ -103,12 +104,13 @@ type Message =
 
 let parseMessage(jsonText: string): Message =
     let raw = deserializeRawMessage jsonText
-    match raw.id, raw.method, raw.``params``, raw.result with
-    | Some id, Some method, Some p, _ -> RequestMessage (id, method, p)
-    | Some id, _, _, Some r -> ResponseMessage (id, r)
-    | Some id, None, _, _ -> raise(Exception(sprintf "Request message with id %d missing params. Text: %s" id jsonText))
-    | None, Some m, _, _ -> NotificationMessage (m, raw.``params``)
-    | Some id, Some method, _, _ -> RequestMessage (id, method, JsonValue.Null)
+    match raw.id, raw.method, raw.``params``, raw.result, raw.error with
+    | Some id, Some method, Some p, _, _ -> RequestMessage (id, method, p)
+    | Some id, _, _, Some r, _ -> ResponseMessage (id, r)
+    | Some id, None, _, _, Some e -> ResponseMessage(id, JsonValue.Null)
+    | Some id, None, _, _, _ -> raise(Exception(sprintf "Request message with id %d missing params. Text: %s" id jsonText))
+    | None, Some m, _, _ , _-> NotificationMessage (m, raw.``params``)
+    | Some id, Some method, _, _, _ -> RequestMessage (id, method, JsonValue.Null)
     | _ -> raise(Exception(sprintf "Message %s doesn't match format expected" jsonText))
 
 let parseDidChangeConfigurationParams = deserializerFactory<DidChangeConfigurationParams> readOptions

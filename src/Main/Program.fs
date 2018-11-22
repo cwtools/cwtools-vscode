@@ -52,7 +52,7 @@ type Server(client: ILanguageClient) =
     let mutable activeGame = STL
     let mutable gameObj : option<IGame> = None
     let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope>> = None
-    let mutable hoi4GameObj : option<IGame<CWTools.Games.HOI4.HOI4ComputedData, HOI4Constants.Scope>> = None
+    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope>> = None
     let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope>> = None
 
     let mutable languages : Lang list = []
@@ -60,6 +60,7 @@ type Server(client: ILanguageClient) =
     let mutable cachePath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
+    let mutable hoi4CacheVersion : string option = None
 
     let mutable useEmbeddedRules : bool = false
     let mutable validateVanilla : bool = false
@@ -345,15 +346,22 @@ type Server(client: ILanguageClient) =
                         cachedResourceData = cached
                     }
                 }
+                let hoi4modpath = "Main.files.hoi4.modifiers"
+                let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
 
                 let hoi4settings = {
                     HOI4.rootDirectory = path
                     HOI4.embedded = {
                         CWTools.Games.HOI4.embeddedFiles = []
+                        HOI4.modifiers = hoi4Mods
                     }
                     HOI4.validation = {
                         HOI4.validateVanilla = validateVanilla;
                         HOI4.langs = [(Lang.HOI4 (HOI4Lang.English))]
+                    }
+                    HOI4.rules = Some {
+                        ruleFiles = configs
+                        validateRules = true
                     }
                 }
                 let eu4modpath = "Main.files.eu4.modifiers"
@@ -382,7 +390,7 @@ type Server(client: ILanguageClient) =
                         game :> IGame
                     |HOI4 ->
                         let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
-                        hoi4GameObj <- Some (game :> IGame<CWTools.Games.HOI4.HOI4ComputedData, HOI4Constants.Scope>)
+                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Scope>)
                         game :> IGame
                     |EU4 ->
                         let game = CWTools.Games.EU4.EU4Game(eu4settings)
@@ -468,13 +476,14 @@ type Server(client: ILanguageClient) =
             return
                 match stlGameObj, hoi4GameObj, eu4GameObj with
                 |Some game, _, _ -> hoverFunction game
-                |_, Some game, _ ->
-                    let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
-                    match lochover with
-                    |Some (_, loc) ->
-                        { contents = MarkupContent ("markdown", loc.desc); range = None }
-                    |None ->
-                        { contents = MarkupContent ("markdown", ""); range = None }
+                |_, Some game, _ -> hoverFunction game
+                // |_, Some game, _ ->
+                //     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
+                //     match lochover with
+                //     |Some (_, loc) ->
+                //         { contents = MarkupContent ("markdown", loc.desc); range = None }
+                //     |None ->
+                //         { contents = MarkupContent ("markdown", ""); range = None }
                 |_, _, Some game -> hoverFunction game
                 |_ -> {contents = MarkupContent ("markdown", ""); range = None}
 
@@ -483,8 +492,8 @@ type Server(client: ILanguageClient) =
     let completionResolveItem (item :CompletionItem) =
         async {
             eprintfn "Completion resolve"
-            return match stlGameObj, eu4GameObj with
-                    |Some game, _ ->
+            return match stlGameObj, eu4GameObj, hoi4GameObj with
+                    |Some game, _, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -509,7 +518,7 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |_, Some game ->
+                    |_, Some game, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -534,7 +543,32 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |None, None -> item
+                    |_, _, Some game ->
+                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
+                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
+                        match hovered with
+                        |Some effect ->
+                            match effect with
+                            | :? DocEffect<HOI4Constants.Scope> as de ->
+                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                                let usage = de.Usage
+                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
+                                //{item with documentation = (MarkupContent ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | :? ScriptedEffect<HOI4Constants.Scope> as se ->
+                                let desc = se.Name.Replace("_", "\\_")
+                                let comments = se.Comments.Replace("_", "\\_")
+                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | e ->
+                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                        |None -> item
+                    |None, None, None -> item
         }
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)

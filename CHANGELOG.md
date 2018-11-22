@@ -1,3 +1,5 @@
+# 0.6.2
+* Basic HOI4 support
 # 0.6.1
 * Hotfixes!
 # 0.6.0
