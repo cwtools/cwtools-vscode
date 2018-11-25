@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
     <TargetLatestRuntimePatch>True</TargetLatestRuntimePatch>
   </PropertyGroup>
   <PropertyGroup>
@@ -11,6 +11,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ProjectManager.fs" />
+    <Compile Include="Serialize.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
