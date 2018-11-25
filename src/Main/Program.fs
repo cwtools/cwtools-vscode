@@ -31,6 +31,7 @@ open MBrace.FsPickler
 open CWTools.Process
 open CWTools.Utilities.Position
 open CWTools.Games.EU4
+open Main.Serialize
 
 let private TODO() = raise (Exception "TODO")
 
@@ -290,29 +291,14 @@ type Server(client: ILanguageClient) =
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
-
-                let mkPickler (resolver : IPicklerResolver) =
-                    let arrayPickler = resolver.Resolve<Leaf array> ()
-                    let writer (w : WriteState) (ns : Lazy<Leaf array>) =
-                        arrayPickler.Write w "value" (ns.Force())
-                    let reader (r : ReadState) =
-                        let v = arrayPickler.Read r "value" in Lazy<Leaf array>.CreateFromValue v
-                    Pickler.FromPrimitives(reader, writer)
-                let registry = new CustomPicklerRegistry()
-                do registry.RegisterFactory mkPickler
-                registry.DeclareSerializable<FParsec.Position>()
-                // registry.DeclareSerializable<System.LazyHelper>()
-                // registry.DeclareSerializable<Lazy>()
-                let cache = PicklerCache.FromCustomPicklerRegistry registry
-                let binarySerializer = FsPickler.CreateXmlSerializer(picklerResolver = cache)
                 let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
-                let cacheFile = File.ReadAllBytes(assemblyLocation+"/../../../embedded/pickled.xml")
-                // let cacheFile = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.pickled.cwb")
-                //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
-                let cached = binarySerializer.UnPickle<CachedResourceData> cacheFile
-                fileIndexTable <- cached.fileIndexTable
-                let cached = cached.resources
 
+                let cached =
+                    match activeGame, cachePath with
+                    |STL, Some cp -> deserialize (assemblyLocation + "/../../../embedded/pickled.xml")
+                    |EU4, Some cp -> deserialize (cp + "/../eu4.cwb")
+                    |HOI4, Some cp -> deserialize (cp + "/../hoi4.cwb")
+                    |_ -> []
 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p))
@@ -354,6 +340,7 @@ type Server(client: ILanguageClient) =
                     HOI4.embedded = {
                         CWTools.Games.HOI4.embeddedFiles = []
                         HOI4.modifiers = hoi4Mods
+                        cachedResourceData = cached
                     }
                     HOI4.validation = {
                         HOI4.validateVanilla = validateVanilla;
@@ -371,6 +358,7 @@ type Server(client: ILanguageClient) =
                     EU4.embedded = {
                         CWTools.Games.EU4.embeddedFiles = []
                         EU4.modifiers = eu4Mods
+                        cachedResourceData = cached
                     }
                     EU4.validation = {
                         EU4.validateVanilla = validateVanilla;
@@ -636,7 +624,7 @@ type Server(client: ILanguageClient) =
                                 change = TextDocumentSyncKind.Full }
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
-                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"]} } }
+                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -865,6 +853,13 @@ type Server(client: ILanguageClient) =
                         | {command = "reloadrulesconfig"; arguments = _} ->
                             let configs = getConfigFiles()
                             game.ReplaceConfigRules configs
+                        | {command = "cacheVanilla"; arguments = vanillaDirectory::cacheDirectory::cacheGame::_} ->
+                            eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
+                            match cacheGame.AsString() with
+                            |"stellaris" ->
+                                serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                            |"hoi4" ->
+                                serializeHOI4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
                         |_ -> ()
                     |None -> ()
             }

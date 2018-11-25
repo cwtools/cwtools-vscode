@@ -214,6 +214,33 @@ export function activate(context: ExtensionContext) {
 			}
 			activate(context);
 		}));
+		context.subscriptions.push(vs.commands.registerCommand("cwtools.setCache", (_) =>
+			window.showOpenDialog({
+				canSelectFiles : false,
+				canSelectFolders : true,
+				canSelectMany : false,
+				openLabel : "Select vanilla installation folder"
+			}).then(
+				(uri) =>
+					{
+						let directory = uri[0];
+						let gameFolder = path.basename(directory.fsPath)
+						var game = ""
+						switch(gameFolder){
+							case "Stellaris": game = "stellaris"; break;
+							case "Hearts of Iron IV": game = "hoi4"; break;
+							case "Europa Universalis IV": game = "eu4"; break;
+						}
+						if(game === "") {
+							window.showErrorMessage("The selected folder does not appear to be a supported game")
+						}
+						else {
+							log.appendLine("path" + gameFolder)
+							log.appendLine("log" + game)
+							commands.executeCommand("cacheVanilla", uri[0].fsPath, cacheDir, game)
+						}
+				})
+		));
 	}
 	init()
 }
