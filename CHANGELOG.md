@@ -1,3 +1,9 @@
+# 0.6.3
+* Add ability to cache vanilla files for Stellaris/EU4/HOI4 to use instead of embedded files
+  Ctrl-Shift-p "cwtools: Generate cache"
+* Remove requirement for git
+* More fixes
+* More hotfixes
 # 0.6.2
 * Basic HOI4 support
 # 0.6.1
