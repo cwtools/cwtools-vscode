@@ -32,6 +32,8 @@ open CWTools.Process
 open CWTools.Utilities.Position
 open CWTools.Games.EU4
 open Main.Serialize
+open Main.Git
+open FSharp.Data
 
 let private TODO() = raise (Exception "TODO")
 
@@ -62,7 +64,9 @@ type Server(client: ILanguageClient) =
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
     let mutable hoi4CacheVersion : string option = None
+    let mutable remoteRepoPath : string option = None
 
+    let mutable rulesChannel : string = "stable"
     let mutable useEmbeddedRules : bool = false
     let mutable validateVanilla : bool = false
     let mutable experimental : bool = false
@@ -270,8 +274,16 @@ type Server(client: ILanguageClient) =
                 //["./config.cwt", File.ReadAllText("./config.cwt")]
             |false ->
                 embeddedConfigFiles
-        eprintfn "stellaris rules version %A" stellarisCacheVersion
         configs
+
+    let setupRulesCaches()  =
+        match cachePath, remoteRepoPath, useEmbeddedRules with
+        |Some cp, Some rp, false ->
+            let stable = rulesChannel <> "latest"
+            match initOrUpdateRules rp cp stable true with
+            |true, Some date -> client.CustomNotification ("promptReload", JsonValue.String(date.ToString()))
+            |_ -> ()
+        |_ -> ()
 
 
     let processWorkspace (uri : option<Uri>) =
@@ -595,6 +607,11 @@ type Server(client: ILanguageClient) =
                         |EU4 -> cachePath <- Some (x + "/eu4")
                         | _ -> ()
                     | _ -> ()
+                    match opt.Item("repoPath") with
+                    | JsonValue.String x ->
+                        eprintfn "rps %A" x
+                        remoteRepoPath <- Some x
+                    | x -> eprintfn "t %A" x
                     // match opt.Item("rulesVersion") with
                     // | JsonValue.Array x ->
                     //     match x with
@@ -606,7 +623,10 @@ type Server(client: ILanguageClient) =
                     match opt.Item("rules_version") with
                     | JsonValue.String x ->
                         match x with
-                        |"none" -> useEmbeddedRules <- true
+                        |"none" ->
+                            useEmbeddedRules <- true
+                            rulesChannel <- "none"
+                        |x -> rulesChannel <- x
                         | _ -> ()
                     | _ -> ()
 
@@ -665,7 +685,13 @@ type Server(client: ILanguageClient) =
                     | _ -> []
                 ignoreFiles <- newIgnoreFiles
                 eprintfn "New configuration %s" (p.ToString())
+                match cachePath with
+                |Some dir ->
+                    if Directory.Exists dir then () else Directory.CreateDirectory dir |> ignore
+                |_ -> ()
                 let task = new Task((fun () -> processWorkspace(rootUri)))
+                task.Start()
+                let task = new Task((fun () -> setupRulesCaches()))
                 task.Start()
             }
 
@@ -734,7 +760,8 @@ type Server(client: ILanguageClient) =
                                     |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
                                     |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                            Some {isIncomplete = false; items = items}
+                            let deduped = items |> List.distinctBy(fun i -> i.label)
+                            Some {isIncomplete = false; items = deduped}
                         // |false ->
                         //     let extraKeywords = ["yes"; "no";]
                         //     let eventIDs = game.References.EventIDs

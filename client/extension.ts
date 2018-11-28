@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
 
-import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn } from 'vscode';
+import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 import { create } from 'domain';
 
@@ -41,7 +41,7 @@ export function activate(context: ExtensionContext) {
 	}
 
 	const rulesChannel: string = workspace.getConfiguration('cwtools').get('rules_version')
-	const isDevDir = simplegit().checkIsRepo()
+	const isDevDir = env.machineId === "someValue.machineId"
 	const cacheDir = isDevDir ? context.storagePath + '/.cwtools' : context.extensionPath + '/.cwtools'
 	var initOrUpdateRules = function(folder : string, repoPath : string, logger : vs.OutputChannel, first? : boolean) {
 		const gameCacheDir = isDevDir ? context.storagePath + '/.cwtools/' + folder : context.extensionPath + '/.cwtools/' + folder
@@ -85,6 +85,14 @@ export function activate(context: ExtensionContext) {
 			serverExe = context.asAbsolutePath(path.join('out', 'server', 'linux-x64', 'CWTools Server'))
 			fs.chmodSync(serverExe, '755');
 		}
+		var repoPath = undefined;
+		switch (window.activeTextEditor.document.languageId) {
+			case "stellaris": repoPath = stellarisRemote; break;
+			case "eu4": repoPath = eu4Remote; break;
+			case "hoi4": repoPath = hoi4Remote; break;
+			default: repoPath = stellarisRemote; break;
+		}
+		console.log(window.activeTextEditor.document.languageId + " " + repoPath);
 
 		// If the extension is launched in debug mode then the debug server options are used
 		// Otherwise the run options are used
@@ -115,18 +123,21 @@ export function activate(context: ExtensionContext) {
 			},
 			initializationOptions: { language: window.activeTextEditor.document.languageId,
 				 rulesCache: cacheDir,
-				rules_version: workspace.getConfiguration('cwtools').get('rules_version') }
+				rules_version: workspace.getConfiguration('cwtools').get('rules_version'),
+				repoPath: repoPath }
 		}
 
 		let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
 		let log = client.outputChannel
 		defaultClient = client;
 		log.appendLine("client init")
+		log.appendLine(env.machineId)
 		client.registerProposedFeatures();
 		interface loadingBarParams { enable: boolean; value: string }
 		let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
 		interface CreateVirtualFile { uri: string; fileContent: string }
 		let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
+		let promptReload = new NotificationType<string, void>('promptReload')
 		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		client.onReady().then(() => {
@@ -156,6 +167,9 @@ export function activate(context: ExtensionContext) {
 					//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
 				});
 			})
+			client.onNotification(promptReload, (param: string) => {
+				reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
+			})
 			client.onRequest(request, (param: any, _) => {
 				console.log("recieved request " + request.method + " " + param)
 				let uri = Uri.parse(param.uri);
@@ -177,21 +191,21 @@ export function activate(context: ExtensionContext) {
 					}
 				}
 			})
-			var promise = (function(language : string) : Promise<string | void>{
-			switch (language){
-				case "stellaris": return initOrUpdateRules("stellaris", stellarisRemote, log);
-				case "eu4": return initOrUpdateRules("eu4", eu4Remote, log);
-				case "hoi4": return initOrUpdateRules("hoi4", hoi4Remote, log);
-				default: return initOrUpdateRules("stellaris", stellarisRemote, log);
-				}
-			})(window.activeTextEditor.document.languageId)
+			// var promise = (function(language : string) : Promise<string | void>{
+			// switch (language){
+			// 	case "stellaris": return initOrUpdateRules("stellaris", stellarisRemote, log);
+			// 	case "eu4": return initOrUpdateRules("eu4", eu4Remote, log);
+			// 	case "hoi4": return initOrUpdateRules("hoi4", hoi4Remote, log);
+			// 	default: return initOrUpdateRules("stellaris", stellarisRemote, log);
+			// 	}
+			// })(window.activeTextEditor.document.languageId)
 
-			promise.then((version) =>
-				{
-					if (version !== undefined) {
-						 reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + version + ".\n\r Reload to use.", "Reload")
-					}
-				})
+			// promise.then((version) =>
+			// 	{
+			// 		if (version !== undefined) {
+			// 			 reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + version + ".\n\r Reload to use.", "Reload")
+			// 		}
+			// 	})
 		})
 
 
