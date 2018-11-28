@@ -62,12 +62,15 @@ let serializeHOI4 folder cacheDirectory =
 let deserialize path =
     // registry.DeclareSerializable<System.LazyHelper>()
     // registry.DeclareSerializable<Lazy>()
-    let cacheFile = File.ReadAllBytes(path)
-    // let cacheFile = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.pickled.cwb")
-    //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
-    let cached = xmlSerializer.UnPickle<CachedResourceData> cacheFile
-    fileIndexTable <- cached.fileIndexTable
-    cached.resources
+    match File.Exists path with
+    |true ->
+        let cacheFile = File.ReadAllBytes(path)
+        // let cacheFile = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.pickled.cwb")
+        //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
+        let cached = xmlSerializer.UnPickle<CachedResourceData> cacheFile
+        fileIndexTable <- cached.fileIndexTable
+        cached.resources
+    |false -> []
 
 let deserializeEU4 path =
     let cacheFile = File.ReadAllBytes(path)
