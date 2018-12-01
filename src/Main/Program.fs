@@ -281,7 +281,9 @@ type Server(client: ILanguageClient) =
         |Some cp, Some rp, false ->
             let stable = rulesChannel <> "latest"
             match initOrUpdateRules rp cp stable true with
-            |true, Some date -> client.CustomNotification ("promptReload", JsonValue.String(date.ToString()))
+            |true, Some date ->
+                let text = sprintf "Validation rules for %O have been updated to %O.\n\r Reload to use." activeGame date
+                client.CustomNotification ("promptReload", JsonValue.String(text))
             |_ -> ()
         |_ -> ()
 
@@ -305,13 +307,13 @@ type Server(client: ILanguageClient) =
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
 
-                let cached =
+                let stlCacheLocation cp = if File.Exists (cp + "/../stl.cwb") then (cp + "/../stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
+                let cached, cachedFiles =
                     match activeGame, cachePath with
-                    |STL, Some cp -> deserialize (assemblyLocation + "/../../../embedded/pickled.xml")
+                    |STL, Some cp -> deserialize (stlCacheLocation cp)
                     |EU4, Some cp -> deserialize (cp + "/../eu4.cwb")
                     |HOI4, Some cp -> deserialize (cp + "/../hoi4.cwb")
-                    |_ -> []
-
+                    |_ -> [], []
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p))
                 let logspath = "Main.files.setup.log"
@@ -320,7 +322,6 @@ type Server(client: ILanguageClient) =
 
                 let configs = getConfigFiles()
                 //let configs = [
-                eprintfn "%A" languages
 
                 let stlsettings = {
                     CWTools.Games.Stellaris.StellarisSettings.rootDirectory = path
@@ -340,7 +341,7 @@ type Server(client: ILanguageClient) =
                         triggers = triggers
                         effects = effects
                         modifiers = modifiers
-                        embeddedFiles = embeddedFiles @ filelist
+                        embeddedFiles = cachedFiles
                         cachedResourceData = cached
                     }
                 }
@@ -884,9 +885,12 @@ type Server(client: ILanguageClient) =
                             eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
                             match cacheGame.AsString() with
                             |"stellaris" ->
-                                serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                                serializeSTL (vanillaDirectory.AsString()) (cacheDirectory.AsString())
                             |"hoi4" ->
                                 serializeHOI4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                            |"eu4" ->
+                                serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                            client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
                         |_ -> ()
                     |None -> ()
             }
