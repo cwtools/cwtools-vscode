@@ -21,6 +21,7 @@ open CWTools.Games.EU4
 open CWTools.Validation.EU4
 open CWTools.Validation.Rules
 open CWTools.Validation.HOI4
+open CWTools.Games.Stellaris.STLLookup
 
 
 let mkPickler (resolver : IPicklerResolver) =
@@ -39,6 +40,19 @@ let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Locatio
 
 
 let serialize gameDirName scriptFolders cacheDirectory = ()
+let serializeSTL folder cacheDirectory =
+    let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, STLConstants.scriptFolders, "stellaris", Encoding.UTF8)
+    let files = fileManager.AllFilesByPath()
+    let computefun : unit -> FoldRules<STLConstants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<STLComputedData>(STLCompute.computeSTLData computefun).Api
+    let entities = resources.UpdateFiles(files) |> List.map (fun (r, (struct (e, _))) -> r, e)
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.filepath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.filepath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files}
+    let pickle = xmlSerializer.Pickle data
+    File.WriteAllBytes(Path.Combine(cacheDirectory, "stl.cwb"), pickle)
 
 let serializeEU4 folder cacheDirectory =
     let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, EU4Constants.scriptFolders, "stellaris", Encoding.UTF8)
@@ -46,7 +60,11 @@ let serializeEU4 folder cacheDirectory =
     let computefun : unit -> FoldRules<EU4Constants.Scope> option = (fun () -> (None))
     let resources = ResourceManager<EU4ComputedData>(EU4Compute.computeEU4Data computefun).Api
     let entities = resources.UpdateFiles(files) |> List.map (fun (r, (struct (e, _))) -> r, e)
-    let data = { resources = entities; fileIndexTable = fileIndexTable}
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.filepath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.filepath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files}
     let pickle = xmlSerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "eu4.cwb"), pickle)
 let serializeHOI4 folder cacheDirectory =
@@ -55,7 +73,11 @@ let serializeHOI4 folder cacheDirectory =
     let computefun : unit -> FoldRules<HOI4Constants.Scope> option = (fun () -> (None))
     let resources = ResourceManager<HOI4ComputedData>(HOI4Compute.computeHOI4Data computefun).Api
     let entities = resources.UpdateFiles(files) |> List.map (fun (r, (struct (e, _))) -> r, e)
-    let data = { resources = entities; fileIndexTable = fileIndexTable}
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.filepath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.filepath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files}
     let pickle = xmlSerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "hoi4.cwb"), pickle)
 
@@ -69,13 +91,13 @@ let deserialize path =
         //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
         let cached = xmlSerializer.UnPickle<CachedResourceData> cacheFile
         fileIndexTable <- cached.fileIndexTable
-        cached.resources
-    |false -> []
+        cached.resources, cached.files
+    |false -> [], []
 
-let deserializeEU4 path =
-    let cacheFile = File.ReadAllBytes(path)
-    let cached = xmlSerializer.UnPickle<CachedResourceData> cacheFile
-    fileIndexTable <- cached.fileIndexTable
-    cached.resources
+// let deserializeEU4 path =
+//     let cacheFile = File.ReadAllBytes(path)
+//     let cached = xmlSerializer.UnPickle<CachedResourceData> cacheFile
+//     fileIndexTable <- cached.fileIndexTable
+//     cached.resources
 
 

@@ -168,7 +168,8 @@ export function activate(context: ExtensionContext) {
 				});
 			})
 			client.onNotification(promptReload, (param: string) => {
-				reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
+				reloadExtension(param, "Reload")
+				// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
 			})
 			client.onRequest(request, (param: any, _) => {
 				console.log("recieved request " + request.method + " " + param)
