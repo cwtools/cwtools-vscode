@@ -287,6 +287,11 @@ type Server(client: ILanguageClient) =
             |_ -> ()
         |_ -> ()
 
+    let getFolderList (filename, filetext : string) =
+        if Path.GetFileName filename = "folders.cwt"
+        then Some (filetext.Split(([|"\r\n"; "\r"; "\n"|]), StringSplitOptions.None) |> List.ofArray)
+        else None
+
 
     let processWorkspace (uri : option<Uri>) =
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Loading project...");  "enable", JsonValue.Boolean(true) |])
@@ -321,12 +326,14 @@ type Server(client: ILanguageClient) =
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
 
                 let configs = getConfigFiles()
+                let folders = configs |> List.tryPick getFolderList
                 //let configs = [
 
                 let stlsettings = {
                     CWTools.Games.Stellaris.StellarisSettings.rootDirectory = path
                     scope = FilesScope.All
                     modFilter = None
+                    scriptFolders = folders
                     validation = {
                         validateVanilla = validateVanilla
                         experimental = experimental
@@ -350,6 +357,7 @@ type Server(client: ILanguageClient) =
 
                 let hoi4settings = {
                     HOI4.rootDirectory = path
+                    HOI4.scriptFolders = folders
                     HOI4.embedded = {
                         CWTools.Games.HOI4.embeddedFiles = []
                         HOI4.modifiers = hoi4Mods
@@ -368,6 +376,7 @@ type Server(client: ILanguageClient) =
                 let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
                 let eu4settings = {
                     EU4.rootDirectory = path
+                    EU4.scriptFolders = folders
                     EU4.embedded = {
                         CWTools.Games.EU4.embeddedFiles = []
                         EU4.modifiers = eu4Mods
