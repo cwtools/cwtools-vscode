@@ -1,3 +1,5 @@
+# 0.6.6
+* Performance hotfix
 # 0.6.5
 * Add `folders.cwt` to manually override folders to be validated
 # 0.6.4
