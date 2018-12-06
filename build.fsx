@@ -212,8 +212,8 @@ open Fake.Core.TargetOperators
 
 "RunScript" ==> "Build"
 "RunScript" ==> "PublishServer"
-"PaketRestore" ==> "BuildServer"
-"PaketRestore" ==> "PublishServer"
+//"PaketRestore" ==> "BuildServer"
+//"PaketRestore" ==> "PublishServer"
 
 "Clean"
 ==> "PublishServer"

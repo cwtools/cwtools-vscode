@@ -306,7 +306,7 @@ type Server(client: ILanguageClient) =
                 let filelist = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.vanilla_files_2.1.3.csv")
                                 |> (fun f -> (new StreamReader(f)).ReadToEnd().Split(Environment.NewLine))
                                 |> Array.toList |> List.map (fun f -> f, "")
-                let docspath = "Main.files.trigger_docs_2.1.2.txt"
+                let docspath = "Main.files.trigger_docs_2.2.txt"
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
@@ -320,7 +320,7 @@ type Server(client: ILanguageClient) =
                     |HOI4, Some cp -> deserialize (cp + "/../hoi4.cwb")
                     |_ -> [], []
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
-                let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p))
+                let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p |Failure(e, _, _) -> eprintfn "%A" e; [], []))
                 let logspath = "Main.files.setup.log"
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
