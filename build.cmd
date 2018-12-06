@@ -9,6 +9,7 @@ IF NOT EXIST "%BUILD_PACKAGES%\fake.exe" (
     --version 5.*
 )
 
+REM Un-Rem these after changing build scripts
 IF EXIST ".fake"          (RMDIR /Q /S ".fake"         )
 IF EXIST "build.fsx.lock" (DEL         "build.fsx.lock")
 
