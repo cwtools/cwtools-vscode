@@ -1,3 +1,5 @@
+# 0.6.8
+* Add some generated 2.2 modifiers
 # 0.6.7
 * Update to Stellaris 2.2
 # 0.6.6
