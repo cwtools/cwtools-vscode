@@ -99,7 +99,7 @@ export function activate(context: ExtensionContext) {
 		let serverOptions: ServerOptions = {
 			run: { command: serverExe, transport: TransportKind.stdio },
 			// debug : { command: serverExe, transport: TransportKind.stdio }
-			debug: { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
+			debug: { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio}//, options: { env: { TieredCompilation_Test_OptimizeTier0: 1}} }
 			// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 		}
 
