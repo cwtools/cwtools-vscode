@@ -287,7 +287,7 @@ type Server(client: ILanguageClient) =
             |_ -> ()
         |_ -> ()
 
-    let getFolderList (filename, filetext : string) =
+    let getFolderList (filename : string, filetext : string) =
         if Path.GetFileName filename = "folders.cwt"
         then Some (filetext.Split(([|"\r\n"; "\r"; "\n"|]), StringSplitOptions.None) |> List.ofArray)
         else None

@@ -10,8 +10,8 @@ IF NOT EXIST "%BUILD_PACKAGES%\fake.exe" (
 )
 
 REM Un-Rem these after changing build scripts
-IF EXIST ".fake"          (RMDIR /Q /S ".fake"         )
-IF EXIST "build.fsx.lock" (DEL         "build.fsx.lock")
+REM IF EXIST ".fake"          (RMDIR /Q /S ".fake"         )
+REM IF EXIST "build.fsx.lock" (DEL         "build.fsx.lock")
 
 "%BUILD_PACKAGES%/fake.exe" run build.fsx --target %*
 
