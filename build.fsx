@@ -102,7 +102,7 @@ let buildParams (release : bool) =
         })
 
 Target.create "BuildDll" <| fun _ ->
-    DotNet.build (buildParams false) cwtoolsProjectName
+    DotNet.build (buildParams true) cwtoolsProjectName
 
 Target.create "BuildServer" <| fun _ ->
     match Environment.isWindows with
