@@ -1,3 +1,5 @@
+# 0.6.9
+* Add features for rules: `variable_field`
 # 0.6.8
 * Add some generated 2.2 modifiers
 # 0.6.7
