@@ -1,3 +1,6 @@
+# 0.6.10
+* Add a warning when a file is opened instead of a mod folder
+* Add features for rules: localisation can now be defined on types
 # 0.6.9
 * Add features for rules: `variable_field`
 # 0.6.8

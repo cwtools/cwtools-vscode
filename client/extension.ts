@@ -40,34 +40,8 @@ export function activate(context: ExtensionContext) {
 		}
 	}
 
-	const rulesChannel: string = workspace.getConfiguration('cwtools').get('rules_version')
 	const isDevDir = env.machineId === "someValue.machineId"
 	const cacheDir = isDevDir ? context.storagePath + '/.cwtools' : context.extensionPath + '/.cwtools'
-	var initOrUpdateRules = function(folder : string, repoPath : string, logger : vs.OutputChannel, first? : boolean) {
-		const gameCacheDir = isDevDir ? context.storagePath + '/.cwtools/' + folder : context.extensionPath + '/.cwtools/' + folder
-		var rulesVersion = "embedded"
-		if (rulesChannel != "none") {
-			!isDevDir || fs.existsSync(context.storagePath) || fs.mkdirSync(context.storagePath)
-			fs.existsSync(cacheDir) || fs.mkdirSync(cacheDir)
-			fs.existsSync(gameCacheDir) || fs.mkdirSync(gameCacheDir)
-			const git = simplegit(gameCacheDir)
-			let ret = git.checkIsRepo()
-				.then(isRepo => !isRepo && git.clone(repoPath, gameCacheDir))
-				.then(() => git.fetch())
-				.then(() => git.log())
-				.then((log) => { logger.appendLine("cwtools current rules version: " + log.latest.hash); return log.latest.hash })
-				.then((prevHash : string) => { return Promise.all([prevHash, git.checkout("master")]) })
-				//@ts-ignore
-				.then(function ([prevHash, _]) { return Promise.all([prevHash, rulesChannel == "latest" ? git.reset(["--hard", "origin/master"]) : git.checkoutLatestTag()])} )
-				.then(function ([prevHash, _]) { return Promise.all([prevHash, git.log()]) })
-				.then(function ([prevHash, log]) { return log.latest.hash == prevHash ? undefined : log.latest.date })
-				.catch(() => { logger.appendLine("cwtools git error, recovering"); git.reset(["--hard", "origin/master"]); first && initOrUpdateRules(folder, repoPath, logger, false) })
-			return ret;
-			}
-		else {
-			return Promise.resolve()
-		}
-	}
 
 
 	var init = function() {
@@ -192,27 +166,15 @@ export function activate(context: ExtensionContext) {
 					}
 				}
 			})
-			// var promise = (function(language : string) : Promise<string | void>{
-			// switch (language){
-			// 	case "stellaris": return initOrUpdateRules("stellaris", stellarisRemote, log);
-			// 	case "eu4": return initOrUpdateRules("eu4", eu4Remote, log);
-			// 	case "hoi4": return initOrUpdateRules("hoi4", hoi4Remote, log);
-			// 	default: return initOrUpdateRules("stellaris", stellarisRemote, log);
-			// 	}
-			// })(window.activeTextEditor.document.languageId)
-
-			// promise.then((version) =>
-			// 	{
-			// 		if (version !== undefined) {
-			// 			 reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + version + ".\n\r Reload to use.", "Reload")
-			// 		}
-			// 	})
 		})
 
 
 
 		let disposable = client.start();
 
+		if (workspace.name === undefined) {
+			window.showWarningMessage("You have opened a file directly.\n\rFor CWTools to work correctly, the mod folder should be opened using \"File, Open Folder\"")
+		}
 		// Create the language client and start the client.
 
 		// Push the disposable to the context's subscriptions so that the
