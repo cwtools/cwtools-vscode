@@ -282,8 +282,8 @@ type Server(client: ILanguageClient) =
             let stable = rulesChannel <> "latest"
             match initOrUpdateRules rp cp stable true with
             |true, Some date ->
-                let text = sprintf "Validation rules for %O have been updated to %O.\n\r Reload to use." activeGame date
-                client.CustomNotification ("promptReload", JsonValue.String(text))
+                let text = sprintf "Validation rules for %O have been updated to %O." activeGame date
+                client.CustomNotification ("forceReload", JsonValue.String(text))
             |_ -> ()
         |_ -> ()
 
@@ -302,6 +302,9 @@ type Server(client: ILanguageClient) =
                 then u.LocalPath.Substring(1)
                 else u.LocalPath
             try
+                let timer = new System.Diagnostics.Stopwatch()
+                timer.Start()
+
                 eprintfn "%s" path
                 let filelist = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.vanilla_files_2.1.3.csv")
                                 |> (fun f -> (new StreamReader(f)).ReadToEnd().Split(Environment.NewLine))
@@ -311,6 +314,7 @@ type Server(client: ILanguageClient) =
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
                 let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
+                eprintfn "Parse docs time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
                 let stlCacheLocation cp = if File.Exists (cp + "/../stl.cwb") then (cp + "/../stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
                 let cached, cachedFiles =
@@ -319,11 +323,16 @@ type Server(client: ILanguageClient) =
                     |EU4, Some cp -> deserialize (cp + "/../eu4.cwb")
                     |HOI4, Some cp -> deserialize (cp + "/../hoi4.cwb")
                     |_ -> [], []
+                eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
+
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p |Failure(e, _, _) -> eprintfn "%A" e; [], []))
                 let logspath = "Main.files.setup.log"
+
+
                 let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
                 let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
+                eprintfn "Parse setup.log time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
                 let configs = getConfigFiles()
                 let folders = configs |> List.tryPick getFolderList
