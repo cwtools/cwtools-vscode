@@ -1,3 +1,6 @@
+# 0.6.11
+* Automatically restart on rules update
+* Improved validation of flags
 # 0.6.10
 * Add a warning when a file is opened instead of a mod folder
 * Add features for rules: localisation can now be defined on types

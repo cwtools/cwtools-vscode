@@ -112,6 +112,7 @@ export function activate(context: ExtensionContext) {
 		interface CreateVirtualFile { uri: string; fileContent: string }
 		let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
 		let promptReload = new NotificationType<string, void>('promptReload')
+		let forceReload = new NotificationType<string, void>('forceReload')
 		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		client.onReady().then(() => {
@@ -143,6 +144,10 @@ export function activate(context: ExtensionContext) {
 			})
 			client.onNotification(promptReload, (param: string) => {
 				reloadExtension(param, "Reload")
+				// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
+			})
+			client.onNotification(forceReload, (param: string) => {
+				reloadExtension(param, undefined, true);
 				// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
 			})
 			client.onRequest(request, (param: any, _) => {
@@ -224,11 +229,17 @@ export function activate(context: ExtensionContext) {
 
 export default defaultClient;
 
-export async function reloadExtension(prompt?: string, buttonText?: string) {
+export async function reloadExtension(prompt?: string, buttonText?: string, force? : boolean) {
 	const restartAction = buttonText || "Restart";
 	const actions = [restartAction];
-	const chosenAction = prompt && await window.showInformationMessage(prompt, ...actions);
-	if (!prompt || chosenAction === restartAction) {
+	if (force) {
+		window.showInformationMessage(prompt);
 		commands.executeCommand("cwtools.reloadExtension");
+	}
+	else {
+		const chosenAction = prompt && await window.showInformationMessage(prompt, ...actions);
+		if (!prompt || chosenAction === restartAction) {
+			commands.executeCommand("cwtools.reloadExtension");
+		}
 	}
 }
