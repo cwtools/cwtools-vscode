@@ -1,3 +1,5 @@
+# 0.6.12
+* Improved scope checking for effects/trigger/modifiers
 # 0.6.11
 * Automatically restart on rules update
 * Improved validation of flags
