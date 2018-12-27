@@ -1,3 +1,5 @@
+# 0.6.13
+* Update to 2.2.2
 # 0.6.12
 * Improved scope checking for effects/trigger/modifiers
 # 0.6.11
