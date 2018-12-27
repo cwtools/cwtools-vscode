@@ -1,4 +1,4 @@
-[17:42:27][consolecmdimpl.cpp:2651]:
+[14:08:17][consolecmdimpl.cpp:2651]:
 == TRIGGER DOCUMENTATION ==
 text - For 'desc={trigger={' use. Shows custom text
 text = <text>
@@ -1000,6 +1000,11 @@ Supported Targets: none
 produced_energy - Checks the country's gross amount of produced energy credits
 produced_energy < 100
 Supported Scopes: country
+Supported Targets: none
+
+num_uncleared_blockers - Checks the planet's total amount of uncleared blockers
+num_uncleared_blockers > 3
+Supported Scopes: planet
 Supported Targets: none
 
 trade_income - Checks the country's energy credits income from trade for the previous month
@@ -2637,7 +2642,7 @@ Supported Targets: none
 
 
 =================
-[17:42:27][consolecmdimpl.cpp:2652]:
+[14:08:17][consolecmdimpl.cpp:2652]:
 == EFFECT DOCUMENTATION ==
 tooltip - Just a tooltip
 Supported Scopes: planet country ship pop

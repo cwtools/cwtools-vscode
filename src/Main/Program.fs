@@ -375,11 +375,14 @@ type Server(client: ILanguageClient) =
                     HOI4.validation = {
                         HOI4.validateVanilla = validateVanilla;
                         HOI4.langs = [(Lang.HOI4 (HOI4Lang.English))]
+                        HOI4.experimental = experimental
                     }
                     HOI4.rules = Some {
                         ruleFiles = configs
                         validateRules = true
                     }
+                    HOI4.scope = FilesScope.All
+                    HOI4.modFilter = None
                 }
                 let eu4modpath = "Main.files.eu4.modifiers"
                 let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
