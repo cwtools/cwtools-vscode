@@ -54,9 +54,9 @@ type Server(client: ILanguageClient) =
 
     let mutable activeGame = STL
     let mutable gameObj : option<IGame> = None
-    let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope>> = None
-    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope>> = None
-    let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope>> = None
+    let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>> = None
+    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>> = None
+    let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -362,7 +362,11 @@ type Server(client: ILanguageClient) =
                     }
                 }
                 let hoi4modpath = "Main.files.hoi4.modifiers"
-                let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
+                let hoi4Mods =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
+                            |> Option.map (fun (fn, ft) -> HOI4Parser.loadModifiers fn ft)
+                            |> Option.defaultValue []
+                // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
 
                 let hoi4settings = {
                     HOI4.rootDirectory = path
@@ -385,7 +389,12 @@ type Server(client: ILanguageClient) =
                     HOI4.modFilter = None
                 }
                 let eu4modpath = "Main.files.eu4.modifiers"
-                let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
+                let eu4Mods =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
+                            |> Option.map (fun (fn, ft) -> EU4Parser.loadModifiers fn ft)
+                            |> Option.defaultValue []
+
+                // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
                 let eu4settings = {
                     EU4.rootDirectory = path
                     EU4.scriptFolders = folders
@@ -408,18 +417,18 @@ type Server(client: ILanguageClient) =
                     match activeGame with
                     |STL ->
                         let game = STLGame(stlsettings)
-                        stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Scope>)
+                        stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>)
                         game :> IGame
                     |HOI4 ->
                         let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
-                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Scope>)
+                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>)
                         game :> IGame
                     |EU4 ->
                         let game = CWTools.Games.EU4.EU4Game(eu4settings)
-                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Scope>)
+                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>)
                         game :> IGame
-                gameObj <- Some (game :> IGame)
-                let game = game :> IGame
+                gameObj <- Some game
+                let game = game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
                 let parserErrors = game.ParserErrors() |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
                 parserErrors
@@ -464,7 +473,7 @@ type Server(client: ILanguageClient) =
                 then u.LocalPath.Substring(1)
                 else u.LocalPath
             let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
-            let hoverFunction (game : IGame<_, 'a>) =
+            let hoverFunction (game : IGame<_, 'a, _>) =
                 let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                 let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                 eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)

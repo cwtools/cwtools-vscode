@@ -1,3 +1,5 @@
+# 0.6.14
+* Add localisation for EU4/HOI4
 # 0.6.13
 * Update to 2.2.2
 # 0.6.12
