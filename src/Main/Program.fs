@@ -369,24 +369,27 @@ type Server(client: ILanguageClient) =
                 // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
 
                 let hoi4settings = {
-                    HOI4.rootDirectory = path
-                    HOI4.scriptFolders = folders
-                    HOI4.embedded = {
-                        CWTools.Games.HOI4.embeddedFiles = []
-                        HOI4.modifiers = hoi4Mods
+                    rootDirectory = path
+                    scriptFolders = folders
+                    embedded = {
+                        embeddedFiles = []
+                        modifiers = hoi4Mods
                         cachedResourceData = cached
+                        triggers = []
+                        effects = []
                     }
-                    HOI4.validation = {
-                        HOI4.validateVanilla = validateVanilla;
-                        HOI4.langs = [(Lang.HOI4 (HOI4Lang.English))]
-                        HOI4.experimental = experimental
+                    validation = {
+                        validateVanilla = validateVanilla;
+                        langs = [(Lang.HOI4 (HOI4Lang.English))]
+                        experimental = experimental
                     }
-                    HOI4.rules = Some {
+                    rules = Some {
                         ruleFiles = configs
                         validateRules = true
+                        debugRulesOnly = false
                     }
-                    HOI4.scope = FilesScope.All
-                    HOI4.modFilter = None
+                    scope = FilesScope.All
+                    modFilter = None
                 }
                 let eu4modpath = "Main.files.eu4.modifiers"
                 let eu4Mods =
@@ -396,21 +399,27 @@ type Server(client: ILanguageClient) =
 
                 // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
                 let eu4settings = {
-                    EU4.rootDirectory = path
-                    EU4.scriptFolders = folders
-                    EU4.embedded = {
-                        CWTools.Games.EU4.embeddedFiles = []
-                        EU4.modifiers = eu4Mods
+                    rootDirectory = path
+                    scriptFolders = folders
+                    embedded = {
+                        embeddedFiles = []
+                        modifiers = eu4Mods
                         cachedResourceData = cached
+                        triggers = []
+                        effects = []
                     }
-                    EU4.validation = {
-                        EU4.validateVanilla = validateVanilla;
-                        EU4.langs = [(Lang.EU4 (EU4Lang.English))]
+                    validation = {
+                        validateVanilla = validateVanilla;
+                        langs = [(Lang.EU4 (EU4Lang.English))]
+                        experimental = experimental
                     }
-                    EU4.rules = Some {
+                    rules = Some {
                         ruleFiles = configs
                         validateRules = true
+                        debugRulesOnly = false
                     }
+                    scope = FilesScope.All
+                    modFilter = None
                 }
 
                 let game =
@@ -715,6 +724,10 @@ type Server(client: ILanguageClient) =
                           |> List.ofArray
                     | _ -> []
                 ignoreFiles <- newIgnoreFiles
+                match p.settings.Item("cwtools").Item("trace").Item("server") with
+                | JsonValue.String "messages"
+                | JsonValue.String "verbose" -> CWTools.Utilities.Utils.loglevel <- CWTools.Utilities.Utils.LogLevel.Verbose
+                |_ -> ()
                 eprintfn "New configuration %s" (p.ToString())
                 match cachePath with
                 |Some dir ->
@@ -730,9 +743,13 @@ type Server(client: ILanguageClient) =
             async {
                 docs.Open p
                 lintAgent.Post (UpdateRequest ({uri = p.textDocument.uri; version = p.textDocument.version}, true))
-                match gameObj with
-                |Some game -> locCache <- game.LocalisationErrors(true)
-                |None -> ()
+                let task =
+                    new Task((fun () ->
+                                        match gameObj with
+                                        |Some game -> locCache <- game.LocalisationErrors(true)
+                                        |None -> ()
+                    ))
+                task.Start()
             }
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams) =
             async {
@@ -791,7 +808,7 @@ type Server(client: ILanguageClient) =
                                     |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
                                     |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                            let deduped = items |> List.distinctBy(fun i -> i.label)
+                            let deduped = items |> List.distinctBy(fun i -> i.label) |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
                             Some {isIncomplete = false; items = deduped}
                         // |false ->
                         //     let extraKeywords = ["yes"; "no";]

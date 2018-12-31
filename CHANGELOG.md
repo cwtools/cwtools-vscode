@@ -1,3 +1,6 @@
+# 0.6.15
+* Performance improvements
+* Validation of localisation strings for EU4
 # 0.6.14
 * Add localisation for EU4/HOI4
 # 0.6.13
