@@ -61,6 +61,9 @@ type Server(client: ILanguageClient) =
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
     let mutable cachePath : string option = None
+    let mutable stlVanillaPath : string option = None
+    let mutable hoi4VanillaPath : string option = None
+    let mutable eu4VanillaPath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
     let mutable hoi4CacheVersion : string option = None
@@ -287,6 +290,45 @@ type Server(client: ILanguageClient) =
             |_ -> ()
         |_ -> ()
 
+    let checkOrSetGameCache(forceCreate : bool) =
+        match cachePath with
+        |Some cp ->
+            let gameCachePath = cp+"/../"
+            let stlCacheLocation cp = if File.Exists (gameCachePath + "stl.cwb") then (gameCachePath + "stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
+            let doesCacheExist =
+                match activeGame with
+                |STL -> File.Exists (stlCacheLocation gameCachePath)
+                |HOI4 -> File.Exists (gameCachePath + "hoi4.cwb")
+                |EU4 -> File.Exists (gameCachePath + "eu4.cwb")
+            if doesCacheExist && not forceCreate
+            then eprintfn "Cache exists"
+            else
+                match activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath with
+                |STL, Some vp, _, _ ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeSTL (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                |STL, None, _, _ ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("stellaris"))
+                |EU4, _, Some vp, _ ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeEU4 (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                |EU4, _, None, _ ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("eu4"))
+                |HOI4, _, _, Some vp ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeHOI4 (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                |HOI4, _, _, None ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
+        |None -> ()
+                // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
+
+
     let getFolderList (filename : string, filetext : string) =
         if Path.GetFileName filename = "folders.cwt"
         then Some (filetext.Split(([|"\r\n"; "\r"; "\n"|]), StringSplitOptions.None) |> List.ofArray)
@@ -372,7 +414,7 @@ type Server(client: ILanguageClient) =
                     rootDirectory = path
                     scriptFolders = folders
                     embedded = {
-                        embeddedFiles = []
+                        embeddedFiles = cachedFiles
                         modifiers = hoi4Mods
                         cachedResourceData = cached
                         triggers = []
@@ -402,7 +444,7 @@ type Server(client: ILanguageClient) =
                     rootDirectory = path
                     scriptFolders = folders
                     embedded = {
-                        embeddedFiles = []
+                        embeddedFiles = cachedFiles
                         modifiers = eu4Mods
                         cachedResourceData = cached
                         triggers = []
@@ -728,12 +770,27 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String "messages"
                 | JsonValue.String "verbose" -> CWTools.Utilities.Utils.loglevel <- CWTools.Utilities.Utils.LogLevel.Verbose
                 |_ -> ()
+                match p.settings.Item("cwtools").Item("cache").Item("eu4") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    eu4VanillaPath <- Some s
+                |_ -> ()
+                match p.settings.Item("cwtools").Item("cache").Item("stellaris") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    stlVanillaPath <- Some s
+                |_ -> ()
+                match p.settings.Item("cwtools").Item("cache").Item("hoi4") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    hoi4VanillaPath <- Some s
+                |_ -> ()
                 eprintfn "New configuration %s" (p.ToString())
                 match cachePath with
                 |Some dir ->
                     if Directory.Exists dir then () else Directory.CreateDirectory dir |> ignore
                 |_ -> ()
-                let task = new Task((fun () -> processWorkspace(rootUri)))
+                let task = new Task((fun () -> checkOrSetGameCache(false); processWorkspace(rootUri)))
                 task.Start()
                 let task = new Task((fun () -> setupRulesCaches()))
                 task.Start()
@@ -928,16 +985,17 @@ type Server(client: ILanguageClient) =
                         | {command = "reloadrulesconfig"; arguments = _} ->
                             let configs = getConfigFiles()
                             game.ReplaceConfigRules configs
-                        | {command = "cacheVanilla"; arguments = vanillaDirectory::cacheDirectory::cacheGame::_} ->
-                            eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
-                            match cacheGame.AsString() with
-                            |"stellaris" ->
-                                serializeSTL (vanillaDirectory.AsString()) (cacheDirectory.AsString())
-                            |"hoi4" ->
-                                serializeHOI4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
-                            |"eu4" ->
-                                serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
-                            client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
+                        | {command = "cacheVanilla"; arguments = _} ->
+                            checkOrSetGameCache(true)
+                            // eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
+                            // match cacheGame.AsString() with
+                            // |"stellaris" ->
+                            //     serializeSTL (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                            // |"hoi4" ->
+                            //     serializeHOI4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                            // |"eu4" ->
+                            //     serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
+                            // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
                         |_ -> ()
                     |None -> ()
             }

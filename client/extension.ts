@@ -113,6 +113,7 @@ export function activate(context: ExtensionContext) {
 		let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
 		let promptReload = new NotificationType<string, void>('promptReload')
 		let forceReload = new NotificationType<string, void>('forceReload')
+		let promptVanillaPath = new NotificationType<string, void>('promptVanillaPath')
 		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		client.onReady().then(() => {
@@ -149,6 +150,43 @@ export function activate(context: ExtensionContext) {
 			client.onNotification(forceReload, (param: string) => {
 				reloadExtension(param, undefined, true);
 				// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
+			})
+			client.onNotification(promptVanillaPath, (param : string) => {
+				var gameDisplay = ""
+				switch (param) {
+					case "stellaris": gameDisplay = "Stellaris"; break;
+					case "hoi4": gameDisplay = "Hearts of Iron IV"; break;
+					case "eu4": gameDisplay = "Europa Universalis IV"; break;
+				}
+				window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
+				.then((_) =>
+					window.showOpenDialog({
+						canSelectFiles: false,
+						canSelectFolders: true,
+						canSelectMany: false,
+						openLabel: "Select vanilla installation folder for " + gameDisplay
+					}).then(
+						(uri) => {
+							let directory = uri[0];
+							let gameFolder = path.basename(directory.fsPath)
+							var game = ""
+							switch (gameFolder) {
+								case "Stellaris": game = "stellaris"; break;
+								case "Hearts of Iron IV": game = "hoi4"; break;
+								case "Europa Universalis IV": game = "eu4"; break;
+							}
+							if (game === "") {
+								window.showErrorMessage("The selected folder does not appear to be a supported game folder")
+							}
+							else {
+								log.appendLine("path" + gameFolder)
+								log.appendLine("log" + game)
+								workspace.getConfiguration("cwtools").update("cache." + game, directory.fsPath, true)
+								reloadExtension("Reloading to generate vanilla cache", undefined, true);
+							}
+						})
+				);
+
 			})
 			client.onRequest(request, (param: any, _) => {
 				console.log("recieved request " + request.method + " " + param)
@@ -196,33 +234,6 @@ export function activate(context: ExtensionContext) {
 			}
 			activate(context);
 		}));
-		context.subscriptions.push(vs.commands.registerCommand("cwtools.setCache", (_) =>
-			window.showOpenDialog({
-				canSelectFiles : false,
-				canSelectFolders : true,
-				canSelectMany : false,
-				openLabel : "Select vanilla installation folder"
-			}).then(
-				(uri) =>
-					{
-						let directory = uri[0];
-						let gameFolder = path.basename(directory.fsPath)
-						var game = ""
-						switch(gameFolder){
-							case "Stellaris": game = "stellaris"; break;
-							case "Hearts of Iron IV": game = "hoi4"; break;
-							case "Europa Universalis IV": game = "eu4"; break;
-						}
-						if(game === "") {
-							window.showErrorMessage("The selected folder does not appear to be a supported game")
-						}
-						else {
-							log.appendLine("path" + gameFolder)
-							log.appendLine("log" + game)
-							commands.executeCommand("cacheVanilla", uri[0].fsPath, cacheDir, game)
-						}
-				})
-		));
 	}
 	init()
 }
