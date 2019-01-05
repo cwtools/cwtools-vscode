@@ -1,4 +1,4 @@
-# [CWTools-VSCode: Paradox Language Services](https://marketplace.visualstudio.com/items/tboby.cwtools-vscode)
+# [CWTools: Paradox Language Services](https://marketplace.visualstudio.com/items/tboby.cwtools-vscode)
 
 **Paradox Language Features for Visual Studio Code**
 
@@ -6,6 +6,12 @@
 
 This extension is still in preview, it may not work, it may stop working at any time.
 **Make backups of your mod files.**
+
+## Supported games
+
+* Stellaris
+* Europa Universalis IV - beta support
+* Hearts of Iron IV - coming soon
 
 ## Features
 
@@ -64,5 +70,6 @@ This extension is still in preview, it may not work, it may stop working at any 
     or on linux
     * "/home/name/.local/share/Paradox Interactive/Stellars"
     * "/home/name/.steam/steam/steamapps/common/Stellaris"
-6. Edit files and watch syntax errors show up when you make mistakes
-7. Wait up to a minute for the extension to scan all your mods and find all errors
+6. For EU4/HOI4: Follow the prompts to select your vanilla folder
+7. Edit files and watch syntax errors show up when you make mistakes
+8. Wait up to a minute for the extension to scan all your mods and find all errors

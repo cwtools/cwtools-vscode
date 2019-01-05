@@ -54,8 +54,8 @@
                 "category": "cwtools"
             },
             {
-                "command": "cwtools.setCache",
-                "title": "Generate cache",
+                "command": "cacheVanilla",
+                "title": "Regenerate game vanilla cache file",
                 "category": "cwtools"
             }
         ],
@@ -143,6 +143,21 @@
                     ],
                     "default": "stable",
                     "description": "Which version of rules to auto-update to"
+                },
+                "cwtools.cache.eu4": {
+                    "scope": "application",
+                    "type":"string",
+                    "description": "The location of a vanilla EU4 installation"
+                },
+                "cwtools.cache.hoi4": {
+                    "scope": "application",
+                    "type":"string",
+                    "description": "The location of a vanilla HOI4 installation"
+                },
+                "cwtools.cache.stellaris": {
+                    "scope": "application",
+                    "type":"string",
+                    "description": "The location of a vanilla Stellaris installation"
                 }
             }
         },

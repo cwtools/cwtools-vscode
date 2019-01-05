@@ -1,3 +1,5 @@
+# 0.6.16
+* Add vanilla caching process for EU4 and HOI4
 # 0.6.15
 * Performance improvements
 * Validation of localisation strings for EU4
