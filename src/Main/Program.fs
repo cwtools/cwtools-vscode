@@ -70,7 +70,9 @@ type Server(client: ILanguageClient) =
     let mutable remoteRepoPath : string option = None
 
     let mutable rulesChannel : string = "stable"
+    let mutable manualRulesFolder : string option = None
     let mutable useEmbeddedRules : bool = false
+    let mutable useManualRules : bool = false
     let mutable validateVanilla : bool = false
     let mutable experimental : bool = false
 
@@ -259,8 +261,8 @@ type Server(client: ILanguageClient) =
 
     let getConfigFiles() =
         let embeddedConfigFiles =
-            match cachePath, useEmbeddedRules with
-            | Some path, false ->
+            match cachePath, useEmbeddedRules, useManualRules with
+            | Some path, false, false ->
                 let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
                 let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
                 configFiles |> List.map (fun f -> f, File.ReadAllText(f))
@@ -268,8 +270,18 @@ type Server(client: ILanguageClient) =
                 let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
                 embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
         let configpath = "Main.files.config.cwt"
-        let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
-        let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+        let configFiles =
+            match useManualRules, manualRulesFolder with
+            |true, Some rf ->
+                let configFiles =
+                    if Directory.Exists rf
+                    then getAllFoldersUnion ([rf] |> Seq.ofList)
+                    else if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty
+                let configFiles = configFiles |> Seq.collect (Directory.EnumerateFiles)
+                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+            |_ ->
+                let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
+                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
         let configs =
             match configFiles.Length > 0 with
             |true ->
@@ -280,8 +292,8 @@ type Server(client: ILanguageClient) =
         configs
 
     let setupRulesCaches()  =
-        match cachePath, remoteRepoPath, useEmbeddedRules with
-        |Some cp, Some rp, false ->
+        match cachePath, remoteRepoPath, useEmbeddedRules, useManualRules with
+        |Some cp, Some rp, false, false ->
             let stable = rulesChannel <> "latest"
             match initOrUpdateRules rp cp stable true with
             |true, Some date ->
@@ -708,6 +720,9 @@ type Server(client: ILanguageClient) =
                         |"none" ->
                             useEmbeddedRules <- true
                             rulesChannel <- "none"
+                        |"manual" ->
+                            useManualRules <- true
+                            rulesChannel <- "manual"
                         |x -> rulesChannel <- x
                         | _ -> ()
                     | _ -> ()
@@ -785,6 +800,11 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String s ->
                     hoi4VanillaPath <- Some s
                 |_ -> ()
+                match p.settings.Item("cwtools").Item("rules_folder") with
+                | JsonValue.String x ->
+                    manualRulesFolder <- Some x
+                |_ -> ()
+
                 eprintfn "New configuration %s" (p.ToString())
                 match cachePath with
                 |Some dir ->

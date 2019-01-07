@@ -175,7 +175,8 @@ export function activate(context: ExtensionContext) {
 								case "Hearts of Iron IV": game = "hoi4"; break;
 								case "Europa Universalis IV": game = "eu4"; break;
 							}
-							if (game === "") {
+							console.log(path.join(directory.fsPath, "common"));
+							if (game === "" || !(fs.existsSync(path.join(directory.fsPath, "common")))) {
 								window.showErrorMessage("The selected folder does not appear to be a supported game folder")
 							}
 							else {
