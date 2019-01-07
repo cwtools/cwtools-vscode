@@ -1,4 +1,9 @@
-# 0.6.16
+# 0.6.18
+* Add "manual" setting for "rules_version", which combined with "rules_folder" to use a specific folder for config rules
+* Provide completion for "event_target:"
+* Add error for localisation that refers to itself
+* Add stellaris building cap modifiers
+# 0.6.16/17
 * Add vanilla caching process for EU4 and HOI4
 # 0.6.15
 * Performance improvements

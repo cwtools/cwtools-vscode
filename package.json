@@ -139,10 +139,16 @@
                     "enum": [
                         "stable",
                         "latest",
-                        "none"
+                        "none",
+                        "manual"
                     ],
                     "default": "stable",
-                    "description": "Which version of rules to auto-update to"
+                    "description": "Which version of rules to auto-update to. Manual will use the local path set in rules_folder"
+                },
+                "cwtools.rules_folder": {
+                    "scope": "application",
+                    "type":"string",
+                    "description": "A folder containing custom rules to use"
                 },
                 "cwtools.cache.eu4": {
                     "scope": "application",
@@ -234,7 +240,36 @@
                 "language": "stellaris",
                 "path": "./snippets/paradox.json"
             }
-        ]
+        ],
+        "configurationDefaults": {
+            "[stellaris]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                }
+            },
+            "[hoi4]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                }
+            },
+            "[eu4]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                }
+            },
+            "[yml]":{
+                "files.autoGuessEncoding": true
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
