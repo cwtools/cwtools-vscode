@@ -1,3 +1,6 @@
+# 0.6.19
+* Fix localisation of types
+* Validate on swapping file
 # 0.6.18
 * Add "manual" setting for "rules_version", which combined with "rules_folder" to use a specific folder for config rules
 * Provide completion for "event_target:"

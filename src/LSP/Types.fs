@@ -109,6 +109,10 @@ type DidChangeWatchedFilesParams = {
     changes: FileEvent list
 }
 
+type DidFocusFileParams = {
+    uri : Uri
+}
+
 type Notification =
 | Initialized
 | DidChangeConfiguration of DidChangeConfigurationParams
@@ -118,6 +122,7 @@ type Notification =
 | DidSaveTextDocument of DidSaveTextDocumentParams
 | DidCloseTextDocument of DidCloseTextDocumentParams
 | DidChangeWatchedFiles of DidChangeWatchedFilesParams
+| DidFocusFile of DidFocusFileParams
 | OtherNotification of method: string
 
 type Location = {
@@ -700,6 +705,7 @@ type ILanguageServer =
     abstract member Rename: RenameParams -> Async<WorkspaceEdit>
     abstract member ExecuteCommand: ExecuteCommandParams -> Async<unit>
     abstract member DidChangeWorkspaceFolders: DidChangeWorkspaceFoldersParams -> Async<unit>
+    abstract member DidFocusFile : DidFocusFileParams -> Async<unit>
 
 type PublishDiagnosticsParams = {
     uri: Uri
