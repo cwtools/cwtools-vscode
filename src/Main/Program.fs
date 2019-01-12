@@ -447,7 +447,7 @@ type Server(client: ILanguageClient) =
                     }
                     validation = {
                         validateVanilla = validateVanilla;
-                        langs = [(Lang.HOI4 (HOI4Lang.English))]
+                        langs = languages
                         experimental = experimental
                     }
                     rules = Some {
@@ -477,7 +477,7 @@ type Server(client: ILanguageClient) =
                     }
                     validation = {
                         validateVanilla = validateVanilla;
-                        langs = [(Lang.EU4 (EU4Lang.English))]
+                        langs = languages
                         experimental = experimental
                     }
                     rules = Some {
@@ -763,13 +763,26 @@ type Server(client: ILanguageClient) =
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
             async {
                 let newLanguages =
-                    match p.settings.Item("cwtools").Item("localisation").Item("languages") with
-                    | JsonValue.Array o ->
+                    match p.settings.Item("cwtools").Item("localisation").Item("languages"), activeGame with
+                    | JsonValue.Array o, STL ->
                         o |> Array.choose (function |JsonValue.String s -> (match STLLang.TryParse<STLLang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
                           |> List.ofArray
                           |> (fun l ->  if List.isEmpty l then [STLLang.English] else l)
-                    | _ -> [STLLang.English]
-                languages <- newLanguages |> List.map Lang.STL
+                          |> List.map Lang.STL
+                    | _, STL -> [Lang.STL STLLang.English]
+                    | JsonValue.Array o, EU4 ->
+                        o |> Array.choose (function |JsonValue.String s -> (match EU4Lang.TryParse<EU4Lang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [EU4Lang.English] else l)
+                          |> List.map Lang.EU4
+                    | _, EU4 -> [Lang.EU4 EU4Lang.English]
+                    | JsonValue.Array o, HOI4 ->
+                        o |> Array.choose (function |JsonValue.String s -> (match HOI4Lang.TryParse<HOI4Lang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [HOI4Lang.English] else l)
+                          |> List.map Lang.HOI4
+                    | _, HOI4 -> [Lang.HOI4 HOI4Lang.English]
+                languages <- newLanguages
                 let newVanillaOnly =
                     match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
                     | JsonValue.Boolean b -> b
