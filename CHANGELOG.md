@@ -1,3 +1,5 @@
+# 0.6.20
+* Support other languages for EU4/HOI4
 # 0.6.19
 * Fix localisation of types
 * Validate on swapping file
