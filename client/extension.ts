@@ -114,6 +114,8 @@ export function activate(context: ExtensionContext) {
 		let promptReload = new NotificationType<string, void>('promptReload')
 		let forceReload = new NotificationType<string, void>('forceReload')
 		let promptVanillaPath = new NotificationType<string, void>('promptVanillaPath')
+		interface DidFocusFile { uri : string }
+		let didFocusFile = new NotificationType<DidFocusFile, void>('didFocusFile')
 		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		client.onReady().then(() => {
@@ -212,6 +214,12 @@ export function activate(context: ExtensionContext) {
 			})
 		})
 
+		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
+			let path = editor.document.uri.toString();
+			client.sendNotification(didFocusFile, {uri: path});
+		}
+
+		window.onDidChangeActiveTextEditor(didChangeActiveTextEditor);
 
 
 		let disposable = client.start();

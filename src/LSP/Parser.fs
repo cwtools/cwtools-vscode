@@ -125,6 +125,8 @@ let parseDidSaveTextDocumentParams = deserializerFactory<DidSaveTextDocumentPara
 
 let parseDidCloseTextDocumentParams = deserializerFactory<DidCloseTextDocumentParams> readOptions
 
+let parseDidFocusFileParams = deserializerFactory<DidFocusFileParams> readOptions
+
 let parseDidChangeWatchedFilesParams = deserializerFactory<DidChangeWatchedFilesParams> readOptions
 
 let parseNotification(method: string, maybeBody: JsonValue option): Notification =
@@ -138,6 +140,7 @@ let parseNotification(method: string, maybeBody: JsonValue option): Notification
     | "textDocument/didSave", Some json -> DidSaveTextDocument (parseDidSaveTextDocumentParams json)
     | "textDocument/didClose", Some json -> DidCloseTextDocument (parseDidCloseTextDocumentParams json)
     | "workspace/didChangeWatchedFiles", Some json -> DidChangeWatchedFiles (parseDidChangeWatchedFilesParams json)
+    | "didFocusFile", Some json -> DidFocusFile (parseDidFocusFileParams json)
     | _, None ->
         dprintfn "%s is not a known notification, or it is expected to contain a body" method
         OtherNotification method

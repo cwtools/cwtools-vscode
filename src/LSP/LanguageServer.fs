@@ -225,6 +225,8 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
             server.DidCloseTextDocument(p)
         | DidChangeWatchedFiles(p) ->
             server.DidChangeWatchedFiles(p)
+        | DidFocusFile(p) ->
+            server.DidFocusFile(p)
         | OtherNotification(_) ->
             async { () }
     // Read messages and process cancellations on a separate thread
