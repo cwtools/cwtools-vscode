@@ -673,6 +673,16 @@ type SymbolInformation = {
     containerName: string option
 }
 
+type DocumentSymbol = {
+    name: string
+    detail: string
+    kind : SymbolKind
+    deprecated : bool
+    range : Range
+    selectionRange : Range
+    children : DocumentSymbol list
+}
+
 type ILanguageServer =
     abstract member Initialize: InitializeParams -> Async<InitializeResult>
     abstract member Initialized: unit -> Async<unit>
@@ -692,7 +702,7 @@ type ILanguageServer =
     abstract member GotoDefinition: TextDocumentPositionParams -> Async<Location list>
     abstract member FindReferences: ReferenceParams -> Async<Location list>
     abstract member DocumentHighlight: TextDocumentPositionParams -> Async<DocumentHighlight list>
-    abstract member DocumentSymbols: DocumentSymbolParams -> Async<SymbolInformation list>
+    abstract member DocumentSymbols: DocumentSymbolParams -> Async<DocumentSymbol list>
     abstract member WorkspaceSymbols: WorkspaceSymbolParams -> Async<SymbolInformation list>
     abstract member CodeActions: CodeActionParams -> Async<Command list>
     abstract member CodeLens: CodeLensParams -> Async<CodeLens list>

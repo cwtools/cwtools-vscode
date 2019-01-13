@@ -698,6 +698,10 @@ type Server(client: ILanguageClient) =
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)
         && range.start.character >= int start.StartColumn && range.``end``.character <= (int start.StartColumn + length)
+
+    let isRangeInRange (range : LSP.Types.Range) (inner : LSP.Types.Range) =
+        (range.start.line < inner.start.line || (range.start.line = inner.start.line && range.start.character <= inner.start.character))
+        && (range.``end``.line > inner.``end``.line || (range.``end``.line = inner.``end``.line && range.``end``.character >= inner.``end``.character))
     let catchError (defaultValue) (a : Async<_>) =
         async {
             try
@@ -772,6 +776,7 @@ type Server(client: ILanguageClient) =
                                 change = TextDocumentSyncKind.Full }
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
+                        documentSymbolProvider = true
                         executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"]} } }
             }
         member this.Initialized() =
@@ -996,7 +1001,37 @@ type Server(client: ILanguageClient) =
                     |None -> []
                 }
         member this.DocumentHighlight(p: TextDocumentPositionParams) = TODO()
-        member this.DocumentSymbols(p: DocumentSymbolParams) = TODO()
+        member this.DocumentSymbols(p: DocumentSymbolParams) =
+            let createDocumentSymbol name detail range =
+                let range = convRangeToLSPRange range
+                {
+                    name = name
+                    detail = detail
+                    kind = SymbolKind.Class
+                    deprecated = false
+                    range = range
+                    selectionRange = range
+                    children = []
+                }
+            async {
+                return
+                    match gameObj with
+                    |Some game ->
+                        let types = game.Types()
+                        let (all : DocumentSymbol list) =
+                            types |> Map.toList
+                              |> List.collect (fun (k, vs) -> vs |> List.filter (fun (v, r) -> r.FileName = p.textDocument.uri.LocalPath)  |> List.map (fun (v, r) -> createDocumentSymbol v k r))
+                              |> List.rev
+                              |> List.filter (fun ds -> not (ds.name.Contains(".")))
+                        all |> List.fold (fun (acc : DocumentSymbol list) (next : DocumentSymbol) ->
+                                                    if acc |> List.exists (fun a -> isRangeInRange a.range next.range && a.name <> next.name)
+                                                    then
+                                                    acc |> List.map (fun (a : DocumentSymbol) -> if isRangeInRange a.range next.range && a.name <> next.name then { a with children = (next::(a.children))} else a )
+                                                    else next::acc) []
+                        // all |> List.fold (fun acc next -> acc |> List.tryFind (fun a -> isRangeInRange a.range next.range) |> function |None -> next::acc |Some ) []
+                            //   |> List.map (fun (k, vs) -> createDocumentSymbol k )
+                    |None -> []
+            }
         member this.WorkspaceSymbols(p: WorkspaceSymbolParams) = TODO()
 
         member this.CodeActions(p: CodeActionParams) =
