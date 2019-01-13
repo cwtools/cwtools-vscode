@@ -1,3 +1,5 @@
+# 0.6.22
+* Enabled Code Outline
 # 0.6.21
 * Configure localisation commands from a config file called `localisation.cwt`
 * Add modifier categories for HOI4

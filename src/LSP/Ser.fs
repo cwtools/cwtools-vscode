@@ -77,13 +77,15 @@ let private makeMap(t: Type, kvs: (string * obj) seq) =
 let private makeOption(t: Type, item: obj option) =
     typeof<MakeHelpers>.GetMethod("MakeOption").MakeGenericMethod([|t|]).Invoke(null, [|item|])
 
-let rec private serializer (options: JsonWriteOptions, t: Type): obj -> string =
+let rec private serializer (depth : int, options: JsonWriteOptions, t: Type): obj -> string =
     let custom = findWriter(t, options.customWriters)
-    if custom.IsSome then
+    if depth >= 20 then
+        fun _ -> ""
+    elif custom.IsSome then
         let fObj = custom.Value
         let fType = fObj.GetType()
         let _, range = FSharpType.GetFunctionElements(fType)
-        let serialize = serializer(options, range)
+        let serialize = serializer(depth, options, range)
         let transform = asFun(fObj)
         fun o -> serialize(transform(o))
     elif t = typeof<bool> then
@@ -104,14 +106,14 @@ let rec private serializer (options: JsonWriteOptions, t: Type): obj -> string =
             asJson.ToString(JsonSaveOptions.DisableFormatting)
     elif FSharpType.IsRecord t then
         let fields = FSharpType.GetRecordFields(t)
-        let serializers = [|for f in fields do yield fieldSerializer(options, f)|]
+        let serializers = [|for f in fields do yield fieldSerializer(depth, options, f)|]
         fun outer ->
             let fieldStrings = [|for f in serializers do yield f(outer)|]
             let innerString = String.concat "," fieldStrings
             sprintf "{%s}" innerString
     elif implementsSeq t then
         let [|innerType|] = t.GetGenericArguments()
-        let serializeInner = serializer(options, innerType)
+        let serializeInner = serializer(depth, options, innerType)
         fun outer ->
             let asEnum = outer :?> System.Collections.IEnumerable
             let asSeq = Seq.cast<obj>(asEnum)
@@ -123,7 +125,7 @@ let rec private serializer (options: JsonWriteOptions, t: Type): obj -> string =
         let isSomeProp = t.GetProperty("IsSome")
         let isSome outer = isSomeProp.GetValue(None, [|outer|]) :?> bool
         let valueProp = t.GetProperty("Value")
-        let serializeInner = serializer(options, innerType)
+        let serializeInner = serializer(depth, options, innerType)
         fun outer ->
             if isSome outer then
                 let value = valueProp.GetValue outer
@@ -131,15 +133,15 @@ let rec private serializer (options: JsonWriteOptions, t: Type): obj -> string =
             else "null"
     else
         raise (Exception (sprintf "Don't know how to serialize %s to JSON" (t.ToString())))
-and fieldSerializer (options: JsonWriteOptions, field: PropertyInfo): obj -> string =
+and fieldSerializer (depth : int, options: JsonWriteOptions, field: PropertyInfo): obj -> string =
     let name = escapeStr(field.Name)
-    let innerSerializer = serializer(options, field.PropertyType)
+    let innerSerializer = serializer(depth + 1,options, field.PropertyType)
     fun outer ->
         let value = field.GetValue(outer)
         let json = innerSerializer(value)
         sprintf "%s:%s" name json
 
-let serializerFactory<'T> (options: JsonWriteOptions): 'T -> string = serializer(options, typeof<'T>)
+let serializerFactory<'T> (options: JsonWriteOptions): 'T -> string = serializer(1, options, typeof<'T>)
 
 type JsonReadOptions = {
     customReaders: obj list

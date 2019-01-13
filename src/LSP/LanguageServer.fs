@@ -41,6 +41,7 @@ let private serializeSignatureHelpOption = Option.map serializeSignatureHelp
 let private serializeLocationList = serializerFactory<Location list> jsonWriteOptions
 let private serializeDocumentHighlightList = serializerFactory<DocumentHighlight list> jsonWriteOptions
 let private serializeSymbolInformationList = serializerFactory<SymbolInformation list> jsonWriteOptions
+let private serializeDocumentSymbolList = serializerFactory<DocumentSymbol list> jsonWriteOptions
 let private serializeCommandList = serializerFactory<Command list> jsonWriteOptions
 let private serializeCodeLensList = serializerFactory<CodeLens list> jsonWriteOptions
 let private serializeCodeLens = serializerFactory<CodeLens> jsonWriteOptions
@@ -182,7 +183,7 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
         | DocumentHighlight(p) ->
             server.DocumentHighlight(p) |> thenMap serializeDocumentHighlightList |> thenSome
         | DocumentSymbols(p) ->
-            server.DocumentSymbols(p) |> thenMap serializeSymbolInformationList |> thenSome
+            server.DocumentSymbols(p) |> thenMap serializeDocumentSymbolList |> thenSome
         | WorkspaceSymbols(p) ->
             server.WorkspaceSymbols(p) |> thenMap serializeSymbolInformationList |> thenSome
         | CodeActions(p) ->
