@@ -1,3 +1,6 @@
+# 0.6.21
+* Configure localisation commands from a config file called `localisation.cwt`
+* Add modifier categories for HOI4
 # 0.6.20
 * Support other languages for EU4/HOI4
 # 0.6.19
