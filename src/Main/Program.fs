@@ -6,6 +6,7 @@ open System
 open System.IO
 open CWTools.Parser
 open CWTools.Parser.EU4Parser
+open CWTools.Parser.STLParser
 open CWTools.Parser.Types
 open CWTools.Common
 open CWTools.Common.STLConstants
@@ -404,6 +405,11 @@ type Server(client: ILanguageClient) =
                 let configs = getConfigFiles()
                 let folders = configs |> List.tryPick getFolderList
                 //let configs = [
+                let stlLocCommands =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.map (fun (fn, ft) -> STLParser.loadLocCommands fn ft)
+                            |> Option.defaultValue []
+
 
                 let stlsettings = {
                     CWTools.Games.Stellaris.StellarisSettings.rootDirectory = path
@@ -426,12 +432,17 @@ type Server(client: ILanguageClient) =
                         modifiers = modifiers
                         embeddedFiles = cachedFiles
                         cachedResourceData = cached
+                        localisationCommands = stlLocCommands
                     }
                 }
                 let hoi4modpath = "Main.files.hoi4.modifiers"
                 let hoi4Mods =
                     configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
                             |> Option.map (fun (fn, ft) -> HOI4Parser.loadModifiers fn ft)
+                            |> Option.defaultValue []
+                let hoi4LocCommands =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.map (fun (fn, ft) -> HOI4Parser.loadLocCommands fn ft)
                             |> Option.defaultValue []
                 // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
 
@@ -444,6 +455,7 @@ type Server(client: ILanguageClient) =
                         cachedResourceData = cached
                         triggers = []
                         effects = []
+                        localisationCommands = hoi4LocCommands
                     }
                     validation = {
                         validateVanilla = validateVanilla;
@@ -464,6 +476,11 @@ type Server(client: ILanguageClient) =
                             |> Option.map (fun (fn, ft) -> EU4Parser.loadModifiers fn ft)
                             |> Option.defaultValue []
 
+                let eu4LocCommands =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.map (fun (fn, ft) -> EU4Parser.loadLocCommands fn ft)
+                            |> Option.defaultValue []
+
                 // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
                 let eu4settings = {
                     rootDirectory = path
@@ -474,6 +491,7 @@ type Server(client: ILanguageClient) =
                         cachedResourceData = cached
                         triggers = []
                         effects = []
+                        localisationCommands = eu4LocCommands
                     }
                     validation = {
                         validateVanilla = validateVanilla;
