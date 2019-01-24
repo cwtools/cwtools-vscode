@@ -1,3 +1,5 @@
+# 0.6.23
+* Significant performance improvements
 # 0.6.22
 * Enabled Code Outline
 # 0.6.21
