@@ -36,6 +36,7 @@ open Main.Serialize
 open Main.Git
 open FSharp.Data
 open System.Diagnostics
+open Main.Lang
 
 let private TODO() = raise (Exception "TODO")
 
@@ -551,68 +552,6 @@ type Server(client: ILanguageClient) =
         |None -> ()
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("");  "enable", JsonValue.Boolean(false) |])
 
-    let hoverDocument (doc :Uri, pos: LSP.Types.Position) =
-        async {
-            //eprintfn "Hover before word"
-            let pjson = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
-            let ujson = doc |> (serializerFactory<Uri> defaultJsonWriteOptions)
-            let json = serializerFactory<GetWordRangeAtPositionParams> defaultJsonWriteOptions ({ position = pos; uri = doc })
-            let! word = client.CustomRequest("getWordRangeAtPosition", json)
-            // let! word = client.CustomRequest("getWordRangeAtPosition", JsonValue.Record [| "position", JsonValue.Parse(pjson); "uri", doc |])
-            //eprintfn "Hover after word"
-            let position = Pos.fromZ pos.line pos.character// |> (fun p -> Pos.fromZ)
-            let path =
-                let u = doc
-                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
-                then u.LocalPath.Substring(1)
-                else u.LocalPath
-            let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
-            let hoverFunction (game : IGame<_, 'a, _>) =
-                let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
-                let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
-                let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
-                let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
-                let scopesExtra = if scopeContext.IsNone then "" else
-                    let scopes = scopeContext.Value
-                    let header = "| Context | Scope |\n| ----- | -----|\n"
-                    let root = sprintf "| ROOT | %s |\n" (scopes.Root.ToString())
-                    let prevs = scopes.Scopes |> List.mapi (fun i s -> "| " + (if i = 0 then "THIS" else (String.replicate (i) "PREV")) + " | " + (s.ToString()) + " |\n") |> String.concat ""
-                    let froms = scopes.From |> List.mapi (fun i s -> "| " + (String.replicate (i+1) "FROM") + " | " + (s.ToString()) + " |\n") |> String.concat ""
-                    header + root + prevs + froms
-
-                match hovered, lochover with
-                |Some effect, _ ->
-                    match effect with
-                    | :? DocEffect<'a> as de ->
-                        let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                        let desc = de.Desc.Replace("_", "\\_").Trim() |> (fun s -> if s = "" then "" else "_"+s+"_" )
-                        let content = String.Join("\n***\n",[desc; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
-                        {contents = (MarkupContent ("markdown", content)) ; range = None}
-                    | e ->
-                        let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                        let name = e.Name.Replace("_","\\_").Trim()
-                        let content = String.Join("\n***\n",["_"+name+"_"; "Supports scopes: " + scopes; scopesExtra]) // TODO: usageeffect.Usage])
-                        {contents = (MarkupContent ("markdown", content)) ; range = None}
-                |None, Some (_, loc) ->
-                    {contents = MarkupContent ("markdown", loc.desc + "\n***\n" + scopesExtra); range = None}
-                |None, None ->
-                    {contents = MarkupContent ("markdown", scopesExtra); range = None}
-            return
-                match stlGameObj, hoi4GameObj, eu4GameObj with
-                |Some game, _, _ -> hoverFunction game
-                |_, Some game, _ -> hoverFunction game
-                // |_, Some game, _ ->
-                //     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
-                //     match lochover with
-                //     |Some (_, loc) ->
-                //         { contents = MarkupContent ("markdown", loc.desc); range = None }
-                //     |None ->
-                //         { contents = MarkupContent ("markdown", ""); range = None }
-                |_, _, Some game -> hoverFunction game
-                |_ -> {contents = MarkupContent ("markdown", ""); range = None}
-
-        }
 
     let completionResolveItem (item :CompletionItem) =
         async {
@@ -954,7 +893,7 @@ type Server(client: ILanguageClient) =
             } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                return hoverDocument (p.textDocument.uri, p.position) |> Async.RunSynchronously |> Some
+                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
             } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =
