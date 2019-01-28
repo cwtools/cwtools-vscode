@@ -1,3 +1,7 @@
+# 0.6.24
+* Add completion for `@` script variables
+* Add more detailed localisation in the hover tooltip for types (mainly eu4 for now)
+* Sort completion list, moving items used in the same file to the top
 # 0.6.23
 * Significant performance improvements
 # 0.6.22

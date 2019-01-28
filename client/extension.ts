@@ -45,6 +45,7 @@ export function activate(context: ExtensionContext) {
 
 
 	var init = function() {
+		vs.languages.setLanguageConfiguration("stellaris", { wordPattern : /"?([^\s]+)"?/})
 		// The server is implemented using dotnet core
 		let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
 		var serverExe: string;

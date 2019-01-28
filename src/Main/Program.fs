@@ -375,10 +375,7 @@ type Server(client: ILanguageClient) =
                 timer.Start()
 
                 eprintfn "%s" path
-                let filelist = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.vanilla_files_2.1.3.csv")
-                                |> (fun f -> (new StreamReader(f)).ReadToEnd().Split(Environment.NewLine))
-                                |> Array.toList |> List.map (fun f -> f, "")
-                let docspath = "Main.files.trigger_docs_2.2.txt"
+                let docspath = "Main.files.trigger_docs_2.2.4.txt"
                 let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
                 let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
                 let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
@@ -876,9 +873,12 @@ type Server(client: ILanguageClient) =
                             let items =
                                 comp |> List.map (
                                     function
-                                    |Simple e -> {defaultCompletionItem with label = e}
-                                    |Detailed (l, d) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
-                                    |Snippet (l, e, d) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
+                                    |Simple (e, Some score) -> {defaultCompletionItem with label = e; sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |Simple (e, None) -> {defaultCompletionItem with label = e}
+                                    |Detailed (l, d, Some score) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |Detailed (l, d, None) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
+                                    |Snippet (l, e, d, Some score) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |Snippet (l, e, d, None) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                             let deduped = items |> List.distinctBy(fun i -> i.label) |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
                             Some {isIncomplete = false; items = deduped}
