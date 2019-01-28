@@ -310,12 +310,13 @@ type CompletionItem = {
     data: JsonValue
 }
 
+let maxCompletionScore = 1000000
 let defaultCompletionItem: CompletionItem = {
     label = ""
     kind = None
     detail = None
     documentation = None
-    sortText = None
+    sortText = Some (maxCompletionScore.ToString())
     filterText = None
     insertText = None
     insertTextFormat = None
