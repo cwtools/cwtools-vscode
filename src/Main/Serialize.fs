@@ -59,7 +59,7 @@ let serializeSTL folder cacheDirectory =
     File.WriteAllBytes(Path.Combine(cacheDirectory, "stl.cwb"), pickle)
 
 let serializeEU4 folder cacheDirectory =
-    let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, EU4Constants.scriptFolders, "stellaris", Encoding.UTF8)
+    let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> FoldRules<EU4Constants.Scope> option = (fun () -> (None))
     let resources = ResourceManager<EU4ComputedData>(EU4Compute.computeEU4Data computefun, EU4Compute.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api

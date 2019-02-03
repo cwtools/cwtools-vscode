@@ -1,3 +1,7 @@
+# 0.7.0
+* Complete EU4 support
+* Prevent validation of vanilla files
+* Make errors a little clearer
 # 0.6.24
 * Add completion for `@` script variables
 * Add more detailed localisation in the hover tooltip for types (mainly eu4 for now)

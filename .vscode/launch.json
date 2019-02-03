@@ -6,6 +6,17 @@
 	"version": "0.2.0",
     "configurations": [
         {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "symbolOptions": {
+                "searchPaths": ["${workspaceFolder}/out/server/local"],
+                "searchMicrosoftSymbolServer": true
+            },
+            "justMyCode": false
+        },
+        {
             "name": "Extension",
             "type": "extensionHost",
             "request": "launch",
