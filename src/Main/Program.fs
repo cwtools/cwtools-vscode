@@ -56,6 +56,7 @@ type Server(client: ILanguageClient) =
     let mutable docErrors : DocumentHighlight list = []
 
     let mutable activeGame = STL
+    let mutable isVanillaFolder = false
     let mutable gameObj : option<IGame> = None
     let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>> = None
     let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>> = None
@@ -308,51 +309,51 @@ type Server(client: ILanguageClient) =
 
     let setupRulesCaches()  =
         match cachePath, remoteRepoPath, useEmbeddedRules, useManualRules with
-        |Some cp, Some rp, false, false ->
+        | Some cp, Some rp, false, false ->
             let stable = rulesChannel <> "latest"
             match initOrUpdateRules rp cp stable true with
-            |true, Some date ->
+            | true, Some date ->
                 let text = sprintf "Validation rules for %O have been updated to %O." activeGame date
                 client.CustomNotification ("forceReload", JsonValue.String(text))
-            |_ -> ()
-        |_ -> ()
+            | _ -> ()
+        | _ -> ()
 
     let checkOrSetGameCache(forceCreate : bool) =
-        match cachePath with
-        |Some cp ->
+        match (cachePath, isVanillaFolder) with
+        | Some cp, false ->
             let gameCachePath = cp+"/../"
             let stlCacheLocation cp = if File.Exists (gameCachePath + "stl.cwb") then (gameCachePath + "stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
             let doesCacheExist =
                 match activeGame with
-                |STL -> File.Exists (stlCacheLocation gameCachePath)
-                |HOI4 -> File.Exists (gameCachePath + "hoi4.cwb")
-                |EU4 -> File.Exists (gameCachePath + "eu4.cwb")
+                | STL -> File.Exists (stlCacheLocation gameCachePath)
+                | HOI4 -> File.Exists (gameCachePath + "hoi4.cwb")
+                | EU4 -> File.Exists (gameCachePath + "eu4.cwb")
             if doesCacheExist && not forceCreate
             then eprintfn "Cache exists at %s" (gameCachePath + "eu4.cwb")
             else
-                match activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath with
-                |STL, Some vp, _, _ ->
+                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath) with
+                | STL, Some vp, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeSTL (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                |STL, None, _, _ ->
+                | STL, None, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("stellaris"))
-                |EU4, _, Some vp, _ ->
+                | EU4, _, Some vp, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeEU4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                |EU4, _, None, _ ->
+                | EU4, _, None, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("eu4"))
-                |HOI4, _, _, Some vp ->
+                | HOI4, _, _, Some vp ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeHOI4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                |HOI4, _, _, None ->
+                | HOI4, _, _, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
-        |None -> ()
+        | _ -> eprintfn "No cache path"
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
 
@@ -365,7 +366,7 @@ type Server(client: ILanguageClient) =
     let processWorkspace (uri : option<Uri>) =
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Loading project...");  "enable", JsonValue.Boolean(true) |])
         match uri with
-        |Some u ->
+        | Some u ->
             let path =
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
                 then u.LocalPath.Substring(1)
@@ -384,11 +385,14 @@ type Server(client: ILanguageClient) =
 
                 let stlCacheLocation cp = if File.Exists (cp + "/../stl.cwb") then (cp + "/../stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
                 let cached, cachedFiles =
-                    match activeGame, cachePath with
-                    |STL, Some cp -> deserialize (stlCacheLocation cp)
-                    |EU4, Some cp -> deserialize (cp + "/../eu4.cwb")
-                    |HOI4, Some cp -> deserialize (cp + "/../hoi4.cwb")
-                    |_ -> [], []
+                    match (activeGame, cachePath, isVanillaFolder) with
+                    | _, _, true ->
+                        eprintfn "Vanilla folder, so not loading cache"
+                        ([], [])
+                    | STL, Some cp, _ -> deserialize (stlCacheLocation cp)
+                    | EU4, Some cp, _ -> deserialize (cp + "/../eu4.cwb")
+                    | HOI4, Some cp, _ -> deserialize (cp + "/../hoi4.cwb")
+                    | _ -> ([], [])
                 eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
@@ -405,6 +409,7 @@ type Server(client: ILanguageClient) =
                 //let configs = [
                 let stlLocCommands =
                     configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.bind (fun (fn, ft) -> if activeGame = STL then Some (fn, ft) else None)
                             |> Option.map (fun (fn, ft) -> STLParser.loadLocCommands fn ft)
                             |> Option.defaultValue []
 
@@ -440,6 +445,7 @@ type Server(client: ILanguageClient) =
                             |> Option.defaultValue []
                 let hoi4LocCommands =
                     configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.bind (fun (fn, ft) -> if activeGame = HOI4 then Some (fn, ft) else None)
                             |> Option.map (fun (fn, ft) -> HOI4Parser.loadLocCommands fn ft)
                             |> Option.defaultValue []
                 // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
@@ -476,6 +482,7 @@ type Server(client: ILanguageClient) =
 
                 let eu4LocCommands =
                     configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.bind (fun (fn, ft) -> if activeGame = EU4 then Some (fn, ft) else None)
                             |> Option.map (fun (fn, ft) -> EU4Parser.loadLocCommands fn ft)
                             |> Option.defaultValue []
 
@@ -655,7 +662,7 @@ type Server(client: ILanguageClient) =
             async {
                 rootUri <- p.rootUri
                 match p.initializationOptions with
-                |Some opt ->
+                | Some opt ->
                     match opt.Item("language") with
                     | JsonValue.String "stellaris" ->
                         activeGame <- STL
@@ -667,9 +674,9 @@ type Server(client: ILanguageClient) =
                     match opt.Item("rulesCache") with
                     | JsonValue.String x ->
                         match activeGame with
-                        |STL -> cachePath <- Some (x + "/stellaris")
-                        |HOI4 -> cachePath <- Some (x + "/hoi4")
-                        |EU4 -> cachePath <- Some (x + "/eu4")
+                        | STL -> cachePath <- Some (x + "/stellaris")
+                        | HOI4 -> cachePath <- Some (x + "/hoi4")
+                        | EU4 -> cachePath <- Some (x + "/eu4")
                         | _ -> ()
                     | _ -> ()
                     match opt.Item("repoPath") with
@@ -677,6 +684,11 @@ type Server(client: ILanguageClient) =
                         eprintfn "rps %A" x
                         remoteRepoPath <- Some x
                     | x -> eprintfn "t %A" x
+                    match opt.Item("isVanillaFolder") with
+                    | JsonValue.Boolean b ->
+                        if b then eprintfn "Client thinks this is a vanilla directory" else ()
+                        isVanillaFolder <- b
+                    | _ -> ()
                     // match opt.Item("rulesVersion") with
                     // | JsonValue.Array x ->
                     //     match x with
@@ -699,6 +711,7 @@ type Server(client: ILanguageClient) =
                     | _ -> ()
 
                 |None -> ()
+                eprintfn "New init %s" (p.ToString())
                 return { capabilities =
                     { defaultServerCapabilities with
                         hoverProvider = true

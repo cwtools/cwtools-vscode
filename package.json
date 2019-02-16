@@ -9,13 +9,13 @@
     "preview": true,
     "publisher": "tboby",
     "qna": "https://forum.paradoxplaza.com/forum/index.php?threads/tool-cwtools-a-mod-validating-extension-for-vs-code.1066033/",
-    "icon": "./docs/cwtools logo.png",
+    "icon": "docs/cwtools logo.png",
     "repository": {
         "type": "git",
         "url": "https://github.com/tboby/cwtools-vscode"
     },
     "engines": {
-        "vscode": "^1.26.0"
+        "vscode": "^1.31.0"
     },
     "categories": [
         "Programming Languages",
@@ -136,7 +136,7 @@
                     "deprecationMessage": "This feature is now enabled for all users"
                 },
                 "cwtools.rules_version": {
-                    "scope": "application",
+                    "scope": "window",
                     "type": "string",
                     "enum": [
                         "stable",
@@ -148,7 +148,7 @@
                     "description": "Which version of rules to auto-update to. Manual will use the local path set in rules_folder"
                 },
                 "cwtools.rules_folder": {
-                    "scope": "application",
+                    "scope": "window",
                     "type": "string",
                     "description": "A folder containing custom rules to use"
                 },
@@ -208,10 +208,10 @@
                 ],
                 "configuration": "./language-configuration.json",
                 "filenamePatterns": [
-                    "**/hearts of iron iv/**/*.txt",
-                    "**/hearts of iron iv/**/*.gui",
-                    "**/hearts of iron iv/**/*.gfx",
-                    "**/hearts of iron iv/**/*.asset"
+                    "**/hearts*of*iron*iv/**/*.txt",
+                    "**/hearts*of*iron*iv/**/*.gui",
+                    "**/hearts*of*iron*iv/**/*.gfx",
+                    "**/hearts*of*iron*iv/**/*.asset"
                 ]
             },
             {
@@ -230,10 +230,10 @@
                 ],
                 "configuration": "./language-configuration.json",
                 "filenamePatterns": [
-                    "**/europa universalis iv/**/*.txt",
-                    "**/europa universalis iv/**/*.gui",
-                    "**/europa universalis iv/**/*.gfx",
-                    "**/europa universalis iv/**/*.asset"
+                    "**/europa*universalis*iv/**/*.txt",
+                    "**/europa*universalis*iv/**/*.gui",
+                    "**/europa*universalis*iv/**/*.gfx",
+                    "**/europa*universalis*iv/**/*.asset"
                 ]
             }
         ],
@@ -281,14 +281,14 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
-        "npm": "^6.4.0",
-        "simple-git": "^1.106.0",
-        "vscode": "^1.1.21",
-        "vscode-languageclient": "^5.0.1"
+        "npm": "^6.8.0",
+        "simple-git": "^1.107.0",
+        "vscode": "^1.1.29",
+        "vscode-languageclient": "^5.2.1"
     },
     "devDependencies": {
-        "@types/node": "^8.0.47",
-        "@types/mocha": "^2.2.42"
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^8.10.40"
     },
     "extensionPack": [
         "tboby.paradox-syntax"

@@ -41,11 +41,10 @@ export function activate(context: ExtensionContext) {
 	}
 
 	const isDevDir = env.machineId === "someValue.machineId"
-	const cacheDir = isDevDir ? context.storagePath + '/.cwtools' : context.extensionPath + '/.cwtools'
+	const cacheDir = isDevDir ? context.globalStoragePath + '/.cwtools' : context.extensionPath + '/.cwtools'
 
-
-	var init = function() {
-		vs.languages.setLanguageConfiguration("stellaris", { wordPattern : /"?([^\s]+)"?/})
+	var init = function(language : string, isVanillaFolder : boolean) {
+		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s]+)"?/})
 		// The server is implemented using dotnet core
 		let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
 		var serverExe: string;
@@ -61,13 +60,13 @@ export function activate(context: ExtensionContext) {
 			fs.chmodSync(serverExe, '755');
 		}
 		var repoPath = undefined;
-		switch (window.activeTextEditor.document.languageId) {
+		switch (language) {
 			case "stellaris": repoPath = stellarisRemote; break;
 			case "eu4": repoPath = eu4Remote; break;
 			case "hoi4": repoPath = hoi4Remote; break;
 			default: repoPath = stellarisRemote; break;
 		}
-		console.log(window.activeTextEditor.document.languageId + " " + repoPath);
+		console.log(language + " " + repoPath);
 
 		// If the extension is launched in debug mode then the debug server options are used
 		// Otherwise the run options are used
@@ -96,8 +95,10 @@ export function activate(context: ExtensionContext) {
 					workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
 				]
 			},
-			initializationOptions: { language: window.activeTextEditor.document.languageId,
-				 rulesCache: cacheDir,
+			initializationOptions: {
+				language: language,
+				isVanillaFolder: isVanillaFolder,
+				rulesCache: cacheDir,
 				rules_version: workspace.getConfiguration('cwtools').get('rules_version'),
 				repoPath: repoPath }
 		}
@@ -217,7 +218,10 @@ export function activate(context: ExtensionContext) {
 
 		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
 			let path = editor.document.uri.toString();
-			client.sendNotification(didFocusFile, {uri: path});
+			if(editor.document.languageId == language)
+			{
+				client.sendNotification(didFocusFile, {uri: path});
+			}
 		}
 
 		window.onDidChangeActiveTextEditor(didChangeActiveTextEditor);
@@ -245,7 +249,35 @@ export function activate(context: ExtensionContext) {
 			activate(context);
 		}));
 	}
-	init()
+
+	var languageId : string = null;
+	switch (window.activeTextEditor.document.languageId) {
+		case "stellaris": languageId = "stellaris"; break;
+		case "eu4": languageId = "eu4"; break;
+		case "hoi4": languageId = "hoi4"; break;
+		default:
+	}
+	var eu4 = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "eu4*.exe"))
+	var hoi4 = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "hoi4*.exe"))
+	var stellaris = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "stellaris*.exe"))
+	Promise.all([eu4, hoi4, stellaris]).then(results =>
+		{
+			var isVanillaFolder = false;
+			if (results[0].length > 0 && (languageId === null || languageId === "eu4")) {
+				isVanillaFolder = true;
+				languageId = "eu4";
+			}
+			if (results[1].length > 0 && (languageId === null || languageId === "hoi4")) {
+				isVanillaFolder = true;
+				languageId = "hoi4";
+			}
+			if (results[2].length > 0 && (languageId === null || languageId === "stellaris")) {
+				isVanillaFolder = true;
+				languageId = "stellaris";
+			}
+			init(languageId, isVanillaFolder)
+		}
+	)
 }
 
 export default defaultClient;
