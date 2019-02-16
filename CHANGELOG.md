@@ -1,4 +1,4 @@
-# 0.7.1
+# 0.7.2
 * Validation context switches in localisation
 * Reduce errors in debug output
 # 0.7.0
