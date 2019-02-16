@@ -1,3 +1,6 @@
+# 0.7.1
+* Validation context switches in localisation
+* Reduce errors in debug output
 # 0.7.0
 * Complete EU4 support
 * Prevent validation of vanilla files
