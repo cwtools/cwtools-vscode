@@ -29,7 +29,8 @@
         "onLanguage:paradox",
         "onLanguage:stellaris",
         "onLanguage:hoi4",
-        "onLanguage:eu4"
+        "onLanguage:eu4",
+        "onLanguage:ck2"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -152,6 +153,12 @@
                     "type": "string",
                     "description": "A folder containing custom rules to use"
                 },
+                "cwtools.ignore_patterns": {
+                    "scope": "window",
+                    "type":"array",
+                    "description": "File paths to ignore (not load into cwtools), list of glob patterns",
+                    "uniqueItems": true
+                },
                 "cwtools.cache.eu4": {
                     "scope": "application",
                     "type": "string",
@@ -166,6 +173,11 @@
                     "scope": "application",
                     "type": "string",
                     "description": "The location of a vanilla Stellaris installation"
+                },
+                "cwtools.cache.ck2": {
+                    "scope": "application",
+                    "type": "string",
+                    "description": "The location of a vanilla CK2 installation"
                 }
             }
         },
@@ -235,6 +247,28 @@
                     "**/europa*universalis*iv/**/*.gfx",
                     "**/europa*universalis*iv/**/*.asset"
                 ]
+            },
+            {
+                "id": "ck2",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/crusader*kings*ii/**/*.txt",
+                    "**/crusader*kings*ii/**/*.gui",
+                    "**/crusader*kings*ii/**/*.gfx",
+                    "**/crusader*kings*ii/**/*.asset"
+                ]
             }
         ],
         "snippets": [
@@ -261,6 +295,14 @@
                 }
             },
             "[eu4]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                }
+            },
+            "[ck2]": {
                 "files.autoGuessEncoding": true,
                 "editor.quickSuggestions": {
                     "other": true,

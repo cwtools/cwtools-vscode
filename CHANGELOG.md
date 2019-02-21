@@ -1,3 +1,5 @@
+# 0.7.3
+* Add support for CK2
 # 0.7.2
 * Validation context switches in localisation
 * Reduce errors in debug output

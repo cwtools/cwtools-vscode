@@ -6,6 +6,7 @@ open System
 open System.IO
 open CWTools.Parser
 open CWTools.Parser.EU4Parser
+open CWTools.Parser.CK2Parser
 open CWTools.Parser.STLParser
 open CWTools.Parser.Types
 open CWTools.Common
@@ -47,7 +48,7 @@ type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier * bool
     | WorkComplete of DateTime
 
-type GameLanguage = |STL |HOI4 |EU4
+type GameLanguage = |STL |HOI4 |EU4 |CK2
 type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
@@ -61,6 +62,7 @@ type Server(client: ILanguageClient) =
     let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>> = None
     let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>> = None
     let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>> = None
+    let mutable ck2GameObj : option<IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -68,9 +70,11 @@ type Server(client: ILanguageClient) =
     let mutable stlVanillaPath : string option = None
     let mutable hoi4VanillaPath : string option = None
     let mutable eu4VanillaPath : string option = None
+    let mutable ck2VanillaPath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
     let mutable hoi4CacheVersion : string option = None
+    let mutable ck2CacheVersion : string option = None
     let mutable remoteRepoPath : string option = None
 
     let mutable rulesChannel : string = "stable"
@@ -82,6 +86,7 @@ type Server(client: ILanguageClient) =
 
     let mutable ignoreCodes : string list = []
     let mutable ignoreFiles : string list = []
+    let mutable dontLoadPatterns : string list = []
     let mutable locCache : Map<string, CWError list> = Map.empty
 
     let (|TrySuccess|TryFailure|) tryResult =
@@ -328,8 +333,9 @@ type Server(client: ILanguageClient) =
                 | STL -> File.Exists (stlCacheLocation gameCachePath)
                 | HOI4 -> File.Exists (gameCachePath + "hoi4.cwb")
                 | EU4 -> File.Exists (gameCachePath + "eu4.cwb")
+                | CK2 -> File.Exists (gameCachePath + "ck2.cwb")
             if doesCacheExist && not forceCreate
-            then eprintfn "Cache exists at %s" (gameCachePath + "eu4.cwb")
+            then eprintfn "Cache exists at %s" (gameCachePath + ".cwb")
             else
                 match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath) with
                 | STL, Some vp, _, _ ->
@@ -353,6 +359,13 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification ("forceReload", JsonValue.String(text))
                 | HOI4, _, _, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
+                | CK2, _, _, Some vp ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeCK2 (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                | CK2, _, _, None ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("ck2"))
         | _ -> eprintfn "No cache path"
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
@@ -419,6 +432,7 @@ type Server(client: ILanguageClient) =
                     scope = FilesScope.All
                     modFilter = None
                     scriptFolders = folders
+                    excludeGlobPatterns = Some dontLoadPatterns
                     validation = {
                         validateVanilla = validateVanilla
                         experimental = experimental
@@ -428,6 +442,7 @@ type Server(client: ILanguageClient) =
                         ruleFiles = configs
                         validateRules = true
                         debugRulesOnly = false
+                        debugMode = false
                     }
                     embedded = {
                         triggers = triggers
@@ -453,6 +468,7 @@ type Server(client: ILanguageClient) =
                 let hoi4settings = {
                     rootDirectory = path
                     scriptFolders = folders
+                    excludeGlobPatterns = Some dontLoadPatterns
                     embedded = {
                         embeddedFiles = cachedFiles
                         modifiers = hoi4Mods
@@ -470,6 +486,7 @@ type Server(client: ILanguageClient) =
                         ruleFiles = configs
                         validateRules = true
                         debugRulesOnly = false
+                        debugMode = false
                     }
                     scope = FilesScope.All
                     modFilter = None
@@ -490,6 +507,7 @@ type Server(client: ILanguageClient) =
                 let eu4settings = {
                     rootDirectory = path
                     scriptFolders = folders
+                    excludeGlobPatterns = Some dontLoadPatterns
                     embedded = {
                         embeddedFiles = cachedFiles
                         modifiers = eu4Mods
@@ -507,6 +525,45 @@ type Server(client: ILanguageClient) =
                         ruleFiles = configs
                         validateRules = true
                         debugRulesOnly = false
+                        debugMode = false
+                    }
+                    scope = FilesScope.All
+                    modFilter = None
+                }
+                let ck2Mods =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
+                            |> Option.map (fun (fn, ft) -> CK2Parser.loadModifiers fn ft)
+                            |> Option.defaultValue []
+
+                let ck2LocCommands =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.bind (fun (fn, ft) -> if activeGame = CK2 then Some (fn, ft) else None)
+                            |> Option.map (fun (fn, ft) -> CK2Parser.loadLocCommands fn ft)
+                            |> Option.defaultValue []
+
+                // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
+                let ck2settings = {
+                    rootDirectory = path
+                    scriptFolders = folders
+                    excludeGlobPatterns = Some dontLoadPatterns
+                    embedded = {
+                        embeddedFiles = cachedFiles
+                        modifiers = ck2Mods
+                        cachedResourceData = cached
+                        triggers = []
+                        effects = []
+                        localisationCommands = ck2LocCommands
+                    }
+                    validation = {
+                        validateVanilla = validateVanilla;
+                        langs = languages
+                        experimental = experimental
+                    }
+                    rules = Some {
+                        ruleFiles = configs
+                        validateRules = true
+                        debugRulesOnly = false
+                        debugMode = false
                     }
                     scope = FilesScope.All
                     modFilter = None
@@ -525,6 +582,10 @@ type Server(client: ILanguageClient) =
                     |EU4 ->
                         let game = CWTools.Games.EU4.EU4Game(eu4settings)
                         eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>)
+                        game :> IGame
+                    |CK2 ->
+                        let game = CWTools.Games.CK2.CK2Game(ck2settings)
+                        ck2GameObj <- Some (game :> IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>)
                         game :> IGame
                 gameObj <- Some game
                 let game = game
@@ -560,8 +621,8 @@ type Server(client: ILanguageClient) =
     let completionResolveItem (item :CompletionItem) =
         async {
             eprintfn "Completion resolve"
-            return match stlGameObj, eu4GameObj, hoi4GameObj with
-                    |Some game, _, _ ->
+            return match stlGameObj, eu4GameObj, hoi4GameObj, ck2GameObj with
+                    |Some game, _, _, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -586,7 +647,7 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |_, Some game, _ ->
+                    |_, Some game, _, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -611,7 +672,7 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |_, _, Some game ->
+                    |_, _, Some game, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -635,8 +696,32 @@ type Server(client: ILanguageClient) =
                                 let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                    |_, _, _, Some game ->
+                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
+                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
+                        match hovered with
+                        |Some effect ->
+                            match effect with
+                            | :? DocEffect<CK2Constants.Scope> as de ->
+                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                                let usage = de.Usage
+                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
+                                //{item with documentation = (MarkupContent ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | :? ScriptedEffect<CK2Constants.Scope> as se ->
+                                let desc = se.Name.Replace("_", "\\_")
+                                let comments = se.Comments.Replace("_", "\\_")
+                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | e ->
+                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |None, None, None -> item
+                    |None, None, None, None -> item
         }
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)
@@ -670,6 +755,8 @@ type Server(client: ILanguageClient) =
                         activeGame <- HOI4
                     | JsonValue.String "eu4" ->
                         activeGame <- EU4
+                    | JsonValue.String "ck2" ->
+                        activeGame <- CK2
                     | _ -> ()
                     match opt.Item("rulesCache") with
                     | JsonValue.String x ->
@@ -677,6 +764,7 @@ type Server(client: ILanguageClient) =
                         | STL -> cachePath <- Some (x + "/stellaris")
                         | HOI4 -> cachePath <- Some (x + "/hoi4")
                         | EU4 -> cachePath <- Some (x + "/eu4")
+                        | CK2 -> cachePath <- Some (x + "/ck2")
                         | _ -> ()
                     | _ -> ()
                     match opt.Item("repoPath") with
@@ -754,6 +842,12 @@ type Server(client: ILanguageClient) =
                           |> (fun l ->  if List.isEmpty l then [HOI4Lang.English] else l)
                           |> List.map Lang.HOI4
                     | _, HOI4 -> [Lang.HOI4 HOI4Lang.English]
+                    | JsonValue.Array o, CK2 ->
+                        o |> Array.choose (function |JsonValue.String s -> (match CK2Lang.TryParse<CK2Lang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [CK2Lang.English] else l)
+                          |> List.map Lang.CK2
+                    | _, CK2 -> [Lang.CK2 CK2Lang.English]
                 languages <- newLanguages
                 let newVanillaOnly =
                     match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
@@ -779,6 +873,13 @@ type Server(client: ILanguageClient) =
                           |> List.ofArray
                     | _ -> []
                 ignoreFiles <- newIgnoreFiles
+                let excludePatterns =
+                    match p.settings.Item("cwtools").Item("ignore_patterns") with
+                    | JsonValue.Array o ->
+                        o |> Array.choose (function |JsonValue.String s -> Some s |_ -> None)
+                          |> List.ofArray
+                    | _ -> []
+                dontLoadPatterns <- excludePatterns
                 match p.settings.Item("cwtools").Item("trace").Item("server") with
                 | JsonValue.String "messages"
                 | JsonValue.String "verbose" -> CWTools.Utilities.Utils.loglevel <- CWTools.Utilities.Utils.LogLevel.Verbose
@@ -797,6 +898,10 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->
                     hoi4VanillaPath <- Some s
+                match p.settings.Item("cwtools").Item("cache").Item("ck2") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    ck2VanillaPath <- Some s
                 |_ -> ()
                 match p.settings.Item("cwtools").Item("rules_folder") with
                 | JsonValue.String x ->
