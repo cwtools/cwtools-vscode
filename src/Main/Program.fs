@@ -146,12 +146,16 @@ type Server(client: ILanguageClient) =
                     try {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A %A" e rs)))
             |> List.iter (client.PublishDiagnostics)
 
+    let mutable delayedLocUpdate = false
+
     let lint (doc: Uri) (shallowAnalyze : bool) (forceDisk : bool) : Async<unit> =
         async {
             let name =
                 if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
                 then doc.LocalPath.Substring(1)
                 else doc.LocalPath
+
+            if name.EndsWith(".yml") then delayedLocUpdate <- true else ()
             let filetext = if forceDisk then None else docs.GetText (FileInfo(doc.LocalPath))
             let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
             let parserErrors =
@@ -190,13 +194,20 @@ type Server(client: ILanguageClient) =
         }
 
     let mutable delayTime = TimeSpan(0,0,30)
+
     let delayedAnalyze() =
         match gameObj with
         |Some game ->
             let stopwatch = Stopwatch()
             stopwatch.Start()
             game.RefreshCaches();
-            locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
+            if delayedLocUpdate
+            then
+                game.RefreshLocalisationCaches();
+                delayedLocUpdate <- false
+                locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
+            else
+                locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
             stopwatch.Stop()
             let time = stopwatch.Elapsed
             delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0,10).Ticks, 5L * time.Ticks)))
@@ -814,7 +825,7 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"]} } }
+                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -1156,6 +1167,21 @@ type Server(client: ILanguageClient) =
                             game.ReplaceConfigRules configs
                         | {command = "cacheVanilla"; arguments = _} ->
                             checkOrSetGameCache(true)
+                        | {command ="listAllFiles"; arguments =_} ->
+                            let resources = game.AllFiles()
+                            let text =
+                                resources |> List.map (fun r ->
+                                    match r with
+                                    | EntityResource (f, _) -> f
+                                    | FileResource (f, _) -> f
+                                    | FileWithContentResource (f, _) -> f
+                                )
+                            let text = String.Join(Environment.NewLine, (text))
+                            client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://allfiles");  "fileContent", JsonValue.String(text) |])
+                        | {command = "listAllLocFiles"; arguments = _} ->
+                            let locs = game.AllLoadedLocalisation()
+                            let text = String.Join(Environment.NewLine, (locs))
+                            client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://alllocfiles");  "fileContent", JsonValue.String(text) |])
                             // eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
                             // match cacheGame.AsString() with
                             // |"stellaris" ->

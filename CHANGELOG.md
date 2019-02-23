@@ -1,3 +1,5 @@
+# 0.7.4
+* Better handling of changes to localisation files (update validation properly)
 # 0.7.3
 * Add support for CK2
 # 0.7.2
