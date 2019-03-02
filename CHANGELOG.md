@@ -1,3 +1,5 @@
+# 0.7.6
+* Improve CK2 localisation
 # 0.7.5
 * Fix CK2 loading
 * Only load cached files if necessary
