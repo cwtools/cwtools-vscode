@@ -1,3 +1,7 @@
+# 0.7.5
+* Fix CK2 loading
+* Only load cached files if necessary
+* Add CK2 DNA/Properties
 # 0.7.4
 * Better handling of changes to localisation files (update validation properly)
 # 0.7.3
