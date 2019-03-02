@@ -1023,7 +1023,7 @@ type Server(client: ILanguageClient) =
             } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
+                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
             } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =

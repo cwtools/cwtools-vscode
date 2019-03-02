@@ -262,10 +262,24 @@ export function activate(context: ExtensionContext) {
 		case "ck2": languageId = "ck2"; break;
 		default:
 	}
-	var eu4 = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "eu4*.exe"))
-	var hoi4 = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "hoi4*.exe"))
-	var stellaris = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "stellaris*.exe"))
-	var ck2 = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "ck2*.exe"))
+	let findExeInFiles = function(gameExeName : string) {
+		if (os.platform() == "win32") {
+				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*.exe"));
+				let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*.exe"));
+				let c =workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toLowerCase() + "*.exe"));
+				return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+		}
+		else {
+			let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*"))
+			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*"))
+			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toLowerCase() + "*"));
+			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+		}
+	}
+	var eu4 = findExeInFiles("eu4")
+	var hoi4 = findExeInFiles("hoi4")
+	var stellaris = findExeInFiles("stellaris")
+	var ck2 = findExeInFiles("CK2")
 	Promise.all([eu4, hoi4, stellaris, ck2]).then(results =>
 		{
 			var isVanillaFolder = false;
