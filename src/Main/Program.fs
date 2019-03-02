@@ -348,34 +348,34 @@ type Server(client: ILanguageClient) =
             if doesCacheExist && not forceCreate
             then eprintfn "Cache exists at %s" (gameCachePath + ".cwb")
             else
-                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath) with
-                | STL, Some vp, _, _ ->
+                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath) with
+                | STL, Some vp, _, _ ,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeSTL (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | STL, None, _, _ ->
+                | STL, None, _, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("stellaris"))
-                | EU4, _, Some vp, _ ->
+                | EU4, _, Some vp, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeEU4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | EU4, _, None, _ ->
+                | EU4, _, None, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("eu4"))
-                | HOI4, _, _, Some vp ->
+                | HOI4, _, _, Some vp, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeHOI4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | HOI4, _, _, None ->
+                | HOI4, _, _, None, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
-                | CK2, _, _, Some vp ->
+                | CK2, _, _, _, Some vp ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeCK2 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | CK2, _, _, None ->
+                | CK2, _, _, _, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("ck2"))
         | _ -> eprintfn "No cache path"
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
@@ -416,6 +416,7 @@ type Server(client: ILanguageClient) =
                     | STL, Some cp, _ -> deserialize (stlCacheLocation cp)
                     | EU4, Some cp, _ -> deserialize (cp + "/../eu4.cwb")
                     | HOI4, Some cp, _ -> deserialize (cp + "/../hoi4.cwb")
+                    | CK2, Some cp, _ -> deserialize (cp + "/../ck2.cwb")
                     | _ -> ([], [])
                 eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
