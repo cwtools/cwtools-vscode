@@ -1,3 +1,8 @@
+# 0.7.7
+* Further improve CK2 localisation
+* Add "starts_with" setting for config rule types
+* Support multiple "path" settings for config rule types
+* Support config rule types localisation being references to loc keys inside
 # 0.7.6
 * Improve CK2 localisation
 # 0.7.5

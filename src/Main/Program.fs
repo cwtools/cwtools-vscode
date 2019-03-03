@@ -1010,7 +1010,7 @@ type Server(client: ILanguageClient) =
                                     |Snippet (l, e, d, Some score) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
                                     |Snippet (l, e, d, None) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-                            let deduped = items |> List.distinctBy(fun i -> i.label) |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
+                            let deduped = items |> List.distinctBy(fun i -> (i.label, i.documentation)) |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
                             Some {isIncomplete = false; items = deduped}
                         // |false ->
                         //     let extraKeywords = ["yes"; "no";]
