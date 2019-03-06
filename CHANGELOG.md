@@ -1,3 +1,5 @@
+# 0.7.8
+* CK2 landed titles
 # 0.7.7
 * Further improve CK2 localisation
 * Add "starts_with" setting for config rule types
