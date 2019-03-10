@@ -1,3 +1,8 @@
+# 0.7.9
+* Hovering over fields will now show documentation where it exists
+* Show subtype localisation in tooltips
+* Further improvement to CK2 titles
+* CK2 provinces
 # 0.7.8
 * CK2 landed titles
 # 0.7.7
