@@ -463,6 +463,7 @@ type Server(client: ILanguageClient) =
                         embeddedFiles = cachedFiles
                         cachedResourceData = cached
                         localisationCommands = stlLocCommands
+                        eventTargetLinks = []
                     }
                 }
                 let hoi4modpath = "Main.files.hoi4.modifiers"
@@ -488,6 +489,7 @@ type Server(client: ILanguageClient) =
                         triggers = []
                         effects = []
                         localisationCommands = hoi4LocCommands
+                        eventTargetLinks = []
                     }
                     validation = {
                         validateVanilla = validateVanilla;
@@ -527,6 +529,7 @@ type Server(client: ILanguageClient) =
                         triggers = []
                         effects = []
                         localisationCommands = eu4LocCommands
+                        eventTargetLinks = []
                     }
                     validation = {
                         validateVanilla = validateVanilla;
@@ -553,6 +556,11 @@ type Server(client: ILanguageClient) =
                             |> Option.map (fun (fn, ft) -> CK2Parser.loadLocCommands fn ft)
                             |> Option.defaultValue []
 
+                let ck2EventTargetLinks =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
+                            |> Option.map (fun (fn, ft) -> CK2Parser.loadEventTargetLinks fn ft)
+                            |> Option.defaultValue (CK2Scopes.scopedEffects)
+
                 // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
                 let ck2settings = {
                     rootDirectory = path
@@ -565,6 +573,7 @@ type Server(client: ILanguageClient) =
                         triggers = []
                         effects = []
                         localisationCommands = ck2LocCommands
+                        eventTargetLinks = ck2EventTargetLinks
                     }
                     validation = {
                         validateVanilla = validateVanilla;
