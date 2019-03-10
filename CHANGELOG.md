@@ -1,3 +1,5 @@
+# 0.7.10
+* Add support for event target links in rule config
 # 0.7.9
 * Hovering over fields will now show documentation where it exists
 * Show subtype localisation in tooltips
