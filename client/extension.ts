@@ -93,6 +93,7 @@ export function activate(context: ExtensionContext) {
 					workspace.createFileSystemWatcher("**/{events,common,map,prescripted_countries,flags,decisions,missions}/**/*.txt"),
 					workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
 					workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
+					workspace.createFileSystemWatcher("**/{interface}/**/*.sfx"),
 					workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
 					workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
 				]
