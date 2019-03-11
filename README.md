@@ -10,13 +10,18 @@ This extension is still in preview, it may not work, it may stop working at any 
 ## Supported games
 
 * Stellaris
-* Europa Universalis IV - beta support
+* Europa Universalis IV
+* Crusader Kings II - coming soon
 * Hearts of Iron IV - coming soon
 
 ## Features
 
 * Immediate highlighting of syntax errors
 * Autocomplete while you type, providing descriptions when available
+* Tooltips on hover showing:
+  * Related localisation
+  * Documentation for that element
+  * Scope context at that position
 * A wide range of validators for common, interface, and events, checking
   * That required localisation keys are defined
   * Existence of effects/triggers/modifiers
@@ -27,7 +32,6 @@ This extension is still in preview, it may not work, it may stop working at any 
   * That referenced sprites and graphics files exist
   * and a number of other specific validators
 * "Code actions" to generate .yml for missing localisation
-* Tooltips providing effect documentation
 
 ### Completion
 
@@ -63,13 +67,13 @@ This extension is still in preview, it may not work, it may stop working at any 
 2. If on linux, possibly follow [these instructions](https://code.visualstudio.com/docs/setup/linux#_error-enospc)
 3. If on linux, install libcurl3
 4. Either open your mod folder directly
-5. or open the Stellaris folder containing your mods. This can be one of:
+5. or open the Game folder containing your mods. E.g. for Stellaris this can be one of:
     * "C:\Users\name\Paradox Interactive\Stellaris"
     * "C:\Program Files(x86)\Steam\steamapps\common\Stellaris"
 
     or on linux
     * "/home/name/.local/share/Paradox Interactive/Stellars"
     * "/home/name/.steam/steam/steamapps/common/Stellaris"
-6. For EU4/HOI4: Follow the prompts to select your vanilla folder
+6. For EU4/HOI4/CK2: Follow the prompts to select your vanilla folder
 7. Edit files and watch syntax errors show up when you make mistakes
 8. Wait up to a minute for the extension to scan all your mods and find all errors
