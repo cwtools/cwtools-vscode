@@ -1,3 +1,5 @@
+# 0.7.12
+* Add support for rule-based event target links in rule config
 # 0.7.11
 * Minor performance improvements
 # 0.7.10
