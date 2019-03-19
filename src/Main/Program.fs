@@ -8,6 +8,7 @@ open CWTools.Parser
 open CWTools.Parser.EU4Parser
 open CWTools.Parser.CK2Parser
 open CWTools.Parser.STLParser
+open CWTools.Parser.UtilityParser
 open CWTools.Parser.Types
 open CWTools.Common
 open CWTools.Common.STLConstants
@@ -558,7 +559,7 @@ type Server(client: ILanguageClient) =
 
                 let ck2EventTargetLinks =
                     configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                            |> Option.map (fun (fn, ft) -> CK2Parser.loadEventTargetLinks fn ft)
+                            |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks CK2Constants.Scope.Any CK2Constants.parseScope CK2Constants.allScopes fn ft)
                             |> Option.defaultValue (CK2Scopes.scopedEffects |> List.map SimpleLink)
 
                 // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
