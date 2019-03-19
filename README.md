@@ -77,3 +77,4 @@ This extension is still in preview, it may not work, it may stop working at any 
 6. For EU4/HOI4/CK2: Follow the prompts to select your vanilla folder
 7. Edit files and watch syntax errors show up when you make mistakes
 8. Wait up to a minute for the extension to scan all your mods and find all errors
+ 
