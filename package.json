@@ -30,7 +30,8 @@
         "onLanguage:stellaris",
         "onLanguage:hoi4",
         "onLanguage:eu4",
-        "onLanguage:ck2"
+        "onLanguage:ck2",
+        "onLanguage:ir"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -188,6 +189,11 @@
                     "scope": "application",
                     "type": "string",
                     "description": "The location of a vanilla CK2 installation"
+                },
+                "cwtools.cache.ir": {
+                    "scope": "application",
+                    "type": "string",
+                    "description": "The location of a vanilla I:R installation"
                 }
             }
         },
@@ -281,6 +287,29 @@
                     "**/crusader*kings*ii/**/*.sfx",
                     "**/crusader*kings*ii/**/*.asset"
                 ]
+            },
+            {
+                "id": "ir",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/imperator/**/*.txt",
+                    "**/imperator/**/*.gui",
+                    "**/imperator/**/*.gfx",
+                    "**/imperator/**/*.sfx",
+                    "**/imperator/**/*.asset"
+                ]
             }
         ],
         "snippets": [
@@ -315,6 +344,14 @@
                 }
             },
             "[ck2]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                }
+            },
+            "[ir]": {
                 "files.autoGuessEncoding": true,
                 "editor.quickSuggestions": {
                     "other": true,

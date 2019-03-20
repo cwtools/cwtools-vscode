@@ -8,6 +8,7 @@ open CWTools.Parser
 open CWTools.Parser.EU4Parser
 open CWTools.Parser.CK2Parser
 open CWTools.Parser.STLParser
+open CWTools.Parser.IRParser
 open CWTools.Parser.UtilityParser
 open CWTools.Parser.Types
 open CWTools.Common
@@ -49,7 +50,7 @@ type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier * bool
     | WorkComplete of DateTime
 
-type GameLanguage = |STL |HOI4 |EU4 |CK2
+type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR
 type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
@@ -64,6 +65,7 @@ type Server(client: ILanguageClient) =
     let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>> = None
     let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>> = None
     let mutable ck2GameObj : option<IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>> = None
+    let mutable irGameObj : option<IGame<IRComputedData, IRConstants.Scope, IRConstants.Modifier>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -72,10 +74,12 @@ type Server(client: ILanguageClient) =
     let mutable hoi4VanillaPath : string option = None
     let mutable eu4VanillaPath : string option = None
     let mutable ck2VanillaPath : string option = None
+    let mutable irVanillaPath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
     let mutable hoi4CacheVersion : string option = None
     let mutable ck2CacheVersion : string option = None
+    let mutable irCacheVersion : string option = None
     let mutable remoteRepoPath : string option = None
 
     let mutable rulesChannel : string = "stable"
@@ -346,38 +350,46 @@ type Server(client: ILanguageClient) =
                 | HOI4 -> File.Exists (gameCachePath + "hoi4.cwb")
                 | EU4 -> File.Exists (gameCachePath + "eu4.cwb")
                 | CK2 -> File.Exists (gameCachePath + "ck2.cwb")
+                | IR -> File.Exists (gameCachePath + "ir.cwb")
             if doesCacheExist && not forceCreate
             then eprintfn "Cache exists at %s" (gameCachePath + ".cwb")
             else
-                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath) with
-                | STL, Some vp, _, _ ,_ ->
+                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath, irVanillaPath) with
+                | STL, Some vp, _, _ ,_, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeSTL (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | STL, None, _, _, _ ->
+                | STL, None, _, _, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("stellaris"))
-                | EU4, _, Some vp, _, _ ->
+                | EU4, _, Some vp, _, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeEU4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | EU4, _, None, _, _ ->
+                | EU4, _, None, _, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("eu4"))
-                | HOI4, _, _, Some vp, _ ->
+                | HOI4, _, _, Some vp, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeHOI4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | HOI4, _, _, None, _ ->
+                | HOI4, _, _, None, _, _->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
-                | CK2, _, _, _, Some vp ->
+                | CK2, _, _, _, Some vp, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeCK2 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | CK2, _, _, _, None ->
+                | CK2, _, _, _, None, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("ck2"))
+                | IR, _, _, _, _, Some vp ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeIR (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                | IR, _, _, _, _, None ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("ir"))
         | _ -> eprintfn "No cache path"
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
@@ -418,6 +430,7 @@ type Server(client: ILanguageClient) =
                     | EU4, Some cp, _ -> deserialize (cp + "/../eu4.cwb")
                     | HOI4, Some cp, _ -> deserialize (cp + "/../hoi4.cwb")
                     | CK2, Some cp, _ -> deserialize (cp + "/../ck2.cwb")
+                    | IR, Some cp, _ -> deserialize (cp + "/../ir.cwb")
                     | _ -> ([], [])
                 eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
@@ -591,6 +604,51 @@ type Server(client: ILanguageClient) =
                     modFilter = None
                 }
 
+                let irMods =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
+                            |> Option.map (fun (fn, ft) -> IRParser.loadModifiers fn ft)
+                            |> Option.defaultValue []
+
+                let irLocCommands =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                            |> Option.bind (fun (fn, ft) -> if activeGame = IR then Some (fn, ft) else None)
+                            |> Option.map (fun (fn, ft) -> IRParser.loadLocCommands fn ft)
+                            |> Option.defaultValue []
+
+                let irEventTargetLinks =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
+                            |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks IRConstants.Scope.Any IRConstants.parseScope IRConstants.allScopes fn ft)
+                            |> Option.defaultValue (IRScopes.scopedEffects |> List.map SimpleLink)
+
+                // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
+                let irsettings = {
+                    rootDirectory = path
+                    scriptFolders = folders
+                    excludeGlobPatterns = Some dontLoadPatterns
+                    embedded = {
+                        embeddedFiles = cachedFiles
+                        modifiers = irMods
+                        cachedResourceData = cached
+                        triggers = []
+                        effects = []
+                        localisationCommands = irLocCommands
+                        eventTargetLinks = irEventTargetLinks
+                    }
+                    validation = {
+                        validateVanilla = validateVanilla;
+                        langs = languages
+                        experimental = experimental
+                    }
+                    rules = Some {
+                        ruleFiles = configs
+                        validateRules = true
+                        debugRulesOnly = false
+                        debugMode = false
+                    }
+                    scope = FilesScope.All
+                    modFilter = None
+                }
+
                 let game =
                     match activeGame with
                     |STL ->
@@ -608,6 +666,10 @@ type Server(client: ILanguageClient) =
                     |CK2 ->
                         let game = CWTools.Games.CK2.CK2Game(ck2settings)
                         ck2GameObj <- Some (game :> IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>)
+                        game :> IGame
+                    |IR ->
+                        let game = CWTools.Games.IR.IRGame(irsettings)
+                        irGameObj <- Some (game :> IGame<IRComputedData, IRConstants.Scope, IRConstants.Modifier>)
                         game :> IGame
                 gameObj <- Some game
                 let game = game
@@ -643,8 +705,8 @@ type Server(client: ILanguageClient) =
     let completionResolveItem (item :CompletionItem) =
         async {
             eprintfn "Completion resolve"
-            return match stlGameObj, eu4GameObj, hoi4GameObj, ck2GameObj with
-                    |Some game, _, _, _ ->
+            return match stlGameObj, eu4GameObj, hoi4GameObj, ck2GameObj, irGameObj with
+                    |Some game, _, _, _, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -669,7 +731,7 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |_, Some game, _, _ ->
+                    |_, Some game, _, _, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -694,7 +756,7 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |_, _, Some game, _ ->
+                    |_, _, Some game, _, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -718,7 +780,7 @@ type Server(client: ILanguageClient) =
                                 let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                    |_, _, _, Some game ->
+                    |_, _, _, Some game, _ ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -743,7 +805,32 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |None, None, None, None -> item
+                    |_, _, _, _, Some game ->
+                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
+                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
+                        match hovered with
+                        |Some effect ->
+                            match effect with
+                            | :? DocEffect<IRConstants.Scope> as de ->
+                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
+                                let usage = de.Usage
+                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
+                                //{item with documentation = (MarkupContent ("markdown", content))}
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | :? ScriptedEffect<IRConstants.Scope> as se ->
+                                let desc = se.Name.Replace("_", "\\_")
+                                let comments = se.Comments.Replace("_", "\\_")
+                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                            | e ->
+                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
+                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
+                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
+                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
+                        |None -> item
+                    |None, None, None, None, None -> item
         }
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)
@@ -779,6 +866,8 @@ type Server(client: ILanguageClient) =
                         activeGame <- EU4
                     | JsonValue.String "ck2" ->
                         activeGame <- CK2
+                    | JsonValue.String "ir" ->
+                        activeGame <- IR
                     | _ -> ()
                     match opt.Item("rulesCache") with
                     | JsonValue.String x ->
@@ -787,6 +876,7 @@ type Server(client: ILanguageClient) =
                         | HOI4 -> cachePath <- Some (x + "/hoi4")
                         | EU4 -> cachePath <- Some (x + "/eu4")
                         | CK2 -> cachePath <- Some (x + "/ck2")
+                        | IR -> cachePath <- Some (x + "/ir")
                         | _ -> ()
                     | _ -> ()
                     match opt.Item("repoPath") with
@@ -870,6 +960,12 @@ type Server(client: ILanguageClient) =
                           |> (fun l ->  if List.isEmpty l then [CK2Lang.English] else l)
                           |> List.map Lang.CK2
                     | _, CK2 -> [Lang.CK2 CK2Lang.English]
+                    | JsonValue.Array o, IR ->
+                        o |> Array.choose (function |JsonValue.String s -> (match IRLang.TryParse<IRLang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [IRLang.English] else l)
+                          |> List.map Lang.IR
+                    | _, IR -> [Lang.IR IRLang.English]
                 languages <- newLanguages
                 let newVanillaOnly =
                     match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
@@ -924,6 +1020,11 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->
                     ck2VanillaPath <- Some s
+                |_ -> ()
+                match p.settings.Item("cwtools").Item("cache").Item("ir") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    irVanillaPath <- Some s
                 |_ -> ()
                 match p.settings.Item("cwtools").Item("rules_folder") with
                 | JsonValue.String x ->
@@ -1033,7 +1134,7 @@ type Server(client: ILanguageClient) =
             } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
+                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
             } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =

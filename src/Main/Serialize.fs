@@ -23,6 +23,7 @@ open CWTools.Validation.EU4
 open CWTools.Validation.Rules
 open CWTools.Validation.HOI4
 open CWTools.Validation.CK2
+open CWTools.Validation.IR
 open CWTools.Games.Stellaris.STLLookup
 
 
@@ -107,6 +108,22 @@ let serializeCK2 folder cacheDirectory =
     let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
     let pickle = xmlSerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ck2.cwb"), pickle)
+let serializeIR folder cacheDirectory =
+    let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, IRConstants.scriptFolders, "imperator", Encoding.UTF8, [])
+    let files = fileManager.AllFilesByPath()
+    let computefun : unit -> FoldRules<IRConstants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<IRComputedData>(IRCompute.computeIRData computefun, IRCompute.computeIRDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let entities =
+        resources.UpdateFiles(files)
+        |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
+        |> List.map (fun (r, (struct (e, _))) -> r, e)
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.logicalpath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.logicalpath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
+    let pickle = xmlSerializer.Pickle data
+    File.WriteAllBytes(Path.Combine(cacheDirectory, "ir.cwb"), pickle)
 
 let deserialize path =
     // registry.DeclareSerializable<System.LazyHelper>()

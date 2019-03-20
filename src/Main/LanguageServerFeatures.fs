@@ -52,7 +52,7 @@ module LanguageServerFeatures =
         | None -> None
 
 
-    let hoverDocument (eu4GameObj) (hoi4GameObj) (stlGameObj) (ck2GameObj) (client : ILanguageClient) (docs : DocumentStore) (doc : Uri)  (pos: LSP.Types.Position) =
+    let hoverDocument (eu4GameObj) (hoi4GameObj) (stlGameObj) (ck2GameObj) (irGameObj) (client : ILanguageClient) (docs : DocumentStore) (doc : Uri)  (pos: LSP.Types.Position) =
         async {
             let! word = getWordAtPos client pos doc
             let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
@@ -115,9 +115,9 @@ module LanguageServerFeatures =
                 // |None, None, None ->
                 //     {contents = MarkupContent ("markdown", scopesExtra); range = None}
             return
-                match stlGameObj, hoi4GameObj, eu4GameObj, ck2GameObj with
-                |Some game, _, _, _ -> hoverFunction game
-                |_, Some game, _, _ -> hoverFunction game
+                match stlGameObj, hoi4GameObj, eu4GameObj, ck2GameObj, irGameObj with
+                |Some game, _, _, _, _ -> hoverFunction game
+                |_, Some game, _, _, _ -> hoverFunction game
                 // |_, Some game, _ ->
                 //     let lochover = game.References().Localisation |> List.tryFind (fun (k, v) -> k = unescapedword)
                 //     match lochover with
@@ -125,8 +125,9 @@ module LanguageServerFeatures =
                 //         { contents = MarkupContent ("markdown", loc.desc); range = None }
                 //     |None ->
                 //         { contents = MarkupContent ("markdown", ""); range = None }
-                |_, _, Some game, _ -> hoverFunction game
-                |_, _, _, Some game -> hoverFunction game
+                |_, _, Some game, _, _ -> hoverFunction game
+                |_, _, _, Some game, _ -> hoverFunction game
+                |_, _, _, _, Some game -> hoverFunction game
                 |_ -> {contents = MarkupContent ("markdown", ""); range = None}
 
         }
