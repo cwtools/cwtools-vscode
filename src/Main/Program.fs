@@ -315,10 +315,10 @@ type Server(client: ILanguageClient) =
                     then getAllFoldersUnion ([rf] |> Seq.ofList)
                     else if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty
                 let configFiles = configFiles |> Seq.collect (Directory.EnumerateFiles)
-                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
             |_ ->
                 let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
-                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
         let configs =
             match configFiles.Length > 0 with
             |true ->
@@ -620,6 +620,20 @@ type Server(client: ILanguageClient) =
                             |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks IRConstants.Scope.Any IRConstants.parseScope IRConstants.allScopes fn ft)
                             |> Option.defaultValue (IRScopes.scopedEffects |> List.map SimpleLink)
 
+                let irEffects =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "effects.log")
+                            |> Option.map (fun (fn, ft) -> JominiParser.parseEffectStream (new MemoryStream(System.Text.Encoding.GetEncoding(1252).GetBytes(ft))))
+                            |> Option.bind (function | Success(r,_,_) -> Some r | _ -> None)
+                            |> Option.map (JominiParser.processEffects IRConstants.parseScopes)
+                            |> Option.defaultValue []
+
+                let irTriggers =
+                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "triggers.log")
+                            |> Option.map (fun (fn, ft) -> JominiParser.parseTriggerStream (new MemoryStream(System.Text.Encoding.GetEncoding(1252).GetBytes(ft))))
+                            |> Option.bind (function | Success(r,_,_) -> Some r | _ -> None)
+                            |> Option.map (JominiParser.processTriggers IRConstants.parseScopes)
+                            |> Option.defaultValue []
+
                 // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
                 let irsettings = {
                     rootDirectory = path
@@ -629,8 +643,8 @@ type Server(client: ILanguageClient) =
                         embeddedFiles = cachedFiles
                         modifiers = irMods
                         cachedResourceData = cached
-                        triggers = []
-                        effects = []
+                        triggers = irTriggers
+                        effects = irEffects
                         localisationCommands = irLocCommands
                         eventTargetLinks = irEventTargetLinks
                     }

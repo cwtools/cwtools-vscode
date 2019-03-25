@@ -221,7 +221,8 @@ open Fake.Core.TargetOperators
 ==> "PublishToGallery"
 ==> "Release"
 
-"BuildPackage"
+"PublishServer"
+==>"BuildPackage"
 ==> "DryRelease"
 
 Target.runOrDefaultWithArguments "Build"

@@ -3,6 +3,11 @@
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetLatestRuntimePatch>True</TargetLatestRuntimePatch>
+    <TieredCompilation>true</TieredCompilation>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />
@@ -17,5 +22,13 @@
     <Compile Include="Program.fs" />
     <EmbeddedResource Include="config/**" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LSP\LSP.fsproj" />
+    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <LinkerRootDescriptors Include="rootDescriptor.xml" />
+  </ItemGroup>
+
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
