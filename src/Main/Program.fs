@@ -389,7 +389,7 @@ type Server(client: ILanguageClient) =
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
                 | IR, _, _, _, _, None ->
-                    client.CustomNotification ("promptVanillaPath", JsonValue.String("ir"))
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("imperator"))
         | _ -> eprintfn "No cache path"
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
@@ -880,7 +880,7 @@ type Server(client: ILanguageClient) =
                         activeGame <- EU4
                     | JsonValue.String "ck2" ->
                         activeGame <- CK2
-                    | JsonValue.String "ir" ->
+                    | JsonValue.String "imperator" ->
                         activeGame <- IR
                     | _ -> ()
                     match opt.Item("rulesCache") with
@@ -890,7 +890,7 @@ type Server(client: ILanguageClient) =
                         | HOI4 -> cachePath <- Some (x + "/hoi4")
                         | EU4 -> cachePath <- Some (x + "/eu4")
                         | CK2 -> cachePath <- Some (x + "/ck2")
-                        | IR -> cachePath <- Some (x + "/ir")
+                        | IR -> cachePath <- Some (x + "/imperator")
                         | _ -> ()
                     | _ -> ()
                     match opt.Item("repoPath") with
@@ -1035,7 +1035,7 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String s ->
                     ck2VanillaPath <- Some s
                 |_ -> ()
-                match p.settings.Item("cwtools").Item("cache").Item("ir") with
+                match p.settings.Item("cwtools").Item("cache").Item("imperator") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->
                     irVanillaPath <- Some s

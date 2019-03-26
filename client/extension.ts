@@ -67,7 +67,7 @@ export function activate(context: ExtensionContext) {
 			case "eu4": repoPath = eu4Remote; break;
 			case "hoi4": repoPath = hoi4Remote; break;
 			case "ck2": repoPath = ck2Remote; break;
-			case "ir": repoPath = irRemote; break;
+			case "imperator": repoPath = irRemote; break;
 			default: repoPath = stellarisRemote; break;
 		}
 		console.log(language + " " + repoPath);
@@ -85,7 +85,7 @@ export function activate(context: ExtensionContext) {
 		let clientOptions: LanguageClientOptions = {
 			// Register the server for F# documents
 			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
-				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'ir' }],
+				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }],
 			synchronize: {
 				// Synchronize the setting section 'languageServerExample' to the server
 				configurationSection: 'cwtools',
@@ -167,7 +167,7 @@ export function activate(context: ExtensionContext) {
 					case "hoi4": gameDisplay = "Hearts of Iron IV"; break;
 					case "eu4": gameDisplay = "Europa Universalis IV"; break;
 					case "ck2": gameDisplay = "Crusader Kings II"; break;
-					case "ir": gameDisplay = "Imperator"; break;
+					case "imperator": gameDisplay = "Imperator"; break;
 				}
 				window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
 				.then((_) =>
@@ -186,7 +186,7 @@ export function activate(context: ExtensionContext) {
 								case "Hearts of Iron IV": game = "hoi4"; break;
 								case "Europa Universalis IV": game = "eu4"; break;
 								case "Crusader Kings II": game = "ck2"; break;
-								case "Imperator": game = "ir"; break;
+								case "Imperator": game = "imperator"; break;
 							}
 							console.log(path.join(directory.fsPath, "common"));
 							if (game === "" || !(fs.existsSync(path.join(directory.fsPath, "common")))) {
@@ -265,7 +265,7 @@ export function activate(context: ExtensionContext) {
 		case "eu4": languageId = "eu4"; break;
 		case "hoi4": languageId = "hoi4"; break;
 		case "ck2": languageId = "ck2"; break;
-		case "ir": languageId = "ir"; break;
+		case "imperator": languageId = "imperator"; break;
 		default:
 	}
 	let findExeInFiles = function(gameExeName : string) {
@@ -306,9 +306,12 @@ export function activate(context: ExtensionContext) {
 				isVanillaFolder = true;
 				languageId = "ck2";
 			}
-			if (results[4].length > 0 && (languageId === null || languageId === "ir")) {
+			if (results[4].length > 0 && (languageId === null || languageId === "imperator")) {
 				isVanillaFolder = true;
-				languageId = "ir";
+				languageId = "imperator";
+			}
+			if (path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"){
+				isVanillaFolder = true;
 			}
 			init(languageId, isVanillaFolder)
 		}
