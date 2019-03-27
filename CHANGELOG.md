@@ -1,3 +1,5 @@
+# 0.7.14
+* Update Stellaris to 2.2.6
 # 0.7.13
 * Fix links
 # 0.7.12
