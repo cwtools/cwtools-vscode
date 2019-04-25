@@ -9,6 +9,7 @@ This extension is still in preview, it may not work, it may stop working at any 
 
 ## Supported games
 
+* Imperator: Rome
 * Stellaris
 * Europa Universalis IV
 * Crusader Kings II - coming soon
