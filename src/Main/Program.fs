@@ -24,7 +24,7 @@ open FSharp.Data
 open LSP
 open CWTools.Validation.ValidationCore
 open System
-open CWTools.Validation.Rules
+open CWTools.Rules
 open System.Xml.Schema
 open CWTools.Games.Files
 open LSP.Json.Ser
@@ -40,6 +40,7 @@ open Main.Git
 open FSharp.Data
 open System.Diagnostics
 open Main.Lang
+open Main.Lang.GameLoader
 
 let private TODO() = raise (Exception "TODO")
 
@@ -50,7 +51,6 @@ type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier * bool
     | WorkComplete of DateTime
 
-type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR
 type Server(client: ILanguageClient) =
     let docs = DocumentStore()
     let projects = ProjectManager()
@@ -275,58 +275,8 @@ type Server(client: ILanguageClient) =
         )
 
 
-    let rec replaceFirst predicate value = function
-        | [] -> []
-        | h :: t when predicate h -> value :: t
-        | h :: t -> h :: replaceFirst predicate value t
 
-    let fixEmbeddedFileName (s : string) =
-        let count = (Seq.filter ((=) '.') >> Seq.length) s
-        let mutable out = "//" + s
-        [1 .. count - 1] |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '\\' (out |> List.ofSeq)) |> Array.ofList |> String )
-        out
 
-    let rec getAllFolders dirs =
-        if Seq.isEmpty dirs then Seq.empty else
-            seq { yield! dirs |> Seq.collect Directory.EnumerateDirectories
-                  yield! dirs |> Seq.collect Directory.EnumerateDirectories |> getAllFolders }
-    let getAllFoldersUnion dirs =
-        seq {
-            yield! dirs
-            yield! getAllFolders dirs
-        }
-
-    let getConfigFiles() =
-        let embeddedConfigFiles =
-            match cachePath, useEmbeddedRules, useManualRules with
-            | Some path, false, false ->
-                let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
-                let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
-                configFiles |> List.map (fun f -> f, File.ReadAllText(f))
-            | _ ->
-                let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
-                embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
-        let configpath = "Main.files.config.cwt"
-        let configFiles =
-            match useManualRules, manualRulesFolder with
-            |true, Some rf ->
-                let configFiles =
-                    if Directory.Exists rf
-                    then getAllFoldersUnion ([rf] |> Seq.ofList)
-                    else if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty
-                let configFiles = configFiles |> Seq.collect (Directory.EnumerateFiles)
-                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
-            |_ ->
-                let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
-                configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
-        let configs =
-            match configFiles.Length > 0 with
-            |true ->
-                configFiles |> List.map (fun f -> f, File.ReadAllText(f))
-                //["./config.cwt", File.ReadAllText("./config.cwt")]
-            |false ->
-                embeddedConfigFiles
-        configs
 
     let setupRulesCaches()  =
         match cachePath, remoteRepoPath, useEmbeddedRules, useManualRules with
@@ -343,10 +293,9 @@ type Server(client: ILanguageClient) =
         match (cachePath, isVanillaFolder) with
         | Some cp, false ->
             let gameCachePath = cp+"/../"
-            let stlCacheLocation cp = if File.Exists (gameCachePath + "stl.cwb") then (gameCachePath + "stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
             let doesCacheExist =
                 match activeGame with
-                | STL -> File.Exists (stlCacheLocation gameCachePath)
+                | STL -> File.Exists (gameCachePath + "stl.cwb")
                 | HOI4 -> File.Exists (gameCachePath + "hoi4.cwb")
                 | EU4 -> File.Exists (gameCachePath + "eu4.cwb")
                 | CK2 -> File.Exists (gameCachePath + "ck2.cwb")
@@ -394,10 +343,6 @@ type Server(client: ILanguageClient) =
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
 
-    let getFolderList (filename : string, filetext : string) =
-        if Path.GetFileName filename = "folders.cwt"
-        then Some (filetext.Split(([|"\r\n"; "\r"; "\n"|]), StringSplitOptions.None) |> List.ofArray)
-        else None
 
 
     let processWorkspace (uri : option<Uri>) =
@@ -413,280 +358,47 @@ type Server(client: ILanguageClient) =
                 timer.Start()
 
                 eprintfn "%s" path
-                let docspath = "Main.files.trigger_docs_2.2.4.txt"
-                let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
-                let embeddedFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("common") || f.Contains("localisation") || f.Contains("interface") || f.Contains("events") || f.Contains("gfx") || f.Contains("sound") || f.Contains("music") || f.Contains("fonts") || f.Contains("flags") || f.Contains("prescripted_countries"))
-                let embeddedFiles = embeddedFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
-                let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
                 eprintfn "Parse docs time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
-                let stlCacheLocation cp = if File.Exists (cp + "/../stl.cwb") then (cp + "/../stl.cwb") else (assemblyLocation + "/../../../embedded/pickled.xml")
-                let cached, cachedFiles =
-                    match (activeGame, cachePath, isVanillaFolder) with
-                    | _, _, true ->
-                        eprintfn "Vanilla folder, so not loading cache"
-                        ([], [])
-                    | STL, Some cp, _ -> deserialize (stlCacheLocation cp)
-                    | EU4, Some cp, _ -> deserialize (cp + "/../eu4.cwb")
-                    | HOI4, Some cp, _ -> deserialize (cp + "/../hoi4.cwb")
-                    | CK2, Some cp, _ -> deserialize (cp + "/../ck2.cwb")
-                    | IR, Some cp, _ -> deserialize (cp + "/../ir.cwb")
-                    | _ -> ([], [])
-                eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
-                let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p |Failure(e, _, _) -> eprintfn "%A" e; [], []))
-                let logspath = "Main.files.setup.log"
-
-
-                let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
-                let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
-                eprintfn "Parse setup.log time: %i" timer.ElapsedMilliseconds; timer.Restart()
-
-                let configs = getConfigFiles()
-                let folders = configs |> List.tryPick getFolderList
-                //let configs = [
-                let stlLocCommands =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                            |> Option.bind (fun (fn, ft) -> if activeGame = STL then Some (fn, ft) else None)
-                            |> Option.map (fun (fn, ft) -> STLParser.loadLocCommands fn ft)
-                            |> Option.defaultValue []
-
-
-                let stlsettings = {
-                    CWTools.Games.Stellaris.StellarisSettings.rootDirectory = path
-                    scope = FilesScope.All
-                    modFilter = None
-                    scriptFolders = folders
-                    excludeGlobPatterns = Some dontLoadPatterns
-                    validation = {
+                let serverSettings =
+                    {
+                        cachePath = cachePath
+                        useEmbeddedRules = useEmbeddedRules
+                        useManualRules = useManualRules
+                        manualRulesFolder = manualRulesFolder
+                        isVanillaFolder = isVanillaFolder
+                        path = path
+                        dontLoadPatterns = dontLoadPatterns
                         validateVanilla = validateVanilla
-                        experimental = experimental
-                        langs = languages
-                    }
-                    rules = Some {
-                        ruleFiles = configs
-                        validateRules = true
-                        debugRulesOnly = false
-                        debugMode = false
-                    }
-                    embedded = {
-                        triggers = triggers
-                        effects = effects
-                        modifiers = modifiers
-                        embeddedFiles = cachedFiles
-                        cachedResourceData = cached
-                        localisationCommands = stlLocCommands
-                        eventTargetLinks = []
-                    }
-                }
-                let hoi4modpath = "Main.files.hoi4.modifiers"
-                let hoi4Mods =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                            |> Option.map (fun (fn, ft) -> HOI4Parser.loadModifiers fn ft)
-                            |> Option.defaultValue []
-                let hoi4LocCommands =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                            |> Option.bind (fun (fn, ft) -> if activeGame = HOI4 then Some (fn, ft) else None)
-                            |> Option.map (fun (fn, ft) -> HOI4Parser.loadLocCommands fn ft)
-                            |> Option.defaultValue []
-                // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
-
-                let hoi4settings = {
-                    rootDirectory = path
-                    scriptFolders = folders
-                    excludeGlobPatterns = Some dontLoadPatterns
-                    embedded = {
-                        embeddedFiles = cachedFiles
-                        modifiers = hoi4Mods
-                        cachedResourceData = cached
-                        triggers = []
-                        effects = []
-                        localisationCommands = hoi4LocCommands
-                        eventTargetLinks = []
-                    }
-                    validation = {
-                        validateVanilla = validateVanilla;
-                        langs = languages
+                        languages = languages
                         experimental = experimental
                     }
-                    rules = Some {
-                        ruleFiles = configs
-                        validateRules = true
-                        debugRulesOnly = false
-                        debugMode = false
-                    }
-                    scope = FilesScope.All
-                    modFilter = None
-                }
-                let eu4modpath = "Main.files.eu4.modifiers"
-                let eu4Mods =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                            |> Option.map (fun (fn, ft) -> EU4Parser.loadModifiers fn ft)
-                            |> Option.defaultValue []
-
-                let eu4LocCommands =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                            |> Option.bind (fun (fn, ft) -> if activeGame = EU4 then Some (fn, ft) else None)
-                            |> Option.map (fun (fn, ft) -> EU4Parser.loadLocCommands fn ft)
-                            |> Option.defaultValue []
-
-                // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
-                let eu4settings = {
-                    rootDirectory = path
-                    scriptFolders = folders
-                    excludeGlobPatterns = Some dontLoadPatterns
-                    embedded = {
-                        embeddedFiles = cachedFiles
-                        modifiers = eu4Mods
-                        cachedResourceData = cached
-                        triggers = []
-                        effects = []
-                        localisationCommands = eu4LocCommands
-                        eventTargetLinks = []
-                    }
-                    validation = {
-                        validateVanilla = validateVanilla;
-                        langs = languages
-                        experimental = experimental
-                    }
-                    rules = Some {
-                        ruleFiles = configs
-                        validateRules = true
-                        debugRulesOnly = false
-                        debugMode = false
-                    }
-                    scope = FilesScope.All
-                    modFilter = None
-                }
-                let ck2Mods =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                            |> Option.map (fun (fn, ft) -> CK2Parser.loadModifiers fn ft)
-                            |> Option.defaultValue []
-
-                let ck2LocCommands =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                            |> Option.bind (fun (fn, ft) -> if activeGame = CK2 then Some (fn, ft) else None)
-                            |> Option.map (fun (fn, ft) -> CK2Parser.loadLocCommands fn ft)
-                            |> Option.defaultValue []
-
-                let ck2EventTargetLinks =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                            |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks CK2Constants.Scope.Any CK2Constants.parseScope CK2Constants.allScopes fn ft)
-                            |> Option.defaultValue (CK2Scopes.scopedEffects |> List.map SimpleLink)
-
-                // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
-                let ck2settings = {
-                    rootDirectory = path
-                    scriptFolders = folders
-                    excludeGlobPatterns = Some dontLoadPatterns
-                    embedded = {
-                        embeddedFiles = cachedFiles
-                        modifiers = ck2Mods
-                        cachedResourceData = cached
-                        triggers = []
-                        effects = []
-                        localisationCommands = ck2LocCommands
-                        eventTargetLinks = ck2EventTargetLinks
-                    }
-                    validation = {
-                        validateVanilla = validateVanilla;
-                        langs = languages
-                        experimental = experimental
-                    }
-                    rules = Some {
-                        ruleFiles = configs
-                        validateRules = true
-                        debugRulesOnly = false
-                        debugMode = false
-                    }
-                    scope = FilesScope.All
-                    modFilter = None
-                }
-
-                let irMods =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                            |> Option.map (fun (fn, ft) -> IRParser.loadModifiers fn ft)
-                            |> Option.defaultValue []
-
-                let irLocCommands =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                            |> Option.bind (fun (fn, ft) -> if activeGame = IR then Some (fn, ft) else None)
-                            |> Option.map (fun (fn, ft) -> IRParser.loadLocCommands fn ft)
-                            |> Option.defaultValue []
-
-                let irEventTargetLinks =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                            |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks IRConstants.Scope.Any IRConstants.parseScope IRConstants.allScopes fn ft)
-                            |> Option.defaultValue (IRScopes.scopedEffects |> List.map SimpleLink)
-
-                let irEffects =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "effects.log")
-                            |> Option.map (fun (fn, ft) -> JominiParser.parseEffectStream (new MemoryStream(System.Text.Encoding.GetEncoding(1252).GetBytes(ft))))
-                            |> Option.bind (function | Success(r,_,_) -> Some r | _ -> None)
-                            |> Option.map (JominiParser.processEffects IRConstants.parseScopes)
-                            |> Option.defaultValue []
-
-                let irTriggers =
-                    configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "triggers.log")
-                            |> Option.map (fun (fn, ft) -> JominiParser.parseTriggerStream (new MemoryStream(System.Text.Encoding.GetEncoding(1252).GetBytes(ft))))
-                            |> Option.bind (function | Success(r,_,_) -> Some r | _ -> None)
-                            |> Option.map (JominiParser.processTriggers IRConstants.parseScopes)
-                            |> Option.defaultValue []
-
-                // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
-                let irsettings = {
-                    rootDirectory = path
-                    scriptFolders = folders
-                    excludeGlobPatterns = Some dontLoadPatterns
-                    embedded = {
-                        embeddedFiles = cachedFiles
-                        modifiers = irMods
-                        cachedResourceData = cached
-                        triggers = irTriggers
-                        effects = irEffects
-                        localisationCommands = irLocCommands
-                        eventTargetLinks = irEventTargetLinks
-                    }
-                    validation = {
-                        validateVanilla = validateVanilla;
-                        langs = languages
-                        experimental = experimental
-                    }
-                    rules = Some {
-                        ruleFiles = configs
-                        validateRules = true
-                        debugRulesOnly = false
-                        debugMode = false
-                    }
-                    scope = FilesScope.All
-                    modFilter = None
-                }
 
                 let game =
                     match activeGame with
                     |STL ->
-                        let game = STLGame(stlsettings)
+                        let game = loadSTL serverSettings
                         stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>)
                         game :> IGame
                     |HOI4 ->
-                        let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
+                        let game = loadHOI4 serverSettings
                         hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>)
                         game :> IGame
                     |EU4 ->
-                        let game = CWTools.Games.EU4.EU4Game(eu4settings)
+                        let game = loadEU4 serverSettings
                         eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>)
                         game :> IGame
                     |CK2 ->
-                        let game = CWTools.Games.CK2.CK2Game(ck2settings)
+                        let game = loadCK2 serverSettings
                         ck2GameObj <- Some (game :> IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>)
                         game :> IGame
                     |IR ->
-                        let game = CWTools.Games.IR.IRGame(irsettings)
+                        let game = loadIR serverSettings
                         irGameObj <- Some (game :> IGame<IRComputedData, IRConstants.Scope, IRConstants.Modifier>)
                         game :> IGame
                 gameObj <- Some game
-                let game = game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
                 let parserErrors = game.ParserErrors() |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0)
                 parserErrors
@@ -940,7 +652,7 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"]} } }
+                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -1128,12 +840,12 @@ type Server(client: ILanguageClient) =
                             let items =
                                 comp |> List.map (
                                     function
-                                    |Simple (e, Some score) -> {defaultCompletionItem with label = e; sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |Simple (e, None) -> {defaultCompletionItem with label = e}
-                                    |Detailed (l, d, Some score) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |Detailed (l, d, None) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
-                                    |Snippet (l, e, d, Some score) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |Snippet (l, e, d, None) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
+                                    |CompletionResponse.Simple (e, Some score) -> {defaultCompletionItem with label = e; sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Simple (e, None) -> {defaultCompletionItem with label = e}
+                                    |CompletionResponse.Detailed (l, d, Some score) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Detailed (l, d, None) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
+                                    |CompletionResponse.Snippet (l, e, d, Some score) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Snippet (l, e, d, None) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                             let deduped = items |> List.distinctBy(fun i -> (i.label, i.documentation)) |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
                             Some {isIncomplete = false; items = deduped}
@@ -1283,13 +995,21 @@ type Server(client: ILanguageClient) =
                             let text = String.Join(Environment.NewLine,keys)
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
                             //LanguageServer.sendNotification send notif
+                        | {command = "debugrules"; arguments = _} ->
+                            match irGameObj with
+                            | Some ir ->
+                                let text = (ir.References().ConfigRules) |> List.map (fun r -> r.ToString()) |> List.toArray |> (fun l -> String.Join("\n", l))
+                                // let text = sprintf "%O" (ir.References().ConfigRules)
+                                client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
+                            | None -> ()
+
                         | {command = "outputerrors"; arguments = _} ->
                             let errors = game.LocalisationErrors(true, true) @ game.ValidationErrors()
                             let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
                             let text = String.Join(Environment.NewLine, (texts))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
                         | {command = "reloadrulesconfig"; arguments = _} ->
-                            let configs = getConfigFiles()
+                            let configs = getConfigFiles cachePath useEmbeddedRules useManualRules manualRulesFolder
                             game.ReplaceConfigRules configs
                         | {command = "cacheVanilla"; arguments = _} ->
                             checkOrSetGameCache(true)
