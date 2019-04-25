@@ -180,22 +180,30 @@ export function activate(context: ExtensionContext) {
 						(uri) => {
 							let directory = uri[0];
 							let gameFolder = path.basename(directory.fsPath)
+							let dir = directory.fsPath
 							var game = ""
 							switch (gameFolder) {
 								case "Stellaris": game = "stellaris"; break;
 								case "Hearts of Iron IV": game = "hoi4"; break;
 								case "Europa Universalis IV": game = "eu4"; break;
 								case "Crusader Kings II": game = "ck2"; break;
-								case "Imperator": game = "imperator"; break;
+								case "ImperatorRome":
+									game = "imperator";
+									dir = path.join(dir, "game");
+									break;
+								case "Imperator":
+									game = "imperator";
+									dir = path.join(dir, "game");
+									 break;
 							}
-							console.log(path.join(directory.fsPath, "common"));
-							if (game === "" || !(fs.existsSync(path.join(directory.fsPath, "common")))) {
+							console.log(path.join(dir, "common"));
+							if (game === "" || !(fs.existsSync(path.join(dir, "common")))) {
 								window.showErrorMessage("The selected folder does not appear to be a supported game folder")
 							}
 							else {
-								log.appendLine("path" + gameFolder)
+								log.appendLine("path" + dir)
 								log.appendLine("log" + game)
-								workspace.getConfiguration("cwtools").update("cache." + game, directory.fsPath, true)
+								workspace.getConfiguration("cwtools").update("cache." + game, dir, true)
 								reloadExtension("Reloading to generate vanilla cache", undefined, true);
 							}
 						})
@@ -282,11 +290,25 @@ export function activate(context: ExtensionContext) {
 			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
 		}
 	}
+	let findExeInFilesImperator = function(gameExeName : string) {
+		if (os.platform() == "win32") {
+				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0],"binaries/" + gameExeName + "*.exe"));
+			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*.exe"));
+			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toLowerCase() + "*.exe"));
+				return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+		}
+		else {
+			let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" +  gameExeName + "*"))
+			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*"))
+			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toLowerCase() + "*"));
+			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+		}
+	}
 	var eu4 = findExeInFiles("eu4")
 	var hoi4 = findExeInFiles("hoi4")
 	var stellaris = findExeInFiles("stellaris")
 	var ck2 = findExeInFiles("CK2")
-	var ir = findExeInFiles("imperator")
+	var ir = findExeInFilesImperator("imperator")
 	Promise.all([eu4, hoi4, stellaris, ck2, ir]).then(results =>
 		{
 			var isVanillaFolder = false;

@@ -1,3 +1,5 @@
+# 0.8.0
+* Surprise! Day 1 Imperator support!
 # 0.7.14
 * Update Stellaris to 2.2.6
 # 0.7.13
