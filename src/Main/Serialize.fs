@@ -9,9 +9,10 @@ open FParsec
 open System.Diagnostics.Tracing
 open System.Reflection
 open CWTools.Localisation
-open CWTools.Localisation.STLLocalisation
+open CWTools.Localisation.STL
 open CWTools.Games.Files
 open CWTools.Common.STLConstants
+open CWTools.Games.Compute
 open CWTools.Games
 open CWTools.Validation.Stellaris
 open MBrace.FsPickler
@@ -20,9 +21,11 @@ open CWTools.Utilities.Position
 open CWTools.Utilities
 open CWTools.Games.EU4
 open CWTools.Validation.EU4
-open CWTools.Validation.Rules
+open CWTools.Validation
 open CWTools.Validation.HOI4
 open CWTools.Validation.CK2
+open CWTools.Validation.IR
+open CWTools.Rules
 open CWTools.Games.Stellaris.STLLookup
 
 
@@ -45,8 +48,8 @@ let serialize gameDirName scriptFolders cacheDirectory = ()
 let serializeSTL folder cacheDirectory =
     let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, STLConstants.scriptFolders, "stellaris", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> FoldRules<STLConstants.Scope> option = (fun () -> (None))
-    let resources = ResourceManager<STLComputedData>(STLCompute.computeSTLData computefun, STLCompute.computeSTLDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let computefun : unit -> InfoService<STLConstants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<STLComputedData>(Compute.STL.computeSTLData computefun, Compute.STL.computeSTLDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
          |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -62,8 +65,8 @@ let serializeSTL folder cacheDirectory =
 let serializeEU4 folder cacheDirectory =
     let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> FoldRules<EU4Constants.Scope> option = (fun () -> (None))
-    let resources = ResourceManager<EU4ComputedData>(EU4Compute.computeEU4Data computefun, EU4Compute.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api
+    let computefun : unit -> InfoService<EU4Constants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<EU4ComputedData>(Compute.EU4.computeEU4Data computefun, Compute.EU4.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -78,8 +81,8 @@ let serializeEU4 folder cacheDirectory =
 let serializeHOI4 folder cacheDirectory =
     let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> FoldRules<HOI4Constants.Scope> option = (fun () -> (None))
-    let resources = ResourceManager<HOI4ComputedData>(HOI4Compute.computeHOI4Data computefun, HOI4Compute.computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let computefun : unit -> InfoService<HOI4Constants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<HOI4ComputedData>(computeHOI4Data computefun, computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -94,8 +97,8 @@ let serializeHOI4 folder cacheDirectory =
 let serializeCK2 folder cacheDirectory =
     let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, CK2Constants.scriptFolders, "crusader kings ii", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> FoldRules<CK2Constants.Scope> option = (fun () -> (None))
-    let resources = ResourceManager<CK2ComputedData>(CK2Compute.computeCK2Data computefun, CK2Compute.computeCK2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let computefun : unit -> InfoService<CK2Constants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<CK2ComputedData>(computeCK2Data computefun, computeCK2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -107,6 +110,22 @@ let serializeCK2 folder cacheDirectory =
     let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
     let pickle = xmlSerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ck2.cwb"), pickle)
+let serializeIR folder cacheDirectory =
+    let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, IRConstants.scriptFolders, "imperator", Encoding.UTF8, [])
+    let files = fileManager.AllFilesByPath()
+    let computefun : unit -> InfoService<IRConstants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<IRComputedData>(computeIRData computefun, computeIRDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let entities =
+        resources.UpdateFiles(files)
+        |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
+        |> List.map (fun (r, (struct (e, _))) -> r, e)
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.logicalpath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.logicalpath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
+    let pickle = xmlSerializer.Pickle data
+    File.WriteAllBytes(Path.Combine(cacheDirectory, "ir.cwb"), pickle)
 
 let deserialize path =
     // registry.DeclareSerializable<System.LazyHelper>()

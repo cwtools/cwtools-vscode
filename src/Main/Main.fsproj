@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
@@ -11,14 +10,17 @@
     <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LSP\LSP.fsproj" />
+    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="ProjectManager.fs" />
     <Compile Include="Serialize.fs" />
     <Compile Include="Git.fs" />
     <Compile Include="LanguageServerFeatures.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="files/**" />
+    <Compile Include="GameLoader.fs" />
+    <Compile Include="Program.fs" />
     <EmbeddedResource Include="config/**" />
   </ItemGroup>
   <ItemGroup>
@@ -28,5 +30,6 @@
   <ItemGroup>
     <LinkerRootDescriptors Include="rootDescriptor.xml" />
   </ItemGroup>
+
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
