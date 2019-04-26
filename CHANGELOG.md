@@ -1,3 +1,5 @@
+# 0.8.1
+* Fix EU4 scopes
 # 0.8.0
 * Surprise! Day 1 Imperator support!
 # 0.7.14

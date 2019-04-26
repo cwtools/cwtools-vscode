@@ -162,6 +162,10 @@ let loadEU4 (serverSettings : ServerSettings) =
         configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
                 |> Option.map (fun (fn, ft) -> EU4Parser.loadLocCommands fn ft)
                 |> Option.defaultValue []
+    let eu4EventTargetLinks =
+        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
+                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks EU4Constants.Scope.Any EU4Constants.parseScope EU4Constants.allScopes fn ft)
+                |> Option.defaultValue (CWTools.Process.Scopes.EU4.scopedEffects |> List.map SimpleLink)
 
     // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
     let eu4settings = {
@@ -175,7 +179,7 @@ let loadEU4 (serverSettings : ServerSettings) =
             triggers = []
             effects = []
             localisationCommands = eu4LocCommands
-            eventTargetLinks = []
+            eventTargetLinks = eu4EventTargetLinks
         }
         validation = {
             validateVanilla = serverSettings.validateVanilla;
