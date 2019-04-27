@@ -1,3 +1,6 @@
+# 0.8.3
+* Fix localisation caching for Imperator
+* Add configu rule support for "filepath[prefix]" and "ir_family_name_field"
 # 0.8.1
 * Fix EU4 scopes
 # 0.8.0
