@@ -20,6 +20,7 @@ const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
 const hoi4Remote = `https://github.com/tboby/cwtools-hoi4-config`;
 const ck2Remote = `https://github.com/tboby/cwtools-ck2-config`;
 const irRemote = `https://github.com/tboby/cwtools-ir-config`;
+const vic2Remote = `https://github.com/simsulla/cwtools-vic2-config`;
 
 let defaultClient: LanguageClient;
 
@@ -68,6 +69,7 @@ export function activate(context: ExtensionContext) {
 			case "hoi4": repoPath = hoi4Remote; break;
 			case "ck2": repoPath = ck2Remote; break;
 			case "imperator": repoPath = irRemote; break;
+			case "vic2": repoPath = vic2Remote; break;
 			default: repoPath = stellarisRemote; break;
 		}
 		console.log(language + " " + repoPath);
@@ -85,7 +87,8 @@ export function activate(context: ExtensionContext) {
 		let clientOptions: LanguageClientOptions = {
 			// Register the server for F# documents
 			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
-				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }],
+				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }
+				, { scheme: 'file', language: 'vic2' }],
 			synchronize: {
 				// Synchronize the setting section 'languageServerExample' to the server
 				configurationSection: 'cwtools',
@@ -168,6 +171,7 @@ export function activate(context: ExtensionContext) {
 					case "eu4": gameDisplay = "Europa Universalis IV"; break;
 					case "ck2": gameDisplay = "Crusader Kings II"; break;
 					case "imperator": gameDisplay = "Imperator"; break;
+					case "vic2": gameDisplay = "Victoria II"; break;
 				}
 				window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
 				.then((_) =>
@@ -187,6 +191,7 @@ export function activate(context: ExtensionContext) {
 								case "Hearts of Iron IV": game = "hoi4"; break;
 								case "Europa Universalis IV": game = "eu4"; break;
 								case "Crusader Kings II": game = "ck2"; break;
+								case "Victoria II": game = "vic2"; break;
 								case "ImperatorRome":
 									game = "imperator";
 									dir = path.join(dir, "game");
@@ -274,6 +279,7 @@ export function activate(context: ExtensionContext) {
 		case "hoi4": languageId = "hoi4"; break;
 		case "ck2": languageId = "ck2"; break;
 		case "imperator": languageId = "imperator"; break;
+		case "vic2": languageId = "vic2"; break;
 		default:
 	}
 	let findExeInFiles = function(gameExeName : string) {
@@ -308,8 +314,9 @@ export function activate(context: ExtensionContext) {
 	var hoi4 = findExeInFiles("hoi4")
 	var stellaris = findExeInFiles("stellaris")
 	var ck2 = findExeInFiles("CK2")
+	var vic2 = findExeInFiles("VIC2")
 	var ir = findExeInFilesImperator("imperator")
-	Promise.all([eu4, hoi4, stellaris, ck2, ir]).then(results =>
+	Promise.all([eu4, hoi4, stellaris, ck2, ir, vic2]).then(results =>
 		{
 			var isVanillaFolder = false;
 			if (results[0].length > 0 && (languageId === null || languageId === "eu4")) {
@@ -331,6 +338,10 @@ export function activate(context: ExtensionContext) {
 			if (results[4].length > 0 && (languageId === null || languageId === "imperator")) {
 				isVanillaFolder = true;
 				languageId = "imperator";
+			}
+			if (results[5].length > 0 && (languageId === null || languageId === "vic2")) {
+				isVanillaFolder = true;
+				languageId = "vic2";
 			}
 			if (path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"){
 				isVanillaFolder = true;

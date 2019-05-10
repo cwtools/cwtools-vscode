@@ -25,6 +25,7 @@ open CWTools.Validation
 open CWTools.Validation.HOI4
 open CWTools.Validation.CK2
 open CWTools.Validation.IR
+open CWTools.Validation.VIC2
 open CWTools.Rules
 open CWTools.Games.Stellaris.STLLookup
 
@@ -126,6 +127,22 @@ let serializeIR folder cacheDirectory =
     let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
     let pickle = xmlSerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ir.cwb"), pickle)
+let serializeVIC2 folder cacheDirectory =
+    let fileManager = FileManager(folder, Some "", FilesScope.Vanilla, VIC2Constants.scriptFolders, "victoria 2", Encoding.UTF8, [])
+    let files = fileManager.AllFilesByPath()
+    let computefun : unit -> InfoService<VIC2Constants.Scope> option = (fun () -> (None))
+    let resources = ResourceManager<VIC2ComputedData>(computeVIC2Data computefun, computeVIC2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let entities =
+        resources.UpdateFiles(files)
+        |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
+        |> List.map (fun (r, (struct (e, _))) -> r, e)
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.logicalpath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.logicalpath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
+    let pickle = xmlSerializer.Pickle data
+    File.WriteAllBytes(Path.Combine(cacheDirectory, "vic2.cwb"), pickle)
 
 let deserialize path =
     // registry.DeclareSerializable<System.LazyHelper>()
