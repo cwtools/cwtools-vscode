@@ -192,6 +192,7 @@ export function activate(context: ExtensionContext) {
 								case "Europa Universalis IV": game = "eu4"; break;
 								case "Crusader Kings II": game = "ck2"; break;
 								case "Victoria II": game = "vic2"; break;
+								case "Victoria 2": game = "vic2"; break;
 								case "ImperatorRome":
 									game = "imperator";
 									dir = path.join(dir, "game");
