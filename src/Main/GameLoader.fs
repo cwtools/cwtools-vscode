@@ -130,7 +130,7 @@ type ServerSettings =
         experimental : bool
     }
 
-type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR
+type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2
 
 let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
     let timer = new System.Diagnostics.Stopwatch()
@@ -145,6 +145,7 @@ let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
         | HOI4, Some cp, _ -> deserialize (cp + "/../hoi4.cwb")
         | CK2, Some cp, _ -> deserialize (cp + "/../ck2.cwb")
         | IR, Some cp, _ -> deserialize (cp + "/../ir.cwb")
+        | VIC2, Some cp, _ -> deserialize (cp + "/../vic2.cwb")
         | _ -> ([], [])
     eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
     cached, cachedFiles
@@ -363,6 +364,57 @@ let loadIR serverSettings =
         initialLookup = IRLookup()
     }
     let game = CWTools.Games.IR.IRGame(irsettings)
+    game
+
+let loadVIC2 serverSettings =
+    let cached, cachedFiles = getCachedFiles VIC2 serverSettings.cachePath serverSettings.isVanillaFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let folders = configs |> List.tryPick getFolderList
+
+    let vic2Mods =
+        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
+                |> Option.map (fun (fn, ft) -> VIC2Parser.loadModifiers fn ft)
+                |> Option.defaultValue []
+
+    let vic2LocCommands =
+        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
+                |> Option.map (fun (fn, ft) -> VIC2Parser.loadLocCommands fn ft)
+                |> Option.defaultValue []
+
+    let vic2EventTargetLinks =
+        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
+                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks VIC2Constants.Scope.Any VIC2Constants.parseScope VIC2Constants.allScopes fn ft)
+                |> Option.defaultValue (CWTools.Process.Scopes.VIC2.scopedEffects |> List.map SimpleLink)
+
+    let vic2settings = {
+        rootDirectory = serverSettings.path
+        scriptFolders = folders
+        excludeGlobPatterns = Some serverSettings.dontLoadPatterns
+        embedded = {
+            embeddedFiles = cachedFiles
+            modifiers = vic2Mods
+            cachedResourceData = cached
+            triggers = []
+            effects = []
+            localisationCommands = vic2LocCommands
+            eventTargetLinks = vic2EventTargetLinks
+        }
+        validation = {
+            validateVanilla = serverSettings.validateVanilla;
+            langs = serverSettings.languages
+            experimental = serverSettings.experimental
+        }
+        rules = Some {
+            ruleFiles = configs
+            validateRules = true
+            debugRulesOnly = false
+            debugMode = false
+        }
+        scope = FilesScope.All
+        modFilter = None
+        initialLookup = VIC2Lookup()
+    }
+    let game = CWTools.Games.VIC2.VIC2Game(vic2settings)
     game
 
 let loadSTL serverSettings =

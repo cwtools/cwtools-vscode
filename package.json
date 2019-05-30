@@ -31,7 +31,8 @@
         "onLanguage:hoi4",
         "onLanguage:eu4",
         "onLanguage:ck2",
-        "onLanguage:imperator"
+        "onLanguage:imperator",
+        "onLanguage:vic2"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -199,6 +200,11 @@
                     "scope": "application",
                     "type": "string",
                     "description": "The location of a vanilla I:R installation"
+                },
+                "cwtools.cache.vic2": {
+                    "scope": "application",
+                    "type": "string",
+                    "description": "The location of a vanilla VIC2 installation"
                 }
             }
         },
@@ -315,7 +321,31 @@
                     "**/imperator*/**/*.sfx",
                     "**/imperator*/**/*.asset"
                 ]
-            }
+            },
+            {
+                "id": "vic2",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "sfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/victoria*2/**/*.txt",
+                    "**/victoria*2/**/*.gui",
+                    "**/victoria*2/**/*.gfx",
+                    "**/victoria*2/**/*.sfx",
+                    "**/victoria*2/**/*.asset"
+                ]
+            }            
         ],
         "snippets": [
             {
@@ -357,6 +387,14 @@
                 }
             },
             "[imperator]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                }
+            },
+            "[vic2]": {
                 "files.autoGuessEncoding": true,
                 "editor.quickSuggestions": {
                     "other": true,
