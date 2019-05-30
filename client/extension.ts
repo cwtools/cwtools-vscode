@@ -20,7 +20,7 @@ const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
 const hoi4Remote = `https://github.com/tboby/cwtools-hoi4-config`;
 const ck2Remote = `https://github.com/tboby/cwtools-ck2-config`;
 const irRemote = `https://github.com/tboby/cwtools-ir-config`;
-const vic2Remote = `https://github.com/simsulla/cwtools-vic2-config`;
+const vic2Remote = `https://github.com/tboby/cwtools-vic2-config`;
 
 let defaultClient: LanguageClient;
 
