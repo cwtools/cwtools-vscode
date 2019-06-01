@@ -42,6 +42,7 @@ open FSharp.Data
 open System.Diagnostics
 open Main.Lang
 open Main.Lang.GameLoader
+open Main.Lang.LanguageServerFeatures
 
 let private TODO() = raise (Exception "TODO")
 
@@ -109,17 +110,6 @@ type Server(client: ILanguageClient) =
         | Severity.Information -> DiagnosticSeverity.Information
         | Severity.Hint -> DiagnosticSeverity.Hint
 
-    let convRangeToLSPRange (range : range) =
-        {
-            start = {
-                line = (int range.StartLine - 1)
-                character = (int range.StartColumn)
-            }
-            ``end`` = {
-                    line = (int range.EndLine - 1)
-                    character = (int range.EndColumn)
-            }
-        }
     let parserErrorToDiagnostics e =
         let code, sev, file, error, (position : range), length = e
         let startC, endC = match length with
@@ -696,7 +686,7 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"]} } }
+                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -1008,9 +998,15 @@ type Server(client: ILanguageClient) =
 
                         let les = es.TryFind (path) |> Option.defaultValue []
                         let les = les |> List.filter (fun (_, e, r, l, _, _) -> (r) |> (fun a -> (isRangeInError p.range a l)) )
+                        let pretrigger = game.GetPossibleCodeEdits path (docs.GetText (FileInfo(path)) |> Option.defaultValue "")
+                                                |> List.map convRangeToLSPRange
+                                                |> List.exists (fun r -> isRangeInRange r p.range)
+                        let ces =
+                            if pretrigger then [{title = "Optimise triggers into pretriggers for this file"; command = "pretriggerThisFile"; arguments = [p.textDocument.uri.LocalPath |> JsonValue.String]}] else []
                         match les with
-                        |[] -> []
+                        |[] -> ces
                         |_ ->
+                            ces @
                             [
                                 {title = "Generate localisation .yml for this file"; command = "genlocfile"; arguments = [p.textDocument.uri.LocalPath |> JsonValue.String]}
                                 {title = "Generate localisation .yml for all"; command = "genlocall"; arguments = []}
@@ -1092,6 +1088,37 @@ type Server(client: ILanguageClient) =
                             // |"eu4" ->
                             //     serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
                             // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
+                        | {command = "pretriggerAllFiles"; arguments = _} ->
+                            let files = game.AllFiles()
+                            let filteredFiles =
+                                files |> List.choose (function |EntityResource (_, e) -> Some e |_ -> None)
+                                  |> List.filter (fun e -> e.logicalpath.StartsWith "events/" && e.scope <> "vanilla" && e.scope <> "embedded")
+                                  |> List.map (fun f -> f.filepath)
+                            filteredFiles |> List.iter (pretriggerForFile client game docs)
+                        | {command = "pretriggerThisFile"; arguments = x::_} ->
+                            let filename = x.AsString()
+                            pretriggerForFile client game docs filename
+                            // let path =
+                            //     let u = filename
+                            //     if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                            //     then u.LocalPath.Substring(1)
+                            //     else u.LocalPath
+                            // let getEventChanges (deletes, insertPos, insertText) =
+                            //     let removes = deletes |> Seq.map (fun delRange -> { range = convRangeToLSPRange delRange; newText = "" }) |> List.ofSeq
+                            //     let add = { range = convRangeToLSPRange (mkRange filename insertPos insertPos); newText = insertText }
+                            //     add :: removes
+                            // let edits = game.GetCodeEdits (filename) (docs.GetText (FileInfo(filename)) |> Option.defaultValue "")
+                            // let combined = edits |> Option.defaultValue [] |> List.collect (getEventChanges)
+                            // match combined with
+                            // |[] -> ()
+                            // |textedits ->
+                            //     let fileInfo = FileInfo(filename)
+                            //     let version = docs.GetVersion (fileInfo) |> Option.defaultValue 0
+                            //     let docIdentifier = { uri = Uri(filename); version = version}
+                            //     let changes = { textDocument = docIdentifier; edits = textedits}
+                            //     let docChanges = { documentChanges = [changes] }
+                            //     eprintfn "ft2 %A" docChanges
+                            //     client.ApplyWorkspaceEdit { label = (spintfn "Pretriggers %s" fileInfo.Name); edit = docChanges } |> Async.RunSynchronously |> ignore
                         |_ -> ()
                     |None -> ()
             }

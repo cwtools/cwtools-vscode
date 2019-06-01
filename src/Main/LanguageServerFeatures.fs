@@ -11,6 +11,17 @@ open CWTools.Localisation
 open LSP.Types
 
 module LanguageServerFeatures =
+    let convRangeToLSPRange (range : range) =
+        {
+            start = {
+                line = (int range.StartLine - 1)
+                character = (int range.StartColumn)
+            }
+            ``end`` = {
+                    line = (int range.EndLine - 1)
+                    character = (int range.EndColumn)
+            }
+        }
 
     let getWordAtPos (client : ILanguageClient) pos doc =
         let pjson = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
@@ -132,3 +143,21 @@ module LanguageServerFeatures =
                 |_ -> {contents = MarkupContent ("markdown", ""); range = None}
 
         }
+
+    let pretriggerForFile (client : ILanguageClient) (game : IGame) (docs : DocumentStore) (filename) =
+        let getEventChanges (deletes, insertPos, insertText) =
+            let removes = deletes |> Seq.map (fun delRange -> { range = convRangeToLSPRange delRange; newText = "" }) |> List.ofSeq
+            let add = { range = convRangeToLSPRange (mkRange filename insertPos insertPos); newText = insertText }
+            add :: removes
+        let getFileText (filename) = File.ReadAllText filename
+        let edits = game.GetCodeEdits (filename) ((docs.GetText (FileInfo(filename)) |> Option.defaultValue (getFileText filename)))
+        let combined = edits |> Option.defaultValue [] |> List.collect (getEventChanges)
+        match combined with
+        |[] -> ()
+        |textedits ->
+            let fileInfo = FileInfo(filename)
+            let version = docs.GetVersion (fileInfo) |> Option.defaultValue 0
+            let docIdentifier = { uri = Uri(filename); version = version}
+            let changes = { textDocument = docIdentifier; edits = textedits}
+            let docChanges = { documentChanges = [changes] }
+            client.ApplyWorkspaceEdit { label = Some (sprintf "Pretriggers %s" fileInfo.Name); edit = docChanges } |> Async.RunSynchronously |> ignore
