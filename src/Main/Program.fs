@@ -178,6 +178,7 @@ type Server(client: ILanguageClient) =
                     | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0)]
             let locErrors =
                 locCache.TryFind (doc.LocalPath) |> Option.defaultValue [] |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l))
+            // eprintfn "lint le %A" (locCache.TryFind (doc.LocalPath) |> Option.defaultValue [])
             let errors =
                 parserErrors @
                 locErrors @
@@ -215,8 +216,10 @@ type Server(client: ILanguageClient) =
                 game.RefreshLocalisationCaches();
                 delayedLocUpdate <- false
                 locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
+                // eprintfn "lc update %A" locCache
             else
                 locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
+                // eprintfn "lc update light %A" locCache
             stopwatch.Stop()
             let time = stopwatch.Elapsed
             delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0,10).Ticks, 5L * time.Ticks)))
@@ -235,7 +238,11 @@ type Server(client: ILanguageClient) =
                             let shallowAnalyse = DateTime.Now < nextTime
                             lint uri (shallowAnalyse && (not(force))) false |> Async.RunSynchronously
                             if not(shallowAnalyse)
-                            then delayedAnalyze(); nextTime <- DateTime.Now.Add(delayTime);
+                            then
+                                delayedAnalyze();
+                                /// Somehow get updated localisation errors after loccache is updated
+                                lint uri true false |> Async.RunSynchronously
+                                nextTime <- DateTime.Now.Add(delayTime);
                             else ()
                         with
                         | e -> eprintfn "uri %A \n exception %A" uri.LocalPath e
@@ -426,6 +433,7 @@ type Server(client: ILanguageClient) =
                 let valErrors = game.ValidationErrors() |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
                 let locRaw = game.LocalisationErrors(true, true)
                 locCache <- locRaw |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
+                // eprintfn "lc p %A" locCache
                 let locErrors = locRaw |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
 
                 valErrors @ locErrors
