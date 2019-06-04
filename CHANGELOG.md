@@ -1,3 +1,8 @@
+# 0.8.4
+* Pre_trigger code actions for stellaris
+* Initial Vic support
+* Add "unique" keyword for rule types that enforces just one definition
+* Complex enums now properly recurse
 # 0.8.3
 * Fix localisation caching for Imperator
 * Add configu rule support for "filepath[prefix]" and "ir_family_name_field"
