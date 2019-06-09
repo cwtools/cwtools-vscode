@@ -79,16 +79,14 @@ let getAllFoldersUnion dirs =
         yield! getAllFolders dirs
     }
 
-let getConfigFiles cachePath useEmbeddedRules useManualRules manualRulesFolder =
+let getConfigFiles cachePath useManualRules manualRulesFolder =
     let embeddedConfigFiles =
-        match cachePath, useEmbeddedRules, useManualRules with
-        | Some path, false, false ->
+        match cachePath, useManualRules with
+        | Some path, false ->
             let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
             let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
             configFiles |> List.map (fun f -> f, File.ReadAllText(f))
-        | _ ->
-            let embeddedConfigFileNames = Assembly.GetEntryAssembly().GetManifestResourceNames() |> Array.filter (fun f -> f.Contains("config.config") && f.EndsWith(".cwt"))
-            embeddedConfigFileNames |> List.ofArray |> List.map (fun f -> fixEmbeddedFileName f, (new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(f))).ReadToEnd())
+        | _ -> []
     let configpath = "Main.files.config.cwt"
     let configFiles =
         match useManualRules, manualRulesFolder with
@@ -113,13 +111,12 @@ let getConfigFiles cachePath useEmbeddedRules useManualRules manualRulesFolder =
 
 let getFolderList (filename : string, filetext : string) =
     if Path.GetFileName filename = "folders.cwt"
-    then Some (filetext.Split(([|"\r\n"; "\r"; "\n"|]), StringSplitOptions.None) |> List.ofArray)
+    then Some (filetext.Split(([|"\r\n"; "\r"; "\n"|]), StringSplitOptions.None) |> List.ofArray |> List.filter (fun s -> s <> ""))
     else None
 
 type ServerSettings =
     {
         cachePath : string option
-        useEmbeddedRules : bool
         useManualRules : bool
         manualRulesFolder : string option
         isVanillaFolder : bool
@@ -128,6 +125,7 @@ type ServerSettings =
         validateVanilla : bool
         languages : CWTools.Common.Lang list
         experimental : bool
+        debug_mode : bool
     }
 
 type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2
@@ -152,7 +150,7 @@ let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
 
 let loadEU4 (serverSettings : ServerSettings) =
     let cached, cachedFiles = getCachedFiles EU4 serverSettings.cachePath serverSettings.isVanillaFolder
-    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
     let eu4Mods =
         configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
@@ -191,7 +189,7 @@ let loadEU4 (serverSettings : ServerSettings) =
             ruleFiles = configs
             validateRules = true
             debugRulesOnly = false
-            debugMode = false
+            debugMode = serverSettings.debug_mode
         }
         scope = FilesScope.All
         modFilter = None
@@ -203,7 +201,7 @@ let loadEU4 (serverSettings : ServerSettings) =
 
 let loadHOI4 serverSettings =
     let cached, cachedFiles = getCachedFiles HOI4 serverSettings.cachePath serverSettings.isVanillaFolder
-    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
     let hoi4modpath = "Main.files.hoi4.modifiers"
@@ -239,7 +237,7 @@ let loadHOI4 serverSettings =
             ruleFiles = configs
             validateRules = true
             debugRulesOnly = false
-            debugMode = false
+            debugMode = serverSettings.debug_mode
         }
         scope = FilesScope.All
         modFilter = None
@@ -250,7 +248,7 @@ let loadHOI4 serverSettings =
 
 let loadCK2 serverSettings =
     let cached, cachedFiles = getCachedFiles CK2 serverSettings.cachePath serverSettings.isVanillaFolder
-    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
     let ck2Mods =
@@ -291,7 +289,7 @@ let loadCK2 serverSettings =
             ruleFiles = configs
             validateRules = true
             debugRulesOnly = false
-            debugMode = false
+            debugMode = serverSettings.debug_mode
         }
         scope = FilesScope.All
         modFilter = None
@@ -302,7 +300,7 @@ let loadCK2 serverSettings =
 
 let loadIR serverSettings =
     let cached, cachedFiles = getCachedFiles IR serverSettings.cachePath serverSettings.isVanillaFolder
-    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
     let irMods =
@@ -357,7 +355,7 @@ let loadIR serverSettings =
             ruleFiles = configs
             validateRules = true
             debugRulesOnly = false
-            debugMode = false
+            debugMode = serverSettings.debug_mode
         }
         scope = FilesScope.All
         modFilter = None
@@ -368,7 +366,7 @@ let loadIR serverSettings =
 
 let loadVIC2 serverSettings =
     let cached, cachedFiles = getCachedFiles VIC2 serverSettings.cachePath serverSettings.isVanillaFolder
-    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
     let vic2Mods =
@@ -408,7 +406,7 @@ let loadVIC2 serverSettings =
             ruleFiles = configs
             validateRules = true
             debugRulesOnly = false
-            debugMode = false
+            debugMode = serverSettings.debug_mode
         }
         scope = FilesScope.All
         modFilter = None
@@ -419,23 +417,23 @@ let loadVIC2 serverSettings =
 
 let loadSTL serverSettings =
     let cached, cachedFiles = getCachedFiles STL serverSettings.cachePath serverSettings.isVanillaFolder
-    let configs = getConfigFiles serverSettings.cachePath serverSettings.useEmbeddedRules serverSettings.useManualRules serverSettings.manualRulesFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
-
-    let docspath = "Main.files.trigger_docs_2.2.4.txt"
-    let docs = DocsParser.parseDocsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(docspath))
-
-    let triggers, effects = (docs |> (function |Success(p, _, _) -> DocsParser.processDocs STLConstants.parseScopes p |Failure(e, _, _) -> eprintfn "%A" e; [], []))
-    let logspath = "Main.files.setup.log"
 
     let timer = new System.Diagnostics.Stopwatch()
     timer.Start()
 
-    let modfile = SetupLogParser.parseLogsStream (Assembly.GetEntryAssembly().GetManifestResourceStream(logspath))
-    let modifiers = (modfile |> (function |Success(p, _, _) -> SetupLogParser.processLogs p))
-    eprintfn "Parse setup.log time: %i" timer.ElapsedMilliseconds; timer.Restart()
-
     //let configs = [
+    let triggers, effects =
+        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "trigger_docs.log")
+                |> Option.map (fun (fn, ft) -> DocsParser.parseDocsFile fn)
+                |> Option.bind ((function |Success(p, _, _) -> Some (DocsParser.processDocs STLConstants.parseScopes p) |Failure(e, _, _) -> eprintfn "%A" e; None))
+                |> Option.defaultWith (fun () -> eprintfn "trigger_docs.log was not found in stellaris config"; ([], []))
+    let modifiers =
+        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "setup.log")
+                |> Option.map (fun (fn, ft) -> SetupLogParser.parseLogsFile fn)
+                |> Option.bind ((function |Success(p, _, _) -> Some (SetupLogParser.processLogs p) |Failure(e, _, _) -> None))
+                |> Option.defaultWith (fun () -> eprintfn "setup.log was not found in stellaris config"; ([]))
     let stlLocCommands =
         configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
                 |> Option.map (fun (fn, ft) -> STLParser.loadLocCommands fn ft)
@@ -461,7 +459,7 @@ let loadSTL serverSettings =
             ruleFiles = configs
             validateRules = true
             debugRulesOnly = false
-            debugMode = false
+            debugMode = serverSettings.debug_mode
         }
         embedded = {
             triggers = triggers

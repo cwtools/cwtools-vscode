@@ -1,6 +1,6 @@
 # 0.8.4
 * Pre_trigger code actions for stellaris
-* Initial Vic support
+* Initial Vic2 support
 * Add "unique" keyword for rule types that enforces just one definition
 * Complex enums now properly recurse
 # 0.8.3

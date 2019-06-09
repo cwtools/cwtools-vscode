@@ -151,12 +151,11 @@
                     "default": "false",
                     "description": "Whether or not to enable experimental features"
                 },
-                "cwtools.experimental_completion": {
+                "cwtools.debug_mode": {
                     "scope": "window",
                     "type": "boolean",
                     "default": "false",
-                    "description": "Whether or not to enable experimental completion",
-                    "deprecationMessage": "This feature is now enabled for all users"
+                    "description": "Debug features for helping write rules"
                 },
                 "cwtools.rules_version": {
                     "scope": "window",
@@ -164,7 +163,6 @@
                     "enum": [
                         "stable",
                         "latest",
-                        "none",
                         "manual"
                     ],
                     "default": "stable",

@@ -89,10 +89,10 @@ type Server(client: ILanguageClient) =
 
     let mutable rulesChannel : string = "stable"
     let mutable manualRulesFolder : string option = None
-    let mutable useEmbeddedRules : bool = false
     let mutable useManualRules : bool = false
     let mutable validateVanilla : bool = false
     let mutable experimental : bool = false
+    let mutable debugMode : bool = false
 
     let mutable ignoreCodes : string list = []
     let mutable ignoreFiles : string list = []
@@ -276,12 +276,9 @@ type Server(client: ILanguageClient) =
         )
 
 
-
-
-
     let setupRulesCaches()  =
-        match cachePath, remoteRepoPath, useEmbeddedRules, useManualRules with
-        | Some cp, Some rp, false, false ->
+        match cachePath, remoteRepoPath, useManualRules with
+        | Some cp, Some rp, false ->
             let stable = rulesChannel <> "latest"
             match initOrUpdateRules rp cp stable true with
             | true, Some date ->
@@ -374,7 +371,6 @@ type Server(client: ILanguageClient) =
                 let serverSettings =
                     {
                         cachePath = cachePath
-                        useEmbeddedRules = useEmbeddedRules
                         useManualRules = useManualRules
                         manualRulesFolder = manualRulesFolder
                         isVanillaFolder = isVanillaFolder
@@ -383,6 +379,7 @@ type Server(client: ILanguageClient) =
                         validateVanilla = validateVanilla
                         languages = languages
                         experimental = experimental
+                        debug_mode = debugMode
                     }
 
                 let game =
@@ -668,9 +665,6 @@ type Server(client: ILanguageClient) =
                     match opt.Item("rules_version") with
                     | JsonValue.String x ->
                         match x with
-                        |"none" ->
-                            useEmbeddedRules <- true
-                            rulesChannel <- "none"
                         |"manual" ->
                             useManualRules <- true
                             rulesChannel <- "manual"
@@ -751,6 +745,11 @@ type Server(client: ILanguageClient) =
                     | JsonValue.Boolean b -> b
                     | _ -> false
                 experimental <- newExperimental
+                let newDebugMode =
+                    match p.settings.Item("cwtools").Item("debug_mode") with
+                    | JsonValue.Boolean b -> b
+                    | _ -> false
+                debugMode <- newDebugMode
                 let newIgnoreCodes =
                     match p.settings.Item("cwtools").Item("errors").Item("ignore") with
                     | JsonValue.Array o ->
@@ -1068,7 +1067,7 @@ type Server(client: ILanguageClient) =
                             let text = String.Join(Environment.NewLine, (texts))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
                         | {command = "reloadrulesconfig"; arguments = _} ->
-                            let configs = getConfigFiles cachePath useEmbeddedRules useManualRules manualRulesFolder
+                            let configs = getConfigFiles cachePath useManualRules manualRulesFolder
                             game.ReplaceConfigRules configs
                         | {command = "cacheVanilla"; arguments = _} ->
                             checkOrSetGameCache(true)
