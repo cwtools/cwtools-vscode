@@ -1,3 +1,7 @@
+# 0.8.5
+* Smaller, faster cache files
+* Add stellaris 2.3 scopes
+* Add stellaris scripted effect params ($PARAM$)
 # 0.8.4
 * Pre_trigger code actions for stellaris
 * Initial Vic2 support
