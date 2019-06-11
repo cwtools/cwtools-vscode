@@ -84,7 +84,7 @@ let getConfigFiles cachePath useManualRules manualRulesFolder =
         match cachePath, useManualRules with
         | Some path, false ->
             let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
-            let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt")
+            let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
             configFiles |> List.map (fun f -> f, File.ReadAllText(f))
         | _ -> []
     let configpath = "Main.files.config.cwt"

@@ -1,3 +1,5 @@
+# 0.8.6
+* Bugfix reading log files from rules
 # 0.8.5
 * Smaller, faster cache files
 * Add stellaris 2.3 scopes
