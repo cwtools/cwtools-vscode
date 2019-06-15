@@ -168,7 +168,7 @@ let loadEU4 (serverSettings : ServerSettings) =
 
     // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
     let eu4settings = {
-        rootDirectory = serverSettings.path
+        rootDirectories = [{ WorkspaceDirectory.name = Path.GetFileName serverSettings.path; path = serverSettings.path}]
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
         embedded = {
@@ -191,7 +191,6 @@ let loadEU4 (serverSettings : ServerSettings) =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        scope = FilesScope.All
         modFilter = None
         initialLookup = EU4Lookup()
     }
@@ -216,7 +215,7 @@ let loadHOI4 serverSettings =
     // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
 
     let hoi4settings = {
-        rootDirectory = serverSettings.path
+        rootDirectories = [{ WorkspaceDirectory.name = Path.GetFileName serverSettings.path; path = serverSettings.path}]
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
         embedded = {
@@ -239,7 +238,6 @@ let loadHOI4 serverSettings =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        scope = FilesScope.All
         modFilter = None
         initialLookup = HOI4Lookup()
     }
@@ -268,7 +266,7 @@ let loadCK2 serverSettings =
 
     // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
     let ck2settings = {
-        rootDirectory = serverSettings.path
+        rootDirectories = [{ WorkspaceDirectory.name = Path.GetFileName serverSettings.path; path = serverSettings.path}]
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
         embedded = {
@@ -291,7 +289,6 @@ let loadCK2 serverSettings =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        scope = FilesScope.All
         modFilter = None
         initialLookup = CK2Lookup()
     }
@@ -334,7 +331,7 @@ let loadIR serverSettings =
 
     // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
     let irsettings = {
-        rootDirectory = serverSettings.path
+        rootDirectories = [{ WorkspaceDirectory.name = Path.GetFileName serverSettings.path; path = serverSettings.path}]
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
         embedded = {
@@ -357,7 +354,6 @@ let loadIR serverSettings =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        scope = FilesScope.All
         modFilter = None
         initialLookup = IRLookup()
     }
@@ -385,7 +381,7 @@ let loadVIC2 serverSettings =
                 |> Option.defaultValue (CWTools.Process.Scopes.VIC2.scopedEffects |> List.map SimpleLink)
 
     let vic2settings = {
-        rootDirectory = serverSettings.path
+        rootDirectories = [{ WorkspaceDirectory.name = Path.GetFileName serverSettings.path; path = serverSettings.path}]
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
         embedded = {
@@ -408,7 +404,6 @@ let loadVIC2 serverSettings =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        scope = FilesScope.All
         modFilter = None
         initialLookup = VIC2Lookup()
     }
@@ -445,8 +440,7 @@ let loadSTL serverSettings =
 
 
     let stlsettings = {
-        CWTools.Games.Stellaris.StellarisSettings.rootDirectory = serverSettings.path
-        scope = FilesScope.All
+        CWTools.Games.Stellaris.StellarisSettings.rootDirectories = [{ WorkspaceDirectory.name = Path.GetFileName serverSettings.path; path = serverSettings.path}]
         modFilter = None
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
