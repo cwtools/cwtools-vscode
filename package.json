@@ -41,6 +41,16 @@
         "./embedded"
     ],
     "contributes": {
+            "views": {
+                "explorer": [
+                    {
+                        "id": "fileExplorer",
+                        "name": "File Explorer"
+                    }
+                ]
+            },
+
+
         "commands": [
             {
                 "command": "outputerrors",
@@ -80,6 +90,11 @@
             {
                 "command": "pretriggerAllFiles",
                 "title": "Optimise all triggers into pretriggers",
+                "category": "cwtools"
+            },
+            {
+                "command": "showFileView",
+                "title": "test file view",
                 "category": "cwtools"
             }
         ],

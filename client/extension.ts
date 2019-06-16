@@ -8,12 +8,12 @@ import * as path from 'path';
 import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
-
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 import { create } from 'domain';
 
 import * as simplegit from 'simple-git/promise';
+import { FileExplorer, FileListItem } from './fileExplorer';
 
 const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
@@ -23,7 +23,8 @@ const irRemote = `https://github.com/tboby/cwtools-ir-config`;
 const vic2Remote = `https://github.com/tboby/cwtools-vic2-config`;
 
 let defaultClient: LanguageClient;
-
+let fileList : FileListItem[];
+let fileExplorer : FileExplorer;
 export function activate(context: ExtensionContext) {
 
 
@@ -128,6 +129,8 @@ export function activate(context: ExtensionContext) {
 		let didFocusFile = new NotificationType<DidFocusFile, void>('didFocusFile')
 		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 		let status: Disposable;
+		interface UpdateFileList { fileList: FileListItem[] }
+		let updateFileList = new NotificationType<UpdateFileList, void>('updateFileList');
 		client.onReady().then(() => {
 			client.onNotification(loadingBarNotification, (param: loadingBarParams) => {
 				if (param.enable) {
@@ -236,6 +239,10 @@ export function activate(context: ExtensionContext) {
 						return text;
 					}
 				}
+			});
+			client.onNotification(updateFileList, (params: UpdateFileList) =>
+			{
+				fileList = params.fileList;
 			})
 		})
 
@@ -271,6 +278,14 @@ export function activate(context: ExtensionContext) {
 			}
 			activate(context);
 		}));
+		context.subscriptions.push(vs.commands.registerCommand("showFileView", (_) =>{
+			if (fileExplorer) {
+				fileExplorer.refresh(fileList);
+			}
+			else{
+				fileExplorer = new FileExplorer(context, fileList);
+			}
+		}))
 	}
 
 	var languageId : string = null;
