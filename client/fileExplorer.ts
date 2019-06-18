@@ -87,7 +87,7 @@ import * as fs from 'fs';
                 // return children.map(([name, type]) => ({ uri: vscode.Uri.file(path.join(element.uri.fsPath, name)), type }));
             }
             else {
-                return [this.tree];
+                return this.tree.children;
             }
 
             // const workspaceFolder = vscode.workspace.workspaceFolders.filter(folder => folder.uri.scheme === 'file')[0];
@@ -102,7 +102,6 @@ import * as fs from 'fs';
             //     return children.map(([name, type]) => ({ uri: vscode.Uri.file(path.join(workspaceFolder.uri.fsPath, name)), type }));
             // }
 
-            return [];
         }
 
     }
@@ -111,7 +110,7 @@ import * as fs from 'fs';
 
 	private fileExplorer: vscode.TreeView<TreeNode>;
 
-	constructor(context: vscode.ExtensionContext, files : FileListItem[]) {
+	constructor(_: vscode.ExtensionContext, files : FileListItem[]) {
 		const treeDataProvider = new FilesProvider(files);
 		this.fileExplorer = vscode.window.createTreeView('fileExplorer', { treeDataProvider });
 		vscode.commands.registerCommand('fileExplorer.openFile', (resource) => this.openResource(resource));

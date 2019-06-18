@@ -72,6 +72,7 @@ type Server(client: ILanguageClient) =
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
+    let mutable workspaceFolders : WorkspaceFolder list = []
     let mutable cachePath : string option = None
     let mutable stlVanillaPath : string option = None
     let mutable hoi4VanillaPath : string option = None
@@ -375,6 +376,7 @@ type Server(client: ILanguageClient) =
                         manualRulesFolder = manualRulesFolder
                         isVanillaFolder = isVanillaFolder
                         path = path
+                        workspaceFolders = workspaceFolders
                         dontLoadPatterns = dontLoadPatterns
                         validateVanilla = validateVanilla
                         languages = languages
@@ -414,8 +416,20 @@ type Server(client: ILanguageClient) =
                 parserErrors
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
+                let mapResourceToFilePath =
+                    function
+                    | EntityResource (f, r) -> r.scope, f, r.logicalpath
+                    | FileResource (f, r) -> r.scope, f, r.logicalpath
+                    | FileWithContentResource (f, r) -> r.scope, f, r.logicalpath
 
+                let fileList =
+                    game.AllFiles() |> List.map (mapResourceToFilePath)
+                                    |> List.choose (fun (s, f, l) -> match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> Some (s, value, l) |TryFailure -> None)
+                                    |> List.map (fun (s, uri, l)  -> JsonValue.Record [| "scope", JsonValue.String s; "uri", uri.AbsoluteUri |> JsonValue.String; "logicalpath", JsonValue.String l |])
+                                    |> Array.ofList
+                client.CustomNotification ("updateFileList", JsonValue.Record [| "fileList", JsonValue.Array fileList|])
                 client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Validating files...");  "enable", JsonValue.Boolean(true) |])
+
                 //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors() |> List.map (fun (c, s, n, l, e, _) -> (c, s, n.FileName, e, n, l) )
                 let locRaw = game.LocalisationErrors(true, true)
@@ -427,17 +441,7 @@ type Server(client: ILanguageClient) =
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
                 GC.Collect()
-                let mapResourceToFilePath =
-                    function
-                    | EntityResource (f, r) -> r.scope, f, r.logicalpath
-                    | FileResource (f, r) -> r.scope, f, r.logicalpath
-                    | FileWithContentResource (f, r) -> r.scope, f, r.logicalpath
-                let fileList =
-                    game.AllFiles() |> List.map (mapResourceToFilePath)
-                                    |> List.choose (fun (s, f, l) -> match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> Some (s, value, l) |TryFailure -> None)
-                                    |> List.map (fun (s, uri, l)  -> JsonValue.Record [| "scope", JsonValue.String s; "uri", uri.AbsoluteUri |> JsonValue.String; "logicalpath", JsonValue.String l |])
-                                    |> Array.ofList
-                client.CustomNotification ("updateFileList", JsonValue.Record [| "fileList", JsonValue.Array fileList|])
+
                 //eprintfn "%A" game.ValidationErrors
                     // |> List.groupBy fst
                     // |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>
@@ -628,6 +632,7 @@ type Server(client: ILanguageClient) =
         member this.Initialize(p: InitializeParams) =
             async {
                 rootUri <- p.rootUri
+                workspaceFolders <- p.workspaceFolders
                 match p.initializationOptions with
                 | Some opt ->
                     match opt.Item("language") with

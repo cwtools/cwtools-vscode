@@ -243,6 +243,12 @@ export function activate(context: ExtensionContext) {
 			client.onNotification(updateFileList, (params: UpdateFileList) =>
 			{
 				fileList = params.fileList;
+				if (fileExplorer) {
+					fileExplorer.refresh(fileList);
+				}
+				else {
+					fileExplorer = new FileExplorer(context, fileList);
+				}
 			})
 		})
 
@@ -278,14 +284,6 @@ export function activate(context: ExtensionContext) {
 			}
 			activate(context);
 		}));
-		context.subscriptions.push(vs.commands.registerCommand("showFileView", (_) =>{
-			if (fileExplorer) {
-				fileExplorer.refresh(fileList);
-			}
-			else{
-				fileExplorer = new FileExplorer(context, fileList);
-			}
-		}))
 	}
 
 	var languageId : string = null;

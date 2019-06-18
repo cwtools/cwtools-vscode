@@ -154,6 +154,7 @@ type InitializeParamsRaw = {
     initializationOptions: JsonValue option
     capabilities: JsonValue
     trace: Trace option
+    workspaceFolders : WorkspaceFolder list
 }
 
 let private parseCapabilities(nested: JsonValue): Map<string, bool> =
@@ -179,6 +180,7 @@ let private parseInitializeParams(raw: InitializeParamsRaw): InitializeParams =
          initializationOptions = raw.initializationOptions
          capabilitiesMap = raw.capabilities |> parseCapabilities
          trace = raw.trace
+         workspaceFolders = raw.workspaceFolders
     }
 
 let parseInitialize = deserializerFactory<InitializeParamsRaw> readOptions >> parseInitializeParams

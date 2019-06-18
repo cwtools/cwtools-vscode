@@ -203,6 +203,7 @@ type InitializeParams = {
     initializationOptions: JsonValue option
     capabilitiesMap: Map<string, bool>
     trace: Trace option
+    workspaceFolders: WorkspaceFolder list
 }
 
 let defaultInitializeParams = {
@@ -211,6 +212,7 @@ let defaultInitializeParams = {
     initializationOptions = None
     capabilitiesMap = Map.empty
     trace = None
+    workspaceFolders = []
 }
 
 [<RequireQualifiedAccess>]
