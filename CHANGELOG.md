@@ -1,3 +1,7 @@
+# 0.8.7
+* Support workspaces (opening multiple folders in the same vscode window)
+* Opening vanilla files at the same time as your mod no longer causes problems
+* F12 (go to definition) on vanilla things in your mod is now safe and will show you the vanilla file!
 # 0.8.6
 * Bugfix reading log files from rules
 # 0.8.5

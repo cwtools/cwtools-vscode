@@ -74,7 +74,7 @@ import * as fs from 'fs';
         getTreeItem(element: TreeNode): vscode.TreeItem {
             const treeItem = new vscode.TreeItem(element.fileName, element.isDirectory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None);
             if (!element.isDirectory) {
-                treeItem.command = { command: 'fileExplorer.openFile', title: "Open File", arguments: [vscode.Uri.parse(element.uri)], };
+                treeItem.command = { command: 'cwtools-files.openFile', title: "Open File", arguments: [vscode.Uri.parse(element.uri)], };
                 treeItem.contextValue = 'file';
                 treeItem.resourceUri = vscode.Uri.parse(element.uri)
             }
@@ -112,8 +112,8 @@ import * as fs from 'fs';
 
 	constructor(_: vscode.ExtensionContext, files : FileListItem[]) {
 		const treeDataProvider = new FilesProvider(files);
-		this.fileExplorer = vscode.window.createTreeView('fileExplorer', { treeDataProvider });
-		vscode.commands.registerCommand('fileExplorer.openFile', (resource) => this.openResource(resource));
+		this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider });
+		vscode.commands.registerCommand('cwtools-files.openFile', (resource) => this.openResource(resource));
 	}
 
 	private openResource(resource: vscode.Uri): void {
@@ -123,6 +123,6 @@ import * as fs from 'fs';
     refresh(files : FileListItem[]): void {
         this.fileExplorer.dispose();
         const treeDataProvider = new FilesProvider(files);
-        this.fileExplorer = vscode.window.createTreeView('fileExplorer', { treeDataProvider });
+        this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider });
     }
 }
