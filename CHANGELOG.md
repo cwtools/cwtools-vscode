@@ -1,3 +1,5 @@
+# 0.8.8
+* Rules: support multiple skip_root_key
 # 0.8.7
 * Support workspaces (opening multiple folders in the same vscode window)
 * Opening vanilla files at the same time as your mod no longer causes problems
