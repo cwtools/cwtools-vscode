@@ -328,7 +328,7 @@ export function activate(context: ExtensionContext) {
 	var hoi4 = findExeInFiles("hoi4")
 	var stellaris = findExeInFiles("stellaris")
 	var ck2 = findExeInFiles("CK2")
-	var vic2 = findExeInFiles("VIC2")
+	var vic2 = findExeInFiles("v2game")
 	var ir = findExeInFilesImperator("imperator")
 	Promise.all([eu4, hoi4, stellaris, ck2, ir, vic2]).then(results =>
 		{
