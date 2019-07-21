@@ -1,3 +1,6 @@
+# 0.8.9
+* Vic2: Better Vic2 vanilla detection
+* Improved completion and hover for certain types of files (type_per_file = yes)
 # 0.8.8
 * Rules: support multiple skip_root_key
 # 0.8.7
