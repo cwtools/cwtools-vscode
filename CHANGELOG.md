@@ -1,3 +1,7 @@
+# 0.8.10
+* Remove old Stellaris 2.1 validators
+* Add warning for "If" without any effects inside it
+* Rules: Add support for config defined scopes (which were previously hardcoded)
 # 0.8.9
 * Vic2: Better Vic2 vanilla detection
 * Improved completion and hover for certain types of files (type_per_file = yes)
