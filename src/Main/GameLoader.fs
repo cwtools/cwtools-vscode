@@ -161,34 +161,13 @@ let loadEU4 (serverSettings : ServerSettings) =
     let cached, cachedFiles = getCachedFiles EU4 serverSettings.cachePath serverSettings.isVanillaFolder
     let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
-    let eu4Mods =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                |> Option.map (fun (fn, ft) -> EU4Parser.loadModifiers fn ft)
-                |> Option.defaultValue []
-
-    let eu4LocCommands =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                |> Option.map (fun (fn, ft) -> EU4Parser.loadLocCommands fn ft)
-                |> Option.defaultValue []
-    let eu4EventTargetLinks =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks EU4Constants.Scope.Any EU4Constants.parseScope EU4Constants.allScopes fn ft)
-                |> Option.defaultValue (CWTools.Process.Scopes.EU4.scopedEffects |> List.map SimpleLink)
 
     // let eu4Mods = EU4Parser.loadModifiers "eu4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(eu4modpath))).ReadToEnd())
     let eu4settings = {
         rootDirectories = getRootDirectories serverSettings
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
-        embedded = {
-            embeddedFiles = cachedFiles
-            modifiers = eu4Mods
-            cachedResourceData = cached
-            triggers = []
-            effects = []
-            localisationCommands = eu4LocCommands
-            eventTargetLinks = eu4EventTargetLinks
-        }
+        embedded = FromConfig (cachedFiles, cached)
         validation = {
             validateVanilla = serverSettings.validateVanilla;
             langs = serverSettings.languages
@@ -201,7 +180,6 @@ let loadEU4 (serverSettings : ServerSettings) =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
-        initialLookup = EU4Lookup()
     }
     let game = CWTools.Games.EU4.EU4Game(eu4settings)
     game
@@ -213,29 +191,12 @@ let loadHOI4 serverSettings =
     let folders = configs |> List.tryPick getFolderList
 
     let hoi4modpath = "Main.files.hoi4.modifiers"
-    let hoi4Mods =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                |> Option.map (fun (fn, ft) -> HOI4Parser.loadModifiers fn ft)
-                |> Option.defaultValue []
-    let hoi4LocCommands =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                |> Option.map (fun (fn, ft) -> HOI4Parser.loadLocCommands fn ft)
-                |> Option.defaultValue []
-    // let hoi4Mods = HOI4Parser.loadModifiers "hoi4mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(hoi4modpath))).ReadToEnd())
 
     let hoi4settings = {
         rootDirectories = getRootDirectories serverSettings
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
-        embedded = {
-            embeddedFiles = cachedFiles
-            modifiers = hoi4Mods
-            cachedResourceData = cached
-            triggers = []
-            effects = []
-            localisationCommands = hoi4LocCommands
-            eventTargetLinks = []
-        }
+        embedded = FromConfig (cachedFiles, cached)
         validation = {
             validateVanilla = serverSettings.validateVanilla;
             langs = serverSettings.languages
@@ -248,7 +209,6 @@ let loadHOI4 serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
-        initialLookup = HOI4Lookup()
     }
     let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
     game
@@ -258,35 +218,13 @@ let loadCK2 serverSettings =
     let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
-    let ck2Mods =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                |> Option.map (fun (fn, ft) -> CK2Parser.loadModifiers fn ft)
-                |> Option.defaultValue []
-
-    let ck2LocCommands =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                |> Option.map (fun (fn, ft) -> CK2Parser.loadLocCommands fn ft)
-                |> Option.defaultValue []
-
-    let ck2EventTargetLinks =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks CK2Constants.Scope.Any CK2Constants.parseScope CK2Constants.allScopes fn ft)
-                |> Option.defaultValue (CWTools.Process.Scopes.CK2.scopedEffects |> List.map SimpleLink)
 
     // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
     let ck2settings = {
         rootDirectories = getRootDirectories serverSettings
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
-        embedded = {
-            embeddedFiles = cachedFiles
-            modifiers = ck2Mods
-            cachedResourceData = cached
-            triggers = []
-            effects = []
-            localisationCommands = ck2LocCommands
-            eventTargetLinks = ck2EventTargetLinks
-        }
+        embedded = FromConfig (cachedFiles, cached)
         validation = {
             validateVanilla = serverSettings.validateVanilla;
             langs = serverSettings.languages
@@ -299,7 +237,6 @@ let loadCK2 serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
-        initialLookup = CK2Lookup()
     }
     let game = CWTools.Games.CK2.CK2Game(ck2settings)
     game
@@ -309,49 +246,14 @@ let loadIR serverSettings =
     let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
-    let irMods =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                |> Option.map (fun (fn, ft) -> IRParser.loadModifiers fn ft)
-                |> Option.defaultValue []
 
-    let irLocCommands =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                |> Option.map (fun (fn, ft) -> IRParser.loadLocCommands fn ft)
-                |> Option.defaultValue []
-
-    let irEventTargetLinks =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks IRConstants.Scope.Any IRConstants.parseScope IRConstants.allScopes fn ft)
-                |> Option.defaultValue (CWTools.Process.Scopes.IR.scopedEffects |> List.map SimpleLink)
-
-    let irEffects =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "effects.log")
-                |> Option.map (fun (fn, ft) -> JominiParser.parseEffectStream (new MemoryStream(System.Text.Encoding.GetEncoding(1252).GetBytes(ft))))
-                |> Option.bind (function | Success(r,_,_) -> Some r | _ -> None)
-                |> Option.map (JominiParser.processEffects IRConstants.parseScopes)
-                |> Option.defaultValue []
-
-    let irTriggers =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "triggers.log")
-                |> Option.map (fun (fn, ft) -> JominiParser.parseTriggerStream (new MemoryStream(System.Text.Encoding.GetEncoding(1252).GetBytes(ft))))
-                |> Option.bind (function | Success(r,_,_) -> Some r | _ -> None)
-                |> Option.map (JominiParser.processTriggers IRConstants.parseScopes)
-                |> Option.defaultValue []
 
     // let ck2Mods = CK2Parser.loadModifiers "ck2mods" ((new StreamReader(Assembly.GetEntryAssembly().GetManifestResourceStream(ck2modpath))).ReadToEnd())
     let irsettings = {
         rootDirectories = getRootDirectories serverSettings
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
-        embedded = {
-            embeddedFiles = cachedFiles
-            modifiers = irMods
-            cachedResourceData = cached
-            triggers = irTriggers
-            effects = irEffects
-            localisationCommands = irLocCommands
-            eventTargetLinks = irEventTargetLinks
-        }
+        embedded = FromConfig (cachedFiles, cached)
         validation = {
             validateVanilla = serverSettings.validateVanilla;
             langs = serverSettings.languages
@@ -364,7 +266,6 @@ let loadIR serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
-        initialLookup = IRLookup()
     }
     let game = CWTools.Games.IR.IRGame(irsettings)
     game
@@ -374,34 +275,12 @@ let loadVIC2 serverSettings =
     let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
-    let vic2Mods =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "modifiers.cwt")
-                |> Option.map (fun (fn, ft) -> VIC2Parser.loadModifiers fn ft)
-                |> Option.defaultValue []
-
-    let vic2LocCommands =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                |> Option.map (fun (fn, ft) -> VIC2Parser.loadLocCommands fn ft)
-                |> Option.defaultValue []
-
-    let vic2EventTargetLinks =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks VIC2Constants.Scope.Any VIC2Constants.parseScope VIC2Constants.allScopes fn ft)
-                |> Option.defaultValue (CWTools.Process.Scopes.VIC2.scopedEffects |> List.map SimpleLink)
 
     let vic2settings = {
         rootDirectories = getRootDirectories serverSettings
         scriptFolders = folders
         excludeGlobPatterns = Some serverSettings.dontLoadPatterns
-        embedded = {
-            embeddedFiles = cachedFiles
-            modifiers = vic2Mods
-            cachedResourceData = cached
-            triggers = []
-            effects = []
-            localisationCommands = vic2LocCommands
-            eventTargetLinks = vic2EventTargetLinks
-        }
+        embedded = FromConfig (cachedFiles, cached)
         validation = {
             validateVanilla = serverSettings.validateVanilla;
             langs = serverSettings.languages
@@ -414,7 +293,6 @@ let loadVIC2 serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
-        initialLookup = VIC2Lookup()
     }
     let game = CWTools.Games.VIC2.VIC2Game(vic2settings)
     game
@@ -427,25 +305,6 @@ let loadSTL serverSettings =
     let timer = new System.Diagnostics.Stopwatch()
     timer.Start()
 
-    //let configs = [
-    let triggers, effects =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "trigger_docs.log")
-                |> Option.map (fun (fn, ft) -> DocsParser.parseDocsFile fn)
-                |> Option.bind ((function |Success(p, _, _) -> Some (DocsParser.processDocs STLConstants.parseScopes p) |Failure(e, _, _) -> eprintfn "%A" e; None))
-                |> Option.defaultWith (fun () -> eprintfn "trigger_docs.log was not found in stellaris config"; ([], []))
-    let modifiers =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "setup.log")
-                |> Option.map (fun (fn, ft) -> SetupLogParser.parseLogsFile fn)
-                |> Option.bind ((function |Success(p, _, _) -> Some (SetupLogParser.processLogs p) |Failure(e, _, _) -> None))
-                |> Option.defaultWith (fun () -> eprintfn "setup.log was not found in stellaris config"; ([]))
-    let stlLocCommands =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "localisation.cwt")
-                |> Option.map (fun (fn, ft) -> STLParser.loadLocCommands fn ft)
-                |> Option.defaultValue []
-    let stlEventTargetLinks =
-        configs |> List.tryFind (fun (fn, _) -> Path.GetFileName fn = "links.cwt")
-                |> Option.map (fun (fn, ft) -> UtilityParser.loadEventTargetLinks STLConstants.Scope.Any STLConstants.parseScope STLConstants.allScopes fn ft)
-                |> Option.defaultValue (CWTools.Process.Scopes.STL.scopedEffects |> List.map SimpleLink)
 
 
     let stlsettings = {
@@ -464,16 +323,7 @@ let loadSTL serverSettings =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        embedded = {
-            triggers = triggers
-            effects = effects
-            modifiers = modifiers
-            embeddedFiles = cachedFiles
-            cachedResourceData = cached
-            localisationCommands = stlLocCommands
-            eventTargetLinks = stlEventTargetLinks
-        }
-        initialLookup = STLLookup()
+        embedded = FromConfig (cachedFiles, cached)
     }
     let game = CWTools.Games.Stellaris.STLGame(stlsettings)
     game
