@@ -129,7 +129,7 @@ type ServerSettings =
         debug_mode : bool
     }
 
-type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2
+type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2 |Custom
 
 let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
     let timer = new System.Diagnostics.Stopwatch()
@@ -326,4 +326,35 @@ let loadSTL serverSettings =
         embedded = FromConfig (cachedFiles, cached)
     }
     let game = CWTools.Games.Stellaris.STLGame(stlsettings)
+    game
+
+let loadCustom serverSettings =
+    // let cached, cachedFiles = getCachedFiles STL serverSettings.cachePath serverSettings.isVanillaFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
+    let folders = configs |> List.tryPick getFolderList
+
+    let timer = new System.Diagnostics.Stopwatch()
+    timer.Start()
+
+
+
+    let stlsettings = {
+        CWTools.Games.Custom.CustomSettings.rootDirectories = getRootDirectories serverSettings
+        modFilter = None
+        scriptFolders = folders
+        excludeGlobPatterns = Some serverSettings.dontLoadPatterns
+        validation = {
+            validateVanilla = serverSettings.validateVanilla
+            experimental = serverSettings.experimental
+            langs = serverSettings.languages
+        }
+        rules = Some {
+            ruleFiles = configs
+            validateRules = true
+            debugRulesOnly = false
+            debugMode = serverSettings.debug_mode
+        }
+        embedded = FromConfig ([], [])
+    }
+    let game = CWTools.Games.Custom.CustomGame(stlsettings, "custom")
     game

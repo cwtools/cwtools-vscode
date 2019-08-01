@@ -1,3 +1,5 @@
+# 0.8.11
+* Fix EU4 localisation commands
 # 0.8.10
 * Remove old Stellaris 2.1 validators
 * Add warning for "If" without any effects inside it

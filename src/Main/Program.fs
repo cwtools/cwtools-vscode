@@ -63,12 +63,13 @@ type Server(client: ILanguageClient) =
     let mutable activeGame = STL
     let mutable isVanillaFolder = false
     let mutable gameObj : option<IGame> = None
-    let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>> = None
-    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>> = None
-    let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>> = None
-    let mutable ck2GameObj : option<IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>> = None
-    let mutable irGameObj : option<IGame<IRComputedData, IRConstants.Scope, IRConstants.Modifier>> = None
-    let mutable vic2GameObj : option<IGame<VIC2ComputedData, VIC2Constants.Scope, VIC2Constants.Modifier>> = None
+    let mutable stlGameObj : option<IGame<STLComputedData, Scope, STLConstants.Modifier>> = None
+    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, Scope, HOI4Constants.Modifier>> = None
+    let mutable eu4GameObj : option<IGame<EU4ComputedData, Scope, EU4Constants.Modifier>> = None
+    let mutable ck2GameObj : option<IGame<CK2ComputedData, Scope, CK2Constants.Modifier>> = None
+    let mutable irGameObj : option<IGame<IRComputedData, Scope, IRConstants.Modifier>> = None
+    let mutable vic2GameObj : option<IGame<VIC2ComputedData, Scope, VIC2Constants.Modifier>> = None
+    let mutable customGameObj : option<IGame<ComputedData, Scope, CustomModifier>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -388,27 +389,31 @@ type Server(client: ILanguageClient) =
                     match activeGame with
                     |STL ->
                         let game = loadSTL serverSettings
-                        stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Scope, STLConstants.Modifier>)
+                        stlGameObj <- Some (game :> IGame<STLComputedData, Scope, STLConstants.Modifier>)
                         game :> IGame
                     |HOI4 ->
                         let game = loadHOI4 serverSettings
-                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Scope, HOI4Constants.Modifier>)
+                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, Scope, HOI4Constants.Modifier>)
                         game :> IGame
                     |EU4 ->
                         let game = loadEU4 serverSettings
-                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Scope, EU4Constants.Modifier>)
+                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, Scope, EU4Constants.Modifier>)
                         game :> IGame
                     |CK2 ->
                         let game = loadCK2 serverSettings
-                        ck2GameObj <- Some (game :> IGame<CK2ComputedData, CK2Constants.Scope, CK2Constants.Modifier>)
+                        ck2GameObj <- Some (game :> IGame<CK2ComputedData, Scope, CK2Constants.Modifier>)
                         game :> IGame
                     |IR ->
                         let game = loadIR serverSettings
-                        irGameObj <- Some (game :> IGame<IRComputedData, IRConstants.Scope, IRConstants.Modifier>)
+                        irGameObj <- Some (game :> IGame<IRComputedData, Scope, IRConstants.Modifier>)
                         game :> IGame
                     |VIC2 ->
                         let game = loadVIC2 serverSettings
-                        vic2GameObj <- Some (game :> IGame<VIC2ComputedData, VIC2Constants.Scope, VIC2Constants.Modifier>)
+                        vic2GameObj <- Some (game :> IGame<VIC2ComputedData, Scope, VIC2Constants.Modifier>)
+                        game :> IGame
+                    |Custom ->
+                        let game = loadCustom serverSettings
+                        customGameObj <- Some (game :> IGame<ComputedData, Scope, CustomModifier>)
                         game :> IGame
                 gameObj <- Some game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
@@ -489,14 +494,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<EU4Constants.Scope> as de ->
+                            | :? DocEffect<Scope> as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<EU4Constants.Scope> as se ->
+                            | :? ScriptedEffect<Scope> as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -514,14 +519,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<HOI4Constants.Scope> as de ->
+                            | :? DocEffect<Scope> as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<HOI4Constants.Scope> as se ->
+                            | :? ScriptedEffect<Scope> as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -538,14 +543,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<CK2Constants.Scope> as de ->
+                            | :? DocEffect<Scope> as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<CK2Constants.Scope> as se ->
+                            | :? ScriptedEffect<Scope> as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -563,14 +568,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<IRConstants.Scope> as de ->
+                            | :? DocEffect<Scope> as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<IRConstants.Scope> as se ->
+                            | :? ScriptedEffect<Scope> as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -588,14 +593,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<VIC2Constants.Scope> as de ->
+                            | :? DocEffect<Scope> as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<VIC2Constants.Scope> as se ->
+                            | :? ScriptedEffect<Scope> as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
