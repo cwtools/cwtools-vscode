@@ -84,25 +84,27 @@ export function activate(context: ExtensionContext) {
 			// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
 		}
 
+		let fileEvents = [
+			workspace.createFileSystemWatcher("**/{events,common,map,map_data,prescripted_countries,flags,decisions,missions}/**/*.txt"),
+			workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
+			workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
+			workspace.createFileSystemWatcher("**/{interface}/**/*.sfx"),
+			workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
+			workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
+		]
+
 		// Options to control the language client
 		let clientOptions: LanguageClientOptions = {
 			// Register the server for F# documents
 			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
 				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }
-				, { scheme: 'file', language: 'vic2' }],
+				, { scheme: 'file', language: 'vic2' }, { scheme: 'file', language: 'paradox'}],
 			synchronize: {
 				// Synchronize the setting section 'languageServerExample' to the server
 				configurationSection: 'cwtools',
 				// Notify the server about file changes to F# project files contain in the workspace
 
-				fileEvents: [
-					workspace.createFileSystemWatcher("**/{events,common,map,map_data,prescripted_countries,flags,decisions,missions}/**/*.txt"),
-					workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
-					workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
-					workspace.createFileSystemWatcher("**/{interface}/**/*.sfx"),
-					workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
-					workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
-				]
+				fileEvents: fileEvents
 			},
 			initializationOptions: {
 				language: language,
@@ -254,6 +256,9 @@ export function activate(context: ExtensionContext) {
 
 		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
 			let path = editor.document.uri.toString();
+			if (languageId == "paradox" && editor.document.languageId == "plaintext") {
+				vs.languages.setTextDocumentLanguage(editor.document, "paradox")
+			}
 			if(editor.document.languageId == language)
 			{
 				client.sendNotification(didFocusFile, {uri: path});
@@ -262,6 +267,13 @@ export function activate(context: ExtensionContext) {
 
 		window.onDidChangeActiveTextEditor(didChangeActiveTextEditor);
 
+		if (languageId = "paradox") {
+			for (var textDocument of workspace.textDocuments){
+				if (textDocument.languageId == "plaintext"){
+					vs.languages.setTextDocumentLanguage(textDocument, "paradox")
+				}
+			}
+		}
 
 		let disposable = client.start();
 
@@ -284,6 +296,8 @@ export function activate(context: ExtensionContext) {
 			}
 			activate(context);
 		}));
+
+
 	}
 
 	var languageId : string = null;
@@ -294,7 +308,7 @@ export function activate(context: ExtensionContext) {
 		case "ck2": languageId = "ck2"; break;
 		case "imperator": languageId = "imperator"; break;
 		case "vic2": languageId = "vic2"; break;
-		default:
+		default: languageId = "paradox"; break;
 	}
 	let findExeInFiles = function(gameExeName : string) {
 		if (os.platform() == "win32") {

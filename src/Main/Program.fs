@@ -290,8 +290,9 @@ type Server(client: ILanguageClient) =
         | _ -> ()
 
     let checkOrSetGameCache(forceCreate : bool) =
-        match (cachePath, isVanillaFolder) with
-        | Some cp, false ->
+        match (cachePath, isVanillaFolder, activeGame) with
+        | _, _, Custom -> ()
+        | Some cp, false, _ ->
             let gameCachePath = cp+"/../"
             let doesCacheExist =
                 match activeGame with
@@ -653,6 +654,8 @@ type Server(client: ILanguageClient) =
                         activeGame <- IR
                     | JsonValue.String "vic2" ->
                         activeGame <- VIC2
+                    | JsonValue.String "paradox" ->
+                        activeGame <- Custom
                     | _ -> ()
                     match opt.Item("rulesCache") with
                     | JsonValue.String x ->
@@ -755,6 +758,7 @@ type Server(client: ILanguageClient) =
                           |> (fun l ->  if List.isEmpty l then [VIC2Lang.English] else l)
                           |> List.map Lang.VIC2
                     | _, VIC2 -> [Lang.VIC2 VIC2Lang.English]
+                    | _, Custom -> [Lang.Custom CustomLang.English]
                 languages <- newLanguages
                 let newVanillaOnly =
                     match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
@@ -810,6 +814,7 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->
                     hoi4VanillaPath <- Some s
+                |_ -> ()
                 match p.settings.Item("cwtools").Item("cache").Item("ck2") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->

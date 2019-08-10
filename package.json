@@ -32,7 +32,8 @@
         "onLanguage:eu4",
         "onLanguage:ck2",
         "onLanguage:imperator",
-        "onLanguage:vic2"
+        "onLanguage:vic2",
+        "onCommand:startcustomgame"
     ],
     "main": "./out/client/extension",
     "files": [
@@ -88,6 +89,11 @@
             {
                 "command": "pretriggerAllFiles",
                 "title": "Optimise all triggers into pretriggers",
+                "category": "cwtools"
+            },
+            {
+                "command": "startcustomgame",
+                "title": "Activate cwtools for a custom game",
                 "category": "cwtools"
             }
         ],
@@ -360,12 +366,13 @@
                 ]
             },
             {
-                "id": "customparadox",
+                "id": "paradox",
                 "aliases": [
                     "",
                     "paradox",
                     "pdxscript"
                 ],
+                "configuration": "./language-configuration.json",
                 "extensions": [
                     "txt",
                     "gui",

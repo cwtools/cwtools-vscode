@@ -333,9 +333,6 @@ let loadCustom serverSettings =
     let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
-    let timer = new System.Diagnostics.Stopwatch()
-    timer.Start()
-
 
 
     let stlsettings = {
