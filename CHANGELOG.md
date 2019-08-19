@@ -1,3 +1,5 @@
+# 0.8.13
+* Hotfix
 # 0.8.12
 * Fix EU4 trade node scope
 * Better default language settings
