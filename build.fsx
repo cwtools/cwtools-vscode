@@ -64,6 +64,7 @@ let cwtoolsProjectName = "Main.fsproj"
 Target.create "Clean" (fun _ ->
     Shell.cleanDir "./temp"
     Shell.cleanDir "./out/server"
+    Shell.cleanDir "./out/client"
     // CopyFiles "release" ["README.md"; "LICENSE.md"]
     // CopyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
 )

@@ -2,27 +2,19 @@ import { workspace, Event, ExtensionContext, EventEmitter, Uri, Memento, Disposa
 import * as path from 'path';
 import * as fs from 'fs'
 import { EIO } from "constants";
-import LocalWebService from "./localWebService";
 
 'use strict';
 
 export class GraphProvider {
     private disposables: Disposable[] = [];
-    private _service: LocalWebService;
     private _graphFile : Uri;
     private _cssFile : Uri;
     public _data : any;
 
-    constructor(context : ExtensionContext) {
+    constructor(_ : ExtensionContext) {
         workspace.registerTextDocumentContentProvider("cwgraph", this)
-        this._service = new LocalWebService(context);
-        this._service.start();
 
     }
-    get serviceUrl(): string {
-        return this._service.serviceUrl;
-    }
-
     set graphFile(value: Uri) {
         this._graphFile = value;
     }

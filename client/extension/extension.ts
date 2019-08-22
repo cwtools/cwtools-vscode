@@ -12,7 +12,6 @@ import { workspace, ExtensionContext, window, Disposable, Position, Uri, Workspa
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 import { create } from 'domain';
 
-import * as simplegit from 'simple-git/promise';
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphProvider';
 
