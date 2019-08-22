@@ -122,9 +122,17 @@ let runTsc additionalArgs noTimeout =
     run cmd additionalArgs ""
 Target.create "RunScript" (fun _ ->
     match Process.tryFindFileOnPath "tsc" with
-    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc)) |> ignore
+    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("-p ./tsconfig.extension.json")) |> ignore
+    |_ -> ()
+    match Process.tryFindFileOnPath "tsc" with
+    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("-p ./tsconfig.webview.json") ) |> ignore
     |_ -> ()
     // Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName("tsc").WithLoadUserProfile(true).WithUseShellExecute(false)) |> ignore
+)
+
+Target.create "CopyHtml" (fun _ ->
+    !!("client/**/*.css")
+        |> Shell.copyFiles "out/client"
 )
 
 // Target "Watch" (fun _ ->
@@ -202,7 +210,7 @@ Target.create "DryRelease" ignore
 
 
 open Fake.Core.TargetOperators
-
+"CopyHtml" ==> "QuickBuild"
 "RunScript" ==> "QuickBuild"
 "BuildDll" ==> "QuickBuild"
 

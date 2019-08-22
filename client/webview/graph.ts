@@ -47,7 +47,7 @@ function tech(nodes : Array<string>, edges : Array<any>){
                     'mid-target-arrow-color': '#ccc',
                     'mid-target-arrow-shape': 'triangle',
                     'curve-style': 'haystack',
-                    'haystack-radius': 0.5
+                   // 'haystack-radius': 0.5
                 }
             }
         ],
@@ -96,10 +96,10 @@ function tech(nodes : Array<string>, edges : Array<any>){
     var t: any = cy.elements();
     groups = t.components();
     var singles = groups.filter((f) => f.length === 1);
-    var singles2: any = singles.reduce((p, c) => p.union(c), cy.collection())
+    var singles2: any = singles.reduce((p, c : any) => p.union(c), cy.collection())
     var rest = groups.filter((f) => f.length !== 1);
 
-    var rest2 = rest.reduce((p, c) => p.union(c), cy.collection())
+    var rest2 = rest.reduce((p, c : any) => p.union(c), cy.collection())
 
     var lrest: any = rest2.layout(opts);
     lrest.run();
@@ -153,7 +153,7 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
                     'mid-target-arrow-color': '#ccc',
                     'mid-target-arrow-shape': 'triangle',
                     'curve-style': bundleEdges ? 'haystack' : 'bezier',
-                    'haystack-radius': 0.5
+                   // 'haystack-radius': 0.5
                 }
             }
         ],
@@ -180,7 +180,7 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
         else {
             desc = getLoc(element.Desc);
         }
-        var node = cy.add({ group: 'nodes', data: { id: element.ID, label: name, type: element.Key, hidden: element.Hidden } });
+        var node : any = cy.add({ group: 'nodes', data: { id: element.ID, label: name, type: element.Key, hidden: element.Hidden } });
         node.qtip(qtipname(desc));
     });
 
@@ -201,7 +201,7 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
             var optionName = option[0][0] + "\n" + option[0][1];
             option[1].forEach(function (target: any) {
                 if (cy.getElementById(target).length > 0) {
-                    var edge = cy.add({ group: 'edges', data: { source: parentID, target: target } });
+                    var edge : any = cy.add({ group: 'edges', data: { source: parentID, target: target } });
                     if (optionName !== "") {
                         edge[0].qtip(qtipname(optionName));
                     }
@@ -240,10 +240,10 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
     var t: any = cy.elements();
     groups = t.components();
     var singles = groups.filter((f) => f.length === 1);
-    var singles2: any = singles.reduce((p, c) => p.union(c), cy.collection())
+    var singles2: any = singles.reduce((p, c : any) => p.union(c), cy.collection())
     var rest = groups.filter((f) => f.length !== 1);
 
-    var rest2 = rest.reduce((p, c) => p.union(c), cy.collection())
+    var rest2 = rest.reduce((p, c : any) => p.union(c), cy.collection())
 
     var lrest: any = rest2.layout(opts);
     lrest.run();
@@ -318,7 +318,7 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
     cy.on('select', 'edge', function (_ : any) {
         var edges: cytoscape.EdgeCollection = cy.edges('edge:selected');
         var edge: any = edges.first();
-        var opts = <AnimateOptions>{};
+        var opts : any = <AnimateOptions>{};
         opts.zoom = cy.zoom();
         opts.center = <CenterOptions>{ eles: edge };
         cy.animate(opts);

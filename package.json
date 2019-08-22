@@ -35,7 +35,7 @@
         "onLanguage:vic2",
         "onCommand:startcustomgame"
     ],
-    "main": "./out/client/extension",
+    "main": "./out/client/extension/extension",
     "files": [
         "./src/Main/bin/Debug/netcoreapp2.0/Main.dll",
         "./out",
@@ -477,7 +477,8 @@
         "compile": "tsc -p ./",
         "watch": "tsc -w -p ./",
         "update-vscode": "node ./node_modules/vscode/bin/install",
-        "postinstall": "node ./node_modules/vscode/bin/install"
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "html": "copyfiles -u 1 client/**/*.css out/client/"
     },
     "dependencies": {
         "express": "^4.17.1",
@@ -493,6 +494,7 @@
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.52",
         "@types/qtip2": "^2.2.29",
+        "copyfiles": "^2.1.1",
         "vscode": "^1.1.36"
     },
     "extensionPack": [
