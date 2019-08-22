@@ -99,7 +99,7 @@ export class GraphProvider {
         System.import('cytoscape-qtip').then(function(cyqtip) {
         System.import('cytoscape-navigator').then(function(nav){
         System.import('${this._graphFile}').then(function(graph){
-            graph.default.go('[{"name": "tech_mem_lex_armour", "prereqs":[]}]');
+            graph.default.go('${JSON.stringify(this._data)}');
         });
         });
         });

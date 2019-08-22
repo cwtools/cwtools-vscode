@@ -302,9 +302,9 @@ export function activate(context: ExtensionContext) {
 		graphProvider.graphFile = graphJs;
 
 		let disposable2 = commands.registerCommand('techGraph', () => {
-			// commands.executeCommand("gettech").then((t: any) => {
+			commands.executeCommand("gettech").then((t: any) => {
 				//console.log(t);
-				//graphProvider._data = t;
+				graphProvider._data = t;
 				let uri = Uri.parse("cwgraph://test.html")
 
 				workspace.openTextDocument(uri).then(_ => {
@@ -316,7 +316,7 @@ export function activate(context: ExtensionContext) {
 					let graphPage = window.createWebviewPanel("CWTools graph", "Technology graph", ViewColumn.Active, { enableScripts: true, localResourceRoots: [Uri.file(context.extensionPath)]});
 					graphPage.webview.html = graphProvider.provideTextDocumentContent(uri);
 				})
-			// });
+			});
 		});
 		// Create the language client and start the client.
 
