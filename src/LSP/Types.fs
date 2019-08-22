@@ -413,6 +413,8 @@ type ExecuteCommandParams = {
     arguments: JsonValue list
 }
 
+type ExecuteCommandResponse =  JsonValue
+
 type Request =
 | Initialize of InitializeParams
 | Shutdown
@@ -716,7 +718,7 @@ type ILanguageServer =
     abstract member DocumentRangeFormatting: DocumentRangeFormattingParams -> Async<TextEdit list>
     abstract member DocumentOnTypeFormatting: DocumentOnTypeFormattingParams -> Async<TextEdit list>
     abstract member Rename: RenameParams -> Async<WorkspaceEdit>
-    abstract member ExecuteCommand: ExecuteCommandParams -> Async<unit>
+    abstract member ExecuteCommand: ExecuteCommandParams -> Async<ExecuteCommandResponse option>
     abstract member DidChangeWorkspaceFolders: DidChangeWorkspaceFoldersParams -> Async<unit>
     abstract member DidFocusFile : DidFocusFileParams -> Async<unit>
 

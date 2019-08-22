@@ -56,7 +56,8 @@ let private serializeGetWordRangeAtPosition = serializerFactory<GetWordRangeAtPo
 let private serializeApplyWorkspaceEdit = serializerFactory<ApplyWorkspaceEditParams> jsonWriteOptions
 let private serializeCreateVirtualFileParams = serializerFactory<CreateVirtualFileParams> jsonWriteOptions
 let private serializeLogMessageParams = serializerFactory<LogMessageParams> jsonWriteOptions
-
+let private serializeExecuteCommandResponse = serializerFactory<ExecuteCommandResponse> jsonWriteOptions
+let private serializeExecuteCommandResponseOption = Option.map serializeExecuteCommandResponse
 let private serializeShutdownResponse = serializerFactory<int option> jsonWriteOptions
 type msg =
     | Request of int * AsyncReplyChannel<JsonValue>
@@ -205,7 +206,7 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
         | Rename(p) ->
             server.Rename(p) |> thenMap serializeWorkspaceEdit |> thenSome
         | ExecuteCommand(p) ->
-            server.ExecuteCommand(p) |> thenNone
+            server.ExecuteCommand p |> thenMap serializeExecuteCommandResponseOption
         | DidChangeWorkspaceFolders(p) ->
             server.DidChangeWorkspaceFolders(p) |> thenNone
     let processNotification(n: Notification) =

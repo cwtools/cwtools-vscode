@@ -95,6 +95,10 @@
                 "command": "startcustomgame",
                 "title": "Activate cwtools for a custom game",
                 "category": "cwtools"
+            },
+            {
+                "command": "techGraph",
+                "title": "Show tech graph"
             }
         ],
         "configuration": {
@@ -476,14 +480,20 @@
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
     "dependencies": {
-        "npm": "^6.8.0",
-        "simple-git": "^1.107.0",
+        "express": "^4.17.1",
+        "npm": "^6.11.1",
+        "simple-git": "^1.124.0",
         "vscode-languageclient": "^5.2.1"
     },
     "devDependencies": {
+        "@types/cytoscape": "^3.8.1",
+        "@types/dagre": "^0.7.40",
+        "@types/handlebars": "^4.0.37",
+        "@types/jquery": "^3.3.1",
         "@types/mocha": "^2.2.42",
-        "@types/node": "^8.10.40",
-        "vscode": "^1.1.29"
+        "@types/node": "^8.10.52",
+        "@types/qtip2": "^2.2.29",
+        "vscode": "^1.1.36"
     },
     "extensionPack": [
         "tboby.paradox-syntax"

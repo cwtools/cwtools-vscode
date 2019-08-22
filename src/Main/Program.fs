@@ -712,7 +712,7 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"]} } }
+                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -1070,7 +1070,7 @@ type Server(client: ILanguageClient) =
         member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams) = TODO()
         member this.DidChangeWorkspaceFolders(p: DidChangeWorkspaceFoldersParams) = TODO()
         member this.Rename(p: RenameParams) = TODO()
-        member this.ExecuteCommand(p: ExecuteCommandParams) =
+        member this.ExecuteCommand(p: ExecuteCommandParams) : Async<ExecuteCommandResponse option> =
             async {
                 return
                     match gameObj with
@@ -1085,6 +1085,7 @@ type Server(client: ILanguageClient) =
                             let text = String.Join(Environment.NewLine,keys)
                             //let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
+                            None
                         | {command = "genlocall"; arguments = _} ->
                             let les = game.LocalisationErrors(true, true)
                             let keys = les |> List.sortBy (fun (_, _, p, _, _, _) -> (p.FileName, p.StartLine))
@@ -1093,6 +1094,7 @@ type Server(client: ILanguageClient) =
                                            |> List.distinct
                             let text = String.Join(Environment.NewLine,keys)
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
+                            None
                             //LanguageServer.sendNotification send notif
                         | {command = "debugrules"; arguments = _} ->
                             match irGameObj with
@@ -1101,17 +1103,21 @@ type Server(client: ILanguageClient) =
                                 // let text = sprintf "%O" (ir.References().ConfigRules)
                                 client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
                             | None -> ()
+                            None
 
                         | {command = "outputerrors"; arguments = _} ->
                             let errors = game.LocalisationErrors(true, true) @ game.ValidationErrors()
                             let texts = errors |> List.map (fun (code, sev, pos, _, error, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
                             let text = String.Join(Environment.NewLine, (texts))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
+                            None
                         | {command = "reloadrulesconfig"; arguments = _} ->
                             let configs = getConfigFiles cachePath useManualRules manualRulesFolder
                             game.ReplaceConfigRules configs
+                            None
                         | {command = "cacheVanilla"; arguments = _} ->
                             checkOrSetGameCache(true)
+                            None
                         | {command ="listAllFiles"; arguments =_} ->
                             let resources = game.AllFiles()
                             let text =
@@ -1123,10 +1129,12 @@ type Server(client: ILanguageClient) =
                                 )
                             let text = String.Join(Environment.NewLine, (text))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://allfiles");  "fileContent", JsonValue.String(text) |])
+                            None
                         | {command = "listAllLocFiles"; arguments = _} ->
                             let locs = game.AllLoadedLocalisation()
                             let text = String.Join(Environment.NewLine, (locs))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://alllocfiles");  "fileContent", JsonValue.String(text) |])
+                            None
                             // eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
                             // match cacheGame.AsString() with
                             // |"stellaris" ->
@@ -1143,9 +1151,20 @@ type Server(client: ILanguageClient) =
                                   |> List.filter (fun e -> e.logicalpath.StartsWith "events/" && e.scope <> "vanilla" && e.scope <> "embedded")
                                   |> List.map (fun f -> f.filepath)
                             filteredFiles |> List.iter (pretriggerForFile client game docs)
+                            None
                         | {command = "pretriggerThisFile"; arguments = x::_} ->
                             let filename = x.AsString()
                             pretriggerForFile client game docs filename
+                            None
+                        | {command = "gettech"; arguments = _} ->
+                            match stlGameObj with
+                            | Some game ->
+                                let techs = game.References().Technologies
+                                let techJson = techs |> List.map (fun (k, p) -> JsonValue.Record [|"name", JsonValue.String k; "prereqs", JsonValue.Array (p |> Array.ofList |> Array.map JsonValue.String)|]) |> Array.ofList |> JsonValue.Array
+                                //let techJson = techs |> List.map (fun (k, p) -> [JsonValue.String k; JsonValue.Array (p |> List.map JsonValue.String |> Array.ofList)] |> Array.ofList |> JsonValue.Array) |> List.toArray |> JsonValue.Array
+                                //eprintfn "%A" techJson
+                                Some techJson
+                            | None -> None
                             // let path =
                             //     let u = filename
                             //     if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
@@ -1167,8 +1186,8 @@ type Server(client: ILanguageClient) =
                             //     let docChanges = { documentChanges = [changes] }
                             //     eprintfn "ft2 %A" docChanges
                             //     client.ApplyWorkspaceEdit { label = (spintfn "Pretriggers %s" fileInfo.Name); edit = docChanges } |> Async.RunSynchronously |> ignore
-                        |_ -> ()
-                    |None -> ()
+                        |_ -> None
+                    |None -> None
             }
 
 

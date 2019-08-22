@@ -14,6 +14,7 @@ import { create } from 'domain';
 
 import * as simplegit from 'simple-git/promise';
 import { FileExplorer, FileListItem } from './fileExplorer';
+import * as gp from './graphProvider';
 
 const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
@@ -280,12 +281,51 @@ export function activate(context: ExtensionContext) {
 		if (workspace.name === undefined) {
 			window.showWarningMessage("You have opened a file directly.\n\rFor CWTools to work correctly, the mod folder should be opened using \"File, Open Folder\"")
 		}
+
+		let graphProvider = new gp.GraphProvider(context);
+		// Get path to resource on disk
+		const siteCssPath = Uri.file(
+			path.join(context.extensionPath, 'out/client', 'site.css')
+		);
+
+		// And get the special URI to use with the webview
+		const siteCss = siteCssPath.with({ scheme: 'vscode-resource' });
+		graphProvider.cssFile = siteCss;
+
+		// Get path to resource on disk
+		const graphJsPath = Uri.file(
+			path.join(context.extensionPath, 'out/client', 'graph.js')
+		);
+
+		// And get the special URI to use with the webview
+		const graphJs = graphJsPath.with({ scheme: 'vscode-resource' });
+		graphProvider.graphFile = graphJs;
+
+		let disposable2 = commands.registerCommand('techGraph', () => {
+			commands.executeCommand("gettech").then((t: any) => {
+				console.log(t);
+				graphProvider._data = t;
+				let uri = Uri.parse("cwgraph://test.html")
+
+				workspace.openTextDocument(uri).then(_ => {
+					// let exponentPage = vscode.window.createWebviewPanel("Expo QR Code", "Expo QR Code", vscode.ViewColumn.Two, {});
+					// exponentPage.webview.html = this.qrCodeContentProvider.provideTextDocumentContent(vscode.Uri.parse(exponentUrl));
+
+					// vscode.commands.executeCommand("vscode.previewHtml", vscode.Uri.parse(exponentUrl), 1, "Expo QR code");
+					// commands.executeCommand('vscode.previewHtml', uri, ViewColumn.Active, "test")
+					let graphPage = window.createWebviewPanel("CWTools graph", "Technology graph", ViewColumn.Active, { enableScripts: true, localResourceRoots: [Uri.file(context.extensionPath)]});
+					graphPage.webview.html = graphProvider.provideTextDocumentContent(uri);
+				})
+			});
+		});
 		// Create the language client and start the client.
 
 		// Push the disposable to the context's subscriptions so that the
 		// client can be deactivated on extension deactivation
 		context.subscriptions.push(disposable);
 		context.subscriptions.push(new CwtoolsProvider());
+		context.subscriptions.push(graphProvider);
+		context.subscriptions.push(disposable2);
 		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
 			for (const sub of context.subscriptions) {
 				try {
