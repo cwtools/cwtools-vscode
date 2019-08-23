@@ -46,7 +46,7 @@ export class GraphProvider {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" nonce="${nonce}"/>
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}';"> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7;"> ->>
 </head>
 <body>
     <div class="vbox viewport body-content">
@@ -69,7 +69,7 @@ export class GraphProvider {
           <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js" nonce="${nonce}"></script>
           <link rel="stylesheet" href ="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" nonce="${nonce}"/>
           <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.47/system.js" nonce="${nonce}"></script> -->
-<script type="systemjs-importmap">
+<script type="systemjs-importmap" nonce="${nonce}">
 {
     "imports": {
         "cytoscape" : "https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.6/cytoscape.js",
@@ -83,7 +83,7 @@ export class GraphProvider {
         }
 }
 </script>
-<script>
+<script nonce="${nonce}">
 
         System.import('dagre').then(function(dagre){
         System.import('cytoscape').then(function(cytoscape){
