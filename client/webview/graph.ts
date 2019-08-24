@@ -45,7 +45,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
                 style: {
                     'background-color': function(ele : any) { if (ele.data("isPrimary")) {return '#666'} else {return '#AAA' }},
                     'label': 'data(label)',
-                    'color': '--vscode-editor-foreground'
+                    'color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-foreground") }
                 }
             },
 
@@ -129,6 +129,58 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
         if (node.nonempty()) {
             goToNode(node.data('id'));
         }
+    });
+
+    var layer = cy.cyCanvas({
+        zIndex: 1,
+        pixelRatio: "auto",
+    });
+    var canvas = layer.getCanvas();
+    var ctx = canvas.getContext('2d');
+
+    cy.on("render", function (_: any) {
+        layer.resetTransform(ctx);
+        layer.clear(ctx);
+
+
+        layer.setTransform(ctx);
+
+
+        // Draw shadows under nodes
+        ctx.shadowColor = "black";
+        ctx.shadowBlur = 25 * cy.zoom();
+        ctx.fillStyle = "#666";
+        cy.nodes().forEach((node: any) => {
+            // let text: string = node.data('type');
+            // const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
+            // const eventChar = text[0].toUpperCase();
+            const pos = node.position();
+
+            ctx.fillStyle = node.data('hidden') ? "#EEE" : '#888';
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
+            ctx.fill();
+            ctx.fillStyle = "black";
+            ctx.stroke();
+
+            if (node.data('deadend_option')) {
+                ctx.arc(pos.x, pos.y, 13, 0, 2 * Math.PI, false);
+                ctx.stroke();
+            }
+
+            //Set text to black, center it and set font.
+            ctx.fillStyle = "black";
+            ctx.font = "16px sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            // ctx.fillText(eventChars, pos.x, pos.y);
+        });
+        //ctx.restore();
+    });
+    cy.on("resize", function (_: any) {
+        $("#cy").width(10);
+        cy.resize();
+        cy.center();
     });
 
     console.log("done");
