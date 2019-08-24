@@ -101,6 +101,8 @@ type Server(client: ILanguageClient) =
     let mutable dontLoadPatterns : string list = []
     let mutable locCache : Map<string, CWError list> = Map.empty
 
+    let mutable lastFocusedFile : string option = None
+
     let (|TrySuccess|TryFailure|) tryResult =
         match tryResult with
         | true, value -> TrySuccess value
@@ -712,7 +714,7 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"]} } }
+                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"; "showEventGraph"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -878,6 +880,11 @@ type Server(client: ILanguageClient) =
 
         member this.DidFocusFile(p : DidFocusFileParams) =
             async {
+                let path =
+                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.uri.LocalPath.StartsWith "/"
+                    then p.uri.LocalPath.Substring(1)
+                    else p.uri.LocalPath
+                lastFocusedFile <- Some path
                 lintAgent.Post (UpdateRequest ({uri = p.uri; version = 0}, true))
             }
         member this.DidChangeTextDocument(p: DidChangeTextDocumentParams) =
@@ -1165,27 +1172,30 @@ type Server(client: ILanguageClient) =
                                 //eprintfn "%A" techJson
                                 Some techJson
                             | None -> None
-                            // let path =
-                            //     let u = filename
-                            //     if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
-                            //     then u.LocalPath.Substring(1)
-                            //     else u.LocalPath
-                            // let getEventChanges (deletes, insertPos, insertText) =
-                            //     let removes = deletes |> Seq.map (fun delRange -> { range = convRangeToLSPRange delRange; newText = "" }) |> List.ofSeq
-                            //     let add = { range = convRangeToLSPRange (mkRange filename insertPos insertPos); newText = insertText }
-                            //     add :: removes
-                            // let edits = game.GetCodeEdits (filename) (docs.GetText (FileInfo(filename)) |> Option.defaultValue "")
-                            // let combined = edits |> Option.defaultValue [] |> List.collect (getEventChanges)
-                            // match combined with
-                            // |[] -> ()
-                            // |textedits ->
-                            //     let fileInfo = FileInfo(filename)
-                            //     let version = docs.GetVersion (fileInfo) |> Option.defaultValue 0
-                            //     let docIdentifier = { uri = Uri(filename); version = version}
-                            //     let changes = { textDocument = docIdentifier; edits = textedits}
-                            //     let docChanges = { documentChanges = [changes] }
-                            //     eprintfn "ft2 %A" docChanges
-                            //     client.ApplyWorkspaceEdit { label = (spintfn "Pretriggers %s" fileInfo.Name); edit = docChanges } |> Async.RunSynchronously |> ignore
+                        | {command = "showEventGraph"; arguments = _} ->
+                            eprintfn "%A" lastFocusedFile
+                            match lastFocusedFile with
+                            |Some lastFile ->
+                                let events = game.GetEventGraphData([lastFile])
+                                eprintfn "%A" events
+                                let eventsJson = events |> List.map (fun e ->
+                                    let serializer = serializerFactory<string>  defaultJsonWriteOptions
+                                    let convRangeToJson (loc : range) =
+                                        [|
+                                            "filename", JsonValue.String (loc.FileName.Replace("\\","\\\\"))
+                                            "line", JsonValue.Number (loc.StartLine |> decimal)
+                                            "column", JsonValue.Number (loc.StartColumn |> decimal)
+                                        |] |> JsonValue.Record
+                                    [|
+                                        Some ("id", JsonValue.String e.id)
+                                        e.displayName |> Option.map (fun s -> ("name", JsonValue.String s))
+                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map JsonValue.String))
+                                        e.location |> Option.map (fun loc -> "location", convRangeToJson loc)
+                                        e.documentation |> Option.map (fun s -> "documentation", JsonValue.String s)
+                                        e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
+                                    |] |> Array.choose id |> JsonValue.Record)
+                                Some (eventsJson |> Array.ofList |> JsonValue.Array)
+                            | None -> None
                         |_ -> None
                     |None -> None
             }

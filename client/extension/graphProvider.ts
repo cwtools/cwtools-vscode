@@ -31,11 +31,13 @@ export class GraphProvider {
         }
         return text;
     };
-
     provideTextDocumentContent(uri: Uri): string {
         if(uri.path === 'graph.js'){
             return fs.readFileSync(uri.toString()).toString();
         }
+        return this.createGraphFromData();
+    }
+    createGraphFromData() : string {
         console.log(this._data);
         const nonce = this.getNonce();
 
@@ -45,8 +47,8 @@ export class GraphProvider {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" nonce="${nonce}"/>
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7;"> ->>
+    <!-- <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" nonce="${nonce}"/> -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'">
 </head>
 <body>
     <div class="vbox viewport body-content">
@@ -72,7 +74,7 @@ export class GraphProvider {
 <script type="systemjs-importmap" nonce="${nonce}">
 {
     "imports": {
-        "cytoscape" : "https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.6/cytoscape.js",
+        "cytoscape" : "https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.9.1/cytoscape.min.js",
         "cytoscape-qtip":"https://cdn.jsdelivr.net/npm/cytoscape-qtip@2.7.1/cytoscape-qtip.min.js",
         "dagre":"https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js",
         "cytoscape-dagre":"https://cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.5.0/cytoscape-dagre.js",

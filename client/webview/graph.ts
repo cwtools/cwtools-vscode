@@ -344,6 +344,8 @@ interface techNode
 {
     name : string
     prereqs : Array<string>
+    references : Array<string>
+    id : string
 }
 
 
@@ -351,14 +353,18 @@ export function go(nodesJ: any) {
     //console.log(nodesJ);
     var nodes: Array<techNode> = JSON.parse(nodesJ);
     //console.log(nodes);
-    var nodes2 = nodes.map((a) => a.name);
-    var edges = nodes.map((a) => a.prereqs.map((b) => [b, a.name]));
-    var edges2 = [].concat(...edges)
+    var nodes2 = nodes.map((a) => a.id);
+    var edges = nodes.map((a) => a.references.map((b) => [a.id, b]));
+    var edges2 : string[][]= [].concat(...edges)
+    var nodes3 = edges2.map(a => a[1])
+    let nodes4 : string[] = [].concat(nodes2, nodes3);
     // console.log(nodes2);
     // console.log(edges2);
     //document.getElementById('detailsTarget')!.innerHTML = "Parsing data...";
     //tech(["a", "b", "c", "d"], [["a", "b"],["c","d"]]);
-    tech(nodes2, edges2);
+    var nodesfin = new Set(nodes4)
+    var edgesfin = new Set(edges2)
+    tech([...nodesfin], [...edgesfin]);
 }
 
 //go("test");

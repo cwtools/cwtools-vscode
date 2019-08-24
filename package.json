@@ -99,6 +99,10 @@
             {
                 "command": "techGraph",
                 "title": "Show tech graph"
+            },
+            {
+                "command": "eventGraph",
+                "title": "Show event graph"
             }
         ],
         "configuration": {
@@ -476,6 +480,7 @@
         "vscode:prepublish": "tsc -p ./",
         "compile": "tsc -p ./",
         "watch": "tsc -w -p ./",
+        "watch-client": "tsc -w -p ./tsconfig.webview.json",
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "html": "copyfiles -u 1 client/**/*.css out/client/"

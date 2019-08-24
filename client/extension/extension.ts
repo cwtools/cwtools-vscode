@@ -317,6 +317,25 @@ export function activate(context: ExtensionContext) {
 				})
 			});
 		});
+
+		let disposable3 = commands.registerCommand('eventGraph', () => {
+			commands.executeCommand("showEventGraph").then((t: any) => {
+				console.log(t.keys);
+				console.log(t[0]);
+				graphProvider._data = t;
+				// let uri = Uri.parse("cwgraph://test.html")
+
+				// workspace.openTextDocument(uri).then(_ => {
+					let options = {
+						enableScripts: true,
+						retainContextWhenHidden: true,
+						localResourceRoots: [Uri.file(context.extensionPath)]
+					}
+					let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
+					graphPage.webview.html = graphProvider.createGraphFromData();
+				// })
+			});
+		});
 		// Create the language client and start the client.
 
 		// Push the disposable to the context's subscriptions so that the
@@ -325,6 +344,7 @@ export function activate(context: ExtensionContext) {
 		context.subscriptions.push(new CwtoolsProvider());
 		context.subscriptions.push(graphProvider);
 		context.subscriptions.push(disposable2);
+		context.subscriptions.push(disposable3);
 		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
 			for (const sub of context.subscriptions) {
 				try {
