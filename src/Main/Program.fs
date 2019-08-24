@@ -1193,6 +1193,7 @@ type Server(client: ILanguageClient) =
                                         e.location |> Option.map (fun loc -> "location", convRangeToJson loc)
                                         e.documentation |> Option.map (fun s -> "documentation", JsonValue.String s)
                                         e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
+                                        Some ("isPrimary", JsonValue.Boolean e.isPrimary)
                                     |] |> Array.choose id |> JsonValue.Record)
                                 Some (eventsJson |> Array.ofList |> JsonValue.Array)
                             | None -> None

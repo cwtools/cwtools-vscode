@@ -43,8 +43,9 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
             {
                 selector: 'node',
                 style: {
-                    //'background-color': '#666',
-                    'label': 'data(label)'
+                    'background-color': function(ele : any) { if (ele.data("isPrimary")) {return '#666'} else {return '#AAA' }},
+                    'label': 'data(label)',
+                    'color': '--vscode-editor-foreground'
                 }
             },
 
@@ -70,8 +71,8 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     var roots = [];
     console.log("nodes");
     console.log(nodes);
-    nodes.forEach(function (element) {
-        var node = cy.add({ group: 'nodes', data: { id: element, label: element } });
+    data.forEach(function (element) {
+        var node = cy.add({ group: 'nodes', data: { id: element.id, label: element.id, isPrimary: element.isPrimary  } });
     });
     data.forEach(function (element) {
         cy.nodes().filter((n) => n.id() == element.id).first().data("location", element.location.filename)
@@ -380,6 +381,7 @@ interface techNode
     references : Array<string>
     id : string
     location: Location
+    isPrimary : boolean
 }
 
 

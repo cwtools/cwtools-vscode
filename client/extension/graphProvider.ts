@@ -48,7 +48,8 @@ export class GraphProvider {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" nonce="${nonce}"/> -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'">
+    <meta id="__________cytoscape_stylesheet">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'; style-src vscode-resource: https:">
 </head>
 <body>
     <div class="vbox viewport body-content">
@@ -65,7 +66,7 @@ export class GraphProvider {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/5.0.0/extras/amd.js" nonce="${nonce}"></script>
                 <!-- <script nonce="${nonce}" src="${this._graphFile}"></script> -->
 
-          <link href="https://cdn.jsdelivr.net/npm/cytoscape-navigator@1.3.1/cytoscape.js-navigator.css" rel="stylesheet" type="text/css nonce="${nonce}" />
+          <link href="https://cdn.jsdelivr.net/npm/cytoscape-navigator@1.3.1/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" nonce="${nonce}" />
           <link href="${this._cssFile}" rel="stylesheet" type="text/css" nonce="${nonce}" />
           <script src="https://code.jquery.com/jquery-2.2.4.min.js" nonce="${nonce}"></script>
           <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js" nonce="${nonce}"></script>
