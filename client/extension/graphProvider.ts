@@ -86,6 +86,7 @@ export class GraphProvider {
 }
 </script>
 <script nonce="${nonce}">
+        const vscode = acquireVsCodeApi();
 
         System.import('dagre').then(function(dagre){
         System.import('cytoscape').then(function(cytoscape){

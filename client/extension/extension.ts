@@ -326,13 +326,27 @@ export function activate(context: ExtensionContext) {
 				// let uri = Uri.parse("cwgraph://test.html")
 
 				// workspace.openTextDocument(uri).then(_ => {
-					let options = {
-						enableScripts: true,
-						retainContextWhenHidden: true,
-						localResourceRoots: [Uri.file(context.extensionPath)]
-					}
-					let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
-					graphPage.webview.html = graphProvider.createGraphFromData();
+				let options = {
+					enableScripts: true,
+					retainContextWhenHidden: true,
+					localResourceRoots: [Uri.file(context.extensionPath)]
+				}
+				let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
+				graphPage.webview.html = graphProvider.createGraphFromData();
+				graphPage.webview.onDidReceiveMessage(
+					message => {
+						switch (message.command) {
+							case 'goToFile':
+								let uri = Uri.file(message.uri);
+								let range = new Range(message.line, message.column, message.line, message.column);
+								window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vs.TextEditorRevealType.AtTop))
+								return;
+						}
+					},
+					undefined,
+					context.subscriptions
+				);
+
 				// })
 			});
 		});

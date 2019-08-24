@@ -5,6 +5,7 @@ import cytoscapedagre from 'cytoscape-dagre'
 import cytoscapenav from 'cytoscape-navigator'
 import cytoscapecanvas from 'cytoscape-canvas'
 import handlebars from 'handlebars'
+import { link } from 'fs';
 
 declare module 'cytoscape' {
     interface CollectionElements {
@@ -18,13 +19,21 @@ declare module 'cytoscape' {
 
 }
 
+interface vscode {
+    postMessage(message: any): void;
+}
+
+declare const vscode: vscode;
+
+
 var labelMaxLength = 30;
 
 
 var _data: Array<any>;
 var _options: Array<any>;
 var _pretty: Array<any>;
-function tech(nodes : Array<string>, edges : Array<any>){
+function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
+    _data = data
     cytoscapedagre(cytoscape, dagre);
     cytoscapecanvas(cytoscape);
     var nav = cytoscapenav(cytoscape, $);
@@ -61,9 +70,13 @@ function tech(nodes : Array<string>, edges : Array<any>){
     var roots = [];
     console.log("nodes");
     console.log(nodes);
-    nodes.forEach(function (element: any) {
+    nodes.forEach(function (element) {
         var node = cy.add({ group: 'nodes', data: { id: element, label: element } });
     });
+    data.forEach(function (element) {
+        cy.nodes().filter((n) => n.id() == element.id).first().data("location", element.location.filename)
+
+    })
     console.log("edges");
     console.log(edges);
     edges.forEach(function (edge: any) {
@@ -109,6 +122,13 @@ function tech(nodes : Array<string>, edges : Array<any>){
     lsingles.run();
     singles2.shift("y", (singles2.boundingBox({}).y2 + 10) * -1);
     cy.fit();
+
+    cy.on('select', 'node', function (_: any) {
+        var node = cy.$('node:selected');
+        if (node.nonempty()) {
+            goToNode(node.data('id'));
+        }
+    });
 
     console.log("done");
     // var layer = cy.cyCanvas();
@@ -339,13 +359,27 @@ export function showDetails(id: string) {
     var html = detailsTemplate(context);
     document.getElementById('detailsTarget')!.innerHTML = html;
 }
+export function goToNode(id : string) {
+    var node = _data.filter(x => x.id === id)[0];
+    var uri = node.location.filename
+    var line = node.location.line
+    var column = node.location.column
+    vscode.postMessage({"command": "goToFile", "uri": uri, "line": line, "column": column})
+}
 
+interface Location
+{
+    filename : string
+    line : number
+    column : number
+}
 interface techNode
 {
     name : string
     prereqs : Array<string>
     references : Array<string>
     id : string
+    location: Location
 }
 
 
@@ -364,7 +398,7 @@ export function go(nodesJ: any) {
     //tech(["a", "b", "c", "d"], [["a", "b"],["c","d"]]);
     var nodesfin = new Set(nodes4)
     var edgesfin = new Set(edges2)
-    tech([...nodesfin], [...edgesfin]);
+    tech(nodes, [...nodesfin], [...edgesfin]);
 }
 
 //go("test");
