@@ -47,9 +47,8 @@ export class GraphProvider {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" nonce="${nonce}"/> -->
     <meta id="__________cytoscape_stylesheet">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'; style-src vscode-resource: https:">
+   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'; style-src vscode-resource: https:"> -->
           <link href="${this._cssFile}" rel="stylesheet" type="text/css" nonce="${nonce}" />
     </head>
 <body>
@@ -64,9 +63,7 @@ export class GraphProvider {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/5.0.0/extras/amd.js" nonce="${nonce}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/5.0.0/extras/named-register.js" nonce="${nonce}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/5.0.0/extras/named-exports.js" nonce="${nonce}"></script>
-                <!-- <script nonce="${nonce}" src="${this._graphFile}"></script> -->
 
-          <link href="https://cdn.jsdelivr.net/npm/cytoscape-navigator@1.3.1/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" nonce="${nonce}" />
          <script src="${this._graphFile}" nonce="${nonce}"></script>
 <script nonce="${nonce}">
 cwtoolsgraph.go(${JSON.stringify(this._data)})

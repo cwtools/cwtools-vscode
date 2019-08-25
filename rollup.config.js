@@ -2,6 +2,7 @@
 import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import inject from 'rollup-plugin-inject';
 
 export default {
     input: './client/webview/graph.ts',
@@ -27,6 +28,18 @@ export default {
 
         }),
         resolve(),
-        commonjs()
+        commonjs(),
+        inject({
+            // control which files this plugin applies to
+            // with include/exclude
+            include: '**/*.js',
+            exclude: 'node_modules/**',
+
+            /* all other options are treated as modules...*/
+
+            // use the default – i.e. insert
+            // import $ from 'jquery'
+            $: 'jquery'
+        })
     ]
 }
