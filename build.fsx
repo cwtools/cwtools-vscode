@@ -125,8 +125,8 @@ Target.create "RunScript" (fun _ ->
     match Process.tryFindFileOnPath "tsc" with
     |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("-p ./tsconfig.extension.json")) |> ignore
     |_ -> ()
-    match Process.tryFindFileOnPath "tsc" with
-    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("-p ./tsconfig.webview.json") ) |> ignore
+    match Process.tryFindFileOnPath "rollup" with
+    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("-c -o ./out/client/webview/graph.js") ) |> ignore
     |_ -> ()
     // Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName("tsc").WithLoadUserProfile(true).WithUseShellExecute(false)) |> ignore
 )

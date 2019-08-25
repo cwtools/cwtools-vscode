@@ -2,9 +2,7 @@ import dagre from 'dagre'
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cytoscape'
 import cyqtip from 'cytoscape-qtip'
 import cytoscapedagre from 'cytoscape-dagre'
-import cytoscapenav from 'cytoscape-navigator'
 import cytoscapecanvas from 'cytoscape-canvas'
-import handlebars from 'handlebars'
 import { link } from 'fs';
 
 declare module 'cytoscape' {
@@ -36,7 +34,6 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     _data = data
     cytoscapedagre(cytoscape, dagre);
     cytoscapecanvas(cytoscape);
-    var nav = cytoscapenav(cytoscape, $);
     var cy = cytoscape({
         container: document.getElementById('cy'),
         style: [ // the stylesheet for the graph
@@ -205,7 +202,6 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
     cyqtip(cytoscape, $);
     cytoscapedagre(cytoscape, dagre);
     cytoscapecanvas(cytoscape);
-    var nav = cytoscapenav(cytoscape, $);
 
     var cy = cytoscape({
         container: document.getElementById('cy'),
@@ -380,13 +376,6 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
 
     //var nav = cy.navigator(defaults);
 
-    cy.on('select', 'node', function (_ : any) {
-        var node = cy.$('node:selected');
-        if (node.nonempty()) {
-            showDetails(node.data('id'));
-        }
-    });
-
 
     cy.on('select', 'edge', function (_ : any) {
         var edges: cytoscape.EdgeCollection = cy.edges('edge:selected');
@@ -404,14 +393,6 @@ function main(data: Array<any>, triggers: any, options: any, pretties: Array<any
     });
 }
 
-var detailsTemplate = handlebars.compile("<h1>{{title}}</h1><div>{{desc}}</div><div></div><pre>{{full}}</pre>");
-export function showDetails(id: string) {
-    var node = _data.filter(x => x.ID === id)[0];
-    var pretty = _pretty.filter(x => x[0] === id)[0][1];
-    var context = { title: node.ID, desc: node.Desc, full: pretty };
-    var html = detailsTemplate(context);
-    document.getElementById('detailsTarget')!.innerHTML = html;
-}
 export function goToNode(id : string) {
     var node = _data.filter(x => x.id === id)[0];
     var uri = node.location.filename
@@ -439,7 +420,7 @@ interface techNode
 
 export function go(nodesJ: any) {
     //console.log(nodesJ);
-    var nodes: Array<techNode> = JSON.parse(nodesJ);
+    var nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
     //console.log(nodes);
     var nodes2 = nodes.map((a) => a.id);
     var edges = nodes.map((a) => a.references.map((b) => [a.id, b]));
@@ -454,5 +435,16 @@ export function go(nodesJ: any) {
     var edgesfin = new Set(edges2)
     tech(nodes, [...nodesfin], [...edgesfin]);
 }
+
+window.addEventListener('message', event => {
+
+    const message = event.data; // The JSON data our extension sent
+
+    switch (message.command) {
+        case 'go':
+            go(message.data)
+            break;
+    }
+});
 
 //go("test");

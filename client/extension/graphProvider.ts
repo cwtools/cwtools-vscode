@@ -67,21 +67,9 @@ export class GraphProvider {
                 <!-- <script nonce="${nonce}" src="${this._graphFile}"></script> -->
 
           <link href="https://cdn.jsdelivr.net/npm/cytoscape-navigator@1.3.1/cytoscape.js-navigator.css" rel="stylesheet" type="text/css" nonce="${nonce}" />
-        //   <script src="https://code.jquery.com/jquery-2.2.4.min.js" nonce="${nonce}"></script>
-        //   <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js" nonce="${nonce}"></script>
-          <link rel="stylesheet" href ="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" nonce="${nonce}"/>
-        //   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.47/system.js" nonce="${nonce}"></script> -->
-        //   <script type="module" src="https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js" nonce="${nonce}"></script>
-        //   <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.9.1/cytoscape.min.js" nonce="${nonce}"></script>
-        //   <script type="module" src="https://cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.5.0/cytoscape-dagre.js" nonce="${nonce}"></script>
-        //   <script type="module" src="https://cdn.jsdelivr.net/npm/cytoscape-qtip@2.7.1/cytoscape-qtip.min.js" nonce="${nonce}"></script>
-        //   <script type="module" src="https://cdn.jsdelivr.net/npm/cytoscape-navigator@1.3.1/cytoscape-navigator.min.js" nonce="${nonce}"></script>
-        //   <script src="https://cdn.jsdelivr.net/npm/cytoscape-canvas@3.0.1/dist/cytoscape-canvas.min.js" nonce="${nonce}"></script>
          <script src="${this._graphFile}" nonce="${nonce}"></script>
 <script nonce="${nonce}">
-        const vscode = acquireVsCodeApi();
-
-        System.get('${this._graphFile}').go('${JSON.stringify(this._data)}');
+cwtoolsgraph.go(${JSON.stringify(this._data)})
 </script>
 </div>
 </body>

@@ -333,6 +333,7 @@ export function activate(context: ExtensionContext) {
 				}
 				let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
 				graphPage.webview.html = graphProvider.createGraphFromData();
+				graphPage.webview.postMessage({"command": "go", "data": t})
 				graphPage.webview.onDidReceiveMessage(
 					message => {
 						switch (message.command) {
