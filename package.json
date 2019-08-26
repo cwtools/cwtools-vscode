@@ -50,6 +50,15 @@
                 }
             ]
         },
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "cwtoolsEventFile == true && cwtoolsWebview == false",
+                    "command": "eventGraph",
+                    "group": "navigation"
+                }
+            ]
+        },
         "commands": [
             {
                 "command": "outputerrors",
@@ -98,11 +107,13 @@
             },
             {
                 "command": "techGraph",
-                "title": "Show tech graph"
+                "title": "Show tech graph",
+                "category": "cwtools"
             },
             {
                 "command": "eventGraph",
-                "title": "Show event graph"
+                "title": "Show event graph",
+                "category": "cwtools"
             }
         ],
         "configuration": {

@@ -23,8 +23,8 @@ interface vscode {
     postMessage(message: any): void;
 }
 
-declare const vscode: vscode;
-
+declare const acquireVsCodeApi : () => vscode;
+const vscode : vscode = acquireVsCodeApi();
 
 var labelMaxLength = 30;
 
@@ -85,7 +85,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     console.log("fit");
 
     cy.fit();
-    var opts = { name: 'dagre', ranker: 'network-simplex' };
+    var opts = { name: 'dagre', ranker: 'network-simplex', nodeDimensionsIncludeLabels: true };
    // var layout = cy.layout(opts);
     //var opts = { name: }
     //var layout = cy.layout({ name: 'dagre', ranker: 'network-simplex' } );

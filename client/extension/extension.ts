@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams } from 'vscode-languageclient';
 import { create } from 'domain';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
@@ -263,6 +263,17 @@ export function activate(context: ExtensionContext) {
 			{
 				client.sendNotification(didFocusFile, {uri: path});
 			}
+			let params: ExecuteCommandParams = {
+				command: "getFileTypes",
+				arguments: [path]
+			};
+			client.sendRequest(ExecuteCommandRequest.type, params).then(
+				(data : string[]) =>
+				{
+					let eventFile = data !== undefined && data.includes("event")
+					commands.executeCommand('setContext', 'cwtoolsEventFile', eventFile);
+				}
+			);
 		}
 
 		window.onDidChangeActiveTextEditor(didChangeActiveTextEditor);
@@ -347,6 +358,10 @@ export function activate(context: ExtensionContext) {
 					undefined,
 					context.subscriptions
 				);
+				graphPage.onDidChangeViewState((e) =>
+				{
+					commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
+				})
 
 				// })
 			});

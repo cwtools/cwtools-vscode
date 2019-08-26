@@ -1028,7 +1028,7 @@ type Server(client: ILanguageClient) =
                             types |> Map.toList
                               |> List.collect (fun (k, vs) -> vs |> List.filter (fun (v, r) -> r.FileName = p.textDocument.uri.LocalPath)  |> List.map (fun (v, r) -> createDocumentSymbol v k r))
                               |> List.rev
-                              |> List.filter (fun ds -> not (ds.name.Contains(".")))
+                              |> List.filter (fun ds -> not (ds.detail.Contains(".")))
                         all |> List.fold (fun (acc : DocumentSymbol list) (next : DocumentSymbol) ->
                                                     if acc |> List.exists (fun a -> isRangeInRange a.range next.range && a.name <> next.name)
                                                     then
@@ -1173,16 +1173,14 @@ type Server(client: ILanguageClient) =
                                 Some techJson
                             | None -> None
                         | {command = "showEventGraph"; arguments = _} ->
-                            eprintfn "%A" lastFocusedFile
                             match lastFocusedFile with
                             |Some lastFile ->
                                 let events = game.GetEventGraphData([lastFile])
-                                eprintfn "%A" events
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =
                                         [|
-                                            "filename", JsonValue.String (loc.FileName.Replace("\\","\\\\"))
+                                            "filename", JsonValue.String (loc.FileName.Replace("\\","/"))
                                             "line", JsonValue.Number (loc.StartLine |> decimal)
                                             "column", JsonValue.Number (loc.StartColumn |> decimal)
                                         |] |> JsonValue.Record
@@ -1196,6 +1194,16 @@ type Server(client: ILanguageClient) =
                                         Some ("isPrimary", JsonValue.Boolean e.isPrimary)
                                     |] |> Array.choose id |> JsonValue.Record)
                                 Some (eventsJson |> Array.ofList |> JsonValue.Array)
+                            | None -> None
+                        | {command = "getFileTypes"; arguments = _} ->
+                            match lastFocusedFile with
+                            | Some lastFile ->
+                                let types = game.Types()
+                                let (all : string list) =
+                                    types |> Map.toList
+                                      |> List.collect (fun (k, vs) -> vs |> List.filter (fun (v, r) -> r.FileName = lastFile)  |> List.map (fun (v, r) -> k))
+                                      |> List.filter (fun ds -> not (ds.Contains(".")))
+                                Some (if all |> List.exists (fun ds -> ds = "event") then JsonValue.Array [|JsonValue.String "event"|] else JsonValue.Array [||])
                             | None -> None
                         |_ -> None
                     |None -> None
