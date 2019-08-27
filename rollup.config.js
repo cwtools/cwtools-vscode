@@ -3,6 +3,7 @@ import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import inject from 'rollup-plugin-inject';
+import hypothetical from 'rollup-plugin-hypothetical';
 
 export default {
     input: './client/webview/graph.ts',
@@ -40,6 +41,15 @@ export default {
             // use the default – i.e. insert
             // import $ from 'jquery'
             $: 'jquery'
-        })
+        }),
+        hypothetical({
+            allowFallthrough: true,
+            files: {
+              'webworker-threads': `
+                export default {};
+              `
+            }
+          }),
+      
     ]
 }

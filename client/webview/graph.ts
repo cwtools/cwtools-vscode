@@ -3,6 +3,7 @@ import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cy
 import cyqtip from 'cytoscape-qtip'
 import cytoscapedagre from 'cytoscape-dagre'
 import cytoscapecanvas from 'cytoscape-canvas'
+import cytoscapeelk from 'cytoscape-elk'
 import { link } from 'fs';
 import $ from 'jquery';
 window.$ = $;
@@ -18,6 +19,7 @@ declare module 'cytoscape' {
     }
 
 }
+
 
 interface vscode {
     postMessage(message: any): void;
@@ -36,6 +38,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     _data = data
     cytoscapedagre(cytoscape, dagre);
     cytoscapecanvas(cytoscape);
+    cytoscape.use(cytoscapeelk)
     var cy = cytoscape({
         container: document.getElementById('cy'),
         style: [ // the stylesheet for the graph
@@ -89,7 +92,23 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     console.log("fit");
 
     cy.fit();
-    var opts = { name: 'dagre', ranker: 'network-simplex', nodeDimensionsIncludeLabels: true };
+    //var opts = { name: 'dagre', ranker: 'network-simplex', nodeDimensionsIncludeLabels: true };
+    var opts = { 
+        name: 'elk', 
+        ranker: 'network-simplex',
+        nodeDimensionsIncludeLabels: true,
+        elk: {
+            "elk.edgeRouting": "SPLINES",
+            "elk.direction": "DOWN",
+            "elk.aspectRatio": (cy.width() / cy.height()),
+            // "elk.disco.componentCompaction.strategy": "POLYOMINO",
+            // "elk.layered.compaction.connectedComponents": "true",
+            // "org.eclipse.elk.separateConnectedComponents": "false",
+            "org.eclipse.elk.layered.highDegreeNodes.treatment": "true"
+            // "elk.layered.layering.nodePromotion.strategy": "NIKOLOV",
+            // "elk.layered.layering.nodePromotion.maxIterations": 10
+        }
+    };
    // var layout = cy.layout(opts);
     //var opts = { name: }
     //var layout = cy.layout({ name: 'dagre', ranker: 'network-simplex' } );

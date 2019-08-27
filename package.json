@@ -497,14 +497,15 @@
         "html": "copyfiles -u 1 client/**/*.css out/client/"
     },
     "dependencies": {
-        "npm": "^6.11.1",
-        "vscode-languageclient": "^5.2.1",
         "cytoscape": "^3.9.1",
-        "dagre": "0.8.4",
-        "cytoscape-dagre": "2.2.2",
         "cytoscape-canvas": "3.0.1",
+        "cytoscape-dagre": "2.2.2",
+        "cytoscape-elk": "github:jfstephe/cytoscape.js-elk",
         "cytoscape-qtip": "2.7.1",
-        "qtip2": "3.0.3"
+        "dagre": "0.8.4",
+        "npm": "^6.11.1",
+        "qtip2": "3.0.3",
+        "vscode-languageclient": "^5.2.1"
     },
     "devDependencies": {
         "@types/dagre": "^0.7.40",
@@ -515,6 +516,7 @@
         "@types/qtip2": "^2.2.29",
         "copyfiles": "^2.1.1",
         "rollup-plugin-commonjs": "^10.0.2",
+        "rollup-plugin-hypothetical": "^2.1.0",
         "rollup-plugin-inject": "^3.0.1",
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-typescript": "^1.0.1",
