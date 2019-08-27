@@ -93,18 +93,23 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
 
     cy.fit();
     //var opts = { name: 'dagre', ranker: 'network-simplex', nodeDimensionsIncludeLabels: true };
-    var opts = { 
-        name: 'elk', 
+    var opts = {
+        name: 'elk',
         ranker: 'network-simplex',
         nodeDimensionsIncludeLabels: true,
         elk: {
             "elk.edgeRouting": "SPLINES",
             "elk.direction": "DOWN",
             "elk.aspectRatio": (cy.width() / cy.height()),
+            "elk.algorithm": "layered",
+            "elk.layered.nodePlacement.bk.edgeStraightening": "NONE",
+
+            "elk.layered.compaction.connectedComponents": true
+            // "elk.layered.unnecessaryBendpoints": true
             // "elk.disco.componentCompaction.strategy": "POLYOMINO",
             // "elk.layered.compaction.connectedComponents": "true",
             // "org.eclipse.elk.separateConnectedComponents": "false",
-            "org.eclipse.elk.layered.highDegreeNodes.treatment": "true"
+            //"org.eclipse.elk.layered.highDegreeNodes.treatment": "true"
             // "elk.layered.layering.nodePromotion.strategy": "NIKOLOV",
             // "elk.layered.layering.nodePromotion.maxIterations": 10
         }
