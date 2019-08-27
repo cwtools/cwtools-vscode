@@ -362,6 +362,7 @@ export function activate(context: ExtensionContext) {
 				{
 					commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
 				})
+				graphPage.onDidDispose((_) => commands.executeCommand('setContext', "cwtoolsWebview", false))
 
 				// })
 			});

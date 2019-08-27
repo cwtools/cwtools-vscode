@@ -56,6 +56,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
                     'mid-target-arrow-color': '#ccc',
                     'mid-target-arrow-shape': 'triangle',
                     'curve-style': 'haystack',
+                    'line-style': function (ele: any) { if (ele.data("isPrimary")) { return 'solid' } else { return 'dashed' } }
                    // 'haystack-radius': 0.5
                 }
             }
@@ -71,16 +72,19 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     console.log("nodes");
     console.log(nodes);
     data.forEach(function (element) {
-        var node = cy.add({ group: 'nodes', data: { id: element.id, label: element.id, isPrimary: element.isPrimary  } });
+        var node = cy.add({ group: 'nodes', data: { id: element.id, label: element.id, isPrimary: element.isPrimary, entityType: element.entityType  } });
     });
     data.forEach(function (element) {
-        cy.nodes().filter((n) => n.id() == element.id).first().data("location", element.location.filename)
+        cy.nodes().filter((n : any) => n.id() == element.id).first().data("location", element.location.filename)
 
     })
     console.log("edges");
     console.log(edges);
     edges.forEach(function (edge: any) {
         cy.add({ group: 'edges', data: { source: edge[0], target: edge[1] } })
+    });
+    data.forEach(function (element) {
+        cy.edges().filter((n : any) => n.target().id() == element.id).forEach((e : any) => e.data("isPrimary", element.isPrimary));
     });
     console.log("fit");
 
@@ -150,12 +154,12 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
         ctx.shadowBlur = 25 * cy.zoom();
         ctx.fillStyle = "#666";
         cy.nodes().forEach((node: any) => {
-            // let text: string = node.data('type');
-            // const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
-            // const eventChar = text[0].toUpperCase();
+            let text: string = node.data('entityType');
+            const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
+            const eventChar = text[0].toUpperCase();
             const pos = node.position();
 
-            ctx.fillStyle = node.data('hidden') ? "#EEE" : '#888';
+            ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
             ctx.beginPath();
             ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
             ctx.fill();
@@ -172,7 +176,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
             ctx.font = "16px sans-serif";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
-            // ctx.fillText(eventChars, pos.x, pos.y);
+            ctx.fillText(eventChars, pos.x, pos.y);
         });
         //ctx.restore();
     });
