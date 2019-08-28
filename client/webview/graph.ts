@@ -31,6 +31,7 @@ const vscode : vscode = acquireVsCodeApi();
 var labelMaxLength = 30;
 
 
+
 var _data: Array<any>;
 var _options: Array<any>;
 var _pretty: Array<any>;
@@ -75,7 +76,12 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     console.log("nodes");
     console.log(nodes);
     data.forEach(function (element) {
-        var node = cy.add({ group: 'nodes', data: { id: element.id, label: element.id, isPrimary: element.isPrimary, entityType: element.entityType  } });
+        var node = cy.add({ group: 'nodes', data: {
+            id: element.id,
+            label: element.name || element.id,
+            isPrimary: element.isPrimary,
+            entityType: element.entityType
+        }});
     });
     data.forEach(function (element) {
         cy.nodes().filter((n : any) => n.id() == element.id).first().data("location", element.location.filename)
@@ -151,12 +157,35 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     singles2.shift("y", (singles2.boundingBox({}).y2 + 10) * -1);
     cy.fit();
 
-    cy.on('select', 'node', function (_: any) {
-        var node = cy.$('node:selected');
-        if (node.nonempty()) {
-            goToNode(node.data('id'));
+    // cy.on('select', 'node', function (_: any) {
+    //     var node = cy.$('node:selected');
+    //     if (node.nonempty()) {
+    //         goToNode(node.data('id'));
+    //     }
+    // });
+
+    /// Double click
+    var tappedBefore : EventTarget;
+    var tappedTimeout : NodeJS.Timer;
+
+    cy.on('tap', function (event : Event) {
+        var tappedNow :any = event.target;
+        if (tappedTimeout && tappedBefore) {
+            clearTimeout(tappedTimeout);
+        }
+        if (tappedBefore === tappedNow) {
+            tappedNow.trigger('doubleTap', event);
+            tappedBefore = null;
+            //originalTapEvent = null;
+        } else {
+            tappedTimeout = setTimeout(function () { tappedBefore = null; }, 300);
+            tappedBefore = tappedNow;
         }
     });
+    cy.on('doubleTap', 'node', function (event : any) {
+        goToNode(event.target.data('id'));
+    });
+
 
     var layer = cy.cyCanvas({
         zIndex: 1,

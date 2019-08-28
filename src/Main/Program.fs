@@ -1026,7 +1026,7 @@ type Server(client: ILanguageClient) =
                         let types = game.Types()
                         let (all : DocumentSymbol list) =
                             types |> Map.toList
-                              |> List.collect (fun (k, vs) -> vs |> List.filter (fun (v, r) -> r.FileName = p.textDocument.uri.LocalPath)  |> List.map (fun (v, r) -> createDocumentSymbol v k r))
+                              |> List.collect (fun (k, vs) -> vs |> List.filter (fun (tdi) -> tdi.range.FileName = p.textDocument.uri.LocalPath)  |> List.map (fun (tdi) -> createDocumentSymbol tdi.id k tdi.range))
                               |> List.rev
                               |> List.filter (fun ds -> not (ds.detail.Contains(".")))
                         all |> List.fold (fun (acc : DocumentSymbol list) (next : DocumentSymbol) ->
@@ -1202,7 +1202,7 @@ type Server(client: ILanguageClient) =
                                 let types = game.Types()
                                 let (all : string list) =
                                     types |> Map.toList
-                                      |> List.collect (fun (k, vs) -> vs |> List.filter (fun (v, r) -> r.FileName = lastFile)  |> List.map (fun (v, r) -> k))
+                                      |> List.collect (fun (k, vs) -> vs |> List.filter (fun (tdi) -> tdi.range.FileName = lastFile)  |> List.map (fun (tdi) -> k))
                                       |> List.filter (fun ds -> not (ds.Contains(".")))
                                 Some (if all |> List.exists (fun ds -> ds = "event") then JsonValue.Array [|JsonValue.String "event"|] else JsonValue.Array [||])
                             | None -> None
