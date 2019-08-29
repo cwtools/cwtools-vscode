@@ -1,13 +1,11 @@
 import dagre from 'dagre'
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cytoscape'
-import cyqtip from 'cytoscape-qtip'
 import cytoscapedagre from 'cytoscape-dagre'
 import cytoscapecanvas from 'cytoscape-canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import { link } from 'fs';
-import $ from 'jquery';
-window.$ = $;
-
+import popper from 'cytoscape-popper';
+import tippy from 'tippy.js';
 declare module 'cytoscape' {
     interface CollectionElements {
         qtip(qtip: any): any;
@@ -40,6 +38,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     cytoscapedagre(cytoscape, dagre);
     cytoscapecanvas(cytoscape);
     cytoscape.use(cytoscapeelk)
+    cytoscape.use(popper);
     var cy = cytoscape({
         container: document.getElementById('cy'),
         style: [ // the stylesheet for the graph
@@ -74,6 +73,9 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     })
     var roots = [];
     console.log("nodes");
+
+    var qtipname = function (text: string) { return { content: text, position: { my: 'top center', at: 'bottom center' }, style: { classes: 'qtip-bootstrap', tip: { width: 16, height: 8 } }, show: { event: 'mouseover' }, hide: { event: 'mouseout' } }; }
+
     console.log(nodes);
     data.forEach(function (element) {
         var node = cy.add({ group: 'nodes', data: {
@@ -82,6 +84,22 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
             isPrimary: element.isPrimary,
             entityType: element.entityType
         }});
+        let desc = "id: " + element.id
+        let details = JSON.stringify(element.details)
+        let ref = node.popperRef();
+        let tip = tippy(ref, { // tippy options:
+            content: () => {
+                let content = document.createElement('div');
+
+                content.innerHTML = details;
+
+                return content;
+            },
+            sticky: true,
+            flipOnUpdate: true
+        });
+        node.on('mouseover', () => tip.show());
+
     });
     data.forEach(function (element) {
         cy.nodes().filter((n : any) => n.id() == element.id).first().data("location", element.location.filename)
@@ -521,6 +539,7 @@ interface techNode
     id : string
     location: Location
     isPrimary : boolean
+    details : Array<{ key: string, values : Array<string> }>
 }
 
 
