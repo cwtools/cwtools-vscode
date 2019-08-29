@@ -84,14 +84,23 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
             isPrimary: element.isPrimary,
             entityType: element.entityType
         }});
-        let desc = "id: " + element.id
-        let details = JSON.stringify(element.details)
+        let id = `<tr><td>id</td><td>${element.id}</td></tr>`
+        let createRow = function (details : { key : string, values : string[]}) {
+            let vals = details.values.join(", ")
+            return `<tr><td>${details.key}</td><td>${vals}</td></tr>`
+        }
+        let detailsTable =
+            `<table>
+            ${id}
+            ${element.details.map(createRow).join("")}
+            </table>`
+        // let details = JSON.stringify(element.details)
         let ref = node.popperRef();
         let tip = tippy(ref, { // tippy options:
             content: () => {
                 let content = document.createElement('div');
 
-                content.innerHTML = details;
+                content.innerHTML = detailsTable;
 
                 return content;
             },
