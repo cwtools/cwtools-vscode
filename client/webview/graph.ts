@@ -2,7 +2,7 @@ import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cy
 import cytoscapecanvas from 'cytoscape-canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
-import tippy from 'tippy.js';
+import tippy, { Instance, Tippy } from 'tippy.js';
 import mergeimages from 'merge-images'
 declare module 'cytoscape' {
     interface CollectionElements {
@@ -173,7 +173,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
     /// Tooltips
     cy.nodes().forEach(function(node) {
 
-
+        let simpleTooltip = `<strong>${node.data("entityTypeDisplayName")}</strong>: ${node.data("id")}`
         let id = `<tr><td>id</td><td>${node.data("id")}</td></tr>`
         let entityTypeDisplayName = node.data("entityTypeDisplayName") ? `<tr><td colspan=2>${node.data("entityTypeDisplayName")}</td></tr>` : ""
         let createRow = function (details : { key : string, values : string[]}) {
@@ -189,7 +189,23 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
             </table>`
         // let details = JSON.stringify(element.details)
         let ref = node.popperRef();
-        let tip = tippy(ref, { // tippy options:
+        let isSimple = true;
+        let simpleOptions = {
+            content: () => {
+                let content = document.createElement('div');
+
+                content.innerHTML = simpleTooltip;
+
+                return content;
+            },
+            onHidden: undefined,
+            sticky: false,
+            flipOnUpdate: true,
+            trigger: "manual",
+            delay: [null, 200]
+        }
+        var hoverTimeout : NodeJS.Timer;
+        let complexOptions = {
             content: () => {
                 let content = document.createElement('div');
 
@@ -197,18 +213,36 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
 
                 return content;
             },
+            onHidden: (instance: Instance) =>
+            {
+                clearTimeout(hoverTimeout)
+                instance.set(simpleOptions)
+                isSimple = true
+            },
             sticky: true,
-            flipOnUpdate: true
+            flipOnUpdate: true,
+            interactive: true,
+            trigger: "manual"
+
+        }
+        let tip = tippy(ref, simpleOptions) as Instance;
+        let expandTooltip = function(element : Instance) {
+            element.set(complexOptions);
+            isSimple = false
+        }
+        node.on('mouseover', () => {
+            tip.show();
+            hoverTimeout = setTimeout(expandTooltip, 1000, tip);
         });
-        node.on('mouseover', () => tip.show());
+        node.on('mouseout', () =>
+        {
+            clearTimeout(hoverTimeout)
+            if(isSimple) {
+                tip.hide()
+            }
+        });
 
     });
-    // data.forEach(function (element) {
-    //     cy.nodes().filter((n : any) => n.id() == element.id).first()
-    //             .data("location", element.location.filename)
-    // })
-    console.log("edges");
-    console.log(edges);
 
     /// Layout
     if(!importingJson){
@@ -335,37 +369,6 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
         layer.setTransform(ctx);
 
         drawExtra(cy.nodes(), ctx, cy.zoom())
-        // Draw shadows under nodes
-        // ctx.shadowColor = "black";
-        // ctx.shadowBlur = 25 * cy.zoom();
-        // ctx.fillStyle = "#666";
-        // cy.nodes().forEach((node: any) => {
-        //     let text: string = node.data('entityType');
-        //     const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
-        //     const eventChars2 = node.data('abbreviation') ? node.data('abbreviation') : eventChars;
-        //     const eventChar = text[0].toUpperCase();
-        //     const pos = node.position();
-
-        //     ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
-        //     ctx.beginPath();
-        //     ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
-        //     ctx.fill();
-        //     ctx.fillStyle = "black";
-        //     ctx.stroke();
-
-        //     if (node.data('deadend_option')) {
-        //         ctx.arc(pos.x, pos.y, 13, 0, 2 * Math.PI, false);
-        //         ctx.stroke();
-        //     }
-
-        //     //Set text to black, center it and set font.
-        //     ctx.fillStyle = "black";
-        //     ctx.font = "16px sans-serif";
-        //     ctx.textAlign = "center";
-        //     ctx.textBaseline = "middle";
-        //     ctx.fillText(eventChars2, pos.x, pos.y);
-        // });
-        //ctx.restore();
     });
     function debounce(func : any, wait : number, immediate : boolean) {
         // 'private' variable for instance
@@ -431,207 +434,6 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
     //     cy.center();
     // });
 }
-// function main(data: Array<any>, triggers: any, options: any, pretties: Array<any>, eventComment: Array<any>, bundleEdges: boolean) {
-//     var localised = new Map<string, string>();
-//     var eventComments = new Map<string, string>(eventComment);
-//     var getLoc = (key: string) => localised.has(key) ? localised.get(key) : key
-//     var getName = (id: string) => eventComments.has(id) ? eventComments.get(id) == "" ? id : eventComments.get(id) : id
-//     _data = data;
-//     _options = options;
-//     _pretty = pretties;
-//     cyqtip(cytoscape, $);
-//     cytoscapedagre(cytoscape, dagre);
-//     cytoscapecanvas(cytoscape);
-
-//     var cy = cytoscape({
-//         container: document.getElementById('cy'),
-//         style: [ // the stylesheet for the graph
-//             {
-//                 selector: 'node',
-//                 style: {
-//                     //'background-color': '#666',
-//                     'label': 'data(label)'
-//                 }
-//             },
-
-//             {
-//                 selector: 'edge',
-//                 style: {
-//                     'width': 3,
-//                     'line-color': '#ccc',
-//                     'mid-target-arrow-color': '#ccc',
-//                     'mid-target-arrow-shape': 'triangle',
-//                     'curve-style': bundleEdges ? 'haystack' : 'bezier',
-//                    // 'haystack-radius': 0.5
-//                 }
-//             }
-//         ],
-//         minZoom: 0.1,
-//         maxZoom: 5,
-//         layout: {
-//             name: 'preset',
-//             padding: 10
-//         }
-//     })
-
-//     var roots = [];
-//     var qtipname = function (text: string) { return { content: text, position: { my: 'top center', at: 'bottom center' }, style: { classes: 'qtip-bootstrap', tip: { width: 16, height: 8 } }, show: { event: 'mouseover' }, hide: { event: 'mouseout' } }; }
-
-
-//     data.forEach(function (element: any) {
-//         var name;
-
-//         name = getName(element.ID);
-//         var desc;
-//         if (element.Desc === '') {
-//             desc = element.ID;
-//         }
-//         else {
-//             desc = getLoc(element.Desc);
-//         }
-//         var node : any = cy.add({ group: 'nodes', data: { id: element.ID, label: name, type: element.Key, hidden: element.Hidden } });
-//         node.qtip(qtipname(desc));
-//     });
-
-//     triggers.forEach(function (event: any) {
-//         var parentID = event[0];
-//         event[1].forEach(function (immediates: any) {
-//             immediates.forEach(function (target: any) {
-//                 var childID = target;
-//                 cy.add({ group: 'edges', data: { source: parentID, target: childID } })
-
-//             })
-
-//         })
-//     });
-//     options.forEach(function (event: any) {
-//         var parentID = event[0];
-//         event[1].forEach(function (option: any) {
-//             var optionName = option[0][0] + "\n" + option[0][1];
-//             option[1].forEach(function (target: any) {
-//                 if (cy.getElementById(target).length > 0) {
-//                     var edge : any = cy.add({ group: 'edges', data: { source: parentID, target: target } });
-//                     if (optionName !== "") {
-//                         edge[0].qtip(qtipname(optionName));
-//                     }
-//                 } else {
-//                     cy.getElementById(parentID).data('deadend_option', true);
-//                 }
-//             })
-//         })
-//     })
-//     cy.fit();
-//     var opts = { name: 'dagre', ranker: 'network-simplex' };
-//     //var opts = {name:'grid'};
-//     //var layout = cy.layout(opts);
-//     //var layout = cy.layout({ name: 'dagre', ranker: 'network-simplex' } );
-//     //layout.run();
-//     cy.fit();
-
-
-//     //layout.run();
-//     var layer = cy.cyCanvas();
-//     var canvas = layer.getCanvas();
-//     var ctx = canvas.getContext('2d');
-
-
-
-//     function flatten<T>(arr: Array<Array<T>>) {
-//         return arr.reduce(function (flat, toFlatten) {
-//             return flat.concat(toFlatten);
-//         }, []);
-//     }
-
-
-//     let toProcess = cy.elements();
-//     var groups: CollectionElements[] = [];
-
-//     var t: any = cy.elements();
-//     groups = t.components();
-//     var singles = groups.filter((f) => f.length === 1);
-//     var singles2: any = singles.reduce((p, c : any) => p.union(c), cy.collection())
-//     var rest = groups.filter((f) => f.length !== 1);
-
-//     var rest2 = rest.reduce((p, c : any) => p.union(c), cy.collection())
-
-//     var lrest: any = rest2.layout(opts);
-//     lrest.run();
-//     var bb = rest2.boundingBox({});
-//     var opts2 = { name: 'grid', condense: true, nodeDimensionsIncludeLabels: true }
-//     var lsingles: any = singles2.layout(opts2);
-//     lsingles.run();
-//     singles2.shift("y", (singles2.boundingBox({}).y2 + 10) * -1);
-//     cy.fit();
-
-//     cy.on("render", function (_ : any) {
-//         layer.resetTransform(ctx);
-//         layer.clear(ctx);
-
-
-//         layer.setTransform(ctx);
-
-
-//         // Draw shadows under nodes
-//         ctx.shadowColor = "black";
-//         ctx.shadowBlur = 25 * cy.zoom();
-//         ctx.fillStyle = "#666";
-//         cy.nodes().forEach((node : any) => {
-//             let text: string = node.data('type');
-//             const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
-//             const eventChar = text[0].toUpperCase();
-//             const pos = node.position();
-
-//             ctx.fillStyle = node.data('hidden') ? "#EEE" : '#888';
-//             ctx.beginPath();
-//             ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
-//             ctx.fill();
-//             ctx.fillStyle = "black";
-//             ctx.stroke();
-
-//             if (node.data('deadend_option')) {
-//                 ctx.arc(pos.x, pos.y, 13, 0, 2 * Math.PI, false);
-//                 ctx.stroke();
-//             }
-
-//             //Set text to black, center it and set font.
-//             ctx.fillStyle = "black";
-//             ctx.font = "16px sans-serif";
-//             ctx.textAlign = "center";
-//             ctx.textBaseline = "middle";
-//             ctx.fillText(eventChars, pos.x, pos.y);
-//         });
-//         ctx.restore();
-//     });
-
-
-//     var defaults = {
-//         container: ".cy-row" // can be a HTML or jQuery element or jQuery selector
-//         , viewLiveFramerate: 0 // set false to update graph pan only on drag end; set 0 to do it instantly; set a number (frames per second) to update not more than N times per second
-//         , thumbnailEventFramerate: 30 // max thumbnail's updates per second triggered by graph updates
-//         , thumbnailLiveFramerate: false // max thumbnail's updates per second. Set false to disable
-//         , dblClickDelay: 200 // milliseconds
-//         , removeCustomContainer: true // destroy the container specified by user on plugin destroy
-//         , rerenderDelay: 100 // ms to throttle rerender updates to the panzoom for performance
-//     };
-
-//     //var nav = cy.navigator(defaults);
-
-
-//     cy.on('select', 'edge', function (_ : any) {
-//         var edges: cytoscape.EdgeCollection = cy.edges('edge:selected');
-//         var edge: any = edges.first();
-//         var opts : any = <AnimateOptions>{};
-//         opts.zoom = cy.zoom();
-//         opts.center = <CenterOptions>{ eles: edge };
-//         cy.animate(opts);
-//     });
-
-//     cy.on("resize", function (_ : any) {
-//         $("#cy").width(10);
-//         cy.resize();
-//         cy.center();
-//     });
-// }
 
 export function goToNode(location : techNode["location"]) {
     // var node = _data.filter(x => x.id === id)[0];
