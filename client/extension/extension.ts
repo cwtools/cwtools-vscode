@@ -314,7 +314,6 @@ export function activate(context: ExtensionContext) {
 		let disposable2 = commands.registerCommand('techGraph', () => {
 			commands.executeCommand("gettech").then((t: any) => {
 				//console.log(t);
-				graphProvider._data = t;
 				let uri = Uri.parse("cwgraph://test.html")
 
 				workspace.openTextDocument(uri).then(_ => {
@@ -328,64 +327,86 @@ export function activate(context: ExtensionContext) {
 				})
 			});
 		});
+		let setupEventGraph = function() {
+			let options = {
+				enableScripts: true,
+				retainContextWhenHidden: true,
+				localResourceRoots: [Uri.file(context.extensionPath)]
+			}
+			let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
+			graphPage.webview.html = graphProvider.createGraphFromData();
+			graphPage.webview.onDidReceiveMessage(
+				message => {
+					switch (message.command) {
+						case 'goToFile':
+							let uri = Uri.file(message.uri);
+							let range = new Range(message.line, message.column, message.line, message.column);
+							window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vs.TextEditorRevealType.AtTop))
+							return;
+						case 'saveImage':
+							let image = message.image;
+							window.showSaveDialog({ filters: { 'Image': ['png'] } })
+								.then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
+							return;
+						case 'saveJson':
+							let json = message.json;
+							window.showSaveDialog({ filters: { 'Json': ['json'] } })
+								.then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
+							return;
+					}
+				},
+				undefined,
+				context.subscriptions
+			);
+			graphPage.onDidChangeViewState((e) => {
+				commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
+			})
+			let saveCommand = commands.registerCommand('saveGraphImage', () => {
+				graphPage.webview.postMessage({ "command": "exportImage" })
+			})
+			let jsonCommand = commands.registerCommand('saveGraphJson', () => {
+				graphPage.webview.postMessage({ "command": "exportJson" })
+			})
+			graphPage.onDidDispose((_) => {
+				commands.executeCommand('setContext', "cwtoolsWebview", false)
+				saveCommand.dispose();
+				jsonCommand.dispose();
+			});
+			return graphPage;
+
+		}
 
 		let disposable3 = commands.registerCommand('eventGraph', () => {
 			commands.executeCommand("showEventGraph").then((t: any) => {
-				console.log(t.keys);
-				console.log(t[0]);
-				graphProvider._data = t;
-				// let uri = Uri.parse("cwgraph://test.html")
-
-				// workspace.openTextDocument(uri).then(_ => {
-				let options = {
-					enableScripts: true,
-					retainContextWhenHidden: true,
-					localResourceRoots: [Uri.file(context.extensionPath)]
-				}
-				let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
-				graphPage.webview.html = graphProvider.createGraphFromData();
-				graphPage.webview.postMessage({"command": "go", "data": t})
-				graphPage.webview.onDidReceiveMessage(
-					message => {
-						switch (message.command) {
-							case 'goToFile':
-								let uri = Uri.file(message.uri);
-								let range = new Range(message.line, message.column, message.line, message.column);
-								window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vs.TextEditorRevealType.AtTop))
-								return;
-							case 'saveImage':
-								let image = message.image;
-								window.showSaveDialog({filters: { 'Image': ['png']}})
-									.then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
-								return;
-							case 'saveJson':
-								let json = message.json;
-								window.showSaveDialog({filters: { 'Json': ['json']}})
-									.then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
-								return;
-						}
-					},
-					undefined,
-					context.subscriptions
-				);
-				graphPage.onDidChangeViewState((e) =>
-				{
-					commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
-				})
-				let saveCommand = commands.registerCommand('saveGraphImage', () => {
-					graphPage.webview.postMessage({"command": "exportImage"})
-				})
-				let jsonCommand = commands.registerCommand('saveGraphJson', () => {
-					graphPage.webview.postMessage({"command": "exportJson"})
-				})
-				graphPage.onDidDispose((_) => {
-					commands.executeCommand('setContext', "cwtoolsWebview", false)
-					saveCommand.dispose();
-					jsonCommand.dispose();
-				});
-
-				// })
+				const panel = setupEventGraph();
+				panel.webview.onDidReceiveMessage(
+					(message) =>
+						{
+							if (message.command == "ready") {
+							panel.webview.postMessage({ "command": "go", "data": t })
+							}
+						},
+					undefined, context.subscriptions
+				)
+				// panel.webview.postMessage({ "command": "go", "data": t })
 			});
+		});
+		let disposable4 = commands.registerCommand('graphFromJson', () => {
+			window.showOpenDialog({filters: {'Json': ['json']}})
+					.then((uri) =>
+					{
+						fs.readFile(uri[0].fsPath, {encoding: "utf-8"}, (_, data) => {
+							const panel = setupEventGraph();
+							panel.webview.onDidReceiveMessage(
+								(message) => {
+									if (message.command == "ready") {
+										panel.webview.postMessage({ "command": "importJson", "json": data })
+									}
+								}
+							,undefined, context.subscriptions)
+
+						})
+					})
 		});
 		// Create the language client and start the client.
 
@@ -396,6 +417,7 @@ export function activate(context: ExtensionContext) {
 		context.subscriptions.push(graphProvider);
 		context.subscriptions.push(disposable2);
 		context.subscriptions.push(disposable3);
+		context.subscriptions.push(disposable4);
 		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
 			for (const sub of context.subscriptions) {
 				try {

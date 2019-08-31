@@ -9,7 +9,6 @@ export class GraphProvider {
     private disposables: Disposable[] = [];
     private _graphFile : Uri;
     private _cssFile : Uri;
-    public _data : any;
 
     constructor(_ : ExtensionContext) {
         workspace.registerTextDocumentContentProvider("cwgraph", this)
@@ -38,7 +37,6 @@ export class GraphProvider {
         return this.createGraphFromData();
     }
     createGraphFromData() : string {
-        console.log(this._data);
         const nonce = this.getNonce();
 
         return `
@@ -65,9 +63,6 @@ export class GraphProvider {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/5.0.0/extras/named-exports.js" nonce="${nonce}"></script>
 
          <script src="${this._graphFile}" nonce="${nonce}"></script>
-<script nonce="${nonce}">
-cwtoolsgraph.go(${JSON.stringify(this._data)})
-</script>
 </div>
 </body>
 </html>
