@@ -6,6 +6,7 @@ import cytoscapeelk from 'cytoscape-elk'
 import { link } from 'fs';
 import popper from 'cytoscape-popper';
 import tippy from 'tippy.js';
+import mergeimages from 'merge-images'
 declare module 'cytoscape' {
     interface CollectionElements {
         qtip(qtip: any): any;
@@ -28,11 +29,44 @@ const vscode : vscode = acquireVsCodeApi();
 
 var labelMaxLength = 30;
 
+function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRenderingContext2D, zoom : number){
+    // Draw shadows under nodes
+    ctx.shadowColor = "black";
+    ctx.shadowBlur = 25 * zoom;
+    ctx.fillStyle = "#666";
+    nodes.forEach((node: any) => {
+        let text: string = node.data('entityType');
+        const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
+        const eventChars2 = node.data('abbreviation') ? node.data('abbreviation') : eventChars;
+        const eventChar = text[0].toUpperCase();
+        const pos = node.position();
 
+        ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
+        ctx.fill();
+        ctx.fillStyle = "black";
+        ctx.stroke();
+
+        if (node.data('deadend_option')) {
+            ctx.arc(pos.x, pos.y, 13, 0, 2 * Math.PI, false);
+            ctx.stroke();
+        }
+
+        //Set text to black, center it and set font.
+        ctx.fillStyle = "black";
+        ctx.font = "16px sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(eventChars2, pos.x, pos.y);
+    });
+}
 
 var _data: Array<any>;
 var _options: Array<any>;
 var _pretty: Array<any>;
+var _cy: cytoscape.Core;
+var _layer: any;
 function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     _data = data
     cytoscapedagre(cytoscape, dagre);
@@ -62,6 +96,25 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
                     'line-style': function (ele: any) { if (ele.data("isPrimary")) { return 'solid' } else { return 'dashed' } }
                    // 'haystack-radius': 0.5
                 }
+            },
+            {
+                selector: 'node.highlight',
+                style: {
+                    'border-color': '#FFF',
+                    'border-width': '2px'
+                }
+            },
+            {
+                selector: 'node.semitransp',
+                style: { 'opacity': '0.5' }
+            },
+            {
+                selector: 'edge.highlight',
+                style: { 'mid-target-arrow-color': '#FFF' }
+            },
+            {
+                selector: 'edge.semitransp',
+                style: { 'opacity': '0.2' }
             }
         ],
         minZoom: 0.1,
@@ -69,8 +122,10 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
         layout: {
             name: 'preset',
             padding: 10
-        }
+        },
+        pixelRatio: 2
     })
+    _cy = cy;
     var roots = [];
     console.log("nodes");
 
@@ -82,17 +137,22 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
             id: element.id,
             label: element.name || element.id,
             isPrimary: element.isPrimary,
-            entityType: element.entityType
+            entityType: element.entityType,
+            abbreviation: element.abbreviation,
+            entityTypeDisplayName: element.entityTypeDisplayName
         }});
         let id = `<tr><td>id</td><td>${element.id}</td></tr>`
+        let entityTypeDisplayName = element.entityTypeDisplayName ? `<tr><td colspan=2>${element.entityTypeDisplayName}</td></tr>` : ""
         let createRow = function (details : { key : string, values : string[]}) {
             let vals = details.values.join(", ")
             return `<tr><td>${details.key}</td><td>${vals}</td></tr>`
         }
+        let detailsText = element.details ? element.details.map(createRow).join("") : ""
         let detailsTable =
             `<table>
+            ${entityTypeDisplayName}
             ${id}
-            ${element.details.map(createRow).join("")}
+            ${detailsText}
             </table>`
         // let details = JSON.stringify(element.details)
         let ref = node.popperRef();
@@ -111,8 +171,8 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
 
     });
     data.forEach(function (element) {
-        cy.nodes().filter((n : any) => n.id() == element.id).first().data("location", element.location.filename)
-
+        cy.nodes().filter((n : any) => n.id() == element.id).first()
+                .data("location", element.location.filename)
     })
     console.log("edges");
     console.log(edges);
@@ -213,11 +273,35 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
         goToNode(event.target.data('id'));
     });
 
+    cy.on('mouseover', 'node', function (e) {
+        var sel = e.target;
+        cy.elements()
+            .difference(sel.outgoers()
+                .union(sel.incomers()))
+            .not(sel)
+            .addClass('semitransp');
+        sel.addClass('highlight')
+            .outgoers()
+            .union(sel.incomers())
+            .addClass('highlight');
+    });
+    cy.on('mouseout', 'node', function (e) {
+        var sel = e.target;
+        cy.elements()
+            .removeClass('semitransp');
+        sel.removeClass('highlight')
+            .outgoers()
+            .union(sel.incomers())
+            .removeClass('highlight');
+    });
+
+
 
     var layer = cy.cyCanvas({
         zIndex: 1,
         pixelRatio: "auto",
     });
+    _layer = layer;
     var canvas = layer.getCanvas();
     var ctx = canvas.getContext('2d');
 
@@ -228,36 +312,37 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
 
         layer.setTransform(ctx);
 
-
+        drawExtra(cy.nodes(), ctx, cy.zoom())
         // Draw shadows under nodes
-        ctx.shadowColor = "black";
-        ctx.shadowBlur = 25 * cy.zoom();
-        ctx.fillStyle = "#666";
-        cy.nodes().forEach((node: any) => {
-            let text: string = node.data('entityType');
-            const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
-            const eventChar = text[0].toUpperCase();
-            const pos = node.position();
+        // ctx.shadowColor = "black";
+        // ctx.shadowBlur = 25 * cy.zoom();
+        // ctx.fillStyle = "#666";
+        // cy.nodes().forEach((node: any) => {
+        //     let text: string = node.data('entityType');
+        //     const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
+        //     const eventChars2 = node.data('abbreviation') ? node.data('abbreviation') : eventChars;
+        //     const eventChar = text[0].toUpperCase();
+        //     const pos = node.position();
 
-            ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
-            ctx.beginPath();
-            ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.fillStyle = "black";
-            ctx.stroke();
+        //     ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
+        //     ctx.beginPath();
+        //     ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
+        //     ctx.fill();
+        //     ctx.fillStyle = "black";
+        //     ctx.stroke();
 
-            if (node.data('deadend_option')) {
-                ctx.arc(pos.x, pos.y, 13, 0, 2 * Math.PI, false);
-                ctx.stroke();
-            }
+        //     if (node.data('deadend_option')) {
+        //         ctx.arc(pos.x, pos.y, 13, 0, 2 * Math.PI, false);
+        //         ctx.stroke();
+        //     }
 
-            //Set text to black, center it and set font.
-            ctx.fillStyle = "black";
-            ctx.font = "16px sans-serif";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(eventChars, pos.x, pos.y);
-        });
+        //     //Set text to black, center it and set font.
+        //     ctx.fillStyle = "black";
+        //     ctx.font = "16px sans-serif";
+        //     ctx.textAlign = "center";
+        //     ctx.textBaseline = "middle";
+        //     ctx.fillText(eventChars2, pos.x, pos.y);
+        // });
         //ctx.restore();
     });
     function debounce(func : any, wait : number, immediate : boolean) {
@@ -534,6 +619,41 @@ export function goToNode(id : string) {
     vscode.postMessage({"command": "goToFile", "uri": uri, "line": line, "column": column})
 }
 
+export function exportImage() {
+
+    var png = _cy.png({ full: true, output: 'base64uri' });
+    var boundingBox = _cy.elements().boundingBox({includeLabels:true})
+    const canvas = new OffscreenCanvas(Math.ceil(boundingBox.x2 - boundingBox.x1) * 2, Math.ceil(boundingBox.y2 - boundingBox.y1) * 2)
+    console.log(canvas.width);
+    console.log(_cy.elements().boundingBox({}).x1)
+    console.log(_cy.elements().boundingBox({}).x2)
+    const ctx = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D
+    ctx.scale(2, 2)
+    ctx.translate(-1 * boundingBox.x1, -1 * boundingBox.y1)
+    // _layer.resetTransform(ctx);
+    // _layer.clear(ctx);
+    drawExtra(_cy.nodes(), ctx, 0.5)
+    canvas.convertToBlob({"type":"png"}).then((canvasImage) =>
+        {
+            var reader = new FileReader()
+            reader.onloadend = (function () {
+                var res = {
+                    src: reader.result as string,
+                    x: 0,// boundingBox.x1 * -1,
+                    y: 0//boundingBox.y1 * -1
+                }
+                //res = res.substr(res.indexOf(',') + 1)
+                // vscode.postMessage({ "command": "saveImage", "image": png })
+                // vscode.postMessage({ "command": "saveImage", "image": res })
+                mergeimages([png, res]).then((final) => vscode.postMessage({ "command": "saveImage", "image": final.substr(final.indexOf(',') + 1) }))
+            })
+            reader.readAsDataURL(canvasImage);
+            // mergeimages([png, canvasImage])
+        }
+    )
+}
+
+
 interface Location
 {
     filename : string
@@ -548,7 +668,9 @@ interface techNode
     id : string
     location: Location
     isPrimary : boolean
-    details : Array<{ key: string, values : Array<string> }>
+    details? : Array<{ key: string, values : Array<string> }>
+    entityTypeDisplayName? : string
+    abbreviation? : string
 }
 
 
@@ -577,6 +699,9 @@ window.addEventListener('message', event => {
     switch (message.command) {
         case 'go':
             go(message.data)
+            break;
+        case 'exportImage':
+            exportImage();
             break;
     }
 });

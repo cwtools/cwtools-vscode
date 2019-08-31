@@ -353,6 +353,11 @@ export function activate(context: ExtensionContext) {
 								let range = new Range(message.line, message.column, message.line, message.column);
 								window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vs.TextEditorRevealType.AtTop))
 								return;
+							case 'saveImage':
+								let image = message.image;
+								window.showSaveDialog({filters: { 'Image': ['png']}})
+									.then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
+								return;
 						}
 					},
 					undefined,
@@ -362,7 +367,13 @@ export function activate(context: ExtensionContext) {
 				{
 					commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
 				})
-				graphPage.onDidDispose((_) => commands.executeCommand('setContext', "cwtoolsWebview", false))
+				let saveCommand = commands.registerCommand('saveGraphImage', () => {
+					graphPage.webview.postMessage({"command": "exportImage"})
+				})
+				graphPage.onDidDispose((_) => {
+					commands.executeCommand('setContext', "cwtoolsWebview", false)
+					saveCommand.dispose();
+				});
 
 				// })
 			});

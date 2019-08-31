@@ -1193,6 +1193,8 @@ type Server(client: ILanguageClient) =
                                         e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
                                         Some ("isPrimary", JsonValue.Boolean e.isPrimary)
                                         Some ("entityType", JsonValue.String e.entityType)
+                                        e.entityTypeDisplayName |> Option.map (fun s -> ("entityTypeDisplayName", JsonValue.String s))
+                                        e.abbreviation |> Option.map (fun s -> ("abbreviation", JsonValue.String s))
                                     |] |> Array.choose id |> JsonValue.Record)
                                 Some (eventsJson |> Array.ofList |> JsonValue.Array)
                             | None -> None
