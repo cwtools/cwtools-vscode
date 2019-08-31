@@ -1,4 +1,4 @@
-import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cytoscape'
+import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection } from 'cytoscape'
 import cytoscapecanvas from 'cytoscape-canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
@@ -31,7 +31,7 @@ function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRender
     ctx.shadowColor = "black";
     ctx.shadowBlur = 25 * zoom;
     ctx.fillStyle = "#666";
-    nodes.forEach((node: any) => {
+    nodes.forEach((node: cytoscape.CollectionElements) => {
         let text: string = node.data('entityType');
         const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
         const eventChars2 = node.data('abbreviation') ? node.data('abbreviation') : eventChars;
@@ -39,6 +39,7 @@ function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRender
         const pos = node.position();
 
         ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
+        ctx.globalAlpha = node.hasClass('semitransp') ? 0.5 : 1;
         ctx.beginPath();
         ctx.arc(pos.x, pos.y, 15, 0, 2 * Math.PI, false);
         ctx.fill();
@@ -174,18 +175,18 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
     cy.nodes().forEach(function(node) {
 
         let simpleTooltip = `<strong>${node.data("entityTypeDisplayName")}</strong>: ${node.data("id")}`
-        let id = `<tr><td>id</td><td>${node.data("id")}</td></tr>`
+        // let id = `<tr><td><strong>${node.data("entityTypeDisplayName")}</strong></td><td>${node.data("id")}</td></tr>`
         let entityTypeDisplayName = node.data("entityTypeDisplayName") ? `<tr><td colspan=2>${node.data("entityTypeDisplayName")}</td></tr>` : ""
         let createRow = function (details : { key : string, values : string[]}) {
             let vals = details.values.join(", ")
             return `<tr><td>${details.key}</td><td>${vals}</td></tr>`
         }
         let detailsText = node.data("details") ? node.data("details").map(createRow).join("") : ""
+        //${entityTypeDisplayName}
         let detailsTable =
-            `<table>
-            ${entityTypeDisplayName}
-            ${id}
-            ${detailsText}
+            `${simpleTooltip}
+            <table class=\"cwtools-table\">
+            ${detailsText ? detailsText : "<tr><td class=\"cwtools-text-center\">-</td></tr>"}
             </table>`
         // let details = JSON.stringify(element.details)
         let ref = node.popperRef();
