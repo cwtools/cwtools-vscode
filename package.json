@@ -61,6 +61,11 @@
                     "when": "cwtoolsWebview == true",
                     "command": "saveGraphImage",
                     "group": "navigation"
+                },
+                {
+                    "when": "cwtoolsWebview == true",
+                    "command": "saveGraphJson",
+                    "group": "navigation"
                 }
             ]
         },
@@ -123,6 +128,12 @@
             {
                 "command": "saveGraphImage",
                 "title": "Save graph as image",
+                "category": "cwtools",
+                "enablement": "cwtoolsWebview == true"
+            },
+            {
+                "command": "saveGraphJson",
+                "title": "Save graph as json",
                 "category": "cwtools",
                 "enablement": "cwtoolsWebview == true"
             }

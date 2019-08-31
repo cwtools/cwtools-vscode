@@ -639,6 +639,11 @@ export function exportImage(pixelRatio: number) {
     )
 }
 
+export function exportJson() {
+    const json = JSON.stringify(_cy.json())
+    vscode.postMessage({"command": "saveJson", "json": json});
+}
+
 
 interface Location
 {
@@ -689,6 +694,10 @@ window.addEventListener('message', event => {
         case 'exportImage':
             exportImage(1);
             break;
+        case 'exportJson':
+            exportJson();
+            break;
+
     }
 });
 

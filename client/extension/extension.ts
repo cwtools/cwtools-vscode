@@ -358,6 +358,11 @@ export function activate(context: ExtensionContext) {
 								window.showSaveDialog({filters: { 'Image': ['png']}})
 									.then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
 								return;
+							case 'saveJson':
+								let json = message.json;
+								window.showSaveDialog({filters: { 'Json': ['json']}})
+									.then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
+								return;
 						}
 					},
 					undefined,
@@ -370,9 +375,13 @@ export function activate(context: ExtensionContext) {
 				let saveCommand = commands.registerCommand('saveGraphImage', () => {
 					graphPage.webview.postMessage({"command": "exportImage"})
 				})
+				let jsonCommand = commands.registerCommand('saveGraphJson', () => {
+					graphPage.webview.postMessage({"command": "exportJson"})
+				})
 				graphPage.onDidDispose((_) => {
 					commands.executeCommand('setContext', "cwtoolsWebview", false)
 					saveCommand.dispose();
+					jsonCommand.dispose();
 				});
 
 				// })
