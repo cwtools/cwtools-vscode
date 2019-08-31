@@ -132,8 +132,8 @@ Target.create "RunScript" (fun _ ->
 )
 
 Target.create "CopyHtml" (fun _ ->
-    !!("client/**/*.css")
-        |> Shell.copyFiles "out/client"
+    !!("client/webview/*.css")
+        |> Shell.copyFiles "out/client/webview"
 )
 
 // Target "Watch" (fun _ ->

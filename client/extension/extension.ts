@@ -13,7 +13,7 @@ import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, No
 import { create } from 'domain';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
-import * as gp from './graphProvider';
+import * as gp from './graphPanel';
 
 const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
@@ -292,132 +292,46 @@ export function activate(context: ExtensionContext) {
 			window.showWarningMessage("You have opened a file directly.\n\rFor CWTools to work correctly, the mod folder should be opened using \"File, Open Folder\"")
 		}
 
-		let graphProvider = new gp.GraphProvider(context);
-		// Get path to resource on disk
-		const siteCssPath = Uri.file(
-			path.join(context.extensionPath, 'out/client', 'site.css')
-		);
+/// TODO graph
+		// let disposable2 = commands.registerCommand('techGraph', () => {
+		// 	commands.executeCommand("gettech").then((t: any) => {
+		// 		//console.log(t);
+		// 		let uri = Uri.parse("cwgraph://test.html")
 
-		// And get the special URI to use with the webview
-		const siteCss = siteCssPath.with({ scheme: 'vscode-resource' });
-		graphProvider.cssFile = siteCss;
+		// 		workspace.openTextDocument(uri).then(_ => {
+		// 			// let exponentPage = vscode.window.createWebviewPanel("Expo QR Code", "Expo QR Code", vscode.ViewColumn.Two, {});
+		// 			// exponentPage.webview.html = this.qrCodeContentProvider.provideTextDocumentContent(vscode.Uri.parse(exponentUrl));
 
-		// Get path to resource on disk
-		const graphJsPath = Uri.file(
-			path.join(context.extensionPath, 'out/client/webview', 'graph.js')
-		);
+		// 			// vscode.commands.executeCommand("vscode.previewHtml", vscode.Uri.parse(exponentUrl), 1, "Expo QR code");
+		// 			// commands.executeCommand('vscode.previewHtml', uri, ViewColumn.Active, "test")
+		// 			let graphPage = window.createWebviewPanel("CWTools graph", "Technology graph", ViewColumn.Active, { enableScripts: true, localResourceRoots: [Uri.file(context.extensionPath)]});
+		// 			graphPage.webview.html = graphProvider.provideTextDocumentContent(uri);
+		// 		})
+		// 	});
+		// });
 
-		// And get the special URI to use with the webview
-		const graphJs = graphJsPath.with({ scheme: 'vscode-resource' });
-		graphProvider.graphFile = graphJs;
-
-		let disposable2 = commands.registerCommand('techGraph', () => {
-			commands.executeCommand("gettech").then((t: any) => {
-				//console.log(t);
-				let uri = Uri.parse("cwgraph://test.html")
-
-				workspace.openTextDocument(uri).then(_ => {
-					// let exponentPage = vscode.window.createWebviewPanel("Expo QR Code", "Expo QR Code", vscode.ViewColumn.Two, {});
-					// exponentPage.webview.html = this.qrCodeContentProvider.provideTextDocumentContent(vscode.Uri.parse(exponentUrl));
-
-					// vscode.commands.executeCommand("vscode.previewHtml", vscode.Uri.parse(exponentUrl), 1, "Expo QR code");
-					// commands.executeCommand('vscode.previewHtml', uri, ViewColumn.Active, "test")
-					let graphPage = window.createWebviewPanel("CWTools graph", "Technology graph", ViewColumn.Active, { enableScripts: true, localResourceRoots: [Uri.file(context.extensionPath)]});
-					graphPage.webview.html = graphProvider.provideTextDocumentContent(uri);
-				})
-			});
-		});
-		let setupEventGraph = function() {
-			let options = {
-				enableScripts: true,
-				retainContextWhenHidden: true,
-				localResourceRoots: [Uri.file(context.extensionPath)]
-			}
-			let graphPage = window.createWebviewPanel("CWTools graph", "Event graph", ViewColumn.Active, options);
-			graphPage.webview.html = graphProvider.createGraphFromData();
-			graphPage.webview.onDidReceiveMessage(
-				message => {
-					switch (message.command) {
-						case 'goToFile':
-							let uri = Uri.file(message.uri);
-							let range = new Range(message.line, message.column, message.line, message.column);
-							window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vs.TextEditorRevealType.AtTop))
-							return;
-						case 'saveImage':
-							let image = message.image;
-							window.showSaveDialog({ filters: { 'Image': ['png'] } })
-								.then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
-							return;
-						case 'saveJson':
-							let json = message.json;
-							window.showSaveDialog({ filters: { 'Json': ['json'] } })
-								.then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
-							return;
-					}
-				},
-				undefined,
-				context.subscriptions
-			);
-			graphPage.onDidChangeViewState((e) => {
-				commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
-			})
-			let saveCommand = commands.registerCommand('saveGraphImage', () => {
-				graphPage.webview.postMessage({ "command": "exportImage" })
-			})
-			let jsonCommand = commands.registerCommand('saveGraphJson', () => {
-				graphPage.webview.postMessage({ "command": "exportJson" })
-			})
-			graphPage.onDidDispose((_) => {
-				commands.executeCommand('setContext', "cwtoolsWebview", false)
-				saveCommand.dispose();
-				jsonCommand.dispose();
-			});
-			return graphPage;
-
-		}
-
-		let disposable3 = commands.registerCommand('eventGraph', () => {
+		context.subscriptions.push(commands.registerCommand('eventGraph', () => {
 			commands.executeCommand("showEventGraph").then((t: any) => {
-				const panel = setupEventGraph();
-				panel.webview.onDidReceiveMessage(
-					(message) =>
-						{
-							if (message.command == "ready") {
-							panel.webview.postMessage({ "command": "go", "data": t })
-							}
-						},
-					undefined, context.subscriptions
-				)
-				// panel.webview.postMessage({ "command": "go", "data": t })
+				gp.GraphPanel.create(context.extensionPath);
+				gp.GraphPanel.currentPanel.initialiseGraph(t);
 			});
-		});
-		let disposable4 = commands.registerCommand('graphFromJson', () => {
+		}));
+		context.subscriptions.push(commands.registerCommand('graphFromJson', () => {
 			window.showOpenDialog({filters: {'Json': ['json']}})
 					.then((uri) =>
 					{
 						fs.readFile(uri[0].fsPath, {encoding: "utf-8"}, (_, data) => {
-							const panel = setupEventGraph();
-							panel.webview.onDidReceiveMessage(
-								(message) => {
-									if (message.command == "ready") {
-										panel.webview.postMessage({ "command": "importJson", "json": data })
-									}
-								}
-							,undefined, context.subscriptions)
-
+							gp.GraphPanel.create(context.extensionPath);
+							gp.GraphPanel.currentPanel.initialiseGraph(data);
 						})
 					})
-		});
+		}));
 		// Create the language client and start the client.
 
 		// Push the disposable to the context's subscriptions so that the
 		// client can be deactivated on extension deactivation
 		context.subscriptions.push(disposable);
 		context.subscriptions.push(new CwtoolsProvider());
-		context.subscriptions.push(graphProvider);
-		context.subscriptions.push(disposable2);
-		context.subscriptions.push(disposable3);
-		context.subscriptions.push(disposable4);
 		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
 			for (const sub of context.subscriptions) {
 				try {

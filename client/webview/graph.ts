@@ -200,7 +200,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
                 return content;
             },
             onHidden: undefined,
-            sticky: false,
+            sticky: true,
             flipOnUpdate: true,
             trigger: "manual",
             delay: [null, 200]
@@ -494,7 +494,7 @@ interface techNode
 }
 
 
-export function go(nodesJ: any) {
+export function go(nodesJ: Array<techNode>) {
     //console.log(nodesJ);
     var nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
     //console.log(nodes);
