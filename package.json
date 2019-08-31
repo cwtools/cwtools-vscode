@@ -502,7 +502,7 @@
         "vscode:prepublish": "tsc -p ./",
         "compile": "tsc -p ./",
         "watch": "tsc -w -p ./",
-        "watch-client": "tsc -w -p ./tsconfig.webview.json",
+        "watch-client": "rollup -c -o ./out/client/webview/graph.js --watch --no-treeshake",
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "html": "copyfiles -u 1 client/**/*.css out/client/"
@@ -510,19 +510,15 @@
     "dependencies": {
         "cytoscape": "^3.9.1",
         "cytoscape-canvas": "3.0.1",
-        "cytoscape-dagre": "2.2.2",
         "cytoscape-elk": "github:jfstephe/cytoscape.js-elk",
         "cytoscape-popper": "1.0.4",
         "popper.js": "^1.15.0",
         "tippy.js": "^4.3.5",
-        "dagre": "0.8.4",
         "merge-images": "1.1.0",
-        "@mapbox/blend": "2.0.1",
         "npm": "^6.11.1",
         "vscode-languageclient": "^5.2.1"
     },
     "devDependencies": {
-        "@types/dagre": "^0.7.40",
         "@types/handlebars": "^4.0.37",
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.52",
@@ -531,7 +527,6 @@
         "copyfiles": "^2.1.1",
         "rollup-plugin-commonjs": "^10.0.2",
         "rollup-plugin-hypothetical": "^2.1.0",
-        "rollup-plugin-inject": "^3.0.1",
         "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-typescript": "^1.0.1",
         "tslib": "^1.10.0",

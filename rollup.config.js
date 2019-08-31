@@ -2,14 +2,15 @@
 import typescript from 'rollup-plugin-typescript';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import inject from 'rollup-plugin-inject';
 import hypothetical from 'rollup-plugin-hypothetical';
 
 export default {
     input: './client/webview/graph.ts',
     output: {
         format: "iife",
-        name: "cwtoolsgraph"
+        name: "cwtoolsgraph",
+        sourceMap: false,
+        indent: false
     },
     plugins: [
         typescript({
@@ -29,19 +30,7 @@ export default {
 
         }),
         resolve(),
-        commonjs(),
-        inject({
-            // control which files this plugin applies to
-            // with include/exclude
-            include: '**/*.js',
-            exclude: 'node_modules/**',
-
-            /* all other options are treated as modules...*/
-
-            // use the default – i.e. insert
-            // import $ from 'jquery'
-            $: 'jquery'
-        }),
+        commonjs({ sourceMap: false }),
         hypothetical({
             allowFallthrough: true,
             files: {
@@ -50,6 +39,6 @@ export default {
               `
             }
           }),
-      
+
     ]
 }

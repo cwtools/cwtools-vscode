@@ -1,9 +1,6 @@
-import dagre from 'dagre'
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cytoscape'
-import cytoscapedagre from 'cytoscape-dagre'
 import cytoscapecanvas from 'cytoscape-canvas'
 import cytoscapeelk from 'cytoscape-elk'
-import { link } from 'fs';
 import popper from 'cytoscape-popper';
 import tippy from 'tippy.js';
 import mergeimages from 'merge-images'
@@ -69,7 +66,6 @@ var _cy: cytoscape.Core;
 var _layer: any;
 function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
     _data = data
-    cytoscapedagre(cytoscape, dagre);
     cytoscapecanvas(cytoscape);
     cytoscape.use(cytoscapeelk)
     cytoscape.use(popper);
