@@ -1,3 +1,12 @@
+# 0.8.14
+
+* New feature: Event graphs
+Press "Show event graph" in an event file in order to visualise your events
+* Add "Save graph to image"
+* Add "Save graph to json", as well as "Recreate graph from json"
+* Double click on nodes to go to event definition
+* Hover over nodes to see defined event targets, flags, etc
+
 # 0.8.13
 * Hotfix
 # 0.8.12
