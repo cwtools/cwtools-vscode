@@ -38,7 +38,7 @@ suite(`Debug Integration Test: `, function() {
 		return vscode.extensions.getExtension('tboby.cwtools-vscode').activate().then((_) => {
 			setTimeout(() => {
 				let count = 0;
-					myExtension.default.diagnostics.forEach(([], [], []) => count++);
+					//myExtension.default.diagnostics.forEach(([], [], []) => count++);
 					assert.ok(count);
 			}, 5000);
 		});

@@ -515,13 +515,13 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "tsc -p ./",
-        "compile": "tsc -p ./",
-        "watch": "tsc -w -p ./",
+        "vscode:prepublish": "tsc -p ./tsconfig.extension.json",
+        "compile": "tsc -p ./tsconfig.extension.json",
+        "watch": "tsc -w -p ./tsconfig.extension.json",
         "watch-client": "rollup -c -o ./out/client/webview/graph.js --watch --no-treeshake",
         "update-vscode": "node ./node_modules/vscode/bin/install",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "html": "copyfiles -u 1 client/**/*.css out/client/"
+        "html": "copyfiles -u 1 client/webview/*.css out/client/webview"
     },
     "dependencies": {
         "cytoscape": "^3.9.1",

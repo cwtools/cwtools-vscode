@@ -142,7 +142,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
     console.log("nodes");
 
 
-    console.log(nodes);
+    //console.log(nodes);
 
     /// Initial setup
     if (!importingJson){

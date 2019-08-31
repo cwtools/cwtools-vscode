@@ -219,6 +219,9 @@ open Fake.Core.TargetOperators
 ==> "BuildServer"
 ==> "Build"
 
+"Clean" ==> "RunScript"
+"Clean" ==> "CopyHtml"
+"CopyHtml" ==> "BuildPackage"
 "RunScript" ==> "Build"
 "RunScript" ==> "PublishServer"
 //"PaketRestore" ==> "BuildServer"
