@@ -123,7 +123,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>){
             name: 'preset',
             padding: 10
         },
-        pixelRatio: 2
+        pixelRatio: 1
     })
     _cy = cy;
     var roots = [];
@@ -619,36 +619,26 @@ export function goToNode(id : string) {
     vscode.postMessage({"command": "goToFile", "uri": uri, "line": line, "column": column})
 }
 
-export function exportImage() {
+export function exportImage(pixelRatio: number) {
 
-    var png = _cy.png({ full: true, output: 'base64uri' });
-    var boundingBox = _cy.elements().boundingBox({includeLabels:true})
-    const canvas = new OffscreenCanvas(Math.ceil(boundingBox.x2 - boundingBox.x1) * 2, Math.ceil(boundingBox.y2 - boundingBox.y1) * 2)
-    console.log(canvas.width);
-    console.log(_cy.elements().boundingBox({}).x1)
-    console.log(_cy.elements().boundingBox({}).x2)
+    const png = _cy.png({ full: true, output: 'base64uri', scale: pixelRatio });
+    const boundingBox = _cy.elements().boundingBox({})
+    const canvas = new OffscreenCanvas(Math.ceil(boundingBox.x2 - boundingBox.x1) * pixelRatio, Math.ceil(boundingBox.y2 - boundingBox.y1) * pixelRatio)
+
     const ctx = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D
-    ctx.scale(2, 2)
+
+    ctx.scale(pixelRatio, pixelRatio)
     ctx.translate(-1 * boundingBox.x1, -1 * boundingBox.y1)
-    // _layer.resetTransform(ctx);
-    // _layer.clear(ctx);
-    drawExtra(_cy.nodes(), ctx, 0.5)
-    canvas.convertToBlob({"type":"png"}).then((canvasImage) =>
+
+    drawExtra(_cy.nodes(), ctx, (1/pixelRatio))
+
+    canvas.convertToBlob({ "type":"png"}).then((canvasImage) =>
         {
-            var reader = new FileReader()
+        const reader = new FileReader()
             reader.onloadend = (function () {
-                var res = {
-                    src: reader.result as string,
-                    x: 0,// boundingBox.x1 * -1,
-                    y: 0//boundingBox.y1 * -1
-                }
-                //res = res.substr(res.indexOf(',') + 1)
-                // vscode.postMessage({ "command": "saveImage", "image": png })
-                // vscode.postMessage({ "command": "saveImage", "image": res })
-                mergeimages([png, res]).then((final) => vscode.postMessage({ "command": "saveImage", "image": final.substr(final.indexOf(',') + 1) }))
+                mergeimages([png, reader.result]).then((final) => vscode.postMessage({ "command": "saveImage", "image": final.substr(final.indexOf(',') + 1) }))
             })
             reader.readAsDataURL(canvasImage);
-            // mergeimages([png, canvasImage])
         }
     )
 }
@@ -701,7 +691,7 @@ window.addEventListener('message', event => {
             go(message.data)
             break;
         case 'exportImage':
-            exportImage();
+            exportImage(1);
             break;
     }
 });
