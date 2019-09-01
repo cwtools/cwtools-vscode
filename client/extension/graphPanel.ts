@@ -105,6 +105,9 @@ export class GraphPanel {
         this._disposables.push(vscode.commands.registerCommand('saveGraphJson', () => {
             this._panel.webview.postMessage({ "command": "exportJson" })
         }))
+
+        vscode.commands.executeCommand('setContext', "cwtoolsWebview", true);
+
     }
 
     public initialiseGraph(data : string | Array<any>) {

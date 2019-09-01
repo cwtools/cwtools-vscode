@@ -160,10 +160,12 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
             }});
         });
         edges.forEach(function (edge: any) {
-            cy.add({ group: 'edges', data: { source: edge[0], target: edge[1] } })
+            cy.add({ group: 'edges', data: { source: edge[0], target: edge[1] } }).data("isPrimary", true)
         });
         data.forEach(function (element) {
-            cy.edges().filter((n: any) => n.target().id() == element.id).forEach((e: any) => e.data("isPrimary", element.isPrimary));
+            if(element.isPrimary == false){
+                cy.edges().filter((n: any) => n.target().id() == element.id || n.source().id() == element.id).forEach((e: any) => e.data("isPrimary", false));
+            }
         });
 
     }
