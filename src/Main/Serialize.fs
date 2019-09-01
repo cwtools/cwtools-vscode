@@ -49,7 +49,7 @@ let serialize gameDirName scriptFolders cacheDirectory = ()
 let serializeSTL folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", STLConstants.scriptFolders, "stellaris", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> InfoService<Scope> option = (fun () -> (None))
+    let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<STLComputedData>(Compute.STL.computeSTLData computefun, Compute.STL.computeSTLDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
@@ -66,7 +66,7 @@ let serializeSTL folder cacheDirectory =
 let serializeEU4 folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> InfoService<Scope> option = (fun () -> (None))
+    let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<EU4ComputedData>(Compute.EU4.computeEU4Data computefun, Compute.EU4.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api
     let entities =
         resources.UpdateFiles(files)
@@ -82,7 +82,7 @@ let serializeEU4 folder cacheDirectory =
 let serializeHOI4 folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> InfoService<Scope> option = (fun () -> (None))
+    let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<HOI4ComputedData>(computeHOI4Data computefun, computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
@@ -98,7 +98,7 @@ let serializeHOI4 folder cacheDirectory =
 let serializeCK2 folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK2Constants.scriptFolders, "crusader kings ii", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> InfoService<Scope> option = (fun () -> (None))
+    let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<CK2ComputedData>(computeCK2Data computefun, computeCK2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
@@ -114,7 +114,7 @@ let serializeCK2 folder cacheDirectory =
 let serializeIR folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", IRConstants.scriptFolders, "imperator", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> InfoService<Scope> option = (fun () -> (None))
+    let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<IRComputedData>(computeIRData computefun, computeIRDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
@@ -130,7 +130,7 @@ let serializeIR folder cacheDirectory =
 let serializeVIC2 folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC2Constants.scriptFolders, "victoria 2", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
-    let computefun : unit -> InfoService<Scope> option = (fun () -> (None))
+    let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<VIC2ComputedData>(computeVIC2Data computefun, computeVIC2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
