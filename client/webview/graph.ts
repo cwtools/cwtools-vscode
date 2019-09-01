@@ -66,7 +66,12 @@ const style = [ // the stylesheet for the graph
         style: {
             'background-color': function (ele: any) { if (ele.data("isPrimary")) { return '#666' } else { return '#AAA' } },
             'label': 'data(label)',
-            'color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-foreground") }
+            'color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-foreground") },
+            'text-background-color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-background") },
+            'text-background-opacity': 0.8,
+            'text-wrap': "wrap",
+            'text-max-width':"200px"
+
         }
     },
 
@@ -255,7 +260,7 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
         //var opts = { name: 'dagre', ranker: 'network-simplex', nodeDimensionsIncludeLabels: true };
         var opts = {
             name: 'elk',
-            ranker: 'network-simplex',
+            //ranker: 'network-simplex',
             nodeDimensionsIncludeLabels: true,
             elk: {
                 "elk.edgeRouting": "SPLINES",
@@ -264,7 +269,8 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
                 "elk.algorithm": "layered",
                 "elk.layered.nodePlacement.bk.edgeStraightening": "NONE",
 
-                "elk.layered.compaction.connectedComponents": true
+                "elk.layered.compaction.connectedComponents": true,
+                "elk.hierarchyHandling": "SEPARATE_CHILDREN",
                 // "elk.layered.unnecessaryBendpoints": true
                 // "elk.disco.componentCompaction.strategy": "POLYOMINO",
                 // "elk.layered.compaction.connectedComponents": "true",
@@ -274,24 +280,11 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
                 // "elk.layered.layering.nodePromotion.maxIterations": 10
             }
         };
-        // var layout = cy.layout(opts);
-        //var opts = { name: }
-        //var layout = cy.layout({ name: 'dagre', ranker: 'network-simplex' } );
-        //layout.run();
+
 
         cy.fit();
 
 
-        // layout.run();
-
-        function flatten<T>(arr: Array<Array<T>>) {
-            return arr.reduce(function (flat, toFlatten) {
-                return flat.concat(toFlatten);
-            }, []);
-        }
-
-
-        let toProcess = cy.elements();
         var groups: CollectionElements[] = [];
 
         var t: any = cy.elements();
