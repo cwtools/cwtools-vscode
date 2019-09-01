@@ -1,3 +1,8 @@
+# 0.8.15
+
+* Significantly improved performance across the board
+* Some tweaks to graph display
+
 # 0.8.14
 
 * New feature: Event graphs
