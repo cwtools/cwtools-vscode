@@ -88,6 +88,15 @@ const style = [ // the stylesheet for the graph
         }
     },
     {
+        selector: 'edge[label]',
+        style: {
+            'label': 'data(label)',
+            'color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-foreground") },
+            'text-background-color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-background") },
+            'text-background-opacity': 0.8,
+        }
+    },
+    {
         selector: 'node.highlight',
         style: {
             'border-color': '#FFF',
@@ -112,7 +121,7 @@ var _options: Array<any>;
 var _pretty: Array<any>;
 var _cy: cytoscape.Core;
 var _layer: any;
-function tech(data: techNode[], edges: Array<any>, settings : settings,json? : any){
+function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : any){
     const importingJson = json !== undefined;
     _data = data
     cytoscapecanvas(cytoscape);
@@ -160,15 +169,15 @@ function tech(data: techNode[], edges: Array<any>, settings : settings,json? : a
                 isPrimary: element.isPrimary,
                 entityType: element.entityType,
                 abbreviation: element.abbreviation,
-                entityTypeDisplayName: element.entityTypeDisplayName,
+                entityTypeDisplayName: element.entityTypeDisplayName ? element.entityTypeDisplayName : element.entityType,
                 details: element.details,
                 location: element.location
             }});
         });
         let allIDs = data.map((el) => el.id);
-        edges.forEach(function (edge: any) {
-            if (allIDs.includes(edge[0]) && allIDs.includes(edge[1])){
-                cy.add({ group: 'edges', data: { source: edge[0], target: edge[1] } }).data("isPrimary", true)
+        edges.forEach(function (edge) {
+            if (allIDs.includes(edge.source) && allIDs.includes(edge.target)){
+                cy.add({ group: 'edges', data: { source: edge.source, target: edge.target, label: edge.label } }).data("isPrimary", true)
             }
         });
         data.forEach(function (element) {
@@ -479,31 +488,42 @@ interface Location
     line : number
     column : number
 }
+interface ReferenceDetails
+{
+    key : string
+    isOutgoing : boolean
+    label : string
+}
 interface techNode
 {
     name : string
     prereqs : Array<string>
-    references : Array<string>
+    references: Array<ReferenceDetails>
     id : string
     location: Location
     isPrimary : boolean
     details? : Array<{ key: string, values : Array<string> }>
     entityTypeDisplayName? : string
     abbreviation? : string
+    entityType : string
 }
 interface settings
 {
     wheelSensitivity: number
 }
-
+interface EdgeInput {
+    source : string
+    target : string
+    label : string
+}
 
 export function go(nodesJ: Array<techNode>, settings: settings) {
     //console.log(nodesJ);
     var nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
     //console.log(nodes);
     // var nodes2 = nodes.map((a) => a.id);
-    var edges = nodes.map((a) => a.references.map((b) => [a.id, b]));
-    var edges2 : string[][]= [].concat(...edges)
+    var edges = nodes.map((a) => a.references.map((b) => b.isOutgoing ? { source: a.id, target: b.key, label: b.label } : { source: b.key, target: a.id, label: b.label }));
+    var edges2 : EdgeInput[][] = [].concat(...edges)
     // var nodes3 = edges2.map(a => a[1])
     // let nodes4 : string[] = [].concat(nodes2, nodes3);
     // console.log(nodes2);

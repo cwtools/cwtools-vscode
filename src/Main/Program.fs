@@ -1184,10 +1184,16 @@ type Server(client: ILanguageClient) =
                                             "line", JsonValue.Number (loc.StartLine |> decimal)
                                             "column", JsonValue.Number (loc.StartColumn |> decimal)
                                         |] |> JsonValue.Record
+                                    let referenceToReferences (name, isOutgoing, label) =
+                                        [|
+                                            Some ("key", JsonValue.String name)
+                                            Some ("isOutgoing", JsonValue.Boolean isOutgoing)
+                                            label |> Option.map (fun l -> "label", JsonValue.String l)
+                                        |] |> Array.choose id |> JsonValue.Record
                                     [|
                                         Some ("id", JsonValue.String e.id)
                                         e.displayName |> Option.map (fun s -> ("name", JsonValue.String s))
-                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map JsonValue.String))
+                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map referenceToReferences))
                                         e.location |> Option.map (fun loc -> "location", convRangeToJson loc)
                                         e.documentation |> Option.map (fun s -> "documentation", JsonValue.String s)
                                         e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
@@ -1201,7 +1207,7 @@ type Server(client: ILanguageClient) =
                         | {command = "getGraphData"; arguments = x::_} ->
                             match lastFocusedFile with
                             |Some lastFile ->
-                                let events = game.GetEventGraphData [lastFile] [x.AsString()]
+                                let events = game.GetEventGraphData [lastFile] (x.AsArray() |> Array.map (fun y -> y.AsString()) |> List.ofArray)
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =
@@ -1210,10 +1216,16 @@ type Server(client: ILanguageClient) =
                                             "line", JsonValue.Number (loc.StartLine |> decimal)
                                             "column", JsonValue.Number (loc.StartColumn |> decimal)
                                         |] |> JsonValue.Record
+                                    let referenceToReferences (name, isOutgoing, label) =
+                                        [|
+                                            Some ("key", JsonValue.String name)
+                                            Some ("isOutgoing", JsonValue.Boolean isOutgoing)
+                                            label |> Option.map (fun l -> "label", JsonValue.String l)
+                                        |] |> Array.choose id |> JsonValue.Record
                                     [|
                                         Some ("id", JsonValue.String e.id)
                                         e.displayName |> Option.map (fun s -> ("name", JsonValue.String s))
-                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map JsonValue.String))
+                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map referenceToReferences))
                                         e.location |> Option.map (fun loc -> "location", convRangeToJson loc)
                                         e.documentation |> Option.map (fun s -> "documentation", JsonValue.String s)
                                         e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
