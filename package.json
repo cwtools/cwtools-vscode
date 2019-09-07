@@ -58,6 +58,11 @@
                     "group": "navigation"
                 },
                 {
+                    "when": "cwtoolsGraphFile == true && cwtoolsWebview == false",
+                    "command": "showGraph",
+                    "group": "navigation"
+                },
+                {
                     "when": "cwtoolsWebview == true",
                     "command": "saveGraphImage",
                     "group": "navigation"
@@ -118,6 +123,11 @@
             {
                 "command": "techGraph",
                 "title": "Show tech graph",
+                "category": "cwtools"
+            },
+            {
+                "command": "showGraph",
+                "title": "Show graph",
                 "category": "cwtools"
             },
             {
@@ -268,6 +278,14 @@
                     "scope": "application",
                     "type": "string",
                     "description": "The location of a vanilla VIC2 installation"
+                },
+                "cwtools.graph.zoomSensitivity":{
+                    "scope": "resource",
+                    "type": "number",
+                    "maximum": 2,
+                    "minimum": 0,
+                    "description": "Control scroll wheel zoom sensitivity, <1 reduces sensitivity, >1 increases sensitivity",
+                    "default": 1
                 }
             }
         },

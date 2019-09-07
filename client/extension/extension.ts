@@ -254,10 +254,18 @@ export function activate(context: ExtensionContext) {
 			})
 		})
 
+		let graphMap = {
+			"event": ["event", "special_project"],
+			"technology": ["technology"],
+			"building": ["building"]
+		}
+		let latestType : string = undefined;
+
 		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
-			let path = editor.document.uri.toString();
-			if (languageId == "paradox" && editor.document.languageId == "plaintext") {
-				vs.languages.setTextDocumentLanguage(editor.document, "paradox")
+			if (editor){
+				let path = editor.document.uri.toString();
+				if (languageId == "paradox" && editor.document.languageId == "plaintext") {
+					vs.languages.setTextDocumentLanguage(editor.document, "paradox")
 			}
 			if(editor.document.languageId == language)
 			{
@@ -270,13 +278,27 @@ export function activate(context: ExtensionContext) {
 			client.sendRequest(ExecuteCommandRequest.type, params).then(
 				(data : string[]) =>
 				{
-					let eventFile = data !== undefined && data.includes("event")
-					commands.executeCommand('setContext', 'cwtoolsEventFile', eventFile);
+					if (data !== undefined) {
+						let res = data.find((x) => Object.keys(graphMap).includes(x))
+						if (res !== undefined) {
+							latestType = res;
+							commands.executeCommand('setContext', 'cwtoolsGraphFile', true);
+						}
+						else {
+							latestType = undefined;
+							commands.executeCommand('setContext', 'cwtoolsGraphFile', false);
+						}
+					}
+					else {
+						commands.executeCommand('setContext', 'cwtoolsGraphFile', false);
+					}
 				}
-			);
+				);
+
+			}
 		}
 
-		window.onDidChangeActiveTextEditor(didChangeActiveTextEditor);
+		context.subscriptions.push(window.onDidChangeActiveTextEditor(didChangeActiveTextEditor));
 
 		if (languageId = "paradox") {
 			for (var textDocument of workspace.textDocuments){
@@ -310,10 +332,11 @@ export function activate(context: ExtensionContext) {
 		// 	});
 		// });
 
-		context.subscriptions.push(commands.registerCommand('eventGraph', () => {
-			commands.executeCommand("showEventGraph").then((t: any) => {
+		context.subscriptions.push(commands.registerCommand('showGraph', () => {
+			commands.executeCommand("getGraphData", latestType).then((t: any) => {
+				let wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
 				gp.GraphPanel.create(context.extensionPath);
-				gp.GraphPanel.currentPanel.initialiseGraph(t);
+				gp.GraphPanel.currentPanel.initialiseGraph(t, wheelSensitivity);
 			});
 		}));
 		context.subscriptions.push(commands.registerCommand('graphFromJson', () => {
@@ -321,8 +344,9 @@ export function activate(context: ExtensionContext) {
 					.then((uri) =>
 					{
 						fs.readFile(uri[0].fsPath, {encoding: "utf-8"}, (_, data) => {
+							let wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
 							gp.GraphPanel.create(context.extensionPath);
-							gp.GraphPanel.currentPanel.initialiseGraph(data);
+							gp.GraphPanel.currentPanel.initialiseGraph(data, wheelSensitivity);
 						})
 					})
 		}));

@@ -67,7 +67,7 @@ export class GraphPanel {
         this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
         // Handle messages from the webview
-        this._panel.webview.onDidReceiveMessage(message => {
+        this._disposables.push((this._panel.webview.onDidReceiveMessage(message => {
             switch (message.command) {
                 case 'goToFile':
                     let uri = vscode.Uri.file(message.uri);
@@ -91,12 +91,12 @@ export class GraphPanel {
                         this._state = State.ClientReady;
                     }
             }
-        }, null, this._disposables);
+        }, null, this._disposables)));
 
         // Handle state change
-        this._panel.onDidChangeViewState((e) => {
+        this._disposables.push((this._panel.onDidChangeViewState((e) => {
             vscode.commands.executeCommand('setContext', "cwtoolsWebview", e.webviewPanel.active);
-        }, null, this._disposables)
+        }, null, this._disposables)))
 
         // Set up commands
         this._disposables.push(vscode.commands.registerCommand('saveGraphImage', () => {
@@ -110,11 +110,14 @@ export class GraphPanel {
 
     }
 
-    public initialiseGraph(data : string | Array<any>) {
+    public initialiseGraph(data : string | Array<any>, wheelSensitivity: number) {
+        let settings = {
+            wheelSensitivity: wheelSensitivity
+        }
         if (isString(data)){
-            this.onLoad((_) => this._panel.webview.postMessage({ "command": "importJson", "json": data }));
+            this._disposables.push(this.onLoad((_) => this._panel.webview.postMessage({ "command": "importJson", "json": data, "settings": settings })));
         } else {
-            this.onLoad((_) => this._panel.webview.postMessage({ "command": "go", "data": data }));
+            this._disposables.push(this.onLoad((_) => this._panel.webview.postMessage({ "command": "go", "data": data, "settings": settings })));
         }
         if (this._state == State.Done){
             return;
@@ -128,11 +131,11 @@ export class GraphPanel {
     }
 
     public dispose() {
-        GraphPanel.currentPanel = undefined;
         vscode.commands.executeCommand('setContext', "cwtoolsWebview", false);
 
         // Clean up our resources
         this._panel.dispose();
+        this._onLoad.dispose();
 
         while (this._disposables.length) {
             const x = this._disposables.pop();
@@ -140,6 +143,7 @@ export class GraphPanel {
                 x.dispose();
             }
         }
+        GraphPanel.currentPanel = undefined;
     }
 
 

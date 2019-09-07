@@ -1,3 +1,6 @@
+* Add "zoomSensitivity" setting for graph scroll speed
+* Add support for graphs in additional files
+
 # 0.8.15
 
 * Significantly improved performance across the board

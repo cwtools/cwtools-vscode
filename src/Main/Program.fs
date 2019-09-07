@@ -714,7 +714,7 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"; "showEventGraph"]} } }
+                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"; "getGraphData"; "showEventGraph"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -1175,7 +1175,33 @@ type Server(client: ILanguageClient) =
                         | {command = "showEventGraph"; arguments = _} ->
                             match lastFocusedFile with
                             |Some lastFile ->
-                                let events = game.GetEventGraphData([lastFile])
+                                let events = game.GetEventGraphData[lastFile] ["event";"special_project"]
+                                let eventsJson = events |> List.map (fun e ->
+                                    let serializer = serializerFactory<string>  defaultJsonWriteOptions
+                                    let convRangeToJson (loc : range) =
+                                        [|
+                                            "filename", JsonValue.String (loc.FileName.Replace("\\","/"))
+                                            "line", JsonValue.Number (loc.StartLine |> decimal)
+                                            "column", JsonValue.Number (loc.StartColumn |> decimal)
+                                        |] |> JsonValue.Record
+                                    [|
+                                        Some ("id", JsonValue.String e.id)
+                                        e.displayName |> Option.map (fun s -> ("name", JsonValue.String s))
+                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map JsonValue.String))
+                                        e.location |> Option.map (fun loc -> "location", convRangeToJson loc)
+                                        e.documentation |> Option.map (fun s -> "documentation", JsonValue.String s)
+                                        e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
+                                        Some ("isPrimary", JsonValue.Boolean e.isPrimary)
+                                        Some ("entityType", JsonValue.String e.entityType)
+                                        e.entityTypeDisplayName |> Option.map (fun s -> ("entityTypeDisplayName", JsonValue.String s))
+                                        e.abbreviation |> Option.map (fun s -> ("abbreviation", JsonValue.String s))
+                                    |] |> Array.choose id |> JsonValue.Record)
+                                Some (eventsJson |> Array.ofList |> JsonValue.Array)
+                            | None -> None
+                        | {command = "getGraphData"; arguments = x::_} ->
+                            match lastFocusedFile with
+                            |Some lastFile ->
+                                let events = game.GetEventGraphData [lastFile] [x.AsString()]
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =
@@ -1206,7 +1232,7 @@ type Server(client: ILanguageClient) =
                                     types |> Map.toList
                                       |> List.collect (fun (k, vs) -> vs |> List.filter (fun (tdi) -> tdi.range.FileName = lastFile)  |> List.map (fun (tdi) -> k))
                                       |> List.filter (fun ds -> not (ds.Contains(".")))
-                                Some (if all |> List.exists (fun ds -> ds = "event") then JsonValue.Array [|JsonValue.String "event"|] else JsonValue.Array [||])
+                                Some (all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
                             | None -> None
                         |_ -> None
                     |None -> None

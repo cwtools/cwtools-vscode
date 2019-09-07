@@ -106,13 +106,13 @@ const style = [ // the stylesheet for the graph
         selector: 'edge.semitransp',
         style: { 'opacity': '0.2' }
     }
-],
+]
 var _data: Array<any>;
 var _options: Array<any>;
 var _pretty: Array<any>;
 var _cy: cytoscape.Core;
 var _layer: any;
-function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, json? : any){
+function tech(data: techNode[], edges: Array<any>, settings : settings,json? : any){
     const importingJson = json !== undefined;
     _data = data
     cytoscapecanvas(cytoscape);
@@ -130,7 +130,8 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
             name: 'preset',
             padding: 10
         },
-        pixelRatio: 1
+        pixelRatio: 1,
+        wheelSensitivity: settings.wheelSensitivity
     })
     // }
     _cy = cy;
@@ -164,8 +165,11 @@ function tech(data : techNode [], nodes : Array<string>, edges : Array<any>, jso
                 location: element.location
             }});
         });
+        let allIDs = data.map((el) => el.id);
         edges.forEach(function (edge: any) {
-            cy.add({ group: 'edges', data: { source: edge[0], target: edge[1] } }).data("isPrimary", true)
+            if (allIDs.includes(edge[0]) && allIDs.includes(edge[1])){
+                cy.add({ group: 'edges', data: { source: edge[0], target: edge[1] } }).data("isPrimary", true)
+            }
         });
         data.forEach(function (element) {
             if(element.isPrimary == false){
@@ -487,24 +491,28 @@ interface techNode
     entityTypeDisplayName? : string
     abbreviation? : string
 }
+interface settings
+{
+    wheelSensitivity: number
+}
 
 
-export function go(nodesJ: Array<techNode>) {
+export function go(nodesJ: Array<techNode>, settings: settings) {
     //console.log(nodesJ);
     var nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
     //console.log(nodes);
-    var nodes2 = nodes.map((a) => a.id);
+    // var nodes2 = nodes.map((a) => a.id);
     var edges = nodes.map((a) => a.references.map((b) => [a.id, b]));
     var edges2 : string[][]= [].concat(...edges)
-    var nodes3 = edges2.map(a => a[1])
-    let nodes4 : string[] = [].concat(nodes2, nodes3);
+    // var nodes3 = edges2.map(a => a[1])
+    // let nodes4 : string[] = [].concat(nodes2, nodes3);
     // console.log(nodes2);
     // console.log(edges2);
     //document.getElementById('detailsTarget')!.innerHTML = "Parsing data...";
     //tech(["a", "b", "c", "d"], [["a", "b"],["c","d"]]);
-    var nodesfin = new Set(nodes4)
+    // var nodesfin = new Set(nodes4)
     var edgesfin = new Set(edges2)
-    tech(nodes, [...nodesfin], [...edgesfin]);
+    tech(nodes, [...edgesfin], settings);
 }
 
 window.addEventListener('message', event => {
@@ -513,7 +521,7 @@ window.addEventListener('message', event => {
 
     switch (message.command) {
         case 'go':
-            go(message.data)
+            go(message.data, message.settings)
             break;
         case 'exportImage':
             exportImage(1);
@@ -522,7 +530,7 @@ window.addEventListener('message', event => {
             exportJson();
             break;
         case 'importJson':
-            tech([],[],[], JSON.parse(message.json))
+            tech([],[],message.settings, JSON.parse(message.json))
             break;
 
 
