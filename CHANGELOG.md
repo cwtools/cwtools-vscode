@@ -1,5 +1,7 @@
+# 0.8.16
+
 * Add "zoomSensitivity" setting for graph scroll speed
-* Add support for graphs in additional files
+* Add support for configuring graphs from config files
 
 # 0.8.15
 

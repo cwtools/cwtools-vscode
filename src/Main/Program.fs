@@ -63,13 +63,13 @@ type Server(client: ILanguageClient) =
     let mutable activeGame = STL
     let mutable isVanillaFolder = false
     let mutable gameObj : option<IGame> = None
-    let mutable stlGameObj : option<IGame<STLComputedData, Scope, STLConstants.Modifier>> = None
-    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, Scope, HOI4Constants.Modifier>> = None
-    let mutable eu4GameObj : option<IGame<EU4ComputedData, Scope, EU4Constants.Modifier>> = None
-    let mutable ck2GameObj : option<IGame<CK2ComputedData, Scope, CK2Constants.Modifier>> = None
-    let mutable irGameObj : option<IGame<IRComputedData, Scope, IRConstants.Modifier>> = None
-    let mutable vic2GameObj : option<IGame<VIC2ComputedData, Scope, VIC2Constants.Modifier>> = None
-    let mutable customGameObj : option<IGame<ComputedData, Scope, CustomModifier>> = None
+    let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Modifier>> = None
+    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Modifier>> = None
+    let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Modifier>> = None
+    let mutable ck2GameObj : option<IGame<CK2ComputedData, CK2Constants.Modifier>> = None
+    let mutable irGameObj : option<IGame<IRComputedData, IRConstants.Modifier>> = None
+    let mutable vic2GameObj : option<IGame<VIC2ComputedData, VIC2Constants.Modifier>> = None
+    let mutable customGameObj : option<IGame<ComputedData, CustomModifier>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -392,31 +392,31 @@ type Server(client: ILanguageClient) =
                     match activeGame with
                     |STL ->
                         let game = loadSTL serverSettings
-                        stlGameObj <- Some (game :> IGame<STLComputedData, Scope, STLConstants.Modifier>)
+                        stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Modifier>)
                         game :> IGame
                     |HOI4 ->
                         let game = loadHOI4 serverSettings
-                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, Scope, HOI4Constants.Modifier>)
+                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Modifier>)
                         game :> IGame
                     |EU4 ->
                         let game = loadEU4 serverSettings
-                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, Scope, EU4Constants.Modifier>)
+                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Modifier>)
                         game :> IGame
                     |CK2 ->
                         let game = loadCK2 serverSettings
-                        ck2GameObj <- Some (game :> IGame<CK2ComputedData, Scope, CK2Constants.Modifier>)
+                        ck2GameObj <- Some (game :> IGame<CK2ComputedData, CK2Constants.Modifier>)
                         game :> IGame
                     |IR ->
                         let game = loadIR serverSettings
-                        irGameObj <- Some (game :> IGame<IRComputedData, Scope, IRConstants.Modifier>)
+                        irGameObj <- Some (game :> IGame<IRComputedData, IRConstants.Modifier>)
                         game :> IGame
                     |VIC2 ->
                         let game = loadVIC2 serverSettings
-                        vic2GameObj <- Some (game :> IGame<VIC2ComputedData, Scope, VIC2Constants.Modifier>)
+                        vic2GameObj <- Some (game :> IGame<VIC2ComputedData, VIC2Constants.Modifier>)
                         game :> IGame
                     |Custom ->
                         let game = loadCustom serverSettings
-                        customGameObj <- Some (game :> IGame<ComputedData, Scope, CustomModifier>)
+                        customGameObj <- Some (game :> IGame<ComputedData, CustomModifier>)
                         game :> IGame
                 gameObj <- Some game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
@@ -1175,7 +1175,7 @@ type Server(client: ILanguageClient) =
                         | {command = "showEventGraph"; arguments = _} ->
                             match lastFocusedFile with
                             |Some lastFile ->
-                                let events = game.GetEventGraphData[lastFile] ["event";"special_project"]
+                                let events = game.GetEventGraphData[lastFile] "event"
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =
@@ -1207,7 +1207,7 @@ type Server(client: ILanguageClient) =
                         | {command = "getGraphData"; arguments = x::_} ->
                             match lastFocusedFile with
                             |Some lastFile ->
-                                let events = game.GetEventGraphData [lastFile] (x.AsArray() |> Array.map (fun y -> y.AsString()) |> List.ofArray)
+                                let events = game.GetEventGraphData [lastFile] (x.AsString())
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =
@@ -1239,9 +1239,11 @@ type Server(client: ILanguageClient) =
                         | {command = "getFileTypes"; arguments = _} ->
                             match lastFocusedFile with
                             | Some lastFile ->
+                                let typesWithGraph = game.TypeDefs() |> List.filter (fun td -> td.graphRelatedTypes.Length > 0) |> List.map (fun x -> x.name)
                                 let types = game.Types()
                                 let (all : string list) =
                                     types |> Map.toList
+                                      |> List.filter (fun (k, vs) -> typesWithGraph |> List.contains k)
                                       |> List.collect (fun (k, vs) -> vs |> List.filter (fun (tdi) -> tdi.range.FileName = lastFile)  |> List.map (fun (tdi) -> k))
                                       |> List.filter (fun ds -> not (ds.Contains(".")))
                                 Some (all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)

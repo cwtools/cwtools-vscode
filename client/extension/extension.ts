@@ -253,18 +253,6 @@ export function activate(context: ExtensionContext) {
 				}
 			})
 		})
-		var graphMap: { [id: string] : string[]; } = {
-			"event": ["event", "special_project", "anomaly_category"],
-			"technology": ["technology"],
-			"building": ["building", "technology"],
-			"anomaly_category": ["anomaly_category", "event", "special_project"],
-			"special_project": ["special_project", "event", "anomaly_category"]
-		};
-		// let graphMap :  = {
-		// 	"event": ["event", "special_project"],
-		// 	"technology": ["technology"],
-		// 	"building": ["building", "technology"]
-		// }
 		let latestType : string = undefined;
 
 		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
@@ -285,15 +273,8 @@ export function activate(context: ExtensionContext) {
 				(data : string[]) =>
 				{
 					if (data !== undefined) {
-						let res = data.find((x) => Object.keys(graphMap).includes(x))
-						if (res !== undefined) {
-							latestType = res;
-							commands.executeCommand('setContext', 'cwtoolsGraphFile', true);
-						}
-						else {
-							latestType = undefined;
-							commands.executeCommand('setContext', 'cwtoolsGraphFile', false);
-						}
+						latestType = data[0];
+						commands.executeCommand('setContext', 'cwtoolsGraphFile', true);
 					}
 					else {
 						commands.executeCommand('setContext', 'cwtoolsGraphFile', false);
@@ -339,7 +320,7 @@ export function activate(context: ExtensionContext) {
 		// });
 
 		context.subscriptions.push(commands.registerCommand('showGraph', () => {
-			commands.executeCommand("getGraphData", graphMap[latestType]).then((t: any) => {
+			commands.executeCommand("getGraphData", latestType).then((t: any) => {
 				let wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
 				gp.GraphPanel.create(context.extensionPath);
 				gp.GraphPanel.currentPanel.initialiseGraph(t, wheelSensitivity);
