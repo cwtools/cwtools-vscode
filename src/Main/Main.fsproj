@@ -2,9 +2,10 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <TargetLatestRuntimePatch>True</TargetLatestRuntimePatch>
     <TieredCompilation>true</TieredCompilation>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
   <PropertyGroup>
     <EnableDefaultItems>false</EnableDefaultItems>
@@ -18,10 +19,8 @@
     <Compile Include="Serialize.fs" />
     <Compile Include="Git.fs" />
     <Compile Include="LanguageServerFeatures.fs" />
-    <EmbeddedResource Include="files/**" />
     <Compile Include="GameLoader.fs" />
     <Compile Include="Program.fs" />
-    <EmbeddedResource Include="config/**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />
