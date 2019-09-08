@@ -538,8 +538,8 @@
         "watch": "tsc -w -p ./tsconfig.extension.json",
         "watch-client": "rollup -c -o ./out/client/webview/graph.js --watch --no-treeshake",
         "update-vscode": "node ./node_modules/vscode/bin/install",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "html": "copyfiles -u 1 client/webview/*.css out/client/webview"
+        "html": "copyfiles -u 1 client/webview/*.css out/client/webview",
+        "test": "node ./out/client/test/runTest.js"
     },
     "dependencies": {
         "cytoscape": "^3.9.1",
@@ -554,10 +554,12 @@
     },
     "devDependencies": {
         "@types/handlebars": "^4.0.37",
-        "@types/mocha": "^2.2.42",
+        "@types/mocha": "^5.2.7",
         "@types/node": "^8.10.52",
         "@types/qtip2": "^2.2.29",
         "@types/cytoscape": "3.1.8",
+        "@types/vscode": "^1.32.0",
+        "@types/glob": "^7.1.1",
         "copyfiles": "^2.1.1",
         "rollup-plugin-commonjs": "^10.0.2",
         "rollup-plugin-hypothetical": "^2.1.0",
@@ -565,7 +567,9 @@
         "rollup-plugin-typescript": "^1.0.1",
         "tslib": "^1.10.0",
         "typescript": "^3.5.3",
-        "vscode": "^1.1.36"
+        "vscode-test": "^1.0.0",
+        "glob": "^7.1.4",
+        "mocha": "^6.1.4"
     },
     "extensionPack": [
         "tboby.paradox-syntax"

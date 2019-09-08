@@ -9,7 +9,8 @@ import * as assert from 'assert';
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
 import * as vscode from 'vscode';
-import * as myExtension from '../extension/extension';
+import { it, describe, before } from 'mocha';
+//import * as myExtension from '../../extension/extension';
 
 // Defines a Mocha test suite to group tests of similar kind together
 suite("Extension Tests", () => {
@@ -20,6 +21,10 @@ suite("Extension Tests", () => {
         assert.equal(-1, [1, 2, 3].indexOf(0));
     });
 });
+
+before(() => {
+
+})
 
 suite(`Debug Integration Test: `, function() {
     test('Extension should be present', () => {
@@ -33,14 +38,16 @@ suite(`Debug Integration Test: `, function() {
 		});
 	});
 
-	test('should have errors', function () {
+	describe('should have errors', function () {
 		this.timeout(1 * 60 * 1000);
-		return vscode.extensions.getExtension('tboby.cwtools-vscode').activate().then((_) => {
+		it('should have errors', async function (done) {
+			await vscode.extensions.getExtension('tboby.cwtools-vscode').activate().then((x) => {
 			setTimeout(() => {
 				let count = 0;
-					//myExtension.default.diagnostics.forEach(([], [], []) => count++);
+					x.default.diagnostics.forEach(([], [], []) => count++);
 					assert.ok(count);
-			}, 5000);
-		});
+					done();
+			}, 45000);
+		})});
 	});
 });
