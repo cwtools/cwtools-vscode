@@ -88,7 +88,7 @@ module LanguageServerFeatures =
                 let effect =
                     hovered |> Option.map (fun e ->
                         match e with
-                        | :? CWTools.Common.DocEffect<'a> as de ->
+                        | :? CWTools.Common.DocEffect as de ->
                             let scopes = String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                             let desc = de.Desc.Replace("_", "\\_").Trim() |> (fun s -> if s = "" then "" else "_"+s+"_" )
                             (String.Join("\n***\n",[desc; "Supports scopes: " + scopes]) )// TODO: usageeffect.Usage])

@@ -497,14 +497,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<Scope> as de ->
+                            | :? DocEffect as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<Scope> as se ->
+                            | :? ScriptedEffect as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -522,14 +522,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<Scope> as de ->
+                            | :? DocEffect as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<Scope> as se ->
+                            | :? ScriptedEffect as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -546,14 +546,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<Scope> as de ->
+                            | :? DocEffect as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<Scope> as se ->
+                            | :? ScriptedEffect as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -571,14 +571,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<Scope> as de ->
+                            | :? DocEffect as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<Scope> as se ->
+                            | :? ScriptedEffect as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
@@ -596,14 +596,14 @@ type Server(client: ILanguageClient) =
                         match hovered with
                         |Some effect ->
                             match effect with
-                            | :? DocEffect<Scope> as de ->
+                            | :? DocEffect as de ->
                                 let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
                                 let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
                                 let usage = de.Usage
                                 let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
                                 //{item with documentation = (MarkupContent ("markdown", content))}
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect<Scope> as se ->
+                            | :? ScriptedEffect as se ->
                                 let desc = se.Name.Replace("_", "\\_")
                                 let comments = se.Comments.Replace("_", "\\_")
                                 let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
