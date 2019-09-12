@@ -1175,7 +1175,7 @@ type Server(client: ILanguageClient) =
                         | {command = "showEventGraph"; arguments = _} ->
                             match lastFocusedFile with
                             |Some lastFile ->
-                                let events = game.GetEventGraphData[lastFile] "event"
+                                let events = game.GetEventGraphData[lastFile] "event" 1
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =
@@ -1204,10 +1204,10 @@ type Server(client: ILanguageClient) =
                                     |] |> Array.choose id |> JsonValue.Record)
                                 Some (eventsJson |> Array.ofList |> JsonValue.Array)
                             | None -> None
-                        | {command = "getGraphData"; arguments = x::_} ->
+                        | {command = "getGraphData"; arguments = x::depth::_} ->
                             match lastFocusedFile with
                             |Some lastFile ->
-                                let events = game.GetEventGraphData [lastFile] (x.AsString())
+                                let events = game.GetEventGraphData [lastFile] (x.AsString()) (depth.AsString() |> int)
                                 let eventsJson = events |> List.map (fun e ->
                                     let serializer = serializerFactory<string>  defaultJsonWriteOptions
                                     let convRangeToJson (loc : range) =

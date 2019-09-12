@@ -14,6 +14,7 @@ import { create } from 'domain';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
+import { isNumber } from 'util';
 
 const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
@@ -319,12 +320,31 @@ export function activate(context: ExtensionContext) {
 		// 	});
 		// });
 
-		context.subscriptions.push(commands.registerCommand('showGraph', () => {
-			commands.executeCommand("getGraphData", latestType).then((t: any) => {
+		let currentGraphDepth = 3;
+		let showGraph = function() {
+			commands.executeCommand("getGraphData", latestType, currentGraphDepth).then((t: any) => {
 				let wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
 				gp.GraphPanel.create(context.extensionPath);
 				gp.GraphPanel.currentPanel.initialiseGraph(t, wheelSensitivity);
 			});
+		}
+		context.subscriptions.push(commands.registerCommand('showGraph', () => {
+			showGraph();
+		}));
+		context.subscriptions.push(commands.registerCommand('setGraphDepth', () => {
+			window.showInputBox(
+				{
+					placeHolder: "default: 3",
+					prompt: "Set graph depth (how many connections to go back from this file)",
+					value: currentGraphDepth.toString(),
+					validateInput: (v : string) => Number.isInteger(Number(v)) ? undefined : "Please enter a number"
+			 }).then((res) => {
+				 if (Number.isInteger(Number(res)))
+				{
+					currentGraphDepth = Number(res)
+					showGraph()
+				}
+			 })
 		}));
 		context.subscriptions.push(commands.registerCommand('graphFromJson', () => {
 			window.showOpenDialog({filters: {'Json': ['json']}})

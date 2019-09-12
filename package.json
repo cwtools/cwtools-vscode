@@ -69,6 +69,11 @@
                 },
                 {
                     "when": "cwtoolsWebview == true",
+                    "command": "setGraphDepth",
+                    "group": "navigation"
+                },
+                {
+                    "when": "cwtoolsWebview == true",
                     "command": "saveGraphJson",
                     "group": "navigation"
                 }
@@ -143,6 +148,12 @@
             {
                 "command": "saveGraphImage",
                 "title": "Save graph as image",
+                "category": "cwtools",
+                "enablement": "cwtoolsWebview == true"
+            },
+            {
+                "command": "setGraphDepth",
+                "title": "Set graph depth",
                 "category": "cwtools",
                 "enablement": "cwtoolsWebview == true"
             },
