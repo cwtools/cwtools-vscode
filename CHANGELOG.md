@@ -1,3 +1,8 @@
+# 0.8.17
+
+* Supress errors for scripted effect parameters
+* Add "Set graph depth" to graphs, controlling how far back links are displayed
+
 # 0.8.16
 
 * Add "zoomSensitivity" setting for graph scroll speed
