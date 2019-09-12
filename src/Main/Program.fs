@@ -63,13 +63,13 @@ type Server(client: ILanguageClient) =
     let mutable activeGame = STL
     let mutable isVanillaFolder = false
     let mutable gameObj : option<IGame> = None
-    let mutable stlGameObj : option<IGame<STLComputedData, STLConstants.Modifier>> = None
-    let mutable hoi4GameObj : option<IGame<HOI4ComputedData, HOI4Constants.Modifier>> = None
-    let mutable eu4GameObj : option<IGame<EU4ComputedData, EU4Constants.Modifier>> = None
-    let mutable ck2GameObj : option<IGame<CK2ComputedData, CK2Constants.Modifier>> = None
-    let mutable irGameObj : option<IGame<IRComputedData, IRConstants.Modifier>> = None
-    let mutable vic2GameObj : option<IGame<VIC2ComputedData, VIC2Constants.Modifier>> = None
-    let mutable customGameObj : option<IGame<ComputedData, CustomModifier>> = None
+    let mutable stlGameObj : option<IGame<STLComputedData>> = None
+    let mutable hoi4GameObj : option<IGame<HOI4ComputedData>> = None
+    let mutable eu4GameObj : option<IGame<EU4ComputedData>> = None
+    let mutable ck2GameObj : option<IGame<CK2ComputedData>> = None
+    let mutable irGameObj : option<IGame<IRComputedData>> = None
+    let mutable vic2GameObj : option<IGame<VIC2ComputedData>> = None
+    let mutable customGameObj : option<IGame<ComputedData>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -392,31 +392,31 @@ type Server(client: ILanguageClient) =
                     match activeGame with
                     |STL ->
                         let game = loadSTL serverSettings
-                        stlGameObj <- Some (game :> IGame<STLComputedData, STLConstants.Modifier>)
+                        stlGameObj <- Some (game :> IGame<STLComputedData>)
                         game :> IGame
                     |HOI4 ->
                         let game = loadHOI4 serverSettings
-                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData, HOI4Constants.Modifier>)
+                        hoi4GameObj <- Some (game :> IGame<HOI4ComputedData>)
                         game :> IGame
                     |EU4 ->
                         let game = loadEU4 serverSettings
-                        eu4GameObj <- Some (game :> IGame<EU4ComputedData, EU4Constants.Modifier>)
+                        eu4GameObj <- Some (game :> IGame<EU4ComputedData>)
                         game :> IGame
                     |CK2 ->
                         let game = loadCK2 serverSettings
-                        ck2GameObj <- Some (game :> IGame<CK2ComputedData, CK2Constants.Modifier>)
+                        ck2GameObj <- Some (game :> IGame<CK2ComputedData>)
                         game :> IGame
                     |IR ->
                         let game = loadIR serverSettings
-                        irGameObj <- Some (game :> IGame<IRComputedData, IRConstants.Modifier>)
+                        irGameObj <- Some (game :> IGame<IRComputedData>)
                         game :> IGame
                     |VIC2 ->
                         let game = loadVIC2 serverSettings
-                        vic2GameObj <- Some (game :> IGame<VIC2ComputedData, VIC2Constants.Modifier>)
+                        vic2GameObj <- Some (game :> IGame<VIC2ComputedData>)
                         game :> IGame
                     |Custom ->
                         let game = loadCustom serverSettings
-                        customGameObj <- Some (game :> IGame<ComputedData, CustomModifier>)
+                        customGameObj <- Some (game :> IGame<ComputedData>)
                         game :> IGame
                 gameObj <- Some game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))

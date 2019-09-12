@@ -1,9 +1,12 @@
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection } from 'cytoscape'
-import cytoscapecanvas from 'cytoscape-canvas'
+import cytoscapecanvas from './canvas'
+// let cytoscapecanvas = require('cytoscape-canvas2')
+// import cytoscapecanvas from 'canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
-import tippy, { Instance, Tippy } from 'tippy.js';
+import tippy, { Instance, Tippy } from 'tippy.js/esm/index';
 import mergeimages from 'merge-images'
+
 declare module 'cytoscape' {
     interface CollectionElements {
         qtip(qtip: any): any;
@@ -124,7 +127,7 @@ var _layer: any;
 function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : any){
     const importingJson = json !== undefined;
     _data = data
-    cytoscapecanvas(cytoscape);
+    cytoscapecanvas()(cytoscape);
     cytoscape.use(cytoscapeelk)
     cytoscape.use(popper);
     var cy : cytoscape.Core;
@@ -219,7 +222,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
                 return content;
             },
-            onHidden: undefined,
+            onHidden: ((_ : any) => _),
             sticky: true,
             flipOnUpdate: true,
             trigger: "manual",
