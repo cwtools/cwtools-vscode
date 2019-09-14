@@ -144,12 +144,18 @@ let writeDiagnosticSeverity i =
     | DiagnosticSeverity.Information -> 3
     | DiagnosticSeverity.Hint -> 4
 
+type DiagnosticRelatedInformation = {
+    location : Location
+    message : string
+}
+
 type Diagnostic = {
     range: Range
     severity: DiagnosticSeverity option
     code: string option
     source: string option
     message: string
+    relatedInformation: DiagnosticRelatedInformation list
 }
 
 type Command = {

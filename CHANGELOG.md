@@ -1,7 +1,8 @@
 # 0.8.17
 
-* Supress errors for scripted effect parameters
+* Intelligently determine errors for scripted effects based on actual usage (Stellaris/EU4)
 * Add "Set graph depth" to graphs, controlling how far back links are displayed
+* Stellaris: Validate that all economic categories have an ai_budget
 
 # 0.8.16
 
