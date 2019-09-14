@@ -82,7 +82,7 @@ let publishParams (framework : string) (release : bool) =
                 {
                     p.Common with
                         WorkingDirectory = "src/Main"
-                        CustomParams = Some ("--self-contained true" + (if release then "" else " /p:LinkDuringPublish=false"))
+                        CustomParams = Some ("--self-contained true" + (if release then " /p:PublishSingleFile=true" else " /p:LinkDuringPublish=false"))
                 }
             OutputPath = Some ("../../out/server/" + framework)
             Runtime = Some framework
@@ -219,8 +219,9 @@ open Fake.Core.TargetOperators
 ==> "BuildServer"
 ==> "Build"
 
-"Clean" ==> "RunScript"
-"Clean" ==> "CopyHtml"
+"Clean" ?=> "RunScript"
+"Clean" ?=> "CopyHtml"
+"Clean" ?=> "BuildDll"
 "CopyHtml" ==> "BuildPackage"
 "RunScript" ==> "Build"
 "RunScript" ==> "PublishServer"
