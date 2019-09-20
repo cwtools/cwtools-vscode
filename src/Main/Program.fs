@@ -619,6 +619,18 @@ type Server(client: ILanguageClient) =
                         |None -> item
                     |None, None, None, None, None, None -> item
         }
+
+    let createRange startLine startCol endLine endCol =
+        {
+            ``start`` = {
+                line = startLine
+                character = startCol
+            }
+            ``end`` = {
+                line = endLine
+                character = endCol
+            }
+        }
     let isRangeInError (range : LSP.Types.Range) (start : range) (length : int) =
         range.start.line = (int start.StartLine - 1) && range.``end``.line = (int start.StartLine - 1)
         && range.start.character >= int start.StartColumn && range.``end``.character <= (int start.StartColumn + length)
@@ -707,6 +719,7 @@ type Server(client: ILanguageClient) =
                         hoverProvider = true
                         definitionProvider = true
                         referencesProvider = true
+                        documentFormattingProvider = true
                         textDocumentSync =
                             { defaultTextDocumentSyncOptions with
                                 openClose = true
@@ -1074,7 +1087,18 @@ type Server(client: ILanguageClient) =
         member this.ResolveCodeLens(p: CodeLens) = TODO()
         member this.DocumentLink(p: DocumentLinkParams) = TODO()
         member this.ResolveDocumentLink(p: DocumentLink) = TODO()
-        member this.DocumentFormatting(p: DocumentFormattingParams) = TODO()
+        member this.DocumentFormatting(p: DocumentFormattingParams) =
+            async {
+                let path =
+                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.textDocument.uri.LocalPath.StartsWith "/"
+                    then p.textDocument.uri.LocalPath.Substring(1)
+                    else p.textDocument.uri.LocalPath
+                match CWTools.Parser.CKParser.parseFile path with
+                | Success(sl, _, _) ->
+                    let formatted = CKPrinter.printKeyValueList sl 0
+                    return [{ range = createRange 0 0 10000 0; newText = formatted }]
+                | _ -> return []
+            }
         member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams) = TODO()
         member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams) = TODO()
         member this.DidChangeWorkspaceFolders(p: DidChangeWorkspaceFoldersParams) = TODO()
@@ -1106,7 +1130,7 @@ type Server(client: ILanguageClient) =
                             None
                             //LanguageServer.sendNotification send notif
                         | {command = "debugrules"; arguments = _} ->
-                            match irGameObj with
+                            match irGameObj |> Option.orElse hoi4GameObj with
                             | Some ir ->
                                 let text = (ir.References().ConfigRules) |> List.map (fun r -> r.ToString()) |> List.toArray |> (fun l -> String.Join("\n", l))
                                 // let text = sprintf "%O" (ir.References().ConfigRules)
