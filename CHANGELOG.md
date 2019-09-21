@@ -1,3 +1,8 @@
+# 0.8.19
+
+* Hotfix scripted effect param validator performance
+* Rules: Standardise path definitions between types and enums
+
 # 0.8.18
 
 * Add document formatting
