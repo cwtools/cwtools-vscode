@@ -1,3 +1,8 @@
+# 0.8.18
+
+* Add document formatting
+* Rules: Recursively check subtypes
+
 # 0.8.17
 
 * Intelligently determine errors for scripted effects based on actual usage (Stellaris/EU4)

@@ -1095,8 +1095,8 @@ type Server(client: ILanguageClient) =
                     else p.textDocument.uri.LocalPath
                 match CWTools.Parser.CKParser.parseFile path with
                 | Success(sl, _, _) ->
-                    let formatted = CKPrinter.printKeyValueList sl 0
-                    return [{ range = createRange 0 0 10000 0; newText = formatted }]
+                    let formatted = CKPrinter.printTopLevelKeyValueList sl
+                    return [{ range = createRange 0 0 100000 0; newText = formatted }]
                 | _ -> return []
             }
         member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams) = TODO()
