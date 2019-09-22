@@ -149,9 +149,10 @@ Target.create "CopyHtml" (fun _ ->
 // )
 Target.create "PaketRestore" (fun _ ->
     Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
-    match Environment.isWindows with
-    |true -> Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
-    |_ -> Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
+    // match Environment.isWindows with
+    // |true -> Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
+    // |_ -> Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
+    Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
     // Paket.PaketRestoreDefaults |> ignore
     Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
     )
