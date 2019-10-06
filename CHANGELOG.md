@@ -1,3 +1,8 @@
+# 0.8.20
+
+* Stellaris: Add "stellaris_name_format" rule field for random_names
+* Rules: Add "alias_keys_field\[trigger\]"
+
 # 0.8.19
 
 * Hotfix scripted effect param validator performance
