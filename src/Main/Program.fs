@@ -467,8 +467,8 @@ type Server(client: ILanguageClient) =
     let completionResolveItem (item :CompletionItem) =
         async {
             eprintfn "Completion resolve"
-            return match stlGameObj, eu4GameObj, hoi4GameObj, ck2GameObj, irGameObj, vic2GameObj with
-                    |Some game, _, _, _, _, _ ->
+            return match gameObj with
+                    |Some game ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                         let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
                         match hovered with
@@ -493,131 +493,7 @@ type Server(client: ILanguageClient) =
                                 let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
                                 {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
                         |None -> item
-                    |_, Some game, _, _, _, _ ->
-                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
-                        match hovered with
-                        |Some effect ->
-                            match effect with
-                            | :? DocEffect as de ->
-                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                                let usage = de.Usage
-                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
-                                //{item with documentation = (MarkupContent ("markdown", content))}
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect as se ->
-                                let desc = se.Name.Replace("_", "\\_")
-                                let comments = se.Comments.Replace("_", "\\_")
-                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | e ->
-                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                        |None -> item
-                    |_, _, Some game, _, _, _ ->
-                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
-                        match hovered with
-                        |Some effect ->
-                            match effect with
-                            | :? DocEffect as de ->
-                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                                let usage = de.Usage
-                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
-                                //{item with documentation = (MarkupContent ("markdown", content))}
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect as se ->
-                                let desc = se.Name.Replace("_", "\\_")
-                                let comments = se.Comments.Replace("_", "\\_")
-                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | e ->
-                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                    |_, _, _, Some game, _, _ ->
-                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
-                        match hovered with
-                        |Some effect ->
-                            match effect with
-                            | :? DocEffect as de ->
-                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                                let usage = de.Usage
-                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
-                                //{item with documentation = (MarkupContent ("markdown", content))}
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect as se ->
-                                let desc = se.Name.Replace("_", "\\_")
-                                let comments = se.Comments.Replace("_", "\\_")
-                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | e ->
-                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                        |None -> item
-                    |_, _, _, _, Some game, _ ->
-                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
-                        match hovered with
-                        |Some effect ->
-                            match effect with
-                            | :? DocEffect as de ->
-                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                                let usage = de.Usage
-                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
-                                //{item with documentation = (MarkupContent ("markdown", content))}
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect as se ->
-                                let desc = se.Name.Replace("_", "\\_")
-                                let comments = se.Comments.Replace("_", "\\_")
-                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | e ->
-                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                        |None -> item
-                    |_, _, _, _, _, Some game ->
-                        let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                        let hovered = allEffects |> List.tryFind (fun e -> e.Name = item.label)
-                        match hovered with
-                        |Some effect ->
-                            match effect with
-                            | :? DocEffect as de ->
-                                let desc = "_" + de.Desc.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", de.Scopes |> List.map (fun f -> f.ToString()))
-                                let usage = de.Usage
-                                let content = String.Join("\n***\n",[desc; scopes; usage]) // TODO: usageeffect.Usage])
-                                //{item with documentation = (MarkupContent ("markdown", content))}
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | :? ScriptedEffect as se ->
-                                let desc = se.Name.Replace("_", "\\_")
-                                let comments = se.Comments.Replace("_", "\\_")
-                                let scopes = "Supports scopes: " + String.Join(", ", se.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; comments; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                            | e ->
-                                let desc = "_" + e.Name.Replace("_", "\\_") + "_"
-                                let scopes = "Supports scopes: " + String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                                let content = String.Join("\n***\n",[desc; scopes]) // TODO: usageeffect.Usage])
-                                {item with documentation = Some ({kind = MarkupKind.Markdown ; value = content})}
-                        |None -> item
-                    |None, None, None, None, None, None -> item
+                    |None -> item
         }
 
     let createRange startLine startCol endLine endCol =
@@ -975,7 +851,7 @@ type Server(client: ILanguageClient) =
             } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj vic2GameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
+                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj vic2GameObj customGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
             } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =

@@ -1,3 +1,7 @@
+# 0.8.21
+* Rules: Add `## cardinality ~1..2` where the `~` means that values between 0 and 1 only show a warning
+* Stellaris: Improved econ category modifiers
+
 # 0.8.20
 
 * Stellaris: Add "stellaris_name_format" rule field for random_names
