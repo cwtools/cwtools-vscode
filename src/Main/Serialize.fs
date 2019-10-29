@@ -115,7 +115,7 @@ let serializeIR folder cacheDirectory =
     let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", IRConstants.scriptFolders, "imperator", Encoding.UTF8, [])
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<IRComputedData>(computeIRData computefun, computeIRDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<IRComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)

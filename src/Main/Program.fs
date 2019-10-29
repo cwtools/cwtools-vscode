@@ -69,7 +69,7 @@ type Server(client: ILanguageClient) =
     let mutable ck2GameObj : option<IGame<CK2ComputedData>> = None
     let mutable irGameObj : option<IGame<IRComputedData>> = None
     let mutable vic2GameObj : option<IGame<VIC2ComputedData>> = None
-    let mutable customGameObj : option<IGame<ComputedData>> = None
+    let mutable customGameObj : option<IGame<JominiComputedData>> = None
 
     let mutable languages : Lang list = []
     let mutable rootUri : Uri option = None
@@ -119,15 +119,17 @@ type Server(client: ILanguageClient) =
         let startC, endC = match length with
         | 0 -> 0,( int position.StartColumn)
         | x ->(int position.StartColumn),(int position.StartColumn) + length
+        let startLine = (int position.StartLine) - 1
+        let startLine = max startLine 0
         let createUri (f : string) = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/")
         let result = {
                         range = {
                                 start = {
-                                        line = (int position.StartLine - 1)
+                                        line = startLine
                                         character = startC
                                     }
                                 ``end`` = {
-                                            line = (int position.StartLine - 1)
+                                            line = startLine
                                             character = endC
                                     }
                         }
@@ -418,7 +420,7 @@ type Server(client: ILanguageClient) =
                         game :> IGame
                     |Custom ->
                         let game = loadCustom serverSettings
-                        customGameObj <- Some (game :> IGame<ComputedData>)
+                        customGameObj <- Some (game :> IGame<JominiComputedData>)
                         game :> IGame
                 gameObj <- Some game
                 let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
@@ -1006,12 +1008,16 @@ type Server(client: ILanguageClient) =
                             None
                             //LanguageServer.sendNotification send notif
                         | {command = "debugrules"; arguments = _} ->
-                            match irGameObj |> Option.orElse hoi4GameObj with
-                            | Some ir ->
+                            match irGameObj, hoi4GameObj with
+                            | Some ir, _ ->
                                 let text = (ir.References().ConfigRules) |> List.map (fun r -> r.ToString()) |> List.toArray |> (fun l -> String.Join("\n", l))
                                 // let text = sprintf "%O" (ir.References().ConfigRules)
                                 client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
-                            | None -> ()
+                            | _, Some hoi4 ->
+                                let text = (hoi4.References().ConfigRules) |> List.map (fun r -> r.ToString()) |> List.toArray |> (fun l -> String.Join("\n", l))
+                                // let text = sprintf "%O" (ir.References().ConfigRules)
+                                client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
+                            | None, None -> ()
                             None
 
                         | {command = "outputerrors"; arguments = _} ->
@@ -1158,7 +1164,12 @@ type Server(client: ILanguageClient) =
 [<EntryPoint>]
 let main (argv: array<string>): int =
     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
+    let cultureInfo = System.Globalization.CultureInfo("en-US")//System.Globalization.CultureInfo.InvariantCulture;
+    System.Globalization.CultureInfo.DefaultThreadCurrentCulture = cultureInfo
+    System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo
+    System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo
+    System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo
+    // CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
     let serverFactory(client) = Server(client) :> ILanguageServer

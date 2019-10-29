@@ -1,3 +1,8 @@
+# 0.8.22
+* Add "Go to definition" for localisation keys
+* Rules: Suppport the HOI4 array "^"
+* Rules: "Go to definition" and hover works better for complicated types
+
 # 0.8.21
 * Rules: Add `## cardinality ~1..2` where the `~` means that values between 0 and 1 only show a warning
 * Stellaris: Improved econ category modifiers
