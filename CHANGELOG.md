@@ -1,3 +1,7 @@
+# 0.8.23
+* Imperator: Support jomini interface script structures
+* Imperator: Add completion in localisation
+
 # 0.8.22
 * Add "Go to definition" for localisation keys
 * Rules: Suppport the HOI4 array "^"
