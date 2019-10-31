@@ -1,3 +1,6 @@
+# 0.8.24
+* Rules: Add support for dynamic predefined values (party_popularity@<ideology>)
+
 # 0.8.23
 * Imperator: Support jomini interface script structures
 * Imperator: Add completion in localisation
