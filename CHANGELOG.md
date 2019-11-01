@@ -1,3 +1,7 @@
+# 0.8.25
+* Fixes for dynamic predefined values
+* Naive support for HOI4 `?`, `^` and quoted scope changes
+
 # 0.8.24
 * Rules: Add support for dynamic predefined values (party_popularity@<ideology>)
 
