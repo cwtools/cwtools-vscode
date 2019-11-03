@@ -95,6 +95,7 @@ type Server(client: ILanguageClient) =
     let mutable validateVanilla : bool = false
     let mutable experimental : bool = false
     let mutable debugMode : bool = false
+    let mutable maxFileSize : int = 2
 
     let mutable ignoreCodes : string list = []
     let mutable ignoreFiles : string list = []
@@ -144,7 +145,7 @@ type Server(client: ILanguageClient) =
     let sendDiagnostics s =
         let diagnosticFilter ((f : string), d) =
             match (f, d) with
-            | _, {code = Some code} when List.contains code ignoreCodes -> false
+            | _, {Diagnostic.code = Some code} when List.contains code ignoreCodes -> false
             | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
             | _, _ -> true
         s |>  List.groupBy fst
@@ -175,7 +176,7 @@ type Server(client: ILanguageClient) =
                     | _, Success(_,_,_) -> []
                     | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0, None)]
             let locErrors =
-                locCache.TryFind (doc.LocalPath) |> Option.defaultValue [] |> List.map (fun (c, s, n, l, e, _, rel) -> (c, s, n.FileName, e, n, l, rel))
+                locCache.TryFind (doc.LocalPath) |> Option.defaultValue [] |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
             // eprintfn "lint le %A" (locCache.TryFind (doc.LocalPath) |> Option.defaultValue [])
             let errors =
                 parserErrors @
@@ -184,7 +185,7 @@ type Server(client: ILanguageClient) =
                     |None -> []
                     |Some game ->
                         let results = game.UpdateFile shallowAnalyze name filetext
-                        results |> List.map (fun (c, s, n, l, e, _, rel) -> (c, s, n.FileName, e, n, l, rel) )
+                        results |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors) )
             match errors with
             | [] -> client.PublishDiagnostics {uri = doc; diagnostics = []}
             | x -> x
@@ -213,10 +214,10 @@ type Server(client: ILanguageClient) =
             then
                 game.RefreshLocalisationCaches();
                 delayedLocUpdate <- false
-                locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun (_, _, r, _, _, _, _) -> r.FileName) |> Map.ofList
+                locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
                 // eprintfn "lc update %A" locCache
             else
-                locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun (_, _, r, _, _, _, _) -> r.FileName) |> Map.ofList
+                locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
                 // eprintfn "lc update light %A" locCache
             stopwatch.Stop()
             let time = stopwatch.Elapsed
@@ -390,6 +391,7 @@ type Server(client: ILanguageClient) =
                         languages = languages
                         experimental = experimental
                         debug_mode = debugMode
+                        maxFileSize = maxFileSize
                     }
 
                 let game =
@@ -443,11 +445,11 @@ type Server(client: ILanguageClient) =
                 client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Validating files...");  "enable", JsonValue.Boolean(true) |])
 
                 //eprintfn "%A" game.AllFiles
-                let valErrors = game.ValidationErrors() |> List.map (fun (c, s, n, l, e, _, rel) -> (c, s, n.FileName, e, n, l, rel) )
+                let valErrors = game.ValidationErrors() |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
                 let locRaw = game.LocalisationErrors(true, true)
-                locCache <- locRaw |> List.groupBy (fun (_, _, r, _, _, _, _) -> r.FileName) |> Map.ofList
+                locCache <- locRaw |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
                 // eprintfn "lc p %A" locCache
-                let locErrors = locRaw |> List.map (fun (c, s, n, l, e, _, rel) -> (c, s, n.FileName, e, n, l, rel) )
+                let locErrors = locRaw |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
 
                 valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
@@ -729,6 +731,10 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String x ->
                     manualRulesFolder <- Some x
                 |_ -> ()
+                match p.settings.Item("cwtools").Item("maxFileSize") with
+                | JsonValue.Number x ->
+                    maxFileSize <- int x
+                |_ -> ()
 
                 eprintfn "New configuration %s" (p.ToString())
                 match cachePath with
@@ -945,7 +951,7 @@ type Server(client: ILanguageClient) =
                             else p.textDocument.uri.LocalPath
 
                         let les = es.TryFind (path) |> Option.defaultValue []
-                        let les = les |> List.filter (fun (_, e, r, l, _, _, _) -> (r) |> (fun a -> (isRangeInError p.range a l)) )
+                        let les = les |> List.filter (fun e -> (e.range) |> (fun a -> (isRangeInError p.range a e.keyLength)) )
                         let pretrigger = game.GetPossibleCodeEdits path (docs.GetText (FileInfo(path)) |> Option.defaultValue "")
                                                 |> List.map convRangeToLSPRange
                                                 |> List.exists (fun r -> isRangeInRange r p.range)
@@ -988,9 +994,9 @@ type Server(client: ILanguageClient) =
                     |Some game ->
                         match p with
                         | {command = "genlocfile"; arguments = x::_} ->
-                            let les = game.LocalisationErrors(true, true) |> List.filter (fun (_, e, pos,_, _, _, _) -> (pos) |> (fun a -> a.FileName = x.AsString()))
-                            let keys = les |> List.sortBy (fun (_, _, p, _, _, _, _) -> (p.FileName, p.StartLine))
-                                           |> List.choose (fun (_, _, _, _, _, k, _) -> k)
+                            let les = game.LocalisationErrors(true, true) |> List.filter (fun e -> (e.range) |> (fun a -> a.FileName = x.AsString()))
+                            let keys = les |> List.sortBy (fun e -> (e.range.FileName, e.range.StartLine))
+                                           |> List.choose (fun e -> e.data)
                                            |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
                                            |> List.distinct
                             let text = String.Join(Environment.NewLine,keys)
@@ -999,8 +1005,8 @@ type Server(client: ILanguageClient) =
                             None
                         | {command = "genlocall"; arguments = _} ->
                             let les = game.LocalisationErrors(true, true)
-                            let keys = les |> List.sortBy (fun (_, _, p, _, _, _, _) -> (p.FileName, p.StartLine))
-                                           |> List.choose (fun (_, _, _, _, _, k, _) -> k)
+                            let keys = les |> List.sortBy (fun e-> (e.range.FileName, e.range.StartLine))
+                                           |> List.choose (fun e -> e.data)
                                            |> List.map (sprintf " %s:0 \"REPLACE_ME\"")
                                            |> List.distinct
                             let text = String.Join(Environment.NewLine,keys)
@@ -1022,7 +1028,7 @@ type Server(client: ILanguageClient) =
 
                         | {command = "outputerrors"; arguments = _} ->
                             let errors = game.LocalisationErrors(true, true) @ game.ValidationErrors()
-                            let texts = errors |> List.map (fun (code, sev, pos, _, error, _, _) -> sprintf "%s, %O, %O, %s, %O, \"%s\"" pos.FileName pos.StartLine pos.StartColumn code sev error)
+                            let texts = errors |> List.map (fun e -> sprintf "%s, %O, %O, %s, %O, \"%s\"" e.range.FileName e.range.StartLine e.range.StartColumn e.code e.severity e.message)
                             let text = String.Join(Environment.NewLine, (texts))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://errors.csv");  "fileContent", JsonValue.String(text) |])
                             None

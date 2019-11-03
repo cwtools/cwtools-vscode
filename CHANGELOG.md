@@ -1,3 +1,7 @@
+# 0.8.26
+* Add maxfilesize setting
+* Improved performance for large files
+
 # 0.8.25
 * Fixes for dynamic predefined values
 * Naive support for HOI4 `?`, `^` and quoted scope changes

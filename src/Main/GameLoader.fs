@@ -127,6 +127,7 @@ type ServerSettings =
         languages : CWTools.Common.Lang list
         experimental : bool
         debug_mode : bool
+        maxFileSize : int
     }
 
 type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2 |Custom
@@ -180,6 +181,7 @@ let loadEU4 (serverSettings : ServerSettings) =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.EU4.EU4Game(eu4settings)
     game
@@ -209,6 +211,7 @@ let loadHOI4 serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
     game
@@ -237,6 +240,7 @@ let loadCK2 serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.CK2.CK2Game(ck2settings)
     game
@@ -266,6 +270,7 @@ let loadIR serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.IR.IRGame(irsettings)
     game
@@ -293,6 +298,7 @@ let loadVIC2 serverSettings =
             debugMode = serverSettings.debug_mode
         }
         modFilter = None
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.VIC2.VIC2Game(vic2settings)
     game
@@ -324,6 +330,7 @@ let loadSTL serverSettings =
             debugMode = serverSettings.debug_mode
         }
         embedded = FromConfig (cachedFiles, cached)
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.Stellaris.STLGame(stlsettings)
     game
@@ -352,6 +359,7 @@ let loadCustom serverSettings =
             debugMode = serverSettings.debug_mode
         }
         embedded = FromConfig ([], [])
+        maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.Custom.CustomGame(stlsettings, "custom")
     game
