@@ -1,6 +1,7 @@
 # 0.8.26
 * Add maxfilesize setting
 * Improved performance for large files
+* Rules: Add better support for flags
 
 # 0.8.25
 * Fixes for dynamic predefined values
