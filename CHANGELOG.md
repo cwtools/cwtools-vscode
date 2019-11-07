@@ -1,9 +1,15 @@
-# 0.8.26
+# 0.8.28
+* Significant performance improvement for large mods (30%)
+* Support `^` on the LHS
+* Rules: Allow `enum[]` in predefined variables
+* Misc: Update Libgit2, removing the dependecy on libcurl3 on linux
+
+# 0.8.27
 * Add maxfilesize setting
 * Improved performance for large files
 * Rules: Add better support for flags
 
-# 0.8.25
+# 0.8.26 (skipped 0.8.25)
 * Fixes for dynamic predefined values
 * Naive support for HOI4 `?`, `^` and quoted scope changes
 
