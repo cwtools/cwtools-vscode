@@ -1,3 +1,6 @@
+# 0.8.29
+* Fix saving graph as image
+
 # 0.8.28
 * Significant performance improvement for large mods (30%)
 * Support `^` on the LHS

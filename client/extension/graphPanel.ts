@@ -162,7 +162,7 @@ export class GraphPanel {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta id="__________cytoscape_stylesheet">
-   <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'; style-src vscode-resource: https:">
+   <meta http-equiv="Content-Security-Policy" content="default-src 'nonce-${nonce}'; img-src vscode-resource: https: data:; script-src 'nonce-${nonce}' 'strict-dynamic'; font-src https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7; base-uri 'self'; object-src 'none'; style-src vscode-resource: https:">
           <link href="${styleUri}" rel="stylesheet" type="text/css" nonce="${nonce}" />
           <link href="https://unpkg.com/tippy.js@4.3.5/index.css" rel="stylesheet" type="text/css" nonce="${nonce}" />
     </head>
