@@ -1,5 +1,8 @@
 # 0.8.29
 * Fix saving graph as image
+* HOI4: Validate localisation
+* Rules: Add ` = ignore_field` which will ignore the subtree on the right
+* Localisation: Validate that localisation starts and ends with quotes
 
 # 0.8.28
 * Significant performance improvement for large mods (30%)
