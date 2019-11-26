@@ -324,10 +324,10 @@
                 ],
                 "configuration": "./language-configuration.json",
                 "filenamePatterns": [
-                    "**/stellaris/**/*.txt",
-                    "**/stellaris/**/*.gui",
-                    "**/stellaris/**/*.gfx",
-                    "**/stellaris/**/*.asset"
+                    "**/stellaris*/**/*.txt",
+                    "**/stellaris*/**/*.gui",
+                    "**/stellaris*/**/*.gfx",
+                    "**/stellaris*/**/*.asset"
                 ]
             },
             {
@@ -560,7 +560,8 @@
         "test": "node ./out/client/test/runTest.js"
     },
     "dependencies": {
-        "vscode-languageclient": "^5.2.1"
+        "vscode-languageclient": "^5.2.1",
+        "executable": "4.1.1"
     },
     "devDependencies": {
         "npm": "^6.11.1",

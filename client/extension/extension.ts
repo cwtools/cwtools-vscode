@@ -16,6 +16,8 @@ import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
 import { isNumber } from 'util';
 
+import executable from 'executable';
+
 const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
 const hoi4Remote = `https://github.com/tboby/cwtools-hoi4-config`;
@@ -392,13 +394,13 @@ export function activate(context: ExtensionContext) {
 				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*.exe"));
 				let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*.exe"));
 				let c =workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toLowerCase() + "*.exe"));
-				return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+				return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
 		}
 		else {
 			let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*"))
 			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*"))
 			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toLowerCase() + "*"));
-			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
 		}
 	}
 	let findExeInFilesImperator = function(gameExeName : string) {
@@ -406,13 +408,13 @@ export function activate(context: ExtensionContext) {
 				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0],"binaries/" + gameExeName + "*.exe"));
 			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*.exe"));
 			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toLowerCase() + "*.exe"));
-				return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
 		}
 		else {
 			let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" +  gameExeName + "*"))
 			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*"))
 			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toLowerCase() + "*"));
-			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]));
+			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
 		}
 	}
 	var eu4 = findExeInFiles("eu4")
