@@ -1,3 +1,10 @@
+# 0.8.30
+* Better completion in files such as `on_actions`
+* Fix floats formatting
+* Supress localisation missing ref errors when dollars are used... as dollars
+* HOI4: Handle starting `?` in loc commands
+* CK2: Minor fix to titles
+
 # 0.8.29
 * Fix saving graph as image
 * HOI4: Validate localisation
