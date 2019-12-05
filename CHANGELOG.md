@@ -1,3 +1,10 @@
+# 0.8.31
+* Increase missing quotes to warning
+* HOI4: Better handle event_target variables
+* HOI4: Increase validate loc character range to include more western
+* HOI4: Handle `?` in variables
+* HOI4: Support `?10` numbers in loc
+
 # 0.8.30
 * Better completion in files such as `on_actions`
 * Fix floats formatting
