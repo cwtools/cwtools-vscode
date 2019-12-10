@@ -290,7 +290,7 @@ export function activate(context: ExtensionContext) {
 
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(didChangeActiveTextEditor));
 
-		if (languageId = "paradox") {
+		if (languageId == "paradox") {
 			for (var textDocument of workspace.textDocuments){
 				if (textDocument.languageId == "plaintext"){
 					vs.languages.setTextDocumentLanguage(textDocument, "paradox")

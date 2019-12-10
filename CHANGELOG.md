@@ -1,3 +1,9 @@
+# 0.8.32
+* Remove mixed block valdidator
+* Rules: Add support for mandatory quotes in rules
+* Rules: Add `localisation_inline` field, which is intended for things like `set_blah_name` where you don't want a quoted loc key.
+* Fix HSV/RGB caps
+
 # 0.8.31
 * Increase missing quotes to warning
 * HOI4: Better handle event_target variables
