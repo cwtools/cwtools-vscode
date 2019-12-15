@@ -47,7 +47,7 @@ let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Locatio
 
 let serialize gameDirName scriptFolders cacheDirectory = ()
 let serializeSTL folder cacheDirectory =
-    let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", STLConstants.scriptFolders, "stellaris", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", STLConstants.scriptFolders, "stellaris", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<STLComputedData>(Compute.STL.computeSTLData computefun, Compute.STL.computeSTLDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
@@ -64,7 +64,7 @@ let serializeSTL folder cacheDirectory =
     File.WriteAllBytes(Path.Combine(cacheDirectory, "stl.cwb"), pickle)
 
 let serializeEU4 folder cacheDirectory =
-    let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<EU4ComputedData>(Compute.EU4.computeEU4Data computefun, Compute.EU4.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api
@@ -80,7 +80,7 @@ let serializeEU4 folder cacheDirectory =
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "eu4.cwb"), pickle)
 let serializeHOI4 folder cacheDirectory =
-    let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<HOI4ComputedData>(computeHOI4Data computefun, computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
@@ -96,7 +96,7 @@ let serializeHOI4 folder cacheDirectory =
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "hoi4.cwb"), pickle)
 let serializeCK2 folder cacheDirectory =
-    let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK2Constants.scriptFolders, "crusader kings ii", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK2Constants.scriptFolders, "crusader kings ii", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<CK2ComputedData>(computeCK2Data computefun, computeCK2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
@@ -112,7 +112,7 @@ let serializeCK2 folder cacheDirectory =
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ck2.cwb"), pickle)
 let serializeIR folder cacheDirectory =
-    let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", IRConstants.scriptFolders, "imperator", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", IRConstants.scriptFolders, "imperator", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<IRComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
@@ -128,7 +128,7 @@ let serializeIR folder cacheDirectory =
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ir.cwb"), pickle)
 let serializeVIC2 folder cacheDirectory =
-    let fileManager = FileManager([{WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC2Constants.scriptFolders, "victoria 2", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC2Constants.scriptFolders, "victoria 2", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<VIC2ComputedData>(computeVIC2Data computefun, computeVIC2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
