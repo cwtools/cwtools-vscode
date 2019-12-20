@@ -1,3 +1,9 @@
+# 0.8.33
+* Add `datetime_field` for `YYYY.MM.DD.HH`
+* Support DLC zips
+* Support dynamic values, e.g. values that are set with `_@ROOT` and used as `_FRA`
+* Support multiple complex enum defs
+
 # 0.8.32
 * Remove mixed block valdidator
 * Rules: Add support for mandatory quotes in rules
