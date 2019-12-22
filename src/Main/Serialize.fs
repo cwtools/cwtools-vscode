@@ -28,6 +28,7 @@ open CWTools.Validation.IR
 open CWTools.Validation.VIC2
 open CWTools.Rules
 open CWTools.Games.Stellaris.STLLookup
+open System.IO.Compression
 
 
 let mkPickler (resolver : IPicklerResolver) =
@@ -43,6 +44,30 @@ registry.DeclareSerializable<FParsec.Position>()
 let picklerCache = PicklerCache.FromCustomPicklerRegistry registry
 let binarySerializer = FsPickler.CreateBinarySerializer(picklerResolver = picklerCache)
 let assemblyLocation = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)
+
+let addDLCs (workspaceDirectory: WorkspaceDirectory) =
+    let dir = workspaceDirectory.path
+    // eprintfn "ad %A" dir
+    // eprintfn "ad2 %A" (Path.Combine [|dir; "dlc"|])
+    if Directory.Exists (dir) && Directory.Exists (Path.Combine [|dir; "dlc"|])
+    then
+        let dlcs = Directory.EnumerateDirectories (Path.Combine [|dir; "dlc"|])
+        // eprintfn "ad3 %A" dlcs
+        let createZippedDirectory (dlcDir : string) =
+            // eprintfn "d1 %A" (Directory.EnumerateFiles dlcDir)
+            match Directory.EnumerateFiles dlcDir |> Seq.tryFind (fun f -> (Path.GetExtension f) = ".zip") with
+            | Some zip ->
+                // eprintfn "d2 %A" zip
+                use file = File.OpenRead(zip)
+                use zipFile = ZipArchive(file, ZipArchiveMode.Read)
+                let files = zipFile.Entries |> Seq.map (fun e -> Path.Combine([|"uri:"; zip; e.FullName.Replace("\\","/")|]), use sr = StreamReader(e.Open()) in sr.ReadToEnd())
+                            |> List.ofSeq
+                // eprintfn "%A" files
+                Some (ZD { ZippedDirectory.name = Path.GetFileName zip; path = zip.Replace("\\","/"); files = files})
+            | None -> None
+        dlcs |> Seq.choose createZippedDirectory |> List.ofSeq
+    else
+        []
 
 
 let serialize gameDirName scriptFolders cacheDirectory = ()
@@ -64,7 +89,9 @@ let serializeSTL folder cacheDirectory =
     File.WriteAllBytes(Path.Combine(cacheDirectory, "stl.cwb"), pickle)
 
 let serializeEU4 folder cacheDirectory =
-    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
+    let rawdir = {WorkspaceDirectory.name = "vanilla"; path = folder}
+    let folders = (WD rawdir ) :: (addDLCs rawdir)
+    let fileManager = FileManager(folders, Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<EU4ComputedData>(Compute.EU4.computeEU4Data computefun, Compute.EU4.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api
@@ -80,7 +107,9 @@ let serializeEU4 folder cacheDirectory =
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "eu4.cwb"), pickle)
 let serializeHOI4 folder cacheDirectory =
-    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
+    let rawdir = {WorkspaceDirectory.name = "vanilla"; path = folder}
+    let folders = (WD rawdir ) :: (addDLCs rawdir)
+    let fileManager = FileManager(folders, Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<HOI4ComputedData>(computeHOI4Data computefun, computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api

@@ -151,29 +151,6 @@ let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
     eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
     cached, cachedFiles
 
-let addDLCs (workspaceDirectory: WorkspaceDirectory) =
-    let dir = workspaceDirectory.path
-    // eprintfn "ad %A" dir
-    // eprintfn "ad2 %A" (Path.Combine [|dir; "dlc"|])
-    if Directory.Exists (dir) && Directory.Exists (Path.Combine [|dir; "dlc"|])
-    then
-        let dlcs = Directory.EnumerateDirectories (Path.Combine [|dir; "dlc"|])
-        // eprintfn "ad3 %A" dlcs
-        let createZippedDirectory (dlcDir : string) =
-            // eprintfn "d1 %A" (Directory.EnumerateFiles dlcDir)
-            match Directory.EnumerateFiles dlcDir |> Seq.tryFind (fun f -> (Path.GetExtension f) = ".zip") with
-            | Some zip ->
-                // eprintfn "d2 %A" zip
-                use file = File.OpenRead(zip)
-                use zipFile = ZipArchive(file, ZipArchiveMode.Read)
-                let files = zipFile.Entries |> Seq.map (fun e -> Path.Combine([|"uri:"; zip; e.FullName|]), use sr = StreamReader(e.Open()) in sr.ReadToEnd())
-                            |> List.ofSeq
-                // eprintfn "%A" files
-                Some (ZD { ZippedDirectory.name = Path.GetFileName zip; path = ""; files = files})
-            | None -> None
-        dlcs |> Seq.choose createZippedDirectory |> List.ofSeq
-    else
-        []
 
 let getRootDirectories (serverSettings : ServerSettings) =
     let rawdirs =
