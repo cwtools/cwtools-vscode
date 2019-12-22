@@ -17,6 +17,7 @@ open CWTools.Common
 open System.Text
 open System.Reflection
 open FParsec
+open CWTools.Utilities.Utils
 
 // let loadSTL() =
 //     let stlLocCommands =
@@ -139,7 +140,7 @@ let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
     let cached, cachedFiles =
         match (game, cachePath, isVanillaFolder) with
         | _, _, true ->
-            eprintfn "Vanilla folder, so not loading cache"
+            logInfo "Vanilla folder, so not loading cache"
             ([], [])
         | STL, Some cp, _ -> deserialize (cp + "/../stl.cwb")
         | EU4, Some cp, _ -> deserialize (cp + "/../eu4.cwb")
@@ -148,7 +149,8 @@ let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
         | IR, Some cp, _ -> deserialize (cp + "/../ir.cwb")
         | VIC2, Some cp, _ -> deserialize (cp + "/../vic2.cwb")
         | _ -> ([], [])
-    eprintfn "Parse cache time: %i" timer.ElapsedMilliseconds; timer.Restart()
+    logInfo (sprintf "Parse cache time: %i" timer.ElapsedMilliseconds);
+    timer.Restart()
     cached, cachedFiles
 
 

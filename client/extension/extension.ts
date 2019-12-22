@@ -9,12 +9,12 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient';
 import { create } from 'domain';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
-import { isNumber } from 'util';
+import { isNumber, debug } from 'util';
 
 import executable from 'executable';
 
@@ -84,7 +84,8 @@ export function activate(context: ExtensionContext) {
 			run: { command: serverExe, transport: TransportKind.stdio },
 			// debug : { command: serverExe, transport: TransportKind.stdio }
 			debug: { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio}//, options: { env: { TieredCompilation_Test_OptimizeTier0: 1}} }
-			// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio }
+			// debug : { command: 'dotnet', args: [serverDll], transport: TransportKind.stdio },
+
 		}
 
 		let fileEvents = [
@@ -114,17 +115,20 @@ export function activate(context: ExtensionContext) {
 				isVanillaFolder: isVanillaFolder,
 				rulesCache: cacheDir,
 				rules_version: workspace.getConfiguration('cwtools').get('rules_version'),
-				repoPath: repoPath }
+				repoPath: repoPath },
+				revealOutputChannelOn: RevealOutputChannelOn.Error
 		}
 
 		let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
 		let log = client.outputChannel
 		defaultClient = client;
-		log.appendLine("client init")
-		log.appendLine(env.machineId)
+		//log.appendLine("client init")
+		//log.appendLine(env.machineId)
 		client.registerProposedFeatures();
 		interface loadingBarParams { enable: boolean; value: string }
 		let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
+		interface debugStatusBarParams { enable: boolean; value: string }
+		let debugStatusBarParamsNotification = new NotificationType<debugStatusBarParams, void>('debugBar');
 		interface CreateVirtualFile { uri: string; fileContent: string }
 		let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
 		let promptReload = new NotificationType<string, void>('promptReload')
@@ -150,6 +154,17 @@ export function activate(context: ExtensionContext) {
 				}
 				else if (status !== undefined) {
 					status.dispose();
+				}
+			})
+			let debugStatusBar = window.createStatusBarItem(vs.StatusBarAlignment.Left);
+			context.subscriptions.push(debugStatusBar);
+			client.onNotification(debugStatusBarParamsNotification, (param: debugStatusBarParams) => {
+				if (param.enable) {
+					debugStatusBar.text = param.value;
+					debugStatusBar.show();
+				}
+				else if (!param.enable) {
+					debugStatusBar.hide();
 				}
 			})
 			client.onNotification(createVirtualFile, (param: CreateVirtualFile) => {

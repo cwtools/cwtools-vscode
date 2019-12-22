@@ -4,6 +4,7 @@ open System.Text
 open CWTools.Common
 open System.IO
 open System.Linq
+open CWTools.Utilities.Utils
 
 let rec initOrUpdateRules repoPath gameCacheDir stable first =
     if Directory.Exists gameCacheDir then () else Directory.CreateDirectory gameCacheDir |> ignore
@@ -15,7 +16,7 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
         let refSpecs = remote.FetchRefSpecs.Select((fun x -> x.Specification))
         Commands.Fetch(git, remote.Name, refSpecs, null, "")
         let currentHash = git.Head.Tip.Sha
-        eprintfn "cwtools current rules version: %A" currentHash
+        logInfo (sprintf "cwtools current rules version: %A" currentHash)
         match stable with
         |true ->
             let describeOptions = DescribeOptions()
@@ -28,11 +29,11 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
         |false ->
             git.Reset(ResetMode.Hard, git.Branches.["origin/master"].Tip)
         let newHash = git.Head.Tip.Sha
-        eprintfn "cwtools new rules version: %A" newHash
+        logInfo (sprintf "cwtools new rules version: %A" newHash)
         (newHash <> currentHash) || not isRepo, Some git.Head.Tip.Committer.When
     with
     | ex ->
-        eprintfn "cwtools git error, recovering, error: %A" ex
+        logError (sprintf "cwtools git error, recovering, error: %A" ex)
         use git = new Repository(gameCacheDir)
         git.Reset(ResetMode.Hard, git.Branches.["origin/master"].Tip) |> ignore
         if first then initOrUpdateRules repoPath gameCacheDir stable false else (false, None)

@@ -43,17 +43,34 @@ open System.Diagnostics
 open Main.Lang
 open Main.Lang.GameLoader
 open Main.Lang.LanguageServerFeatures
+open CWTools.Utilities.Utils
 
 let private TODO() = raise (Exception "TODO")
 
 [<assembly: AssemblyDescription("CWTools language server for PDXScript")>]
 do()
 
+        // client.LogMessage { ``type`` = MessageType.Error; message = "error"}
+        // client.LogMessage { ``type`` = MessageType.Warning; message = "warning"}
+        // client.LogMessage { ``type`` = MessageType.Info; message = "info"}
+        // client.LogMessage { ``type`` = MessageType.Log; message = "log"}
+
+let setupLogger(client :ILanguageClient) =
+    let logInfo = (fun m -> client.LogMessage { ``type`` = MessageType.Info; message = m} )
+    let logWarning = (fun m -> client.LogMessage { ``type`` = MessageType.Warning; message = m} )
+    let logError = (fun m -> client.LogMessage { ``type`` = MessageType.Error; message = m} )
+    let logDiag = (fun m -> client.LogMessage { ``type`` = MessageType.Log; message = sprintf "[Diag  - %s] %s" (System.DateTime.Now.ToString("HH:mm:ss")) m})
+    CWTools.Utilities.Utils.logInfo <- logInfo
+    CWTools.Utilities.Utils.logWarning <- logWarning
+    CWTools.Utilities.Utils.logError <- logError
+    CWTools.Utilities.Utils.logDiag <- logDiag
+
 type LintRequestMsg =
     | UpdateRequest of VersionedTextDocumentIdentifier * bool
     | WorkComplete of DateTime
 
 type Server(client: ILanguageClient) =
+    do setupLogger(client)
     let docs = DocumentStore()
     let projects = ProjectManager()
     let notFound (doc: Uri) (): 'Any =
@@ -122,7 +139,7 @@ type Server(client: ILanguageClient) =
         | x ->(int position.StartColumn),(int position.StartColumn) + length
         let startLine = (int position.StartLine) - 1
         let startLine = max startLine 0
-        let createUri (f : string) = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/")
+        let createUri (f : string) = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> logWarning f; Uri "/")
         let result = {
                         range = {
                                 start = {
@@ -151,8 +168,14 @@ type Server(client: ILanguageClient) =
         s |>  List.groupBy fst
             |> List.map ((fun (f, rs) -> f, rs |> List.filter (diagnosticFilter)) >>
                 (fun (f, rs) ->
-                    try {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A %A" e rs)))
+                    try {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> logWarning f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A %A" e rs)))
             |> List.iter (client.PublishDiagnostics)
+
+    // let updateDebugBar (message : string) =
+    //     client.CustomNotification  ("debugBar", JsonValue.Record [| "value", JsonValue.String(message);  "enable", JsonValue.Boolean(true) |])
+    // let hideDebugBar() =
+    //     client.CustomNotification  ("debugBar", JsonValue.Record [| "enable", JsonValue.Boolean(false) |])
+
 
     let mutable delayedLocUpdate = false
 
@@ -244,7 +267,7 @@ type Server(client: ILanguageClient) =
                                 nextTime <- DateTime.Now.Add(delayTime);
                             else ()
                         with
-                        | e -> eprintfn "uri %A \n exception %A" uri.LocalPath e
+                        | e -> logError (sprintf "uri %A \n exception %A" uri.LocalPath e)
                     finally
                         agent.Post (WorkComplete (nextTime)))
             let analyze (file : VersionedTextDocumentIdentifier) force =
@@ -254,7 +277,9 @@ type Server(client: ILanguageClient) =
                 task.Start()
             let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier * bool>) =
                 async{
+                    // hideDebugBar()
                     let! msg = agent.Receive()
+                    // updateDebugBar (sprintf "queue length: %i" state.Count)
                     match msg, inprogress with
                     | UpdateRequest (ur, force), false ->
                         analyze ur force
@@ -310,7 +335,7 @@ type Server(client: ILanguageClient) =
                 | IR -> File.Exists (gameCachePath + "ir.cwb")
                 | VIC2 -> File.Exists (gameCachePath + "vic2.cwb")
             if doesCacheExist && not forceCreate
-            then eprintfn "Cache exists at %s" (gameCachePath + ".cwb")
+            then logInfo (sprintf "Cache exists at %s" (gameCachePath + ".cwb"))
             else
                 match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath, irVanillaPath, vic2VanillaPath) with
                 | STL, Some vp, _, _ ,_, _, _ ->
@@ -355,7 +380,7 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification ("forceReload", JsonValue.String(text))
                 | VIC2, _, _, _, _, _, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("vic2"))
-        | _ -> eprintfn "No cache path"
+        | _ -> logInfo ("No cache path")
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
 
@@ -373,8 +398,9 @@ type Server(client: ILanguageClient) =
                 let timer = new System.Diagnostics.Stopwatch()
                 timer.Start()
 
-                eprintfn "%s" path
-                eprintfn "Parse docs time: %i" timer.ElapsedMilliseconds; timer.Restart()
+                logInfo path
+                logInfo (sprintf "Parse docs time: %i" timer.ElapsedMilliseconds;)
+                timer.Restart()
 
 
                // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
@@ -470,7 +496,7 @@ type Server(client: ILanguageClient) =
 
     let completionResolveItem (item :CompletionItem) =
         async {
-            eprintfn "Completion resolve"
+            logInfo "Completion resolve"
             return match gameObj with
                     |Some game ->
                         let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
@@ -566,12 +592,12 @@ type Server(client: ILanguageClient) =
                     | _ -> ()
                     match opt.Item("repoPath") with
                     | JsonValue.String x ->
-                        eprintfn "rps %A" x
+                        logInfo (sprintf "repo path %A" x)
                         remoteRepoPath <- Some x
-                    | x -> eprintfn "t %A" x
+                    | _ -> ()
                     match opt.Item("isVanillaFolder") with
                     | JsonValue.Boolean b ->
-                        if b then eprintfn "Client thinks this is a vanilla directory" else ()
+                        if b then logInfo "Client thinks this is a vanilla directory" else ()
                         isVanillaFolder <- b
                     | _ -> ()
                     // match opt.Item("rulesVersion") with
@@ -593,7 +619,7 @@ type Server(client: ILanguageClient) =
                     | _ -> ()
 
                 |None -> ()
-                eprintfn "New init %s" (p.ToString())
+                logInfo (sprintf "New init %s" (p.ToString()))
                 return { capabilities =
                     { defaultServerCapabilities with
                         hoverProvider = true
@@ -736,7 +762,7 @@ type Server(client: ILanguageClient) =
                     maxFileSize <- int x
                 |_ -> ()
 
-                eprintfn "New configuration %s" (p.ToString())
+                logInfo (sprintf "New configuration %s" (p.ToString()))
                 match cachePath with
                 |Some dir ->
                     if Directory.Exists dir then () else Directory.CreateDirectory dir |> ignore
@@ -873,7 +899,7 @@ type Server(client: ILanguageClient) =
                     match gameObj with
                     |Some game ->
                         let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
-                        eprintfn "goto fn %A" p.textDocument.uri
+                        logInfo (sprintf "goto fn %A" p.textDocument.uri)
                         let path =
                             let u = p.textDocument.uri
                             if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
@@ -882,7 +908,7 @@ type Server(client: ILanguageClient) =
                         let gototype = game.GoToType position (path) (docs.GetText (FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
                         match gototype with
                         |Some goto ->
-                            eprintfn "goto %s" goto.FileName
+                            logInfo (sprintf "goto %s" goto.FileName)
                             [{ uri = Uri(goto.FileName); range = (convRangeToLSPRange goto)}]
                         |None -> []
                     |None -> []
@@ -1179,7 +1205,7 @@ let main (argv: array<string>): int =
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
     let serverFactory(client) = Server(client) :> ILanguageServer
-    eprintfn "Listening on stdin"
+    // "Listening on stdin"
     LanguageServer.connect(serverFactory, read, write)
     0 // return an integer exit code
     //eprintfn "%A" (JsonValue.Parse "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"processId\":12660,\"rootUri\": \"file:///c%3A/Users/Thomas/Documents/Paradox%20Interactive/Stellaris\"},\"capabilities\":{\"workspace\":{}}}")
