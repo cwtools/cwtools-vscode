@@ -1,3 +1,7 @@
+# 0.8.34
+* Add `only_if_not` option for subtype, to add dependancies on other subtypes
+* Fix DLC zips
+
 # 0.8.33
 * Add `datetime_field` for `YYYY.MM.DD.HH`
 * Support DLC zips

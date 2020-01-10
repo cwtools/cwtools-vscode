@@ -59,7 +59,7 @@ let setupLogger(client :ILanguageClient) =
     let logInfo = (fun m -> client.LogMessage { ``type`` = MessageType.Info; message = m} )
     let logWarning = (fun m -> client.LogMessage { ``type`` = MessageType.Warning; message = m} )
     let logError = (fun m -> client.LogMessage { ``type`` = MessageType.Error; message = m} )
-    let logDiag = (fun m -> client.LogMessage { ``type`` = MessageType.Log; message = sprintf "[Diag  - %s] %s" (System.DateTime.Now.ToString("HH:mm:ss")) m})
+    let logDiag = (fun m -> client.LogMessage { ``type`` = MessageType.Log; message = sprintf "[Diag - %s] %s" (System.DateTime.Now.ToString("HH:mm:ss")) m})
     CWTools.Utilities.Utils.logInfo <- logInfo
     CWTools.Utilities.Utils.logWarning <- logWarning
     CWTools.Utilities.Utils.logError <- logError
@@ -235,11 +235,13 @@ type Server(client: ILanguageClient) =
             game.RefreshCaches();
             if delayedLocUpdate
             then
+                logDiag "delayedLocUpdate true"
                 game.RefreshLocalisationCaches();
                 delayedLocUpdate <- false
                 locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
                 // eprintfn "lc update %A" locCache
             else
+                logDiag "delayedLocUpdate false"
                 locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
                 // eprintfn "lc update light %A" locCache
             stopwatch.Stop()
@@ -258,10 +260,12 @@ type Server(client: ILanguageClient) =
                     try
                         try
                             let shallowAnalyse = DateTime.Now < nextTime
+                            logDiag (sprintf "lint force: %b, shallow: %b" force shallowAnalyse)
                             lint uri (shallowAnalyse && (not(force))) false |> Async.RunSynchronously
                             if not(shallowAnalyse)
                             then
                                 delayedAnalyze();
+                                logDiag "lint after delayed"
                                 /// Somehow get updated localisation errors after loccache is updated
                                 lint uri true false |> Async.RunSynchronously
                                 nextTime <- DateTime.Now.Add(delayTime);
@@ -279,6 +283,7 @@ type Server(client: ILanguageClient) =
                 async{
                     // hideDebugBar()
                     let! msg = agent.Receive()
+                    logDiag (sprintf "queue length: %i" state.Count)
                     // updateDebugBar (sprintf "queue length: %i" state.Count)
                     match msg, inprogress with
                     | UpdateRequest (ur, force), false ->
