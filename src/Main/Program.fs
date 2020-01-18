@@ -1211,7 +1211,11 @@ let main (argv: array<string>): int =
     let write = new BinaryWriter(Console.OpenStandardOutput())
     let serverFactory(client) = Server(client) :> ILanguageServer
     // "Listening on stdin"
-    LanguageServer.connect(serverFactory, read, write)
-    0 // return an integer exit code
+    try
+        LanguageServer.connect(serverFactory, read, write)
+        0 // return an integer exit code
+    with e ->
+        LSP.Log.dprintfn "Exception in language server %O" e
+        1
     //eprintfn "%A" (JsonValue.Parse "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"processId\":12660,\"rootUri\": \"file:///c%3A/Users/Thomas/Documents/Paradox%20Interactive/Stellaris\"},\"capabilities\":{\"workspace\":{}}}")
     //0

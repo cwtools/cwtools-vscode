@@ -78,12 +78,15 @@ let responseAgent = MailboxProcessor.Start(fun agent ->
                 return! loop (state |> List.filter (fun (i, _) -> i <> id))
         }
     loop [])
+let monitor = new Object()
 let private writeClient (client: BinaryWriter, messageText: string) =
     let messageBytes = Encoding.UTF8.GetBytes(messageText)
     let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
     let headerBytes = Encoding.UTF8.GetBytes(headerText)
-    client.Write(headerBytes)
-    client.Write(messageBytes)
+    lock monitor (fun () ->
+        client.Write(headerBytes)
+        client.Write(messageBytes)
+    )
 
 let respond(client: BinaryWriter, requestId: int, jsonText: string) =
     let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
@@ -235,33 +238,38 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
     let pendingRequests = new System.Collections.Concurrent.ConcurrentDictionary<int, CancellationTokenSource>()
     let processQueue = new System.Collections.Concurrent.BlockingCollection<PendingTask>(10)
     Thread(fun () ->
-        // Read all messages on the main thread
-        for m in readMessages(receive) do
-            // Process cancellations immediately
-            match m with
-            | Parser.NotificationMessage("$/cancelRequest", Some json) ->
-                let id = json?id.AsInteger()
-                let stillRunning, pendingRequest = pendingRequests.TryGetValue(id)
-                if stillRunning then
-                    dprintfn "Cancelling request %d" id
-                    pendingRequest.Cancel()
-                else
-                    dprintfn "Request %d has already finished" id
-            // Process other requests on worker thread
-            | Parser.NotificationMessage(method, json) ->
-                let n = Parser.parseNotification(method, json)
-                let task = processNotification(n)
-                processQueue.Add(ProcessNotification(method, task))
-            | Parser.NotificationMessage("exit", json) ->
-                processQueue.Add(Quit)
-            | Parser.RequestMessage(id, method, json) ->
-                let task = processRequest(Parser.parseRequest(method, json))
-                let cancel = new CancellationTokenSource()
-                processQueue.Add(ProcessRequest(id, task, cancel))
-                pendingRequests.[id] <- cancel
-            | Parser.ResponseMessage(id, result) ->
-                responseAgent.Post(Response(id, result))
-        processQueue.Add(Quit)
+        try
+            // Read all messages on the main thread
+            for m in readMessages(receive) do
+                // Process cancellations immediately
+                match m with
+                | Parser.NotificationMessage("$/cancelRequest", Some json) ->
+                    let id = json?id.AsInteger()
+                    let stillRunning, pendingRequest = pendingRequests.TryGetValue(id)
+                    if stillRunning then
+                        //dprintfn "Cancelling request %d" id
+                        pendingRequest.Cancel()
+                    else
+                        ()
+                        //dprintfn "Request %d has already finished" id
+                // Process other requests on worker thread
+                | Parser.NotificationMessage(method, json) ->
+                    let n = Parser.parseNotification(method, json)
+                    let task = processNotification(n)
+                    processQueue.Add(ProcessNotification(method, task))
+                | Parser.NotificationMessage("exit", json) ->
+                    processQueue.Add(Quit)
+                | Parser.RequestMessage(id, method, json) ->
+                    let task = processRequest(Parser.parseRequest(method, json))
+                    let cancel = new CancellationTokenSource()
+                    processQueue.Add(ProcessRequest(id, task, cancel))
+                    pendingRequests.[id] <- cancel
+                | Parser.ResponseMessage(id, result) ->
+                    responseAgent.Post(Response(id, result))
+            processQueue.Add(Quit)
+        with e ->
+            dprintfn "Exception in read thread %O" e
+
     ).Start()
     // Process messages on main thread
     let mutable quit = false
@@ -271,13 +279,15 @@ let connect(serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryRe
         | ProcessNotification(method, task) -> Async.RunSynchronously(task)
         | ProcessRequest(id, task, cancel) ->
             if cancel.IsCancellationRequested then
-                dprintfn "Skipping cancelled request %d" id
+                ()
+                //dprintfn "Skipping cancelled request %d" id
             else
                 try
                     match Async.RunSynchronously(task, 0, cancel.Token) with
                     | Some(result) -> respond(send, id, result)
-                    | None -> ()
+                    | None -> respond(send, id, "null")
                 with :? OperationCanceledException ->
-                    dprintfn "Request %d was cancelled" id
+                    ()
+                    //dprintfn "Request %d was cancelled" id
             pendingRequests.TryRemove(id) |> ignore
     System.Environment.Exit(1)
