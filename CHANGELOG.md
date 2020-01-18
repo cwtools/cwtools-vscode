@@ -1,3 +1,6 @@
+# 0.8.35
+* Fix random freezing when performing many actions in short succession
+
 # 0.8.34
 * Add `only_if_not` option for subtype, to add dependancies on other subtypes
 * Fix DLC zips
