@@ -1,3 +1,7 @@
+# 0.8.36
+* Support simple chinese
+* Add redundant AND/OR validator to HOI4
+
 # 0.8.35
 * Fix random freezing when performing many actions in short succession
 

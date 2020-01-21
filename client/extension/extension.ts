@@ -290,7 +290,7 @@ export function activate(context: ExtensionContext) {
 			client.sendRequest(ExecuteCommandRequest.type, params).then(
 				(data : string[]) =>
 				{
-					if (data !== undefined) {
+					if (data !== undefined && data && data[0]) {
 						latestType = data[0];
 						commands.executeCommand('setContext', 'cwtoolsGraphFile', true);
 					}
