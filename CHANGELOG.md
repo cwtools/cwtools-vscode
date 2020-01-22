@@ -1,3 +1,6 @@
+# 0.8.37
+* Hotfix redundant OR
+
 # 0.8.36
 * Support simple chinese
 * Add redundant AND/OR validator to HOI4
