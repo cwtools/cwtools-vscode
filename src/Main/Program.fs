@@ -640,7 +640,8 @@ type Server(client: ILanguageClient) =
                         completionProvider = Some {resolveProvider = true; triggerCharacters = []}
                         codeActionProvider = true
                         documentSymbolProvider = true
-                        executeCommandProvider = Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"; "getGraphData"; "showEventGraph"]} } }
+                        executeCommandProvider =
+                            Some {commands = ["pretriggerThisFile"; "pretriggerAllFiles"; "genlocfile"; "genlocall"; "debugrules"; "outputerrors"; "reloadrulesconfig"; "cacheVanilla"; "listAllFiles";"listAllLocFiles"; "gettech"; "getGraphData"; "showEventGraph"; "exportTypes"]} } }
             }
         member this.Initialized() =
             async { () }
@@ -1193,6 +1194,30 @@ type Server(client: ILanguageClient) =
                                       |> List.filter (fun ds -> not (ds.Contains(".")))
                                 Some (all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
                             | None -> None
+                        | { command = "exportTypes"; arguments = _ } ->
+                            // let convRangeToJson (loc : range) =
+                            //     [|
+                            //         "filename", JsonValue.String (loc.FileName.Replace("\\","/"))
+                            //         "line", JsonValue.Number (loc.StartLine |> decimal)
+                            //         "column", JsonValue.Number (loc.StartColumn |> decimal)
+                            //     |] |> JsonValue.Record
+                            // let createRecord (typename, instancename, position) =
+                            //     [|
+                            //         "type", typename
+                            //         "name", instancename
+                            //         "position", position
+                            //     |] |> JsonValue.Record
+                            match gameObj with
+                            | Some game ->
+                                let header = "type,name,file,line" + Environment.NewLine
+                                let res = game.Types() |> Map.toList |> List.collect (fun (s, vs) -> vs |> List.map (fun v -> s, v))
+                                let text = res |> List.map (fun (t, td) -> sprintf "%s,%s,%s,%A" t (td.id) (td.range.FileName.Replace("\\","/")) (td.range.StartLine))
+                                              |> String.concat (Environment.NewLine)
+                                // let res = res |> List.map (fun (t, td) -> JsonValue.String t, JsonValue.String (td.id), convRangeToJson td.range)
+                                // Some (res |> Array.ofList |> Array.map createRecord |> JsonValue.Array)
+                                client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://alltypes");  "fileContent", JsonValue.String(header+text) |])
+                                None
+                            | _ -> None
                         |_ -> None
                     |None -> None
             }
