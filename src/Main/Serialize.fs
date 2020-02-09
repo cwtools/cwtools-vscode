@@ -23,8 +23,6 @@ open CWTools.Games.EU4
 open CWTools.Validation.EU4
 open CWTools.Validation
 open CWTools.Validation.HOI4
-open CWTools.Validation.CK2
-open CWTools.Validation.IR
 open CWTools.Validation.VIC2
 open CWTools.Rules
 open CWTools.Games.Stellaris.STLLookup

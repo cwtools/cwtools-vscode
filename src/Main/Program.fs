@@ -5,11 +5,6 @@ open LSP.Types
 open System
 open System.IO
 open CWTools.Parser
-open CWTools.Parser.EU4Parser
-open CWTools.Parser.CK2Parser
-open CWTools.Parser.STLParser
-open CWTools.Parser.IRParser
-open CWTools.Parser.VIC2Parser
 open CWTools.Parser.UtilityParser
 open CWTools.Parser.Types
 open CWTools.Common
