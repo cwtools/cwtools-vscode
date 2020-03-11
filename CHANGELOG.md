@@ -1,3 +1,8 @@
+# 0.8.38
+* Add a setting for the placeholder localisation text
+* Add stellaris federation scope
+* Add "Export all types" command
+
 # 0.8.37
 * Hotfix redundant OR
 
