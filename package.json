@@ -206,6 +206,12 @@
                     "description": "The list of languages to validate localisation for.",
                     "uniqueItems": true
                 },
+                "cwtools.localisation.generated_strings": {
+                    "scope": "window",
+                    "type": "string",
+                    "default": ":0 \"REPLACE_ME\"",
+                    "description": "The string used when generating localisation strings."
+                },
                 "cwtools.errors.vanilla": {
                     "scope": "window",
                     "type": "boolean",
@@ -309,6 +315,11 @@
                     "minimum": 1,
                     "default": 2,
                     "description": "Maximum script file size to load in megabytes (warning, large files can "
+                },
+                "cwtools.localisation.replaceme":{
+                    "scope": "window",
+                    "type":"string",
+                    "description": "The text to create new localisation strings with, should contain \"%s\" for the location of the id"
                 }
             }
         },
@@ -550,7 +561,7 @@
             "[yaml]": {
                 "files.autoGuessEncoding": true,
                 "editor.insertSpaces": true,
-                "editor.autoIndent": false,
+                "editor.autoIndent": "none",
                 "editor.wordWrap": "on"
             }
         }
