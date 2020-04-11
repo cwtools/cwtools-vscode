@@ -1,3 +1,7 @@
+# 0.8.39
+* Fix formatting on save
+* Stellaris: Fix federation and tile scopes
+
 # 0.8.38
 * Add a setting for the placeholder localisation text
 * Add stellaris federation scope
