@@ -1,3 +1,9 @@
+# 0.8.40
+* Rules: Improve `alias_key_field`
+* Rules: Add `variable_field_32` and `int_variable_field_32` for variables limited to 3 decimal places
+* Rules: Fix subscopes
+
+
 # 0.8.39
 * Fix formatting on save
 * Stellaris: Fix federation and tile scopes
