@@ -1011,7 +1011,7 @@ type Server(client: ILanguageClient) =
                 let filetext = docs.GetText (FileInfo(p.textDocument.uri.LocalPath))
                 match filetext with
                 | Some filetext ->
-                    match CWTools.Parser.CKParser.parseString filetext path, (Path.GetExtension path) = ".gui" with
+                    match CWTools.Parser.CKParser.parseString filetext path, (Path.GetExtension path) = ".gui" || (Path.GetExtension path) = ".yml" with
                     | Success(sl, _, _), false ->
                         let formatted = CKPrinter.printTopLevelKeyValueList sl
                         return [{ range = createRange 0 0 100000 0; newText = formatted }]
