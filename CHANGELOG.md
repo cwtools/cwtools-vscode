@@ -1,3 +1,7 @@
+# 0.8.41
+* Rules: Add `## error_if_only_match` for custom error messages
+* Rules: Add `should_be_used` for types, errors if type not used anywhere (experimental)
+
 # 0.8.40
 * Rules: Improve `alias_key_field`
 * Rules: Add `variable_field_32` and `int_variable_field_32` for variables limited to 3 decimal places
