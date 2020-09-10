@@ -81,6 +81,7 @@ type Server(client: ILanguageClient) =
     let mutable ck2GameObj : option<IGame<CK2ComputedData>> = None
     let mutable irGameObj : option<IGame<IRComputedData>> = None
     let mutable vic2GameObj : option<IGame<VIC2ComputedData>> = None
+    let mutable ck3GameObj : option<IGame<CK3ComputedData>> = None
     let mutable customGameObj : option<IGame<JominiComputedData>> = None
 
     let mutable languages : Lang list = []
@@ -93,12 +94,14 @@ type Server(client: ILanguageClient) =
     let mutable ck2VanillaPath : string option = None
     let mutable irVanillaPath : string option = None
     let mutable vic2VanillaPath : string option = None
+    let mutable ck3VanillaPath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
     let mutable hoi4CacheVersion : string option = None
     let mutable ck2CacheVersion : string option = None
     let mutable irCacheVersion : string option = None
     let mutable vic2CacheVersion : string option = None
+    let mutable ck3CacheVersion : string option = None
     let mutable remoteRepoPath : string option = None
 
     let mutable rulesChannel : string = "stable"
@@ -335,52 +338,60 @@ type Server(client: ILanguageClient) =
                 | CK2 -> File.Exists (gameCachePath + "ck2.cwb")
                 | IR -> File.Exists (gameCachePath + "ir.cwb")
                 | VIC2 -> File.Exists (gameCachePath + "vic2.cwb")
+                | CK3 -> File.Exists (gameCachePath + "ck3.cwb")
             if doesCacheExist && not forceCreate
             then logInfo (sprintf "Cache exists at %s" (gameCachePath + ".cwb"))
             else
-                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath, irVanillaPath, vic2VanillaPath) with
-                | STL, Some vp, _, _ ,_, _, _ ->
+                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath, irVanillaPath, vic2VanillaPath, ck3VanillaPath) with
+                | STL, Some vp, _, _ ,_, _, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeSTL (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | STL, None, _, _, _, _, _ ->
+                | STL, None, _, _, _, _, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("stellaris"))
-                | EU4, _, Some vp, _, _, _, _ ->
+                | EU4, _, Some vp, _, _, _, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeEU4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | EU4, _, None, _, _, _, _ ->
+                | EU4, _, None, _, _, _, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("eu4"))
-                | HOI4, _, _, Some vp, _, _, _ ->
+                | HOI4, _, _, Some vp, _, _, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeHOI4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | HOI4, _, _, None, _, _, _->
+                | HOI4, _, _, None, _, _, _, _->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
-                | CK2, _, _, _, Some vp, _, _ ->
+                | CK2, _, _, _, Some vp, _, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeCK2 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | CK2, _, _, _, None, _, _ ->
+                | CK2, _, _, _, None, _, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("ck2"))
-                | IR, _, _, _, _, Some vp, _ ->
+                | IR, _, _, _, _, Some vp, _, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeIR (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | IR, _, _, _, _, None, _ ->
+                | IR, _, _, _, _, None, _, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("imperator"))
-                | VIC2, _, _, _, _, _, Some vp ->
+                | VIC2, _, _, _, _, _, Some vp, _ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeVIC2 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | VIC2, _, _, _, _, _, None ->
+                | VIC2, _, _, _, _, _, None, _ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("vic2"))
+                | CK3, _, _, _, _, _, _, Some vp ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeCK3 (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                | CK3, _, _, _, _, _, _, None ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("ck3"))
         | _ -> logInfo ("No cache path")
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
@@ -446,6 +457,10 @@ type Server(client: ILanguageClient) =
                     |VIC2 ->
                         let game = loadVIC2 serverSettings
                         vic2GameObj <- Some (game :> IGame<VIC2ComputedData>)
+                        game :> IGame
+                    |CK3 ->
+                        let game = loadCK3 serverSettings
+                        ck3GameObj <- Some (game :> IGame<CK3ComputedData>)
                         game :> IGame
                     |Custom ->
                         let game = loadCustom serverSettings
@@ -577,6 +592,8 @@ type Server(client: ILanguageClient) =
                         activeGame <- IR
                     | JsonValue.String "vic2" ->
                         activeGame <- VIC2
+                    | JsonValue.String "ck3" ->
+                        activeGame <- CK3
                     | JsonValue.String "paradox" ->
                         activeGame <- Custom
                     | _ -> ()
@@ -589,6 +606,7 @@ type Server(client: ILanguageClient) =
                         | CK2 -> cachePath <- Some (x + "/ck2")
                         | IR -> cachePath <- Some (x + "/imperator")
                         | VIC2 -> cachePath <- Some (x + "/vic2")
+                        | CK3 -> cachePath <- Some (x + "/ck3")
                         | _ -> ()
                     | _ -> ()
                     match opt.Item("repoPath") with
@@ -683,6 +701,12 @@ type Server(client: ILanguageClient) =
                           |> (fun l ->  if List.isEmpty l then [VIC2Lang.English] else l)
                           |> List.map Lang.VIC2
                     | _, VIC2 -> [Lang.VIC2 VIC2Lang.English]
+                    | JsonValue.Array o, CK3 ->
+                        o |> Array.choose (function |JsonValue.String s -> (match CK3Lang.TryParse<CK3Lang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [CK3Lang.English] else l)
+                          |> List.map Lang.CK3
+                    | _, CK3 -> [Lang.CK3 CK3Lang.English]
                     | _, Custom -> [Lang.Custom CustomLang.English]
                 languages <- newLanguages
                 match p.settings.Item("cwtools").Item("localisation").Item("generated_strings") with
@@ -757,6 +781,11 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->
                     vic2VanillaPath <- Some s
+                |_ -> ()
+                match p.settings.Item("cwtools").Item("cache").Item("ck3") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    ck3VanillaPath <- Some s
                 |_ -> ()
                 match p.settings.Item("cwtools").Item("rules_folder") with
                 | JsonValue.String x ->

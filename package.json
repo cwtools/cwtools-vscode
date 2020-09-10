@@ -33,6 +33,7 @@
         "onLanguage:ck2",
         "onLanguage:imperator",
         "onLanguage:vic2",
+        "onLanguage:ck3",
         "onCommand:startcustomgame"
     ],
     "main": "./out/client/extension/extension",
@@ -197,7 +198,8 @@
                             "Russian",
                             "Braz_Por",
                             "Polish",
-                            "Chinese"
+                            "Chinese",
+                            "Korean"
                         ]
                     },
                     "default": [
@@ -300,6 +302,11 @@
                     "scope": "application",
                     "type": "string",
                     "description": "The location of a vanilla VIC2 installation"
+                },
+                "cwtools.cache.ck3": {
+                    "scope": "application",
+                    "type": "string",
+                    "description": "The location of a vanilla CK3 installation"
                 },
                 "cwtools.graph.zoomSensitivity": {
                     "scope": "resource",
@@ -464,6 +471,29 @@
                 ]
             },
             {
+                "id": "ck3",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/crusader*kings*iii/**/*.txt",
+                    "**/crusader*kings*iii/**/*.gui",
+                    "**/crusader*kings*iii/**/*.gfx",
+                    "**/crusader*kings*iii/**/*.sfx",
+                    "**/crusader*kings*iii/**/*.asset"
+                ]
+            },
+            {
                 "id": "paradox",
                 "aliases": [
                     "",
@@ -539,6 +569,16 @@
                 "editor.acceptSuggestionOnEnter": "off"
             },
             "[vic2]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                },
+                "editor.insertSpaces": false,
+                "editor.acceptSuggestionOnEnter": "off"
+            },
+            "[ck3]": {
                 "files.autoGuessEncoding": true,
                 "editor.quickSuggestions": {
                     "other": true,

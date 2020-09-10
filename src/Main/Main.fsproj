@@ -3,15 +3,10 @@
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <TargetLatestRuntimePatch>True</TargetLatestRuntimePatch>
-    <TieredCompilation>true</TieredCompilation>
-    <PublishTrimmed>true</PublishTrimmed>
-    <PaketCommand>dotnet paket</PaketCommand>
-  </PropertyGroup>
-  <PropertyGroup>
-    <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LSP\LSP.fsproj" />
+    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
     <ProjectReference Include="..\LSP\LSP.fsproj" />
     <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
   </ItemGroup>
@@ -23,13 +18,5 @@
     <Compile Include="GameLoader.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LSP\LSP.fsproj" />
-    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <LinkerRootDescriptors Include="rootDescriptor.xml" />
-  </ItemGroup>
-
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

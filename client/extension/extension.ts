@@ -18,12 +18,13 @@ import { isNumber, debug } from 'util';
 
 import executable from 'executable';
 
-const stellarisRemote = `https://github.com/tboby/cwtools-stellaris-config`;
-const eu4Remote = `https://github.com/tboby/cwtools-eu4-config`;
-const hoi4Remote = `https://github.com/tboby/cwtools-hoi4-config`;
-const ck2Remote = `https://github.com/tboby/cwtools-ck2-config`;
-const irRemote = `https://github.com/tboby/cwtools-ir-config`;
-const vic2Remote = `https://github.com/tboby/cwtools-vic2-config`;
+const stellarisRemote = `https://github.com/cwtools/cwtools-stellaris-config`;
+const eu4Remote = `https://github.com/cwtools/cwtools-eu4-config`;
+const hoi4Remote = `https://github.com/cwtools/cwtools-hoi4-config`;
+const ck2Remote = `https://github.com/cwtools/cwtools-ck2-config`;
+const irRemote = `https://github.com/cwtools/cwtools-ir-config`;
+const vic2Remote = `https://github.com/cwtools/cwtools-vic2-config`;
+const ck3Remote = `https://github.com/cwtools/cwtools-ck3-config`;
 
 let defaultClient: LanguageClient;
 let fileList : FileListItem[];
@@ -74,6 +75,7 @@ export function activate(context: ExtensionContext) {
 			case "ck2": repoPath = ck2Remote; break;
 			case "imperator": repoPath = irRemote; break;
 			case "vic2": repoPath = vic2Remote; break;
+			case "ck3": repoPath = ck3Remote; break;
 			default: repoPath = stellarisRemote; break;
 		}
 		console.log(language + " " + repoPath);
@@ -94,7 +96,7 @@ export function activate(context: ExtensionContext) {
 			workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
 			workspace.createFileSystemWatcher("**/{interface}/**/*.sfx"),
 			workspace.createFileSystemWatcher("**/{interface,gfx,fonts,music,sound}/**/*.asset"),
-			workspace.createFileSystemWatcher("**/{localisation,localisation_synced}/**/*.yml")
+			workspace.createFileSystemWatcher("**/{localisation,localisation_synced,localization}/**/*.yml")
 		]
 
 		// Options to control the language client
@@ -102,7 +104,7 @@ export function activate(context: ExtensionContext) {
 			// Register the server for F# documents
 			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
 				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }
-				, { scheme: 'file', language: 'vic2' }, { scheme: 'file', language: 'paradox'}],
+				, { scheme: 'file', language: 'vic2' }, { scheme: 'file', language: 'ck3' }, { scheme: 'file', language: 'paradox'}],
 			synchronize: {
 				// Synchronize the setting section 'languageServerExample' to the server
 				configurationSection: 'cwtools',
@@ -195,6 +197,7 @@ export function activate(context: ExtensionContext) {
 					case "ck2": gameDisplay = "Crusader Kings II"; break;
 					case "imperator": gameDisplay = "Imperator"; break;
 					case "vic2": gameDisplay = "Victoria II"; break;
+					case "ck3": gameDisplay = "Crusader Kings III"; break;
 				}
 				window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
 				.then((_) =>
@@ -214,6 +217,7 @@ export function activate(context: ExtensionContext) {
 								case "Hearts of Iron IV": game = "hoi4"; break;
 								case "Europa Universalis IV": game = "eu4"; break;
 								case "Crusader Kings II": game = "ck2"; break;
+								case "Crusader Kings III": game = "ck3"; break;
 								case "Victoria II": game = "vic2"; break;
 								case "Victoria 2": game = "vic2"; break;
 								case "ImperatorRome":
@@ -402,6 +406,7 @@ export function activate(context: ExtensionContext) {
 		case "ck2": languageId = "ck2"; break;
 		case "imperator": languageId = "imperator"; break;
 		case "vic2": languageId = "vic2"; break;
+		case "ck3": languageId = "ck3"; break;
 		default: languageId = "paradox"; break;
 	}
 	let findExeInFiles = function(gameExeName : string) {
@@ -437,8 +442,9 @@ export function activate(context: ExtensionContext) {
 	var stellaris = findExeInFiles("stellaris")
 	var ck2 = findExeInFiles("CK2")
 	var vic2 = findExeInFiles("v2game")
+	var ck3 = findExeInFilesImperator("ck3")
 	var ir = findExeInFilesImperator("imperator")
-	Promise.all([eu4, hoi4, stellaris, ck2, ir, vic2]).then(results =>
+	Promise.all([eu4, hoi4, stellaris, ck2, ir, vic2, ck3]).then(results =>
 		{
 			var isVanillaFolder = false;
 			if (results[0].length > 0 && (languageId === null || languageId === "eu4")) {
@@ -464,6 +470,10 @@ export function activate(context: ExtensionContext) {
 			if (results[5].length > 0 && (languageId === null || languageId === "vic2")) {
 				isVanillaFolder = true;
 				languageId = "vic2";
+			}
+			if (results[6].length > 0 && (languageId === null || languageId === "ck3")) {
+				isVanillaFolder = true;
+				languageId = "ck3";
 			}
 			if (path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"){
 				isVanillaFolder = true;
