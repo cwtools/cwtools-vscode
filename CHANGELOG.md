@@ -1,3 +1,7 @@
+# 0.9.0
+* Add basic CK3 support
+* Add simple CK3 GUI file support
+
 # 0.8.41
 * Rules: Add `## error_if_only_match` for custom error messages
 * Rules: Add `should_be_used` for types, errors if type not used anywhere (experimental)

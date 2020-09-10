@@ -13,7 +13,8 @@ This extension is still in preview, it may not work, it may stop working at any 
 * Hearts of Iron IV
 * Europa Universalis IV
 * Imperator: Rome - outdated, help needed
-* Crusader Kings II - coming soon
+* Crusader Kings II - partial
+* Crusader Kings III - in progress, help needed
 
 ## Features
 
@@ -79,10 +80,11 @@ This extension is still in preview, it may not work, it may stop working at any 
 7. Edit files and watch syntax errors show up when you make mistakes
 8. Wait up to a minute for the extension to scan all your mods and find all errors
 
-## Links 
+## Links
 * [vic2-config](https://github.com/cwtools/cwtools-vic2-config)
 * [ck2-config](https://github.com/cwtools/cwtools-ck2-config)
 * [eu4-config](https://github.com/cwtools/cwtools-eu4-config)
 * [hoi4-config](https://github.com/cwtools/cwtools-hoi4-config)
 * [stellaris-config](https://github.com/cwtools/cwtools-stellaris-config)
 * [ir-config](https://github.com/cwtools/cwtools-ir-config)
+* [ck3-config](https://github.com/cwtools/cwtools-ck3-config)
