@@ -9,11 +9,11 @@ This extension is still in preview, it may not work, it may stop working at any 
 
 ## Supported games
 
-* Imperator: Rome
 * Stellaris
+* Hearts of Iron IV
 * Europa Universalis IV
+* Imperator: Rome - outdated, help needed
 * Crusader Kings II - coming soon
-* Hearts of Iron IV - coming soon
 
 ## Features
 
