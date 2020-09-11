@@ -217,7 +217,10 @@ export function activate(context: ExtensionContext) {
 								case "Hearts of Iron IV": game = "hoi4"; break;
 								case "Europa Universalis IV": game = "eu4"; break;
 								case "Crusader Kings II": game = "ck2"; break;
-								case "Crusader Kings III": game = "ck3"; break;
+								case "Crusader Kings III":
+									game = "ck3";
+									dir = path.join(dir, "game");
+									break;
 								case "Victoria II": game = "vic2"; break;
 								case "Victoria 2": game = "vic2"; break;
 								case "ImperatorRome":

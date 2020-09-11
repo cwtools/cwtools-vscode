@@ -1,3 +1,6 @@
+# 0.9.1
+* Fix CK3 path
+
 # 0.9.0
 * Add basic CK3 support
 * Add simple CK3 GUI file support
