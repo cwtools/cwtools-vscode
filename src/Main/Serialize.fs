@@ -171,7 +171,7 @@ let serializeVIC2 folder cacheDirectory =
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "vic2.cwb"), pickle)
 let serializeCK3 folder cacheDirectory =
-    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK3Constants.scriptFolders, "crusader kings ii", Encoding.UTF8, [], 2)
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK3Constants.scriptFolders, "crusader kings iii", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
     let resources = ResourceManager<CK3ComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api

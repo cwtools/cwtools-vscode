@@ -343,7 +343,7 @@ let loadSTL serverSettings =
     game
 
 let loadCK3 serverSettings =
-    // let cached, cachedFiles = getCachedFiles STL serverSettings.cachePath serverSettings.isVanillaFolder
+    let cached, cachedFiles = getCachedFiles CK3 serverSettings.cachePath serverSettings.isVanillaFolder
     let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
     let folders = configs |> List.tryPick getFolderList
 
@@ -365,7 +365,7 @@ let loadCK3 serverSettings =
             debugRulesOnly = false
             debugMode = serverSettings.debug_mode
         }
-        embedded = FromConfig ([], [])
+        embedded = FromConfig (cachedFiles, cached)
         maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.CK3.CK3Game(stlsettings)
