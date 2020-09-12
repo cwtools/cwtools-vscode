@@ -1,3 +1,6 @@
+# 0.9.2
+* Fix CK3 vanilla cache
+
 # 0.9.1
 * Fix CK3 path
 
