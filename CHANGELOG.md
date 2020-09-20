@@ -1,3 +1,7 @@
+# 0.9.3
+* Expose localisation links into config files (see stellaris)
+* Expose scope groups into config files (see stellaris)
+
 # 0.9.2
 * Fix CK3 vanilla cache
 
