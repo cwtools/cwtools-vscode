@@ -1,3 +1,7 @@
+# 0.9.4
+* Improved modifier support for stellaris
+* Event targets in stellaris localisation
+
 # 0.9.3
 * Expose localisation links into config files (see stellaris)
 * Expose scope groups into config files (see stellaris)
