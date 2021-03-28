@@ -56,6 +56,7 @@ let fsacBinNetcore = fsacBin + "_netcore"
 
 let cwtoolsPath = ""
 let cwtoolsProjectName = "Main.fsproj"
+let cwtoolsLinuxProjectName = "Main.Linux.fsproj"
 
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
@@ -74,6 +75,7 @@ Target.create "YarnInstall" <| fun _ ->
 
 Target.create "DotNetRestore" <| fun _ ->
     DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
+    DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsLinuxProjectName
 
 let publishParams (framework : string) (release : bool) =
     (fun (p : DotNet.PublishOptions) ->
@@ -108,13 +110,13 @@ Target.create "BuildDll" <| fun _ ->
 Target.create "BuildServer" <| fun _ ->
     match Environment.isWindows with
     |true -> DotNet.publish (publishParams "win-x64" false) cwtoolsProjectName
-    |false -> DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName
+    |false -> DotNet.publish (publishParams "linux-x64" false) cwtoolsLinuxProjectName
     // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
     // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
 Target.create "PublishServer" <| fun _ ->
     DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName
-    DotNet.publish (publishParams "linux-x64" true) cwtoolsProjectName
+    DotNet.publish (publishParams "linux-x64" true) cwtoolsLinuxProjectName
     DotNet.publish (publishParams "osx.10.11-x64" true) cwtoolsProjectName
 
 let runTsc additionalArgs noTimeout =

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>CWTools Server</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LSP\LSP.fsproj" />
+    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
+    <ProjectReference Include="..\LSP\LSP.fsproj" />
+    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ProjectManager.fs" />
+    <Compile Include="Serialize.fs" />
+    <Compile Include="Git.fs" />
+    <Compile Include="LanguageServerFeatures.fs" />
+    <Compile Include="GameLoader.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

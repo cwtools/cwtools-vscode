@@ -9,10 +9,19 @@ nuget DotNet.Glob #
 nuget FSharpx.Collections #
 nuget Sandwych.QuickGraph.Core #
 nuget FsPickler #
-nuget LibGit2Sharp #
-nuget LibGit2Sharp.NativeBinaries
 nuget FSharp.Core 4.7.0 #
 
+group WindowsLibGit
+    source https://www.nuget.org/api/v2
+    cache ./nupkgs versions: current
+    nuget LibGit2Sharp 0.26.2
+    nuget LibGit2Sharp.NativeBinaries
+
+group LinuxLibGit
+    source https://www.nuget.org/api/v2
+    cache ./nupkgs versions: current
+    nuget LibGit2Sharp 0.27.0-preview-0096
+    nuget LibGit2Sharp.NativeBinaries
 
 group git
     git file:///C:/users/thomas/git/cwtools master
