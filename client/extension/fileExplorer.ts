@@ -67,10 +67,22 @@ import * as fs from 'fs';
         private tree : TreeNode;
         constructor(private files: FileListItem[]) {
             // const t : File[] = files.map(f => ({fileName: f}));
-            this.tree = { fileName: "root", isDirectory: true, children: filesToTreeNodes(files), uri: "" };
+            // this.tree = { fileName: "root", isDirectory: true, children: filesToTreeNodes(files), uri: "" };
+            this.parseTree(files);
+        }
+        private _onDidChangeTreeData: vscode.EventEmitter<TreeNode | null> = new vscode.EventEmitter<TreeNode | null>();
+        readonly onDidChangeTreeData: vscode.Event<TreeNode | null> = this._onDidChangeTreeData.event;
+
+
+        private parseTree(files: FileListItem[]): void {
+            this.tree = {
+                fileName: "root",
+                isDirectory: true,
+                children: filesToTreeNodes(files),
+                uri: ""
+            };
         }
 
-        onDidChangeTreeData?: vscode.Event<TreeNode>;
         getTreeItem(element: TreeNode): vscode.TreeItem {
             const treeItem = new vscode.TreeItem(element.fileName, element.isDirectory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None);
             if (!element.isDirectory) {
@@ -103,16 +115,22 @@ import * as fs from 'fs';
             // }
 
         }
+        refresh(files : FileListItem[]) {
+            this.parseTree(files);
+            this._onDidChangeTreeData.fire(undefined);
+        }
 
     }
 
     export class FileExplorer {
 
 	private fileExplorer: vscode.TreeView<TreeNode>;
+    private treeDataProvider: FilesProvider;
 
-	constructor(_: vscode.ExtensionContext, files : FileListItem[]) {
-		const treeDataProvider = new FilesProvider(files);
-		this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider });
+	constructor(context: vscode.ExtensionContext, files : FileListItem[]) {
+		this.treeDataProvider = new FilesProvider(files);
+		this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider: this.treeDataProvider });
+        context.subscriptions.push(this.fileExplorer);
 		vscode.commands.registerCommand('cwtools-files.openFile', (resource) => this.openResource(resource));
 	}
 
@@ -121,8 +139,9 @@ import * as fs from 'fs';
     }
 
     refresh(files : FileListItem[]): void {
-        this.fileExplorer.dispose();
-        const treeDataProvider = new FilesProvider(files);
-        this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider });
+        this.treeDataProvider.refresh(files);
+        // this.fileExplorer.dispose();
+        // const treeDataProvider = new FilesProvider(files);
+        // this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider });
     }
 }
