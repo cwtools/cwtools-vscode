@@ -2,7 +2,9 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+<TargetFramework>net5.0</TargetFramework>
+<TieredCompilation>true</TieredCompilation>
+<TieredCompilationQuickJit>false</TieredCompilationQuickJit>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />

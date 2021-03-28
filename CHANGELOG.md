@@ -1,3 +1,8 @@
+# 0.9.5
+* Fix longstanding issues with newer linux distros
+* Fix "tree-view" error
+* 20-30% performance improvement
+
 # 0.9.4
 * Improved modifier support for stellaris
 * Event targets in stellaris localisation
