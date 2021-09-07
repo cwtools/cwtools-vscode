@@ -52,7 +52,7 @@ export function activate(context: ExtensionContext) {
 	const cacheDir = isDevDir ? context.globalStoragePath + '/.cwtools' : context.extensionPath + '/.cwtools'
 
 	var init = function(language : string, isVanillaFolder : boolean) {
-		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s]+)"?/})
+		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s.]+)"?/ })
 		// The server is implemented using dotnet core
 		let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
 		var serverExe: string;

@@ -651,7 +651,7 @@ type Server(client: ILanguageClient) =
                                 willSave = true
                                 save = Some { includeText = true }
                                 change = TextDocumentSyncKind.Full }
-                        completionProvider = Some {resolveProvider = true; triggerCharacters = []}
+                        completionProvider = Some {resolveProvider = true; triggerCharacters = ['.']}
                         codeActionProvider = true
                         documentSymbolProvider = true
                         executeCommandProvider =
@@ -899,8 +899,8 @@ type Server(client: ILanguageClient) =
                             let items =
                                 comp |> List.map (
                                     function
-                                    |CompletionResponse.Simple (e, Some score) -> {defaultCompletionItem with label = e; sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |CompletionResponse.Simple (e, None) -> {defaultCompletionItem with label = e}
+                                    |CompletionResponse.Simple (e, Some score) -> {defaultCompletionItem with label = e; insertText = Some e; sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Simple (e, None) -> {defaultCompletionItem with label = e; insertText = Some e}
                                     |CompletionResponse.Detailed (l, d, Some score) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
                                     |CompletionResponse.Detailed (l, d, None) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
                                     |CompletionResponse.Snippet (l, e, d, Some score) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}

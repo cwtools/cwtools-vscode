@@ -330,7 +330,7 @@ let defaultCompletionItem: CompletionItem = {
     insertTextFormat = None
     textEdit = None
     additionalTextEdits = []
-    commitCharacters = []
+    commitCharacters = ['.']
     command = None
     data = JsonValue.Null
 }
