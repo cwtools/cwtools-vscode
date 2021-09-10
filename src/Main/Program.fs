@@ -896,15 +896,23 @@ type Server(client: ILanguageClient) =
                             // let extraKeywords = ["yes"; "no";]
                             // let eventIDs = game.References.EventIDs
                             // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+                            let convertKind (x : CompletionCategory) =
+                                match x with
+                                | CompletionCategory.Link -> CompletionItemKind.Method
+                                | CompletionCategory.Value -> CompletionItemKind.Value
+                                | CompletionCategory.Global -> CompletionItemKind.Constant
+                                | CompletionCategory.Variable -> CompletionItemKind.Variable
+                                | _ -> CompletionItemKind.Function
+                            let createLabel = (fun l score -> if debugMode then $"{l}({score})" else l)
                             let items =
                                 comp |> List.map (
                                     function
-                                    |CompletionResponse.Simple (e, Some score) -> {defaultCompletionItem with label = e; insertText = Some e; sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |CompletionResponse.Simple (e, None) -> {defaultCompletionItem with label = e; insertText = Some e}
-                                    |CompletionResponse.Detailed (l, d, Some score) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |CompletionResponse.Detailed (l, d, None) -> {defaultCompletionItem with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
-                                    |CompletionResponse.Snippet (l, e, d, Some score) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
-                                    |CompletionResponse.Snippet (l, e, d, None) -> {defaultCompletionItem with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
+                                    |CompletionResponse.Simple (e, Some score, kind) -> {defaultCompletionItemKind (convertKind kind) with label = createLabel e score; insertText = Some e; sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Simple (e, None, kind) -> {defaultCompletionItemKind  (convertKind kind)  with label = e; insertText = Some e; sortText = Some (maxCompletionScore.ToString())}
+                                    |CompletionResponse.Detailed (l, d, Some score, kind) -> {defaultCompletionItemKind  (convertKind kind)  with label = createLabel l score; insertText = Some l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Detailed (l, d, None, kind) -> {defaultCompletionItemKind  (convertKind kind)  with label = l; documentation = d |> Option.map (fun d -> {kind = MarkupKind.Markdown; value = d})}
+                                    |CompletionResponse.Snippet (l, e, d, Some score, kind) -> {defaultCompletionItemKind  (convertKind kind)  with label = createLabel l score; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d}); sortText = Some ((maxCompletionScore - score).ToString())}
+                                    |CompletionResponse.Snippet (l, e, d, None, kind) -> {defaultCompletionItemKind  (convertKind kind)  with label = l; insertText = Some e; insertTextFormat = Some InsertTextFormat.Snippet; documentation = d |> Option.map (fun d ->{kind = MarkupKind.Markdown; value = d})})
                             // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
                             let deduped = items |> List.distinctBy(fun i -> (i.label, i.documentation)) |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
                             Some {isIncomplete = false; items = deduped}

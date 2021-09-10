@@ -335,6 +335,8 @@ let defaultCompletionItem: CompletionItem = {
     data = JsonValue.Null
 }
 
+let defaultCompletionItemKind kind = {defaultCompletionItem with kind = Some  kind}
+
 type ReferenceContext = {
     includeDeclaration: bool
 }
