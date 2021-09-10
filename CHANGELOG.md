@@ -1,3 +1,9 @@
+# 0.9.6
+* Add intelligent completion for scope/variable dot chains on the RHS
+* Add different icons in the completion list for scopes/variables/values
+* Add support for Stellaris variables and triggers
+* Fix Stellaris script docs parsing
+
 # 0.9.5
 * Fix longstanding issues with newer linux distros
 * Fix "tree-view" error
