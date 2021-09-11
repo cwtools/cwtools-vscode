@@ -1,3 +1,6 @@
+# 0.9.7
+* Hotfix: Allow "@" variables in value fields
+
 # 0.9.6
 * Add intelligent completion for scope/variable dot chains on the RHS
 * Add different icons in the completion list for scopes/variables/values
