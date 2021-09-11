@@ -898,11 +898,11 @@ type Server(client: ILanguageClient) =
                             // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
                             let convertKind (x : CompletionCategory) =
                                 match x with
-                                | CompletionCategory.Link -> CompletionItemKind.Method
-                                | CompletionCategory.Value -> CompletionItemKind.Value
-                                | CompletionCategory.Global -> CompletionItemKind.Constant
-                                | CompletionCategory.Variable -> CompletionItemKind.Variable
-                                | _ -> CompletionItemKind.Function
+                                | CompletionCategory.Link -> (true, CompletionItemKind.Method)
+                                | CompletionCategory.Value -> (false, CompletionItemKind.Value)
+                                | CompletionCategory.Global -> (false, CompletionItemKind.Constant)
+                                | CompletionCategory.Variable -> (false, CompletionItemKind.Variable)
+                                | _ -> (false, CompletionItemKind.Function)
                             let createLabel = (fun l score -> if debugMode then $"{l}({score})" else l)
                             let items =
                                 comp |> List.map (

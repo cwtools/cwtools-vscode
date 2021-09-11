@@ -330,12 +330,17 @@ let defaultCompletionItem: CompletionItem = {
     insertTextFormat = None
     textEdit = None
     additionalTextEdits = []
-    commitCharacters = ['.']
+    commitCharacters = []
     command = None
     data = JsonValue.Null
 }
 
-let defaultCompletionItemKind kind = {defaultCompletionItem with kind = Some  kind}
+let defaultCompletionItemKind (dotCommit, kind) =
+    if dotCommit
+    then
+        {defaultCompletionItem with kind = Some  kind; commitCharacters =['.']}
+    else
+        {defaultCompletionItem with kind = Some  kind}
 
 type ReferenceContext = {
     includeDeclaration: bool

@@ -1,3 +1,6 @@
+# 0.9.8
+* Hotfix: Add prev/this/root/from to completion
+
 # 0.9.7
 * Hotfix: Allow "@" variables in value fields
 
