@@ -73,8 +73,8 @@ let fixEmbeddedFileName (s : string) =
 
 let rec getAllFolders dirs =
     if Seq.isEmpty dirs then Seq.empty else
-        seq { yield! dirs |> Seq.collect Directory.EnumerateDirectories
-              yield! dirs |> Seq.collect Directory.EnumerateDirectories |> getAllFolders }
+        seq { yield! dirs |> Seq.collect (fun s -> try Directory.EnumerateDirectories s with | _ -> Seq.empty)
+              yield! dirs |> Seq.collect (fun s -> try Directory.EnumerateDirectories s with | _ -> Seq.empty) |> getAllFolders }
 let getAllFoldersUnion dirs =
     seq {
         yield! dirs
@@ -85,7 +85,8 @@ let getConfigFiles cachePath useManualRules manualRulesFolder =
     let embeddedConfigFiles =
         match cachePath, useManualRules with
         | Some path, false ->
-            let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList)) |> Seq.collect (Directory.EnumerateFiles)
+            let configFiles = (getAllFoldersUnion ([path] |> Seq.ofList))
+                                |> Seq.collect (fun s -> try Directory.EnumerateFiles s with | _ -> Seq.empty)
             let configFiles = configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
             configFiles |> List.map (fun f -> f, File.ReadAllText(f))
         | _ -> []
@@ -97,10 +98,10 @@ let getConfigFiles cachePath useManualRules manualRulesFolder =
                 if Directory.Exists rf
                 then getAllFoldersUnion ([rf] |> Seq.ofList)
                 else if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty
-            let configFiles = configFiles |> Seq.collect (Directory.EnumerateFiles)
+            let configFiles = configFiles |> Seq.collect (fun s -> try Directory.EnumerateFiles s with | _ -> Seq.empty)
             configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
         |_ ->
-            let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (Directory.EnumerateFiles)
+            let configFiles = (if Directory.Exists "./.cwtools" then getAllFoldersUnion (["./.cwtools"] |> Seq.ofList) else Seq.empty) |> Seq.collect (fun s -> try Directory.EnumerateFiles s with | _ -> Seq.empty)
             configFiles |> List.ofSeq |> List.filter (fun f -> Path.GetExtension f = ".cwt" || Path.GetExtension f = ".log")
     let configs =
         match configFiles.Length > 0 with

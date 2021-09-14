@@ -1,3 +1,7 @@
+# 0.9.9
+* Stellaris: Suppress [[FLAG]] errors
+* Fix occasional extension corruption
+
 # 0.9.8
 * Hotfix: Add prev/this/root/from to completion
 
