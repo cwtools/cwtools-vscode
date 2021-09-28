@@ -1,3 +1,6 @@
+# 0.9.10
+* Stellaris: Fix auto-generated modifiers
+
 # 0.9.9
 * Stellaris: Suppress [[FLAG]] errors
 * Fix occasional extension corruption
