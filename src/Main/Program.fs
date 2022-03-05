@@ -119,6 +119,8 @@ type Server(client: ILanguageClient) =
     let mutable locCache : Map<string, CWError list> = Map.empty
 
     let mutable lastFocusedFile : string option = None
+    
+    let mutable currentlyRefreshingFiles : bool = false
 
     let (|TrySuccess|TryFailure|) tryResult =
         match tryResult with
@@ -570,7 +572,13 @@ type Server(client: ILanguageClient) =
                     return defaultValue
         }
 
-
+  
+    let parseUri path =
+        let inner p =
+            match Uri.TryCreate(p, UriKind.Absolute) with
+            | TrySuccess uri -> Some (uri.AbsoluteUri |> JsonValue.String)
+            | _ -> None
+        memoize id inner path
 
     interface ILanguageServer with
         member this.Initialize(p: InitializeParams) =
@@ -817,15 +825,22 @@ type Server(client: ILanguageClient) =
                     | FileResource (f, r) -> r.scope, f, r.logicalpath
                     | FileWithContentResource (f, r) -> r.scope, f, r.logicalpath
 
-                match gameObj with
-                | Some game ->
-                    let fileList =
-                        game.AllFiles() |> List.map (mapResourceToFilePath)
-                                        |> List.choose (fun (s, f, l) -> match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> Some (s, value, l) |TryFailure -> None)
-                                        |> List.map (fun (s, uri, l)  -> JsonValue.Record [| "scope", JsonValue.String s; "uri", uri.AbsoluteUri |> JsonValue.String; "logicalpath", JsonValue.String l |])
+                match gameObj, currentlyRefreshingFiles with
+                | Some game, false ->
+                    currentlyRefreshingFiles <- true
+                    let task =
+                        new Task(
+                            (fun () ->
+                                let fileList =
+                                    game.AllFiles() |> List.map (mapResourceToFilePath)
+                                        |> List.choose (fun (s, f, l) -> parseUri f |> Option.map (fun u -> (s, u, l)))
+                                        |> List.map (fun (s, uri, l)  -> JsonValue.Record [| "scope", JsonValue.String s; "uri", uri; "logicalpath", JsonValue.String l |])
                                         |> Array.ofList
-                    client.CustomNotification ("updateFileList", JsonValue.Record [| "fileList", JsonValue.Array fileList|])
-                | None -> ()
+                                client.CustomNotification ("updateFileList", JsonValue.Record [| "fileList", JsonValue.Array fileList|])
+                                currentlyRefreshingFiles <- false
+                            ))
+                    task.Start()
+                | _ -> ()
                 // let task =
                 //     new Task((fun () ->
                 //                         match gameObj with
