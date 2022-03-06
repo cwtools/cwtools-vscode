@@ -2,9 +2,11 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-<TargetFramework>net5.0</TargetFramework>
+<TargetFramework>net6.0</TargetFramework>
 <TieredCompilation>true</TieredCompilation>
 <TieredCompilationQuickJit>false</TieredCompilationQuickJit>
+<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />
@@ -18,6 +20,7 @@
     <Compile Include="Git.fs" />
     <Compile Include="LanguageServerFeatures.fs" />
     <Compile Include="GameLoader.fs" />
+    <Compile Include="Completion.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
