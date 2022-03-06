@@ -148,12 +148,22 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
             else
                 u.LocalPath
 
+        let filetext = (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
         let comp =
             game.Complete
                 position
                 path
-                (docs.GetText(FileInfo(p.textDocument.uri.LocalPath))
-                 |> Option.defaultValue "")
+                filetext
+                
+        let split = filetext.Split('\n')
+        let targetLine = split.[position.Line - 1]
+        let textBeforeCursor = targetLine.Remove (position.Column)
+        
+        let prefixSoFar =
+            match textBeforeCursor.Split(' ') |> Array.tryLast with
+            | Some lastWord -> lastWord.Split('.') |> Array.last |> Some
+            | _ -> None
+//        logInfo $"completion {prefixSoFar}"
         // let extraKeywords = ["yes"; "no";]
         // let eventIDs = game.References.EventIDs
         // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
@@ -226,8 +236,12 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
                                       { kind = MarkupKind.Markdown
                                         value = d }) })
         // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+        let filtered =
+            match prefixSoFar with
+            | None -> items
+            | Some prefix -> items |> List.filter (fun i -> i.label.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
         let deduped =
-            items
+            filtered
             |> List.distinctBy (fun i -> (i.label, i.documentation))
             |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
         let optimised = optimiseCompletion deduped
@@ -246,11 +260,11 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
 //
 //        logInfo $"Completion items: %i{deduped |> List.length} %i{docLength} %i{labelLength}"
 
-        let items =
-            [ { defaultCompletionItem with
-                    label = "test"
-                    insertText = Some "test ${1|yes,no,{ test = true }|}"
-                    insertTextFormat = Some InsertTextFormat.Snippet } ]
+//        let items =
+//            [ { defaultCompletionItem with
+//                    label = "test"
+//                    insertText = Some "test ${1|yes,no,{ test = true }|}"
+//                    insertTextFormat = Some InsertTextFormat.Snippet } ]
 
         Some
             { isIncomplete = false
