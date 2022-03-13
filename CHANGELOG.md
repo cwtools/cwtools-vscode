@@ -1,3 +1,8 @@
+# 0.9.11
+* Stellaris: Add support for script_value param syntax (value:something|PARAM|Value)
+* Stellaris: Add validation for script_value param usage, checking if the param used will cause an error
+* Significantly improved performance for completion (most notable in CK3)
+
 # 0.9.10
 * Stellaris: Fix auto-generated modifiers
 
