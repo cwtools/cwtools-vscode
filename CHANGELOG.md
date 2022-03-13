@@ -1,3 +1,7 @@
+# 0.9.13
+* Support alias_key_field in links
+* Stellaris: remove old forced scope changes for variable effects
+
 # 0.9.12
 * Hotfix: excessive debug logging
 
