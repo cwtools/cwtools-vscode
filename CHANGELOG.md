@@ -1,3 +1,6 @@
+# 0.9.12
+* Hotfix: excessive debug logging
+
 # 0.9.11
 * Stellaris: Add support for script_value param syntax (value:something|PARAM|Value)
 * Stellaris: Add validation for script_value param usage, checking if the param used will cause an error
