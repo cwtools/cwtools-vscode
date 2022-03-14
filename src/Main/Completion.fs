@@ -154,16 +154,16 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
                 position
                 path
                 filetext
-                
+
         let split = filetext.Split('\n')
         let targetLine = split.[position.Line - 1]
         let textBeforeCursor = targetLine.Remove (position.Column)
-        
+
         let prefixSoFar =
-            match textBeforeCursor.Split(' ') |> Array.tryLast with
-            | Some lastWord -> lastWord.Split('.') |> Array.last |> Some
+            match textBeforeCursor.Split([||]) |> Array.tryLast with
+            | Some lastWord when not (String.IsNullOrWhiteSpace lastWord) -> lastWord.Split('.') |> Array.last |> Some
             | _ -> None
-//        logInfo $"completion {prefixSoFar}"
+        // logInfo $"completion {prefixSoFar}"
         // let extraKeywords = ["yes"; "no";]
         // let eventIDs = game.References.EventIDs
         // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
@@ -236,6 +236,7 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
                                       { kind = MarkupKind.Markdown
                                         value = d }) })
         // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+        // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
         let filtered =
             match prefixSoFar with
             | None -> items
