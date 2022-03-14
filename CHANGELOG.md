@@ -1,3 +1,6 @@
+# 0.9.14
+* Hotfix: Fix completion after tabs
+
 # 0.9.13
 * Support alias_key_field in links
 * Stellaris: remove old forced scope changes for variable effects
