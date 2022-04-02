@@ -1,3 +1,11 @@
+# 0.9.15
+* Further completion performance improvements
+  * If <2000 possible items then full VS Code fuzzy matching will apply
+  * If >2000 possible items it will only suggest items where the text so far is contained in the item
+* Fix completion for items you are only supposed to have one of
+* Stellaris: Support parameter default value syntax on LHS
+* Stellaris: Fix some missing underscores in modifiers
+
 # 0.9.14
 * Hotfix: Fix completion after tabs
 
