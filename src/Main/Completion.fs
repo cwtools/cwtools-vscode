@@ -23,6 +23,8 @@ let addToCache completionItem =
     key
 
 let mutable completionCacheCount = 0
+
+let mutable private completionPartialCache : (CompletionParams * CompletionItem list) option = None
 let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
     async {
         logInfo "Completion resolve"
@@ -110,12 +112,13 @@ let optimiseCompletion (completionList: CompletionItem list) =
     | x when x > 1000 ->
         let sorted =
             completionList
-            |> List.sortByDescending (fun c -> c.sortText)
+            |> List.sortBy (fun c -> c.sortText)
 
         let first = sorted |> List.take(1000)
 
         let rest =
             sorted |> List.skip(1000)
+            |> List.take (1000)
             |> List.map
                 (fun item ->
                     let key = addToCache item
@@ -128,124 +131,148 @@ let optimiseCompletion (completionList: CompletionItem list) =
         first @ rest
     | _ -> completionList
 
+let checkPartialCompletionCache (p : CompletionParams) genItems =
+    match p.context ,completionPartialCache, p.textDocument, p.position with
+    | Some { triggerKind = CompletionTriggerKind.TriggerForIncompleteCompletions }, Some (c, res), td, pos
+        when c.position.line = pos.line
+             && c.textDocument.uri = td.uri ->
+        res
+    | _ ->
+        let items = genItems()
+        completionPartialCache <- Some (p, items)
+        items
 
-let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: DocumentStore) (debugMode: bool) =
+let completionCallLSP (game : IGame) (p : CompletionParams) docs debugMode filetext position =
+    
+    let path =
+        let u = p.textDocument.uri
+
+        if
+            RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            && u.LocalPath.StartsWith "/"
+        then
+            u.LocalPath.Substring(1)
+        else
+            u.LocalPath
+
+    let comp =
+        game.Complete
+            position
+            path
+            filetext
+
+
+    // logInfo $"completion {prefixSoFar}"
+    // let extraKeywords = ["yes"; "no";]
+    // let eventIDs = game.References.EventIDs
+    // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
+    let convertKind (x: CompletionCategory) =
+        match x with
+        | CompletionCategory.Link -> (true, CompletionItemKind.Method)
+        | CompletionCategory.Value -> (false, CompletionItemKind.Value)
+        | CompletionCategory.Global -> (false, CompletionItemKind.Constant)
+        | CompletionCategory.Variable -> (false, CompletionItemKind.Variable)
+        | _ -> (false, CompletionItemKind.Function)
+
+    let createLabel =
+        (fun l score -> if debugMode then $"{l}({score})" else l)
+
+    let items =
+        comp
+        |> List.map
+            (function
+            | CompletionResponse.Simple (e, Some score, kind) ->
+                { defaultCompletionItemKind (convertKind kind) with
+                      label = createLabel e score
+                      insertText = Some e
+                      sortText = Some((maxCompletionScore - score).ToString()) }
+            | CompletionResponse.Simple (e, None, kind) ->
+                { defaultCompletionItemKind (convertKind kind) with
+                      label = e
+                      insertText = Some e
+                      sortText = Some(maxCompletionScore.ToString()) }
+            | CompletionResponse.Detailed (l, d, Some score, kind) ->
+                { defaultCompletionItemKind (convertKind kind) with
+                      label = createLabel l score
+                      insertText = Some l
+                      documentation =
+                          d
+                          |> Option.map
+                              (fun d ->
+                                  { kind = MarkupKind.Markdown
+                                    value = d })
+                      sortText = Some((maxCompletionScore - score).ToString()) }
+            | CompletionResponse.Detailed (l, d, None, kind) ->
+                { defaultCompletionItemKind (convertKind kind) with
+                      label = l
+                      documentation =
+                          d
+                          |> Option.map
+                              (fun d ->
+                                  { kind = MarkupKind.Markdown
+                                    value = d }) }
+            | CompletionResponse.Snippet (l, e, d, Some score, kind) ->
+                { defaultCompletionItemKind (convertKind kind) with
+                      label = createLabel l score
+                      insertText = Some e
+                      insertTextFormat = Some InsertTextFormat.Snippet
+                      documentation =
+                          d
+                          |> Option.map
+                              (fun d ->
+                                  { kind = MarkupKind.Markdown
+                                    value = d })
+                      sortText = Some((maxCompletionScore - score).ToString()) }
+            | CompletionResponse.Snippet (l, e, d, None, kind) ->
+                { defaultCompletionItemKind (convertKind kind) with
+                      label = l
+                      insertText = Some e
+                      insertTextFormat = Some InsertTextFormat.Snippet
+                      documentation =
+                          d
+                          |> Option.map
+                              (fun d ->
+                                  { kind = MarkupKind.Markdown
+                                    value = d }) })
+    items
+let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStore) (debugMode: bool) =
     match gameObj with
     | Some game ->
         // match experimental_completion with
         // |true ->
+       
+        // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
+        // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
+        
+//        let stopwatch = System.Diagnostics.Stopwatch.StartNew()
+//        stopwatch.Start()
         let position =
-            Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
-
-        let path =
-            let u = p.textDocument.uri
-
-            if
-                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                && u.LocalPath.StartsWith "/"
-            then
-                u.LocalPath.Substring(1)
-            else
-                u.LocalPath
-
+                Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
         let filetext = (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
-        let comp =
-            game.Complete
-                position
-                path
-                filetext
-
+        
+        let items = checkPartialCompletionCache p (fun () -> completionCallLSP game p docs debugMode filetext position)
+        
+//        logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
         let split = filetext.Split('\n')
         let targetLine = split.[position.Line - 1]
         let textBeforeCursor = targetLine.Remove (position.Column)
-
         let prefixSoFar =
             match textBeforeCursor.Split([||]) |> Array.tryLast with
             | Some lastWord when not (String.IsNullOrWhiteSpace lastWord) -> lastWord.Split('.') |> Array.last |> Some
             | _ -> None
-        // logInfo $"completion {prefixSoFar}"
-        // let extraKeywords = ["yes"; "no";]
-        // let eventIDs = game.References.EventIDs
-        // let names = eventIDs @ game.References.TriggerNames @ game.References.EffectNames @ game.References.ModifierNames @ game.References.ScopeNames @ extraKeywords
-        let convertKind (x: CompletionCategory) =
-            match x with
-            | CompletionCategory.Link -> (true, CompletionItemKind.Method)
-            | CompletionCategory.Value -> (false, CompletionItemKind.Value)
-            | CompletionCategory.Global -> (false, CompletionItemKind.Constant)
-            | CompletionCategory.Variable -> (false, CompletionItemKind.Variable)
-            | _ -> (false, CompletionItemKind.Function)
-
-        let createLabel =
-            (fun l score -> if debugMode then $"{l}({score})" else l)
-
-        let items =
-            comp
-            |> List.map
-                (function
-                | CompletionResponse.Simple (e, Some score, kind) ->
-                    { defaultCompletionItemKind (convertKind kind) with
-                          label = createLabel e score
-                          insertText = Some e
-                          sortText = Some((maxCompletionScore - score).ToString()) }
-                | CompletionResponse.Simple (e, None, kind) ->
-                    { defaultCompletionItemKind (convertKind kind) with
-                          label = e
-                          insertText = Some e
-                          sortText = Some(maxCompletionScore.ToString()) }
-                | CompletionResponse.Detailed (l, d, Some score, kind) ->
-                    { defaultCompletionItemKind (convertKind kind) with
-                          label = createLabel l score
-                          insertText = Some l
-                          documentation =
-                              d
-                              |> Option.map
-                                  (fun d ->
-                                      { kind = MarkupKind.Markdown
-                                        value = d })
-                          sortText = Some((maxCompletionScore - score).ToString()) }
-                | CompletionResponse.Detailed (l, d, None, kind) ->
-                    { defaultCompletionItemKind (convertKind kind) with
-                          label = l
-                          documentation =
-                              d
-                              |> Option.map
-                                  (fun d ->
-                                      { kind = MarkupKind.Markdown
-                                        value = d }) }
-                | CompletionResponse.Snippet (l, e, d, Some score, kind) ->
-                    { defaultCompletionItemKind (convertKind kind) with
-                          label = createLabel l score
-                          insertText = Some e
-                          insertTextFormat = Some InsertTextFormat.Snippet
-                          documentation =
-                              d
-                              |> Option.map
-                                  (fun d ->
-                                      { kind = MarkupKind.Markdown
-                                        value = d })
-                          sortText = Some((maxCompletionScore - score).ToString()) }
-                | CompletionResponse.Snippet (l, e, d, None, kind) ->
-                    { defaultCompletionItemKind (convertKind kind) with
-                          label = l
-                          insertText = Some e
-                          insertTextFormat = Some InsertTextFormat.Snippet
-                          documentation =
-                              d
-                              |> Option.map
-                                  (fun d ->
-                                      { kind = MarkupKind.Markdown
-                                        value = d }) })
-        // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
-        // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
+        
+        let partialReturn = items |> List.length > 2000
         let filtered =
-            match prefixSoFar with
-            | None -> items
-            | Some prefix -> items |> List.filter (fun i -> i.label.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            match prefixSoFar, partialReturn with
+            | None, _ -> items
+            | _, false -> items
+            | Some prefix, true -> items |> List.filter (fun i -> i.label.Contains(prefix, StringComparison.OrdinalIgnoreCase))
         let deduped =
             filtered
             |> List.distinctBy (fun i -> (i.label, i.documentation))
             |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
         let optimised = optimiseCompletion deduped
+//        logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
 
 //        let docLength =
 //            optimised
@@ -259,7 +286,7 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
 //        let labelLength =
 //            optimised |> List.sumBy (fun i -> i.label.Length)
 //
-//        logInfo $"Completion items: %i{deduped |> List.length} %i{docLength} %i{labelLength}"
+//        logInfo $"Completion items: %i{deduped |> List.length} %i{optimised |> List.length} %i{stopwatch.ElapsedMilliseconds}ms"
 
 //        let items =
 //            [ { defaultCompletionItem with
@@ -268,7 +295,7 @@ let completion (gameObj: IGame option) (p: TextDocumentPositionParams) (docs: Do
 //                    insertTextFormat = Some InsertTextFormat.Snippet } ]
 
         Some
-            { isIncomplete = false
+            { isIncomplete = partialReturn
               items = optimised }
     // |false ->
     //     let extraKeywords = ["yes"; "no";]

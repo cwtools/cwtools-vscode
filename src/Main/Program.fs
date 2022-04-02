@@ -865,7 +865,7 @@ type Server(client: ILanguageClient) =
                     //     projects.UpdateProjectFile change.uri
                         //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
             }
-        member this.Completion(p: TextDocumentPositionParams) =
+        member this.Completion(p: CompletionParams) =
             async {
                 return completion gameObj p docs debugMode
             } |> catchError None

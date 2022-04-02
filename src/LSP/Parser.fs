@@ -5,6 +5,7 @@ open System
 open FSharp.Data
 open FSharp.Data.JsonExtensions
 open LSP.Json.Ser
+open LSP.Types
 open Types
 
 type RawMessage = {
@@ -84,6 +85,13 @@ let parseMarkupKind(s: string): MarkupKind =
     | "plaintext" -> MarkupKind.PlainText
     | "markdown" -> MarkupKind.Markdown
     | _ -> raise(Exception(sprintf "%s is not a known MarkupKind" s))
+    
+let parseCompletionTriggerKind(i : int): CompletionTriggerKind =
+    match i with
+    | 1 -> CompletionTriggerKind.Invoked
+    | 2 -> CompletionTriggerKind.TriggerCharacter
+    | 3 -> CompletionTriggerKind.TriggerForIncompleteCompletions
+    | _ -> raise(Exception(sprintf "%d is not a known CompletionTriggerKind" i))
 
 let private readOptions =
     { defaultJsonReadOptions
@@ -93,7 +101,8 @@ let private readOptions =
                                 parseCompletionItemKind
                                 parseInsertTextFormat
                                 parseDiagnosticSeverity
-                                parseMarkupKind ] }
+                                parseMarkupKind
+                                parseCompletionTriggerKind ] }
 
 let private deserializeRawMessage = JsonValue.Parse >> deserializerFactory<RawMessage> readOptions
 
@@ -187,6 +196,8 @@ let parseInitialize = deserializerFactory<InitializeParamsRaw> readOptions >> pa
 
 let parseTextDocumentPositionParams = deserializerFactory<TextDocumentPositionParams> readOptions
 
+let parseCompletionParams = deserializerFactory<CompletionParams> readOptions
+
 let parseCompletionItem = deserializerFactory<CompletionItem> readOptions
 
 let parseReferenceParams = deserializerFactory<ReferenceParams> readOptions
@@ -277,7 +288,7 @@ let parseRequest(method: string, json: JsonValue): Request =
     | "initialize" -> Initialize(parseInitialize json)
     | "shutdown" -> Shutdown
     | "textDocument/willSaveWaitUntil" -> WillSaveWaitUntilTextDocument(parseWillSaveTextDocumentParams json)
-    | "textDocument/completion" -> Completion(parseTextDocumentPositionParams json)
+    | "textDocument/completion" -> Completion(parseCompletionParams json)
     | "textDocument/hover" -> Hover(parseTextDocumentPositionParams json)
     | "completionItem/resolve" -> ResolveCompletionItem(parseCompletionItem json)
     | "textDocument/signatureHelp" -> SignatureHelp(parseTextDocumentPositionParams json)

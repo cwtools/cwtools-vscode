@@ -352,6 +352,21 @@ type ReferenceParams = {
     context: ReferenceContext
 }
 
+[<RequireQualifiedAccess>]
+type CompletionTriggerKind =
+| Invoked
+| TriggerCharacter
+| TriggerForIncompleteCompletions
+
+type CompletionContext = {
+    triggerKind: CompletionTriggerKind
+}
+type CompletionParams = {
+    textDocument: TextDocumentIdentifier
+    position: Position
+    context: CompletionContext option
+}
+
 type DocumentSymbolParams = {
     textDocument: TextDocumentIdentifier
 }
@@ -432,7 +447,7 @@ type Request =
 | Initialize of InitializeParams
 | Shutdown
 | WillSaveWaitUntilTextDocument of WillSaveTextDocumentParams
-| Completion of TextDocumentPositionParams
+| Completion of CompletionParams
 | Hover of TextDocumentPositionParams
 | ResolveCompletionItem of CompletionItem
 | SignatureHelp of TextDocumentPositionParams
@@ -713,7 +728,7 @@ type ILanguageServer =
     abstract member DidSaveTextDocument: DidSaveTextDocumentParams -> Async<unit>
     abstract member DidCloseTextDocument: DidCloseTextDocumentParams -> Async<unit>
     abstract member DidChangeWatchedFiles: DidChangeWatchedFilesParams -> Async<unit>
-    abstract member Completion: TextDocumentPositionParams -> Async<CompletionList option>
+    abstract member Completion: CompletionParams -> Async<CompletionList option>
     abstract member Hover: TextDocumentPositionParams -> Async<Hover option>
     abstract member ResolveCompletionItem: CompletionItem -> Async<CompletionItem>
     abstract member SignatureHelp: TextDocumentPositionParams -> Async<SignatureHelp option>
