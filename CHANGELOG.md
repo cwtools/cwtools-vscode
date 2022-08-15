@@ -1,3 +1,7 @@
+# 0.9.16
+* Stellaris: Remove obsolete localisation validation
+* Stellaris: Add new languages (Korean/Japanese)
+
 # 0.9.15
 * Further completion performance improvements
   * If <2000 possible items then full VS Code fuzzy matching will apply
