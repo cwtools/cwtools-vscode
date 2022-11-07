@@ -105,6 +105,7 @@ type Server(client: ILanguageClient) =
     let mutable irCacheVersion : string option = None
     let mutable vic2CacheVersion : string option = None
     let mutable ck3CacheVersion : string option = None
+    let mutable vic3CacheVersion : string option = None
     let mutable remoteRepoPath : string option = None
 
     let mutable rulesChannel : string = "stable"
@@ -348,62 +349,62 @@ type Server(client: ILanguageClient) =
             if doesCacheExist && not forceCreate
             then logInfo (sprintf "Cache exists at %s" (gameCachePath + ".cwb"))
             else
-                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath, irVanillaPath, vic2VanillaPath, ck3VanillaPath) with
-                | STL, Some vp, _, _ ,_, _, _, _ ->
+                match (activeGame, stlVanillaPath, eu4VanillaPath, hoi4VanillaPath, ck2VanillaPath, irVanillaPath, vic2VanillaPath, ck3VanillaPath, vic3VanillaPath) with
+                | STL, Some vp, _, _ ,_, _, _, _,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeSTL (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | STL, None, _, _, _, _, _, _ ->
+                | STL, None, _, _, _, _, _, _,_ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("stellaris"))
-                | EU4, _, Some vp, _, _, _, _, _ ->
+                | EU4, _, Some vp, _, _, _, _, _,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeEU4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | EU4, _, None, _, _, _, _, _ ->
+                | EU4, _, None, _, _, _, _, _,_ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("eu4"))
-                | HOI4, _, _, Some vp, _, _, _, _ ->
+                | HOI4, _, _, Some vp, _, _, _, _,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeHOI4 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | HOI4, _, _, None, _, _, _, _->
+                | HOI4, _, _, None, _, _, _, _,_->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("hoi4"))
-                | CK2, _, _, _, Some vp, _, _, _ ->
+                | CK2, _, _, _, Some vp, _, _, _,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeCK2 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | CK2, _, _, _, None, _, _, _ ->
+                | CK2, _, _, _, None, _, _, _,_ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("ck2"))
-                | IR, _, _, _, _, Some vp, _, _ ->
+                | IR, _, _, _, _, Some vp, _, _,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeIR (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | IR, _, _, _, _, None, _, _ ->
+                | IR, _, _, _, _, None, _, _,_ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("imperator"))
-                | VIC2, _, _, _, _, _, Some vp, _ ->
+                | VIC2, _, _, _, _, _, Some vp, _,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeVIC2 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | VIC2, _, _, _, _, _, None, _ ->
+                | VIC2, _, _, _, _, _, None, _,_ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("vic2"))
-                | CK3, _, _, _, _, _, _, Some vp ->
+                | CK3, _, _, _, _, _, _, Some vp,_ ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeCK3 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | CK3, _, _, _, _, _, _, None ->
+                | CK3, _, _, _, _, _, _, None,_ ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("ck3"))
-                | VIC3, _, _, _, _, _, _, Some vp ->
+                | VIC3, _, _, _, _, _, _, _,Some vp ->
                     client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
                     serializeVIC3 (vp) (gameCachePath)
                     let text = sprintf "Vanilla cache for %O has been updated." activeGame
                     client.CustomNotification ("forceReload", JsonValue.String(text))
-                | VIC3, _, _, _, _, _, _, None ->
+                | VIC3, _, _, _, _, _, _,_, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("vic3"))
         | _ -> logInfo ("No cache path")
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))

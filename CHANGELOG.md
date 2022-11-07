@@ -1,3 +1,5 @@
+# 0.10.1
+* Victoria 3: Fix vanilla caching
 # 0.10.0
 * Victoria 3: Add initial support
 # 0.9.16
