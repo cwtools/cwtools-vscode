@@ -143,7 +143,7 @@ let checkPartialCompletionCache (p : CompletionParams) genItems =
         items
 
 let completionCallLSP (game : IGame) (p : CompletionParams) docs debugMode filetext position =
-    
+
     let path =
         let u = p.textDocument.uri
 
@@ -240,18 +240,18 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
     | Some game ->
         // match experimental_completion with
         // |true ->
-       
+
         // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
         // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
-        
+
 //        let stopwatch = System.Diagnostics.Stopwatch.StartNew()
 //        stopwatch.Start()
         let position =
                 Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
         let filetext = (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
-        
+
         let items = checkPartialCompletionCache p (fun () -> completionCallLSP game p docs debugMode filetext position)
-        
+
 //        logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
         let split = filetext.Split('\n')
         let targetLine = split.[position.Line - 1]
@@ -260,7 +260,7 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
             match textBeforeCursor.Split([||]) |> Array.tryLast with
             | Some lastWord when not (String.IsNullOrWhiteSpace lastWord) -> lastWord.Split('.') |> Array.last |> Some
             | _ -> None
-        
+
         let partialReturn = items |> List.length > 2000
         let filtered =
             match prefixSoFar, partialReturn with
@@ -272,7 +272,7 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
             |> List.distinctBy (fun i -> (i.label, i.documentation))
             |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
         let optimised = optimiseCompletion deduped
-//        logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
+        logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
 
 //        let docLength =
 //            optimised

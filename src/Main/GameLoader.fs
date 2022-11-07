@@ -133,7 +133,7 @@ type ServerSettings =
         maxFileSize : int
     }
 
-type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2 |CK3 |Custom
+type GameLanguage = |STL |HOI4 |EU4 |CK2 |IR |VIC2 |CK3 |VIC3 |Custom
 
 let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
     let timer = new System.Diagnostics.Stopwatch()
@@ -149,6 +149,7 @@ let getCachedFiles (game : GameLanguage) cachePath isVanillaFolder =
         | CK2, Some cp, _ -> deserialize (cp + "/../ck2.cwb")
         | IR, Some cp, _ -> deserialize (cp + "/../ir.cwb")
         | VIC2, Some cp, _ -> deserialize (cp + "/../vic2.cwb")
+        | VIC3, Some cp, _ -> deserialize (cp + "/../vic3.cwb")
         | CK3, Some cp, _ -> deserialize (cp + "/../ck3.cwb")
         | _ -> ([], [])
     logInfo (sprintf "Parse cache time: %i" timer.ElapsedMilliseconds);
@@ -370,6 +371,37 @@ let loadCK3 serverSettings =
         maxFileSize = Some serverSettings.maxFileSize
     }
     let game = CWTools.Games.CK3.CK3Game(stlsettings)
+    game
+    
+    
+
+let loadVIC3 serverSettings =
+    let cached, cachedFiles = getCachedFiles VIC3 serverSettings.cachePath serverSettings.isVanillaFolder
+    let configs = getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
+    let folders = configs |> List.tryPick getFolderList
+
+
+
+    let stlsettings = {
+        CWTools.Games.VIC3.VIC3Settings.rootDirectories = getRootDirectories serverSettings
+        modFilter = None
+        scriptFolders = folders
+        excludeGlobPatterns = Some serverSettings.dontLoadPatterns
+        validation = {
+            validateVanilla = serverSettings.validateVanilla
+            experimental = serverSettings.experimental
+            langs = serverSettings.languages
+        }
+        rules = Some {
+            ruleFiles = configs
+            validateRules = true
+            debugRulesOnly = false
+            debugMode = serverSettings.debug_mode
+        }
+        embedded = FromConfig (cachedFiles, cached)
+        maxFileSize = Some serverSettings.maxFileSize
+    }
+    let game = CWTools.Games.VIC3.VIC3Game(stlsettings)
     game
 let loadCustom serverSettings =
     // let cached, cachedFiles = getCachedFiles STL serverSettings.cachePath serverSettings.isVanillaFolder

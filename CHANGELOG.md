@@ -1,3 +1,5 @@
+# 0.10.0
+* Victoria 3: Add initial support
 # 0.9.16
 * Stellaris: Remove obsolete localisation validation
 * Stellaris: Add new languages (Korean/Japanese)

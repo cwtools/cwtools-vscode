@@ -186,6 +186,24 @@ let serializeCK3 folder cacheDirectory =
     let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ck3.cwb"), pickle)
+    
+    
+let serializeVIC3 folder cacheDirectory =
+    let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC3Constants.scriptFolders, "Victoria 3", Encoding.UTF8, [], 2)
+    let files = fileManager.AllFilesByPath()
+    let computefun : unit -> InfoService option = (fun () -> (None))
+    let resources = ResourceManager<VIC3ComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let entities =
+        resources.UpdateFiles(files)
+        |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
+        |> List.map (fun (r, (struct (e, _))) -> r, e)
+    let files = resources.GetResources()
+                |> List.choose (function |FileResource (_, r) -> Some (r.logicalpath, "")
+                                         |FileWithContentResource (_, r) -> Some (r.logicalpath, r.filetext)
+                                         |_ -> None)
+    let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
+    let pickle = binarySerializer.Pickle data
+    File.WriteAllBytes(Path.Combine(cacheDirectory, "vic3.cwb"), pickle)
 let deserialize path =
     // registry.DeclareSerializable<System.LazyHelper>()
     // registry.DeclareSerializable<Lazy>()

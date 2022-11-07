@@ -83,6 +83,7 @@ type Server(client: ILanguageClient) =
     let mutable irGameObj : option<IGame<IRComputedData>> = None
     let mutable vic2GameObj : option<IGame<VIC2ComputedData>> = None
     let mutable ck3GameObj : option<IGame<CK3ComputedData>> = None
+    let mutable vic3GameObj : option<IGame<VIC3ComputedData>> = None
     let mutable customGameObj : option<IGame<JominiComputedData>> = None
 
     let mutable languages : Lang list = []
@@ -96,6 +97,7 @@ type Server(client: ILanguageClient) =
     let mutable irVanillaPath : string option = None
     let mutable vic2VanillaPath : string option = None
     let mutable ck3VanillaPath : string option = None
+    let mutable vic3VanillaPath : string option = None
     let mutable stellarisCacheVersion : string option = None
     let mutable eu4CacheVersion : string option = None
     let mutable hoi4CacheVersion : string option = None
@@ -120,7 +122,7 @@ type Server(client: ILanguageClient) =
     let mutable locCache : Map<string, CWError list> = Map.empty
 
     let mutable lastFocusedFile : string option = None
-    
+
     let mutable currentlyRefreshingFiles : bool = false
 
     let (|TrySuccess|TryFailure|) tryResult =
@@ -342,6 +344,7 @@ type Server(client: ILanguageClient) =
                 | IR -> File.Exists (gameCachePath + "ir.cwb")
                 | VIC2 -> File.Exists (gameCachePath + "vic2.cwb")
                 | CK3 -> File.Exists (gameCachePath + "ck3.cwb")
+                | VIC3 -> File.Exists (gameCachePath + "vic3.cwb")
             if doesCacheExist && not forceCreate
             then logInfo (sprintf "Cache exists at %s" (gameCachePath + ".cwb"))
             else
@@ -395,6 +398,13 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification ("forceReload", JsonValue.String(text))
                 | CK3, _, _, _, _, _, _, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("ck3"))
+                | VIC3, _, _, _, _, _, _, Some vp ->
+                    client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Generating vanilla cache...");  "enable", JsonValue.Boolean(true) |])
+                    serializeVIC3 (vp) (gameCachePath)
+                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    client.CustomNotification ("forceReload", JsonValue.String(text))
+                | VIC3, _, _, _, _, _, _, None ->
+                    client.CustomNotification ("promptVanillaPath", JsonValue.String("vic3"))
         | _ -> logInfo ("No cache path")
                 // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
 
@@ -465,6 +475,10 @@ type Server(client: ILanguageClient) =
                         let game = loadCK3 serverSettings
                         ck3GameObj <- Some (game :> IGame<CK3ComputedData>)
                         game :> IGame
+                    |VIC3 ->
+                        let game = loadVIC3 serverSettings
+                        vic3GameObj <- Some (game :> IGame<VIC3ComputedData>)
+                        game :> IGame
                     |Custom ->
                         let game = loadCustom serverSettings
                         customGameObj <- Some (game :> IGame<JominiComputedData>)
@@ -513,7 +527,7 @@ type Server(client: ILanguageClient) =
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("");  "enable", JsonValue.Boolean(false) |])
 
 
-  
+
 
     let createRange startLine startCol endLine endCol =
         {
@@ -543,7 +557,7 @@ type Server(client: ILanguageClient) =
                     return defaultValue
         }
 
-  
+
     let parseUri path =
         let inner p =
             match Uri.TryCreate(p, UriKind.Absolute) with
@@ -573,6 +587,8 @@ type Server(client: ILanguageClient) =
                         activeGame <- VIC2
                     | JsonValue.String "ck3" ->
                         activeGame <- CK3
+                    | JsonValue.String "vic3" ->
+                        activeGame <- VIC3
                     | JsonValue.String "paradox" ->
                         activeGame <- Custom
                     | _ -> ()
@@ -585,6 +601,7 @@ type Server(client: ILanguageClient) =
                         | CK2 -> cachePath <- Some (x + "/ck2")
                         | IR -> cachePath <- Some (x + "/imperator")
                         | VIC2 -> cachePath <- Some (x + "/vic2")
+                        | VIC3 -> cachePath <- Some (x + "/vic3")
                         | CK3 -> cachePath <- Some (x + "/ck3")
                         | _ -> ()
                     | _ -> ()
@@ -686,6 +703,12 @@ type Server(client: ILanguageClient) =
                           |> (fun l ->  if List.isEmpty l then [CK3Lang.English] else l)
                           |> List.map Lang.CK3
                     | _, CK3 -> [Lang.CK3 CK3Lang.English]
+                    | JsonValue.Array o, VIC3 ->
+                        o |> Array.choose (function |JsonValue.String s -> (match VIC3Lang.TryParse<VIC3Lang> s with |TrySuccess s -> Some s |TryFailure -> None) |_ -> None)
+                          |> List.ofArray
+                          |> (fun l ->  if List.isEmpty l then [VIC3Lang.English] else l)
+                          |> List.map Lang.VIC3
+                    | _, VIC3 -> [Lang.VIC3 VIC3Lang.English]
                     | _, Custom -> [Lang.Custom CustomLang.English]
                 languages <- newLanguages
                 match p.settings.Item("cwtools").Item("localisation").Item("generated_strings") with
@@ -765,6 +788,11 @@ type Server(client: ILanguageClient) =
                 | JsonValue.String "" -> ()
                 | JsonValue.String s ->
                     ck3VanillaPath <- Some s
+                |_ -> ()
+                match p.settings.Item("cwtools").Item("cache").Item("vic3") with
+                | JsonValue.String "" -> ()
+                | JsonValue.String s ->
+                    vic3VanillaPath <- Some s
                 |_ -> ()
                 match p.settings.Item("cwtools").Item("rules_folder") with
                 | JsonValue.String x ->
@@ -871,7 +899,7 @@ type Server(client: ILanguageClient) =
             } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj vic2GameObj ck3GameObj customGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
+                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj vic2GameObj ck3GameObj vic3GameObj customGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
             } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =

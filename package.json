@@ -23,7 +23,10 @@
     ],
     "keywords": [
         "paradox",
-        "stellaris"
+        "stellaris",
+        "victoria",
+        "crusader kings",
+        "hearts of iron"
     ],
     "activationEvents": [
         "onLanguage:paradox",
@@ -33,6 +36,7 @@
         "onLanguage:ck2",
         "onLanguage:imperator",
         "onLanguage:vic2",
+        "onLanguage:vic3",
         "onLanguage:ck3",
         "onCommand:startcustomgame"
     ],
@@ -199,7 +203,9 @@
                             "Braz_Por",
                             "Polish",
                             "Chinese",
-                            "Korean"
+                            "Korean",
+                            "Japanese",
+                            "Turkish"
                         ]
                     },
                     "default": [
@@ -307,6 +313,11 @@
                     "scope": "application",
                     "type": "string",
                     "description": "The location of a vanilla CK3 installation"
+                },
+                "cwtools.cache.vic3": {
+                    "scope": "application",
+                    "type": "string",
+                    "description": "The location of a vanilla VIC3 installation"
                 },
                 "cwtools.graph.zoomSensitivity": {
                     "scope": "resource",
@@ -494,6 +505,29 @@
                 ]
             },
             {
+                "id": "vic3",
+                "aliases": [
+                    "",
+                    "paradox",
+                    "pdxscript"
+                ],
+                "extensions": [
+                    "txt",
+                    "gui",
+                    "gfx",
+                    "asset",
+                    "cwt"
+                ],
+                "configuration": "./language-configuration.json",
+                "filenamePatterns": [
+                    "**/victoria*3/**/*.txt",
+                    "**/victoria*3/**/*.gui",
+                    "**/victoria*3/**/*.gfx",
+                    "**/victoria*3/**/*.sfx",
+                    "**/victoria*3/**/*.asset"
+                ]
+            },
+            {
                 "id": "paradox",
                 "aliases": [
                     "",
@@ -585,6 +619,17 @@
                 "editor.suggest.insertMode": "replace"
             },
             "[ck3]": {
+                "files.autoGuessEncoding": true,
+                "editor.quickSuggestions": {
+                    "other": true,
+                    "comments": false,
+                    "strings": true
+                },
+                "editor.insertSpaces": false,
+                "editor.acceptSuggestionOnEnter": "off",
+                "editor.suggest.insertMode": "replace"
+            },
+            "[vic3]": {
                 "files.autoGuessEncoding": true,
                 "editor.quickSuggestions": {
                     "other": true,
