@@ -15,6 +15,7 @@ This extension is still in preview, it may not work, it may stop working at any 
 * Imperator: Rome - outdated, help needed
 * Crusader Kings II - partial
 * Crusader Kings III - in progress, help needed
+* Victoria 3 - in progress, help needed
 
 ## Features
 
@@ -81,7 +82,9 @@ This extension is still in preview, it may not work, it may stop working at any 
 8. Wait up to a minute for the extension to scan all your mods and find all errors
 
 ## Links
+
 * [vic2-config](https://github.com/cwtools/cwtools-vic2-config)
+* [vic3-config](https://github.com/cwtools/cwtools-vic3-config)
 * [ck2-config](https://github.com/cwtools/cwtools-ck2-config)
 * [eu4-config](https://github.com/cwtools/cwtools-eu4-config)
 * [hoi4-config](https://github.com/cwtools/cwtools-hoi4-config)
