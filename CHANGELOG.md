@@ -1,3 +1,6 @@
+# 0.10.2
+* Fix publishing error
+
 # 0.10.1
 * Victoria 3: Fix vanilla caching
 # 0.10.0
