@@ -130,8 +130,7 @@ import * as fs from 'fs';
 	constructor(context: vscode.ExtensionContext, files : FileListItem[]) {
 		this.treeDataProvider = new FilesProvider(files);
 		this.fileExplorer = vscode.window.createTreeView('cwtools-files', { treeDataProvider: this.treeDataProvider });
-        context.subscriptions.push(this.fileExplorer);
-		vscode.commands.registerCommand('cwtools-files.openFile', (resource) => this.openResource(resource));
+		context.subscriptions.push(vscode.commands.registerCommand('cwtools-files.openFile', (resource) => this.openResource(resource)));
 	}
 
 	private openResource(resource: vscode.Uri): void {
