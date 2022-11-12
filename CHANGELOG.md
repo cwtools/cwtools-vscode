@@ -1,3 +1,6 @@
+# 0.10.3
+* EU4: Add PREV_PREV
+
 # 0.10.2
 * Fix publishing error
 
