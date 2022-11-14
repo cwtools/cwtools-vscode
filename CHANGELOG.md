@@ -1,5 +1,7 @@
 # 0.10.3
 * EU4: Add PREV_PREV
+* Completion will now wrap items in quotes when necessary
+* Fix spurious "tree view" errors
 
 # 0.10.2
 * Fix publishing error
