@@ -118,7 +118,7 @@ let optimiseCompletion (completionList: CompletionItem list) =
 
         let rest =
             sorted |> List.skip(1000)
-            |> List.take (1000)
+            |> List.take (min 1000 (x - 1000))
             |> List.map
                 (fun item ->
                     let key = addToCache item
@@ -176,6 +176,12 @@ let completionCallLSP (game : IGame) (p : CompletionParams) docs debugMode filet
 
     let createLabel =
         (fun l score -> if debugMode then $"{l}({score})" else l)
+        
+    /// Wrap in quotes if it contains spaces
+    let createInsertText (s : string) =
+        if s.Contains " " && not (s.StartsWith("\"")) && not (s.EndsWith("\"")) 
+        then Some $"\"{s}\""
+        else Some s 
 
     let items =
         comp
@@ -184,17 +190,17 @@ let completionCallLSP (game : IGame) (p : CompletionParams) docs debugMode filet
             | CompletionResponse.Simple (e, Some score, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
                       label = createLabel e score
-                      insertText = Some e
+                      insertText = createInsertText e
                       sortText = Some((maxCompletionScore - score).ToString()) }
             | CompletionResponse.Simple (e, None, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
                       label = e
-                      insertText = Some e
+                      insertText = createInsertText e
                       sortText = Some(maxCompletionScore.ToString()) }
             | CompletionResponse.Detailed (l, d, Some score, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
                       label = createLabel l score
-                      insertText = Some l
+                      insertText = createInsertText l
                       documentation =
                           d
                           |> Option.map
@@ -205,6 +211,7 @@ let completionCallLSP (game : IGame) (p : CompletionParams) docs debugMode filet
             | CompletionResponse.Detailed (l, d, None, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
                       label = l
+                      insertText = createInsertText l
                       documentation =
                           d
                           |> Option.map
@@ -272,7 +279,7 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
             |> List.distinctBy (fun i -> (i.label, i.documentation))
             |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
         let optimised = optimiseCompletion deduped
-        logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
+        // logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
 
 //        let docLength =
 //            optimised
