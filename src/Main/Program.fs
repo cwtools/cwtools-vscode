@@ -170,6 +170,7 @@ type Server(client: ILanguageClient) =
             | _, {Diagnostic.code = Some code} when List.contains code ignoreCodes -> false
             | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
             | _, _ -> true
+        // logDiag (sprintf "sd %A" s)
         s |>  List.groupBy fst
             |> List.map ((fun (f, rs) -> f, rs |> List.filter (diagnosticFilter)) >>
                 (fun (f, rs) ->
@@ -205,7 +206,7 @@ type Server(client: ILanguageClient) =
                     | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0, None)]
             let locErrors =
                 locCache.TryFind (doc.LocalPath) |> Option.defaultValue [] |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
-            // eprintfn "lint le %A" (locCache.TryFind (doc.LocalPath) |> Option.defaultValue [])
+            // logDiag (sprintf "lint le %A" (locCache.TryFind (doc.LocalPath) |> Option.defaultValue []))
             let errors =
                 parserErrors @
                 locErrors @
@@ -213,6 +214,7 @@ type Server(client: ILanguageClient) =
                     |None -> []
                     |Some game ->
                         let results = game.UpdateFile shallowAnalyze name filetext
+                        // logDiag (sprintf "lint uf %A" results)
                         results |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors) )
             match errors with
             | [] -> client.PublishDiagnostics {uri = doc; diagnostics = []}

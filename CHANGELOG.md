@@ -1,3 +1,6 @@
+# 0.10.5
+* Rules: support type-based modifiers generated from rules
+* VIC3: Warn when a modifier is used but not defined in modifier_types
 
 # 0.10.4
 * Rules: Support `replace_scope` on top level type rules
