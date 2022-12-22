@@ -1,5 +1,8 @@
+# 0.10.6
+* Rules: support type-based modifiers generated from rules in stellaris
+
 # 0.10.5
-* Rules: support type-based modifiers generated from rules
+* VIC3: support type-based modifiers generated from rules
 * VIC3: Warn when a modifier is used but not defined in modifier_types
 
 # 0.10.4
