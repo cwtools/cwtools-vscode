@@ -1,3 +1,6 @@
+# 0.10.7
+* Rules: Hotfix previous
+
 # 0.10.6
 * Rules: support type-based modifiers generated from rules in stellaris
 
