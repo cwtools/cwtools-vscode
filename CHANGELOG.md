@@ -1,3 +1,6 @@
+# 0.10.8
+* Handle corrupt ZIP files
+
 # 0.10.7
 * Rules: Hotfix previous
 
