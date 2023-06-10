@@ -1,3 +1,6 @@
+# 0.10.9
+* Support parsing "?=" as an operator
+
 # 0.10.8
 * Handle corrupt ZIP files
 
