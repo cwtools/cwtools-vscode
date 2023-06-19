@@ -1,3 +1,6 @@
+# 0.10.10
+* Fix EU4 encoding confusion
+
 # 0.10.9
 * Support parsing "?=" as an operator
 
