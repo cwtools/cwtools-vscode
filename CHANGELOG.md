@@ -1,3 +1,6 @@
+# 0.10.11
+* EU4: Support global_event_target in localisation commands
+
 # 0.10.10
 * Fix EU4 encoding confusion
 
