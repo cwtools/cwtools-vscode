@@ -9,8 +9,7 @@ export default {
     output: {
         format: "iife",
         name: "cwtoolsgraph",
-        sourceMap: false,
-        indent: false
+        indent: false,
     },
     plugins: [
         typescript({
@@ -36,7 +35,8 @@ export default {
             files: {
               'webworker-threads': `
                 export default {};
-              `
+              `,
+              'web-worker': 'export default {};'
             }
           }),
 
