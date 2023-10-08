@@ -1,3 +1,6 @@
+# 0.10.12
+* Attempt to fix failure to start extension when a non-script file is open when the extension loads
+
 # 0.10.11
 * EU4: Support global_event_target in localisation commands
 

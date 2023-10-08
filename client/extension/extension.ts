@@ -30,7 +30,7 @@ const ck3Remote = `https://github.com/cwtools/cwtools-ck3-config`;
 let defaultClient: LanguageClient;
 let fileList : FileListItem[];
 let fileExplorer : FileExplorer;
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
 
 
 	class CwtoolsProvider
@@ -409,7 +409,21 @@ export function activate(context: ExtensionContext) {
 	}
 
 	var languageId : string = null;
-	switch (window.activeTextEditor.document.languageId) {
+	var knownLanguageIds = ["stellaris", "eu4", "hoi4", "ck2", "imperator", "vic2", "vic3", "ck3"];
+	let getLanguageIdFallback = async function() {
+		let markerFiles = await workspace.findFiles("**/*.txt", null, 1);
+		if (markerFiles.length == 1) {
+			return (await workspace.openTextDocument(markerFiles[0])).languageId;
+		}
+		return null;
+	}
+
+	var guessedLanguageId = window.activeTextEditor?.document?.languageId;
+	if(guessedLanguageId === undefined || !knownLanguageIds.includes(guessedLanguageId)){
+		guessedLanguageId = await getLanguageIdFallback();
+	}
+
+	switch (guessedLanguageId) {
 		case "stellaris": languageId = "stellaris"; break;
 		case "eu4": languageId = "eu4"; break;
 		case "hoi4": languageId = "hoi4"; break;
