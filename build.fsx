@@ -125,10 +125,17 @@ let runTsc additionalArgs noTimeout =
     run cmd additionalArgs ""
 Target.create "RunScript" (fun _ ->
     match ProcessUtils.tryFindFileOnPath "npx" with
-    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("tsc -p ./tsconfig.extension.json")) |> ignore
+    |Some tsc ->
+        CreateProcess.fromRawCommand tsc ["tsc"; "-p"; "./tsconfig.extension.json"]
+        |> Proc.run
+        |> (fun r -> if r.ExitCode <> 0 then failwith "tsc fail")
+    // |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("tsc -p ./tsconfig.extension.json"))
     |_ -> failwith "didn't find tsc"
     match ProcessUtils.tryFindFileOnPath "npx" with
-    |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("rollup -c -o ./out/client/webview/graph.js") ) |> ignore
+    |Some tsc ->
+        CreateProcess.fromRawCommand tsc ["rollup"; "-c"; "-o"; "./out/client/webview/graph.js"]
+        |> Proc.run
+        |> (fun r -> if r.ExitCode <> 0 then failwith "rollup fail")
     |_ -> failwith "didn't find rollup"
     // Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName("tsc").WithLoadUserProfile(true).WithUseShellExecute(false)) |> ignore
 )
