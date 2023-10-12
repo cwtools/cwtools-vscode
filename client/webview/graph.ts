@@ -1,10 +1,11 @@
-import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection } from 'cytoscape'
+import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection, EventObject } from 'cytoscape'
 import cytoscapecanvas from './canvas'
 // let cytoscapecanvas = require('cytoscape-canvas2')
 // import cytoscapecanvas from 'canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
-import tippy, { Instance, Tippy } from 'tippy.js/esm/index';
+// import tippy, { type Instance, Tippy } from 'tippy.js/esm/index';
+import tippy, { type Instance, Tippy, Options } from 'tippy.js';
 import mergeimages from 'merge-images'
 
 declare module 'cytoscape' {
@@ -14,7 +15,7 @@ declare module 'cytoscape' {
     }
     interface Core {
         navigator(options: any): any;
-        cyCanvas(): any;
+        cyCanvas(options: any): any;
     }
 
 }
@@ -34,7 +35,7 @@ function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRender
     ctx.shadowColor = "black";
     ctx.shadowBlur = 25 * zoom;
     ctx.fillStyle = "#666";
-    nodes.forEach((node: cytoscape.CollectionElements) => {
+    nodes.forEach((node) => {
         let text: string = node.data('entityType');
         const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
         const eventChars2 = node.data('abbreviation') ? node.data('abbreviation') : eventChars;
@@ -63,7 +64,7 @@ function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRender
     });
 }
 
-const style = [ // the stylesheet for the graph
+const style : any = [ // the stylesheet for the graph
     {
         selector: 'node',
         style: {
@@ -214,7 +215,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         // let details = JSON.stringify(element.details)
         let ref = node.popperRef();
         let isSimple = true;
-        let simpleOptions = {
+        let simpleOptions : Options = {
             content: () => {
                 let content = document.createElement('div');
 
@@ -333,7 +334,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     var tappedBefore : EventTarget;
     var tappedTimeout : NodeJS.Timer;
 
-    cy.on('tap', function (event : Event) {
+    cy.on('tap', function (event : EventObject) {
         var tappedNow :any = event.target;
         if (tappedTimeout && tappedBefore) {
             clearTimeout(tappedTimeout);
@@ -472,7 +473,7 @@ export function exportImage(pixelRatio: number) {
         {
         const reader = new FileReader()
             reader.onloadend = (function () {
-                mergeimages([png, reader.result]).then((final) => vscode.postMessage({ "command": "saveImage", "image": final.substr(final.indexOf(',') + 1) }))
+                mergeimages([png, reader.result]).then((final: any) => vscode.postMessage({ "command": "saveImage", "image": final.substr(final.indexOf(',') + 1) }))
             })
             reader.readAsDataURL(canvasImage);
         }
@@ -526,7 +527,7 @@ export function go(nodesJ: Array<techNode>, settings: settings) {
     //console.log(nodes);
     // var nodes2 = nodes.map((a) => a.id);
     var edges = nodes.map((a) => a.references.map((b) => b.isOutgoing ? { source: a.id, target: b.key, label: b.label } : { source: b.key, target: a.id, label: b.label }));
-    var edges2 : EdgeInput[][] = [].concat(...edges)
+    var edges2 : EdgeInput[] = [].concat(...edges)
     // var nodes3 = edges2.map(a => a[1])
     // let nodes4 : string[] = [].concat(nodes2, nodes3);
     // console.log(nodes2);

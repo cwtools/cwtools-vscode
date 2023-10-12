@@ -8,11 +8,17 @@ import handlebars from 'handlebars'
 
 declare module 'cytoscape' {
     interface CollectionElements {
+        data(arg0: string): string
+        position(): any
+        hasClass(arg0: string): any
         qtip(qtip: any): any;
     }
     interface Core {
         navigator(options: any): any;
         cyCanvas(): any;
+    }
+    interface NodeSingular {
+        popperRef(): Element;
     }
 
 }
