@@ -10,6 +10,10 @@ export default {
         format: "iife",
         name: "cwtoolsgraph",
         indent: false,
+        globals: {
+          "web-worker": "Worker"
+        }
+
     },
     plugins: [
         typescript({
@@ -32,15 +36,15 @@ export default {
         }),
         resolve(),
         commonjs({ sourceMap: false }),
-        hypothetical({
-            allowFallthrough: true,
-            files: {
-              'webworker-threads': `
-                export default {};
-              `,
-              'web-worker': 'export default {};'
-            }
-          }),
+        // hypothetical({
+        //     allowFallthrough: false,
+        //     files: {
+        //       'webworker-threads': `
+        //         export default {};
+        //       `,
+        //       'web-worker': 'export default {};'
+        //     }
+        //   }),
 
     ]
 }

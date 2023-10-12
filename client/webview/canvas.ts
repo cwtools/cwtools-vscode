@@ -1,5 +1,6 @@
-//import cytoscape from 'cytoscape'
+// @ts-nocheck
 
+//import cytoscape from 'cytoscape'
 export default function () {
     // registers the extension on a cytoscape lib ref
     const register = function (cytoscape) {

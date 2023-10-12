@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import dagre from 'dagre'
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements } from 'cytoscape'
 import cyqtip from 'cytoscape-qtip'

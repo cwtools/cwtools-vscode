@@ -148,11 +148,12 @@ export class GraphPanel {
 
 
     private _getHtmlForWebview() {
-
-        const scriptPathOnDisk = vscode.Uri.file(path.join(this._webviewRootPath, 'graph.js'));
-        const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
-        const stylePathOnDisk = vscode.Uri.file(path.join(this._webviewRootPath, 'site.css'));
-        const styleUri = stylePathOnDisk.with({ scheme: 'vscode-resource' });
+        const scriptUri = this._panel.webview.asWebviewUri(vscode.Uri.file(path.join(this._webviewRootPath, 'graph.js')));
+        // const scriptPathOnDisk = vscode.Uri.file(path.join(this._webviewRootPath, 'graph.js'));
+        // const scriptUri = scriptPathOnDisk.with({ scheme: 'vscode-resource' });
+        // const stylePathOnDisk = vscode.Uri.file(path.join(this._webviewRootPath, 'site.css'));
+        // const styleUri = stylePathOnDisk.with({ scheme: 'vscode-resource' });
+        const styleUri = this._panel.webview.asWebviewUri(vscode.Uri.file(path.join(this._webviewRootPath, 'site.css')));
 
         const nonce = this.getNonce();
         return `

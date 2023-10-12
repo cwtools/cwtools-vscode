@@ -229,7 +229,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             trigger: "manual",
             delay: [null, 200]
         }
-        var hoverTimeout : NodeJS.Timer;
+        var hoverTimeout : NodeJS.Timeout;
         let complexOptions = {
             content: () => {
                 let content = document.createElement('div');
