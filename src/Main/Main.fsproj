@@ -2,10 +2,10 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
-    <TieredCompilation>true</TieredCompilation>
-    <TieredCompilationQuickJit>false</TieredCompilationQuickJit>
+    <TargetFramework>net8.0</TargetFramework>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\LSP\LSP.fsproj" />

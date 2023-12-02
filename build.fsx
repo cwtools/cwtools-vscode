@@ -7,6 +7,11 @@
 // #r "paket: groupref build //"
     // cache .././nupkgs versions: current
 #r "paket:
+    nuget FSharp.Core 4.7.0.0
+    nuget Microsoft.Build 17.3.2
+    nuget Microsoft.Build.Framework 17.3.2
+    nuget Microsoft.Build.Tasks.Core 17.3.2
+    nuget Microsoft.Build.Utilities.Core 17.3.2
     nuget Fake.Core
     nuget Fake.Core.Target
     nuget Fake.IO.FileSystem
@@ -26,19 +31,18 @@ open Fake.IO.Globbing.Operators
 
 // BuildServer.install [ GitLab.Installer ]
 
-let run cmd args dir =
-    if Process.execSimple( fun info ->
-        let info = { info with FileName = cmd; Arguments = args }
-        if not( String.isNullOrWhiteSpace dir) then
-            { info with WorkingDirectory = dir } else info
-    ) System.TimeSpan.MaxValue <> 0 then
-        failwithf "Error while running '%s' with args: %s" cmd args
-
+let run (cmd : string) (args : string list) (dir : string) =
+    if (Command.RawCommand (cmd, Arguments.OfArgs args)
+    |> CreateProcess.fromCommand
+    |> if not( String.isNullOrWhiteSpace dir) then CreateProcess.withWorkingDirectory dir else id
+    |> CreateProcess.withTimeout System.TimeSpan.MaxValue
+    |> Proc.run).ExitCode <> 0 then
+        failwithf "Error while running '%s' with args: %A" cmd args
 
 let platformTool tool path =
     match Environment.isUnix with
     | true -> tool
-    | _ ->  match Process.tryFindFileOnPath path with
+    | _ ->  match ProcessUtils.tryFindFileOnPath path with
             | None -> failwithf "can't find tool %s on PATH" tool
             | Some v -> v
 
@@ -89,6 +93,7 @@ let publishParams (framework : string) (release : bool) =
             OutputPath = Some ("../../out/server/" + framework)
             Runtime = Some framework
             Configuration = DotNet.BuildConfiguration.Release
+            MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
         })
 
 let buildParams (release : bool) =
@@ -102,6 +107,7 @@ let buildParams (release : bool) =
                 }
             OutputPath = Some ("../../out/server/local")
             Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
+            MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
         })
 
 Target.create "BuildDll" <| fun _ ->
@@ -117,7 +123,7 @@ Target.create "BuildServer" <| fun _ ->
 Target.create "PublishServer" <| fun _ ->
     DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName
     DotNet.publish (publishParams "linux-x64" true) cwtoolsLinuxProjectName
-    DotNet.publish (publishParams "osx.10.11-x64" true) cwtoolsProjectName
+    DotNet.publish (publishParams "osx-x64" true) cwtoolsProjectName
 
 let runTsc additionalArgs noTimeout =
     let cmd = "tsc"
@@ -185,13 +191,13 @@ Target.create "CopyFSACNetcore" (fun _ ->
 
 Target.create "InstallVSCE" ( fun _ ->
     Process.killAllByName "npm"
-    run npmTool "install -g vsce" ""
+    run npmTool ["install"; "-g"; "vsce"] ""
 )
 
 
 Target.create "BuildPackage" ( fun _ ->
     Process.killAllByName "vsce"
-    run vsceTool.Value "package" ""
+    run vsceTool.Value ["package"] ""
     Process.killAllByName "vsce"
     !!("*.vsix")
     |> Seq.iter(Shell.moveFile "./temp/")
@@ -205,7 +211,7 @@ Target.create "PublishToGallery" ( fun _ ->
         | _ -> UserInput.getUserPassword "VSCE Token: "
 
     Process.killAllByName "vsce"
-    run vsceTool.Value (sprintf "publish patch -p %s" token) ""
+    run vsceTool.Value ["publish"; "patch"; "-p"; token] ""
 )
 
 

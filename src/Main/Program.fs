@@ -139,13 +139,15 @@ type Server(client: ILanguageClient) =
 
     let parserErrorToDiagnostics e =
         let code, sev, file, error, (position : range), length, related = e
-        let startC, endC = match length with
-        | 0 -> 0,( int position.StartColumn)
-        | x ->(int position.StartColumn),(int position.StartColumn) + length
+        let startC, endC =
+            match length with
+            | 0 -> 0,( int position.StartColumn)
+            | x ->(int position.StartColumn),(int position.StartColumn) + length
         let startLine = (int position.StartLine) - 1
         let startLine = max startLine 0
         let createUri (f : string) = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> logWarning f; Uri "/")
-        let result = {
+        let result =
+            {
                         range = {
                                 start = {
                                         line = startLine
@@ -974,7 +976,7 @@ type Server(client: ILanguageClient) =
                         all |> List.fold (fun (acc : DocumentSymbol list) (next : DocumentSymbol) ->
                                                     if acc |> List.exists (fun a -> isRangeInRange a.range next.range && a.name <> next.name)
                                                     then
-                                                    acc |> List.map (fun (a : DocumentSymbol) -> if isRangeInRange a.range next.range && a.name <> next.name then { a with children = (next::(a.children))} else a )
+                                                        acc |> List.map (fun (a : DocumentSymbol) -> if isRangeInRange a.range next.range && a.name <> next.name then { a with children = (next::(a.children))} else a )
                                                     else next::acc) []
                         // all |> List.fold (fun acc next -> acc |> List.tryFind (fun a -> isRangeInRange a.range next.range) |> function |None -> next::acc |Some ) []
                             //   |> List.map (fun (k, vs) -> createDocumentSymbol k )

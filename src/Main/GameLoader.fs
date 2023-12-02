@@ -372,8 +372,8 @@ let loadCK3 serverSettings =
     }
     let game = CWTools.Games.CK3.CK3Game(stlsettings)
     game
-    
-    
+
+
 
 let loadVIC3 serverSettings =
     let cached, cachedFiles = getCachedFiles VIC3 serverSettings.cachePath serverSettings.isVanillaFolder

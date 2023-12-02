@@ -186,8 +186,8 @@ let serializeCK3 folder cacheDirectory =
     let data = { resources = entities; fileIndexTable = fileIndexTable; files = files; stringResourceManager = StringResource.stringManager}
     let pickle = binarySerializer.Pickle data
     File.WriteAllBytes(Path.Combine(cacheDirectory, "ck3.cwb"), pickle)
-    
-    
+
+
 let serializeVIC3 folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC3Constants.scriptFolders, "Victoria 3", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
