@@ -1,3 +1,6 @@
+# 0.10.13
+* Double performance of cwtools
+
 # 0.10.12
 * Attempt to fix failure to start extension when a non-script file is open when the extension loads
 * Slight performance improvements

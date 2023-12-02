@@ -88,7 +88,7 @@ let publishParams (framework : string) (release : bool) =
                 {
                     p.Common with
                         WorkingDirectory = "src/Main"
-                        CustomParams = Some ("--self-contained true" + (if release then " " else " /p:LinkDuringPublish=false"))
+                        CustomParams = Some ("--self-contained true" + (if release then " /p:PublishReadyToRun=true" else " /p:LinkDuringPublish=false"))
                 }
             OutputPath = Some ("../../out/server/" + framework)
             Runtime = Some framework
