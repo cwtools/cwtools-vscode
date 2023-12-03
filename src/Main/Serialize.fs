@@ -73,7 +73,7 @@ let serializeSTL folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", STLConstants.scriptFolders, "stellaris", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<STLComputedData>(Compute.STL.computeSTLData computefun, Compute.STL.computeSTLDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<STLComputedData>(Compute.STL.computeSTLData computefun, Compute.STL.computeSTLDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), true).Api
     let entities =
         resources.UpdateFiles(files)
          |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -92,7 +92,7 @@ let serializeEU4 folder cacheDirectory =
     let fileManager = FileManager(folders, Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<EU4ComputedData>(Compute.EU4.computeEU4Data computefun, Compute.EU4.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8).Api
+    let resources = ResourceManager<EU4ComputedData>(Compute.EU4.computeEU4Data computefun, Compute.EU4.computeEU4DataUpdate computefun, Encoding.GetEncoding(1252), Encoding.UTF8, false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -110,7 +110,7 @@ let serializeHOI4 folder cacheDirectory =
     let fileManager = FileManager(folders, Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<HOI4ComputedData>(computeHOI4Data computefun, computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<HOI4ComputedData>(computeHOI4Data computefun, computeHOI4DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -126,7 +126,7 @@ let serializeCK2 folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK2Constants.scriptFolders, "crusader kings ii", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<CK2ComputedData>(computeCK2Data computefun, computeCK2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<CK2ComputedData>(computeCK2Data computefun, computeCK2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -142,7 +142,7 @@ let serializeIR folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", IRConstants.scriptFolders, "imperator", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<IRComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<IRComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -158,7 +158,7 @@ let serializeVIC2 folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC2Constants.scriptFolders, "victoria 2", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<VIC2ComputedData>(computeVIC2Data computefun, computeVIC2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<VIC2ComputedData>(computeVIC2Data computefun, computeVIC2DataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -174,7 +174,7 @@ let serializeCK3 folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", CK3Constants.scriptFolders, "crusader kings iii", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<CK3ComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<CK3ComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -192,7 +192,7 @@ let serializeVIC3 folder cacheDirectory =
     let fileManager = FileManager([WD {WorkspaceDirectory.name = "vanilla"; path = folder}], Some "", VIC3Constants.scriptFolders, "Victoria 3", Encoding.UTF8, [], 2)
     let files = fileManager.AllFilesByPath()
     let computefun : unit -> InfoService option = (fun () -> (None))
-    let resources = ResourceManager<VIC3ComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252)).Api
+    let resources = ResourceManager<VIC3ComputedData>(Compute.Jomini.computeJominiData computefun, Compute.Jomini.computeJominiDataUpdate computefun, Encoding.UTF8, Encoding.GetEncoding(1252), false).Api
     let entities =
         resources.UpdateFiles(files)
         |> List.choose (fun (r, e) -> e |> function |Some e2 -> Some (r, e2) |_ -> None)
@@ -212,10 +212,14 @@ let deserialize path =
         let cacheFile = File.ReadAllBytes(path)
         // let cacheFile = Assembly.GetEntryAssembly().GetManifestResourceStream("Main.files.pickled.cwb")
         //                 |> (fun f -> use ms = new MemoryStream() in f.CopyTo(ms); ms.ToArray())
-        let cached = binarySerializer.UnPickle<CachedResourceData> cacheFile
-        fileIndexTable <- cached.fileIndexTable
-        StringResource.stringManager <- cached.stringResourceManager
-        cached.resources, cached.files
+        try
+            let cached = binarySerializer.UnPickle<CachedResourceData> cacheFile
+            fileIndexTable <- cached.fileIndexTable
+            StringResource.stringManager <- cached.stringResourceManager
+            cached.resources, cached.files
+        with
+            | _ -> [], []
+
     |false -> [], []
 
 // let deserializeEU4 path =
