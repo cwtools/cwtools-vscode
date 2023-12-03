@@ -61,7 +61,7 @@ export async function activate(context: ExtensionContext) {
 			serverExe = context.asAbsolutePath(path.join('out', 'server', 'win-x64', 'CWTools Server.exe'))
 		}
 		else if (os.platform() == "darwin") {
-			serverExe = context.asAbsolutePath(path.join('out', 'server', 'osx.10.11-x64', 'CWTools Server'))
+			serverExe = context.asAbsolutePath(path.join('out', 'server', 'osx-x64', 'CWTools Server'))
 			fs.chmodSync(serverExe, '755');
 		}
 		else {

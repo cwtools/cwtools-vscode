@@ -1,3 +1,6 @@
+# 0.10.14
+* Try and fix osx
+
 # 0.10.13
 * Double performance of cwtools
 
