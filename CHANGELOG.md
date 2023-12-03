@@ -1,3 +1,6 @@
+# 0.10.15
+* Stellaris: Add limited (and flawed!) support for inline_scripts
+
 # 0.10.14
 * Try and fix osx
 
