@@ -1,3 +1,6 @@
+# 0.10.16
+* Stellaris: Fix trigger docs parsing
+
 # 0.10.15
 * Stellaris: Add limited (and flawed!) support for inline_scripts
 
