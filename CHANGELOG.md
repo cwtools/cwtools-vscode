@@ -1,3 +1,6 @@
+# 0.10.17
+* Stellaris: inline_scripts will now show errors caused by params
+
 # 0.10.16
 * Stellaris: Fix trigger docs parsing
 
