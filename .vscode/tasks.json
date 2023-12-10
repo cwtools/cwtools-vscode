@@ -41,5 +41,15 @@
             ],
             "group": "build"
         },
+        {
+            "label": "PaketUpdate",
+            "command": "dotnet",
+            "args": ["paket", "update", "-g", "git"]
+        },
+        {
+            "label": "UpdateBuild",
+            "dependsOn" :[ "PaketUpdate" ,"Build" ],
+            "dependsOrder": "sequence"
+        }
     ]
 }
