@@ -162,7 +162,7 @@ type Server(client: ILanguageClient) =
                         code = Some code
                         source = Some code
                         message = error
-                        relatedInformation = related |> Option.map (fun rel -> [{ DiagnosticRelatedInformation.location = { uri = createUri rel.location.FileName; range = convRangeToLSPRange rel.location}; message = rel.message}]) |> Option.defaultValue []
+                        relatedInformation = related |> Option.map (List.map (fun rel -> { DiagnosticRelatedInformation.location = { uri = createUri rel.location.FileName; range = convRangeToLSPRange rel.location}; message = rel.message})) |> Option.defaultValue []
                     }
         (file, result)
 
