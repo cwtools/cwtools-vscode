@@ -1,3 +1,8 @@
+# 0.10.18
+
+* HOI4: Significant performance improvements
+* Stellaris: inline_scripts now show related errors and don't go away when you open the inline_script file
+
 # 0.10.17
 * Stellaris: inline_scripts will now show errors caused by params
 
