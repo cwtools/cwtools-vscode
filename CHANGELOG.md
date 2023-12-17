@@ -1,3 +1,9 @@
+# 0.10.19
+
+* Fix default values in settings (vanilla shouldn't validate by default anymore)
+* Add new setting for enabling/disabling diagnostic logging from cwtools server
+* HOI4: More performance improvements
+
 # 0.10.18
 
 * HOI4: Significant performance improvements
