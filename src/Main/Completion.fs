@@ -7,6 +7,7 @@ open System.Runtime.InteropServices
 open CWTools.Common
 open CWTools.Games
 open CWTools.Utilities.Position
+open CWTools.Utilities.StringResource
 open FSharp.Data
 open LSP
 open LSP.Types
@@ -40,7 +41,7 @@ let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
 
                 let hovered =
                     allEffects
-                    |> List.tryFind (fun e -> e.Name = item.label)
+                    |> List.tryFind (fun e -> e.Name.GetString() = item.label)
 
                 match hovered with
                 | Some effect ->
@@ -64,7 +65,7 @@ let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
                                         value = content }
                                   ) }
                     | :? ScriptedEffect as se ->
-                        let desc = se.Name.Replace("_", "\\_")
+                        let desc = se.Name.GetString().Replace("_", "\\_")
                         let comments = se.Comments.Replace("_", "\\_")
 
                         let scopes =
@@ -81,7 +82,7 @@ let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
                                         value = content }
                                   ) }
                     | e ->
-                        let desc = "_" + e.Name.Replace("_", "\\_") + "_"
+                        let desc = "_" + e.Name.GetString().Replace("_", "\\_") + "_"
 
                         let scopes =
                             "Supports scopes: "
@@ -176,12 +177,12 @@ let completionCallLSP (game : IGame) (p : CompletionParams) docs debugMode filet
 
     let createLabel =
         (fun l score -> if debugMode then $"{l}({score})" else l)
-        
+
     /// Wrap in quotes if it contains spaces
     let createInsertText (s : string) =
-        if s.Contains " " && not (s.StartsWith("\"")) && not (s.EndsWith("\"")) 
+        if s.Contains " " && not (s.StartsWith("\"")) && not (s.EndsWith("\""))
         then Some $"\"{s}\""
-        else Some s 
+        else Some s
 
     let items =
         comp

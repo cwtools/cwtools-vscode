@@ -119,7 +119,8 @@ export async function activate(context: ExtensionContext) {
 				isVanillaFolder: isVanillaFolder,
 				rulesCache: cacheDir,
 				rules_version: workspace.getConfiguration('cwtools').get('rules_version'),
-				repoPath: repoPath },
+				repoPath: repoPath,
+				diagnosticLogging: workspace.getConfiguration('cwtools').get('logging.diagnostic') },
 				revealOutputChannelOn: RevealOutputChannelOn.Error
 		}
 

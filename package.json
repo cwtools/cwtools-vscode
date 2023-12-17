@@ -211,7 +211,7 @@
                 "cwtools.errors.vanilla": {
                     "scope": "window",
                     "type": "boolean",
-                    "default": "false",
+                    "default": false,
                     "description": "Whether or not to show errors for vanilla files"
                 },
                 "cwtools.errors.ignore": {
@@ -236,14 +236,20 @@
                 "cwtools.experimental": {
                     "scope": "window",
                     "type": "boolean",
-                    "default": "false",
+                    "default": true,
                     "description": "Whether or not to enable experimental features"
                 },
                 "cwtools.debug_mode": {
                     "scope": "window",
                     "type": "boolean",
-                    "default": "false",
+                    "default": true,
                     "description": "Debug features for helping write rules"
+                },
+                "cwtools.logging.diagnostic": {
+                    "scope": "window",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether to output diagnostic level logs"
                 },
                 "cwtools.rules_version": {
                     "scope": "window",

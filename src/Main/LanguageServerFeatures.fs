@@ -5,6 +5,7 @@ open LSP.Types
 open System
 open System.Runtime.InteropServices
 open CWTools.Utilities.Position
+open CWTools.Utilities.StringResource
 open CWTools.Games
 open System.IO
 open CWTools.Localisation
@@ -74,7 +75,7 @@ module LanguageServerFeatures =
                 let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                 let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                 eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
-                let hovered = allEffects |> List.tryFind (fun e -> e.Name = unescapedword)
+                let hovered = allEffects |> List.tryFind (fun e -> e.Name.GetString() = unescapedword)
                 let lochover = lochoverFromInfo (game.References().Localisation) symbolInfo unescapedword
                 let scopesExtra =
                     if scopeContext.IsNone then "" else
@@ -94,7 +95,7 @@ module LanguageServerFeatures =
                             (String.Join("\n***\n",[desc; "Supports scopes: " + scopes]) )// TODO: usageeffect.Usage])
                         | e ->
                             let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
-                            let name = e.Name.Replace("_","\\_").Trim()
+                            let name = e.Name.GetString().Replace("_","\\_").Trim()
                             (String.Join("\n***\n",["_"+name+"_"; "Supports scopes: " + scopes])) // TODO: usageeffect.Usage])
                     )
                 let docStringOrEffect = Option.orElse (docstringFromInfo symbolInfo) effect

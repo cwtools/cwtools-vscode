@@ -50,12 +50,12 @@ do()
         // client.LogMessage { ``type`` = MessageType.Warning; message = "warning"}
         // client.LogMessage { ``type`` = MessageType.Info; message = "info"}
         // client.LogMessage { ``type`` = MessageType.Log; message = "log"}
-
+let mutable diagnosticLogging = false
 let setupLogger(client :ILanguageClient) =
     let logInfo = (fun m -> client.LogMessage { ``type`` = MessageType.Info; message = m} )
     let logWarning = (fun m -> client.LogMessage { ``type`` = MessageType.Warning; message = m} )
     let logError = (fun m -> client.LogMessage { ``type`` = MessageType.Error; message = m} )
-    let logDiag = (fun m -> client.LogMessage { ``type`` = MessageType.Log; message = sprintf "[Diag - %s] %s" (System.DateTime.Now.ToString("HH:mm:ss")) m})
+    let logDiag = (fun m -> if diagnosticLogging then client.LogMessage { ``type`` = MessageType.Log; message = sprintf "[Diag - %s] %s" (System.DateTime.Now.ToString("HH:mm:ss")) m})
     CWTools.Utilities.Utils.logInfo <- logInfo
     CWTools.Utilities.Utils.logWarning <- logWarning
     CWTools.Utilities.Utils.logError <- logError
@@ -255,7 +255,7 @@ type Server(client: ILanguageClient) =
                 // eprintfn "lc update light %A" locCache
             stopwatch.Stop()
             let time = stopwatch.Elapsed
-            delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0,10).Ticks, 5L * time.Ticks)))
+            delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0, 5).Ticks, 3L * time.Ticks)))
         |None -> ()
 
     let lintAgent =
@@ -292,7 +292,8 @@ type Server(client: ILanguageClient) =
                 async{
                     // hideDebugBar()
                     let! msg = agent.Receive()
-                    logDiag (sprintf "queue length: %i" state.Count)
+                    if state.Count > 0 then
+                        logDiag (sprintf "queue length: %i" state.Count)
                     // updateDebugBar (sprintf "queue length: %i" state.Count)
                     match msg, inprogress with
                     | UpdateRequest (ur, force), false ->
@@ -628,6 +629,9 @@ type Server(client: ILanguageClient) =
                     //         eu4CacheVersion <- Some e
                     //     | _ -> ()
                     // | _ -> ()
+                    match opt.Item("diagnosticLogging") with
+                    | JsonValue.Boolean b -> diagnosticLogging <- b
+                    | _ -> ()
                     match opt.Item("rules_version") with
                     | JsonValue.String x ->
                         match x with
@@ -931,7 +935,7 @@ type Server(client: ILanguageClient) =
                             [{ uri = Uri(goto.FileName); range = (convRangeToLSPRange goto)}]
                         |None -> []
                     |None -> []
-                }
+                } |> catchError []
         member this.FindReferences(p: ReferenceParams) =
             async {
                 return
@@ -949,7 +953,7 @@ type Server(client: ILanguageClient) =
                             gotos |> List.map (fun goto -> { uri = Uri(goto.FileName); range = (convRangeToLSPRange goto)})
                         |None -> []
                     |None -> []
-                }
+                } |> catchError []
         member this.DocumentHighlight(p: TextDocumentPositionParams) = TODO()
         member this.DocumentSymbols(p: DocumentSymbolParams) =
             let createDocumentSymbol name detail range =
@@ -981,7 +985,7 @@ type Server(client: ILanguageClient) =
                         // all |> List.fold (fun acc next -> acc |> List.tryFind (fun a -> isRangeInRange a.range next.range) |> function |None -> next::acc |Some ) []
                             //   |> List.map (fun (k, vs) -> createDocumentSymbol k )
                     |None -> []
-            }
+            } |> catchError []
         member this.WorkspaceSymbols(p: WorkspaceSymbolParams) = TODO()
 
         member this.CodeActions(p: CodeActionParams) =
@@ -1031,7 +1035,7 @@ type Server(client: ILanguageClient) =
                         return [{ range = createRange 0 0 100000 0; newText = formatted }]
                     | _ -> return []
                 | None -> return []
-            }
+            } |> catchError []
         member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams) = TODO()
         member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams) = TODO()
         member this.DidChangeWorkspaceFolders(p: DidChangeWorkspaceFoldersParams) = TODO()
@@ -1237,7 +1241,7 @@ type Server(client: ILanguageClient) =
                             | _ -> None
                         |_ -> None
                     |None -> None
-            }
+            } |> catchError None
 
 
 [<EntryPoint>]
