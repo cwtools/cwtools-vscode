@@ -256,6 +256,7 @@ type Server(client: ILanguageClient) =
             stopwatch.Stop()
             let time = stopwatch.Elapsed
             delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0, 5).Ticks, 3L * time.Ticks)))
+            GC.Collect(2, System.GCCollectionMode.Optimized, false, false)
         |None -> ()
 
     let lintAgent =
