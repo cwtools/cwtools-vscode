@@ -22,6 +22,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 16
+    - run: npm install -g typescript
     - name: Set chmod
       run: chmod +x ./build.sh
     - name: Test
