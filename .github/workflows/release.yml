@@ -28,7 +28,7 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 18
-        cache: 'npm'
+        # cache: 'npm'
     - run: npm install
     - name: Set chmod
       run: chmod +x ./build.sh
