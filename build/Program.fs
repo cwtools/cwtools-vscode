@@ -13,6 +13,7 @@ open Fake.Tools.Git
 open Fake.Api
 open System.Text.Json
 open System
+open FSharp.Collections.ParallelSeq
 
 // --------------------------------------------------------------------------------------
 // Configuration
@@ -25,7 +26,7 @@ let gitOwner = "cwtools"
 let gitHome = "https://github.com/" + gitOwner
 
 // The name of the project on GitHub
-let gitName = " cwtools-vscode"
+let gitName = "cwtools-vscode"
 
 
 // Read additional information from the release notes document
@@ -135,7 +136,7 @@ let releaseGithub (release: ReleaseNotes.ReleaseNotes) =
     Staging.stageAll ""
     ensureGitUser user email
     Commit.exec "." (sprintf "Bump version to %s" release.NugetVersion)
-    Branches.pushBranch "" remote "main"
+    Branches.pushBranch "" remote "master"
     Branches.tag "" release.NugetVersion
     Branches.pushTag "" remote release.NugetVersion
 
@@ -270,6 +271,8 @@ let initTargets () =
     Target.create "SetVersion" (fun _ -> setVersion release "release")
 
     Target.create "PublishToGallery" (fun _ -> publishToGallery "release")
+
+    Target.create "ReleaseGitHub" (fun _ -> releaseGithub release)
 
 
     Target.description "Assemble the extension"

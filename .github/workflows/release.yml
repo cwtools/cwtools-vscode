@@ -1,0 +1,48 @@
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: Github username of the person triggering the release
+        default: "tboby"
+        required: true
+      email:
+        description: Email of the person triggering the release
+        default: "th.boby@gmail.com"
+        required: true
+
+
+name: Release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - run: npm install
+    - name: Set chmod
+      run: chmod +x ./build.sh
+    - name: Test
+      run: /bin/sh ./build.sh DryRelease
+    - name: upload artifact package
+      uses: actions/upload-artifact@v2
+      with:
+        name: ionide-fsharp-vscode-ext
+        path: release/
+    - name: Publish Release
+      env:
+        nuget-key: ${{ secrets.NUGET_KEY }}
+        github-user: ${{ github.event.inputs.username }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        vsce-token: ${{ secrets.VSCE_TOKEN }}
+        user-email: ${{ github.event.inputs.email }}
+      run: dotnet run --project build -- -t Release
+
+
