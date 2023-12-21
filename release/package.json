@@ -1,0 +1,659 @@
+{
+  "name": "cwtools-vscode",
+  "displayName": "CWTools - Paradox Language Services",
+  "private": true,
+  "description": "Paradox Interactive scripting file support using CWTools",
+  "author": "Dayshine",
+  "license": "MIT",
+  "version": "0.10.19",
+  "preview": true,
+  "publisher": "tboby",
+  "qna": "https://forum.paradoxplaza.com/forum/index.php?threads/tool-cwtools-a-mod-validating-extension-for-vs-code.1066033/",
+  "icon": "docs/cwtools_logo.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cwtools/cwtools-vscode"
+  },
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "keywords": [
+    "paradox",
+    "stellaris",
+    "victoria",
+    "crusader kings",
+    "hearts of iron"
+  ],
+  "main": "./bin/client/extension/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "id": "cwtools-files",
+          "name": "CWTools loaded files"
+        }
+      ]
+    },
+    "menus": {
+      "editor/title": [
+        {
+          "when": "cwtoolsEventFile == true \u0026\u0026 cwtoolsWebview == false",
+          "command": "eventGraph",
+          "group": "navigation"
+        },
+        {
+          "when": "cwtoolsGraphFile == true \u0026\u0026 cwtoolsWebview == false",
+          "command": "showGraph",
+          "group": "navigation"
+        },
+        {
+          "when": "cwtoolsWebview == true",
+          "command": "saveGraphImage",
+          "group": "navigation"
+        },
+        {
+          "when": "cwtoolsWebview == true",
+          "command": "setGraphDepth",
+          "group": "navigation"
+        },
+        {
+          "when": "cwtoolsWebview == true",
+          "command": "saveGraphJson",
+          "group": "navigation"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "outputerrors",
+        "title": "Write errors to file",
+        "category": "cwtools"
+      },
+      {
+        "command": "genlocall",
+        "title": "Generate missing loc for all files",
+        "category": "cwtools"
+      },
+      {
+        "command": "reloadrulesconfig",
+        "title": "Reload config rules",
+        "category": "cwtools"
+      },
+      {
+        "command": "cacheVanilla",
+        "title": "Regenerate game vanilla cache file",
+        "category": "cwtools"
+      },
+      {
+        "command": "listAllFiles",
+        "title": "Debug: list all files",
+        "category": "cwtools"
+      },
+      {
+        "command": "listAllLocFiles",
+        "title": "Debug: list all loc files",
+        "category": "cwtools"
+      },
+      {
+        "command": "debugrules",
+        "title": "Debug: list all config rules",
+        "category": "cwtools"
+      },
+      {
+        "command": "pretriggerAllFiles",
+        "title": "Optimise all triggers into pretriggers",
+        "category": "cwtools"
+      },
+      {
+        "command": "startcustomgame",
+        "title": "Activate cwtools for a custom game",
+        "category": "cwtools"
+      },
+      {
+        "command": "techGraph",
+        "title": "Show tech graph",
+        "category": "cwtools"
+      },
+      {
+        "command": "showGraph",
+        "title": "Show graph",
+        "category": "cwtools"
+      },
+      {
+        "command": "eventGraph",
+        "title": "Show event graph",
+        "category": "cwtools"
+      },
+      {
+        "command": "graphFromJson",
+        "title": "Recreate graph from json",
+        "category": "cwtools"
+      },
+      {
+        "command": "exportTypes",
+        "title": "Export: all types",
+        "category": "cwtools"
+      },
+      {
+        "command": "saveGraphImage",
+        "title": "Save graph as image",
+        "category": "cwtools",
+        "enablement": "cwtoolsWebview == true"
+      },
+      {
+        "command": "setGraphDepth",
+        "title": "Set graph depth",
+        "category": "cwtools",
+        "enablement": "cwtoolsWebview == true"
+      },
+      {
+        "command": "saveGraphJson",
+        "title": "Save graph as json",
+        "category": "cwtools",
+        "enablement": "cwtoolsWebview == true"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "CWTools configuration",
+      "properties": {
+        "cwtools.trace.server": {
+          "scope": "window",
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Traces the communication between VSCode and the language server."
+        },
+        "cwtools.localisation.languages": {
+          "scope": "window",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "English",
+              "French",
+              "German",
+              "Spanish",
+              "Russian",
+              "Braz_Por",
+              "Polish",
+              "Chinese",
+              "Korean",
+              "Japanese",
+              "Turkish"
+            ]
+          },
+          "default": [
+            "English"
+          ],
+          "description": "The list of languages to validate localisation for.",
+          "uniqueItems": true
+        },
+        "cwtools.localisation.generated_strings": {
+          "scope": "window",
+          "type": "string",
+          "default": ":0 \u0022REPLACE_ME\u0022",
+          "description": "The string used when generating localisation strings."
+        },
+        "cwtools.errors.vanilla": {
+          "scope": "window",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether or not to show errors for vanilla files"
+        },
+        "cwtools.errors.ignore": {
+          "scope": "window",
+          "type": "array",
+          "description": "Error codes to ignore, list of IDs",
+          "uniqueItems": true
+        },
+        "cwtools.errors.ignorefiles": {
+          "scope": "window",
+          "type": "array",
+          "description": "Files to ignore errors from, list of file names",
+          "uniqueItems": true,
+          "default": [
+            "README.txt",
+            "credits.txt",
+            "credits_l_simp_chinese.txt",
+            "reference.txt",
+            "startup_info.txt"
+          ]
+        },
+        "cwtools.experimental": {
+          "scope": "window",
+          "type": "boolean",
+          "default": true,
+          "description": "Whether or not to enable experimental features"
+        },
+        "cwtools.debug_mode": {
+          "scope": "window",
+          "type": "boolean",
+          "default": true,
+          "description": "Debug features for helping write rules"
+        },
+        "cwtools.logging.diagnostic": {
+          "scope": "window",
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to output diagnostic level logs"
+        },
+        "cwtools.rules_version": {
+          "scope": "window",
+          "type": "string",
+          "enum": [
+            "stable",
+            "latest",
+            "manual"
+          ],
+          "default": "latest",
+          "description": "Which version of rules to auto-update to. Manual will use the local path set in rules_folder"
+        },
+        "cwtools.rules_folder": {
+          "scope": "window",
+          "type": "string",
+          "description": "A folder containing custom rules to use"
+        },
+        "cwtools.ignore_patterns": {
+          "scope": "window",
+          "type": "array",
+          "description": "File paths to ignore (not load into cwtools), list of glob patterns",
+          "uniqueItems": true
+        },
+        "cwtools.cache.eu4": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla EU4 installation"
+        },
+        "cwtools.cache.hoi4": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla HOI4 installation"
+        },
+        "cwtools.cache.stellaris": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla Stellaris installation"
+        },
+        "cwtools.cache.ck2": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla CK2 installation"
+        },
+        "cwtools.cache.imperator": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla I:R installation"
+        },
+        "cwtools.cache.vic2": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla VIC2 installation"
+        },
+        "cwtools.cache.ck3": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla CK3 installation"
+        },
+        "cwtools.cache.vic3": {
+          "scope": "application",
+          "type": "string",
+          "description": "The location of a vanilla VIC3 installation"
+        },
+        "cwtools.graph.zoomSensitivity": {
+          "scope": "resource",
+          "type": "number",
+          "maximum": 2,
+          "minimum": 0,
+          "description": "Control scroll wheel zoom sensitivity, \u003C1 reduces sensitivity, \u003E1 increases sensitivity",
+          "default": 1
+        },
+        "cwtools.maxFileSize": {
+          "scope": "resource",
+          "type": "integer",
+          "minimum": 1,
+          "default": 2,
+          "description": "Maximum script file size to load in megabytes (warning, very large files can cause instability or invalid diagnostics)"
+        },
+        "cwtools.localisation.replaceme": {
+          "scope": "window",
+          "type": "string",
+          "description": "The text to create new localisation strings with, should contain \u0022%s\u0022 for the location of the id"
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "stellaris",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/stellaris*/**/*.txt",
+          "**/stellaris*/**/*.gui",
+          "**/stellaris*/**/*.gfx",
+          "**/stellaris*/**/*.asset"
+        ]
+      },
+      {
+        "id": "hoi4",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/hearts*of*iron*iv*/**/*.txt",
+          "**/hearts*of*iron*iv*/**/*.gui",
+          "**/hearts*of*iron*iv*/**/*.gfx",
+          "**/hearts*of*iron*iv*/**/*.asset"
+        ]
+      },
+      {
+        "id": "eu4",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/europa*universalis*iv/**/*.txt",
+          "**/europa*universalis*iv/**/*.gui",
+          "**/europa*universalis*iv/**/*.gfx",
+          "**/europa*universalis*iv/**/*.asset"
+        ]
+      },
+      {
+        "id": "ck2",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "sfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/crusader*kings*ii/**/*.txt",
+          "**/crusader*kings*ii/**/*.gui",
+          "**/crusader*kings*ii/**/*.gfx",
+          "**/crusader*kings*ii/**/*.sfx",
+          "**/crusader*kings*ii/**/*.asset"
+        ]
+      },
+      {
+        "id": "imperator",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/imperator*/**/*.txt",
+          "**/imperator*/**/*.gui",
+          "**/imperator*/**/*.gfx",
+          "**/imperator*/**/*.sfx",
+          "**/imperator*/**/*.asset"
+        ]
+      },
+      {
+        "id": "vic2",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "sfx",
+          "asset",
+          "cwt",
+          "map"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/victoria*2/**/*.txt",
+          "**/victoria*2/**/*.gui",
+          "**/victoria*2/**/*.gfx",
+          "**/victoria*2/**/*.sfx",
+          "**/victoria*2/**/*.asset",
+          "**/victoria*2/**/*.map"
+        ]
+      },
+      {
+        "id": "ck3",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/crusader*kings*iii/**/*.txt",
+          "**/crusader*kings*iii/**/*.gui",
+          "**/crusader*kings*iii/**/*.gfx",
+          "**/crusader*kings*iii/**/*.sfx",
+          "**/crusader*kings*iii/**/*.asset"
+        ]
+      },
+      {
+        "id": "vic3",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/victoria*3/**/*.txt",
+          "**/victoria*3/**/*.gui",
+          "**/victoria*3/**/*.gfx",
+          "**/victoria*3/**/*.sfx",
+          "**/victoria*3/**/*.asset"
+        ]
+      },
+      {
+        "id": "paradox",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "configuration": "./language-configuration.json",
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "sfx",
+          "asset",
+          "cwt"
+        ]
+      }
+    ],
+    "snippets": [
+      {
+        "language": "stellaris",
+        "path": "./snippets/paradox.json"
+      }
+    ],
+    "configurationDefaults": {
+      "[stellaris]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[hoi4]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[eu4]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[ck2]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[imperator]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[vic2]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[ck3]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[vic3]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[customparadox]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
+      "[yaml]": {
+        "files.autoGuessEncoding": true,
+        "files.encoding": "utf8bom",
+        "editor.insertSpaces": true,
+        "editor.autoIndent": "none",
+        "editor.wordWrap": "on"
+      }
+    }
+  },
+  "dependencies": {
+    "executable": "4.1.1",
+    "vscode-languageclient": "^6.1.3"
+  },
+  "extensionPack": [
+    "tboby.paradox-syntax"
+  ]
+}
