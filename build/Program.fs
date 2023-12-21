@@ -9,9 +9,31 @@ open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
 open Fake.Core.TargetOperators
+open Fake.Tools.Git
+open Fake.Api
 open System.Text.Json
 open System
 
+// --------------------------------------------------------------------------------------
+// Configuration
+// --------------------------------------------------------------------------------------
+
+
+// Git configuration (used for publishing documentation in gh-pages branch)
+// The profile where the project is posted
+let gitOwner = "cwtools"
+let gitHome = "https://github.com/" + gitOwner
+
+// The name of the project on GitHub
+let gitName = " cwtools-vscode"
+
+
+// Read additional information from the release notes document
+let releaseNotesData = File.ReadAllLines "CHANGELOG.md" |> ReleaseNotes.parseAll
+
+let release = List.head releaseNotesData
+
+let githubToken = Environment.environVarOrNone "GITHUB_TOKEN"
 // open Fake.BuildServer
 
 // BuildServer.install [ GitLab.Installer ]
@@ -49,11 +71,6 @@ let cwtoolsPath = ""
 let cwtoolsProjectName = "Main.fsproj"
 let cwtoolsLinuxProjectName = "Main.Linux.fsproj"
 
-// Read additional information from the release notes document
-let releaseNotesData = File.ReadAllLines "CHANGELOG.md" |> ReleaseNotes.parseAll
-
-let release = List.head releaseNotesData
-
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
 // --------------------------------------------------------------------------------------
@@ -89,7 +106,62 @@ let publishToGallery releaseDir =
     Process.killAllByName "npx"
     run npxTool.Value (sprintf "@vscode/vsce publish --pat %s" token) releaseDir
 
+let ensureGitUser user email =
+    match Fake.Tools.Git.CommandHelper.runGitCommand "." "config user.name" with
+    | true, [ username ], _ when username = user -> ()
+    | _, _, _ ->
+        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." (sprintf "config user.name %s" user)
+        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." (sprintf "config user.email %s" email)
 
+let releaseGithub (release: ReleaseNotes.ReleaseNotes) =
+    let user =
+        match Environment.environVarOrDefault "github-user" "" with
+        | s when not (String.IsNullOrWhiteSpace s) -> s
+        | _ -> UserInput.getUserInput "Username: "
+
+    let email =
+        match Environment.environVarOrDefault "user-email" "" with
+        | s when not (String.IsNullOrWhiteSpace s) -> s
+        | _ -> UserInput.getUserInput "Email: "
+
+    let remote =
+        CommandHelper.getGitResult "" "remote -v"
+        |> Seq.filter (fun (s: string) -> s.EndsWith("(push)"))
+        |> Seq.tryFind (fun (s: string) -> s.Contains(gitOwner + "/" + gitName))
+        |> function
+            | None -> gitHome + "/" + gitName
+            | Some(s: string) -> s.Split().[0]
+
+    Staging.stageAll ""
+    ensureGitUser user email
+    Commit.exec "." (sprintf "Bump version to %s" release.NugetVersion)
+    Branches.pushBranch "" remote "main"
+    Branches.tag "" release.NugetVersion
+    Branches.pushTag "" remote release.NugetVersion
+
+    let files = !!("./temp" </> "*.vsix")
+
+    let token =
+        match githubToken with
+        | Some s -> s
+        | _ ->
+            failwith
+                "please set the github_token environment variable to a github personal access token with repo access."
+
+    // release on github
+    let cl =
+        GitHub.createClientWithToken token
+        |> GitHub.draftNewRelease
+            gitOwner
+            gitName
+            release.NugetVersion
+            (release.SemVer.PreRelease <> None)
+            release.Notes
+
+    (cl, files)
+    ||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
+    |> GitHub.publishDraft //releaseDraft
+    |> Async.RunSynchronously
 let initTargets () =
 
     Target.create "Clean" (fun _ ->
@@ -241,7 +313,7 @@ let buildTargetTree () =
     ==> "SetVersion"
     ==> "PackageNpmInstall"
     ==> "BuildPackage"
-    // ==> "ReleaseGitHub"
+    ==> "ReleaseGitHub"
     ==> "PublishToGallery"
     ==>! "Release"
 
