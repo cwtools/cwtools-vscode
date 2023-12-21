@@ -37,7 +37,7 @@ jobs:
     - name: upload artifact package
       uses: actions/upload-artifact@v2
       with:
-        name: ionide-fsharp-vscode-ext
+        name: cwtools-fsharp-vscode-ext
         path: release/
     - name: Publish Release
       env:
