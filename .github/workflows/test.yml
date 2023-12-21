@@ -16,14 +16,21 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
     - uses: actions/setup-node@v4
       with:
-        node-version: 16
+        node-version: 18
     - run: npm install
     - name: Set chmod
       run: chmod +x ./build.sh
     - name: Test
       run: /bin/sh ./build.sh DryRelease
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v3
+      with:
+        name: cwtools-vscode-pipeline.vsix
+        path: temp/*.vsix
+        retention-days: 5
+
