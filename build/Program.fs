@@ -121,7 +121,7 @@ let initTargets () =
                             WorkingDirectory = "src/Main"
                             CustomParams = Some ("--self-contained true" + (if release then " /p:PublishReadyToRun=true" else " /p:LinkDuringPublish=false"))
                     }
-                OutputPath = Some (outputDir </> framework)
+                OutputPath = Some ("../.." </> outputDir </> framework)
                 Runtime = Some framework
                 Configuration = DotNet.BuildConfiguration.Release
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
@@ -157,9 +157,9 @@ let initTargets () =
     //     // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
     Target.create "PublishServer" <| fun _ ->
-        DotNet.publish (publishParams "release/bin"  "win-x64" true) cwtoolsProjectName
-        DotNet.publish (publishParams "release/bin" "linux-x64" true) cwtoolsLinuxProjectName
-        DotNet.publish (publishParams "release/bin" "osx-x64" true) cwtoolsProjectName
+        DotNet.publish (publishParams "out/server"  "win-x64" true) cwtoolsProjectName
+        DotNet.publish (publishParams "out/server" "linux-x64" true) cwtoolsLinuxProjectName
+        DotNet.publish (publishParams "out/server" "osx-x64" true) cwtoolsProjectName
 
     Target.create "BuildClient" (fun _ ->
         match ProcessUtils.tryFindFileOnPath "npx" with
