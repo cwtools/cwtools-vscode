@@ -46,5 +46,9 @@ jobs:
         vsce-token: ${{ secrets.VSCE_TOKEN }}
         user-email: ${{ github.event.inputs.email }}
       run: dotnet run --project build -- -t Release
-
-
+    - name: Publish to Open VSX Registry
+      uses: HaaLeo/publish-vscode-extension@v1
+      id: publishToOpenVSX
+      with:
+        packagePath: "./release"
+        pat: ${{ secrets.OPEN_VSX_TOKEN }}
