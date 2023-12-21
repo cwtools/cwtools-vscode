@@ -12,9 +12,8 @@
     <RuntimeHostConfigurationOption Include="System.GC.NoAffinitize" Value="true" />
 
     <ProjectReference Include="..\LSP\LSP.fsproj" />
-    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
-    <ProjectReference Include="..\LSP\LSP.fsproj" />
-    <ProjectReference Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
+    <ProjectReference Condition="'$(LocalPaket)'=='True'" Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
+    <ProjectReference Condition="'$(LocalPaket)'!='True'" Include="..\..\paket-files\git\www.github.com\cwtools\cwtools\CWTools\CWTools.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectManager.fs" />

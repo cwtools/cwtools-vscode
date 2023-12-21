@@ -21,6 +21,20 @@
             "windows": {
                 "command": "${workspaceRoot}/build.cmd"
             },
+            "label": "BuildLocal",
+            "args": [
+                "QuickBuildLocal"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "command": "${workspaceRoot}/build.sh",
+            "windows": {
+                "command": "${workspaceRoot}/build.cmd"
+            },
             "label": "Build",
             "args": [
                 "QuickBuild"
@@ -49,6 +63,14 @@
         {
             "label": "UpdateBuild",
             "dependsOn" :[ "PaketUpdate" ,"Build" ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "UpdateBuildLocal",
+            "dependsOn": [
+                "PaketUpdate",
+                "BuildLocal"
+            ],
             "dependsOrder": "sequence"
         }
     ]

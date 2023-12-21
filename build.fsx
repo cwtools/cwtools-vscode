@@ -96,14 +96,16 @@ let publishParams (framework : string) (release : bool) =
             MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
         })
 
-let buildParams (release : bool) =
+let buildParams (release : bool) (local : bool) =
+    let args = ((if release then "" else " /p:LinkDuringPublish=false"))
+    let args = if local then args + " /p:LocalPaket=True" else args
     (fun (b : DotNet.BuildOptions) ->
         { b with
             Common =
                 {
                     b.Common with
                         WorkingDirectory = "src/Main"
-                        CustomParams = Some ((if release then "" else " /p:LinkDuringPublish=false"))
+                        CustomParams = Some args
                 }
             OutputPath = Some ("../../out/server/local")
             Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
@@ -111,7 +113,10 @@ let buildParams (release : bool) =
         })
 
 Target.create "BuildDll" <| fun _ ->
-    DotNet.build (buildParams true) cwtoolsProjectName
+    DotNet.build (buildParams true false) cwtoolsProjectName
+
+Target.create "BuildDllLocal" <| fun _ ->
+    DotNet.build (buildParams true true) cwtoolsProjectName
 
 Target.create "BuildServer" <| fun _ ->
     match Environment.isWindows with
@@ -221,6 +226,7 @@ Target.create "PublishToGallery" ( fun _ ->
 // --------------------------------------------------------------------------------------
 
 Target.create "QuickBuild" ignore
+Target.create "QuickBuildLocal" ignore
 Target.create "Build" ignore
 Target.create "Release" ignore
 Target.create "DryRelease" ignore
@@ -230,6 +236,9 @@ open Fake.Core.TargetOperators
 "CopyHtml" ==> "QuickBuild"
 "RunScript" ==> "QuickBuild"
 "BuildDll" ==> "QuickBuild"
+"CopyHtml" ==> "QuickBuildLocal"
+"RunScript" ==> "QuickBuildLocal"
+"BuildDllLocal" ==> "QuickBuildLocal"
 
 "Clean"
 ==> "BuildServer"

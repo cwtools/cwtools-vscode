@@ -66,6 +66,18 @@
             "request": "launch",
             "sourceMaps": false
         },
+        {
+            "preLaunchTask": "UpdateBuildLocal",
+            "name": "Quick update, Build and Launch Extension (Local)",
+            "type": "extensionHost",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "D:\\Games\\Steam\\steamapps\\common\\Stellaris",
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ],
+            "request": "launch",
+            "sourceMaps": false
+        },
 		{
             "name": "Launch Only",
 			"type": "extensionHost",
