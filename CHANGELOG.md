@@ -1,3 +1,6 @@
+### 0.10.20
+* Test release
+
 ### 0.10.19
 * Fix default values in settings (vanilla shouldn't validate by default anymore)
 * Add new setting for enabling/disabling diagnostic logging from cwtools server
