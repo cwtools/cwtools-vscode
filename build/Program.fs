@@ -95,7 +95,7 @@ let initTargets () =
     Target.create "Clean" (fun _ ->
         Shell.cleanDir "./temp"
         Shell.cleanDir "./out"
-        // Shell.cleanDir "release/bin"
+        Shell.cleanDir "./release/bin"
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
@@ -228,7 +228,8 @@ let buildTargetTree () =
     ==> "BuildClient"
     ==> "CopyDocs"
     ==> "CopyHtml"
-    ==>! "PrePackage"
+    ==> "PrePackage"
+    ==>! "BuildPackage"
 
     "PublishServer" ?=> "PrePackage" |> ignore
     "BuildServer" ?=> "PrePackage" |> ignore

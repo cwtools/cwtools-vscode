@@ -43,7 +43,7 @@ export class GraphPanel {
     }
 
     private constructor(extensionPath: string, column: vscode.ViewColumn) {
-        this._webviewRootPath = path.join(extensionPath, 'out/client/webview');
+        this._webviewRootPath = path.join(extensionPath, 'bin/client/webview');
 
         this._state = State.New;
 
