@@ -6,30 +6,35 @@ open Fake.Core
 open Fake.DotNet
 open Fake.JavaScript
 open Fake.IO
+open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
 open Fake.Core.TargetOperators
+open System.Text.Json
+open System
 
 // open Fake.BuildServer
 
 // BuildServer.install [ GitLab.Installer ]
 
-let run (cmd : string) (args : string list) (dir : string) =
-    if (Command.RawCommand (cmd, Arguments.OfArgs args)
-    |> CreateProcess.fromCommand
-    |> if not( String.isNullOrWhiteSpace dir) then CreateProcess.withWorkingDirectory dir else id
-    |> CreateProcess.withTimeout System.TimeSpan.MaxValue
-    |> Proc.run).ExitCode <> 0 then
-        failwithf "Error while running '%s' with args: %A" cmd args
+let run cmd args dir =
+    let parms =
+        { ExecParams.Empty with
+            Program = cmd
+            WorkingDir = dir
+            CommandLine = args }
+
+    if Process.shellExec parms <> 0 then
+        failwithf "Error while running '%s' with args: %s" cmd args
 
 let platformTool tool path =
     match Environment.isUnix with
     | true -> tool
-    | _ ->  match ProcessUtils.tryFindFileOnPath path with
-            | None -> failwithf "can't find tool %s on PATH" tool
-            | Some v -> v
+    | _ ->
+        match ProcessUtils.tryFindFileOnPath path with
+        | None -> failwithf "can't find tool %s on PATH" tool
+        | Some v -> v
 
-let npmTool =
-    platformTool "npm"  "npm.cmd"
+let npxTool = lazy (platformTool "npx" "npx.cmd")
 
 let vsceTool = lazy (platformTool "@vscode/vsce" "vsce.cmd")
 
@@ -44,27 +49,67 @@ let cwtoolsPath = ""
 let cwtoolsProjectName = "Main.fsproj"
 let cwtoolsLinuxProjectName = "Main.Linux.fsproj"
 
+// Read additional information from the release notes document
+let releaseNotesData = File.ReadAllLines "CHANGELOG.md" |> ReleaseNotes.parseAll
+
+let release = List.head releaseNotesData
+
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
 // --------------------------------------------------------------------------------------
+let copyLib libDir releaseDir =
+    Directory.ensure releaseDir
+    Shell.copyDir (releaseDir </> "out") (libDir </> "out") (fun _ -> true)
+
+let buildPackage dir =
+    Process.killAllByName "npx"
+    run npxTool.Value "@vscode/vsce package" dir
+
+    !!(sprintf "%s/*.vsix" dir) |> Seq.iter (Shell.moveFile "./temp/")
+
+let setPackageJsonField (name: string) (value: string) releaseDir =
+    let fileName = sprintf "./%s/package.json" releaseDir
+    let content = File.readAsString fileName
+    let jsonObj = System.Text.Json.JsonDocument.Parse content
+    let node = System.Text.Json.Nodes.JsonObject.Create jsonObj.RootElement
+    node[name] <- value
+    let opts = JsonSerializerOptions(WriteIndented = true, AllowTrailingCommas = false)
+    File.WriteAllText(fileName, node.ToJsonString(opts))
+
+let setVersion (release: ReleaseNotes.ReleaseNotes) releaseDir =
+    let versionString = $"%O{release.NugetVersion}"
+    setPackageJsonField "version" versionString releaseDir
+
+let publishToGallery releaseDir =
+    let token =
+        match Environment.environVarOrDefault "vsce-token" "" with
+        | s when not (String.IsNullOrWhiteSpace s) -> s
+        | _ -> UserInput.getUserPassword "VSCE Token: "
+
+    Process.killAllByName "npx"
+    run npxTool.Value (sprintf "@vscode/vsce publish --pat %s" token) releaseDir
+
+
 let initTargets () =
 
     Target.create "Clean" (fun _ ->
         Shell.cleanDir "./temp"
-        Shell.cleanDir "./out/server"
-        Shell.cleanDir "./out/client"
-        // CopyFiles "release" ["README.md"; "LICENSE.md"]
-        // CopyFile "release/CHANGELOG.md" "RELEASE_NOTES.md"
-    )
+        Shell.cleanDir "./out"
+        Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
+        Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
-    Target.create "YarnInstall" <| fun _ ->
+    Target.create "NpmInstall" <| fun _ ->
         Npm.install id
 
     Target.create "DotNetRestore" <| fun _ ->
         DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
         DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsLinuxProjectName
 
-    let publishParams (framework : string) (release : bool) =
+    Target.create "CopyDocs" (fun _ ->
+        Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
+        Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
+
+    let publishParams (outputDir : string) (framework : string) (release : bool) =
         (fun (p : DotNet.PublishOptions) ->
             { p with
                 Common =
@@ -73,7 +118,7 @@ let initTargets () =
                             WorkingDirectory = "src/Main"
                             CustomParams = Some ("--self-contained true" + (if release then " /p:PublishReadyToRun=true" else " /p:LinkDuringPublish=false"))
                     }
-                OutputPath = Some ("../../out/server/" + framework)
+                OutputPath = Some (outputDir </> framework)
                 Runtime = Some framework
                 Configuration = DotNet.BuildConfiguration.Release
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
@@ -95,25 +140,25 @@ let initTargets () =
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
             })
 
-    Target.create "BuildDll" <| fun _ ->
+    Target.create "BuildServer" <| fun _ ->
         DotNet.build (buildParams true false) cwtoolsProjectName
 
-    Target.create "BuildDllLocal" <| fun _ ->
+    Target.create "BuildServerLocal" <| fun _ ->
         DotNet.build (buildParams true true) cwtoolsProjectName
 
-    Target.create "BuildServer" <| fun _ ->
-        match Environment.isWindows with
-        |true -> DotNet.publish (publishParams "win-x64" false) cwtoolsProjectName
-        |false -> DotNet.publish (publishParams "linux-x64" false) cwtoolsLinuxProjectName
-        // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
-        // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
+    // Target.create "BuildServer" <| fun _ ->
+    //     match Environment.isWindows with
+    //     |true -> DotNet.publish (publishParams "win-x64" false) cwtoolsProjectName
+    //     |false -> DotNet.publish (publishParams "linux-x64" false) cwtoolsLinuxProjectName
+    //     // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
+    //     // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
     Target.create "PublishServer" <| fun _ ->
-        DotNet.publish (publishParams "win-x64" true) cwtoolsProjectName
-        DotNet.publish (publishParams "linux-x64" true) cwtoolsLinuxProjectName
-        DotNet.publish (publishParams "osx-x64" true) cwtoolsProjectName
+        DotNet.publish (publishParams "release/bin"  "win-x64" true) cwtoolsProjectName
+        DotNet.publish (publishParams "release/bin" "linux-x64" true) cwtoolsLinuxProjectName
+        DotNet.publish (publishParams "release/bin" "osx-x64" true) cwtoolsProjectName
 
-    Target.create "RunScript" (fun _ ->
+    Target.create "BuildClient" (fun _ ->
         match ProcessUtils.tryFindFileOnPath "npx" with
         |Some tsc ->
             CreateProcess.fromRawCommand tsc ["tsc"; "-p"; "./tsconfig.extension.json"]
@@ -135,114 +180,83 @@ let initTargets () =
             |> Shell.copyFiles "out/client/webview"
     )
 
-    // Target "Watch" (fun _ ->
-    //     runFable "--watch" true
-    // )
+    // Target.create "PaketRestore" (fun _ ->
+    //     Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
+    //     // match Environment.isWindows with
+    //     // |true -> Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
+    //     // |_ -> Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
+    //     Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
+    //     // Paket.PaketRestoreDefaults |> ignore
+    //     Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
+    //     )
 
-    // Target "CompileTypeScript" (fun _ ->
-    //     // !! "**/*.ts"
-    //     //     |> TypeScriptCompiler (fun p -> { p with OutputPath = "./out/client", Projec })
-    //     //let cmd = "tsc -p ./"
-    //     //DotNetCli.RunCommand id cmd
-    //     ExecProcess (fun p -> p. <- "tsc" ;p.Arguments <- "-p ./") (TimeSpan.FromMinutes 5.0) |> ignore
-    // )
-    Target.create "PaketRestore" (fun _ ->
-        Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
-        // match Environment.isWindows with
-        // |true -> Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
-        // |_ -> Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
-        Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
-        // Paket.PaketRestoreDefaults |> ignore
-        Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
-        )
+    Target.create "BuildPackage" (fun _ -> buildPackage "release")
 
-    Target.create "CopyFSAC" (fun _ ->
-        Directory.ensure releaseBin
-        Shell.cleanDir releaseBin
+    Target.create "SetVersion" (fun _ -> setVersion release "release")
 
-        !!(fsacBin + "/*")
-        |> Shell.copyFiles releaseBin
-    )
-
-    Target.create "CopyFSACNetcore" (fun _ ->
-        Directory.ensure releaseBinNetcore
-        Shell.cleanDir releaseBinNetcore
-
-        Shell.copyDir releaseBinNetcore fsacBinNetcore (fun _ -> true)
-    )
+    Target.create "PublishToGallery" (fun _ -> publishToGallery "release")
 
 
-
-    Target.create "InstallVSCE" ( fun _ ->
-        Process.killAllByName "npm"
-        run npmTool ["install"; "-g"; "vsce"] ""
-    )
-
-
-    Target.create "BuildPackage" ( fun _ ->
-        Process.killAllByName "vsce"
-        run vsceTool.Value ["package"] ""
-        Process.killAllByName "vsce"
-        !!("*.vsix")
-        |> Seq.iter(Shell.moveFile "./temp/")
-    )
-
-
-    Target.create "PublishToGallery" ( fun _ ->
-        let token =
-            match Environment.environVarOrDefault "VSCE_TOKEN" System.String.Empty with
-            | s when not (String.isNullOrWhiteSpace s) -> s
-            | _ -> UserInput.getUserPassword "VSCE Token: "
-
-        Process.killAllByName "vsce"
-        run vsceTool.Value ["publish"; "patch"; "-p"; token] ""
-    )
-
+    Target.description "Assemble the extension"
+    Target.create "PrePackage" ignore
 
 
     // --------------------------------------------------------------------------------------
     // Run generator by default. Invoke 'build <Target>' to override
     // --------------------------------------------------------------------------------------
-
+    Target.description "Build the requirements to run the extension locally, using remote cwtools"
     Target.create "QuickBuild" ignore
+    Target.description "Build the requirements to run the extension locally, using local cwtools"
     Target.create "QuickBuildLocal" ignore
-    Target.create "Build" ignore
-    Target.create "Release" ignore
+    Target.description "Package into the vsix, but don't publish it"
     Target.create "DryRelease" ignore
+    Target.description "Package into the vsix, and publish it"
+    Target.create "Release" ignore
 
 
 open Fake.Core.TargetOperators
 let buildTargetTree () =
     let (==>!) x y = x ==> y |> ignore
-    "CopyHtml" ==>! "QuickBuild"
-    "RunScript" ==>! "QuickBuild"
-    "BuildDll" ==>! "QuickBuild"
-    "CopyHtml" ==>! "QuickBuildLocal"
-    "RunScript" ==>! "QuickBuildLocal"
-    "BuildDllLocal" ==>! "QuickBuildLocal"
+    "NpmInstall" ==>! "BuildClient"
+    "DotNetRestore" ==>! "BuildServer"
+    "DotNetRestore" ==>! "BuildServerLocal"
 
     "Clean"
-    ==> "BuildServer"
-    ==>! "Build"
+    ==> "BuildClient"
+    ==> "CopyDocs"
+    ==> "CopyHtml"
+    ==>! "PrePackage"
 
-    "Clean" ?=> "RunScript" |> ignore
-    "Clean" ?=> "CopyHtml" |> ignore
-    "Clean" ?=> "BuildDll" |> ignore
-    "CopyHtml" ==>! "BuildPackage"
-    "RunScript" ==>! "Build"
-    "RunScript" ==>! "PublishServer"
-    //"PaketRestore" ==> "BuildServer"
-    //"PaketRestore" ==> "PublishServer"
 
-    "Clean"
+    // "NpmInstall" ==>! "Build"
+    // "DotNetRestore" ==>! "Build"
+    "DotNetRestore" ==>! "BuildServer"
+
+    // "Format" ==>
+    "DotNetRestore"
     ==> "PublishServer"
+    ==> "PrePackage"
+    ==> "SetVersion"
     ==> "BuildPackage"
+    // ==> "ReleaseGitHub"
     ==> "PublishToGallery"
     ==>! "Release"
 
-    "PublishServer"
-    ==>"BuildPackage"
+    "BuildPackage"
     ==>! "DryRelease"
+
+    "BuildServer"
+    ==>! "QuickBuild"
+
+    "PrePackage"
+    ==>! "QuickBuild"
+
+    "PrePackage"
+    ==>! "QuickBuildLocal"
+
+    "BuildServerLocal"
+    ==>! "QuickBuildLocal"
+
 [<EntryPoint>]
 let main argv =
     argv
