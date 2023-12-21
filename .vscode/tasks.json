@@ -45,17 +45,6 @@
             }
         },
         {
-            "command": "${workspaceRoot}/build.sh",
-            "windows": {
-                "command": "${workspaceRoot}/build.cmd"
-            },
-            "label": "Full Build",
-            "args": [
-                "Build"
-            ],
-            "group": "build"
-        },
-        {
             "label": "PaketUpdate",
             "command": "dotnet",
             "args": ["paket", "update", "-g", "git"]

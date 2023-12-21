@@ -55,17 +55,17 @@ export async function activate(context: ExtensionContext) {
 	var init = function(language : string, isVanillaFolder : boolean) {
 		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s.]+)"?/ })
 		// The server is implemented using dotnet core
-		let serverDll = context.asAbsolutePath(path.join('out', 'server', 'local', 'CWTools Server.dll'));
+		let serverDll = context.asAbsolutePath(path.join('bin', 'server', 'local', 'CWTools Server.dll'));
 		var serverExe: string;
 		if (os.platform() == "win32") {
-			serverExe = context.asAbsolutePath(path.join('out', 'server', 'win-x64', 'CWTools Server.exe'))
+			serverExe = context.asAbsolutePath(path.join('bin', 'server', 'win-x64', 'CWTools Server.exe'))
 		}
 		else if (os.platform() == "darwin") {
-			serverExe = context.asAbsolutePath(path.join('out', 'server', 'osx-x64', 'CWTools Server'))
+			serverExe = context.asAbsolutePath(path.join('bin', 'server', 'osx-x64', 'CWTools Server'))
 			fs.chmodSync(serverExe, '755');
 		}
 		else {
-			serverExe = context.asAbsolutePath(path.join('out', 'server', 'linux-x64', 'CWTools Server'))
+			serverExe = context.asAbsolutePath(path.join('bin', 'server', 'linux-x64', 'CWTools Server'))
 			fs.chmodSync(serverExe, '755');
 		}
 		var repoPath = undefined;
