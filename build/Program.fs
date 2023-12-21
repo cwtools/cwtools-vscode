@@ -57,9 +57,9 @@ let release = List.head releaseNotesData
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
 // --------------------------------------------------------------------------------------
-let copyLib libDir releaseDir =
+let copyBin releaseDir =
     Directory.ensure releaseDir
-    Shell.copyDir (releaseDir </> "out") (libDir </> "out") (fun _ -> true)
+    Shell.copyDir (releaseDir </> "bin") "out" (fun _ -> true)
 
 let buildPackage dir =
     Process.killAllByName "npx"
@@ -95,11 +95,14 @@ let initTargets () =
     Target.create "Clean" (fun _ ->
         Shell.cleanDir "./temp"
         Shell.cleanDir "./out"
+        // Shell.cleanDir "release/bin"
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
     Target.create "NpmInstall" <| fun _ ->
         Npm.install id
+
+    Target.create "PackageNpmInstall" <| fun _ -> Npm.install (fun p -> { p with WorkingDirectory = "release" })
 
     Target.create "DotNetRestore" <| fun _ ->
         DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
@@ -198,7 +201,7 @@ let initTargets () =
 
 
     Target.description "Assemble the extension"
-    Target.create "PrePackage" ignore
+    Target.create "PrePackage" (fun _ -> copyBin "release")
 
 
     // --------------------------------------------------------------------------------------
@@ -227,16 +230,15 @@ let buildTargetTree () =
     ==> "CopyHtml"
     ==>! "PrePackage"
 
-
-    // "NpmInstall" ==>! "Build"
-    // "DotNetRestore" ==>! "Build"
-    "DotNetRestore" ==>! "BuildServer"
+    "PublishServer" ?=> "PrePackage" |> ignore
+    "BuildServer" ?=> "PrePackage" |> ignore
+    "BuildServerLocal" ?=> "PrePackage" |> ignore
 
     // "Format" ==>
     "DotNetRestore"
     ==> "PublishServer"
-    ==> "PrePackage"
     ==> "SetVersion"
+    ==> "PackageNpmInstall"
     ==> "BuildPackage"
     // ==> "ReleaseGitHub"
     ==> "PublishToGallery"
