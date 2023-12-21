@@ -31,7 +31,7 @@ let platformTool tool path =
 let npmTool =
     platformTool "npm"  "npm.cmd"
 
-let vsceTool = lazy (platformTool "vsce" "vsce.cmd")
+let vsceTool = lazy (platformTool "@vscode/vsce" "vsce.cmd")
 
 
 let releaseBin      = "release/bin"
@@ -113,10 +113,6 @@ let initTargets () =
         DotNet.publish (publishParams "linux-x64" true) cwtoolsLinuxProjectName
         DotNet.publish (publishParams "osx-x64" true) cwtoolsProjectName
 
-    let runTsc additionalArgs noTimeout =
-        let cmd = "tsc"
-        // let timeout = if noTimeout then System.TimeSpan.MaxValue else System.TimeSpan.FromMinutes 30.
-        run cmd additionalArgs ""
     Target.create "RunScript" (fun _ ->
         match ProcessUtils.tryFindFileOnPath "npx" with
         |Some tsc ->
