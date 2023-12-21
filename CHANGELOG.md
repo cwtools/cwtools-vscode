@@ -1,5 +1,5 @@
 ### 0.10.20
-* Test release
+* Stellaris: Remove some obsolete validators
 
 ### 0.10.19
 * Fix default values in settings (vanilla shouldn't validate by default anymore)

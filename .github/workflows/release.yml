@@ -38,7 +38,6 @@ jobs:
         path: release/
     - name: Publish Release
       env:
-        nuget-key: ${{ secrets.NUGET_KEY }}
         github-user: ${{ github.event.inputs.username }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         vsce-token: ${{ secrets.VSCE_TOKEN }}
