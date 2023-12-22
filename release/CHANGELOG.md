@@ -1,3 +1,6 @@
+### 0.10.22
+* Try to reduce CPU usage
+
 ### 0.10.21
 * Fix extension highlighting
 
