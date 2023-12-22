@@ -255,8 +255,8 @@ type Server(client: ILanguageClient) =
                 // eprintfn "lc update light %A" locCache
             stopwatch.Stop()
             let time = stopwatch.Elapsed
-            delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0, 5).Ticks, 3L * time.Ticks)))
-            GC.Collect(2, System.GCCollectionMode.Optimized, false, false)
+            delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0, 10).Ticks, 3L * time.Ticks)))
+            //GC.Collect(2, System.GCCollectionMode.Optimized, false, false)
         |None -> ()
 
     let lintAgent =
