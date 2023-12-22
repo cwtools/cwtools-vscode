@@ -1,3 +1,6 @@
+### 0.10.21
+* Fix extension highlighting
+
 ### 0.10.20
 * Stellaris: Remove some obsolete validators
 
