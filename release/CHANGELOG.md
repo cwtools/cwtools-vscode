@@ -1,3 +1,6 @@
+### 0.10.23
+* Stellaris: Reduce CPU usage related to scripted_effects/triggers
+
 ### 0.10.22
 * Try to reduce CPU usage
 
