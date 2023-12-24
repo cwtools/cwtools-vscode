@@ -1,3 +1,6 @@
+### 0.10.25
+* Add better warning when localisation contains characters that are possibly invalid
+
 ### 0.10.24
 * Stellaris: Even more optimisation related to scripted_effects/triggers
 
