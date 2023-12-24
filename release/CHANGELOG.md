@@ -1,3 +1,6 @@
+### 0.10.24
+* Stellaris: Even more optimisation related to scripted_effects/triggers
+
 ### 0.10.23
 * Stellaris: Reduce CPU usage related to scripted_effects/triggers
 
