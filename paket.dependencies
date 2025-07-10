@@ -9,10 +9,8 @@ nuget DotNet.Glob #
 nuget FSharpx.Collections #
 nuget Sandwych.QuickGraph.Core #
 nuget FsPickler #
-nuget FSharp.Core #
 nuget VDS.Common
 nuget LibGit2Sharp 0.31.0
-nuget LibGit2Sharp.NativeBinaries
 
 group git
     #git file:///C:/users/thomas/git/cwtools master
@@ -30,8 +28,6 @@ group build
     #nuget Microsoft.Build.Utilities.Core 17.3.2
     nuget Fake.Core
     nuget Fake.Core.Target
-    nuget Fake.IO.FileSystem
-    nuget Fake.DotNet.Cli
     nuget Fake.DotNet.Paket
     nuget Fake.JavaScript.Npm
     nuget Fake.Core.UserInput
