@@ -24,7 +24,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 9.0.x
     - uses: actions/setup-node@v4
       with:
         node-version: 18
@@ -35,7 +35,7 @@ jobs:
     - name: Test
       run: /bin/sh ./build.sh DryRelease
     - name: upload artifact package
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: cwtools-fsharp-vscode-ext
         path: release/
