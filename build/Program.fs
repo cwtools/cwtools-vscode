@@ -58,6 +58,7 @@ let platformTool tool path =
         | Some v -> v
 
 let npxTool = lazy (platformTool "npx" "npx.cmd")
+let npmTool = lazy (platformTool "npm" "npm.cmd")
 
 let vsceTool = lazy (platformTool "@vscode/vsce" "vsce.cmd")
 
@@ -173,9 +174,9 @@ let initTargets () =
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
     Target.create "NpmInstall" <| fun _ ->
-        Npm.install id
+        run npmTool.Value "install" "."
 
-    Target.create "PackageNpmInstall" <| fun _ -> Npm.install (fun p -> { p with WorkingDirectory = "release" })
+    Target.create "PackageNpmInstall" <| fun _ -> run npmTool.Value "install"  "release"
 
     Target.create "DotNetRestore" <| fun _ ->
         DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
