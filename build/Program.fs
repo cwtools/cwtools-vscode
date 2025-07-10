@@ -70,7 +70,7 @@ let fsacBinNetcore = fsacBin + "_netcore"
 
 let cwtoolsPath = ""
 let cwtoolsProjectName = "Main.fsproj"
-let cwtoolsLinuxProjectName = "Main.Linux.fsproj"
+let cwtoolsLinuxProjectName = cwtoolsProjectName
 
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
@@ -337,7 +337,7 @@ let buildTargetTree () =
 
 [<EntryPoint>]
 let main argv =
-    Microsoft.Build.Logging.StructuredLogger.Strings.Initialize()
+    // Microsoft.Build.Logging.StructuredLogger.Strings.Initialize()
     argv
     |> Array.toList
     |> Context.FakeExecutionContext.Create false "build.fsx"

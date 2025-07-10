@@ -11,18 +11,8 @@ nuget Sandwych.QuickGraph.Core #
 nuget FsPickler #
 nuget FSharp.Core #
 nuget VDS.Common
-
-group WindowsLibGit
-    source https://www.nuget.org/api/v2
-    cache ./nupkgs versions: current
-    nuget LibGit2Sharp 0.26.2
-    nuget LibGit2Sharp.NativeBinaries
-
-group LinuxLibGit
-    source https://www.nuget.org/api/v2
-    cache ./nupkgs versions: current
-    nuget LibGit2Sharp 0.27.0-preview-0096
-    nuget LibGit2Sharp.NativeBinaries
+nuget LibGit2Sharp 0.31.0
+nuget LibGit2Sharp.NativeBinaries
 
 group git
     #git file:///C:/users/thomas/git/cwtools master
@@ -31,7 +21,7 @@ group git
 group build
     source https://api.nuget.org/v3/index.json
     storage: none
-    framework: net8.0
+    framework: net9.0
 
     #nuget FSharp.Core 4.7.0.0
     #nuget Microsoft.Build 17.3.2

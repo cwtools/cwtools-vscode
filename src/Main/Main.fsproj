@@ -2,13 +2,12 @@
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
   </PropertyGroup>
   <ItemGroup>
-    <RuntimeHostConfigurationOption Include="System.GC.HeapCount" Value="2" />
     <RuntimeHostConfigurationOption Include="System.GC.NoAffinitize" Value="true" />
 
     <ProjectReference Include="..\LSP\LSP.fsproj" />
