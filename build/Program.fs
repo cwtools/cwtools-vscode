@@ -347,5 +347,5 @@ let main argv =
     initTargets()
     buildTargetTree()
 
-    Target.runOrDefaultWithArguments "Build"
+    Target.runOrDefaultWithArguments "QuickBuild"
     0
