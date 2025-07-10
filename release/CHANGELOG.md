@@ -1,3 +1,8 @@
+### 0.10.26
+* Fix stellaris log parsing
+* Fix empty zip crash (thanks @nikitalita!)
+* Updated to net9.0 (security + performance)
+
 ### 0.10.25
 * Add better warning when localisation contains characters that are possibly invalid
 
