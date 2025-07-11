@@ -266,7 +266,10 @@
           "scope": "window",
           "type": "array",
           "description": "File paths to ignore (not load into cwtools), list of glob patterns",
-          "uniqueItems": true
+          "uniqueItems": true,
+          "default": [
+            "**/99_README**.txt"
+          ]
         },
         "cwtools.cache.eu4": {
           "scope": "application",
