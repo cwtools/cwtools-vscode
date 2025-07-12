@@ -4,6 +4,22 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Wait For Process",
+            "type": "shell",
+            "problemMatcher": [],
+            // --- Linux & macOS Command ---
+            "linux": {
+                "command": "echo 'Waiting for process to start...'; while ! pgrep -f 'CWTools Server'; do sleep 1; done; echo 'Process found. Continuing!'"
+            },
+            "osx": {
+                "command": "echo 'Waiting for process to start...'; while ! pgrep -f 'CWTools Server'; do sleep 1; done; echo 'Process found. Continuing!'"
+            },
+            // --- Windows Command (using PowerShell) ---
+            "windows": {
+                "command": "echo 'Waiting for process to start...'; while (-not (Get-Process -Name 'CWTools Server' -ErrorAction SilentlyContinue)) { Start-Sleep -Seconds 1 }; echo 'Process found. Continuing!'"
+            }
+        },
+        {
             "type": "npm",
             "script": "watch-client",
             "problemMatcher": "$tsc-watch",
@@ -22,6 +38,20 @@
                 "command": "${workspaceRoot}/build.cmd"
             },
             "label": "BuildLocal",
+            "args": [
+                "QuickBuildLocal"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "command": "${workspaceRoot}/build.sh",
+            "windows": {
+                "command": "${workspaceRoot}/build.cmd"
+            },
+            "label": "BuildLocalDebug",
             "args": [
                 "QuickBuildLocalDebug"
             ],
@@ -45,6 +75,20 @@
             }
         },
         {
+            "command": "${workspaceRoot}/build.sh",
+            "windows": {
+                "command": "${workspaceRoot}/build.cmd"
+            },
+            "label": "BuildDebug",
+            "args": [
+                "QuickBuildDebug"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "PaketUpdate",
             "command": "dotnet",
             "args": ["paket", "update", "-g", "git"]
@@ -59,6 +103,22 @@
             "dependsOn": [
                 "PaketUpdate",
                 "BuildLocal"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "UpdateBuildLocalDebug",
+            "dependsOn": [
+                "PaketUpdate",
+                "BuildLocalDebug"
+            ],
+            "dependsOrder": "sequence"
+        },
+        {
+            "label": "UpdateBuildDebug",
+            "dependsOn": [
+                "PaketUpdate",
+                "BuildDebug"
             ],
             "dependsOrder": "sequence"
         }
