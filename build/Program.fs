@@ -177,16 +177,15 @@ let initTargets () =
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
-    let publishParams (outputDir : string) (framework : string) =
+    let publishParams (framework : string) =
         fun (p : DotNet.PublishOptions) ->
             { p with
                 Common =
                     {
                         p.Common with
-                            WorkingDirectory = "src/Main"
-                            CustomParams = Some ("--self-contained true /p:PublishReadyToRun=true")
+                            CustomParams = Some "--self-contained true /p:PublishReadyToRun=true"
                     }
-                OutputPath = Some ("../.." </> outputDir </> framework)
+                OutputPath = Some (releaseDir </> "bin/server" </> framework)
                 Runtime = Some framework
                 Configuration = DotNet.BuildConfiguration.Release
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
@@ -203,16 +202,20 @@ let initTargets () =
                             CustomParams = Some args
 
                     }
-                OutputPath = Some ("release/bin/server" </> platformShortCode )
+                OutputPath = Some (releaseDir </> "bin/server" </> platformShortCode )
                 Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
             }
 
     Target.create "BuildServer" <| fun _ ->
-        DotNet.build (buildParams true false) cwtoolsProjectName
+        DotNet.build (buildParams true false) cwtoolsProjectPath
+    Target.create "BuildServerDebug"<| fun _ ->
+        DotNet.build (buildParams false false) cwtoolsProjectPath
 
     Target.create "BuildServerLocal" <| fun _ ->
         DotNet.build (buildParams true true) cwtoolsProjectPath
+    Target.create "BuildServerDebugLocal" <| fun _ ->
+        DotNet.build (buildParams false true) cwtoolsProjectPath
 
     // Target.create "BuildServer" <| fun _ ->
     //     match Environment.isWindows with
@@ -222,9 +225,9 @@ let initTargets () =
     //     // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
     Target.create "PublishServer" <| fun _ ->
-        DotNet.publish (publishParams "out/server"  "win-x64") cwtoolsProjectName
-        DotNet.publish (publishParams "out/server" "linux-x64") cwtoolsProjectName
-        DotNet.publish (publishParams "out/server" "osx-x64") cwtoolsProjectName
+        DotNet.publish (publishParams "win-x64") cwtoolsProjectPath
+        DotNet.publish (publishParams "linux-x64") cwtoolsProjectPath
+        DotNet.publish (publishParams "osx-x64") cwtoolsProjectPath
 
     Target.create "BuildClient" (fun _ ->
         match ProcessUtils.tryFindFileOnPath "npx" with
@@ -268,8 +271,12 @@ let initTargets () =
     // --------------------------------------------------------------------------------------
     Target.description "Build the requirements to run the extension locally, using remote cwtools"
     Target.create "QuickBuild" ignore
+    Target.description "Build the requirements to run the extension locally, using remote cwtools"
+    Target.create "QuickBuildDebug" ignore
     Target.description "Build the requirements to run the extension locally, using local cwtools"
     Target.create "QuickBuildLocal" ignore
+    Target.description "Build the requirements to run the extension locally, using local cwtools"
+    Target.create "QuickBuildLocalDebug" ignore
     Target.description "Package into the vsix, but don't publish it"
     Target.create "DryRelease" ignore
     Target.description "Package into the vsix, and publish it"
@@ -331,12 +338,23 @@ let buildTargetTree () =
     "PrePackage"
     ==>! "QuickBuild"
 
+    "BuildServerDebug"
+    ==>! "QuickBuildDebug"
+
+    "PrePackage"
+    ==>! "QuickBuildDebug"
+
     "PrePackage"
     ==>! "QuickBuildLocal"
 
     "BuildServerLocal"
     ==>! "QuickBuildLocal"
 
+    "PrePackage"
+    ==>! "QuickBuildLocal"
+
+    "BuildServerDebugLocal"
+    ==>! "QuickBuildLocalDebug"
 [<EntryPoint>]
 let main argv =
     // Microsoft.Build.Logging.StructuredLogger.Strings.Initialize()

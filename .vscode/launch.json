@@ -9,12 +9,11 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",
-            "processId": "${command:pickProcess}",
+            "processName": "CWTools Server.exe",
             "symbolOptions": {
-                "searchPaths": ["${workspaceFolder}/out/server/local"],
+                "searchPaths": ["${workspaceFolder}/release/bin/server/win-x64","${workspaceFolder}/release/bin/server/linux-x64","${workspaceFolder}/release/bin/server/osx-x64" ],
                 "searchMicrosoftSymbolServer": true
-            },
-            "justMyCode": false
+            }
         },
         {
             "name": "Extension",
