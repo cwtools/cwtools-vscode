@@ -27,7 +27,7 @@ jobs:
     - name: Test
       run: /bin/sh ./build.sh DryRelease
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cwtools-vscode-pipeline.vsix
         path: temp/*.vsix
