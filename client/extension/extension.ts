@@ -436,6 +436,9 @@ export async function activate(context: ExtensionContext) {
 		default: languageId = "paradox"; break;
 	}
 	let findExeInFiles = function(gameExeName : string) {
+		if (!workspace.workspaceFolders || workspace.workspaceFolders.length === 0) {
+			return Promise.resolve([]);
+		}
 		if (os.platform() == "win32") {
 				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*.exe"));
 				let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*.exe"));
@@ -450,6 +453,9 @@ export async function activate(context: ExtensionContext) {
 		}
 	}
 	let findExeInFilesImperator = function(gameExeName : string) {
+		if (!workspace.workspaceFolders || workspace.workspaceFolders.length === 0) {
+			return Promise.resolve([]);
+		}
 		if (os.platform() == "win32") {
 				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0],"binaries/" + gameExeName + "*.exe"));
 			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*.exe"));
@@ -506,7 +512,7 @@ export async function activate(context: ExtensionContext) {
 				isVanillaFolder = true;
 				languageId = "vic3";
 			}
-			if (path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"){
+			if (workspace.workspaceFolders && workspace.workspaceFolders.length > 0 && path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"){
 				isVanillaFolder = true;
 			}
 			init(languageId, isVanillaFolder)
