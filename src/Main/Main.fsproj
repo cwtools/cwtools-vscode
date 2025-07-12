@@ -1,4 +1,7 @@
+
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="cwtools.local.props" Condition="Exists('cwtools.local.props')" />
+
   <PropertyGroup>
     <AssemblyName>CWTools Server</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -11,8 +14,8 @@
     <RuntimeHostConfigurationOption Include="System.GC.NoAffinitize" Value="true" />
 
     <ProjectReference Include="..\LSP\LSP.fsproj" />
-    <ProjectReference Condition="'$(LocalPaket)'=='True'" Include="..\..\paket-files\git\localfilesystem\cwtools\CWTools\CWTools.fsproj" />
-    <ProjectReference Condition="'$(LocalPaket)'!='True'" Include="..\..\paket-files\git\www.github.com\cwtools\cwtools\CWTools\CWTools.fsproj" />
+    <ProjectReference Condition="'$(UseLocalCwtools)' != 'True'" Include="..\..\paket-files\git\www.github.com\cwtools\cwtools\CWTools\CWTools.fsproj" />
+    <ProjectReference Condition="'$(UseLocalCwtools)' == 'True'" Include="$(CwtoolsPath)" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectManager.fs" />

@@ -28,38 +28,8 @@
             "cwd": "${workspaceFolder}"
         },
         {
-            "preLaunchTask": "UpdateBuildLocalDebug",
-            "name": "Quick update, Build and Launch Extension (Local, Debug)",
-            "type": "extensionHost",
-            "runtimeExecutable": "${execPath}",
-            "args": [
-                "D:\\Games\\Steam\\steamapps\\common\\Stellaris",
-                "--extensionDevelopmentPath=${workspaceRoot}/release"
-            ],
-            "request": "launch",
-            "sourceMaps": false,
-            "presentation": {
-                "hidden": true
-            }
-        },
-        {
             "preLaunchTask": "UpdateBuildDebug",
             "name": "Quick update, Build and Launch Extension (Debug)",
-            "type": "extensionHost",
-            "runtimeExecutable": "${execPath}",
-            "args": [
-                "D:\\Games\\Steam\\steamapps\\common\\Stellaris",
-                "--extensionDevelopmentPath=${workspaceRoot}/release"
-            ],
-            "request": "launch",
-            "sourceMaps": false,
-            "presentation": {
-                "hidden": true
-            }
-        },
-        {
-            "preLaunchTask": "UpdateBuildLocal",
-            "name": "Quick update, Build and Launch Extension (Local)",
             "type": "extensionHost",
             "runtimeExecutable": "${execPath}",
             "args": [
@@ -90,38 +60,17 @@
     ],
     "compounds": [
         {
-            "name": "Debug local cwtools",
-            "configurations": ["Quick update, Build and Launch Extension (Local, Debug)", ".NET Core Attach"],
-            "presentation": {
-                "group": "Full",
-                "order": 3
-            }
-        },
-        {
-            "name": "Debug GitHub cwtools",
-            "configurations": [
-                "Quick update, Build and Launch Extension (Debug)",
-                ".NET Core Attach"
-            ],
-            "presentation": {
-                "group": "Full",
-                "order": 4
-            }
-        },
-        {
-            "name": "Run GitHub cwtools (optimised)",
-            "configurations": [
-                "Quick update, Build and Launch Extension"
-            ],
+            "name": "Debug cwtools",
+            "configurations": ["Quick update, Build and Launch Extension (Debug)", ".NET Core Attach"],
             "presentation": {
                 "group": "Full",
                 "order": 2
             }
         },
         {
-            "name": "Run local cwtools (optimised)",
+            "name": "Run cwtools (optimised)",
             "configurations": [
-                "Quick update, Build and Launch Extension (Local)"
+                "Quick update, Build and Launch Extension"
             ],
             "presentation": {
                 "group": "Full",

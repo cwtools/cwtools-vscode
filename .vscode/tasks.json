@@ -91,27 +91,11 @@
         {
             "label": "PaketUpdate",
             "command": "dotnet",
-            "args": ["paket", "update", "-g", "git"]
+            "args": ["paket", "update", "-g", "git", "--no-install"]
         },
         {
             "label": "UpdateBuild",
             "dependsOn" :[ "PaketUpdate" ,"Build" ],
-            "dependsOrder": "sequence"
-        },
-        {
-            "label": "UpdateBuildLocal",
-            "dependsOn": [
-                "PaketUpdate",
-                "BuildLocal"
-            ],
-            "dependsOrder": "sequence"
-        },
-        {
-            "label": "UpdateBuildLocalDebug",
-            "dependsOn": [
-                "PaketUpdate",
-                "BuildLocalDebug"
-            ],
             "dependsOrder": "sequence"
         },
         {
