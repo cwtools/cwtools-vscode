@@ -32,6 +32,11 @@ let release = List.head releaseNotesData
 
 let githubToken = Environment.environVarOrNone "GITHUB_TOKEN"
 // open Fake.BuildServer
+let platformShortCode =
+    match Environment.isWindows, Environment.isMacOS, Environment.isLinux with
+    | false, false, true -> "linux-x64"
+    | false, true, false -> "osx-x64"
+    | _ -> "win-x64"
 
 // BuildServer.install [ GitLab.Installer ]
 
@@ -57,6 +62,8 @@ let npxTool = lazy (platformTool "npx" "npx.cmd")
 let npmTool = lazy (platformTool "npm" "npm.cmd")
 
 let cwtoolsProjectName = "Main.fsproj"
+let cwtoolsProjectPath = "src/Main/Main.fsproj"
+let releaseDir = "release"
 
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
@@ -170,42 +177,42 @@ let initTargets () =
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
-    let publishParams (outputDir : string) (framework : string) (release : bool) =
-        (fun (p : DotNet.PublishOptions) ->
+    let publishParams (outputDir : string) (framework : string) =
+        fun (p : DotNet.PublishOptions) ->
             { p with
                 Common =
                     {
                         p.Common with
                             WorkingDirectory = "src/Main"
-                            CustomParams = Some ("--self-contained true" + (if release then " /p:PublishReadyToRun=true" else " /p:LinkDuringPublish=false"))
+                            CustomParams = Some ("--self-contained true /p:PublishReadyToRun=true")
                     }
                 OutputPath = Some ("../.." </> outputDir </> framework)
                 Runtime = Some framework
                 Configuration = DotNet.BuildConfiguration.Release
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
-            })
+            }
 
     let buildParams (release : bool) (local : bool) =
-        let args = ((if release then "" else " /p:LinkDuringPublish=false"))
-        let args = if local then args + " /p:LocalPaket=True" else args
-        (fun (b : DotNet.BuildOptions) ->
+        // let args = (if release then "" else " /p:LinkDuringPublish=false") - probably not used anymore
+        let args = if local then " /p:LocalPaket=True" else ""
+        fun (b : DotNet.BuildOptions) ->
             { b with
                 Common =
                     {
                         b.Common with
-                            WorkingDirectory = "src/Main"
                             CustomParams = Some args
+
                     }
-                OutputPath = Some ("../../out/server/local")
+                OutputPath = Some ("release/bin/server" </> platformShortCode )
                 Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
-            })
+            }
 
     Target.create "BuildServer" <| fun _ ->
         DotNet.build (buildParams true false) cwtoolsProjectName
 
     Target.create "BuildServerLocal" <| fun _ ->
-        DotNet.build (buildParams true true) cwtoolsProjectName
+        DotNet.build (buildParams true true) cwtoolsProjectPath
 
     // Target.create "BuildServer" <| fun _ ->
     //     match Environment.isWindows with
@@ -215,9 +222,9 @@ let initTargets () =
     //     // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
     Target.create "PublishServer" <| fun _ ->
-        DotNet.publish (publishParams "out/server"  "win-x64" true) cwtoolsProjectName
-        DotNet.publish (publishParams "out/server" "linux-x64" true) cwtoolsProjectName
-        DotNet.publish (publishParams "out/server" "osx-x64" true) cwtoolsProjectName
+        DotNet.publish (publishParams "out/server"  "win-x64") cwtoolsProjectName
+        DotNet.publish (publishParams "out/server" "linux-x64") cwtoolsProjectName
+        DotNet.publish (publishParams "out/server" "osx-x64") cwtoolsProjectName
 
     Target.create "BuildClient" (fun _ ->
         match ProcessUtils.tryFindFileOnPath "npx" with
@@ -254,6 +261,7 @@ let initTargets () =
     Target.description "Assemble the extension"
     Target.create "PrePackage" (fun _ -> copyBin "release")
 
+    Target.create "PrepareClient" ignore
 
     // --------------------------------------------------------------------------------------
     // Run generator by default. Invoke 'build <Target>' to override
@@ -271,9 +279,22 @@ let initTargets () =
 let buildTargetTree () =
     let (==>!) x y = x ==> y |> ignore
 
-    //Clean only if we care about final output
+    //Clean only if we care about final output, so clean if DryRelease or Release
+
     //BuildClient doesn't change, and needs
+    //PrepareClient gets everything up to date for the clientside and needs
     //- NpmInstall if deps have changed?
+    //- BuildClient
+    //-CopyDocs, CopyHtml
+
+    //BuildServer is non-self-contained, using remote cwtools folder
+    //BuildServerLocal is non-self-contained, using local cwtools folder
+    //PublishServer is self-contained, all platforms
+
+    //PrePackage copies client/server bin to extension dir
+
+    //Release needs PublishServer
+
 
     "NpmInstall" ==>! "BuildClient"
     "DotNetRestore" ==>! "BuildServer"
@@ -283,6 +304,7 @@ let buildTargetTree () =
     ==> "BuildClient"
     ==> "CopyDocs"
     ==> "CopyHtml"
+    ==> "PrepareClient"
     ==> "PrePackage"
     ==>! "BuildPackage"
 
