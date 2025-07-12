@@ -1,10 +1,8 @@
 ﻿
 open System
 open System.IO
-open System.Diagnostics
 open Fake.Core
 open Fake.DotNet
-open Fake.JavaScript
 open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
@@ -12,8 +10,6 @@ open Fake.Core.TargetOperators
 open Fake.Tools.Git
 open Fake.Api
 open System.Text.Json
-open System
-open FSharp.Collections.ParallelSeq
 
 // --------------------------------------------------------------------------------------
 // Configuration
@@ -60,18 +56,7 @@ let platformTool tool path =
 let npxTool = lazy (platformTool "npx" "npx.cmd")
 let npmTool = lazy (platformTool "npm" "npm.cmd")
 
-let vsceTool = lazy (platformTool "@vscode/vsce" "vsce.cmd")
-
-
-let releaseBin      = "release/bin"
-let fsacBin         = "paket-files/github.com/fsharp/FsAutoComplete/bin/release"
-
-let releaseBinNetcore = releaseBin + "_netcore"
-let fsacBinNetcore = fsacBin + "_netcore"
-
-let cwtoolsPath = ""
 let cwtoolsProjectName = "Main.fsproj"
-let cwtoolsLinuxProjectName = cwtoolsProjectName
 
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
@@ -180,7 +165,6 @@ let initTargets () =
 
     Target.create "DotNetRestore" <| fun _ ->
         DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
-        DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsLinuxProjectName
 
     Target.create "CopyDocs" (fun _ ->
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
@@ -232,7 +216,7 @@ let initTargets () =
 
     Target.create "PublishServer" <| fun _ ->
         DotNet.publish (publishParams "out/server"  "win-x64" true) cwtoolsProjectName
-        DotNet.publish (publishParams "out/server" "linux-x64" true) cwtoolsLinuxProjectName
+        DotNet.publish (publishParams "out/server" "linux-x64" true) cwtoolsProjectName
         DotNet.publish (publishParams "out/server" "osx-x64" true) cwtoolsProjectName
 
     Target.create "BuildClient" (fun _ ->
@@ -257,15 +241,6 @@ let initTargets () =
             |> Shell.copyFiles "out/client/webview"
     )
 
-    // Target.create "PaketRestore" (fun _ ->
-    //     Shell.replaceInFiles ["../cwtools",Path.getFullName("../cwtools")] ["paket.lock"]
-    //     // match Environment.isWindows with
-    //     // |true -> Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
-    //     // |_ -> Shell.Exec( "mono", @"./.paket/paket.exe restore") |> ignore
-    //     Paket.restore (fun _ -> Paket.PaketRestoreDefaults())
-    //     // Paket.PaketRestoreDefaults |> ignore
-    //     Shell.replaceInFiles [Path.getFullName("../cwtools"),"../cwtools"] ["paket.lock"]
-    //     )
 
     Target.create "BuildPackage" (fun _ -> buildPackage "release")
 
@@ -293,9 +268,13 @@ let initTargets () =
     Target.create "Release" ignore
 
 
-open Fake.Core.TargetOperators
 let buildTargetTree () =
     let (==>!) x y = x ==> y |> ignore
+
+    //Clean only if we care about final output
+    //BuildClient doesn't change, and needs
+    //- NpmInstall if deps have changed?
+
     "NpmInstall" ==>! "BuildClient"
     "DotNetRestore" ==>! "BuildServer"
     "DotNetRestore" ==>! "BuildServerLocal"
