@@ -74,7 +74,7 @@ let copyBin releaseDir =
 
 let buildPackage dir =
     Process.killAllByName "npx"
-    run npxTool.Value "@vscode/vsce package" dir
+    run npxTool.Value "--yes @vscode/vsce package" dir
 
     !!(sprintf "%s/*.vsix" dir) |> Seq.iter (Shell.moveFile "./temp/")
 
@@ -169,9 +169,6 @@ let initTargets () =
         run npmTool.Value "install" "."
 
     Target.create "PackageNpmInstall" <| fun _ -> run npmTool.Value "install"  "release"
-
-    Target.create "DotNetRestore" <| fun _ ->
-        DotNet.restore (fun p -> { p with Common = { p.Common with WorkingDirectory = "src/Main" }} ) cwtoolsProjectName
 
     Target.create "CopyDocs" (fun _ ->
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
@@ -303,11 +300,7 @@ let buildTargetTree () =
     //Release needs PublishServer
 
 
-    "NpmInstall" ==>! "BuildClient"
-    "DotNetRestore" ==>! "BuildServer"
-    "DotNetRestore" ==>! "BuildServerLocal"
-
-    "Clean"
+    "Clean" ?=> "NpmInstall"
     ==> "BuildClient"
     ==> "CopyDocs"
     ==> "CopyHtml"
@@ -320,7 +313,7 @@ let buildTargetTree () =
     "BuildServerLocal" ?=> "PrePackage" |> ignore
 
     // "Format" ==>
-    "DotNetRestore"
+    "Clean"
     ==> "PublishServer"
     ==> "SetVersion"
     ==> "PackageNpmInstall"
@@ -329,7 +322,8 @@ let buildTargetTree () =
     ==> "PublishToGallery"
     ==>! "Release"
 
-    "BuildPackage"
+    "Clean"
+    ==> "BuildPackage"
     ==>! "DryRelease"
 
     "BuildServer"
