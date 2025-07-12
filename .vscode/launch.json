@@ -30,19 +30,12 @@
             "preLaunchTask": "npm: watch"
         },
         {
-            "name": "Extension Tests",
-            "type": "extensionHost",
+            "name": "Extension Tests (CLI)",
+            "type": "node",
             "request": "launch",
-            "runtimeExecutable": "${execPath}",
-            "args": [
-                "${workspaceFolder}/client/test/sample mod",
-                "${workspaceFolder}/client/test/sample mod/events/irm.txt",
-                "--extensionDevelopmentPath=${workspaceFolder}",
-                "--extensionTestsPath=${workspaceFolder}/out/client/test/suite"
-            ],
-            "outFiles": [
-                "${workspaceFolder}/out/client/test/**/*.js"
-            ]
+            "program": "${workspaceFolder}/node_modules/@vscode/test-cli/bin/vscode-test",
+            "args": ["-c", "${workspaceFolder}/.vscode-test.js"],
+            "cwd": "${workspaceFolder}"
         },
         {
             "preLaunchTask": "Build",
