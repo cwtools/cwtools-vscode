@@ -25,8 +25,6 @@ module LanguageServerFeatures =
         }
 
     let getWordAtPos (client : ILanguageClient) pos doc =
-        let pjson = pos |> (serializerFactory<LSP.Types.Position> defaultJsonWriteOptions)
-        let ujson = doc |> (serializerFactory<Uri> defaultJsonWriteOptions)
         let json = serializerFactory<GetWordRangeAtPositionParams> defaultJsonWriteOptions ({ position = pos; uri = doc })
         client.CustomRequest("getWordRangeAtPosition", json)
 
