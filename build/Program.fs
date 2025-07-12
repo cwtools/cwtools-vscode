@@ -180,7 +180,7 @@ let initTargets () =
                 Common =
                     {
                         p.Common with
-                            CustomParams = Some "--self-contained true /p:PublishReadyToRun=true"
+                            CustomParams = Some "--self-contained true /p:PublishReadyToRun=true /p:UseLocalCwtools=False"
                     }
                 OutputPath = Some (releaseDir </> "bin/server" </> framework)
                 Runtime = Some framework
@@ -189,37 +189,25 @@ let initTargets () =
             }
 
     let buildParams (release : bool) (local : bool) =
-        // let args = (if release then "" else " /p:LinkDuringPublish=false") - probably not used anymore
-        let args = if local then " /p:LocalPaket=True" else ""
         fun (b : DotNet.BuildOptions) ->
             { b with
-                Common =
-                    {
-                        b.Common with
-                            CustomParams = Some args
-
-                    }
                 OutputPath = Some (releaseDir </> "bin/server" </> platformShortCode )
                 Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
                 MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
             }
 
     Target.create "BuildServer" <| fun _ ->
+        if File.exists (releaseDir </> "bin/server" </> platformShortCode </> "hostfxr.dll")
+        then
+            Shell.cleanDir "./release/bin"
+        else ()
         DotNet.build (buildParams true false) cwtoolsProjectPath
     Target.create "BuildServerDebug"<| fun _ ->
+        if File.exists (releaseDir </> "bin/server" </> platformShortCode </> "hostfxr.dll")
+        then
+            Shell.cleanDir "./release/bin"
+        else ()
         DotNet.build (buildParams false false) cwtoolsProjectPath
-
-    Target.create "BuildServerLocal" <| fun _ ->
-        DotNet.build (buildParams true true) cwtoolsProjectPath
-    Target.create "BuildServerDebugLocal" <| fun _ ->
-        DotNet.build (buildParams false true) cwtoolsProjectPath
-
-    // Target.create "BuildServer" <| fun _ ->
-    //     match Environment.isWindows with
-    //     |true -> DotNet.publish (publishParams "win-x64" false) cwtoolsProjectName
-    //     |false -> DotNet.publish (publishParams "linux-x64" false) cwtoolsLinuxProjectName
-    //     // DotNetCli.Publish (fun p -> {p with WorkingDir = "src/Main"; AdditionalArgs = ["--self-contained"; "true"; "/p:LinkDuringPublish=false"]; Output = "../../out/server/win-x64"; Runtime = "win-x64"; Configuration = "Release"})
-    //     // DotNet.publish (publishParams "linux-x64" false) cwtoolsProjectName //(fun p -> {p with Common = { p.Common with WorkingDirectory = "src/Main"; CustomParams = Some "--self-contained true /p:LinkDuringPublish=false";}; OutputPath = Some "../../out/server/linux-x64"; Runtime =  Some "linux-x64"; Configuration = DotNet.BuildConfiguration.Release }) cwtoolsProjectName
 
     Target.create "PublishServer" <| fun _ ->
         DotNet.publish (publishParams "win-x64") cwtoolsProjectPath
@@ -232,7 +220,6 @@ let initTargets () =
             CreateProcess.fromRawCommand tsc ["tsc"; "-p"; "./tsconfig.extension.json"]
             |> Proc.run
             |> (fun r -> if r.ExitCode <> 0 then failwith "tsc fail")
-        // |Some tsc -> Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName(tsc).WithArguments("tsc -p ./tsconfig.extension.json"))
         |_ -> failwith "didn't find tsc"
         match ProcessUtils.tryFindFileOnPath "npx" with
         |Some tsc ->
@@ -240,7 +227,6 @@ let initTargets () =
             |> Proc.run
             |> (fun r -> if r.ExitCode <> 0 then failwith "rollup fail")
         |_ -> failwith "didn't find rollup"
-        // Process.directExec (fun (p : ProcStartInfo) -> p.WithFileName("tsc").WithLoadUserProfile(true).WithUseShellExecute(false)) |> ignore
     )
 
     Target.create "CopyHtml" (fun _ ->
@@ -266,14 +252,10 @@ let initTargets () =
     // --------------------------------------------------------------------------------------
     // Run generator by default. Invoke 'build <Target>' to override
     // --------------------------------------------------------------------------------------
-    Target.description "Build the requirements to run the extension locally, using remote cwtools"
+    Target.description "Build the requirements to run the extension locally"
     Target.create "QuickBuild" ignore
-    Target.description "Build the requirements to run the extension locally, using remote cwtools"
+    Target.description "Build the requirements to run the extension locally, in debug mode"
     Target.create "QuickBuildDebug" ignore
-    Target.description "Build the requirements to run the extension locally, using local cwtools"
-    Target.create "QuickBuildLocal" ignore
-    Target.description "Build the requirements to run the extension locally, using local cwtools"
-    Target.create "QuickBuildLocalDebug" ignore
     Target.description "Package into the vsix, but don't publish it"
     Target.create "DryRelease" ignore
     Target.description "Package into the vsix, and publish it"
@@ -310,7 +292,7 @@ let buildTargetTree () =
 
     "PublishServer" ?=> "PrePackage" |> ignore
     "BuildServer" ?=> "PrePackage" |> ignore
-    "BuildServerLocal" ?=> "PrePackage" |> ignore
+    "BuildServerDebug" ?=> "PrePackage" |> ignore
 
     // "Format" ==>
     "Clean"
@@ -338,17 +320,6 @@ let buildTargetTree () =
     "PrePackage"
     ==>! "QuickBuildDebug"
 
-    "PrePackage"
-    ==>! "QuickBuildLocal"
-
-    "BuildServerLocal"
-    ==>! "QuickBuildLocal"
-
-    "PrePackage"
-    ==>! "QuickBuildLocal"
-
-    "BuildServerDebugLocal"
-    ==>! "QuickBuildLocalDebug"
 [<EntryPoint>]
 let main argv =
     // Microsoft.Build.Logging.StructuredLogger.Strings.Initialize()

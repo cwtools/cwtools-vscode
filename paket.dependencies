@@ -1,6 +1,5 @@
 source https://www.nuget.org/api/v2
-cache ./nupkgs versions: current
-
+storage: none
 nuget System.Text.Encoding.CodePages #
 nuget FParsec 1.1.1 #
 nuget FSharp.Data 3.0.1 #
@@ -13,7 +12,6 @@ nuget VDS.Common
 nuget LibGit2Sharp 0.31.0
 
 group git
-    #git file:///C:/users/thomas/git/cwtools master
     git https://www.github.com/cwtools/cwtools master
 
 group build
@@ -21,11 +19,6 @@ group build
     storage: none
     framework: net9.0
 
-    #nuget FSharp.Core 4.7.0.0
-    #nuget Microsoft.Build 17.3.2
-    #nuget Microsoft.Build.Framework 17.3.2
-    #nuget Microsoft.Build.Tasks.Core 17.3.2
-    #nuget Microsoft.Build.Utilities.Core 17.3.2
     nuget Fake.Core
     nuget Fake.Core.Target
     nuget Fake.DotNet.Paket
