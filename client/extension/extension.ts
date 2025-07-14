@@ -137,7 +137,6 @@ export async function activate(context: ExtensionContext) {
 		let promptVanillaPath = new NotificationType<string, void>('promptVanillaPath')
 		interface DidFocusFile { uri : string }
 		let didFocusFile = new NotificationType<DidFocusFile, void>('didFocusFile')
-		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
 		let updateFileList = new NotificationType<UpdateFileList, void>('updateFileList');
@@ -250,27 +249,6 @@ export async function activate(context: ExtensionContext) {
 				);
 
 			})
-			client.onRequest(request, (param: any, _) => {
-				console.log("recieved request " + request.method + " " + param)
-				let uri = Uri.parse(param.uri);
-				let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
-				//let document = window.activeTextEditor.document;
-				let position = new Position(param.position.line, param.position.character)
-				let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
-				if (wordRange === undefined) {
-					return "none";
-				}
-				else {
-					let text = document.getText(wordRange);
-					console.log("wordAtPos " + text);
-					if (text.trim().length == 0) {
-						return "none";
-					}
-					else {
-						return text;
-					}
-				}
-			});
 			client.onNotification(updateFileList, (params: UpdateFileList) =>
 			{
 				fileList = params.fileList;

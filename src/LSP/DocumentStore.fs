@@ -1,7 +1,8 @@
 namespace LSP
 
-open LSP.Log
 open System
+open CSharpExtensions
+open LSP.Log
 open System.IO
 open System.Collections.Generic
 open System.Text
@@ -90,3 +91,9 @@ type DocumentStore() =
 
     member this.OpenFiles(): FileInfo list =
         [for file in activeDocuments.Keys do yield FileInfo(file)]
+        
+    member this.GetTextAtPosition(fileUri: Uri, position: Position): string =
+        match this.GetText(FileInfo(fileUri.LocalPath)) with
+        | Some(text) ->
+              DocumentStoreHelper.GetTextAtPosition(text, position.line, position.character)
+        | None -> String.Empty
