@@ -5,37 +5,19 @@ open LSP.Types
 open System
 open System.IO
 open CWTools.Parser
-open CWTools.Parser.UtilityParser
-open CWTools.Parser.Types
 open CWTools.Common
-open CWTools.Common.STLConstants
 open CWTools.Games
 open FParsec
 open System.Threading.Tasks
 open System.Text
 open System.Reflection
-open System.IO
 open System.Runtime.InteropServices
 open FSharp.Data
-open LSP
-open CWTools.Validation.ValidationCore
-open System
 open CWTools.Rules
-open System.Xml.Schema
-open CWTools.Games.Files
-open LSP.Json.Ser
-open System.ComponentModel
-open CWTools.Games.Stellaris
-open CWTools.Games.Stellaris.STLLookup
-open MBrace.FsPickler
-open CWTools.Process
 open CWTools.Utilities.Position
-open CWTools.Games.EU4
 open Main.Serialize
 open Main.Git
-open FSharp.Data
 open System.Diagnostics
-open Main.Lang
 open Main.Lang.GameLoader
 open Main.Lang.LanguageServerFeatures
 open Main.Completion
@@ -120,6 +102,7 @@ type Server(client: ILanguageClient) =
     let mutable ignoreCodes : string list = []
     let mutable ignoreFiles : string list = []
     let mutable dontLoadPatterns : string list = []
+    /// key: FileName
     let mutable locCache : Map<string, CWError list> = Map.empty
 
     let mutable lastFocusedFile : string option = None
@@ -172,31 +155,24 @@ type Server(client: ILanguageClient) =
             | _, {Diagnostic.code = Some code} when List.contains code ignoreCodes -> false
             | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
             | _, _ -> true
-        // logDiag (sprintf "sd %A" s)
         s |>  List.groupBy fst
             |> List.map ((fun (f, rs) -> f, rs |> List.filter (diagnosticFilter)) >>
                 (fun (f, rs) ->
                     try {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> logWarning f; Uri "/") ; diagnostics = List.map snd rs} with |e -> failwith (sprintf "%A %A" e rs)))
             |> List.iter (client.PublishDiagnostics)
 
-    // let updateDebugBar (message : string) =
-    //     client.CustomNotification  ("debugBar", JsonValue.Record [| "value", JsonValue.String(message);  "enable", JsonValue.Boolean(true) |])
-    // let hideDebugBar() =
-    //     client.CustomNotification  ("debugBar", JsonValue.Record [| "enable", JsonValue.Boolean(false) |])
-
-
     let mutable delayedLocUpdate = false
 
     let lint (doc: Uri) (shallowAnalyze : bool) (forceDisk : bool) : Async<unit> =
         async {
             let name =
-                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith "/"
+                if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && doc.LocalPath.StartsWith '/'
                 then doc.LocalPath.Substring(1)
                 else doc.LocalPath
 
             if name.EndsWith(".yml") then delayedLocUpdate <- true else ()
             let filetext = if forceDisk then None else docs.GetText (FileInfo(doc.LocalPath))
-            let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
+            let getRange (start: Position) (endp : Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
             let parserErrors =
                 match docs.GetText (FileInfo(doc.LocalPath)) with
                 |None -> []
@@ -204,8 +180,8 @@ type Server(client: ILanguageClient) =
                     let parsed = CKParser.parseString t name
                     match name, parsed with
                     | x, _ when x.EndsWith(".yml") -> []
-                    | _, Success(_,_,_) -> []
-                    | _, Failure(msg,p,s) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0, None)]
+                    | _, Success _ -> []
+                    | _, Failure(msg,p,_) -> [("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0, None)]
             let locErrors =
                 locCache.TryFind (doc.LocalPath) |> Option.defaultValue [] |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
             // logDiag (sprintf "lint le %A" (locCache.TryFind (doc.LocalPath) |> Option.defaultValue []))
@@ -223,15 +199,6 @@ type Server(client: ILanguageClient) =
             | x -> x
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
-            //let compilerOptions = projects.FindProjectOptions doc |> Option.defaultValue emptyCompilerOptions
-            // let! parseResults, checkAnswer = checker.ParseAndCheckFileInProject(name, version, source, projectOptions)
-            // for error in parseResults.Errors do
-            //     eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
-            // match checkAnswer with
-            // | FSharpCheckFileAnswer.Aborted -> eprintfn "Aborted checking %s" name
-            // | FSharpCheckFileAnswer.Succeeded checkResults ->
-            //     for error in checkResults.Errors do
-            //         eprintfn "%s %d:%d %s" error.FileName error.StartLineAlternate error.StartColumn error.Message
         }
 
     let mutable delayTime = TimeSpan(0,0,30)
@@ -239,22 +206,20 @@ type Server(client: ILanguageClient) =
     let delayedAnalyze() =
         match gameObj with
         |Some game ->
-            let stopwatch = Stopwatch()
-            stopwatch.Start()
+            let timestamp = Stopwatch.GetTimestamp()
             game.RefreshCaches();
             if delayedLocUpdate
             then
                 logDiag "delayedLocUpdate true"
                 game.RefreshLocalisationCaches();
                 delayedLocUpdate <- false
-                locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
+                locCache <- game.LocalisationErrors(true, true) |> List.groupBy _.range.FileName |> Map.ofList
                 // eprintfn "lc update %A" locCache
             else
                 logDiag "delayedLocUpdate false"
-                locCache <- game.LocalisationErrors(false, true) |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
+                locCache <- game.LocalisationErrors(false, true) |> List.groupBy _.range.FileName |> Map.ofList
                 // eprintfn "lc update light %A" locCache
-            stopwatch.Stop()
-            let time = stopwatch.Elapsed
+            let time = Stopwatch.GetElapsedTime(timestamp)
             delayTime <- TimeSpan(Math.Min(TimeSpan(0,0,60).Ticks, Math.Max(TimeSpan(0,0, 10).Ticks, 3L * time.Ticks)))
             //GC.Collect(2, System.GCCollectionMode.Optimized, false, false)
         |None -> ()
@@ -287,15 +252,12 @@ type Server(client: ILanguageClient) =
             let analyze (file : VersionedTextDocumentIdentifier) force =
                 //eprintfn "Analyze %s" (file.uri.ToString())
                 let task = analyzeTask file.uri force
-                //let task = new Task((fun () -> lint (file.uri) false false |> Async.RunSynchronously; agent.Post (WorkComplete ())))
                 task.Start()
             let rec loop (inprogress : bool) (state : Map<string, VersionedTextDocumentIdentifier * bool>) =
                 async{
-                    // hideDebugBar()
                     let! msg = agent.Receive()
                     if state.Count > 0 then
                         logDiag (sprintf "queue length: %i" state.Count)
-                    // updateDebugBar (sprintf "queue length: %i" state.Count)
                     match msg, inprogress with
                     | UpdateRequest (ur, force), false ->
                         analyze ur force
@@ -324,7 +286,6 @@ type Server(client: ILanguageClient) =
             loop false Map.empty
             )
         )
-
 
     let setupRulesCaches()  =
         match cachePath, remoteRepoPath, useManualRules with
@@ -413,29 +374,16 @@ type Server(client: ILanguageClient) =
                 | VIC3, _, _, _, _, _, _,_, None ->
                     client.CustomNotification ("promptVanillaPath", JsonValue.String("vic3"))
         | _ -> logInfo ("No cache path")
-                // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
-
-
-
 
     let processWorkspace (uri : option<Uri>) =
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Loading project...");  "enable", JsonValue.Boolean(true) |])
         match uri with
         | Some u ->
             let path =
-                if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith '/'
                 then u.LocalPath.Substring(1)
                 else u.LocalPath
             try
-                let timer = new System.Diagnostics.Stopwatch()
-                timer.Start()
-
-                logInfo path
-                logInfo (sprintf "Parse docs time: %i" timer.ElapsedMilliseconds;)
-                timer.Restart()
-
-
-               // let docs = DocsParser.parseDocsFile @"G:\Projects\CK2 Events\CWTools\files\game_effects_triggers_1.9.1.txt"
                 let serverSettings =
                     {
                         cachePath = cachePath
@@ -491,7 +439,7 @@ type Server(client: ILanguageClient) =
                         customGameObj <- Some (game :> IGame<JominiComputedData>)
                         game :> IGame
                 gameObj <- Some game
-                let getRange (start: FParsec.Position) (endp : FParsec.Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
+                let getRange (start: Position) (endp : Position) = mkRange start.StreamName (mkPos (int start.Line) (int start.Column)) (mkPos (int endp.Line) (int endp.Column))
                 let parserErrors = game.ParserErrors() |> List.map (fun ( n, e, p) -> "CW001", Severity.Error, n, e, (getRange p p), 0, None)
                 parserErrors
                     |> List.map parserErrorToDiagnostics
@@ -510,31 +458,20 @@ type Server(client: ILanguageClient) =
                 client.CustomNotification ("updateFileList", JsonValue.Record [| "fileList", JsonValue.Array fileList|])
                 client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("Validating files...");  "enable", JsonValue.Boolean(true) |])
 
-                //eprintfn "%A" game.AllFiles
                 let valErrors = game.ValidationErrors() |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
                 let locRaw = game.LocalisationErrors(true, true)
-                locCache <- locRaw |> List.groupBy (fun e -> e.range.FileName) |> Map.ofList
-                // eprintfn "lc p %A" locCache
+                locCache <- locRaw |> List.groupBy _.range.FileName |> Map.ofList
                 let locErrors = locRaw |> List.map (fun e -> (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
 
                 valErrors @ locErrors
                     |> List.map parserErrorToDiagnostics
                     |> sendDiagnostics
                 GC.Collect()
-
-                //eprintfn "%A" game.ValidationErrors
-                    // |> List.groupBy fst
-                    // |> List.map ((fun (f, rs) -> f, rs |> List.filter (fun (_, d) -> match d.code with |Some s -> not (List.contains s ignoreCodes) |None -> true)) >>
-                    //     (fun (f, rs) -> PublishDiagnostics {uri = (match Uri.TryCreate(f, UriKind.Absolute) with |TrySuccess value -> value |TryFailure -> eprintfn "%s" f; Uri "/") ; diagnostics = List.map snd rs}))
-                    // |> List.iter (fun f -> LanguageServer.sendNotification send f)
             with
                 | :? System.Exception as e -> eprintfn "%A" e
 
         |None -> ()
         client.CustomNotification  ("loadingBar", JsonValue.Record [| "value", JsonValue.String("");  "enable", JsonValue.Boolean(false) |])
-
-
-
 
     let createRange startLine startCol endLine endCol =
         {
@@ -762,7 +699,7 @@ type Server(client: ILanguageClient) =
                 dontLoadPatterns <- excludePatterns
                 match p.settings.Item("cwtools").Item("trace").Item("server") with
                 | JsonValue.String "messages"
-                | JsonValue.String "verbose" -> CWTools.Utilities.Utils.loglevel <- CWTools.Utilities.Utils.LogLevel.Verbose
+                | JsonValue.String "verbose" -> loglevel <- LogLevel.Verbose
                 |_ -> ()
                 match p.settings.Item("cwtools").Item("cache").Item("eu4") with
                 | JsonValue.String "" -> ()
@@ -850,21 +787,12 @@ type Server(client: ILanguageClient) =
                             ))
                     task.Start()
                 | _ -> ()
-                // let task =
-                //     new Task((fun () ->
-                //                         match gameObj with
-                //                         |Some game ->
-                //                             locCache <- game.LocalisationErrors(true, true) |> List.groupBy (fun (_, _, r, _, _, _) -> r.FileName) |> Map.ofList
-                //                             eprintfn "lc %A" locCache
-                //                         |None -> ()
-                //     ))
-                // task.Start()
             }
 
         member this.DidFocusFile(p : DidFocusFileParams) =
             async {
                 let path =
-                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.uri.LocalPath.StartsWith "/"
+                    if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.uri.LocalPath.StartsWith '/'
                     then p.uri.LocalPath.Substring(1)
                     else p.uri.LocalPath
                 lastFocusedFile <- Some path
@@ -893,15 +821,10 @@ type Server(client: ILanguageClient) =
                 for change in p.changes do
                     match change.``type`` with
                     |FileChangeType.Created ->
-
                         lintAgent.Post (UpdateRequest ({uri = change.uri; version = 0}, true))
-                        //eprintfn "Watched file %s %s" (change.uri.ToString()) (change._type.ToString())
                     |FileChangeType.Deleted ->
                         client.PublishDiagnostics {uri = change.uri; diagnostics = []}
                     |_ ->                 ()
-                    // if change.uri.AbsolutePath.EndsWith ".fsproj" then
-                    //     projects.UpdateProjectFile change.uri
-                        //lintAgent.Post (UpdateRequest {uri = p.textDocument.uri; version = p.textDocument.version})
             }
         member this.Completion(p: CompletionParams) =
             async {
@@ -909,7 +832,7 @@ type Server(client: ILanguageClient) =
             } |> catchError None
         member this.Hover(p: TextDocumentPositionParams) =
             async {
-                return (LanguageServerFeatures.hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj vic2GameObj ck3GameObj vic3GameObj customGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
+                return (hoverDocument eu4GameObj hoi4GameObj stlGameObj ck2GameObj irGameObj vic2GameObj ck3GameObj vic3GameObj customGameObj client docs p.textDocument.uri p.position) |> Async.RunSynchronously |> Some
             } |> catchError None
 
         member this.ResolveCompletionItem(p: CompletionItem) =
@@ -945,7 +868,7 @@ type Server(client: ILanguageClient) =
                         let position = Pos.fromZ p.position.line p.position.character// |> (fun p -> Pos.fromZ)
                         let path =
                             let u = p.textDocument.uri
-                            if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+                            if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith '/'
                             then u.LocalPath.Substring(1)
                             else u.LocalPath
                         let gototype = game.FindAllRefs position (path) (docs.GetText (FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
@@ -983,8 +906,6 @@ type Server(client: ILanguageClient) =
                                                     then
                                                         acc |> List.map (fun (a : DocumentSymbol) -> if isRangeInRange a.range next.range && a.name <> next.name then { a with children = (next::(a.children))} else a )
                                                     else next::acc) []
-                        // all |> List.fold (fun acc next -> acc |> List.tryFind (fun a -> isRangeInRange a.range next.range) |> function |None -> next::acc |Some ) []
-                            //   |> List.map (fun (k, vs) -> createDocumentSymbol k )
                     |None -> []
             } |> catchError []
         member this.WorkspaceSymbols(p: WorkspaceSymbolParams) = TODO()
@@ -996,7 +917,7 @@ type Server(client: ILanguageClient) =
                     |Some game ->
                         let es = locCache
                         let path =
-                            if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.textDocument.uri.LocalPath.StartsWith "/"
+                            if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.textDocument.uri.LocalPath.StartsWith '/'
                             then p.textDocument.uri.LocalPath.Substring(1)
                             else p.textDocument.uri.LocalPath
 
@@ -1024,13 +945,14 @@ type Server(client: ILanguageClient) =
         member this.DocumentFormatting(p: DocumentFormattingParams) =
             async {
                 let path =
-                    if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.textDocument.uri.LocalPath.StartsWith "/"
+                    if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && p.textDocument.uri.LocalPath.StartsWith '/'
                     then p.textDocument.uri.LocalPath.Substring(1)
                     else p.textDocument.uri.LocalPath
-                let filetext = docs.GetText (FileInfo(p.textDocument.uri.LocalPath))
-                match filetext with
-                | Some filetext ->
-                    match CWTools.Parser.CKParser.parseString filetext path, (Path.GetExtension path) = ".gui" || (Path.GetExtension path) = ".yml" with
+                let fileText = docs.GetText (FileInfo(p.textDocument.uri.LocalPath))
+                match fileText with
+                | Some fileText ->
+                    match CKParser.parseString fileText path, Path.GetExtension(path.AsSpan()).Equals(".gui", StringComparison.OrdinalIgnoreCase)
+                                                              || Path.GetExtension(path.AsSpan()).Equals(".yml", StringComparison.OrdinalIgnoreCase) with
                     | Success(sl, _, _), false ->
                         let formatted = CKPrinter.printTopLevelKeyValueList sl
                         return [{ range = createRange 0 0 100000 0; newText = formatted }]
@@ -1054,7 +976,6 @@ type Server(client: ILanguageClient) =
                                            |> List.map (fun lockey -> sprintf " %s%s" lockey generatedStrings)
                                            |> List.distinct
                             let text = String.Join(Environment.NewLine,keys)
-                            //let notif = CreateVirtualFile { uri = Uri "cwtools://1"; fileContent = text }
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
                             None
                         | {command = "genlocall"; arguments = _} ->
@@ -1066,12 +987,10 @@ type Server(client: ILanguageClient) =
                             let text = String.Join(Environment.NewLine,keys)
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
                             None
-                            //LanguageServer.sendNotification send notif
                         | {command = "debugrules"; arguments = _} ->
                             match irGameObj, hoi4GameObj with
                             | Some ir, _ ->
                                 let text = (ir.References().ConfigRules) |> List.map (fun r -> r.ToString()) |> List.toArray |> (fun l -> String.Join("\n", l))
-                                // let text = sprintf "%O" (ir.References().ConfigRules)
                                 client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://1");  "fileContent", JsonValue.String(text) |])
                             | _, Some hoi4 ->
                                 let text = (hoi4.References().ConfigRules) |> List.map (fun r -> r.ToString()) |> List.toArray |> (fun l -> String.Join("\n", l))
@@ -1110,15 +1029,6 @@ type Server(client: ILanguageClient) =
                             let text = String.Join(Environment.NewLine, (locs))
                             client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://alllocfiles");  "fileContent", JsonValue.String(text) |])
                             None
-                            // eprintfn "%A %A %A" (vanillaDirectory.AsString()) (cacheDirectory.AsString()) (cacheGame.AsString())
-                            // match cacheGame.AsString() with
-                            // |"stellaris" ->
-                            //     serializeSTL (vanillaDirectory.AsString()) (cacheDirectory.AsString())
-                            // |"hoi4" ->
-                            //     serializeHOI4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
-                            // |"eu4" ->
-                            //     serializeEU4 (vanillaDirectory.AsString()) (cacheDirectory.AsString())
-                            // client.CustomNotification ("promptReload", JsonValue.String("Cached generated, reload to use"))
                         | {command = "pretriggerAllFiles"; arguments = _} ->
                             let files = game.AllFiles()
                             let filteredFiles =
@@ -1136,8 +1046,6 @@ type Server(client: ILanguageClient) =
                             | Some game ->
                                 let techs = game.References().Technologies
                                 let techJson = techs |> List.map (fun (k, p) -> JsonValue.Record [|"name", JsonValue.String k; "prereqs", JsonValue.Array (p |> Array.ofList |> Array.map JsonValue.String)|]) |> Array.ofList |> JsonValue.Array
-                                //let techJson = techs |> List.map (fun (k, p) -> [JsonValue.String k; JsonValue.Array (p |> List.map JsonValue.String |> Array.ofList)] |> Array.ofList |> JsonValue.Array) |> List.toArray |> JsonValue.Array
-                                //eprintfn "%A" techJson
                                 Some techJson
                             | None -> None
                         | {command = "getGraphData"; arguments = x::depth::_} ->
@@ -1174,26 +1082,12 @@ type Server(client: ILanguageClient) =
                                 Some (all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
                             | None -> None
                         | { command = "exportTypes"; arguments = _ } ->
-                            // let convRangeToJson (loc : range) =
-                            //     [|
-                            //         "filename", JsonValue.String (loc.FileName.Replace("\\","/"))
-                            //         "line", JsonValue.Number (loc.StartLine |> decimal)
-                            //         "column", JsonValue.Number (loc.StartColumn |> decimal)
-                            //     |] |> JsonValue.Record
-                            // let createRecord (typename, instancename, position) =
-                            //     [|
-                            //         "type", typename
-                            //         "name", instancename
-                            //         "position", position
-                            //     |] |> JsonValue.Record
                             match gameObj with
                             | Some game ->
                                 let header = "type,name,file,line" + Environment.NewLine
                                 let res = game.Types() |> Map.toList |> List.collect (fun (s, vs) -> vs |> List.map (fun v -> s, v))
                                 let text = res |> List.map (fun (t, td) -> sprintf "%s,%s,%s,%A" t (td.id) (td.range.FileName.Replace("\\","/")) (td.range.StartLine))
                                               |> String.concat (Environment.NewLine)
-                                // let res = res |> List.map (fun (t, td) -> JsonValue.String t, JsonValue.String (td.id), convRangeToJson td.range)
-                                // Some (res |> Array.ofList |> Array.map createRecord |> JsonValue.Array)
                                 client.CustomNotification  ("createVirtualFile", JsonValue.Record [| "uri", JsonValue.String("cwtools://alltypes");  "fileContent", JsonValue.String(header+text) |])
                                 None
                             | _ -> None
