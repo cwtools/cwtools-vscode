@@ -24,13 +24,9 @@ module LanguageServerFeatures =
             }
         }
 
-    let getWordAtPos (client : ILanguageClient) pos doc =
-        let json = serializerFactory<GetWordRangeAtPositionParams> defaultJsonWriteOptions ({ position = pos; uri = doc })
-        client.CustomRequest("getWordRangeAtPosition", json)
-
     let getPathFromDoc (doc : Uri) =
         let u = doc
-        if System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
+        if RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && u.LocalPath.StartsWith "/"
         then u.LocalPath.Substring(1)
         else u.LocalPath
 
@@ -64,17 +60,16 @@ module LanguageServerFeatures =
 
     let hoverDocument (eu4GameObj) (hoi4GameObj) (stlGameObj) (ck2GameObj) (irGameObj) (vic2GameObj) (ck3GameObj) (vic3GameObj: 'h option) (customGameObj) (client : ILanguageClient) (docs : DocumentStore) (doc : Uri)  (pos: LSP.Types.Position) =
         async {
-            let! word = getWordAtPos client pos doc
-            let unescapedword = word.ToString().Replace("\\\"", "\"").Trim('"')
+            let unescapedWord = docs.GetTextAtPosition(doc, pos)
             let position = Pos.fromZ pos.line pos.character
             let path = getPathFromDoc doc
             let hoverFunction (game : IGame<_>) =
                 let symbolInfo = game.InfoAtPos position path (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                 let scopeContext = game.ScopesAtPos position (path) (docs.GetText (FileInfo (doc.LocalPath)) |> Option.defaultValue "")
                 let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                eprintfn "Looking for effect %s in the %i effects loaded" (word.ToString()) (allEffects.Length)
-                let hovered = allEffects |> List.tryFind (fun e -> e.Name.GetString() = unescapedword)
-                let lochover = lochoverFromInfo (game.References().Localisation) symbolInfo unescapedword
+                eprintfn "Looking for effect %s in the %i effects loaded" (unescapedWord.ToString()) (allEffects.Length)
+                let hovered = allEffects |> List.tryFind (fun e -> e.Name.GetString() = unescapedWord)
+                let lochover = lochoverFromInfo (game.References().Localisation) symbolInfo unescapedWord
                 let scopesExtra =
                     if scopeContext.IsNone then "" else
                     let scopes = scopeContext.Value
