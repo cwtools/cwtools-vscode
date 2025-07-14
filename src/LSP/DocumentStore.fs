@@ -13,7 +13,7 @@ type private Version = {
 }
 
 module DocumentStoreUtils =
-    let findRange(text: StringBuilder, range: Range): int * int =
+    let findRange(text: StringBuilder, range: Range): struct (int * int) =
         let mutable line = 0
         let mutable char = 0
         let mutable startOffset = 0
@@ -41,7 +41,7 @@ type DocumentStore() =
     let patch(doc: VersionedTextDocumentIdentifier, range: Range, text: string): unit =
         let file = FileInfo(doc.uri.LocalPath)
         let existing = activeDocuments.[file.FullName]
-        let startOffset, endOffset = findRange(existing.text, range)
+        let struct (startOffset, endOffset) = findRange(existing.text, range)
         existing.text.Remove(startOffset, endOffset - startOffset) |> ignore
         existing.text.Insert(startOffset, text) |> ignore
         existing.version <- doc.version
