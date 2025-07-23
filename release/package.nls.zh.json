@@ -1,0 +1,55 @@
+{
+  // I'm not sure this works
+  "extension.displayName": "CWTools - Paradox 语言服务",
+  // I'm not sure this works
+  "extension.description": "使用 CWTools 为 Paradox Interactive 脚本文件提供支持",
+  // The title of the panel under Explorer which contains the extension's list of files it knows about
+  "views.cwtools-files.name": "CWTools 已加载文件",
+  "commands.outputerrors.title": "将错误写入文件",
+  "commands.genlocall.title": "为所有文件生成缺失的本地化",
+  "commands.reloadrulesconfig.title": "重新加载配置规则",
+  "commands.cacheVanilla.title": "重新生成游戏原版缓存文件",
+  "commands.listAllFiles.title": "调试：列出所有文件",
+  "commands.listAllLocFiles.title": "调试：列出所有本地化文件",
+  "commands.debugrules.title": "调试：列出所有配置规则",
+  // https://stellaris.paradoxwikis.com/Event_modding#Pre-triggers - This command applies the optimisation everywhere it can be
+  "commands.pretriggerAllFiles.title": "将所有触发器优化为预触发器",
+  // This doesn't seem to work, but it would be used to manually trigger cwtools to load for a game not supported by cwtools (e.g. if a new game comes out)
+  "commands.startcustomgame.title": "为自定义游戏激活 cwtools",
+  // Show the connected graph of the current type, e.g. https://github.com/cwtools/cwtools-vscode/blob/localisaiton/release/docs/graph-bad-example.png
+  "commands.showGraph.title": "显示图",
+  // Show a graph previously exported JSON
+  "commands.graphFromJson.title": "从 JSON 重新创建图",
+  "commands.exportTypes.title": "导出：所有类型",
+  "commands.saveGraphImage.title": "将图保存为图片",
+  // Adjust the depth of the displayed graph, which is how many links it follows outside the current file to other files
+  "commands.setGraphDepth.title": "设置图深度",
+  "commands.saveGraphJson.title": "将图保存为 JSON",
+  "configuration.title": "CWTools 配置",
+  // Trace here refers to very detailed logs
+  "configuration.cwtools.trace.server.description": "跟踪 VSCode 与语言服务器之间的通信。",
+  "configuration.cwtools.localisation.languages.description": "用于验证本地化的语言列表。",
+  "configuration.cwtools.localisation.generated_strings.description": "生成缺失本地化字符串时使用的占位符字符串。",
+  "configuration.cwtools.errors.vanilla.description": "是否显示原版文件的错误",
+  "configuration.cwtools.errors.ignore.description": "要忽略的错误代码，ID 列表",
+  "configuration.cwtools.errors.ignorefiles.description": "要忽略错误的文件夹，文件名称列表",
+  "configuration.cwtools.experimental.description": "是否启用实验性功能",
+  "configuration.cwtools.debug_mode.description": "用于帮助编写规则的调试功能",
+  // Referring to log levels (Error, Warning, Info, Diagnostic)
+  "configuration.cwtools.logging.diagnostic.description": "是否输出诊断级别日志",
+  "configuration.cwtools.rules_version.description": "自动更新的规则版本。手动将使用 rules_folder 中设置的本地路径",
+  "configuration.cwtools.rules_folder.description": "包含要使用的自定义规则的文件夹",
+  // Glob pattern is a technical term
+  "configuration.cwtools.ignore_patterns.description": "要忽略的文件路径（不加载到 cwtools 中），glob 模式列表",
+  "configuration.cwtools.cache.eu4.description": "原版 EU4 安装位置",
+  "configuration.cwtools.cache.hoi4.description": "原版 HOI4 安装位置",
+  "configuration.cwtools.cache.stellaris.description": "原版 Stellaris 安装位置",
+  "configuration.cwtools.cache.ck2.description": "原版 CK2 安装位置",
+  "configuration.cwtools.cache.imperator.description": "原版 I:R 安装位置",
+  "configuration.cwtools.cache.vic2.description": "原版 VIC2 安装位置",
+  "configuration.cwtools.cache.ck3.description": "原版 CK3 安装位置",
+  "configuration.cwtools.cache.vic3.description": "原版 VIC3 安装位置",
+  // zoom sensitivity in the graph
+  "configuration.cwtools.graph.zoomSensitivity.description": "控制滚轮缩放灵敏度，<1 降低灵敏度，>1 增加灵敏度",
+  "configuration.cwtools.maxFileSize.description": "加载的最大脚本文件大小（以 MB 为单位）（警告：非常大的文件可能导致不稳定或无效诊断）"
+}
