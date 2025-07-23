@@ -41,11 +41,6 @@
     "menus": {
       "editor/title": [
         {
-          "when": "cwtoolsEventFile == true \u0026\u0026 cwtoolsWebview == false",
-          "command": "eventGraph",
-          "group": "navigation"
-        },
-        {
           "when": "cwtoolsGraphFile == true \u0026\u0026 cwtoolsWebview == false",
           "command": "showGraph",
           "group": "navigation"
@@ -114,18 +109,8 @@
         "category": "cwtools"
       },
       {
-        "command": "techGraph",
-        "title": "%commands.techGraph.title%",
-        "category": "cwtools"
-      },
-      {
         "command": "showGraph",
         "title": "%commands.showGraph.title%",
-        "category": "cwtools"
-      },
-      {
-        "command": "eventGraph",
-        "title": "%commands.eventGraph.title%",
         "category": "cwtools"
       },
       {
@@ -325,11 +310,6 @@
           "minimum": 1,
           "default": 2,
           "description": "%configuration.cwtools.maxFileSize.description%"
-        },
-        "cwtools.localisation.replaceme": {
-          "scope": "window",
-          "type": "string",
-          "description": "%configuration.cwtools.localisation.replaceme.description%"
         }
       }
     },
