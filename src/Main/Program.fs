@@ -629,10 +629,10 @@ type Server(client: ILanguageClient) =
 
                 let fileList =
                     game.AllFiles()
-                    |> List.map (mapResourceToFilePath)
-                    |> List.choose (fun (s, f, l) ->
-                        match Uri.TryCreate(f, UriKind.Absolute) with
-                        | TrySuccess value -> Some(s, value, l)
+                    |> List.choose (fun resource ->
+                        let scope, fileUri, logicalPath = mapResourceToFilePath resource
+                        match Uri.TryCreate(fileUri, UriKind.Absolute) with
+                        | TrySuccess url -> Some(scope, url, logicalPath)
                         | TryFailure -> None)
                     |> List.map (fun (s, uri, l) ->
                         JsonValue.Record
