@@ -1,3 +1,7 @@
+### Unreleased
+* Remove unused config settings
+* Added chinese localisation for extension setings and actions
+
 ### 0.10.26
 * Fix stellaris log parsing
 * Fix empty zip crash (thanks @nikitalita!)
