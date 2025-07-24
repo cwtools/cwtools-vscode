@@ -52,7 +52,7 @@ export async function activate(context: ExtensionContext) {
 	const isDevDir = env.machineId === "someValue.machineId"
 	const cacheDir = isDevDir ? context.globalStoragePath + '/.cwtools' : context.extensionPath + '/.cwtools'
 
-	var init = function(language : string, isVanillaFolder : boolean) {
+	var init = async function(language : string, isVanillaFolder : boolean) {
 		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s.]+)"?/ })
 		// The server is implemented using dotnet core
 		var serverExe: string;
@@ -141,147 +141,7 @@ export async function activate(context: ExtensionContext) {
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
 		let updateFileList = new NotificationType<UpdateFileList>('updateFileList');
-		client.onReady().then(() => {
-			client.onNotification(loadingBarNotification, (param: loadingBarParams) => {
-				if (param.enable) {
-					if (status !== undefined) {
-						status.dispose();
-					}
-					status = window.setStatusBarMessage(param.value);
-					context.subscriptions.push(status);
-				}
-				else if (!param.enable) {
-					status.dispose();
-				}
-				else if (status !== undefined) {
-					status.dispose();
-				}
-			})
-			let debugStatusBar = window.createStatusBarItem(vs.StatusBarAlignment.Left);
-			context.subscriptions.push(debugStatusBar);
-			client.onNotification(debugStatusBarParamsNotification, (param: debugStatusBarParams) => {
-				if (param.enable) {
-					debugStatusBar.text = param.value;
-					debugStatusBar.show();
-				}
-				else if (!param.enable) {
-					debugStatusBar.hide();
-				}
-			})
-			client.onNotification(createVirtualFile, (param: CreateVirtualFile) => {
-				let uri = Uri.parse(param.uri);
-				let doc = workspace.openTextDocument(uri).then(doc => {
-					let edit = new WorkspaceEdit();
-					let range = new Range(0, 0, doc.lineCount, doc.getText().length);
-					edit.set(uri, [new TextEdit(range, param.fileContent)]);
-					workspace.applyEdit(edit);
-					window.showTextDocument(uri);
-					//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
-				});
-			})
-			client.onNotification(promptReload, (param: string) => {
-				reloadExtension(param, "Reload")
-				// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
-			})
-			client.onNotification(forceReload, (param: string) => {
-				reloadExtension(param, undefined, true);
-				// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
-			})
-			client.onNotification(promptVanillaPath, (param : string) => {
-				var gameDisplay = ""
-				switch (param) {
-					case "stellaris": gameDisplay = "Stellaris"; break;
-					case "hoi4": gameDisplay = "Hearts of Iron IV"; break;
-					case "eu4": gameDisplay = "Europa Universalis IV"; break;
-					case "ck2": gameDisplay = "Crusader Kings II"; break;
-					case "imperator": gameDisplay = "Imperator"; break;
-					case "vic2": gameDisplay = "Victoria II"; break;
-					case "vic3": gameDisplay = "Victoria 3"; break;
-					case "ck3": gameDisplay = "Crusader Kings III"; break;
-				}
-				window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
-				.then((_) =>
-					window.showOpenDialog({
-						canSelectFiles: false,
-						canSelectFolders: true,
-						canSelectMany: false,
-						openLabel: "Select vanilla installation folder for " + gameDisplay
-					}).then(
-						(uri) => {
-							let directory = uri[0];
-							let gameFolder = path.basename(directory.fsPath)
-							let dir = directory.fsPath
-							var game = ""
-							switch (gameFolder) {
-								case "Stellaris": game = "stellaris"; break;
-								case "Hearts of Iron IV": game = "hoi4"; break;
-								case "Europa Universalis IV": game = "eu4"; break;
-								case "Crusader Kings II": game = "ck2"; break;
-								case "Crusader Kings III":
-									game = "ck3";
-									dir = path.join(dir, "game");
-									break;
-								case "Victoria II": game = "vic2"; break;
-								case "Victoria 2": game = "vic2"; break;
-								case "Victoria 3":
-									game = "vic3";
-									dir = path.join(dir, "game");
-									break;
-								case "ImperatorRome":
-									game = "imperator";
-									dir = path.join(dir, "game");
-									break;
-								case "Imperator":
-									game = "imperator";
-									dir = path.join(dir, "game");
-									 break;
-							}
-							console.log(path.join(dir, "common"));
-							if (game === "" || !(fs.existsSync(path.join(dir, "common")))) {
-								window.showErrorMessage("The selected folder does not appear to be a supported game folder")
-							}
-							else {
-								log.appendLine("path" + dir)
-								log.appendLine("log" + game)
-								workspace.getConfiguration("cwtools").update("cache." + game, dir, true)
-								reloadExtension("Reloading to generate vanilla cache", undefined, true);
-							}
-						})
-				);
 
-			})
-			client.onRequest(request, (param: any) => {
-				console.log("recieved request " + request.method + " " + param)
-				let uri = Uri.parse(param.uri);
-				let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
-				//let document = window.activeTextEditor.document;
-				let position = new Position(param.position.line, param.position.character)
-				let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
-				if (wordRange === undefined) {
-					return "none";
-				}
-				else {
-					let text = document.getText(wordRange);
-					console.log("wordAtPos " + text);
-					if (text.trim().length == 0) {
-						return "none";
-					}
-					else {
-						return text;
-					}
-				}
-			});
-			client.onNotification(updateFileList, (params: UpdateFileList) =>
-			{
-				fileList = params.fileList;
-				if (fileExplorer) {
-					fileExplorer.refresh(fileList);
-				}
-				else {
-					fileExplorer = new FileExplorer(context, fileList);
-				}
-			})
-		})
 		let latestType : string = undefined;
 
 		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
@@ -324,7 +184,144 @@ export async function activate(context: ExtensionContext) {
 			}
 		}
 
-		let disposable = client.start();
+		client.onNotification(loadingBarNotification, (param: loadingBarParams) => {
+			if (param.enable) {
+				if (status !== undefined) {
+					status.dispose();
+				}
+				status = window.setStatusBarMessage(param.value);
+				context.subscriptions.push(status);
+			}
+			else if (!param.enable) {
+				status.dispose();
+			}
+			else if (status !== undefined) {
+				status.dispose();
+			}
+		})
+		let debugStatusBar = window.createStatusBarItem(vs.StatusBarAlignment.Left);
+		context.subscriptions.push(debugStatusBar);
+		client.onNotification(debugStatusBarParamsNotification, (param: debugStatusBarParams) => {
+			if (param.enable) {
+				debugStatusBar.text = param.value;
+				debugStatusBar.show();
+			}
+			else if (!param.enable) {
+				debugStatusBar.hide();
+			}
+		})
+		client.onNotification(createVirtualFile, (param: CreateVirtualFile) => {
+			let uri = Uri.parse(param.uri);
+			let doc = workspace.openTextDocument(uri).then(doc => {
+				let edit = new WorkspaceEdit();
+				let range = new Range(0, 0, doc.lineCount, doc.getText().length);
+				edit.set(uri, [new TextEdit(range, param.fileContent)]);
+				workspace.applyEdit(edit);
+				window.showTextDocument(uri);
+				//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
+			});
+		})
+		client.onNotification(promptReload, (param: string) => {
+			reloadExtension(param, "Reload")
+			// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
+		})
+		client.onNotification(forceReload, (param: string) => {
+			reloadExtension(param, undefined, true);
+			// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
+		})
+		client.onNotification(promptVanillaPath, (param: string) => {
+			var gameDisplay = ""
+			switch (param) {
+				case "stellaris": gameDisplay = "Stellaris"; break;
+				case "hoi4": gameDisplay = "Hearts of Iron IV"; break;
+				case "eu4": gameDisplay = "Europa Universalis IV"; break;
+				case "ck2": gameDisplay = "Crusader Kings II"; break;
+				case "imperator": gameDisplay = "Imperator"; break;
+				case "vic2": gameDisplay = "Victoria II"; break;
+				case "vic3": gameDisplay = "Victoria 3"; break;
+				case "ck3": gameDisplay = "Crusader Kings III"; break;
+			}
+			window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
+				.then((_) =>
+					window.showOpenDialog({
+						canSelectFiles: false,
+						canSelectFolders: true,
+						canSelectMany: false,
+						openLabel: "Select vanilla installation folder for " + gameDisplay
+					}).then(
+						(uri) => {
+							let directory = uri[0];
+							let gameFolder = path.basename(directory.fsPath)
+							let dir = directory.fsPath
+							var game = ""
+							switch (gameFolder) {
+								case "Stellaris": game = "stellaris"; break;
+								case "Hearts of Iron IV": game = "hoi4"; break;
+								case "Europa Universalis IV": game = "eu4"; break;
+								case "Crusader Kings II": game = "ck2"; break;
+								case "Crusader Kings III":
+									game = "ck3";
+									dir = path.join(dir, "game");
+									break;
+								case "Victoria II": game = "vic2"; break;
+								case "Victoria 2": game = "vic2"; break;
+								case "Victoria 3":
+									game = "vic3";
+									dir = path.join(dir, "game");
+									break;
+								case "ImperatorRome":
+									game = "imperator";
+									dir = path.join(dir, "game");
+									break;
+								case "Imperator":
+									game = "imperator";
+									dir = path.join(dir, "game");
+									break;
+							}
+							console.log(path.join(dir, "common"));
+							if (game === "" || !(fs.existsSync(path.join(dir, "common")))) {
+								window.showErrorMessage("The selected folder does not appear to be a supported game folder")
+							}
+							else {
+								log.appendLine("path" + dir)
+								log.appendLine("log" + game)
+								workspace.getConfiguration("cwtools").update("cache." + game, dir, true)
+								reloadExtension("Reloading to generate vanilla cache", undefined, true);
+							}
+						})
+				);
+
+		})
+		client.onRequest(request, (param: any) => {
+			console.log("recieved request " + request.method + " " + param)
+			let uri = Uri.parse(param.uri);
+			let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
+			//let document = window.activeTextEditor.document;
+			let position = new Position(param.position.line, param.position.character)
+			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
+			if (wordRange === undefined) {
+				return "none";
+			}
+			else {
+				let text = document.getText(wordRange);
+				console.log("wordAtPos " + text);
+				if (text.trim().length == 0) {
+					return "none";
+				}
+				else {
+					return text;
+				}
+			}
+		});
+		client.onNotification(updateFileList, (params: UpdateFileList) => {
+			fileList = params.fileList;
+			if (fileExplorer) {
+				fileExplorer.refresh(fileList);
+			}
+			else {
+				fileExplorer = new FileExplorer(context, fileList);
+			}
+		})
 
 		if (workspace.name === undefined) {
 			window.showWarningMessage("You have opened a file directly.\n\rFor CWTools to work correctly, the mod folder should be opened using \"File, Open Folder\"")
@@ -389,7 +386,6 @@ export async function activate(context: ExtensionContext) {
 
 		// Push the disposable to the context's subscriptions so that the
 		// client can be deactivated on extension deactivation
-		context.subscriptions.push(disposable);
 		context.subscriptions.push(new CwtoolsProvider());
 		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
 			for (const sub of context.subscriptions) {
@@ -401,8 +397,7 @@ export async function activate(context: ExtensionContext) {
 			}
 			activate(context);
 		}));
-
-
+		await client.start();
 	}
 
 	var languageId : string = null;
