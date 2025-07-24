@@ -10,11 +10,9 @@ import * as fs from 'fs';
 import * as vs from 'vscode';
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient/node';
-import { create } from 'domain';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
-import { isNumber, debug } from 'util';
 
 import executable from 'executable';
 
@@ -50,7 +48,7 @@ export async function activate(context: ExtensionContext) {
 	}
 
 	const isDevDir = env.machineId === "someValue.machineId"
-	const cacheDir = isDevDir ? context.globalStoragePath + '/.cwtools' : context.extensionPath + '/.cwtools'
+	const cacheDir = isDevDir ? context.globalStorageUri + '/.cwtools' : context.extensionPath + '/.cwtools'
 
 	var init = async function(language : string, isVanillaFolder : boolean) {
 		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s.]+)"?/ })
@@ -123,8 +121,6 @@ export async function activate(context: ExtensionContext) {
 		let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
 		let log = client.outputChannel
 		defaultClient = client;
-		//log.appendLine("client init")
-		//log.appendLine(env.machineId)
 		client.registerProposedFeatures();
 		interface loadingBarParams { enable: boolean; value: string }
 		let loadingBarNotification = new NotificationType<loadingBarParams>('loadingBar');
@@ -218,16 +214,13 @@ export async function activate(context: ExtensionContext) {
 				edit.set(uri, [new TextEdit(range, param.fileContent)]);
 				workspace.applyEdit(edit);
 				window.showTextDocument(uri);
-				//commands.executeCommand('vscode.previewHtml', uri, ViewColumn.One, "localisation");
 			});
 		})
 		client.onNotification(promptReload, (param: string) => {
 			reloadExtension(param, "Reload")
-			// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
 		})
 		client.onNotification(forceReload, (param: string) => {
 			reloadExtension(param, undefined, true);
-			// reloadExtension("Validation rules for " + window.activeTextEditor.document.languageId + " have been updated to " + param + ".\n\r Reload to use.", "Reload")
 		})
 		client.onNotification(promptVanillaPath, (param: string) => {
 			var gameDisplay = ""
@@ -293,10 +286,9 @@ export async function activate(context: ExtensionContext) {
 
 		})
 		client.onRequest(request, (param: any) => {
-			console.log("recieved request " + request.method + " " + param)
+			console.log("received request " + request.method + " " + param)
 			let uri = Uri.parse(param.uri);
 			let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
-			//let document = window.activeTextEditor.document;
 			let position = new Position(param.position.line, param.position.character)
 			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
 			if (wordRange === undefined) {
