@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient/node';
 import { create } from 'domain';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
@@ -127,20 +127,20 @@ export async function activate(context: ExtensionContext) {
 		//log.appendLine(env.machineId)
 		client.registerProposedFeatures();
 		interface loadingBarParams { enable: boolean; value: string }
-		let loadingBarNotification = new NotificationType<loadingBarParams, void>('loadingBar');
+		let loadingBarNotification = new NotificationType<loadingBarParams>('loadingBar');
 		interface debugStatusBarParams { enable: boolean; value: string }
-		let debugStatusBarParamsNotification = new NotificationType<debugStatusBarParams, void>('debugBar');
+		let debugStatusBarParamsNotification = new NotificationType<debugStatusBarParams>('debugBar');
 		interface CreateVirtualFile { uri: string; fileContent: string }
-		let createVirtualFile = new NotificationType<CreateVirtualFile, void>('createVirtualFile');
-		let promptReload = new NotificationType<string, void>('promptReload')
-		let forceReload = new NotificationType<string, void>('forceReload')
-		let promptVanillaPath = new NotificationType<string, void>('promptVanillaPath')
+		let createVirtualFile = new NotificationType<CreateVirtualFile>('createVirtualFile');
+		let promptReload = new NotificationType<string>('promptReload')
+		let forceReload = new NotificationType<string>('forceReload')
+		let promptVanillaPath = new NotificationType<string>('promptVanillaPath')
 		interface DidFocusFile { uri : string }
-		let didFocusFile = new NotificationType<DidFocusFile, void>('didFocusFile')
-		let request = new RequestType<Position, string, void, void>('getWordRangeAtPosition');
+		let didFocusFile = new NotificationType<DidFocusFile>('didFocusFile')
+		let request = new RequestType<Position, string, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
-		let updateFileList = new NotificationType<UpdateFileList, void>('updateFileList');
+		let updateFileList = new NotificationType<UpdateFileList>('updateFileList');
 		client.onReady().then(() => {
 			client.onNotification(loadingBarNotification, (param: loadingBarParams) => {
 				if (param.enable) {
@@ -250,7 +250,7 @@ export async function activate(context: ExtensionContext) {
 				);
 
 			})
-			client.onRequest(request, (param: any, _) => {
+			client.onRequest(request, (param: any) => {
 				console.log("recieved request " + request.method + " " + param)
 				let uri = Uri.parse(param.uri);
 				let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
