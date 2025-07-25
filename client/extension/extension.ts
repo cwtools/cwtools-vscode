@@ -439,55 +439,42 @@ export async function activate(context: ExtensionContext) {
 
 		return validFiles;
 	}
-	var eu4 = findExeInFiles("eu4")
-	var hoi4 = findExeInFiles("hoi4")
-	var stellaris = findExeInFiles("stellaris")
-	var ck2 = findExeInFiles("CK2")
-	var vic2 = findExeInFiles("v2game")
-	var ck3 = findExeInFiles("ck3", true)
-	var vic3 = findExeInFiles("victoria3", true)
-	var ir = findExeInFiles("imperator", true)
-	Promise.all([eu4, hoi4, stellaris, ck2, ir, vic2, ck3, vic3]).then(results =>
-		{
-			var isVanillaFolder = false;
-			if (results[0].length > 0 && (languageId === null || languageId === "eu4")) {
-				isVanillaFolder = true;
-				languageId = "eu4";
-			}
-			if (results[1].length > 0 && (languageId === null || languageId === "hoi4")) {
-				isVanillaFolder = true;
-				languageId = "hoi4";
-			}
-			if (results[2].length > 0 && (languageId === null || languageId === "stellaris")) {
-				isVanillaFolder = true;
-				languageId = "stellaris";
-			}
-			if (results[3].length > 0 && (languageId === null || languageId === "ck2")) {
-				isVanillaFolder = true;
-				languageId = "ck2";
-			}
-			if (results[4].length > 0 && (languageId === null || languageId === "imperator")) {
-				isVanillaFolder = true;
-				languageId = "imperator";
-			}
-			if (results[5].length > 0 && (languageId === null || languageId === "vic2")) {
-				isVanillaFolder = true;
-				languageId = "vic2";
-			}
-			if (results[6].length > 0 && (languageId === null || languageId === "ck3")) {
-				isVanillaFolder = true;
-				languageId = "ck3";
-			}
-			if (results[7].length > 0 && (languageId === null || languageId === "vic3")) {
-				isVanillaFolder = true;
-				languageId = "vic3";
-			}
-			if (workspace.workspaceFolders && workspace.workspaceFolders.length > 0 && path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"){
-				isVanillaFolder = true;
-			}
-			init(languageId, isVanillaFolder)
+	const games = [
+		{ id: "eu4", exeName: "eu4", binariesPrefix: false },
+		{ id: "hoi4", exeName: "hoi4", binariesPrefix: false },
+		{ id: "stellaris", exeName: "stellaris", binariesPrefix: false },
+		{ id: "ck2", exeName: "CK2", binariesPrefix: false },
+		{ id: "imperator", exeName: "imperator", binariesPrefix: true },
+		{ id: "vic2", exeName: "v2game", binariesPrefix: false },
+		{ id: "ck3", exeName: "ck3", binariesPrefix: true },
+		{ id: "vic3", exeName: "victoria3", binariesPrefix: true },
+	];
+
+	const promises = games.map(({ exeName, binariesPrefix }) =>
+		findExeInFiles(exeName, binariesPrefix)
+	);
+
+	const results = await Promise.all(promises);
+
+	let isVanillaFolder = false;
+
+	for (let i = 0; i < results.length; i++) {
+		const { id } = games[i];
+		if (results[i].length > 0 && (languageId === null || languageId === id)) {
+			isVanillaFolder = true;
+			languageId = id;
 		}
-	)
+	}
+
+	if (
+		workspace.workspaceFolders &&
+		workspace.workspaceFolders.length > 0 &&
+		path.basename(workspace.workspaceFolders[0].uri.fsPath) === "game"
+	) {
+		isVanillaFolder = true;
+	}
+
+	await init(languageId, isVanillaFolder);
 }
 
 export default defaultClient;
