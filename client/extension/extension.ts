@@ -13,8 +13,7 @@ import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, No
 
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
-
-import executable from 'executable';
+import * as exe from './executable';
 
 const stellarisRemote = `https://github.com/cwtools/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/cwtools/cwtools-eu4-config`;
@@ -418,48 +417,36 @@ export async function activate(context: ExtensionContext) {
 		case "ck3": languageId = "ck3"; break;
 		default: languageId = "paradox"; break;
 	}
-	let findExeInFiles = function(gameExeName : string) {
+	async function findExeInFiles(gameExeName: string, binariesPrefix = false) {
 		if (!workspace.workspaceFolders || workspace.workspaceFolders.length === 0) {
-			return Promise.resolve([]);
+			return [];
 		}
-		if (os.platform() == "win32") {
-				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*.exe"));
-				let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*.exe"));
-				let c =workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toLowerCase() + "*.exe"));
-				return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
-		}
-		else {
-			let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName + "*"))
-			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toUpperCase() + "*"))
-			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], gameExeName.toLowerCase() + "*"));
-			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
-		}
-	}
-	let findExeInFilesImperator = function(gameExeName : string) {
-		if (!workspace.workspaceFolders || workspace.workspaceFolders.length === 0) {
-			return Promise.resolve([]);
-		}
-		if (os.platform() == "win32") {
-				let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0],"binaries/" + gameExeName + "*.exe"));
-			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*.exe"));
-			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toLowerCase() + "*.exe"));
-			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
-		}
-		else {
-			let a = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" +  gameExeName + "*"))
-			let b = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toUpperCase() + "*"))
-			let c = workspace.findFiles(new vs.RelativePattern(workspace.workspaceFolders[0], "binaries/" + gameExeName.toLowerCase() + "*"));
-			return Promise.all([a, b, c]).then(results => results[0].concat(results[1], results[2]).filter(v => executable.sync(v.fsPath)));
-		}
+
+		const root = workspace.workspaceFolders[0];
+		const isWin = os.platform() === "win32";
+		const ext = isWin ? "*.exe" : "*";
+		const prefix = binariesPrefix ? "binaries/" : "";
+		const names = [gameExeName, gameExeName.toUpperCase(), gameExeName.toLowerCase()];
+		const patterns = names.map(name => new vs.RelativePattern(root, `${prefix}${name}${ext}`));
+
+		const results = await Promise.all(patterns.map(p => workspace.findFiles(p)));
+		const allFiles = results.flat();
+
+		// Proper async filter
+		const validFiles = await Promise.all(
+			allFiles.map(async (v) => (await exe.existAndIsExe(v.fsPath)) ? v : null)
+		).then(arr => arr.filter(Boolean));
+
+		return validFiles;
 	}
 	var eu4 = findExeInFiles("eu4")
 	var hoi4 = findExeInFiles("hoi4")
 	var stellaris = findExeInFiles("stellaris")
 	var ck2 = findExeInFiles("CK2")
 	var vic2 = findExeInFiles("v2game")
-	var ck3 = findExeInFilesImperator("ck3")
-	var vic3 = findExeInFilesImperator("victoria3")
-	var ir = findExeInFilesImperator("imperator")
+	var ck3 = findExeInFiles("ck3", true)
+	var vic3 = findExeInFiles("victoria3", true)
+	var ir = findExeInFiles("imperator", true)
 	Promise.all([eu4, hoi4, stellaris, ck2, ir, vic2, ck3, vic3]).then(results =>
 		{
 			var isVanillaFolder = false;
