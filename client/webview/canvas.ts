@@ -3,7 +3,7 @@
 //import cytoscape from 'cytoscape'
 export default function () {
     // registers the extension on a cytoscape lib ref
-    const register = function (cytoscape) {
+    const register = function (cytoscape : cytoscape.Core) {
         if (!cytoscape) {
             return;
         }

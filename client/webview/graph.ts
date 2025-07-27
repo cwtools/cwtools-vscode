@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection, EventObject } from 'cytoscape'
 import cytoscapecanvas from './canvas'
 // let cytoscapecanvas = require('cytoscape-canvas2')
@@ -28,18 +30,15 @@ interface vscode {
 declare const acquireVsCodeApi : () => vscode;
 const vscode : vscode = acquireVsCodeApi();
 
-var labelMaxLength = 30;
-
 function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRenderingContext2D, zoom : number){
     // Draw shadows under nodes
     ctx.shadowColor = "black";
     ctx.shadowBlur = 25 * zoom;
     ctx.fillStyle = "#666";
     nodes.forEach((node) => {
-        let text: string = node.data('entityType');
+        const text: string = node.data('entityType');
         const eventChars = text.split('_').map(f => f[0].toUpperCase()).join('');
         const eventChars2 = node.data('abbreviation') ? node.data('abbreviation') : eventChars;
-        const eventChar = text[0].toUpperCase();
         const pos = node.position();
 
         ctx.fillStyle = node.data('isPrimary') ? "#EEE" : '#444';
@@ -120,22 +119,13 @@ const style : any = [ // the stylesheet for the graph
         style: { 'opacity': '0.2' }
     }
 ]
-var _data: Array<any>;
-var _options: Array<any>;
-var _pretty: Array<any>;
-var _cy: cytoscape.Core;
-var _layer: any;
+let _cy: cytoscape.Core;
 function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : any){
     const importingJson = json !== undefined;
-    _data = data
     cytoscapecanvas()(cytoscape);
     cytoscape.use(cytoscapeelk)
     cytoscape.use(popper);
-    var cy : cytoscape.Core;
-    // if (importingJson) {
-    //     cy = cytoscape(JSON.parse(json))
-    // } else {
-        cy = cytoscape({
+    const cy = cytoscape({
         container: document.getElementById('cy'),
         minZoom: 0.1,
         maxZoom: 5,
@@ -149,15 +139,13 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     // }
     _cy = cy;
 
-    var layer = cy.cyCanvas({
+    const layer = cy.cyCanvas({
         zIndex: 1,
         pixelRatio: "auto",
     });
-    _layer = layer;
-    var canvas = layer.getCanvas();
-    var ctx = canvas.getContext('2d');
+    const canvas = layer.getCanvas();
+    const ctx = canvas.getContext('2d');
 
-    var roots = [];
     console.log("nodes");
 
 
@@ -167,7 +155,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     if (!importingJson){
 
         data.forEach(function (element) {
-            var node = cy.add({ group: 'nodes', data: {
+            cy.add({ group: 'nodes', data: {
                 id: element.id,
                 label: element.name || element.id,
                 isPrimary: element.isPrimary,
@@ -198,24 +186,24 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     /// Tooltips
     cy.nodes().forEach(function(node) {
 
-        let simpleTooltip = `<strong>${node.data("entityTypeDisplayName")}</strong>: ${node.data("id")}`
+        const simpleTooltip = `<strong>${node.data("entityTypeDisplayName")}</strong>: ${node.data("id")}`
         // let id = `<tr><td><strong>${node.data("entityTypeDisplayName")}</strong></td><td>${node.data("id")}</td></tr>`
         let entityTypeDisplayName = node.data("entityTypeDisplayName") ? `<tr><td colspan=2>${node.data("entityTypeDisplayName")}</td></tr>` : ""
-        let createRow = function (details : { key : string, values : string[]}) {
+        const createRow = function (details : { key : string, values : string[]}) {
             let vals = details.values.join(", ")
             return `<tr><td>${details.key}</td><td>${vals}</td></tr>`
         }
-        let detailsText = node.data("details") ? node.data("details").map(createRow).join("") : ""
+        const detailsText = node.data("details") ? node.data("details").map(createRow).join("") : ""
         //${entityTypeDisplayName}
-        let detailsTable =
+        const detailsTable =
             `${simpleTooltip}
             <table class=\"cwtools-table\">
             ${detailsText ? detailsText : "<tr><td class=\"cwtools-text-center\">-</td></tr>"}
             </table>`
         // let details = JSON.stringify(element.details)
-        let ref = node.popperRef();
+        const ref = node.popperRef();
         let isSimple = true;
-        let simpleOptions : Options = {
+        const simpleOptions : Options = {
             content: () => {
                 let content = document.createElement('div');
 
@@ -229,8 +217,8 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             trigger: "manual",
             delay: [null, 200]
         }
-        var hoverTimeout : NodeJS.Timeout;
-        let complexOptions = {
+        let hoverTimeout : NodeJS.Timeout;
+        const complexOptions = {
             content: () => {
                 let content = document.createElement('div');
 
@@ -250,8 +238,8 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             trigger: "manual"
 
         }
-        let tip = tippy(ref, simpleOptions) as Instance;
-        let expandTooltip = function(element : Instance) {
+        const tip = tippy(ref, simpleOptions) as Instance;
+        const expandTooltip = function(element : Instance) {
             element.set(complexOptions);
             isSimple = false
         }
@@ -275,7 +263,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
         cy.fit();
         //var opts = { name: 'dagre', ranker: 'network-simplex', nodeDimensionsIncludeLabels: true };
-        var opts = {
+        const opts = {
             name: 'elk',
             //ranker: 'network-simplex',
             nodeDimensionsIncludeLabels: true,
@@ -302,21 +290,20 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         cy.fit();
 
 
-        var groups: CollectionElements[] = [];
+        let groups: CollectionElements[] = [];
 
-        var t: any = cy.elements();
+        const t: any = cy.elements();
         groups = t.components();
-        var singles = groups.filter((f) => f.length === 1);
-        var singles2: any = singles.reduce((p, c: any) => p.union(c), cy.collection())
-        var rest = groups.filter((f) => f.length !== 1);
+        const singles = groups.filter((f) => f.length === 1);
+        const singles2: any = singles.reduce((p, c: any) => p.union(c), cy.collection())
+        const rest = groups.filter((f) => f.length !== 1);
 
-        var rest2 = rest.reduce((p, c: any) => p.union(c), cy.collection())
+        const rest2 = rest.reduce((p, c: any) => p.union(c), cy.collection())
 
-        var lrest: any = rest2.layout(opts);
+        const lrest: any = rest2.layout(opts);
         lrest.run();
-        var bb = rest2.boundingBox({});
-        var opts2 = { name: 'grid', condense: true, nodeDimensionsIncludeLabels: true }
-        var lsingles: any = singles2.layout(opts2);
+        const opts2 = { name: 'grid', condense: true, nodeDimensionsIncludeLabels: true }
+        const lsingles: any = singles2.layout(opts2);
         lsingles.run();
         singles2.shift("y", (singles2.boundingBox({}).y2 + 10) * -1);
         cy.fit();
@@ -331,11 +318,11 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
 
     /// Double click
-    var tappedBefore : EventTarget;
-    var tappedTimeout : NodeJS.Timer;
+    let tappedBefore : EventTarget;
+    let tappedTimeout : NodeJS.Timer;
 
     cy.on('tap', function (event : EventObject) {
-        var tappedNow :any = event.target;
+        const tappedNow :any = event.target;
         if (tappedTimeout && tappedBefore) {
             clearTimeout(tappedTimeout);
         }
@@ -353,7 +340,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     });
 
     cy.on('mouseover', 'node', function (e) {
-        var sel = e.target;
+        const sel = e.target;
         cy.elements()
             .difference(sel.outgoers()
                 .union(sel.incomers()))
@@ -365,7 +352,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             .addClass('highlight');
     });
     cy.on('mouseout', 'node', function (e) {
-        var sel = e.target;
+        const sel = e.target;
         cy.elements()
             .removeClass('semitransp');
         sel.removeClass('highlight')
@@ -387,17 +374,17 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         // 'private' variable for instance
         // The returned function will be able to reference this due to closure.
         // Each call to the returned function will share this common timer.
-        var timeout : NodeJS.Timer;
+        let timeout : NodeJS.Timer;
 
         // Calling debounce returns a new anonymous function
         return function () {
             // reference the context and args for the setTimeout function
-            var context = this,
+            const context = this,
                 args = arguments;
 
             // Should the function be called now? If immediate is true
             //   and not already in a timeout then the answer is: Yes
-            var callNow = immediate && !timeout;
+            const callNow = immediate && !timeout;
 
             // This is the basic debounce behaviour where you can call this
             //   function several times, but it will only execute once
@@ -450,9 +437,9 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
 export function goToNode(location : techNode["location"]) {
     // var node = _data.filter(x => x.id === id)[0];
-    var uri = location.filename
-    var line = location.line
-    var column = location.column
+    const uri = location.filename
+    const line = location.line
+    const column = location.column
     vscode.postMessage({"command": "goToFile", "uri": uri, "line": line, "column": column})
 }
 
@@ -523,11 +510,11 @@ interface EdgeInput {
 
 export function go(nodesJ: Array<techNode>, settings: settings) {
     //console.log(nodesJ);
-    var nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
+    const nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
     //console.log(nodes);
     // var nodes2 = nodes.map((a) => a.id);
-    var edges = nodes.map((a) => a.references.map((b) => b.isOutgoing ? { source: a.id, target: b.key, label: b.label } : { source: b.key, target: a.id, label: b.label }));
-    var edges2 : EdgeInput[] = [].concat(...edges)
+    const edges = nodes.map((a) => a.references.map((b) => b.isOutgoing ? { source: a.id, target: b.key, label: b.label } : { source: b.key, target: a.id, label: b.label }));
+    const edges2 : EdgeInput[] = [].concat(...edges)
     // var nodes3 = edges2.map(a => a[1])
     // let nodes4 : string[] = [].concat(nodes2, nodes3);
     // console.log(nodes2);
@@ -535,7 +522,7 @@ export function go(nodesJ: Array<techNode>, settings: settings) {
     //document.getElementById('detailsTarget')!.innerHTML = "Parsing data...";
     //tech(["a", "b", "c", "d"], [["a", "b"],["c","d"]]);
     // var nodesfin = new Set(nodes4)
-    var edgesfin = new Set(edges2)
+    const edgesfin = new Set(edges2)
     tech(nodes, [...edgesfin], settings);
 }
 
