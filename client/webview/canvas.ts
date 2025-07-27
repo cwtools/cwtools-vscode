@@ -1,6 +1,7 @@
 // @ts-nocheck
 
-//import cytoscape from 'cytoscape'
+import cytoscape from "cytoscape";
+
 export default function () {
     // registers the extension on a cytoscape lib ref
     const register = function (cytoscape : cytoscape.Core) {
@@ -9,8 +10,7 @@ export default function () {
         }
 
         const cyCanvas = function (args) {
-            const cy = this;
-            const container = cy.container();
+            const container = this.container();
 
             const canvas = document.createElement("canvas");
 
@@ -27,7 +27,7 @@ export default function () {
                 options.pixelRatio = window.devicePixelRatio || 1;
             }
 
-            function resize() {
+            const resize= (() =>{
                 const width = container.offsetWidth;
                 const height = container.offsetHeight;
 
@@ -40,24 +40,21 @@ export default function () {
                 canvas.style.width = `${width}px`;
                 canvas.style.height = `${height}px`;
 
-                cy.trigger("cyCanvas.resize");
-            }
+                this.trigger("cyCanvas.resize");
+            });
 
-            cy.on("resize", () => {
+            this.on("resize", () => {
                 resize();
             });
 
-            const styleMap = {
-                'position': 'absolute',
-                'top': '0',
-                'left': '0',
-                'z-index': '${options.zIndex}',
-            };
+            const canvasStyles = {
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                zIndex: String(options.zIndex)
+            } as const satisfies Partial<CSSStyleDeclaration>;
 
-            Object.keys(styleMap).forEach((k) => {
-                canvas.style[k] = styleMap[k];
-            });
-
+            Object.assign(canvas.style, canvasStyles);
             resize();
 
             return {
@@ -71,9 +68,9 @@ export default function () {
 				 * Helper: Clear the canvas
 				 * @param {CanvasRenderingContext2D} ctx
 				 */
-                clear(ctx) {
-                    const width = cy.width();
-                    const height = cy.height();
+                clear: (ctx : CanvasRenderingContext2D) => {
+                    const width = this.width();
+                    const height = this.height();
                     ctx.save();
                     ctx.setTransform(1, 0, 0, 1, 0, 0);
                     ctx.clearRect(0, 0, width * options.pixelRatio, height * options.pixelRatio);
@@ -83,16 +80,16 @@ export default function () {
 				 * Helper: Reset the context transform to an identity matrix
 				 * @param {CanvasRenderingContext2D} ctx
 				 */
-                resetTransform(ctx) {
+                resetTransform(ctx : CanvasRenderingContext2D) {
                     ctx.setTransform(1, 0, 0, 1, 0, 0);
                 },
 				/**
 				 * Helper: Set the context transform to match Cystoscape's zoom & pan
 				 * @param {CanvasRenderingContext2D} ctx
 				 */
-                setTransform(ctx) {
-                    const pan = cy.pan();
-                    const zoom = cy.zoom();
+                setTransform: (ctx : CanvasRenderingContext2D) => {
+                    const pan = this.pan();
+                    const zoom = this.zoom();
                     ctx.setTransform(1, 0, 0, 1, 0, 0);
                     ctx.translate(pan.x * options.pixelRatio, pan.y * options.pixelRatio);
                     ctx.scale(zoom * options.pixelRatio, zoom * options.pixelRatio);
