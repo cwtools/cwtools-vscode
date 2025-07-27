@@ -227,7 +227,7 @@ let initTargets () =
 
     Target.create "CopyHtml" (fun _ ->
         !!("client/webview/*.css")
-            |> Shell.copyFiles "releas/bin/client/webview"
+            |> Shell.copyFiles "release/bin/client/webview"
     )
 
 
