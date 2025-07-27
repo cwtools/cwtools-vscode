@@ -1,3 +1,4 @@
+
 /** @type {import('@vscode/test-cli').TestConfig} */
 module.exports = {
   vscode: 'stable',
