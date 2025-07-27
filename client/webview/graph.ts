@@ -1,6 +1,5 @@
-// @ts-nocheck
 
-import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection, EventObject } from 'cytoscape'
+import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection, EventObject, StylesheetJsonBlock } from 'cytoscape'
 import cytoscapecanvas from './canvas'
 // let cytoscapecanvas = require('cytoscape-canvas2')
 // import cytoscapecanvas from 'canvas'
@@ -63,11 +62,11 @@ function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRender
     });
 }
 
-const style : any = [ // the stylesheet for the graph
+const style : StylesheetJsonBlock[] = [ // the stylesheet for the graph
     {
         selector: 'node',
         style: {
-            'background-color': function (ele: any) { if (ele.data("isPrimary")) { return '#666' } else { return '#AAA' } },
+            'background-color': function (ele) { if (ele.data("isPrimary")) { return '#666' } else { return '#AAA' } },
             'label': 'data(label)',
             'color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-foreground") },
             'text-background-color': function () { return document.getElementsByTagName("html")[0].style.getPropertyValue("--vscode-editor-background") },
@@ -86,7 +85,7 @@ const style : any = [ // the stylesheet for the graph
             'mid-target-arrow-color': '#ccc',
             'mid-target-arrow-shape': 'triangle',
             'curve-style': 'haystack',
-            'line-style': function (ele: any) { if (ele.data("isPrimary")) { return 'solid' } else { return 'dashed' } }
+            'line-style': function (ele) { if (ele.data("isPrimary")) { return 'solid' } else { return 'dashed' } }
             // 'haystack-radius': 0.5
         }
     },
@@ -108,7 +107,7 @@ const style : any = [ // the stylesheet for the graph
     },
     {
         selector: 'node.semitransp',
-        style: { 'opacity': '0.5' }
+        style: { 'opacity': 0.5 }
     },
     {
         selector: 'edge.highlight',
@@ -116,7 +115,7 @@ const style : any = [ // the stylesheet for the graph
     },
     {
         selector: 'edge.semitransp',
-        style: { 'opacity': '0.2' }
+        style: { 'opacity': 0.2 }
     }
 ]
 let _cy: cytoscape.Core;
@@ -166,7 +165,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
                 location: element.location
             }});
         });
-        let allIDs = data.map((el) => el.id);
+        const allIDs = data.map((el) => el.id);
         edges.forEach(function (edge) {
             if (allIDs.includes(edge.source) && allIDs.includes(edge.target)){
                 cy.add({ group: 'edges', data: { source: edge.source, target: edge.target, label: edge.label } }).data("isPrimary", true)
@@ -174,7 +173,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         });
         data.forEach(function (element) {
             if(element.isPrimary == false){
-                cy.edges().filter((n: any) => n.target().id() == element.id || n.source().id() == element.id).forEach((e: any) => e.data("isPrimary", false));
+                cy.edges().filter((n) => n.target().id() == element.id || n.source().id() == element.id).forEach((e) => e.data("isPrimary", false));
             }
         });
 
@@ -187,31 +186,27 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     cy.nodes().forEach(function(node) {
 
         const simpleTooltip = `<strong>${node.data("entityTypeDisplayName")}</strong>: ${node.data("id")}`
-        // let id = `<tr><td><strong>${node.data("entityTypeDisplayName")}</strong></td><td>${node.data("id")}</td></tr>`
-        let entityTypeDisplayName = node.data("entityTypeDisplayName") ? `<tr><td colspan=2>${node.data("entityTypeDisplayName")}</td></tr>` : ""
         const createRow = function (details : { key : string, values : string[]}) {
-            let vals = details.values.join(", ")
+            const vals = details.values.join(", ")
             return `<tr><td>${details.key}</td><td>${vals}</td></tr>`
         }
         const detailsText = node.data("details") ? node.data("details").map(createRow).join("") : ""
-        //${entityTypeDisplayName}
         const detailsTable =
             `${simpleTooltip}
             <table class=\"cwtools-table\">
             ${detailsText ? detailsText : "<tr><td class=\"cwtools-text-center\">-</td></tr>"}
             </table>`
-        // let details = JSON.stringify(element.details)
         const ref = node.popperRef();
         let isSimple = true;
         const simpleOptions : Options = {
             content: () => {
-                let content = document.createElement('div');
+                const content = document.createElement('div');
 
                 content.innerHTML = simpleTooltip;
 
                 return content;
             },
-            onHidden: ((_ : any) => _),
+            onHidden: ((_) => _),
             sticky: true,
             flipOnUpdate: true,
             trigger: "manual",
@@ -220,7 +215,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         let hoverTimeout : NodeJS.Timeout;
         const complexOptions = {
             content: () => {
-                let content = document.createElement('div');
+                const content = document.createElement('div');
 
                 content.innerHTML = detailsTable;
 
@@ -292,18 +287,18 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
         let groups: CollectionElements[] = [];
 
-        const t: any = cy.elements();
+        const t = cy.elements();
         groups = t.components();
         const singles = groups.filter((f) => f.length === 1);
-        const singles2: any = singles.reduce((p, c: any) => p.union(c), cy.collection())
+        const singles2 = singles.reduce((p, c) => p.union(c), cy.collection())
         const rest = groups.filter((f) => f.length !== 1);
 
-        const rest2 = rest.reduce((p, c: any) => p.union(c), cy.collection())
+        const rest2 = rest.reduce((p, c) => p.union(c), cy.collection())
 
-        const lrest: any = rest2.layout(opts);
+        const lrest = rest2.layout(opts);
         lrest.run();
         const opts2 = { name: 'grid', condense: true, nodeDimensionsIncludeLabels: true }
-        const lsingles: any = singles2.layout(opts2);
+        const lsingles = singles2.layout(opts2);
         lsingles.run();
         singles2.shift("y", (singles2.boundingBox({}).y2 + 10) * -1);
         cy.fit();
