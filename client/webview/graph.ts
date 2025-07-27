@@ -1,23 +1,18 @@
-// @ts-nocheck
 
-import cytoscape, { CollectionElements, EventObject, StylesheetJsonBlock } from 'cytoscape'
+import cytoscape, { CollectionReturnValue, EventObject, StylesheetJsonBlock } from 'cytoscape'
 import { registerCytoscapeCanvas } from './canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
 import tippy, { type Instance, Options } from 'tippy.js';
 import mergeimages from 'merge-images'
 
-declare module 'cytoscape' {
-    interface CollectionElements {
-        qtip(qtip: any): any;
-        length: number;
-    }
-    interface Core {
-        navigator(options: any): any;
-        cyCanvas(options: any): any;
-    }
+// declare module 'cytoscape' {
+//     interface Core {
+//         navigator(options: any): any;
+//         cyCanvas(options: any): any;
+//     }
 
-}
+// }
 
 
 interface vscode {
@@ -283,7 +278,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         cy.fit();
 
 
-        let groups: CollectionElements[] = [];
+        let groups: CollectionReturnValue[] = [];
 
         const t = cy.elements();
         groups = t.components();
@@ -370,7 +365,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         let timeout : NodeJS.Timeout;
 
         // Calling debounce returns a new anonymous function
-        return function (...args: unknown) {
+        return function (...args: unknown[]) {
             // Should the function be called now? If immediate is true
             //   and not already in a timeout then the answer is: Yes
             const callNow = immediate && !timeout;
