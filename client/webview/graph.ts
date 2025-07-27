@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import cytoscape, { CollectionElements, EventObject, StylesheetJsonBlock } from 'cytoscape'
-import cytoscapecanvas from './canvas'
+import { registerCytoscapeCanvas } from './canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
 import tippy, { type Instance, Options } from 'tippy.js';
@@ -119,7 +119,7 @@ const style : StylesheetJsonBlock[] = [ // the stylesheet for the graph
 let _cy: cytoscape.Core;
 function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : unknown){
     const importingJson = json !== undefined;
-    cytoscapecanvas()(cytoscape);
+    registerCytoscapeCanvas(cytoscape); // Direct call to the named function
     cytoscape.use(cytoscapeelk)
     cytoscape.use(popper);
     const cy = cytoscape({
