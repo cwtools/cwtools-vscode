@@ -1,23 +1,16 @@
 
-import { defineConfig } from '@vscode/test-cli';
-export default defineConfig([
-  {
-    // Required: Glob of files to load (can be an array and include absolute paths).
-    files: 'out/client/test/**/*.test.js',
-    // Optional: Root path of your extension, same as the API above, defaults
-    // to the directory this config file is in
-    extensionDevelopmentPath: "release",
-    launchArgs: [
+/** @type {import('@vscode/test-cli').TestConfig} */
+module.exports = {
+  vscode: 'stable',
+  extensionDevelopmentPath: "release",
+  // extensionTestsEnv: { NODE_ENV: 'test' },
+  // extensionTestsPath: './release/bin/client/test/suite',
+  files: './release/bin/client/test/suite/**/*.test.js',
+  launchArgs: [
     // Sample workspace the tests expect
-    './client/test/sample mod',
+    './client/test/sample',
     // Bring the file under test into the workspace
-    './client/test/sample mod/events/irm.txt'
-    ]
-    // Optional: additional mocha options to use:
-    // mocha: {
-      // require: `./out/test-utils.js`,
-      // timeout: 20000,
-    // },
-  },
-  // you can specify additional test configurations if necessary
-]);
+    './client/test/sample/events/irm.txt'
+  ]
+  // workplaceFolder: "D:\Synced\Git\Personal\cwtools-vscode\client\test\sample mod"
+}

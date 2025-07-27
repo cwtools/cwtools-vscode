@@ -525,7 +525,6 @@ export function go(nodesJ: Array<techNode>, settings: settings) {
 window.addEventListener('message', event => {
 
     const message = event.data; // The JSON data our extension sent
-
     switch (message.command) {
         case 'go':
             go(message.data, message.settings)
@@ -541,14 +540,15 @@ window.addEventListener('message', event => {
             break;
         case 'checkCytoscapeRendered':
             // Check if cytoscape is initialized and has rendered elements
-            const rendered = _cy !== undefined && 
-                             _cy.elements().length > 0 && 
+            {
+                const rendered = _cy !== undefined &&
+                             _cy.elements().length > 0 &&
                              document.getElementById('cy') !== null;
-            vscode.postMessage({ 
-                "command": "cytoscapeRenderedResult", 
-                "rendered": rendered 
+            vscode.postMessage({
+                "command": "cytoscapeRenderedResult",
+                "rendered": rendered
             });
-            break;
+            break; }
     }
 });
 
