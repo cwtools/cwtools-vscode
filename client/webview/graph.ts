@@ -1,28 +1,33 @@
-
-import cytoscape, { CollectionReturnValue, EventObject, StylesheetJsonBlock } from 'cytoscape'
+import * as cyM from 'cytoscape';
+import { CollectionReturnValue, EventObject, StylesheetJsonBlock } from 'cytoscape'
 import { registerCytoscapeCanvas } from './canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
-import tippy, { type Instance, Options } from 'tippy.js';
+import tippy, { Props, type Instance } from 'tippy.js';
 import mergeimages from 'merge-images'
 
-// declare module 'cytoscape' {
-//     interface Core {
+declare module 'cytoscape' {
+    interface Core {
 //         navigator(options: any): any;
-//         cyCanvas(options: any): any;
-//     }
+        cyCanvas(options: { pixelRatio: string; zIndex: number }): {
+            getCanvas(): HTMLCanvasElement;
+            clear: (ctx: CanvasRenderingContext2D) => void;
+            resetTransform(ctx: CanvasRenderingContext2D): void;
+            setTransform: (ctx: CanvasRenderingContext2D) => void;
+        };
+    }
 
-// }
+}
 
 
 interface vscode {
-    postMessage(message: any): void;
+    postMessage(message: unknown): void;
 }
 
 declare const acquireVsCodeApi : () => vscode;
 const vscode : vscode = acquireVsCodeApi();
 
-function drawExtra(nodes : cytoscape.NodeCollection, ctx : OffscreenCanvasRenderingContext2D, zoom : number){
+function drawExtra(nodes : cytoscape.NodeCollection, ctx : CanvasRenderingContext2D, zoom : number){
     // Draw shadows under nodes
     ctx.shadowColor = "black";
     ctx.shadowBlur = 25 * zoom;
@@ -112,9 +117,12 @@ const style : StylesheetJsonBlock[] = [ // the stylesheet for the graph
     }
 ]
 let _cy: cytoscape.Core;
-function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : unknown){
+function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json?: { elements: { nodes?: cytoscape.ElementDefinition[]; edges?: cytoscape.ElementDefinition[]; } | cytoscape.ElementDefinition[]; } & Record<string, unknown>){
     const importingJson = json !== undefined;
-    registerCytoscapeCanvas(cytoscape); // Direct call to the named function
+    // Rest of your imports
+
+    // Then when calling the function:
+    registerCytoscapeCanvas(cyM.default());
     cytoscape.use(cytoscapeelk)
     cytoscape.use(popper);
     const cy = cytoscape({
@@ -166,7 +174,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         });
         data.forEach(function (element) {
             if(element.isPrimary == false){
-                cy.edges().filter((n) => n.target().id() == element.id || n.source().id() == element.id).forEach((e) => e.data("isPrimary", false));
+                cy.edges().filter((n) => n.target().id() == element.id || n.source().id() == element.id).forEach((e) => {e.data("isPrimary", false);});
             }
         });
 
@@ -186,12 +194,12 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         const detailsText = node.data("details") ? node.data("details").map(createRow).join("") : ""
         const detailsTable =
             `${simpleTooltip}
-            <table class=\"cwtools-table\">
+            <table class="cwtools-table">
             ${detailsText ? detailsText : "<tr><td class=\"cwtools-text-center\">-</td></tr>"}
             </table>`
         const ref = node.popperRef();
         let isSimple = true;
-        const simpleOptions : Options = {
+        const simpleOptions : Partial<Props> = {
             content: () => {
                 const content = document.createElement('div');
 
@@ -199,9 +207,9 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
                 return content;
             },
-            onHidden: ((_) => _),
+            onHidden: (() => {}),
             sticky: true,
-            flipOnUpdate: true,
+            // flipOnUpdate: true,
             trigger: "manual",
             delay: [null, 200]
         }
@@ -217,7 +225,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             onHidden: (instance: Instance) =>
             {
                 clearTimeout(hoverTimeout)
-                instance.set(simpleOptions)
+                instance.setProps(simpleOptions)
                 isSimple = true
             },
             sticky: true,
@@ -226,9 +234,9 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             trigger: "manual"
 
         }
-        const tip = tippy(ref, simpleOptions) as Instance;
+        const tip = tippy(ref.contextElement, simpleOptions);
         const expandTooltip = function(element : Instance) {
-            element.set(complexOptions);
+            element.setProps(complexOptions);
             isSimple = false
         }
         node.on('mouseover', () => {
@@ -401,7 +409,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         cy.resize();
         cy.center();
     }
-    cy.on("resize", function (_: any) {
+    cy.on("resize", function () {
         debounce(resizeme, 10, false);
     });
     //$("#cy").width(10);
@@ -433,7 +441,7 @@ export function exportImage(pixelRatio: number) {
     const boundingBox = _cy.elements().boundingBox({})
     const canvas = new OffscreenCanvas(Math.ceil(boundingBox.x2 - boundingBox.x1) * pixelRatio, Math.ceil(boundingBox.y2 - boundingBox.y1) * pixelRatio)
 
-    const ctx = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D
+    const ctx = canvas.getContext("2d") as unknown as CanvasRenderingContext2D;
 
     ctx.scale(pixelRatio, pixelRatio)
     ctx.translate(-1 * boundingBox.x1, -1 * boundingBox.y1)
