@@ -14,6 +14,7 @@ import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, No
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
 import * as exe from './executable';
+import { getGraphData } from './graphTypes';
 
 const stellarisRemote = `https://github.com/cwtools/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/cwtools/cwtools-eu4-config`;
@@ -338,12 +339,11 @@ export async function activate(context: ExtensionContext) {
 		// });
 
 		let currentGraphDepth = 3;
-		const showGraph = function() {
-			commands.executeCommand("getGraphData", latestType, currentGraphDepth).then((t: any) => {
-				const wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
-				gp.GraphPanel.create(context.extensionPath);
-				gp.GraphPanel.currentPanel.initialiseGraph(t, wheelSensitivity);
-			});
+		const showGraph = async function() {
+			const graphData = await getGraphData(latestType, currentGraphDepth);
+			const wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
+			gp.GraphPanel.create(context.extensionPath);
+			gp.GraphPanel.currentPanel.initialiseGraph(graphData, wheelSensitivity);
 		}
 		context.subscriptions.push(commands.registerCommand('showGraph', () => {
 			showGraph();
