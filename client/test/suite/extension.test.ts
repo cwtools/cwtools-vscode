@@ -190,7 +190,6 @@ describe('GraphPanel Tests', function () {
 		}
 	];
 
-	const testRawDataJson = JSON.stringify(testRawData);
 	const testCyDataJson = JSON.stringify(testCyData);
 	// Setup variables
 	let extension: vscode.Extension<any>;

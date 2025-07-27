@@ -1,13 +1,10 @@
 // @ts-nocheck
 
-import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection, EventObject, StylesheetJsonBlock } from 'cytoscape'
+import cytoscape, { CollectionElements, EventObject, StylesheetJsonBlock } from 'cytoscape'
 import cytoscapecanvas from './canvas'
-// let cytoscapecanvas = require('cytoscape-canvas2')
-// import cytoscapecanvas from 'canvas'
 import cytoscapeelk from 'cytoscape-elk'
 import popper from 'cytoscape-popper';
-// import tippy, { type Instance, Tippy } from 'tippy.js/esm/index';
-import tippy, { type Instance, Tippy, Options } from 'tippy.js';
+import tippy, { type Instance, Options } from 'tippy.js';
 import mergeimages from 'merge-images'
 
 declare module 'cytoscape' {
@@ -120,7 +117,7 @@ const style : StylesheetJsonBlock[] = [ // the stylesheet for the graph
     }
 ]
 let _cy: cytoscape.Core;
-function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : any){
+function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,json? : unknown){
     const importingJson = json !== undefined;
     cytoscapecanvas()(cytoscape);
     cytoscape.use(cytoscapeelk)
@@ -315,10 +312,10 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
     /// Double click
     let tappedBefore : EventTarget;
-    let tappedTimeout : NodeJS.Timer;
+    let tappedTimeout : NodeJS.Timeout;
 
     cy.on('tap', function (event : EventObject) {
-        const tappedNow :any = event.target;
+        const tappedNow = event.target;
         if (tappedTimeout && tappedBefore) {
             clearTimeout(tappedTimeout);
         }
@@ -331,7 +328,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             tappedBefore = tappedNow;
         }
     });
-    cy.on('doubleTap', 'node', function (event : any) {
+    cy.on('doubleTap', 'node', function (event) {
         goToNode(event.target.data('location'));
     });
 
@@ -357,7 +354,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             .removeClass('highlight');
     });
 
-    cy.on("render", function (_: any) {
+    cy.on("render", function () {
         layer.resetTransform(ctx);
         layer.clear(ctx);
 
@@ -366,18 +363,14 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
         drawExtra(cy.nodes(), ctx, cy.zoom())
     });
-    function debounce(func : any, wait : number, immediate : boolean) {
+    function debounce<T, R>(func : ((input: T) => (R)), wait : number, immediate : boolean) {
         // 'private' variable for instance
         // The returned function will be able to reference this due to closure.
         // Each call to the returned function will share this common timer.
-        let timeout : NodeJS.Timer;
+        let timeout : NodeJS.Timeout;
 
         // Calling debounce returns a new anonymous function
-        return function () {
-            // reference the context and args for the setTimeout function
-            const context = this,
-                args = arguments;
-
+        return function (...args: unknown) {
             // Should the function be called now? If immediate is true
             //   and not already in a timeout then the answer is: Yes
             const callNow = immediate && !timeout;
@@ -400,12 +393,12 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
                     // Call the original function with apply
                     // apply lets you define the 'this' object as well as the arguments
                     //    (both captured before setTimeout)
-                    func.apply(context, args);
+                    func.apply(this, args);
                 }
             }, wait);
 
             // Immediate mode and no wait timer? Execute the function..
-            if (callNow) func.apply(context, args);
+            if (callNow) func.apply(this, args);
         }
     }
     function resizeme() {
@@ -456,7 +449,7 @@ export function exportImage(pixelRatio: number) {
         {
         const reader = new FileReader()
             reader.onloadend = (function () {
-                mergeimages([png, reader.result]).then((final: any) => vscode.postMessage({ "command": "saveImage", "image": final.substr(final.indexOf(',') + 1) }))
+                mergeimages([png, reader.result]).then((final: string) => vscode.postMessage({ "command": "saveImage", "image": final.substring(final.indexOf(',') + 1) }))
             })
             reader.readAsDataURL(canvasImage);
         }
