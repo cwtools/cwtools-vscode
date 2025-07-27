@@ -1,11 +1,9 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
-import * as fs from 'fs';
 
 //#region Utilities
 
     export interface TreeNode {
-        isDirectory: Boolean
+        isDirectory: boolean
         children: TreeNode[]
         fileName: string
         uri: string
@@ -22,13 +20,13 @@ import * as fs from 'fs';
     export type fileToTreeNodeType = (files: FileListItem[]) => TreeNode[]
 
     function filesToTreeNodes(arr : FileListItem[]) : TreeNode[] {
-        var tree : any = {}
+        const tree : any = {}
         function addnode(obj : FileListItem) {
-            var path = obj.scope + "/" + obj.logicalpath
-            var splitpath = path.replace(/^\/|\/$/g, "").split('/');
-            var ptr = tree;
+            const path = obj.scope + "/" + obj.logicalpath
+            const splitpath = path.replace(/^\/|\/$/g, "").split('/');
+            let ptr = tree;
             for (let i = 0; i < splitpath.length; i++) {
-                let node: any = {
+                const node: any = {
                 fileName: splitpath[i],
                 isDirectory: true,
                 };
