@@ -1,11 +1,6 @@
 import vscode from "vscode";
 import * as path from 'path';
 import * as fs from 'fs'
-import { EIO } from "constants";
-import { isString } from "util";
-import rpc from "vscode-jsonrpc";
-
-'use strict';
 
 enum State {
     New,
@@ -37,7 +32,7 @@ export class GraphPanel {
         if (GraphPanel.currentPanel && GraphPanel.currentPanel._state != State.New && GraphPanel.currentPanel._state != State.ClientReady) {
             GraphPanel.currentPanel.dispose();
         }
-        if (!GraphPanel.currentPanel){
+        if (!GraphPanel.currentPanel) {
             GraphPanel.currentPanel = new GraphPanel(extensionPath, column || vscode.ViewColumn.One);
         }
     }
@@ -70,22 +65,28 @@ export class GraphPanel {
         this._disposables.push((this._panel.webview.onDidReceiveMessage(message => {
             switch (message.command) {
                 case 'goToFile':
-                    let uri = vscode.Uri.file(message.uri);
-                    let range = new vscode.Range(message.line, message.column, message.line, message.column);
-                    vscode.window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vscode.TextEditorRevealType.AtTop))
-                    return;
+                    {
+                        const uri = vscode.Uri.file(message.uri);
+                        const range = new vscode.Range(message.line, message.column, message.line, message.column);
+                        vscode.window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vscode.TextEditorRevealType.AtTop))
+                        return;
+                    }
                 case 'saveImage':
-                    let image = message.image;
-                    vscode.window.showSaveDialog({ filters: { 'Image': ['png'] } })
-                        .then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
-                    return;
+                    {
+                        const image = message.image;
+                        vscode.window.showSaveDialog({ filters: { 'Image': ['png'] } })
+                            .then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
+                        return;
+                    }
                 case 'saveJson':
-                    let json = message.json;
-                    vscode.window.showSaveDialog({ filters: { 'Json': ['json'] } })
-                        .then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
-                    return;
+                    {
+                        const json = message.json;
+                        vscode.window.showSaveDialog({ filters: { 'Json': ['json'] } })
+                            .then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
+                        return;
+                    }
                 case 'ready':
-                    if (this._state == State.DataReady){
+                    if (this._state == State.DataReady) {
                         this._onLoad.fire(undefined);
                     } else {
                         this._state = State.ClientReady;
@@ -110,19 +111,19 @@ export class GraphPanel {
 
     }
 
-    public initialiseGraph(data : string | Array<any>, wheelSensitivity: number) {
-        let settings = {
+    public initialiseGraph(data: string | Array<any>, wheelSensitivity: number) {
+        const settings = {
             wheelSensitivity: wheelSensitivity
         }
-        if (isString(data)){
-            this._disposables.push(this.onLoad((_) => this._panel.webview.postMessage({ "command": "importJson", "json": data, "settings": settings })));
+        if (typeof(data) === 'string') {
+            this._disposables.push(this.onLoad(() => this._panel.webview.postMessage({ "command": "importJson", "json": data, "settings": settings })));
         } else {
-            this._disposables.push(this.onLoad((_) => this._panel.webview.postMessage({ "command": "go", "data": data, "settings": settings })));
+            this._disposables.push(this.onLoad(() => this._panel.webview.postMessage({ "command": "go", "data": data, "settings": settings })));
         }
-        if (this._state == State.Done){
+        if (this._state == State.Done) {
             return;
         }
-        else if (this._state == State.ClientReady){
+        else if (this._state == State.ClientReady) {
             this._state = State.Done;
             this._onLoad.fire(undefined);
         } else {
