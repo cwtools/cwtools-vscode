@@ -8,7 +8,7 @@ import * as path from 'path';
 import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
-import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, ViewColumn, env } from 'vscode';
+import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, env } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient/node';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
@@ -49,10 +49,10 @@ export async function activate(context: ExtensionContext) {
 	const isDevDir = env.machineId === "someValue.machineId"
 	const cacheDir = isDevDir ? context.globalStorageUri + '/.cwtools' : context.extensionPath + '/.cwtools'
 
-	var init = async function(language : string, isVanillaFolder : boolean) {
+	const init = async function(language : string, isVanillaFolder : boolean) {
 		vs.languages.setLanguageConfiguration(language, { wordPattern : /"?([^\s.]+)"?/ })
 		// The server is implemented using dotnet core
-		var serverExe: string;
+		let serverExe: string;
 		if (os.platform() == "win32") {
 			serverExe = context.asAbsolutePath(path.join('bin', 'server', 'win-x64', 'CWTools Server.exe'))
 		}
@@ -64,7 +64,7 @@ export async function activate(context: ExtensionContext) {
 			serverExe = context.asAbsolutePath(path.join('bin', 'server', 'linux-x64', 'CWTools Server'))
 			fs.chmodSync(serverExe, '755');
 		}
-		var repoPath = undefined;
+		let repoPath = undefined;
 		switch (language) {
 			case "stellaris": repoPath = stellarisRemote; break;
 			case "eu4": repoPath = eu4Remote; break;
@@ -80,12 +80,12 @@ export async function activate(context: ExtensionContext) {
 
 		// If the extension is launched in debug mode then the debug server options are used
 		// Otherwise the run options are used
-		let serverOptions: ServerOptions = {
+		const serverOptions: ServerOptions = {
 			run: { command: serverExe, transport: TransportKind.stdio },
 			debug : { command: serverExe, transport: TransportKind.stdio }
 		}
 
-		let fileEvents = [
+		const fileEvents = [
 			workspace.createFileSystemWatcher("**/{events,common,map,map_data,prescripted_countries,flags,decisions,missions}/**/*.txt"),
 			workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gui"),
 			workspace.createFileSystemWatcher("**/{interface,gfx}/**/*.gfx"),
@@ -95,7 +95,7 @@ export async function activate(context: ExtensionContext) {
 		]
 
 		// Options to control the language client
-		let clientOptions: LanguageClientOptions = {
+		const clientOptions: LanguageClientOptions = {
 			// Register the server for F# documents
 			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
 				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }
@@ -117,31 +117,31 @@ export async function activate(context: ExtensionContext) {
 				revealOutputChannelOn: RevealOutputChannelOn.Error
 		}
 
-		let client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
-		let log = client.outputChannel
+		const client = new LanguageClient('cwtools', 'Paradox Language Server', serverOptions, clientOptions);
+		const log = client.outputChannel
 		defaultClient = client;
 		client.registerProposedFeatures();
 		interface loadingBarParams { enable: boolean; value: string }
-		let loadingBarNotification = new NotificationType<loadingBarParams>('loadingBar');
+		const loadingBarNotification = new NotificationType<loadingBarParams>('loadingBar');
 		interface debugStatusBarParams { enable: boolean; value: string }
-		let debugStatusBarParamsNotification = new NotificationType<debugStatusBarParams>('debugBar');
+		const debugStatusBarParamsNotification = new NotificationType<debugStatusBarParams>('debugBar');
 		interface CreateVirtualFile { uri: string; fileContent: string }
-		let createVirtualFile = new NotificationType<CreateVirtualFile>('createVirtualFile');
-		let promptReload = new NotificationType<string>('promptReload')
-		let forceReload = new NotificationType<string>('forceReload')
-		let promptVanillaPath = new NotificationType<string>('promptVanillaPath')
+		const createVirtualFile = new NotificationType<CreateVirtualFile>('createVirtualFile');
+		const promptReload = new NotificationType<string>('promptReload')
+		const forceReload = new NotificationType<string>('forceReload')
+		const promptVanillaPath = new NotificationType<string>('promptVanillaPath')
 		interface DidFocusFile { uri : string }
-		let didFocusFile = new NotificationType<DidFocusFile>('didFocusFile')
-		let request = new RequestType<Position, string, void>('getWordRangeAtPosition');
+		const didFocusFile = new NotificationType<DidFocusFile>('didFocusFile')
+		const request = new RequestType<Position, string, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
-		let updateFileList = new NotificationType<UpdateFileList>('updateFileList');
+		const updateFileList = new NotificationType<UpdateFileList>('updateFileList');
 
 		let latestType : string = undefined;
 
 		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
 			if (editor){
-				let path = editor.document.uri.toString();
+				const path = editor.document.uri.toString();
 				if (languageId == "paradox" && editor.document.languageId == "plaintext") {
 					vs.languages.setTextDocumentLanguage(editor.document, "paradox")
 			}
@@ -149,7 +149,7 @@ export async function activate(context: ExtensionContext) {
 			{
 				client.sendNotification(didFocusFile, {uri: path});
 			}
-			let params: ExecuteCommandParams = {
+			const params: ExecuteCommandParams = {
 				command: "getFileTypes",
 				arguments: [path]
 			};
@@ -172,7 +172,7 @@ export async function activate(context: ExtensionContext) {
 		context.subscriptions.push(window.onDidChangeActiveTextEditor(didChangeActiveTextEditor));
 
 		if (languageId == "paradox") {
-			for (var textDocument of workspace.textDocuments){
+			for (const textDocument of workspace.textDocuments){
 				if (textDocument.languageId == "plaintext"){
 					vs.languages.setTextDocumentLanguage(textDocument, "paradox")
 				}
@@ -194,7 +194,7 @@ export async function activate(context: ExtensionContext) {
 				status.dispose();
 			}
 		})
-		let debugStatusBar = window.createStatusBarItem(vs.StatusBarAlignment.Left);
+		const debugStatusBar = window.createStatusBarItem(vs.StatusBarAlignment.Left);
 		context.subscriptions.push(debugStatusBar);
 		client.onNotification(debugStatusBarParamsNotification, (param: debugStatusBarParams) => {
 			if (param.enable) {
@@ -206,10 +206,10 @@ export async function activate(context: ExtensionContext) {
 			}
 		})
 		client.onNotification(createVirtualFile, (param: CreateVirtualFile) => {
-			let uri = Uri.parse(param.uri);
-			let doc = workspace.openTextDocument(uri).then(doc => {
-				let edit = new WorkspaceEdit();
-				let range = new Range(0, 0, doc.lineCount, doc.getText().length);
+			const uri = Uri.parse(param.uri);
+			workspace.openTextDocument(uri).then(doc => {
+				const edit = new WorkspaceEdit();
+				const range = new Range(0, 0, doc.lineCount, doc.getText().length);
 				edit.set(uri, [new TextEdit(range, param.fileContent)]);
 				workspace.applyEdit(edit);
 				window.showTextDocument(uri);
@@ -222,7 +222,7 @@ export async function activate(context: ExtensionContext) {
 			reloadExtension(param, undefined, true);
 		})
 		client.onNotification(promptVanillaPath, (param: string) => {
-			var gameDisplay = ""
+			let gameDisplay = ""
 			switch (param) {
 				case "stellaris": gameDisplay = "Stellaris"; break;
 				case "hoi4": gameDisplay = "Hearts of Iron IV"; break;
@@ -234,7 +234,7 @@ export async function activate(context: ExtensionContext) {
 				case "ck3": gameDisplay = "Crusader Kings III"; break;
 			}
 			window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
-				.then((_) =>
+				.then(() =>
 					window.showOpenDialog({
 						canSelectFiles: false,
 						canSelectFolders: true,
@@ -242,10 +242,10 @@ export async function activate(context: ExtensionContext) {
 						openLabel: "Select vanilla installation folder for " + gameDisplay
 					}).then(
 						(uri) => {
-							let directory = uri[0];
-							let gameFolder = path.basename(directory.fsPath)
+							const directory = uri[0];
+							const gameFolder = path.basename(directory.fsPath)
 							let dir = directory.fsPath
-							var game = ""
+							let game = ""
 							switch (gameFolder) {
 								case "Stellaris": game = "stellaris"; break;
 								case "Hearts of Iron IV": game = "hoi4"; break;
@@ -286,15 +286,15 @@ export async function activate(context: ExtensionContext) {
 		})
 		client.onRequest(request, (param: any) => {
 			console.log("received request " + request.method + " " + param)
-			let uri = Uri.parse(param.uri);
-			let document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
-			let position = new Position(param.position.line, param.position.character)
-			let wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
+			const uri = Uri.parse(param.uri);
+			const document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
+			const position = new Position(param.position.line, param.position.character)
+			const wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
 			if (wordRange === undefined) {
 				return "none";
 			}
 			else {
-				let text = document.getText(wordRange);
+				const text = document.getText(wordRange);
 				console.log("wordAtPos " + text);
 				if (text.trim().length == 0) {
 					return "none";
@@ -337,9 +337,9 @@ export async function activate(context: ExtensionContext) {
 		// });
 
 		let currentGraphDepth = 3;
-		let showGraph = function() {
+		const showGraph = function() {
 			commands.executeCommand("getGraphData", latestType, currentGraphDepth).then((t: any) => {
-				let wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
+				const wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
 				gp.GraphPanel.create(context.extensionPath);
 				gp.GraphPanel.currentPanel.initialiseGraph(t, wheelSensitivity);
 			});
@@ -367,7 +367,7 @@ export async function activate(context: ExtensionContext) {
 					.then((uri) =>
 					{
 						fs.readFile(uri[0].fsPath, {encoding: "utf-8"}, (_, data) => {
-							let wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
+							const wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
 							gp.GraphPanel.create(context.extensionPath);
 							gp.GraphPanel.currentPanel.initialiseGraph(data, wheelSensitivity);
 						})
@@ -378,7 +378,7 @@ export async function activate(context: ExtensionContext) {
 		// Push the disposable to the context's subscriptions so that the
 		// client can be deactivated on extension deactivation
 		context.subscriptions.push(new CwtoolsProvider());
-		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", (_) => {
+		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", () => {
 			for (const sub of context.subscriptions) {
 				try {
 					sub.dispose();
@@ -391,17 +391,17 @@ export async function activate(context: ExtensionContext) {
 		await client.start();
 	}
 
-	var languageId : string = null;
-	var knownLanguageIds = ["stellaris", "eu4", "hoi4", "ck2", "imperator", "vic2", "vic3", "ck3"];
-	let getLanguageIdFallback = async function() {
-		let markerFiles = await workspace.findFiles("**/*.txt", null, 1);
+	let languageId : string = null;
+	const knownLanguageIds = ["stellaris", "eu4", "hoi4", "ck2", "imperator", "vic2", "vic3", "ck3"];
+	const getLanguageIdFallback = async function() {
+		const markerFiles = await workspace.findFiles("**/*.txt", null, 1);
 		if (markerFiles.length == 1) {
 			return (await workspace.openTextDocument(markerFiles[0])).languageId;
 		}
 		return null;
 	}
 
-	var guessedLanguageId = window.activeTextEditor?.document?.languageId;
+	let guessedLanguageId = window.activeTextEditor?.document?.languageId;
 	if(guessedLanguageId === undefined || !knownLanguageIds.includes(guessedLanguageId)){
 		guessedLanguageId = await getLanguageIdFallback();
 	}

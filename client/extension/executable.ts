@@ -8,7 +8,7 @@ const isExe = async (name : string) => {
         await access(name, constants.X_OK)
         return true;
     }
-    catch(_)
+    catch
     {
         return false;
     }
@@ -25,7 +25,7 @@ export async function existAndIsExe(name : string) {
         const stats = await stat(name);
         return stats && stats.isFile() && isExe(name);
     }
-    catch(_)
+    catch
     {
         return false;
     }
