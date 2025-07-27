@@ -30,14 +30,14 @@ let fileExplorer : FileExplorer;
 export async function activate(context: ExtensionContext) {
 
 
-	class CwtoolsProvider
+	class CwtoolsProvider implements vs.TextDocumentContentProvider
 	{
 		private disposables: Disposable[] = [];
 
 		constructor(){
 			workspace.registerTextDocumentContentProvider("cwtools", this)
 		}
-		async provideTextDocumentContent(_: Uri): Promise<string> {
+		async provideTextDocumentContent() {
 			return '';
 		}
 
@@ -132,7 +132,8 @@ export async function activate(context: ExtensionContext) {
 		const promptVanillaPath = new NotificationType<string>('promptVanillaPath')
 		interface DidFocusFile { uri : string }
 		const didFocusFile = new NotificationType<DidFocusFile>('didFocusFile')
-		const request = new RequestType<Position, string, void>('getWordRangeAtPosition');
+		interface GetWordRangeAtPositionParams { position : Position, uri: string }
+		const request = new RequestType<GetWordRangeAtPositionParams, string, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
 		const updateFileList = new NotificationType<UpdateFileList>('updateFileList');
@@ -284,7 +285,7 @@ export async function activate(context: ExtensionContext) {
 				);
 
 		})
-		client.onRequest(request, (param: any) => {
+		client.onRequest(request, (param) => {
 			console.log("received request " + request.method + " " + param)
 			const uri = Uri.parse(param.uri);
 			const document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
