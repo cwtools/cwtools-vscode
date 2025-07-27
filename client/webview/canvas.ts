@@ -1,29 +1,30 @@
-// @ts-nocheck
-import type cytoscape from "cytoscape";
+import * as cy from "cytoscape";
 
-// Remove @ts-nocheck and properly type the function
-export function registerCytoscapeCanvas(cytoscape: cytoscape.Core) {
+export function registerCytoscapeCanvas(cytoscape: cy.Core) {
     // Early return if cytoscape is not provided
     if (!cytoscape) {
         return;
     }
 
-    const cyCanvas = function (args) {
-        const container = this.container();
+    const cyCanvas = function (this : cy.Core, args: { pixelRatio: string; zIndex: number }) {
+        const container = this.container()!;
 
         const canvas = document.createElement("canvas");
 
         container.appendChild(canvas);
 
-        const defaults = {
+        const options: { zIndex: number; pixelRatio: number } = {
             zIndex: 1,
-            pixelRatio: "auto",
+            pixelRatio: window.devicePixelRatio || 1
         };
-
-        const options = Object.assign({}, defaults, args);
-
-        if (options.pixelRatio === "auto") {
+        if (args.pixelRatio === "auto") {
             options.pixelRatio = window.devicePixelRatio || 1;
+        }
+        else if (args.pixelRatio) {
+            options.pixelRatio = parseFloat(args.pixelRatio);
+        }
+        if (args.zIndex) {
+            options.zIndex = args.zIndex;
         }
 
         const resize = (() => {
@@ -96,5 +97,5 @@ export function registerCytoscapeCanvas(cytoscape: cytoscape.Core) {
         };
     };
 
-    cytoscape("core", "cyCanvas", cyCanvas);
+    cy.default("core", "cyCanvas", cyCanvas);
 }
