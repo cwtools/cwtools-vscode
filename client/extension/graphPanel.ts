@@ -1,8 +1,9 @@
 import vscode from "vscode";
 import * as path from 'path';
 import * as fs from 'fs'
+import { GraphData } from "../common/graphTypes";
 
-enum State {
+export enum State {
     New,
     DataReady,
     ClientReady,
@@ -19,6 +20,28 @@ export class GraphPanel {
     private _state: State;
     private readonly _onLoad = new vscode.EventEmitter<undefined>();
     private readonly onLoad: vscode.Event<undefined> = this._onLoad.event;
+
+    // Methods for testing
+    public getState(): State {
+        return this._state;
+    }
+
+    // Method to check if cytoscape has rendered elements
+    public async checkCytoscapeRendered(): Promise<boolean> {
+        return new Promise<boolean>((resolve) => {
+            // Send a message to the webview to check if cytoscape has rendered elements
+            this._panel.webview.postMessage({ "command": "checkCytoscapeRendered" });
+
+            // Set up a one-time message handler to receive the result
+            const disposable = this._panel.webview.onDidReceiveMessage(message => {
+                if (message.command === 'cytoscapeRenderedResult') {
+                    disposable.dispose();
+                    resolve(message.rendered);
+                }
+            });
+            this._disposables.push(disposable);
+        });
+    }
 
     private _disposables: vscode.Disposable[] = [];
     private readonly _webviewRootPath: string;
@@ -111,24 +134,38 @@ export class GraphPanel {
 
     }
 
-    public initialiseGraph(data: string | Array<any>, wheelSensitivity: number) {
-        const settings = {
-            wheelSensitivity: wheelSensitivity
-        }
-        if (typeof(data) === 'string') {
-            this._disposables.push(this.onLoad(() => this._panel.webview.postMessage({ "command": "importJson", "json": data, "settings": settings })));
-        } else {
-            this._disposables.push(this.onLoad(() => this._panel.webview.postMessage({ "command": "go", "data": data, "settings": settings })));
-        }
-        if (this._state == State.Done) {
-            return;
-        }
-        else if (this._state == State.ClientReady) {
-            this._state = State.Done;
-            this._onLoad.fire(undefined);
-        } else {
-            this._state = State.DataReady;
-        }
+    public initialiseGraph(data: string | GraphData, wheelSensitivity: number): Promise<void> {
+        return new Promise<void>((resolve) => {
+            const settings = {
+                wheelSensitivity: wheelSensitivity
+            }
+
+            // Add a one-time listener to resolve the promise when the state becomes Done
+            const disposable = this.onLoad(() => {
+                if (this._state === State.Done) {
+                    disposable.dispose();
+                    resolve();
+                }
+            });
+            this._disposables.push(disposable);
+
+            if (typeof(data) === 'string') {
+                this._disposables.push(this.onLoad(() => this._panel.webview.postMessage({ "command": "importJson", "json": data, "settings": settings })));
+            } else {
+                this._disposables.push(this.onLoad(() => this._panel.webview.postMessage({ "command": "go", "data": data, "settings": settings })));
+            }
+
+            if (this._state == State.Done) {
+                resolve();
+                return;
+            }
+            else if (this._state == State.ClientReady) {
+                this._state = State.Done;
+                this._onLoad.fire(undefined);
+            } else {
+                this._state = State.DataReady;
+            }
+        });
     }
 
     public dispose() {

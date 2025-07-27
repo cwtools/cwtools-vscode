@@ -14,7 +14,7 @@ import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, No
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
 import * as exe from './executable';
-import { getGraphData } from './graphTypes';
+import { getGraphData } from '../common/graphTypes';
 
 const stellarisRemote = `https://github.com/cwtools/cwtools-stellaris-config`;
 const eu4Remote = `https://github.com/cwtools/cwtools-eu4-config`;

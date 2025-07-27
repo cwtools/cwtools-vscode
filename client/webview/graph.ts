@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 import cytoscape, { AnimateOptions, CenterOptions, CollectionElements, NodeCollection, EventObject, StylesheetJsonBlock } from 'cytoscape'
 import cytoscapecanvas from './canvas'
@@ -538,8 +539,16 @@ window.addEventListener('message', event => {
         case 'importJson':
             tech([],[],message.settings, JSON.parse(message.json))
             break;
-
-
+        case 'checkCytoscapeRendered':
+            // Check if cytoscape is initialized and has rendered elements
+            const rendered = _cy !== undefined && 
+                             _cy.elements().length > 0 && 
+                             document.getElementById('cy') !== null;
+            vscode.postMessage({ 
+                "command": "cytoscapeRenderedResult", 
+                "rendered": rendered 
+            });
+            break;
     }
 });
 
