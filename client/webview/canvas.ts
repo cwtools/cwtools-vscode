@@ -47,7 +47,7 @@ export default function () {
                 resize();
             });
 
-            var styleMap = {
+            const styleMap = {
                 'position': 'absolute',
                 'top': '0',
                 'left': '0',

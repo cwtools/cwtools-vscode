@@ -1144,33 +1144,22 @@ type Server(client: ILanguageClient) =
                             match lastFocusedFile with
                             |Some lastFile ->
                                 let events = game.GetEventGraphData [lastFile] (x.AsString()) (depth.AsString() |> int)
-                                let eventsJson = events |> List.map (fun e ->
-                                    let serializer = serializerFactory<string>  defaultJsonWriteOptions
-                                    let convRangeToJson (loc : range) =
-                                        [|
-                                            "filename", JsonValue.String (loc.FileName.Replace("\\","/"))
-                                            "line", JsonValue.Number (loc.StartLine |> decimal)
-                                            "column", JsonValue.Number (loc.StartColumn |> decimal)
-                                        |] |> JsonValue.Record
-                                    let referenceToReferences (name, isOutgoing, label) =
-                                        [|
-                                            Some ("key", JsonValue.String name)
-                                            Some ("isOutgoing", JsonValue.Boolean isOutgoing)
-                                            label |> Option.map (fun l -> "label", JsonValue.String l)
-                                        |] |> Array.choose id |> JsonValue.Record
-                                    [|
-                                        Some ("id", JsonValue.String e.id)
-                                        e.displayName |> Option.map (fun s -> ("name", JsonValue.String s))
-                                        Some ("references", JsonValue.Array (e.references |> Array.ofList |> Array.map referenceToReferences))
-                                        e.location |> Option.map (fun loc -> "location", convRangeToJson loc)
-                                        e.documentation |> Option.map (fun s -> "documentation", JsonValue.String s)
-                                        e.details |> Option.map (fun m -> "details", m |> Map.toArray |> Array.map (fun (k, vs) -> JsonValue.Record [| "key", JsonValue.String k; "values", (vs |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)  |]  ) |> JsonValue.Array)
-                                        Some ("isPrimary", JsonValue.Boolean e.isPrimary)
-                                        Some ("entityType", JsonValue.String e.entityType)
-                                        e.entityTypeDisplayName |> Option.map (fun s -> ("entityTypeDisplayName", JsonValue.String s))
-                                        e.abbreviation |> Option.map (fun s -> ("abbreviation", JsonValue.String s))
-                                    |] |> Array.choose id |> JsonValue.Record)
-                                Some (eventsJson |> Array.ofList |> JsonValue.Array)
+                                let graphData : GraphTypes.GraphData =
+                                    events |> List.map (fun e ->
+                                        {
+                                            GraphTypes.GraphNode.id = e.id
+                                            displayName = e.displayName
+                                            references = e.references |> List.map (fun (name, isOutgoing, label) ->
+                                                { GraphTypes.GraphReference.key = name; isOutgoing = isOutgoing; label = label })
+                                            location = e.location
+                                            documentation = e.documentation
+                                            details = e.details
+                                            isPrimary = e.isPrimary
+                                            entityType = e.entityType
+                                            entityTypeDisplayName = e.entityTypeDisplayName
+                                            abbreviation = e.abbreviation
+                                        })
+                                Some (GraphTypes.graphDataToJson graphData)
                             | None -> None
                         | {command = "getFileTypes"; arguments = _} ->
                             match lastFocusedFile with
