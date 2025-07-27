@@ -113,7 +113,7 @@ suite(`Debug Integration Test: `, function() {
 		it('should handle file diagnostics', async function () {
 			// Note: In a test environment without the language server,
 			// we mainly test that the diagnostics API is accessible
-			const extension = await activate();
+			await activate();
 
 			// Test that diagnostics collection is accessible
 			const diagnostics = vscode.languages.getDiagnostics();
@@ -192,7 +192,7 @@ describe('GraphPanel Tests', function () {
 
 	const testCyDataJson = JSON.stringify(testCyData);
 	// Setup variables
-	let extension: vscode.Extension<any>;
+	let extension: vscode.Extension<unknown>;
 
 	let tempFile: string;
 	// Setup before each test
