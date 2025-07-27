@@ -3,7 +3,7 @@
     "vscode": "^1.90.0"
   },
   "scripts": {
-    "compile": "tsc -p ./tsconfig.extension.json && rollup -c -o ./out/client/webview/graph.js",
+    "compile": "tsc -p ./tsconfig.extension.json && rollup -c -o ./release/bin/client/webview/graph.js",
     "test": "npm run compile && vscode-test -c ./.vscode-test.mjs",
     "test:watch": "tsc -w -p . & vscode-test -c ./.vscode-test.mjs -w"
   },

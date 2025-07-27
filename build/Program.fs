@@ -68,9 +68,6 @@ let releaseDir = "release"
 // --------------------------------------------------------------------------------------
 // Build the Generator project and run it
 // --------------------------------------------------------------------------------------
-let copyBin releaseDir =
-    Directory.ensure releaseDir
-    Shell.copyDir (releaseDir </> "bin") "out" (fun _ -> true)
 
 let buildPackage dir =
     Process.killAllByName "npx"
@@ -160,7 +157,6 @@ let initTargets () =
 
     Target.create "Clean" (fun _ ->
         Shell.cleanDir "./temp"
-        Shell.cleanDir "./out"
         Shell.cleanDir "./release/bin"
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
@@ -223,7 +219,7 @@ let initTargets () =
         |_ -> failwith "didn't find tsc"
         match ProcessUtils.tryFindFileOnPath "npx" with
         |Some tsc ->
-            CreateProcess.fromRawCommand tsc ["rollup"; "-c"; "-o"; "./out/client/webview/graph.js"]
+            CreateProcess.fromRawCommand tsc ["rollup"; "-c"; "-o"; "./release/bin/client/webview/graph.js"]
             |> Proc.run
             |> (fun r -> if r.ExitCode <> 0 then failwith "rollup fail")
         |_ -> failwith "didn't find rollup"
@@ -231,7 +227,7 @@ let initTargets () =
 
     Target.create "CopyHtml" (fun _ ->
         !!("client/webview/*.css")
-            |> Shell.copyFiles "out/client/webview"
+            |> Shell.copyFiles "releas/bin/client/webview"
     )
 
 
@@ -245,7 +241,7 @@ let initTargets () =
 
 
     Target.description "Assemble the extension"
-    Target.create "PrePackage" (fun _ -> copyBin "release")
+    Target.create "PrePackage" ignore
 
     Target.create "PrepareClient" ignore
 
