@@ -5,6 +5,7 @@
 
 // The module 'assert' provides assertion methods from node
 import * as assert from 'assert';
+import path from 'path';
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
@@ -12,9 +13,12 @@ import * as vscode from 'vscode';
 import { activate } from '../utils';
 import { it, describe, before } from 'mocha';
 import * as gp from '../../extension/graphPanel';
-import { State } from '../../extension/graphPanel';
 import { GraphData } from '../../common/graphTypes';
-//import * as myExtension from '../../extension/extension';
+import sinon from 'sinon';
+import * as fs from "node:fs";
+import * as os from "node:os";
+import {State} from "../../extension/graphPanel";
+const root = path.resolve(__dirname, '../../../../client/test/sample');  // Assumes tests are one level deep in 'test/'
 
 // Defines a Mocha test suite to group tests of similar kind together
 suite("Extension Tests", () => {
@@ -25,6 +29,24 @@ suite("Extension Tests", () => {
         assert.equal(-1, [1, 2, 3].indexOf(0));
     });
 });
+async function retryAsync(fn : (() => Promise<boolean>), maxRetries = 3, delayMs = 500) {
+	for (let attempt = 1; attempt <= maxRetries; attempt++) {
+		try {
+			const result = await fn();  // Execute the async function
+			if (result === true) {  // Check if it returns true (customize as needed)
+				return result;  // Success: return the result
+			}
+			// If not true, continue to retry
+		} catch (error) {
+			if (attempt === maxRetries) {
+				throw error;  // Final failure: rethrow the error
+			}
+		}
+		// Wait before next attempt
+		await new Promise(resolve => setTimeout(resolve, delayMs));
+	}
+	throw new Error('All retries failed');  // Fallback if no error but still failed
+}
 
 before(() => {
 
@@ -119,113 +141,43 @@ suite(`Debug Integration Test: `, function() {
 			assert.ok(extension.isActive, 'Extension should be active, indicating basic setup worked');
 		});
 	});
-	// describe('GraphPanel Tests', function () {
-	// 	this.timeout(2 * 60 * 1000);
-
-	// 	// Test data
-	// 	const testData = [
-	// 		{
-	// 			id: 'test1',
-	// 			name: 'Test Node 1',
-	// 			isPrimary: true,
-	// 			entityType: 'test',
-	// 			location: { filename: 'test.txt', line: 1, column: 0 }
-	// 		},
-	// 		{
-	// 			id: 'test2',
-	// 			name: 'Test Node 2',
-	// 			isPrimary: false,
-	// 			entityType: 'test',
-	// 			location: { filename: 'test.txt', line: 2, column: 0 }
-	// 		}
-	// 	];
-
-	// 	// Setup variables
-	// 	let extension: vscode.Extension<any>;
-
-	// 	// Setup before each test
-	// 	beforeEach(async function () {
-	// 		// Arrange: Activate the extension and get its path
-	// 		await activate();
-	// 		extension = vscode.extensions.getExtension('tboby.cwtools-vscode');
-	// 		assert.ok(extension, 'Extension should be found');
-
-	// 		// Clean up any existing panel
-	// 		if (gp.GraphPanel.currentPanel) {
-	// 			gp.GraphPanel.currentPanel.dispose();
-	// 		}
-	// 	});
-
-	// 	// Teardown after each test
-	// 	afterEach(function () {
-	// 		// Clean up
-	// 		if (gp.GraphPanel.currentPanel) {
-	// 			gp.GraphPanel.currentPanel.dispose();
-	// 		}
-	// 	});
-
-	// 	it('should create a GraphPanel instance', function () {
-	// 		// Act: Create a GraphPanel
-	// 		gp.GraphPanel.create(extension.extensionPath);
-
-	// 		// Assert: Panel should be created
-	// 		assert.ok(gp.GraphPanel.currentPanel, 'GraphPanel should be created');
-	// 	});
-
- 	// it('should initialize GraphPanel with data', async function () {
- 	// 	this.timeout(10000); // Increase timeout for this test
-
- 	// 	// Arrange: Create a GraphPanel
- 	// 	gp.GraphPanel.create(extension.extensionPath);
-
- 	// 	// Act: Initialize the graph with test data and wait for it to complete
- 	// 	await gp.GraphPanel.currentPanel.initialiseGraph(testData, 1.0);
-
- 	// 	// Assert: Panel should be in the Done state
- 	// 	assert.strictEqual(gp.GraphPanel.currentPanel.getState(), State.Done, 'GraphPanel should be in the Done state');
- 	// });
-
- 	// it('should load and render cytoscape', async function () {
- 	// 	this.timeout(10000); // Increase timeout for this test
-
- 	// 	// Arrange: Create a GraphPanel
- 	// 	gp.GraphPanel.create(extension.extensionPath);
-
- 	// 	// Act: Initialize the graph with test data and wait for it to complete
- 	// 	await gp.GraphPanel.currentPanel.initialiseGraph(testData, 1.0);
-
- 	// 	// Check if cytoscape has rendered elements
- 	// 	const rendered = await gp.GraphPanel.currentPanel.checkCytoscapeRendered();
-
- 	// 	// Assert: Cytoscape should have rendered elements
- 	// 	assert.ok(rendered, 'Cytoscape should have rendered elements');
- 	// });
-
-	// 	it('should dispose GraphPanel properly', function () {
-	// 		// Arrange: Create a GraphPanel
-	// 		gp.GraphPanel.create(extension.extensionPath);
-
-	// 		// Act: Dispose the panel
-	// 		gp.GraphPanel.currentPanel.dispose();
-
-	// 		// Assert: Panel should be undefined after disposal
-	// 		assert.strictEqual(gp.GraphPanel.currentPanel, undefined, 'GraphPanel should be undefined after disposal');
-	// 	});
-	// });
-
 });
 
 describe('GraphPanel Tests', function () {
 	this.timeout(2 * 60 * 1000);
+	const testCyData = {
+		elements: {
+			nodes: [
+				{
+					data: {
+						id: 'test1',
+						label: 'Test Node 1',
+						isPrimary: true,
+						entityType: 'test',
+						location: { filename: root + '/events/irm.txt', line: 1, column: 0 }
+					}
+				},
+				{
+					data: {
+						id: 'test2',
+						label: 'Test Node 2',
+						isPrimary: false,
+						entityType: 'test',
+						location: { filename: 'test.txt', line: 2, column: 0 }
+					}
+				}
+			]
+		}
+	};
 
 	// Test data
-	const testData : GraphData = [
+	const testRawData : GraphData = [
 		{
 			id: 'test1',
 			name: 'Test Node 1',
 			isPrimary: true,
 			entityType: 'test',
-			location: { filename: 'test.txt', line: 1, column: 0 },
+			location: { filename: root + '/events/irm.txt', line: 1, column: 0 },
 			references: []
 		},
 		{
@@ -238,9 +190,12 @@ describe('GraphPanel Tests', function () {
 		}
 	];
 
+	const testRawDataJson = JSON.stringify(testRawData);
+	const testCyDataJson = JSON.stringify(testCyData);
 	// Setup variables
 	let extension: vscode.Extension<any>;
 
+	let tempFile: string;
 	// Setup before each test
 	const before = (async function() {
 		// Arrange: Activate the extension and get its path
@@ -248,10 +203,22 @@ describe('GraphPanel Tests', function () {
 		extension = vscode.extensions.getExtension('tboby.cwtools-vscode');
 		assert.ok(extension, 'Extension should be found');
 
+		tempFile = path.join(os.tmpdir(), 'test-graph.json');
+		fs.writeFileSync(tempFile, testCyDataJson, 'utf8');
+
 		// Clean up any existing panel
 		if (gp.GraphPanel.currentPanel) {
 			gp.GraphPanel.currentPanel.dispose();
 		}
+	});
+	let sandbox: sinon.SinonSandbox;
+
+	setup(() => {
+		sandbox = sinon.createSandbox();
+	});
+
+	teardown(() => {
+		sandbox.restore();
 	});
 
 	// Teardown after each test
@@ -259,6 +226,10 @@ describe('GraphPanel Tests', function () {
 		// Clean up
 		if (gp.GraphPanel.currentPanel) {
 			gp.GraphPanel.currentPanel.dispose();
+		}
+		// Remove temp file
+		if (fs.existsSync(tempFile)) {
+			fs.unlinkSync(tempFile);
 		}
 	};
 
@@ -271,6 +242,30 @@ describe('GraphPanel Tests', function () {
 		assert.ok(gp.GraphPanel.currentPanel, 'GraphPanel should be created');
 		after();
 	});
+	it('should load and render cytoscape from JSON file', async function () {
+		this.timeout(30000);
+		await before();
+
+		// Execute the graphFromJson command
+		// We'll need to simulate the file dialog selection
+		const uri = vscode.Uri.file(tempFile);
+
+		sandbox.stub(vscode.window, 'showOpenDialog').resolves([uri]);
+
+		await vscode.commands.executeCommand('graphFromJson');
+
+		// Wait for the panel to be created and initialized
+		await new Promise(resolve => setTimeout(resolve, 1000));
+
+		const rendered = await retryAsync(
+			() => gp.GraphPanel.currentPanel?.checkCytoscapeRendered(),
+			6,
+			500
+		);
+
+		assert.ok(rendered, 'Cytoscape should have rendered elements');
+		after();
+	});
 
 	it('should initialize GraphPanel with data', async function () {
 		await before();
@@ -280,30 +275,14 @@ describe('GraphPanel Tests', function () {
 		gp.GraphPanel.create(extension.extensionPath);
 
 		// Act: Initialize the graph with test data and wait for it to complete
-		await gp.GraphPanel.currentPanel.initialiseGraph(testData, 1.0);
+		gp.GraphPanel.currentPanel.initialiseGraph(testRawData, 1.0);
 
-		// Assert: Panel should be in the Done state
-		assert.strictEqual(gp.GraphPanel.currentPanel.getState(), State.Done, 'GraphPanel should be in the Done state');
-		after();
+		const testStatus = async function() {
+			return await gp.GraphPanel.currentPanel.getState() === State.Done;
+		}
+		const result = await retryAsync(testStatus, 3, 500);
+		assert.strictEqual(result, true, 'GraphPanel should be in the Done state');
 
-	});
-
-	it('should load and render cytoscape', async function () {
-		await before();
-
-		this.timeout(10000); // Increase timeout for this test
-
-		// Arrange: Create a GraphPanel
-		gp.GraphPanel.create(extension.extensionPath);
-
-		// Act: Initialize the graph with test data and wait for it to complete
-		await gp.GraphPanel.currentPanel.initialiseGraph(testData, 1.0);
-
-		// Check if cytoscape has rendered elements
-		const rendered = await gp.GraphPanel.currentPanel.checkCytoscapeRendered();
-
-		// Assert: Cytoscape should have rendered elements
-		assert.ok(rendered, 'Cytoscape should have rendered elements');
 		after();
 
 	});
