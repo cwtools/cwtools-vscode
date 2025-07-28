@@ -1,8 +1,8 @@
 {
   "name": "cwtools-vscode",
-  "displayName": "CWTools - Paradox Language Services",
+  "displayName": "%extension.displayName%",
   "private": true,
-  "description": "Paradox Interactive scripting file support using CWTools",
+  "description": "%extension.description%",
   "author": "Dayshine",
   "license": "MIT",
   "version": "0.10.26",
@@ -34,17 +34,12 @@
       "explorer": [
         {
           "id": "cwtools-files",
-          "name": "CWTools loaded files"
+          "name": "%views.cwtools-files.name%"
         }
       ]
     },
     "menus": {
       "editor/title": [
-        {
-          "when": "cwtoolsEventFile == true \u0026\u0026 cwtoolsWebview == false",
-          "command": "eventGraph",
-          "group": "navigation"
-        },
         {
           "when": "cwtoolsGraphFile == true \u0026\u0026 cwtoolsWebview == false",
           "command": "showGraph",
@@ -70,96 +65,86 @@
     "commands": [
       {
         "command": "outputerrors",
-        "title": "Write errors to file",
+        "title": "%commands.outputerrors.title%",
         "category": "cwtools"
       },
       {
         "command": "genlocall",
-        "title": "Generate missing loc for all files",
+        "title": "%commands.genlocall.title%",
         "category": "cwtools"
       },
       {
         "command": "reloadrulesconfig",
-        "title": "Reload config rules",
+        "title": "%commands.reloadrulesconfig.title%",
         "category": "cwtools"
       },
       {
         "command": "cacheVanilla",
-        "title": "Regenerate game vanilla cache file",
+        "title": "%commands.cacheVanilla.title%",
         "category": "cwtools"
       },
       {
         "command": "listAllFiles",
-        "title": "Debug: list all files",
+        "title": "%commands.listAllFiles.title%",
         "category": "cwtools"
       },
       {
         "command": "listAllLocFiles",
-        "title": "Debug: list all loc files",
+        "title": "%commands.listAllLocFiles.title%",
         "category": "cwtools"
       },
       {
         "command": "debugrules",
-        "title": "Debug: list all config rules",
+        "title": "%commands.debugrules.title%",
         "category": "cwtools"
       },
       {
         "command": "pretriggerAllFiles",
-        "title": "Optimise all triggers into pretriggers",
+        "title": "%commands.pretriggerAllFiles.title%",
         "category": "cwtools"
       },
       {
         "command": "startcustomgame",
-        "title": "Activate cwtools for a custom game",
-        "category": "cwtools"
-      },
-      {
-        "command": "techGraph",
-        "title": "Show tech graph",
+        "title": "%commands.startcustomgame.title%",
         "category": "cwtools"
       },
       {
         "command": "showGraph",
-        "title": "Show graph",
-        "category": "cwtools"
-      },
-      {
-        "command": "eventGraph",
-        "title": "Show event graph",
+        "title": "%commands.showGraph.title%",
         "category": "cwtools"
       },
       {
         "command": "graphFromJson",
-        "title": "Recreate graph from json",
+        "title": "%commands.graphFromJson.title%",
         "category": "cwtools"
       },
       {
         "command": "exportTypes",
-        "title": "Export: all types",
+        "title": "%commands.exportTypes.title%",
         "category": "cwtools"
       },
       {
         "command": "saveGraphImage",
-        "title": "Save graph as image",
+        "title": "%commands.saveGraphImage.title%",
         "category": "cwtools",
         "enablement": "cwtoolsWebview == true"
       },
       {
         "command": "setGraphDepth",
-        "title": "Set graph depth",
+        "title": "%commands.setGraphDepth.title%",
         "category": "cwtools",
         "enablement": "cwtoolsWebview == true"
       },
       {
         "command": "saveGraphJson",
-        "title": "Save graph as json",
+        "title": "%commands.saveGraphJson.title%",
         "category": "cwtools",
         "enablement": "cwtoolsWebview == true"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "CWTools configuration",
+      "title": "%configuration.title%",
       "properties": {
         "cwtools.trace.server": {
           "scope": "window",
@@ -170,7 +155,7 @@
             "verbose"
           ],
           "default": "off",
-          "description": "Traces the communication between VSCode and the language server."
+          "description": "%configuration.cwtools.trace.server.description%"
         },
         "cwtools.localisation.languages": {
           "scope": "window",
@@ -194,31 +179,31 @@
           "default": [
             "English"
           ],
-          "description": "The list of languages to validate localisation for.",
+          "description": "%configuration.cwtools.localisation.languages.description%",
           "uniqueItems": true
         },
         "cwtools.localisation.generated_strings": {
           "scope": "window",
           "type": "string",
           "default": ":0 \u0022REPLACE_ME\u0022",
-          "description": "The string used when generating localisation strings."
+          "description": "%configuration.cwtools.localisation.generated_strings.description%"
         },
         "cwtools.errors.vanilla": {
           "scope": "window",
           "type": "boolean",
           "default": false,
-          "description": "Whether or not to show errors for vanilla files"
+          "description": "%configuration.cwtools.errors.vanilla.description%"
         },
         "cwtools.errors.ignore": {
           "scope": "window",
           "type": "array",
-          "description": "Error codes to ignore, list of IDs",
+          "description": "%configuration.cwtools.errors.ignore.description%",
           "uniqueItems": true
         },
         "cwtools.errors.ignorefiles": {
           "scope": "window",
           "type": "array",
-          "description": "Files to ignore errors from, list of file names",
+          "description": "%configuration.cwtools.errors.ignorefiles.description%",
           "uniqueItems": true,
           "default": [
             "README.txt",
@@ -232,19 +217,19 @@
           "scope": "window",
           "type": "boolean",
           "default": true,
-          "description": "Whether or not to enable experimental features"
+          "description": "%configuration.cwtools.experimental.description%"
         },
         "cwtools.debug_mode": {
           "scope": "window",
           "type": "boolean",
           "default": true,
-          "description": "Debug features for helping write rules"
+          "description": "%configuration.cwtools.debug_mode.description%"
         },
         "cwtools.logging.diagnostic": {
           "scope": "window",
           "type": "boolean",
           "default": false,
-          "description": "Whether to output diagnostic level logs"
+          "description": "%configuration.cwtools.logging.diagnostic.description%"
         },
         "cwtools.rules_version": {
           "scope": "window",
@@ -255,17 +240,17 @@
             "manual"
           ],
           "default": "latest",
-          "description": "Which version of rules to auto-update to. Manual will use the local path set in rules_folder"
+          "description": "%configuration.cwtools.rules_version.description%"
         },
         "cwtools.rules_folder": {
           "scope": "window",
           "type": "string",
-          "description": "A folder containing custom rules to use"
+          "description": "%configuration.cwtools.rules_folder.description%"
         },
         "cwtools.ignore_patterns": {
           "scope": "window",
           "type": "array",
-          "description": "File paths to ignore (not load into cwtools), list of glob patterns",
+          "description": "%configuration.cwtools.ignore_patterns.description%",
           "uniqueItems": true,
           "default": [
             "**/99_README**.txt"
@@ -274,49 +259,49 @@
         "cwtools.cache.eu4": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla EU4 installation"
+          "description": "%configuration.cwtools.cache.eu4.description%"
         },
         "cwtools.cache.hoi4": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla HOI4 installation"
+          "description": "%configuration.cwtools.cache.hoi4.description%"
         },
         "cwtools.cache.stellaris": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla Stellaris installation"
+          "description": "%configuration.cwtools.cache.stellaris.description%"
         },
         "cwtools.cache.ck2": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla CK2 installation"
+          "description": "%configuration.cwtools.cache.ck2.description%"
         },
         "cwtools.cache.imperator": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla I:R installation"
+          "description": "%configuration.cwtools.cache.imperator.description%"
         },
         "cwtools.cache.vic2": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla VIC2 installation"
+          "description": "%configuration.cwtools.cache.vic2.description%"
         },
         "cwtools.cache.ck3": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla CK3 installation"
+          "description": "%configuration.cwtools.cache.ck3.description%"
         },
         "cwtools.cache.vic3": {
           "scope": "application",
           "type": "string",
-          "description": "The location of a vanilla VIC3 installation"
+          "description": "%configuration.cwtools.cache.vic3.description%"
         },
         "cwtools.graph.zoomSensitivity": {
           "scope": "resource",
           "type": "number",
           "maximum": 2,
           "minimum": 0,
-          "description": "Control scroll wheel zoom sensitivity, \u003C1 reduces sensitivity, \u003E1 increases sensitivity",
+          "description": "%configuration.cwtools.graph.zoomSensitivity.description%",
           "default": 1
         },
         "cwtools.maxFileSize": {
@@ -324,12 +309,7 @@
           "type": "integer",
           "minimum": 1,
           "default": 2,
-          "description": "Maximum script file size to load in megabytes (warning, very large files can cause instability or invalid diagnostics)"
-        },
-        "cwtools.localisation.replaceme": {
-          "scope": "window",
-          "type": "string",
-          "description": "The text to create new localisation strings with, should contain \u0022%s\u0022 for the location of the id"
+          "description": "%configuration.cwtools.maxFileSize.description%"
         }
       }
     },
