@@ -29,16 +29,16 @@ import * as vscode from 'vscode';
 
     export const filesToTreeNodes: fileToTreeNodeType = (arr: FileListItem[]): TreeNode[] => {
         const tree: Record<string, TreeNodeInternal> = {};
-        
+
         function addnode(obj: FileListItem): void {
             const path = obj.scope + "/" + obj.logicalpath;
             const splitpath = path.replace(/^\/|\/$/g, "").split('/');
             let ptr = tree;
-            
+
             for (let i = 0; i < splitpath.length; i++) {
                 const segment = splitpath[i];
                 const isLastSegment = i === splitpath.length - 1;
-                
+
                 // Initialize node if it doesn't exist
                 if (!ptr[segment]) {
                     ptr[segment] = {
@@ -46,20 +46,20 @@ import * as vscode from 'vscode';
                         isDirectory: !isLastSegment,
                         children: {},
                     };
-                    
+
                     if (isLastSegment) {
                         ptr[segment].uri = obj.uri;
                     }
                 }
-                
+
                 ptr = ptr[segment].children;
             }
         }
-        
+
         function convertToTreeNode(node: TreeNodeInternal): TreeNode {
             // Convert children from Record to Array
             const childrenArray = Object.values(node.children).map(convertToTreeNode);
-            
+
             return {
                 isDirectory: node.isDirectory ?? true,
                 fileName: node.fileName ?? "",
@@ -67,10 +67,10 @@ import * as vscode from 'vscode';
                 children: childrenArray
             };
         }
-        
+
         // Process all input files
         arr.forEach(addnode);
-        
+
         // Convert the tree to the expected format
         return Object.values(tree).map(convertToTreeNode);
       }
