@@ -134,16 +134,17 @@ let responseAgent =
 
         loop [])
 
-let monitor = new Object()
-
+let monitor = Lock()
 let private writeClient (client: BinaryWriter, messageText: string) =
     let messageBytes = Encoding.UTF8.GetBytes(messageText)
     let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
     let headerBytes = Encoding.UTF8.GetBytes(headerText)
 
-    lock monitor (fun () ->
+     monitor.Enter()
+    try
         client.Write(headerBytes)
-        client.Write(messageBytes))
+        client.Write(messageBytes)finally
+        monitor.Exit()
 
 let respond (client: BinaryWriter, requestId: int, jsonText: string) =
     let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
