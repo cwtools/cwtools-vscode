@@ -78,28 +78,29 @@ export class GraphPanel {
         this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
 
         // Handle messages from the webview
-        this._disposables.push((this._panel.webview.onDidReceiveMessage(message => {
+        this._disposables.push((this._panel.webview.onDidReceiveMessage(async message => {
             console.log(message)
             switch (message.command) {
                 case 'goToFile':
                     {
                         const uri = vscode.Uri.file(message.uri);
                         const range = new vscode.Range(message.line, message.column, message.line, message.column);
-                        vscode.window.showTextDocument(uri).then((texteditor) => texteditor.revealRange(range, vscode.TextEditorRevealType.AtTop))
+                        const texteditor = await vscode.window.showTextDocument(uri);
+                        texteditor.revealRange(range, vscode.TextEditorRevealType.AtTop);
                         return;
                     }
                 case 'saveImage':
                     {
                         const image = message.image;
-                        vscode.window.showSaveDialog({ filters: { 'Image': ['png'] } })
-                            .then((dest) => fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error)))
+                        const dest = await vscode.window.showSaveDialog({ filters: { 'Image': ['png'] } });
+                        fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error));
                         return;
                     }
                 case 'saveJson':
                     {
                         const json = message.json;
-                        vscode.window.showSaveDialog({ filters: { 'Json': ['json'] } })
-                            .then((dest) => fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error)))
+                        const dest = await vscode.window.showSaveDialog({ filters: { 'Json': ['json'] } });
+                        fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error));
                         return;
                     }
                 case 'ready':
