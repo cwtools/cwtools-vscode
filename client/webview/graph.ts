@@ -123,9 +123,9 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
     // Then when calling the function:
     registerCytoscapeCanvas(cyM.default());
-    cytoscape.use(cytoscapeelk)
-    cytoscape.use(popper);
-    const cy = cytoscape({
+    cyM.default.use(cytoscapeelk)
+    cyM.default.use(popper);
+    const cy = cyM.default({
         container: document.getElementById('cy'),
         minZoom: 0.1,
         maxZoom: 5,
@@ -373,7 +373,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         let timeout : NodeJS.Timeout;
 
         // Calling debounce returns a new anonymous function
-        return function (...args: unknown[]) {
+        return function (...args: T[]) {
             // Should the function be called now? If immediate is true
             //   and not already in a timeout then the answer is: Yes
             const callNow = immediate && !timeout;
