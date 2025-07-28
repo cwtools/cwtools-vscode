@@ -141,33 +141,28 @@ export async function activate(context: ExtensionContext) {
 
 		let latestType : string = undefined;
 
-		function didChangeActiveTextEditor(editor : vs.TextEditor): void {
+		async function didChangeActiveTextEditor(editor : vs.TextEditor): Promise<void> {
 			if (editor){
 				const path = editor.document.uri.toString();
 				if (languageId == "paradox" && editor.document.languageId == "plaintext") {
-					vs.languages.setTextDocumentLanguage(editor.document, "paradox")
-			}
-			if(editor.document.languageId == language)
-			{
-				client.sendNotification(didFocusFile, {uri: path});
-			}
-			const params: ExecuteCommandParams = {
-				command: "getFileTypes",
-				arguments: [path]
-			};
-			client.sendRequest(ExecuteCommandRequest.type, params).then(
-				(data : string[]) =>
-				{
-					if (data !== undefined && data && data[0]) {
-						latestType = data[0];
-						commands.executeCommand('setContext', 'cwtoolsGraphFile', true);
-					}
-					else {
-						commands.executeCommand('setContext', 'cwtoolsGraphFile', false);
-					}
+					await vs.languages.setTextDocumentLanguage(editor.document, "paradox")
 				}
-				);
-
+				if(editor.document.languageId == language)
+				{
+					await client.sendNotification(didFocusFile, {uri: path});
+				}
+				const params: ExecuteCommandParams = {
+					command: "getFileTypes",
+					arguments: [path]
+				};
+				const data = await client.sendRequest(ExecuteCommandRequest.type, params);
+				if (data !== undefined && data && data[0]) {
+					latestType = data[0];
+					await commands.executeCommand('setContext', 'cwtoolsGraphFile', true);
+				}
+				else {
+					await commands.executeCommand('setContext', 'cwtoolsGraphFile', false);
+				}
 			}
 		}
 
@@ -176,7 +171,7 @@ export async function activate(context: ExtensionContext) {
 		if (languageId == "paradox") {
 			for (const textDocument of workspace.textDocuments){
 				if (textDocument.languageId == "plaintext"){
-					vs.languages.setTextDocumentLanguage(textDocument, "paradox")
+					await vs.languages.setTextDocumentLanguage(textDocument, "paradox")
 				}
 			}
 		}
@@ -207,23 +202,22 @@ export async function activate(context: ExtensionContext) {
 				debugStatusBar.hide();
 			}
 		})
-		client.onNotification(createVirtualFile, (param: CreateVirtualFile) => {
+		client.onNotification(createVirtualFile, async (param: CreateVirtualFile) => {
 			const uri = Uri.parse(param.uri);
-			workspace.openTextDocument(uri).then(doc => {
-				const edit = new WorkspaceEdit();
-				const range = new Range(0, 0, doc.lineCount, doc.getText().length);
-				edit.set(uri, [new TextEdit(range, param.fileContent)]);
-				workspace.applyEdit(edit);
-				window.showTextDocument(uri);
-			});
+			const doc = await workspace.openTextDocument(uri);
+			const edit = new WorkspaceEdit();
+			const range = new Range(0, 0, doc.lineCount, doc.getText().length);
+			edit.set(uri, [new TextEdit(range, param.fileContent)]);
+			await workspace.applyEdit(edit);
+			await window.showTextDocument(uri);
 		})
-		client.onNotification(promptReload, (param: string) => {
-			reloadExtension(param, "Reload")
+		client.onNotification(promptReload, async (param: string) => {
+			await reloadExtension(param, "Reload")
 		})
-		client.onNotification(forceReload, (param: string) => {
-			reloadExtension(param, undefined, true);
+		client.onNotification(forceReload, async (param: string) => {
+			await reloadExtension(param, undefined, true);
 		})
-		client.onNotification(promptVanillaPath, (param: string) => {
+		client.onNotification(promptVanillaPath, async (param: string) => {
 			let gameDisplay = ""
 			switch (param) {
 				case "stellaris": gameDisplay = "Stellaris"; break;
@@ -235,56 +229,51 @@ export async function activate(context: ExtensionContext) {
 				case "vic3": gameDisplay = "Victoria 3"; break;
 				case "ck3": gameDisplay = "Crusader Kings III"; break;
 			}
-			window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder")
-				.then(() =>
-					window.showOpenDialog({
+			await window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder");
+			const uri = await window.showOpenDialog({
 						canSelectFiles: false,
 						canSelectFolders: true,
 						canSelectMany: false,
 						openLabel: "Select vanilla installation folder for " + gameDisplay
-					}).then(
-						(uri) => {
-							const directory = uri[0];
-							const gameFolder = path.basename(directory.fsPath)
-							let dir = directory.fsPath
-							let game = ""
-							switch (gameFolder) {
-								case "Stellaris": game = "stellaris"; break;
-								case "Hearts of Iron IV": game = "hoi4"; break;
-								case "Europa Universalis IV": game = "eu4"; break;
-								case "Crusader Kings II": game = "ck2"; break;
-								case "Crusader Kings III":
-									game = "ck3";
-									dir = path.join(dir, "game");
-									break;
-								case "Victoria II": game = "vic2"; break;
-								case "Victoria 2": game = "vic2"; break;
-								case "Victoria 3":
-									game = "vic3";
-									dir = path.join(dir, "game");
-									break;
-								case "ImperatorRome":
-									game = "imperator";
-									dir = path.join(dir, "game");
-									break;
-								case "Imperator":
-									game = "imperator";
-									dir = path.join(dir, "game");
-									break;
-							}
-							console.log(path.join(dir, "common"));
-							if (game === "" || !(fs.existsSync(path.join(dir, "common")))) {
-								window.showErrorMessage("The selected folder does not appear to be a supported game folder")
-							}
-							else {
-								log.appendLine("path" + dir)
-								log.appendLine("log" + game)
-								workspace.getConfiguration("cwtools").update("cache." + game, dir, true)
-								reloadExtension("Reloading to generate vanilla cache", undefined, true);
-							}
-						})
-				);
-
+					});
+			const directory = uri[0];
+			const gameFolder = path.basename(directory.fsPath)
+			let dir = directory.fsPath
+			let game = ""
+			switch (gameFolder) {
+				case "Stellaris": game = "stellaris"; break;
+				case "Hearts of Iron IV": game = "hoi4"; break;
+				case "Europa Universalis IV": game = "eu4"; break;
+				case "Crusader Kings II": game = "ck2"; break;
+				case "Crusader Kings III":
+					game = "ck3";
+					dir = path.join(dir, "game");
+					break;
+				case "Victoria II": game = "vic2"; break;
+				case "Victoria 2": game = "vic2"; break;
+				case "Victoria 3":
+					game = "vic3";
+					dir = path.join(dir, "game");
+					break;
+				case "ImperatorRome":
+					game = "imperator";
+					dir = path.join(dir, "game");
+					break;
+				case "Imperator":
+					game = "imperator";
+					dir = path.join(dir, "game");
+					break;
+			}
+			console.log(path.join(dir, "common"));
+			if (game === "" || !(fs.existsSync(path.join(dir, "common")))) {
+				await window.showErrorMessage("The selected folder does not appear to be a supported game folder")
+			}
+			else {
+				log.appendLine("path" + dir)
+				log.appendLine("log" + game)
+				await workspace.getConfiguration("cwtools").update("cache." + game, dir, true)
+				await reloadExtension("Reloading to generate vanilla cache", undefined, true);
+			}
 		})
 		client.onRequest(request, (param) => {
 			console.log("received request " + request.method + " " + param)
@@ -317,7 +306,7 @@ export async function activate(context: ExtensionContext) {
 		})
 
 		if (workspace.name === undefined) {
-			window.showWarningMessage("You have opened a file directly.\n\rFor CWTools to work correctly, the mod folder should be opened using \"File, Open Folder\"")
+			await window.showWarningMessage("You have opened a file directly.\n\rFor CWTools to work correctly, the mod folder should be opened using \"File, Open Folder\"")
 		}
 
 /// TODO graph
@@ -345,34 +334,30 @@ export async function activate(context: ExtensionContext) {
 			gp.GraphPanel.create(context.extensionPath);
 			gp.GraphPanel.currentPanel.initialiseGraph(graphData, wheelSensitivity);
 		}
-		context.subscriptions.push(commands.registerCommand('showGraph', () => {
-			showGraph();
+		context.subscriptions.push(commands.registerCommand('showGraph', async () => {
+			await showGraph();
 		}));
-		context.subscriptions.push(commands.registerCommand('setGraphDepth', () => {
-			window.showInputBox(
+		context.subscriptions.push(commands.registerCommand('setGraphDepth', async () => {
+			const res = await window.showInputBox(
 				{
 					placeHolder: "default: 3",
 					prompt: "Set graph depth (how many connections to go back from this file)",
 					value: currentGraphDepth.toString(),
 					validateInput: (v : string) => Number.isInteger(Number(v)) ? undefined : "Please enter a number"
-			 }).then((res) => {
-				 if (Number.isInteger(Number(res)))
-				{
-					currentGraphDepth = Number(res)
-					showGraph()
-				}
-			 })
+			 });
+				if (Number.isInteger(Number(res)))
+			{
+				currentGraphDepth = Number(res)
+				await showGraph()
+			}
 		}));
-		context.subscriptions.push(commands.registerCommand('graphFromJson', () => {
-			window.showOpenDialog({filters: {'Json': ['json']}})
-					.then((uri) =>
-					{
-						fs.readFile(uri[0].fsPath, {encoding: "utf-8"}, (_, data) => {
-							const wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
-							gp.GraphPanel.create(context.extensionPath);
-							gp.GraphPanel.currentPanel.initialiseGraph(data, wheelSensitivity);
-						})
-					})
+		context.subscriptions.push(commands.registerCommand('graphFromJson', async () => {
+			const uri = await window.showOpenDialog({filters: {'Json': ['json']}})
+			const bytes = await vs.workspace.fs.readFile(uri[0]);
+			const data = new TextDecoder('utf-8').decode(bytes);
+			const wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
+			gp.GraphPanel.create(context.extensionPath);
+			gp.GraphPanel.currentPanel.initialiseGraph(data, wheelSensitivity);
 		}));
 		// Create the language client and start the client.
 
@@ -484,13 +469,13 @@ export async function reloadExtension(prompt?: string, buttonText?: string, forc
 	const restartAction = buttonText || "Restart";
 	const actions = [restartAction];
 	if (force) {
-		window.showInformationMessage(prompt);
-		commands.executeCommand("cwtools.reloadExtension");
+		await window.showInformationMessage(prompt);
+		await commands.executeCommand("cwtools.reloadExtension");
 	}
 	else {
 		const chosenAction = prompt && await window.showInformationMessage(prompt, ...actions);
 		if (!prompt || chosenAction === restartAction) {
-			commands.executeCommand("cwtools.reloadExtension");
+			await commands.executeCommand("cwtools.reloadExtension");
 		}
 	}
 }

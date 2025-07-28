@@ -8,7 +8,6 @@ import mergeimages from 'merge-images'
 
 declare module 'cytoscape' {
     interface Core {
-//         navigator(options: any): any;
         cyCanvas(options: { pixelRatio: string; zIndex: number }): {
             getCanvas(): HTMLCanvasElement;
             clear: (ctx: CanvasRenderingContext2D) => void;
