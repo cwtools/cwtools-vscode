@@ -199,6 +199,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         const ref = node.popperRef();
         let isSimple = true;
         const simpleOptions : Partial<Props> = {
+            getReferenceClientRect: ref.getBoundingClientRect,
             content: () => {
                 const content = document.createElement('div');
 
@@ -214,6 +215,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         }
         let hoverTimeout : NodeJS.Timeout;
         const complexOptions = {
+            getReferenceClientRect: ref.getBoundingClientRect,
             content: () => {
                 const content = document.createElement('div');
 
@@ -233,7 +235,9 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             trigger: "manual"
 
         }
-        const tip = tippy(ref.contextElement, simpleOptions);
+        const dummyDomEle = document.createElement("div");
+
+        const tip = tippy(dummyDomEle, simpleOptions);
         const expandTooltip = function(element : Instance) {
             element.setProps(complexOptions);
             isSimple = false
