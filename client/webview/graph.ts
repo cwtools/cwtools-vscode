@@ -450,9 +450,19 @@ export async function exportImage(pixelRatio: number) {
     drawExtra(_cy.nodes(), ctx, (1/pixelRatio))
 
     const canvasImage = await canvas.convertToBlob({ "type":"png"});
-    const bufferImage = await canvasImage.arrayBuffer()
-    const mergedImages = await mergeimages([png, Buffer.from(bufferImage)]);
+    const bufferImage = await blobToDataURL(canvasImage);
+    const mergedImages = await mergeimages([png, bufferImage]);
     vscode.postMessage({ "command": "saveImage", "image": mergedImages.substring(mergedImages.indexOf(',') + 1) });
+}
+
+function blobToDataURL(blob: Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error);
+        reader.onabort = () => reject(new Error("Read aborted"));
+        reader.readAsDataURL(blob);
+    });
 }
 
 export function exportJson() {
