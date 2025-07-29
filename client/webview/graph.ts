@@ -289,10 +289,8 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         cy.fit();
 
 
-        let groups: CollectionReturnValue[] = [];
-
         const t = cy.elements();
-        groups = t.components();
+        const groups: CollectionReturnValue[] = t.components();
         const singles = groups.filter((f) => f.length === 1);
         const singles2 = singles.reduce((p, c) => p.union(c), cy.collection())
         const rest = groups.filter((f) => f.length !== 1);
@@ -438,7 +436,7 @@ export function goToNode(location : techNode["location"]) {
     vscode.postMessage({"command": "goToFile", "uri": uri, "line": line, "column": column})
 }
 
-export function exportImage(pixelRatio: number) {
+export async function exportImage(pixelRatio: number) {
 
     const png = _cy.png({ full: true, output: 'base64uri', scale: pixelRatio });
     const boundingBox = _cy.elements().boundingBox({})
@@ -451,15 +449,10 @@ export function exportImage(pixelRatio: number) {
 
     drawExtra(_cy.nodes(), ctx, (1/pixelRatio))
 
-    canvas.convertToBlob({ "type":"png"}).then((canvasImage) =>
-        {
-        const reader = new FileReader()
-            reader.onloadend = (function () {
-                mergeimages([png, reader.result]).then((final: string) => vscode.postMessage({ "command": "saveImage", "image": final.substring(final.indexOf(',') + 1) }))
-            })
-            reader.readAsDataURL(canvasImage);
-        }
-    )
+    const canvasImage = await canvas.convertToBlob({ "type":"png"});
+    const bufferImage = await canvasImage.arrayBuffer()
+    const mergedImages = await mergeimages([png, Buffer.from(bufferImage)]);
+    vscode.postMessage({ "command": "saveImage", "image": mergedImages.substring(mergedImages.indexOf(',') + 1) });
 }
 
 export function exportJson() {
