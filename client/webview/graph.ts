@@ -315,7 +315,7 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
 
 
     /// Double click
-    let tappedBefore : EventTarget;
+    let tappedBefore : EventTarget | null;
     let tappedTimeout : NodeJS.Timeout;
 
     cy.on('tap', function (event : EventObject) {
@@ -359,22 +359,23 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     });
 
     cy.on("render", function () {
-        layer.resetTransform(ctx);
-        layer.clear(ctx);
+        layer.resetTransform(ctx!);
+        layer.clear(ctx!);
 
 
-        layer.setTransform(ctx);
+        layer.setTransform(ctx!);
 
-        drawExtra(cy.nodes(), ctx, cy.zoom())
+        drawExtra(cy.nodes(), ctx!, cy.zoom())
     });
-    function debounce<T, R>(func : ((input: T) => (R)), wait : number, immediate : boolean) {
+
+    function debounce<T>(func: ((input: T) => void), wait: number, immediate: boolean) {
         // 'private' variable for instance
         // The returned function will be able to reference this due to closure.
         // Each call to the returned function will share this common timer.
-        let timeout : NodeJS.Timeout;
+        let timeout: NodeJS.Timeout | null;
 
         // Calling debounce returns a new anonymous function
-        return function (...args: T[]) {
+        return function (input: T) {
             // Should the function be called now? If immediate is true
             //   and not already in a timeout then the answer is: Yes
             const callNow = immediate && !timeout;
@@ -383,10 +384,12 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
             //   function several times, but it will only execute once
             //   [before or after imposing a delay].
             //   Each time the returned function is called, the timer starts over.
-            clearTimeout(timeout);
+            if (timeout) {
+                clearTimeout(timeout);
+            }
 
             // Set the new timeout
-            timeout = setTimeout(function () {
+            timeout = setTimeout(() => {
 
                 // Inside the timeout function, clear the timeout variable
                 // which will let the next execution run when in 'immediate' mode
@@ -395,16 +398,16 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
                 // Check if the function already ran with the immediate flag
                 if (!immediate) {
                     // Call the original function with apply
-                    // apply lets you define the 'this' object as well as the arguments
                     //    (both captured before setTimeout)
-                    func.apply(this, args);
+                    func.apply(this, [input]);
                 }
             }, wait);
 
             // Immediate mode and no wait timer? Execute the function..
-            if (callNow) func.apply(this, args);
+            if (callNow) func.apply(this, [input]);
         }
     }
+
     function resizeme() {
         $("#cy").width(10);
         cy.resize();
@@ -511,8 +514,9 @@ export function go(nodesJ: Array<techNode>, settings: settings) {
     const nodes: Array<techNode> = nodesJ//JSON.parse(nodesJ);
     //console.log(nodes);
     // var nodes2 = nodes.map((a) => a.id);
-    const edges = nodes.map((a) => a.references.map((b) => b.isOutgoing ? { source: a.id, target: b.key, label: b.label } : { source: b.key, target: a.id, label: b.label }));
-    const edges2 : EdgeInput[] = [].concat(...edges)
+    const edges = nodes.map((a) => a.references.map((b)  => b.isOutgoing ? { source: a.id, target: b.key, label: b.label } : { source: b.key, target: a.id, label: b.label }));
+    const edges2 = edges.flat();
+    // const edges2 : EdgeInput[] = [].concat(...edges)
     // var nodes3 = edges2.map(a => a[1])
     // let nodes4 : string[] = [].concat(nodes2, nodes3);
     // console.log(nodes2);
