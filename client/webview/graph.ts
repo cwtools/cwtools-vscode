@@ -368,14 +368,14 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
         drawExtra(cy.nodes(), ctx!, cy.zoom())
     });
 
-    function debounce<T>(func: ((input: T) => void), wait: number, immediate: boolean) {
+    function debounce<T, A>(func: ((this: T, input: A) => void), wait: number, immediate: boolean) {
         // 'private' variable for instance
         // The returned function will be able to reference this due to closure.
         // Each call to the returned function will share this common timer.
         let timeout: NodeJS.Timeout | null;
 
         // Calling debounce returns a new anonymous function
-        return function (input: T) {
+        return function (this: T, input: A) {
             // Should the function be called now? If immediate is true
             //   and not already in a timeout then the answer is: Yes
             const callNow = immediate && !timeout;

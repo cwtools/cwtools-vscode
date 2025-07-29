@@ -81,10 +81,13 @@ import * as vscode from 'vscode';
     // }
 
     export class FilesProvider implements vscode.TreeDataProvider<TreeNode> {
-        private tree : TreeNode;
+        private readonly _tree : TreeNode = {
+            fileName: "root",
+            isDirectory: true,
+            children: [] ,
+            uri: ""
+        }
         constructor(private files: FileListItem[]) {
-            // const t : File[] = files.map(f => ({fileName: f}));
-            // this.tree = { fileName: "root", isDirectory: true, children: filesToTreeNodes(files), uri: "" };
             this.parseTree(files);
         }
         private _onDidChangeTreeData: vscode.EventEmitter<TreeNode | null> = new vscode.EventEmitter<TreeNode | null>();
@@ -92,12 +95,7 @@ import * as vscode from 'vscode';
 
 
         private parseTree(files: FileListItem[]): void {
-            this.tree = {
-                fileName: "root",
-                isDirectory: true,
-                children: filesToTreeNodes(files),
-                uri: ""
-            };
+            this._tree.children = filesToTreeNodes(files);
         }
 
         getTreeItem(element: TreeNode): vscode.TreeItem {
@@ -116,7 +114,7 @@ import * as vscode from 'vscode';
                 // return children.map(([name, type]) => ({ uri: vscode.Uri.file(path.join(element.uri.fsPath, name)), type }));
             }
             else {
-                return this.tree.children;
+                return this._tree.children;
             }
 
             // const workspaceFolder = vscode.workspace.workspaceFolders.filter(folder => folder.uri.scheme === 'file')[0];
@@ -134,7 +132,7 @@ import * as vscode from 'vscode';
         }
         refresh(files : FileListItem[]) {
             this.parseTree(files);
-            this._onDidChangeTreeData.fire(undefined);
+            this._onDidChangeTreeData.fire(null);
         }
 
     }

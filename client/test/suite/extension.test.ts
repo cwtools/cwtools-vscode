@@ -199,8 +199,9 @@ describe('GraphPanel Tests', function () {
 	const before = (async function() {
 		// Arrange: Activate the extension and get its path
 		await activate();
-		extension = vscode.extensions.getExtension('tboby.cwtools-vscode');
-		assert.ok(extension, 'Extension should be found');
+		const extensionMaybe = vscode.extensions.getExtension('tboby.cwtools-vscode');
+		assert.ok(extensionMaybe, 'Extension should be found');
+		extension = extensionMaybe!;
 
 		tempFile = path.join(os.tmpdir(), 'test-graph.json');
 		fs.writeFileSync(tempFile, testCyDataJson, 'utf8');
@@ -257,7 +258,7 @@ describe('GraphPanel Tests', function () {
 		await new Promise(resolve => setTimeout(resolve, 1000));
 
 		const rendered = await retryAsync(
-			() => gp.GraphPanel.currentPanel?.checkCytoscapeRendered(),
+			() => gp.GraphPanel.currentPanel!.checkCytoscapeRendered(),
 			6,
 			500
 		);
@@ -274,10 +275,10 @@ describe('GraphPanel Tests', function () {
 		gp.GraphPanel.create(extension.extensionPath);
 
 		// Act: Initialize the graph with test data and wait for it to complete
-		gp.GraphPanel.currentPanel.initialiseGraph(testRawData, 1.0);
+		gp.GraphPanel.currentPanel!.initialiseGraph(testRawData, 1.0);
 
 		const testStatus = async function() {
-			return await gp.GraphPanel.currentPanel.getState() === State.Done;
+			return await gp.GraphPanel.currentPanel!.getState() === State.Done;
 		}
 		const result = await retryAsync(testStatus, 3, 500);
 		assert.strictEqual(result, true, 'GraphPanel should be in the Done state');
@@ -293,7 +294,7 @@ describe('GraphPanel Tests', function () {
 		gp.GraphPanel.create(extension.extensionPath);
 
 		// Act: Dispose the panel
-		gp.GraphPanel.currentPanel.dispose();
+		gp.GraphPanel.currentPanel!.dispose();
 
 		// Assert: Panel should be undefined after disposal
 		assert.strictEqual(gp.GraphPanel.currentPanel, undefined, 'GraphPanel should be undefined after disposal');

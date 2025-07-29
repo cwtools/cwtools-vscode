@@ -25,7 +25,7 @@ export class GraphPanel {
     public async getState(): Promise<State> {
         return this._state;
     }
-    private pendingRequest : ((data: unknown) => void) | null = null
+    private pendingRequest : ((data: boolean) => void) | null = null
 
     // Method to check if cytoscape has rendered elements
     public async checkCytoscapeRendered() {
@@ -93,14 +93,18 @@ export class GraphPanel {
                     {
                         const image = message.image;
                         const dest = await vscode.window.showSaveDialog({ filters: { 'Image': ['png'] } });
-                        fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error));
+                        if(dest){
+                            fs.writeFile(dest.fsPath, image, "base64", (error) => console.error(error));
+                        }
                         return;
                     }
                 case 'saveJson':
                     {
                         const json = message.json;
                         const dest = await vscode.window.showSaveDialog({ filters: { 'Json': ['json'] } });
-                        fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error));
+                        if(dest){
+                            fs.writeFile(dest.fsPath, json, "utf-8", (error) => console.error(error));
+                        }
                         return;
                     }
                 case 'ready':
@@ -116,7 +120,7 @@ export class GraphPanel {
                         if(this.pendingRequest != null){
                             const resolve = this.pendingRequest;
                             this.pendingRequest = null;
-                            resolve(message.rendered); // Use 'rendered' property from webview response
+                            resolve(message.rendered as boolean); // Use 'rendered' property from webview response
                         }
                         return;
                     }
