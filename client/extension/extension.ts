@@ -364,7 +364,7 @@ export async function activate(context: ExtensionContext) {
 		// Push the disposable to the context's subscriptions so that the
 		// client can be deactivated on extension deactivation
 		context.subscriptions.push(new CwtoolsProvider());
-		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", () => {
+		context.subscriptions.push(vs.commands.registerCommand("cwtools.reloadExtension", async () => {
 			for (const sub of context.subscriptions) {
 				try {
 					sub.dispose();
@@ -372,7 +372,7 @@ export async function activate(context: ExtensionContext) {
 					console.error(e);
 				}
 			}
-			activate(context);
+			await activate(context);
 		}));
 		await client.start();
 	}
