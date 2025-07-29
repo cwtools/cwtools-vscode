@@ -25,7 +25,7 @@ const vic2Remote = `https://github.com/cwtools/cwtools-vic2-config`;
 const vic3Remote = `https://github.com/cwtools/cwtools-vic3-config`;
 const ck3Remote = `https://github.com/cwtools/cwtools-ck3-config`;
 
-let defaultClient: LanguageClient;
+export let defaultClient: LanguageClient;
 let fileList : FileListItem[];
 let fileExplorer : FileExplorer;
 export async function activate(context: ExtensionContext) {
@@ -139,9 +139,9 @@ export async function activate(context: ExtensionContext) {
 		interface UpdateFileList { fileList: FileListItem[] }
 		const updateFileList = new NotificationType<UpdateFileList>('updateFileList');
 
-		let latestType : string = undefined;
+		let latestType : string;
 
-		async function didChangeActiveTextEditor(editor : vs.TextEditor): Promise<void> {
+		async function didChangeActiveTextEditor(editor : vs.TextEditor | undefined): Promise<void> {
 			if (editor){
 				const path = editor.document.uri.toString();
 				if (languageId == "paradox" && editor.document.languageId == "plaintext") {
@@ -229,13 +229,19 @@ export async function activate(context: ExtensionContext) {
 				case "vic3": gameDisplay = "Victoria 3"; break;
 				case "ck3": gameDisplay = "Crusader Kings III"; break;
 			}
-			await window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder");
+			const result = await window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder");
+			if(!result) {
+				return;
+			}
 			const uri = await window.showOpenDialog({
 						canSelectFiles: false,
 						canSelectFolders: true,
 						canSelectMany: false,
 						openLabel: "Select vanilla installation folder for " + gameDisplay
 					});
+			if(!uri) {
+				return;
+			}
 			const directory = uri[0];
 			const gameFolder = path.basename(directory.fsPath)
 			let dir = directory.fsPath
@@ -278,7 +284,11 @@ export async function activate(context: ExtensionContext) {
 		client.onRequest(request, (param) => {
 			console.log("received request " + request.method + " " + param)
 			const uri = Uri.parse(param.uri);
-			const document = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path).document
+			const textEditor = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path);
+			if(!textEditor){
+				return "none";
+			}
+			const document = textEditor.document;
 			const position = new Position(param.position.line, param.position.character)
 			const wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
 			if (wordRange === undefined) {
@@ -330,9 +340,9 @@ export async function activate(context: ExtensionContext) {
 		let currentGraphDepth = 3;
 		const showGraph = async function() {
 			const graphData = await getGraphData(latestType, currentGraphDepth);
-			const wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
+			const wheelSensitivity : number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity') ?? 1;
 			gp.GraphPanel.create(context.extensionPath);
-			gp.GraphPanel.currentPanel.initialiseGraph(graphData, wheelSensitivity);
+			gp.GraphPanel.currentPanel!.initialiseGraph(graphData, wheelSensitivity);
 		}
 		context.subscriptions.push(commands.registerCommand('showGraph', async () => {
 			await showGraph();
@@ -353,11 +363,14 @@ export async function activate(context: ExtensionContext) {
 		}));
 		context.subscriptions.push(commands.registerCommand('graphFromJson', async () => {
 			const uri = await window.showOpenDialog({filters: {'Json': ['json']}})
+			if(!uri){
+				return;
+			}
 			const bytes = await vs.workspace.fs.readFile(uri[0]);
 			const data = new TextDecoder('utf-8').decode(bytes);
-			const wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity')
+			const wheelSensitivity: number = workspace.getConfiguration('cwtools.graph').get('zoomSensitivity') ?? 1;
 			gp.GraphPanel.create(context.extensionPath);
-			gp.GraphPanel.currentPanel.initialiseGraph(data, wheelSensitivity);
+			gp.GraphPanel.currentPanel!.initialiseGraph(data, wheelSensitivity);
 		}));
 		// Create the language client and start the client.
 
@@ -377,7 +390,7 @@ export async function activate(context: ExtensionContext) {
 		await client.start();
 	}
 
-	let languageId : string = null;
+	let languageId : string;
 	const knownLanguageIds = ["stellaris", "eu4", "hoi4", "ck2", "imperator", "vic2", "vic3", "ck3"];
 	const getLanguageIdFallback = async function() {
 		const markerFiles = await workspace.findFiles("**/*.txt", null, 1);
@@ -387,7 +400,7 @@ export async function activate(context: ExtensionContext) {
 		return null;
 	}
 
-	let guessedLanguageId = window.activeTextEditor?.document?.languageId;
+	let guessedLanguageId: string | undefined | null = window.activeTextEditor?.document?.languageId;
 	if(guessedLanguageId === undefined || !knownLanguageIds.includes(guessedLanguageId)){
 		guessedLanguageId = await getLanguageIdFallback();
 	}
@@ -463,14 +476,15 @@ export async function activate(context: ExtensionContext) {
 	await init(languageId, isVanillaFolder);
 }
 
-export default defaultClient;
 
-export async function reloadExtension(prompt?: string, buttonText?: string, force? : boolean) {
+export async function reloadExtension(prompt: string, buttonText?: string, force? : boolean) {
 	const restartAction = buttonText || "Restart";
 	const actions = [restartAction];
 	if (force) {
-		await window.showInformationMessage(prompt);
-		await commands.executeCommand("cwtools.reloadExtension");
+		const result = await window.showInformationMessage(prompt);
+		if(result){
+			await commands.executeCommand("cwtools.reloadExtension");
+		}
 	}
 	else {
 		const chosenAction = prompt && await window.showInformationMessage(prompt, ...actions);
@@ -479,3 +493,4 @@ export async function reloadExtension(prompt?: string, buttonText?: string, forc
 		}
 	}
 }
+// export default defaultClient;
