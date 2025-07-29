@@ -409,7 +409,10 @@ function tech(data: techNode[], edges: Array<EdgeInput>, settings : settings,jso
     }
 
     function resizeme() {
-        $("#cy").width(10);
+        const cyElement = document.getElementById('cy');
+        if (cyElement) {
+            cyElement.style.width = `10px`;
+        }
         cy.resize();
         cy.center();
     }
