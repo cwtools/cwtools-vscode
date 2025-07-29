@@ -25,6 +25,8 @@ jobs:
     - name: Set chmod
       run: chmod +x ./build.sh
     - name: Test
+      run: xvfb-run -a npm test
+    - name: Test build
       run: /bin/sh ./build.sh DryRelease
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
