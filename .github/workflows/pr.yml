@@ -24,10 +24,10 @@ jobs:
     - run: npm install
     - name: Set chmod
       run: chmod +x ./build.sh
-    - name: Test
-      run: xvfb-run -a npm test
     - name: Test build
       run: /bin/sh ./build.sh DryRelease
+    - name: Test
+      run: xvfb-run -a npm test
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
