@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
 import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, env } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient/node';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient/node';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
 import * as gp from './graphPanel';
@@ -134,7 +134,6 @@ export async function activate(context: ExtensionContext) {
 		interface DidFocusFile { uri : string }
 		const didFocusFile = new NotificationType<DidFocusFile>('didFocusFile')
 		interface GetWordRangeAtPositionParams { position : Position, uri: string }
-		const request = new RequestType<GetWordRangeAtPositionParams, string, void>('getWordRangeAtPosition');
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
 		const updateFileList = new NotificationType<UpdateFileList>('updateFileList');
@@ -281,30 +280,6 @@ export async function activate(context: ExtensionContext) {
 				await reloadExtension("Reloading to generate vanilla cache", undefined, true);
 			}
 		})
-		client.onRequest(request, (param) => {
-			console.log("received request " + request.method + " " + param)
-			const uri = Uri.parse(param.uri);
-			const textEditor = window.visibleTextEditors.find((v) => v.document.uri.path == uri.path);
-			if(!textEditor){
-				return "none";
-			}
-			const document = textEditor.document;
-			const position = new Position(param.position.line, param.position.character)
-			const wordRange = document.getWordRangeAtPosition(position, /"?([^\s]+)"?/g);
-			if (wordRange === undefined) {
-				return "none";
-			}
-			else {
-				const text = document.getText(wordRange);
-				console.log("wordAtPos " + text);
-				if (text.trim().length == 0) {
-					return "none";
-				}
-				else {
-					return text;
-				}
-			}
-		});
 		client.onNotification(updateFileList, (params: UpdateFileList) => {
 			fileList = params.fileList;
 			if (fileExplorer) {
