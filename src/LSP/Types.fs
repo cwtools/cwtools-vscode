@@ -3,70 +3,46 @@ module LSP.Types
 open System
 open FSharp.Data
 
-type DidChangeConfigurationParams = {
-    settings: JsonValue
-}
+type DidChangeConfigurationParams = { settings: JsonValue }
 
-type WorkspaceFolder = {
-    uri: Uri
-    name: string
-}
+type WorkspaceFolder = { uri: Uri; name: string }
 
-type WorkspaceFoldersChangeEvent = {
-    added: WorkspaceFolder list
-    removed: WorkspaceFolder list
-}
+type WorkspaceFoldersChangeEvent =
+    { added: WorkspaceFolder list
+      removed: WorkspaceFolder list }
 
-type DidChangeWorkspaceFoldersParams = {
-    event: WorkspaceFoldersChangeEvent
-}
+type DidChangeWorkspaceFoldersParams = { event: WorkspaceFoldersChangeEvent }
 
-type TextDocumentItem = {
-    uri: Uri
-    languageId: string
-    version: int
-    text: string
-}
+type TextDocumentItem =
+    { uri: Uri
+      languageId: string
+      version: int
+      text: string }
 
-type DidOpenTextDocumentParams = {
-    textDocument: TextDocumentItem
-}
+type DidOpenTextDocumentParams = { textDocument: TextDocumentItem }
 
-type VersionedTextDocumentIdentifier = {
-    uri: Uri
-    version: int
-}
+type VersionedTextDocumentIdentifier = { uri: Uri; version: int }
 
-type Position = {
-    line: int
-    character: int
-}
+type Position = { line: int; character: int }
 
-type Range = {
-    start: Position
-    ``end``: Position
-}
+type Range = { start: Position; ``end``: Position }
 
-type TextDocumentContentChangeEvent = {
-    range: Range option
-    rangeLength: int option
-    text: string
-}
+type TextDocumentContentChangeEvent =
+    { range: Range option
+      rangeLength: int option
+      text: string }
 
-type DidChangeTextDocumentParams = {
-    textDocument: VersionedTextDocumentIdentifier
-    contentChanges: TextDocumentContentChangeEvent list
-}
+type DidChangeTextDocumentParams =
+    { textDocument: VersionedTextDocumentIdentifier
+      contentChanges: TextDocumentContentChangeEvent list }
 
-type TextDocumentIdentifier = {
-    uri: Uri
-}
+type TextDocumentIdentifier = { uri: Uri }
 
 [<RequireQualifiedAccess>]
 type TextDocumentSaveReason =
-| Manual
-| AfterDelay
-| FocusOut
+    | Manual
+    | AfterDelay
+    | FocusOut
 
 let writeTextDocumentSaveReason i =
     match i with
@@ -74,25 +50,22 @@ let writeTextDocumentSaveReason i =
     | TextDocumentSaveReason.AfterDelay -> 2
     | TextDocumentSaveReason.FocusOut -> 3
 
-type WillSaveTextDocumentParams = {
-    textDocument: TextDocumentIdentifier
-    reason: TextDocumentSaveReason
-}
+type WillSaveTextDocumentParams =
+    { textDocument: TextDocumentIdentifier
+      reason: TextDocumentSaveReason }
 
-type DidSaveTextDocumentParams = {
-    textDocument: TextDocumentIdentifier
-    text: string option
-}
+type DidSaveTextDocumentParams =
+    { textDocument: TextDocumentIdentifier
+      text: string option }
 
-type DidCloseTextDocumentParams = {
-    textDocument: TextDocumentIdentifier
-}
+type DidCloseTextDocumentParams =
+    { textDocument: TextDocumentIdentifier }
 
 [<RequireQualifiedAccess>]
 type FileChangeType =
-| Created
-| Changed
-| Deleted
+    | Created
+    | Changed
+    | Deleted
 
 let writeFileChangeType i =
     match i with
@@ -100,42 +73,32 @@ let writeFileChangeType i =
     | FileChangeType.Changed -> 2
     | FileChangeType.Deleted -> 3
 
-type FileEvent = {
-    uri: Uri
-    ``type``: FileChangeType
-}
+type FileEvent = { uri: Uri; ``type``: FileChangeType }
 
-type DidChangeWatchedFilesParams = {
-    changes: FileEvent list
-}
+type DidChangeWatchedFilesParams = { changes: FileEvent list }
 
-type DidFocusFileParams = {
-    uri : Uri
-}
+type DidFocusFileParams = { uri: Uri }
 
 type Notification =
-| Initialized
-| DidChangeConfiguration of DidChangeConfigurationParams
-| DidOpenTextDocument of DidOpenTextDocumentParams
-| DidChangeTextDocument of DidChangeTextDocumentParams
-| WillSaveTextDocument of WillSaveTextDocumentParams
-| DidSaveTextDocument of DidSaveTextDocumentParams
-| DidCloseTextDocument of DidCloseTextDocumentParams
-| DidChangeWatchedFiles of DidChangeWatchedFilesParams
-| DidFocusFile of DidFocusFileParams
-| OtherNotification of method: string
+    | Initialized
+    | DidChangeConfiguration of DidChangeConfigurationParams
+    | DidOpenTextDocument of DidOpenTextDocumentParams
+    | DidChangeTextDocument of DidChangeTextDocumentParams
+    | WillSaveTextDocument of WillSaveTextDocumentParams
+    | DidSaveTextDocument of DidSaveTextDocumentParams
+    | DidCloseTextDocument of DidCloseTextDocumentParams
+    | DidChangeWatchedFiles of DidChangeWatchedFilesParams
+    | DidFocusFile of DidFocusFileParams
+    | OtherNotification of method: string
 
-type Location = {
-    uri: Uri
-    range: Range
-}
+type Location = { uri: Uri; range: Range }
 
 [<RequireQualifiedAccess>]
 type DiagnosticSeverity =
-| Error
-| Warning
-| Information
-| Hint
+    | Error
+    | Warning
+    | Information
+    | Hint
 
 let writeDiagnosticSeverity i =
     match i with
@@ -144,58 +107,46 @@ let writeDiagnosticSeverity i =
     | DiagnosticSeverity.Information -> 3
     | DiagnosticSeverity.Hint -> 4
 
-type DiagnosticRelatedInformation = {
-    location : Location
-    message : string
-}
+type DiagnosticRelatedInformation = { location: Location; message: string }
 
-type Diagnostic = {
-    range: Range
-    severity: DiagnosticSeverity option
-    code: string option
-    source: string option
-    message: string
-    relatedInformation: DiagnosticRelatedInformation list
-}
+type Diagnostic =
+    { range: Range
+      severity: DiagnosticSeverity option
+      code: string option
+      source: string option
+      message: string
+      relatedInformation: DiagnosticRelatedInformation list }
 
-type Command = {
-    title: string
-    command: string
-    arguments: JsonValue list
-}
+type Command =
+    { title: string
+      command: string
+      arguments: JsonValue list }
 
-type TextEdit = {
-    range: Range
-    newText: string
-}
+type TextEdit = { range: Range; newText: string }
 
-type TextDocumentEdit = {
-    textDocument: VersionedTextDocumentIdentifier
-    edits: TextEdit list
-}
+type TextDocumentEdit =
+    { textDocument: VersionedTextDocumentIdentifier
+      edits: TextEdit list }
 
-type WorkspaceEdit = {
-    documentChanges: TextDocumentEdit list
-}
+type WorkspaceEdit =
+    { documentChanges: TextDocumentEdit list }
 
-type TextDocumentPositionParams = {
-    textDocument: TextDocumentIdentifier
-    position: Position
-}
+type TextDocumentPositionParams =
+    { textDocument: TextDocumentIdentifier
+      position: Position }
 
-type DocumentFilter = {
-    language: string option
-    scheme: string option
-    pattern: string option
-}
+type DocumentFilter =
+    { language: string option
+      scheme: string option
+      pattern: string option }
 
 type DocumentSelector = DocumentFilter list
 
 [<RequireQualifiedAccess>]
 type Trace =
-| Off
-| Messages
-| Verbose
+    | Off
+    | Messages
+    | Verbose
 
 let writeTrace i =
     match i with
@@ -203,63 +154,61 @@ let writeTrace i =
     | Trace.Messages -> "messages"
     | Trace.Verbose -> "verbose"
 
-type InitializeParams = {
-    processId: int option
-    rootUri: Uri option
-    initializationOptions: JsonValue option
-    capabilitiesMap: Map<string, bool>
-    trace: Trace option
-    workspaceFolders: WorkspaceFolder list
-}
+type InitializeParams =
+    { processId: int option
+      rootUri: Uri option
+      initializationOptions: JsonValue option
+      capabilitiesMap: Map<string, bool>
+      trace: Trace option
+      workspaceFolders: WorkspaceFolder list }
 
-let defaultInitializeParams = {
-    processId = None
-    rootUri = None
-    initializationOptions = None
-    capabilitiesMap = Map.empty
-    trace = None
-    workspaceFolders = []
-}
+let defaultInitializeParams =
+    { processId = None
+      rootUri = None
+      initializationOptions = None
+      capabilitiesMap = Map.empty
+      trace = None
+      workspaceFolders = [] }
 
 [<RequireQualifiedAccess>]
 type InsertTextFormat =
-| PlainText
-| Snippet
+    | PlainText
+    | Snippet
 
-let writeInsertTextFormat(i: InsertTextFormat) =
+let writeInsertTextFormat (i: InsertTextFormat) =
     match i with
     | InsertTextFormat.PlainText -> 1
     | InsertTextFormat.Snippet -> 2
 
 [<RequireQualifiedAccess>]
 type CompletionItemKind =
-| Text
-| Method
-| Function
-| Constructor
-| Field
-| Variable
-| Class
-| Interface
-| Module
-| Property
-| Unit
-| Value
-| Enum
-| Keyword
-| Snippet
-| Color
-| File
-| Reference
-| Folder
-| EnumMember
-| Constant
-| Struct
-| Event
-| Operator
-| TypeParameter
+    | Text
+    | Method
+    | Function
+    | Constructor
+    | Field
+    | Variable
+    | Class
+    | Interface
+    | Module
+    | Property
+    | Unit
+    | Value
+    | Enum
+    | Keyword
+    | Snippet
+    | Color
+    | File
+    | Reference
+    | Folder
+    | EnumMember
+    | Constant
+    | Struct
+    | Event
+    | Operator
+    | TypeParameter
 
-let writeCompletionItemKind(i: CompletionItemKind) =
+let writeCompletionItemKind (i: CompletionItemKind) =
     match i with
     | CompletionItemKind.Text -> 1
     | CompletionItemKind.Method -> 2
@@ -289,396 +238,334 @@ let writeCompletionItemKind(i: CompletionItemKind) =
 
 [<RequireQualifiedAccess>]
 type MarkupKind =
-| PlainText
-| Markdown
+    | PlainText
+    | Markdown
 
-let writeMarkupKind(m: MarkupKind): string =
+let writeMarkupKind (m: MarkupKind) : string =
     match m with
     | MarkupKind.PlainText -> "plaintext"
     | MarkupKind.Markdown -> "markdown"
 
-type MarkupContent = {
-    kind: MarkupKind
-    value: string
-}
+type MarkupContent = { kind: MarkupKind; value: string }
 
-type CompletionItem = {
-    label: string
-    kind: CompletionItemKind option
-    detail: string option
-    documentation: MarkupContent option
-    sortText: string option
-    filterText: string option
-    insertText: string option
-    insertTextFormat: InsertTextFormat option
-    textEdit: TextEdit option
-    additionalTextEdits: TextEdit list
-    commitCharacters: char list
-    command: Command option
-    data: JsonValue
-}
+type CompletionItem =
+    { label: string
+      kind: CompletionItemKind option
+      detail: string option
+      documentation: MarkupContent option
+      sortText: string option
+      filterText: string option
+      insertText: string option
+      insertTextFormat: InsertTextFormat option
+      textEdit: TextEdit option
+      additionalTextEdits: TextEdit list
+      commitCharacters: char list
+      command: Command option
+      data: JsonValue }
 
 let maxCompletionScore = 1000000
-let defaultCompletionItem: CompletionItem = {
-    label = ""
-    kind = None
-    detail = None
-    documentation = None
-    sortText = Some (maxCompletionScore.ToString())
-    filterText = None
-    insertText = None
-    insertTextFormat = None
-    textEdit = None
-    additionalTextEdits = []
-    commitCharacters = []
-    command = None
-    data = JsonValue.Null
-}
+
+let defaultCompletionItem: CompletionItem =
+    { label = ""
+      kind = None
+      detail = None
+      documentation = None
+      sortText = Some(maxCompletionScore.ToString())
+      filterText = None
+      insertText = None
+      insertTextFormat = None
+      textEdit = None
+      additionalTextEdits = []
+      commitCharacters = []
+      command = None
+      data = JsonValue.Null }
 
 let defaultCompletionItemKind (dotCommit, kind) =
-    if dotCommit
-    then
-        {defaultCompletionItem with kind = Some  kind; commitCharacters =['.']}
+    if dotCommit then
+        { defaultCompletionItem with
+            kind = Some kind
+            commitCharacters = [ '.' ] }
     else
-        {defaultCompletionItem with kind = Some  kind}
+        { defaultCompletionItem with
+            kind = Some kind }
 
-type ReferenceContext = {
-    includeDeclaration: bool
-}
+type ReferenceContext = { includeDeclaration: bool }
 
-type ReferenceParams = {
-    textDocument: TextDocumentIdentifier
-    position: Position
-    context: ReferenceContext
-}
+type ReferenceParams =
+    { textDocument: TextDocumentIdentifier
+      position: Position
+      context: ReferenceContext }
 
 [<RequireQualifiedAccess>]
 type CompletionTriggerKind =
-| Invoked
-| TriggerCharacter
-| TriggerForIncompleteCompletions
+    | Invoked
+    | TriggerCharacter
+    | TriggerForIncompleteCompletions
 
-type CompletionContext = {
-    triggerKind: CompletionTriggerKind
-}
-type CompletionParams = {
-    textDocument: TextDocumentIdentifier
-    position: Position
-    context: CompletionContext option
-}
+type CompletionContext = { triggerKind: CompletionTriggerKind }
 
-type DocumentSymbolParams = {
-    textDocument: TextDocumentIdentifier
-}
+type CompletionParams =
+    { textDocument: TextDocumentIdentifier
+      position: Position
+      context: CompletionContext option }
 
-type WorkspaceSymbolParams = {
-    query: string
-}
+type DocumentSymbolParams =
+    { textDocument: TextDocumentIdentifier }
 
-type CodeActionContext = {
-    diagnostics: Diagnostic list
-}
+type WorkspaceSymbolParams = { query: string }
 
-type CodeActionParams = {
-    textDocument: TextDocumentIdentifier
-    range: Range
-    context: CodeActionContext
-}
+type CodeActionContext = { diagnostics: Diagnostic list }
 
-type CodeLensParams = {
-    textDocument: TextDocumentIdentifier
-}
+type CodeActionParams =
+    { textDocument: TextDocumentIdentifier
+      range: Range
+      context: CodeActionContext }
 
-type CodeLens = {
-    range: Range
-    command: Command option
-    data: JsonValue
-}
+type CodeLensParams =
+    { textDocument: TextDocumentIdentifier }
 
-type DocumentLinkParams = {
-    textDocument: TextDocumentIdentifier
-}
+type CodeLens =
+    { range: Range
+      command: Command option
+      data: JsonValue }
 
-type DocumentLink = {
-    range: Range
-    target: Uri option
-}
+type DocumentLinkParams =
+    { textDocument: TextDocumentIdentifier }
 
-type DocumentFormattingOptions = {
-    tabSize: int
-    insertSpaces: bool
-}
+type DocumentLink = { range: Range; target: Uri option }
 
-type DocumentFormattingParams = {
-    textDocument: TextDocumentIdentifier
-    options: DocumentFormattingOptions
-    optionsMap: Map<string, string>
-}
+type DocumentFormattingOptions = { tabSize: int; insertSpaces: bool }
 
-type DocumentRangeFormattingParams = {
-    textDocument: TextDocumentIdentifier
-    options: DocumentFormattingOptions
-    optionsMap: Map<string, string>
-    range: Range
-}
+type DocumentFormattingParams =
+    { textDocument: TextDocumentIdentifier
+      options: DocumentFormattingOptions
+      optionsMap: Map<string, string> }
 
-type DocumentOnTypeFormattingParams = {
-    textDocument: TextDocumentIdentifier
-    options: DocumentFormattingOptions
-    optionsMap: Map<string, string>
-    position: Position
-    ch: char
-}
+type DocumentRangeFormattingParams =
+    { textDocument: TextDocumentIdentifier
+      options: DocumentFormattingOptions
+      optionsMap: Map<string, string>
+      range: Range }
 
-type RenameParams = {
-    textDocument: TextDocumentIdentifier
-    position: Position
-    newName: string
-}
+type DocumentOnTypeFormattingParams =
+    { textDocument: TextDocumentIdentifier
+      options: DocumentFormattingOptions
+      optionsMap: Map<string, string>
+      position: Position
+      ch: char }
 
-type ExecuteCommandParams = {
-    command: string
-    arguments: JsonValue list
-}
+type RenameParams =
+    { textDocument: TextDocumentIdentifier
+      position: Position
+      newName: string }
 
-type ExecuteCommandResponse =  JsonValue
+type ExecuteCommandParams =
+    { command: string
+      arguments: JsonValue list }
+
+type ExecuteCommandResponse = JsonValue
 
 type Request =
-| Initialize of InitializeParams
-| Shutdown
-| WillSaveWaitUntilTextDocument of WillSaveTextDocumentParams
-| Completion of CompletionParams
-| Hover of TextDocumentPositionParams
-| ResolveCompletionItem of CompletionItem
-| SignatureHelp of TextDocumentPositionParams
-| GotoDefinition of TextDocumentPositionParams
-| FindReferences of ReferenceParams
-| DocumentHighlight of TextDocumentPositionParams
-| DocumentSymbols of DocumentSymbolParams
-| WorkspaceSymbols of WorkspaceSymbolParams
-| CodeActions of CodeActionParams
-| CodeLens of CodeLensParams
-| ResolveCodeLens of CodeLens
-| DocumentLink of DocumentLinkParams
-| ResolveDocumentLink of DocumentLink
-| DocumentFormatting of DocumentFormattingParams
-| DocumentRangeFormatting of DocumentRangeFormattingParams
-| DocumentOnTypeFormatting of DocumentOnTypeFormattingParams
-| Rename of RenameParams
-| ExecuteCommand of ExecuteCommandParams
-| DidChangeWorkspaceFolders of DidChangeWorkspaceFoldersParams
+    | Initialize of InitializeParams
+    | Shutdown
+    | WillSaveWaitUntilTextDocument of WillSaveTextDocumentParams
+    | Completion of CompletionParams
+    | Hover of TextDocumentPositionParams
+    | ResolveCompletionItem of CompletionItem
+    | SignatureHelp of TextDocumentPositionParams
+    | GotoDefinition of TextDocumentPositionParams
+    | FindReferences of ReferenceParams
+    | DocumentHighlight of TextDocumentPositionParams
+    | DocumentSymbols of DocumentSymbolParams
+    | WorkspaceSymbols of WorkspaceSymbolParams
+    | CodeActions of CodeActionParams
+    | CodeLens of CodeLensParams
+    | ResolveCodeLens of CodeLens
+    | DocumentLink of DocumentLinkParams
+    | ResolveDocumentLink of DocumentLink
+    | DocumentFormatting of DocumentFormattingParams
+    | DocumentRangeFormatting of DocumentRangeFormattingParams
+    | DocumentOnTypeFormatting of DocumentOnTypeFormattingParams
+    | Rename of RenameParams
+    | ExecuteCommand of ExecuteCommandParams
+    | DidChangeWorkspaceFolders of DidChangeWorkspaceFoldersParams
 
 [<RequireQualifiedAccess>]
 type TextDocumentSyncKind =
-| None
-| Full
-| Incremental
+    | None
+    | Full
+    | Incremental
 
-let writeTextDocumentSyncKind(i: TextDocumentSyncKind) =
+let writeTextDocumentSyncKind (i: TextDocumentSyncKind) =
     match i with
     | TextDocumentSyncKind.None -> 0
     | TextDocumentSyncKind.Full -> 1
     | TextDocumentSyncKind.Incremental -> 2
 
-type CompletionOptions = {
-    resolveProvider: bool
-    triggerCharacters: char list
-}
+type CompletionOptions =
+    { resolveProvider: bool
+      triggerCharacters: char list }
 
-let defaultCompletionOptions = {
-    resolveProvider = false
-    triggerCharacters = ['.']
-}
+let defaultCompletionOptions =
+    { resolveProvider = false
+      triggerCharacters = [ '.' ] }
 
-type SignatureHelpOptions = {
-    triggerCharacters: char list
-}
+type SignatureHelpOptions = { triggerCharacters: char list }
 
-let defaultSignatureHelpOptions = {
-    triggerCharacters = ['('; ',']
-}
+let defaultSignatureHelpOptions = { triggerCharacters = [ '('; ',' ] }
 
-type CodeLensOptions = {
-    resolveProvider: bool
-}
+type CodeLensOptions = { resolveProvider: bool }
 
-let defaultCodeLensOptions = {
-    resolveProvider = false
-}
+let defaultCodeLensOptions = { resolveProvider = false }
 
-type DocumentOnTypeFormattingOptions = {
-    firstTriggerCharacter: char
-    moreTriggerCharacter: char list
-}
+type DocumentOnTypeFormattingOptions =
+    { firstTriggerCharacter: char
+      moreTriggerCharacter: char list }
 
-type DocumentLinkOptions = {
-    resolveProvider: bool
-}
+type DocumentLinkOptions = { resolveProvider: bool }
 
-let defaultDocumentLinkOptions = {
-    resolveProvider = false
-}
+let defaultDocumentLinkOptions = { resolveProvider = false }
 
-type ExecuteCommandOptions = {
-    commands: string list
-}
+type ExecuteCommandOptions = { commands: string list }
 
-type SaveOptions = {
-    includeText: bool
-}
+type SaveOptions = { includeText: bool }
 
-type TextDocumentSyncOptions = {
-    openClose: bool
-    change: TextDocumentSyncKind
-    willSave: bool
-    willSaveWaitUntil: bool
-    save: SaveOptions option
-}
+type TextDocumentSyncOptions =
+    { openClose: bool
+      change: TextDocumentSyncKind
+      willSave: bool
+      willSaveWaitUntil: bool
+      save: SaveOptions option }
 
-let defaultTextDocumentSyncOptions = {
-    openClose = false
-    change = TextDocumentSyncKind.None
-    willSave = false
-    willSaveWaitUntil = false
-    save = None
-}
+let defaultTextDocumentSyncOptions =
+    { openClose = false
+      change = TextDocumentSyncKind.None
+      willSave = false
+      willSaveWaitUntil = false
+      save = None }
 
-type ServerCapabilities = {
-    textDocumentSync: TextDocumentSyncOptions
-    hoverProvider: bool
-    completionProvider: CompletionOptions option
-    signatureHelpProvider: SignatureHelpOptions option
-    definitionProvider: bool
-    referencesProvider: bool
-    documentHighlightProvider: bool
-    documentSymbolProvider: bool
-    workspaceSymbolProvider: bool
-    codeActionProvider: bool
-    codeLensProvider: CodeLensOptions option
-    documentFormattingProvider: bool
-    documentRangeFormattingProvider: bool
-    documentOnTypeFormattingProvider: DocumentOnTypeFormattingOptions option
-    renameProvider: bool
-    documentLinkProvider: DocumentLinkOptions option
-    executeCommandProvider: ExecuteCommandOptions option
-}
+type ServerCapabilities =
+    { textDocumentSync: TextDocumentSyncOptions
+      hoverProvider: bool
+      completionProvider: CompletionOptions option
+      signatureHelpProvider: SignatureHelpOptions option
+      definitionProvider: bool
+      referencesProvider: bool
+      documentHighlightProvider: bool
+      documentSymbolProvider: bool
+      workspaceSymbolProvider: bool
+      codeActionProvider: bool
+      codeLensProvider: CodeLensOptions option
+      documentFormattingProvider: bool
+      documentRangeFormattingProvider: bool
+      documentOnTypeFormattingProvider: DocumentOnTypeFormattingOptions option
+      renameProvider: bool
+      documentLinkProvider: DocumentLinkOptions option
+      executeCommandProvider: ExecuteCommandOptions option }
 
-let defaultServerCapabilities: ServerCapabilities = {
-    textDocumentSync = defaultTextDocumentSyncOptions
-    hoverProvider = false
-    completionProvider = None
-    signatureHelpProvider = None
-    definitionProvider = false
-    referencesProvider = false
-    documentHighlightProvider = false
-    documentSymbolProvider = false
-    workspaceSymbolProvider = false
-    codeActionProvider = false
-    codeLensProvider = None
-    documentFormattingProvider = false
-    documentRangeFormattingProvider = false
-    documentOnTypeFormattingProvider = None
-    renameProvider = false
-    documentLinkProvider = None
-    executeCommandProvider = None
-}
+let defaultServerCapabilities: ServerCapabilities =
+    { textDocumentSync = defaultTextDocumentSyncOptions
+      hoverProvider = false
+      completionProvider = None
+      signatureHelpProvider = None
+      definitionProvider = false
+      referencesProvider = false
+      documentHighlightProvider = false
+      documentSymbolProvider = false
+      workspaceSymbolProvider = false
+      codeActionProvider = false
+      codeLensProvider = None
+      documentFormattingProvider = false
+      documentRangeFormattingProvider = false
+      documentOnTypeFormattingProvider = None
+      renameProvider = false
+      documentLinkProvider = None
+      executeCommandProvider = None }
 
-type InitializeResult = {
-    capabilities: ServerCapabilities
-}
+type InitializeResult = { capabilities: ServerCapabilities }
 
-type CompletionList = {
-    isIncomplete: bool
-    items: CompletionItem list
-}
+type CompletionList =
+    { isIncomplete: bool
+      items: CompletionItem list }
 
 type MarkedString =
-| HighlightedString of value: string * language: string
-// TODO this is very misnamed, this is actually markdown
-| PlainString of string
+    | HighlightedString of value: string * language: string
+    // TODO this is very misnamed, this is actually markdown
+    | PlainString of string
 
-let writeMarkedString(s: MarkedString): JsonValue =
+let writeMarkedString (s: MarkedString) : JsonValue =
     match s with
-    | HighlightedString (value, language) ->
-        JsonValue.Record
-            [| "language", (JsonValue.String language);
-               "value", (JsonValue.String value) |]
-    | PlainString value ->
-        JsonValue.String value
+    | HighlightedString(value, language) ->
+        JsonValue.Record [| "language", (JsonValue.String language); "value", (JsonValue.String value) |]
+    | PlainString value -> JsonValue.String value
+
 type HoverContent =
-|MarkedStrings of MarkedString[]
-|MarkupContent of kind: string * value: string
+    | MarkedStrings of MarkedString[]
+    | MarkupContent of kind: string * value: string
 
-let writeHoverContent (s: HoverContent): JsonValue =
+let writeHoverContent (s: HoverContent) : JsonValue =
     match s with
-    | MarkedStrings(s) ->
-        JsonValue.Array (s |> Array.map writeMarkedString)
-    | MarkupContent (kind, value) ->
-        JsonValue.Record
-            [| "kind", (JsonValue.String kind);
-                "value", (JsonValue.String value)|]
-type Hover = {
-    contents: HoverContent
-    range: Range option
-}
+    | MarkedStrings(s) -> JsonValue.Array(s |> Array.map writeMarkedString)
+    | MarkupContent(kind, value) ->
+        JsonValue.Record [| "kind", (JsonValue.String kind); "value", (JsonValue.String value) |]
 
-type ParameterInformation = {
-    label: string
-    documentation: string option
-}
+type Hover =
+    { contents: HoverContent
+      range: Range option }
 
-type SignatureInformation = {
-    label: string
-    documentation: string option
-    parameters: ParameterInformation list
-}
+type ParameterInformation =
+    { label: string
+      documentation: string option }
 
-type SignatureHelp = {
-    signatures: SignatureInformation list
-    activeSignature: int option
-    activeParameter: int option
-}
+type SignatureInformation =
+    { label: string
+      documentation: string option
+      parameters: ParameterInformation list }
+
+type SignatureHelp =
+    { signatures: SignatureInformation list
+      activeSignature: int option
+      activeParameter: int option }
 
 [<RequireQualifiedAccess>]
 type DocumentHighlightKind =
-| Text
-| Read
-| Write
+    | Text
+    | Read
+    | Write
 
-let writeDocumentHighlightKind(i: DocumentHighlightKind) =
+let writeDocumentHighlightKind (i: DocumentHighlightKind) =
     match i with
     | DocumentHighlightKind.Text -> 1
     | DocumentHighlightKind.Read -> 2
     | DocumentHighlightKind.Write -> 3
 
 
-type DocumentHighlight = {
-    range: Range
-    kind: DocumentHighlightKind
-}
+type DocumentHighlight =
+    { range: Range
+      kind: DocumentHighlightKind }
 
 [<RequireQualifiedAccess>]
 type SymbolKind =
-| File
-| Module
-| Namespace
-| Package
-| Class
-| Method
-| Property
-| Field
-| Constructor
-| Enum
-| Interface
-| Function
-| Variable
-| Constant
-| String
-| Number
-| Boolean
-| Array
+    | File
+    | Module
+    | Namespace
+    | Package
+    | Class
+    | Method
+    | Property
+    | Field
+    | Constructor
+    | Enum
+    | Interface
+    | Function
+    | Variable
+    | Constant
+    | String
+    | Number
+    | Boolean
+    | Array
 
-let writeSymbolKind(i: SymbolKind) =
+let writeSymbolKind (i: SymbolKind) =
     match i with
     | SymbolKind.File -> 1
     | SymbolKind.Module -> 2
@@ -699,22 +586,20 @@ let writeSymbolKind(i: SymbolKind) =
     | SymbolKind.Boolean -> 17
     | SymbolKind.Array -> 18
 
-type SymbolInformation = {
-    name: string
-    kind: SymbolKind
-    location: Location
-    containerName: string option
-}
+type SymbolInformation =
+    { name: string
+      kind: SymbolKind
+      location: Location
+      containerName: string option }
 
-type DocumentSymbol = {
-    name: string
-    detail: string
-    kind : SymbolKind
-    deprecated : bool
-    range : Range
-    selectionRange : Range
-    children : DocumentSymbol list
-}
+type DocumentSymbol =
+    { name: string
+      detail: string
+      kind: SymbolKind
+      deprecated: bool
+      range: Range
+      selectionRange: Range
+      children: DocumentSymbol list }
 
 type ILanguageServer =
     abstract member Initialize: InitializeParams -> Async<InitializeResult>
@@ -748,31 +633,29 @@ type ILanguageServer =
     abstract member Rename: RenameParams -> Async<WorkspaceEdit>
     abstract member ExecuteCommand: ExecuteCommandParams -> Async<ExecuteCommandResponse option>
     abstract member DidChangeWorkspaceFolders: DidChangeWorkspaceFoldersParams -> Async<unit>
-    abstract member DidFocusFile : DidFocusFileParams -> Async<unit>
+    abstract member DidFocusFile: DidFocusFileParams -> Async<unit>
 
-type PublishDiagnosticsParams = {
-    uri: Uri
-    diagnostics: Diagnostic list
-}
+type PublishDiagnosticsParams =
+    { uri: Uri
+      diagnostics: Diagnostic list }
 
 [<RequireQualifiedAccess>]
 type MessageType =
-| Error
-| Warning
-| Info
-| Log
+    | Error
+    | Warning
+    | Info
+    | Log
 
-let writeMessageType(t: MessageType) =
+let writeMessageType (t: MessageType) =
     match t with
     | MessageType.Error -> 1
     | MessageType.Warning -> 2
     | MessageType.Info -> 3
     | MessageType.Log -> 4
 
-type ShowMessageParams = {
-    ``type``: MessageType
-    message: string
-}
+type ShowMessageParams =
+    { ``type``: MessageType
+      message: string }
 
 module WatchKind =
     let Create = 1
@@ -780,69 +663,48 @@ module WatchKind =
     let Delete = 4
     let All = 7 // 1 | 2 | 4
 
-type FileSystemWatcher = {
-    globPattern: string
-    kind: int
-}
+type FileSystemWatcher = { globPattern: string; kind: int }
 
 [<RequireQualifiedAccess>]
-type RegisterCapability =
-    | DidChangeWatchedFiles of watchers: FileSystemWatcher list
+type RegisterCapability = DidChangeWatchedFiles of watchers: FileSystemWatcher list
 
-type DidChangeWatchedFilesOptions = {
-    watchers: FileSystemWatcher list
-}
+type DidChangeWatchedFilesOptions = { watchers: FileSystemWatcher list }
 
-let writeRegisterCapability(r: RegisterCapability) =
+let writeRegisterCapability (r: RegisterCapability) =
     match r with
-    | RegisterCapability.DidChangeWatchedFiles watchers -> {watchers=watchers}
+    | RegisterCapability.DidChangeWatchedFiles watchers -> { watchers = watchers }
 
-type Registration = {
-    id: string
-    method: string
-    registerOptions: RegisterCapability
-}
+type Registration =
+    { id: string
+      method: string
+      registerOptions: RegisterCapability }
 
-type RegistrationParams = {
-    registrations: Registration list
-}
+type RegistrationParams = { registrations: Registration list }
 
-type LoadingBarParams = {
-    enable : bool
-    value : string
-}
-type CreateVirtualFileParams = {
-    uri : Uri
-    fileContent : string
-}
+type LoadingBarParams = { enable: bool; value: string }
+type CreateVirtualFileParams = { uri: Uri; fileContent: string }
 
-type LogMessageParams = {
-    ``type`` : MessageType
-    message : string
-}
+type LogMessageParams =
+    { ``type``: MessageType
+      message: string }
+
 type ServerNotification =
-| PublishDiagnostics of PublishDiagnosticsParams
-| LoadingBar of LoadingBarParams
-| CreateVirtualFile of CreateVirtualFileParams
-| LogMessage of LogMessageParams
+    | PublishDiagnostics of PublishDiagnosticsParams
+    | LoadingBar of LoadingBarParams
+    | CreateVirtualFile of CreateVirtualFileParams
+    | LogMessage of LogMessageParams
 
-type GetWordRangeAtPositionParams = {
-    position : Position
-    uri : Uri
-}
+type GetWordRangeAtPositionParams = { position: Position; uri: Uri }
 
-type ApplyWorkspaceEditParams = {
-    label : option<string>
-    edit : WorkspaceEdit
-}
+type ApplyWorkspaceEditParams =
+    { label: option<string>
+      edit: WorkspaceEdit }
 
-type ApplyWorkspaceEditResponse = {
-    applied : bool
-}
+type ApplyWorkspaceEditResponse = { applied: bool }
 
 type ServerRequest =
-| GetWordRangeAtPosition of GetWordRangeAtPositionParams
-| ApplyWorkspaceEdit of ApplyWorkspaceEditParams
+    | GetWordRangeAtPosition of GetWordRangeAtPositionParams
+    | ApplyWorkspaceEdit of ApplyWorkspaceEditParams
 
 type ILanguageClient =
     abstract member PublishDiagnostics: PublishDiagnosticsParams -> unit
@@ -852,4 +714,3 @@ type ILanguageClient =
     abstract member ApplyWorkspaceEdit: ApplyWorkspaceEditParams -> Async<JsonValue>
     abstract member CustomRequest: string * string -> Async<JsonValue>
     abstract member LogMessage: LogMessageParams -> unit
-

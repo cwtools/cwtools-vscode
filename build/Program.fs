@@ -1,5 +1,4 @@
-﻿
-open System
+﻿open System
 open System.IO
 open Fake.Core
 open Fake.DotNet
@@ -153,6 +152,7 @@ let releaseGithub (release: ReleaseNotes.ReleaseNotes) =
     ||> Seq.fold (fun acc e -> acc |> GitHub.uploadFile e)
     |> GitHub.publishDraft //releaseDraft
     |> Async.RunSynchronously
+
 let initTargets () =
 
     Target.create "Clean" (fun _ ->
@@ -161,74 +161,85 @@ let initTargets () =
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
-    Target.create "NpmInstall" <| fun _ ->
-        run npmTool.Value "install" "."
+    Target.create "NpmInstall" <| fun _ -> run npmTool.Value "install" "."
 
-    Target.create "PackageNpmInstall" <| fun _ -> run npmTool.Value "install"  "release"
+    Target.create "PackageNpmInstall"
+    <| fun _ -> run npmTool.Value "install" "release"
 
     Target.create "CopyDocs" (fun _ ->
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
         Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
 
-    let publishParams (framework : string) =
-        fun (p : DotNet.PublishOptions) ->
+    let publishParams (framework: string) =
+        fun (p: DotNet.PublishOptions) ->
             { p with
                 Common =
-                    {
-                        p.Common with
-                            CustomParams = Some "--self-contained true /p:PublishReadyToRun=true /p:UseLocalCwtools=False"
-                    }
-                OutputPath = Some (releaseDir </> "bin/server" </> framework)
+                    { p.Common with
+                        CustomParams = Some "--self-contained true /p:PublishReadyToRun=true /p:UseLocalCwtools=False" }
+                OutputPath = Some(releaseDir </> "bin/server" </> framework)
                 Runtime = Some framework
                 Configuration = DotNet.BuildConfiguration.Release
-                MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
-            }
+                MSBuildParams =
+                    { MSBuild.CliArguments.Create() with
+                        DisableInternalBinLog = true } }
 
-    let buildParams (release : bool) (local : bool) =
-        fun (b : DotNet.BuildOptions) ->
+    let buildParams (release: bool) (local: bool) =
+        fun (b: DotNet.BuildOptions) ->
             { b with
-                OutputPath = Some (releaseDir </> "bin/server" </> platformShortCode )
-                Configuration = if release  then DotNet.BuildConfiguration.Release else DotNet.BuildConfiguration.Debug
-                MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }
-            }
+                OutputPath = Some(releaseDir </> "bin/server" </> platformShortCode)
+                Configuration =
+                    if release then
+                        DotNet.BuildConfiguration.Release
+                    else
+                        DotNet.BuildConfiguration.Debug
+                MSBuildParams =
+                    { MSBuild.CliArguments.Create() with
+                        DisableInternalBinLog = true } }
 
-    Target.create "BuildServer" <| fun _ ->
-        if File.exists (releaseDir </> "bin/server" </> platformShortCode </> "hostfxr.dll")
-        then
+    Target.create "BuildServer"
+    <| fun _ ->
+        if File.exists (releaseDir </> "bin/server" </> platformShortCode </> "hostfxr.dll") then
             Shell.cleanDir "./release/bin"
-        else ()
+        else
+            ()
+
         DotNet.build (buildParams true false) cwtoolsProjectPath
-    Target.create "BuildServerDebug"<| fun _ ->
-        if File.exists (releaseDir </> "bin/server" </> platformShortCode </> "hostfxr.dll")
-        then
+
+    Target.create "BuildServerDebug"
+    <| fun _ ->
+        if File.exists (releaseDir </> "bin/server" </> platformShortCode </> "hostfxr.dll") then
             Shell.cleanDir "./release/bin"
-        else ()
+        else
+            ()
+
         DotNet.build (buildParams false false) cwtoolsProjectPath
 
-    Target.create "PublishServer" <| fun _ ->
+    Target.create "PublishServer"
+    <| fun _ ->
         DotNet.publish (publishParams "win-x64") cwtoolsProjectPath
         DotNet.publish (publishParams "linux-x64") cwtoolsProjectPath
         DotNet.publish (publishParams "osx-x64") cwtoolsProjectPath
 
     Target.create "BuildClient" (fun _ ->
         match ProcessUtils.tryFindFileOnPath "npx" with
-        |Some tsc ->
-            CreateProcess.fromRawCommand tsc ["tsc"; "-p"; "./tsconfig.extension.json"]
+        | Some tsc ->
+            CreateProcess.fromRawCommand tsc [ "tsc"; "-p"; "./tsconfig.extension.json" ]
             |> Proc.run
-            |> (fun r -> if r.ExitCode <> 0 then failwith "tsc fail")
-        |_ -> failwith "didn't find tsc"
-        match ProcessUtils.tryFindFileOnPath "npx" with
-        |Some tsc ->
-            CreateProcess.fromRawCommand tsc ["rollup"; "-c"; "-o"; "./release/bin/client/webview/graph.js"]
-            |> Proc.run
-            |> (fun r -> if r.ExitCode <> 0 then failwith "rollup fail")
-        |_ -> failwith "didn't find rollup"
-    )
+            |> (fun r ->
+                if r.ExitCode <> 0 then
+                    failwith "tsc fail")
+        | _ -> failwith "didn't find tsc"
 
-    Target.create "CopyHtml" (fun _ ->
-        !!("client/webview/*.css")
-            |> Shell.copyFiles "release/bin/client/webview"
-    )
+        match ProcessUtils.tryFindFileOnPath "npx" with
+        | Some tsc ->
+            CreateProcess.fromRawCommand tsc [ "rollup"; "-c"; "-o"; "./release/bin/client/webview/graph.js" ]
+            |> Proc.run
+            |> (fun r ->
+                if r.ExitCode <> 0 then
+                    failwith "rollup fail")
+        | _ -> failwith "didn't find rollup")
+
+    Target.create "CopyHtml" (fun _ -> !!("client/webview/*.css") |> Shell.copyFiles "release/bin/client/webview")
 
 
     Target.create "BuildPackage" (fun _ -> buildPackage "release")
@@ -300,21 +311,15 @@ let buildTargetTree () =
     ==> "PublishToGallery"
     ==>! "Release"
 
-    "Clean"
-    ==> "BuildPackage"
-    ==>! "DryRelease"
+    "Clean" ==> "BuildPackage" ==>! "DryRelease"
 
-    "BuildServer"
-    ==>! "QuickBuild"
+    "BuildServer" ==>! "QuickBuild"
 
-    "PrePackage"
-    ==>! "QuickBuild"
+    "PrePackage" ==>! "QuickBuild"
 
-    "BuildServerDebug"
-    ==>! "QuickBuildDebug"
+    "BuildServerDebug" ==>! "QuickBuildDebug"
 
-    "PrePackage"
-    ==>! "QuickBuildDebug"
+    "PrePackage" ==>! "QuickBuildDebug"
 
 [<EntryPoint>]
 let main argv =
@@ -325,8 +330,8 @@ let main argv =
     |> Context.RuntimeContext.Fake
     |> Context.setExecutionContext
 
-    initTargets()
-    buildTargetTree()
+    initTargets ()
+    buildTargetTree ()
 
     Target.runOrDefaultWithArguments "QuickBuild"
     0
