@@ -631,6 +631,7 @@ type Server(client: ILanguageClient) =
                     game.AllFiles()
                     |> List.choose (fun resource ->
                         let scope, fileUri, logicalPath = mapResourceToFilePath resource
+
                         match Uri.TryCreate(fileUri, UriKind.Absolute) with
                         | TrySuccess url -> Some(scope, url, logicalPath)
                         | TryFailure -> None)
