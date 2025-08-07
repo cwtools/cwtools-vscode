@@ -144,6 +144,7 @@ type Server(client: ILanguageClient) =
         | Severity.Warning -> DiagnosticSeverity.Warning
         | Severity.Information -> DiagnosticSeverity.Information
         | Severity.Hint -> DiagnosticSeverity.Hint
+        | _ -> DiagnosticSeverity.Information
 
     let parserErrorToDiagnostics e =
         let code, sev, file, error, (position: range), length, related = e
@@ -413,6 +414,7 @@ type Server(client: ILanguageClient) =
                 | VIC2 -> File.Exists(gameCachePath + "vic2.cwb")
                 | CK3 -> File.Exists(gameCachePath + "ck3.cwb")
                 | VIC3 -> File.Exists(gameCachePath + "vic3.cwb")
+                | Custom -> false
 
             if doesCacheExist && not forceCreate then
                 logInfo (sprintf "Cache exists at %s" (gameCachePath + ".cwb"))
@@ -532,6 +534,7 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC3, _, _, _, _, _, _, _, None ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic3"))
+                | Custom, _, _, _, _, _, _, _, _ -> ()
         | _ -> logInfo ("No cache path")
 
     let processWorkspace (uri: option<Uri>) =
@@ -666,7 +669,7 @@ type Server(client: ILanguageClient) =
 
                 valErrors @ locErrors |> List.map parserErrorToDiagnostics |> sendDiagnostics
                 GC.Collect()
-            with :? System.Exception as e ->
+            with e ->
                 eprintfn "%A" e
 
         | None -> ()
@@ -785,7 +788,6 @@ type Server(client: ILanguageClient) =
                             useManualRules <- true
                             rulesChannel <- "manual"
                         | x -> rulesChannel <- x
-                        | _ -> ()
                     | _ -> ()
 
                 | None -> ()
@@ -1710,10 +1712,10 @@ type Server(client: ILanguageClient) =
 let main (argv: array<string>) : int =
     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
     let cultureInfo = System.Globalization.CultureInfo("en-US") //System.Globalization.CultureInfo.InvariantCulture;
-    System.Globalization.CultureInfo.DefaultThreadCurrentCulture = cultureInfo
-    System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = cultureInfo
-    System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo
-    System.Threading.Thread.CurrentThread.CurrentUICulture = cultureInfo
+    System.Globalization.CultureInfo.DefaultThreadCurrentCulture <- cultureInfo
+    System.Globalization.CultureInfo.DefaultThreadCurrentUICulture <- cultureInfo
+    System.Threading.Thread.CurrentThread.CurrentCulture <- cultureInfo
+    System.Threading.Thread.CurrentThread.CurrentUICulture <- cultureInfo
     // CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
