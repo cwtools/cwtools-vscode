@@ -58,6 +58,7 @@ do registry.RegisterFactory mkConcurrentDictionaryPickler<int, string>
 do registry.RegisterFactory mkConcurrentDictionaryPickler<int, StringMetadata>
 do registry.RegisterFactory mkConcurrentDictionaryPickler<string, StringTokens>
 registry.DeclareSerializable<FParsec.Position>()
+#nowarn "FS8989"
 let picklerCache = PicklerCache.FromCustomPicklerRegistry registry
 
 let binarySerializer =
@@ -82,13 +83,13 @@ let addDLCs (workspaceDirectory: WorkspaceDirectory) =
                 // eprintfn "d2 %A" zip
                 try
                     use file = File.OpenRead(zip)
-                    use zipFile = ZipArchive(file, ZipArchiveMode.Read)
+                    use zipFile = new ZipArchive(file, ZipArchiveMode.Read)
 
                     let files =
                         zipFile.Entries
                         |> Seq.map (fun e ->
                             Path.Combine([| "uri:"; zip; e.FullName.Replace("\\", "/") |]),
-                            let sr = StreamReader(e.Open()) in sr.ReadToEnd())
+                            let sr = new StreamReader(e.Open()) in sr.ReadToEnd())
                         |> List.ofSeq
                     // eprintfn "%A" files
                     Some(
