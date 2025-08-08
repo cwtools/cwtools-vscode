@@ -70,7 +70,7 @@ type LintRequestMsg =
     | WorkComplete of DateTime
 
 type Server(client: ILanguageClient) =
-    do setupLogger (client)
+    do setupLogger client
     let docs = DocumentStore()
     let projects = ProjectManager()
 
@@ -186,7 +186,7 @@ type Server(client: ILanguageClient) =
         (file, result)
 
     let sendDiagnostics s =
-        let diagnosticFilter ((f: string), d) =
+        let diagnosticFilter (f: string, d) =
             match (f, d) with
             | _, { Diagnostic.code = Some code } when List.contains code ignoreCodes -> false
             | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
@@ -195,7 +195,7 @@ type Server(client: ILanguageClient) =
         s
         |> List.groupBy fst
         |> List.map (
-            (fun (f, rs) -> f, rs |> List.filter (diagnosticFilter))
+            (fun (f, rs) -> f, rs |> List.filter diagnosticFilter)
             >> (fun (f, rs) ->
                 try
                     { uri =
@@ -208,7 +208,7 @@ type Server(client: ILanguageClient) =
                 with e ->
                     failwith $"%A{e} %A{rs}")
         )
-        |> List.iter (client.PublishDiagnostics)
+        |> List.iter client.PublishDiagnostics
 
     let mutable delayedLocUpdate = false
 
@@ -309,80 +309,78 @@ type Server(client: ILanguageClient) =
         | None -> ()
 
     let lintAgent =
-        MailboxProcessor.Start(
-            (fun agent ->
-                let mutable nextAnalyseTime = DateTime.Now
+        MailboxProcessor.Start(fun agent ->
+            let mutable nextAnalyseTime = DateTime.Now
 
-                let analyzeTask uri force =
-                    new Task(fun () ->
-                        let mutable nextTime = nextAnalyseTime
+            let analyzeTask uri force =
+                new Task(fun () ->
+                    let mutable nextTime = nextAnalyseTime
 
+                    try
                         try
-                            try
-                                let shallowAnalyse = DateTime.Now < nextTime
-                                logDiag $"lint force: %b{force}, shallow: %b{shallowAnalyse}"
-                                lint uri (shallowAnalyse && (not (force))) false |> Async.RunSynchronously
+                            let shallowAnalyse = DateTime.Now < nextTime
+                            logDiag $"lint force: %b{force}, shallow: %b{shallowAnalyse}"
+                            lint uri (shallowAnalyse && (not force)) false |> Async.RunSynchronously
 
-                                if not (shallowAnalyse) then
-                                    delayedAnalyze ()
-                                    logDiag "lint after delayed"
-                                    /// Somehow get updated localisation errors after loccache is updated
-                                    lint uri true false |> Async.RunSynchronously
-                                    nextTime <- DateTime.Now.Add(delayTime)
-                                else
-                                    ()
-                            with e ->
-                                logError $"uri %A{uri.LocalPath} \n exception %A{e}"
-                        finally
-                            agent.Post(WorkComplete(nextTime)))
-
-                let analyze (file: VersionedTextDocumentIdentifier) force =
-                    //eprintfn "Analyze %s" (file.uri.ToString())
-                    let task = analyzeTask file.uri force
-                    task.Start()
-
-                let rec loop (inprogress: bool) (state: Map<string, VersionedTextDocumentIdentifier * bool>) =
-                    async {
-                        let! msg = agent.Receive()
-
-                        if state.Count > 0 then
-                            logDiag $"queue length: %i{state.Count}"
-
-                        match msg, inprogress with
-                        | UpdateRequest(ur, force), false ->
-                            analyze ur force
-                            return! loop true state
-                        | UpdateRequest(ur, force), true ->
-                            if Map.containsKey ur.uri.LocalPath state then
-                                if
-                                    (Map.find ur.uri.LocalPath state)
-                                    |> (fun ({ VersionedTextDocumentIdentifier.version = v }, _) -> v < ur.version)
-                                then
-                                    return! loop inprogress (state |> Map.add ur.uri.LocalPath (ur, force))
-                                else
-                                    return! loop inprogress state
+                            if not shallowAnalyse then
+                                delayedAnalyze ()
+                                logDiag "lint after delayed"
+                                /// Somehow get updated localisation errors after loccache is updated
+                                lint uri true false |> Async.RunSynchronously
+                                nextTime <- DateTime.Now.Add(delayTime)
                             else
+                                ()
+                        with e ->
+                            logError $"uri %A{uri.LocalPath} \n exception %A{e}"
+                    finally
+                        agent.Post(WorkComplete(nextTime)))
+
+            let analyze (file: VersionedTextDocumentIdentifier) force =
+                //eprintfn "Analyze %s" (file.uri.ToString())
+                let task = analyzeTask file.uri force
+                task.Start()
+
+            let rec loop (inprogress: bool) (state: Map<string, VersionedTextDocumentIdentifier * bool>) =
+                async {
+                    let! msg = agent.Receive()
+
+                    if state.Count > 0 then
+                        logDiag $"queue length: %i{state.Count}"
+
+                    match msg, inprogress with
+                    | UpdateRequest(ur, force), false ->
+                        analyze ur force
+                        return! loop true state
+                    | UpdateRequest(ur, force), true ->
+                        if Map.containsKey ur.uri.LocalPath state then
+                            if
+                                (Map.find ur.uri.LocalPath state)
+                                |> (fun ({ VersionedTextDocumentIdentifier.version = v }, _) -> v < ur.version)
+                            then
                                 return! loop inprogress (state |> Map.add ur.uri.LocalPath (ur, force))
-                        | WorkComplete time, _ ->
-                            nextAnalyseTime <- time
-
-                            if Map.isEmpty state then
-                                return! loop false state
                             else
-                                let key, (next, force) =
-                                    state
-                                    |> Map.pick (fun k v ->
-                                        (k, v)
-                                        |> function
-                                            | (k, v) -> Some(k, v))
+                                return! loop inprogress state
+                        else
+                            return! loop inprogress (state |> Map.add ur.uri.LocalPath (ur, force))
+                    | WorkComplete time, _ ->
+                        nextAnalyseTime <- time
 
-                                let newstate = state |> Map.remove key
-                                analyze next force
-                                return! loop true newstate
-                    }
+                        if Map.isEmpty state then
+                            return! loop false state
+                        else
+                            let key, (next, force) =
+                                state
+                                |> Map.pick (fun k v ->
+                                    (k, v)
+                                    |> function
+                                        | k, v -> Some(k, v))
 
-                loop false Map.empty)
-        )
+                            let newstate = state |> Map.remove key
+                            analyze next force
+                            return! loop true newstate
+                }
+
+            loop false Map.empty)
 
     let setupRulesCaches () =
         match cachePath, remoteRepoPath, useManualRules with
@@ -437,7 +435,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeSTL (vp) (gameCachePath)
+                    serializeSTL vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | STL, None, _, _, _, _, _, _, _ ->
@@ -450,7 +448,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeEU4 (vp) (gameCachePath)
+                    serializeEU4 vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | EU4, _, None, _, _, _, _, _, _ ->
@@ -463,7 +461,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeHOI4 (vp) (gameCachePath)
+                    serializeHOI4 vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | HOI4, _, _, None, _, _, _, _, _ ->
@@ -476,7 +474,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeCK2 (vp) (gameCachePath)
+                    serializeCK2 vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK2, _, _, _, None, _, _, _, _ ->
@@ -489,7 +487,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeIR (vp) (gameCachePath)
+                    serializeIR vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | IR, _, _, _, _, None, _, _, _ ->
@@ -502,7 +500,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeVIC2 (vp) (gameCachePath)
+                    serializeVIC2 vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC2, _, _, _, _, _, None, _, _ ->
@@ -515,7 +513,7 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeCK3 (vp) (gameCachePath)
+                    serializeCK3 vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK3, _, _, _, _, _, _, None, _ ->
@@ -528,13 +526,13 @@ type Server(client: ILanguageClient) =
                                "enable", JsonValue.Boolean(true) |]
                     )
 
-                    serializeVIC3 (vp) (gameCachePath)
+                    serializeVIC3 vp gameCachePath
                     let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC3, _, _, _, _, _, _, _, None ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic3"))
                 | Custom, _, _, _, _, _, _, _, _ -> ()
-        | _ -> logInfo ("No cache path")
+        | _ -> logInfo "No cache path"
 
     let processWorkspace (uri: option<Uri>) =
         client.CustomNotification(
@@ -698,7 +696,7 @@ type Server(client: ILanguageClient) =
             || (range.``end``.line = inner.``end``.line
                 && range.``end``.character >= inner.``end``.character))
 
-    let catchError (defaultValue) (a: Async<_>) =
+    let catchError defaultValue (a: Async<_>) =
         async {
             try
                 return! a
@@ -1062,14 +1060,12 @@ type Server(client: ILanguageClient) =
                 | _ -> ()
 
                 let task =
-                    new Task(
-                        (fun () ->
-                            checkOrSetGameCache (false)
-                            processWorkspace (rootUri))
-                    )
+                    new Task(fun () ->
+                        checkOrSetGameCache false
+                        processWorkspace rootUri)
 
                 task.Start()
-                let task = new Task((fun () -> setupRulesCaches ()))
+                let task = new Task(fun () -> setupRulesCaches ())
                 task.Start()
             }
 
@@ -1096,26 +1092,24 @@ type Server(client: ILanguageClient) =
                     currentlyRefreshingFiles <- true
 
                     let task =
-                        new Task(
-                            (fun () ->
-                                let fileList =
-                                    game.AllFiles()
-                                    |> List.map (mapResourceToFilePath)
-                                    |> List.choose (fun (s, f, l) -> parseUri f |> Option.map (fun u -> (s, u, l)))
-                                    |> List.map (fun (s, uri, l) ->
-                                        JsonValue.Record
-                                            [| "scope", JsonValue.String s
-                                               "uri", uri
-                                               "logicalpath", JsonValue.String l |])
-                                    |> Array.ofList
+                        new Task(fun () ->
+                            let fileList =
+                                game.AllFiles()
+                                |> List.map mapResourceToFilePath
+                                |> List.choose (fun (s, f, l) -> parseUri f |> Option.map (fun u -> (s, u, l)))
+                                |> List.map (fun (s, uri, l) ->
+                                    JsonValue.Record
+                                        [| "scope", JsonValue.String s
+                                           "uri", uri
+                                           "logicalpath", JsonValue.String l |])
+                                |> Array.ofList
 
-                                client.CustomNotification(
-                                    "updateFileList",
-                                    JsonValue.Record [| "fileList", JsonValue.Array fileList |]
-                                )
+                            client.CustomNotification(
+                                "updateFileList",
+                                JsonValue.Record [| "fileList", JsonValue.Array fileList |]
+                            )
 
-                                currentlyRefreshingFiles <- false)
-                        )
+                            currentlyRefreshingFiles <- false)
 
                     task.Start()
                 | _ -> ()
@@ -1237,7 +1231,7 @@ type Server(client: ILanguageClient) =
                         let gototype =
                             game.GoToType
                                 position
-                                (path)
+                                path
                                 (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
 
                         match gototype with
@@ -1272,7 +1266,7 @@ type Server(client: ILanguageClient) =
                         let gototype =
                             game.FindAllRefs
                                 position
-                                (path)
+                                path
                                 (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
 
                         match gototype with
@@ -1311,8 +1305,8 @@ type Server(client: ILanguageClient) =
                             |> Map.toList
                             |> List.collect (fun (k, vs) ->
                                 vs
-                                |> List.filter (fun (tdi) -> tdi.range.FileName = p.textDocument.uri.LocalPath)
-                                |> List.map (fun (tdi) -> createDocumentSymbol tdi.id k tdi.range))
+                                |> List.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
+                                |> List.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
                             |> List.rev
                             |> List.filter (fun ds -> not (ds.detail.Contains(".")))
 
@@ -1327,7 +1321,7 @@ type Server(client: ILanguageClient) =
                                     |> List.map (fun (a: DocumentSymbol) ->
                                         if isRangeInRange a.range next.range && a.name <> next.name then
                                             { a with
-                                                children = (next :: (a.children)) }
+                                                children = (next :: a.children) }
                                         else
                                             a)
                                 else
@@ -1359,7 +1353,7 @@ type Server(client: ILanguageClient) =
 
                         let les =
                             les
-                            |> List.filter (fun e -> (e.range) |> (fun a -> (isRangeInError p.range a e.keyLength)))
+                            |> List.filter (fun e -> e.range |> (fun a -> (isRangeInError p.range a e.keyLength)))
 
                         let pretrigger =
                             game.GetPossibleCodeEdits path (docs.GetText(FileInfo(path)) |> Option.defaultValue "")
@@ -1438,7 +1432,7 @@ type Server(client: ILanguageClient) =
                             arguments = x :: _ } ->
                             let les =
                                 game.LocalisationErrors(true, true)
-                                |> List.filter (fun e -> (e.range) |> (fun a -> a.FileName = x.AsString()))
+                                |> List.filter (fun e -> e.range |> (fun a -> a.FileName = x.AsString()))
 
                             let keys =
                                 les
@@ -1482,7 +1476,7 @@ type Server(client: ILanguageClient) =
                             match irGameObj, hoi4GameObj with
                             | Some ir, _ ->
                                 let text =
-                                    (ir.References().ConfigRules)
+                                    ir.References().ConfigRules
                                     |> List.map (fun r -> r.ToString())
                                     |> List.toArray
                                     |> (fun l -> String.Join("\n", l))
@@ -1495,7 +1489,7 @@ type Server(client: ILanguageClient) =
                                 )
                             | _, Some hoi4 ->
                                 let text =
-                                    (hoi4.References().ConfigRules)
+                                    hoi4.References().ConfigRules
                                     |> List.map (fun r -> r.ToString())
                                     |> List.toArray
                                     |> (fun l -> String.Join("\n", l))
@@ -1519,7 +1513,7 @@ type Server(client: ILanguageClient) =
                                 |> List.map (fun e ->
                                     $"%s{e.range.FileName}, {e.range.StartLine}, {e.range.StartColumn}, %s{e.code}, {e.severity}, \"%s{e.message}\"")
 
-                            let text = String.Join(Environment.NewLine, (texts))
+                            let text = String.Join(Environment.NewLine, texts)
 
                             client.CustomNotification(
                                 "createVirtualFile",
@@ -1536,7 +1530,7 @@ type Server(client: ILanguageClient) =
                             None
                         | { command = "cacheVanilla"
                             arguments = _ } ->
-                            checkOrSetGameCache (true)
+                            checkOrSetGameCache true
                             None
                         | { command = "listAllFiles"
                             arguments = _ } ->
@@ -1550,7 +1544,7 @@ type Server(client: ILanguageClient) =
                                     | FileResource(f, _) -> f
                                     | FileWithContentResource(f, _) -> f)
 
-                            let text = String.Join(Environment.NewLine, (text))
+                            let text = String.Join(Environment.NewLine, text)
 
                             client.CustomNotification(
                                 "createVirtualFile",
@@ -1563,7 +1557,7 @@ type Server(client: ILanguageClient) =
                         | { command = "listAllLocFiles"
                             arguments = _ } ->
                             let locs = game.AllLoadedLocalisation()
-                            let text = String.Join(Environment.NewLine, (locs))
+                            let text = String.Join(Environment.NewLine, locs)
 
                             client.CustomNotification(
                                 "createVirtualFile",
@@ -1657,8 +1651,8 @@ type Server(client: ILanguageClient) =
                                     |> List.filter (fun (k, vs) -> typesWithGraph |> List.contains k)
                                     |> List.collect (fun (k, vs) ->
                                         vs
-                                        |> List.filter (fun (tdi) -> tdi.range.FileName = lastFile)
-                                        |> List.map (fun (tdi) -> k))
+                                        |> List.filter (fun tdi -> tdi.range.FileName = lastFile)
+                                        |> List.map (fun tdi -> k))
                                     |> List.filter (fun ds -> not (ds.Contains(".")))
 
                                 Some(all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
@@ -1680,10 +1674,10 @@ type Server(client: ILanguageClient) =
                                         sprintf
                                             "%s,%s,%s,%A"
                                             t
-                                            (td.id)
+                                            td.id
                                             (td.range.FileName.Replace("\\", "/"))
-                                            (td.range.StartLine))
-                                    |> String.concat (Environment.NewLine)
+                                            td.range.StartLine)
+                                    |> String.concat Environment.NewLine
 
                                 client.CustomNotification(
                                     "createVirtualFile",
@@ -1711,7 +1705,7 @@ let main (argv: array<string>) : int =
     // CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
     let read = new BinaryReader(Console.OpenStandardInput())
     let write = new BinaryWriter(Console.OpenStandardOutput())
-    let serverFactory (client) = Server(client) :> ILanguageServer
+    let serverFactory client = Server(client) :> ILanguageServer
     // "Listening on stdin"
     try
         LanguageServer.connect (serverFactory, read, write)

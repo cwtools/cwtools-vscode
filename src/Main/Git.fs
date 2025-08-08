@@ -21,7 +21,7 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
 
         let git = new Repository(gameCacheDir)
         let remote = git.Network.Remotes.["origin"]
-        let refSpecs = remote.FetchRefSpecs.Select((fun x -> x.Specification))
+        let refSpecs = remote.FetchRefSpecs.Select(fun x -> x.Specification)
         Commands.Fetch(git, remote.Name, refSpecs, null, "")
         let currentHash = git.Head.Tip.Sha
         logInfo $"cwtools current rules version: %A{currentHash}"

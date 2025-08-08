@@ -23,11 +23,11 @@ let parseHeader (header: string) : Header =
 
 let rec private eatWhitespace (client: BinaryReader) : char =
     let c = client.ReadChar()
-    if Char.IsWhiteSpace(c) then eatWhitespace (client) else c
+    if Char.IsWhiteSpace(c) then eatWhitespace client else c
 
 let readLength (byteLength: int, client: BinaryReader) : string =
     // Somehow, we are getting extra \r\n sequences, only when we compile to a standalone executable
-    let head = eatWhitespace (client)
+    let head = eatWhitespace client
     let tail = client.ReadBytes(byteLength - 1)
     let string = Encoding.UTF8.GetString(tail)
     Convert.ToString(head) + string
@@ -60,7 +60,7 @@ let tokenize (client: BinaryReader) : seq<string> =
         let mutable endOfInput = false
 
         while not endOfInput do
-            let maybeHeader = readLine (client)
+            let maybeHeader = readLine client
             let next = Option.map parseHeader maybeHeader
 
             match next with

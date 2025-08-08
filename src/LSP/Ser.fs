@@ -62,7 +62,7 @@ type MakeHelpers =
     static member MakeMap<'T>(items: (string * obj) seq) : Map<string, 'T> =
         let castV (k: string, v: obj) = (k, v :?> 'T)
         let castItems = Seq.map castV items
-        Map.ofSeq (castItems)
+        Map.ofSeq castItems
 
     static member MakeOption<'T>(item: obj option) : 'T option =
         match item with
@@ -88,8 +88,8 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
         let fType = fObj.GetType()
         let _, range = FSharpType.GetFunctionElements(fType)
         let serialize = serializer (depth, options, range)
-        let transform = asFun (fObj)
-        fun o -> serialize (transform (o))
+        let transform = asFun fObj
+        fun o -> serialize (transform o)
     elif t = typeof<bool> then
         fun o -> $"%b{unbox<bool> o}"
     elif t = typeof<int> then
@@ -116,7 +116,7 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
         fun outer ->
             let fieldStrings =
                 [| for f in serializers do
-                       yield f (outer) |]
+                       yield f outer |]
 
             let innerString = String.concat "," fieldStrings
             $"{{%s{innerString}}}"
@@ -126,7 +126,7 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
 
         fun outer ->
             let asEnum = outer :?> System.Collections.IEnumerable
-            let asSeq = Seq.cast<obj> (asEnum)
+            let asSeq = Seq.cast<obj> asEnum
             let inners = Seq.map serializeInner asSeq
             let join = String.Join(",", inners)
             $"[%s{join}]"
@@ -143,19 +143,19 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
         fun outer ->
             if isSome outer then
                 let value = valueProp.GetValue outer
-                serializeInner (value)
+                serializeInner value
             else
                 "null"
     else
         raise (Exception $"Don't know how to serialize %s{t.ToString()} to JSON")
 
 and fieldSerializer (depth: int, options: JsonWriteOptions, field: PropertyInfo) : obj -> string =
-    let name = escapeStr (field.Name)
+    let name = escapeStr field.Name
     let innerSerializer = serializer (depth + 1, options, field.PropertyType)
 
     fun outer ->
         let value = field.GetValue(outer)
-        let json = innerSerializer (value)
+        let json = innerSerializer value
         $"%s{name}:%s{json}"
 
 let serializerFactory<'T> (options: JsonWriteOptions) : 'T -> string = serializer (1, options, typeof<'T>)
@@ -178,8 +178,8 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
     if custom.IsSome then
         let domain, _ = FSharpType.GetFunctionElements(custom.Value.GetType())
         let deserializeDomain = deserializer (options, domain)
-        let deserializeInner = asFun (custom.Value)
-        fun j -> deserializeInner (deserializeDomain (j))
+        let deserializeInner = asFun custom.Value
+        fun j -> deserializeInner (deserializeDomain j)
     elif t = typeof<bool> then
         fun j -> box (j.AsBoolean())
     elif t = typeof<int> then
@@ -189,7 +189,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
             let s = j.AsString()
 
             if s.Length = 1 then
-                box (s.[0])
+                box s.[0]
             else
                 raise (Exception $"Expected char but found '%s{s}'")
     elif t = typeof<string> then
@@ -201,7 +201,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
             let unescaped = Uri.UnescapeDataString(escaped)
             box (Uri(unescaped))
     elif t = typeof<JsonValue> then
-        fun j -> box (j)
+        fun j -> box j
     elif isList t then
         let innerType = t.GetGenericArguments()
         let deserializeInner = deserializer (options, innerType[0])
@@ -210,7 +210,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
             let array = j.AsArray()
             let parse = Seq.map deserializeInner array
             let list = makeList (innerType[0], parse)
-            box (list)
+            box list
     elif isMap t then
         let arguments = t.GetGenericArguments()
         let stringType = arguments[0]
@@ -260,10 +260,10 @@ and fieldDeserializer (options: JsonReadOptions, field: PropertyInfo) : string *
             | Some v -> v
             | None -> JsonValue.Null
 
-        box (deserializeInner (value))
+        box (deserializeInner value)
 
     field.Name, deserializeField
 
 let deserializerFactory<'T> (options: JsonReadOptions) : JsonValue -> 'T =
     let d = deserializer (options, typeof<'T>)
-    fun s -> d (s) :?> 'T
+    fun s -> d s :?> 'T
