@@ -1209,7 +1209,7 @@ type Server(client: ILanguageClient) =
                             let u = p.textDocument.uri
 
                             if
-                                System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                                 && u.LocalPath.StartsWith "/"
                             then
                                 u.LocalPath.Substring(1)
@@ -1699,7 +1699,7 @@ let main (_: array<string>) : int =
         LanguageServer.connect (serverFactory, read, write)
         0 // return an integer exit code
     with e ->
-        LSP.Log.dprintfn $"Exception in language server {e}"
+        Log.dprintfn $"Exception in language server {e}"
         1
 //eprintfn "%A" (JsonValue.Parse "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"processId\":12660,\"rootUri\": \"file:///c%3A/Users/Thomas/Documents/Paradox%20Interactive/Stellaris\"},\"capabilities\":{\"workspace\":{}}}")
 //0

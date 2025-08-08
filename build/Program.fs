@@ -77,7 +77,7 @@ let buildPackage dir =
 let setPackageJsonField (name: string) (value: string) releaseDir =
     let fileName = $"./%s{releaseDir}/package.json"
     let content = File.readAsString fileName
-    let jsonObj = System.Text.Json.JsonDocument.Parse content
+    let jsonObj = JsonDocument.Parse content
     let node = System.Text.Json.Nodes.JsonObject.Create jsonObj.RootElement
     node[name] <- value
     let opts = JsonSerializerOptions(WriteIndented = true, AllowTrailingCommas = false)
@@ -97,11 +97,11 @@ let publishToGallery releaseDir =
     run npxTool.Value $"@vscode/vsce publish --pat %s{token}" releaseDir
 
 let ensureGitUser user email =
-    match Fake.Tools.Git.CommandHelper.runGitCommand "." "config user.name" with
+    match CommandHelper.runGitCommand "." "config user.name" with
     | true, [ username ], _ when username = user -> ()
     | _, _, _ ->
-        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." $"config user.name %s{user}"
-        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." $"config user.email %s{email}"
+        CommandHelper.directRunGitCommandAndFail "." $"config user.name %s{user}"
+        CommandHelper.directRunGitCommandAndFail "." $"config user.email %s{email}"
 
 let releaseGithub (release: ReleaseNotes.ReleaseNotes) =
     let user =
