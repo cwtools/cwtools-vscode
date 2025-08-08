@@ -43,7 +43,7 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
     with ex ->
         logError $"cwtools git error, recovering, error: %A{ex}"
         use git = new Repository(gameCacheDir)
-        git.Reset(ResetMode.Hard, git.Branches["origin/master"].Tip) |> ignore
+        git.Reset(ResetMode.Hard, git.Branches["origin/master"].Tip)
 
         if first then
             initOrUpdateRules repoPath gameCacheDir stable false
