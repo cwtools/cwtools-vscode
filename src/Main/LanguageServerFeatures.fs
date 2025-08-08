@@ -83,7 +83,6 @@ module LanguageServerFeatures =
         ck3GameObj
         (vic3GameObj: 'h option)
         customGameObj
-        (client: ILanguageClient)
         (docs: DocumentStore)
         (doc: Uri)
         (pos: LSP.Types.Position)

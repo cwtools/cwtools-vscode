@@ -93,8 +93,6 @@ let addDLCs (workspaceDirectory: WorkspaceDirectory) =
         []
 
 
-let serialize gameDirName scriptFolders cacheDirectory = ()
-
 let serializeSTL folder cacheDirectory =
     let fileManager =
         FileManager(

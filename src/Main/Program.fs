@@ -72,12 +72,9 @@ type LintRequestMsg =
 type Server(client: ILanguageClient) =
     do setupLogger client
     let docs = DocumentStore()
-    let projects = ProjectManager()
 
     let notFound (doc: Uri) () : 'Any =
         raise (Exception $"%s{doc.ToString()} does not exist")
-
-    let mutable docErrors: DocumentHighlight list = []
 
     let mutable activeGame = STL
     let mutable isVanillaFolder = false
@@ -104,14 +101,6 @@ type Server(client: ILanguageClient) =
     let mutable vic2VanillaPath: string option = None
     let mutable ck3VanillaPath: string option = None
     let mutable vic3VanillaPath: string option = None
-    let mutable stellarisCacheVersion: string option = None
-    let mutable eu4CacheVersion: string option = None
-    let mutable hoi4CacheVersion: string option = None
-    let mutable ck2CacheVersion: string option = None
-    let mutable irCacheVersion: string option = None
-    let mutable vic2CacheVersion: string option = None
-    let mutable ck3CacheVersion: string option = None
-    let mutable vic3CacheVersion: string option = None
     let mutable remoteRepoPath: string option = None
 
     let mutable rulesChannel: string = "stable"
@@ -152,7 +141,7 @@ type Server(client: ILanguageClient) =
         let startC, endC =
             match length with
             | 0 -> 0, (int position.StartColumn)
-            | x -> (int position.StartColumn), (int position.StartColumn) + length
+            | _ -> (int position.StartColumn), (int position.StartColumn) + length
 
         let startLine = (int position.StartLine) - 1
         let startLine = max startLine 0
@@ -1154,7 +1143,7 @@ type Server(client: ILanguageClient) =
                 )
             }
 
-        member this.WillSaveWaitUntilTextDocument(p: WillSaveTextDocumentParams) = TODO()
+        member this.WillSaveWaitUntilTextDocument(_: WillSaveTextDocumentParams) = TODO()
 
         member this.DidSaveTextDocument(p: DidSaveTextDocumentParams) =
             async {
@@ -1194,7 +1183,6 @@ type Server(client: ILanguageClient) =
                         ck3GameObj
                         vic3GameObj
                         customGameObj
-                        client
                         docs
                         p.textDocument.uri
                         p.position)
@@ -1207,7 +1195,7 @@ type Server(client: ILanguageClient) =
             async { return completionResolveItem gameObj p |> Async.RunSynchronously }
             |> catchError p
 
-        member this.SignatureHelp(p: TextDocumentPositionParams) = TODO()
+        member this.SignatureHelp(_: TextDocumentPositionParams) = TODO()
 
         member this.GotoDefinition(p: TextDocumentPositionParams) =
             async {
@@ -1280,7 +1268,7 @@ type Server(client: ILanguageClient) =
             }
             |> catchError []
 
-        member this.DocumentHighlight(p: TextDocumentPositionParams) = TODO()
+        member this.DocumentHighlight(_: TextDocumentPositionParams) = TODO()
 
         member this.DocumentSymbols(p: DocumentSymbolParams) =
             let createDocumentSymbol name detail range =
@@ -1331,7 +1319,7 @@ type Server(client: ILanguageClient) =
             }
             |> catchError []
 
-        member this.WorkspaceSymbols(p: WorkspaceSymbolParams) = TODO()
+        member this.WorkspaceSymbols(_: WorkspaceSymbolParams) = TODO()
 
         member this.CodeActions(p: CodeActionParams) =
             async {
@@ -1381,10 +1369,10 @@ type Server(client: ILanguageClient) =
                     | None -> []
             }
 
-        member this.CodeLens(p: CodeLensParams) = TODO()
-        member this.ResolveCodeLens(p: CodeLens) = TODO()
-        member this.DocumentLink(p: DocumentLinkParams) = TODO()
-        member this.ResolveDocumentLink(p: DocumentLink) = TODO()
+        member this.CodeLens(_: CodeLensParams) = TODO()
+        member this.ResolveCodeLens(_: CodeLens) = TODO()
+        member this.DocumentLink(_: DocumentLinkParams) = TODO()
+        member this.ResolveDocumentLink(_: DocumentLink) = TODO()
 
         member this.DocumentFormatting(p: DocumentFormattingParams) =
             async {
@@ -1417,10 +1405,10 @@ type Server(client: ILanguageClient) =
             }
             |> catchError []
 
-        member this.DocumentRangeFormatting(p: DocumentRangeFormattingParams) = TODO()
-        member this.DocumentOnTypeFormatting(p: DocumentOnTypeFormattingParams) = TODO()
-        member this.DidChangeWorkspaceFolders(p: DidChangeWorkspaceFoldersParams) = TODO()
-        member this.Rename(p: RenameParams) = TODO()
+        member this.DocumentRangeFormatting(_: DocumentRangeFormattingParams) = TODO()
+        member this.DocumentOnTypeFormatting(_: DocumentOnTypeFormattingParams) = TODO()
+        member this.DidChangeWorkspaceFolders(_: DidChangeWorkspaceFoldersParams) = TODO()
+        member this.Rename(_: RenameParams) = TODO()
 
         member this.ExecuteCommand(p: ExecuteCommandParams) : Async<ExecuteCommandResponse option> =
             async {
@@ -1648,11 +1636,11 @@ type Server(client: ILanguageClient) =
                                 let (all: string list) =
                                     types
                                     |> Map.toList
-                                    |> List.filter (fun (k, vs) -> typesWithGraph |> List.contains k)
+                                    |> List.filter (fun (k, _) -> typesWithGraph |> List.contains k)
                                     |> List.collect (fun (k, vs) ->
                                         vs
                                         |> List.filter (fun tdi -> tdi.range.FileName = lastFile)
-                                        |> List.map (fun tdi -> k))
+                                        |> List.map (fun _ -> k))
                                     |> List.filter (fun ds -> not (ds.Contains(".")))
 
                                 Some(all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
@@ -1695,7 +1683,7 @@ type Server(client: ILanguageClient) =
 
 
 [<EntryPoint>]
-let main (argv: array<string>) : int =
+let main (_: array<string>) : int =
     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
     let cultureInfo = System.Globalization.CultureInfo("en-US") //System.Globalization.CultureInfo.InvariantCulture;
     System.Globalization.CultureInfo.DefaultThreadCurrentCulture <- cultureInfo

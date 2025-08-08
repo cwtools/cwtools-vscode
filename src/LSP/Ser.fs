@@ -244,7 +244,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
 
         fun j ->
             let array =
-                [| for field, reader in readers do
+                [| for _, reader in readers do
                        yield reader j |]
 
             FSharpValue.MakeRecord(t, array)

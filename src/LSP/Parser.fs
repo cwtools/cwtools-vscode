@@ -117,7 +117,7 @@ let parseMessage (jsonText: string) : Message =
     match raw.id, raw.method, raw.``params``, raw.result, raw.error with
     | Some id, Some method, Some p, _, _ -> RequestMessage(id, method, p)
     | Some id, _, _, Some r, _ -> ResponseMessage(id, r)
-    | Some id, None, _, _, Some e -> ResponseMessage(id, JsonValue.Null)
+    | Some id, None, _, _, Some _ -> ResponseMessage(id, JsonValue.Null)
     | Some id, None, _, _, _ -> raise (Exception $"Request message with id %d{id} missing params. Text: %s{jsonText}")
     | None, Some m, _, _, _ -> NotificationMessage(m, raw.``params``)
     | Some id, Some method, _, _, _ -> RequestMessage(id, method, JsonValue.Null)
