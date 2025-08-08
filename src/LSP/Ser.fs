@@ -189,7 +189,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
             let s = j.AsString()
 
             if s.Length = 1 then
-                box s.[0]
+                box s[0]
             else
                 raise (Exception $"Expected char but found '%s{s}'")
     elif t = typeof<string> then

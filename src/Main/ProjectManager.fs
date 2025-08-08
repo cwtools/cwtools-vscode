@@ -89,7 +89,7 @@ module ProjectManagerUtils =
             |> Seq.tryHead
 
         let resolveInLibrary (library: string) (dll: string) : option<FileInfo> =
-            let libraryPath = assets.libraries.[library].path
+            let libraryPath = assets.libraries[library].path
             let dependencyPath = Path.Combine(libraryPath, dll) |> fixPath
             resolveInPackageFolders dependencyPath
 
@@ -125,7 +125,7 @@ module ProjectManagerUtils =
             List.ofSeq (
                 seq {
                     for n in fsproj.SelectNodes "//Compile[@Include]" do
-                        let relativePath = n.Attributes.["Include"].Value |> fixPath
+                        let relativePath = n.Attributes["Include"].Value |> fixPath
                         let absolutePath = Path.Combine(path.DirectoryName, relativePath)
                         yield FileInfo(absolutePath)
                 }
@@ -135,7 +135,7 @@ module ProjectManagerUtils =
             List.ofSeq (
                 seq {
                     for n in fsproj.SelectNodes "//ProjectReference[@Include]" do
-                        let relativePath = n.Attributes.["Include"].Value |> fixPath
+                        let relativePath = n.Attributes["Include"].Value |> fixPath
                         let absolutePath = Path.Combine(path.DirectoryName, relativePath)
                         yield FileInfo(absolutePath)
                 }
@@ -162,7 +162,7 @@ type ProjectManager() =
 
     let addToCache (projectFile: FileInfo) : CompilerOptions =
         let parsed = parseBoth projectFile
-        cache.[projectFile.Directory] <- parsed
+        cache[projectFile.Directory] <- parsed
         parsed
     // Scan the parent directories looking for a file *.fsproj
     let findProjectFileInParents (sourceFile: FileInfo) : option<FileInfo> =
