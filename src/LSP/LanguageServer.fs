@@ -294,7 +294,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
         | OtherNotification _ -> async { () }
     // Read messages and process cancellations on a separate thread
     let pendingRequests =
-        new System.Collections.Concurrent.ConcurrentDictionary<int, CancellationTokenSource>()
+        System.Collections.Concurrent.ConcurrentDictionary<int, CancellationTokenSource>()
 
     let processQueue =
         new System.Collections.Concurrent.BlockingCollection<PendingTask>(10)

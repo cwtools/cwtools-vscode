@@ -34,11 +34,11 @@ let mkConcurrentDictionaryPickler<'a, 'b> (resolver: IPicklerResolver) =
         dictionaryPickler.Write w "value" (dict.ToArray())
 
     let reader (r: ReadState) =
-        let v = dictionaryPickler.Read r "value" in new ConcurrentDictionary<_, _>(v)
+        let v = dictionaryPickler.Read r "value" in ConcurrentDictionary<_, _>(v)
 
     Pickler.FromPrimitives(reader, writer)
 
-let registry = new CustomPicklerRegistry()
+let registry = CustomPicklerRegistry()
 do registry.RegisterFactory mkPickler
 do registry.RegisterFactory mkConcurrentDictionaryPickler<int, string>
 do registry.RegisterFactory mkConcurrentDictionaryPickler<int, StringMetadata>
