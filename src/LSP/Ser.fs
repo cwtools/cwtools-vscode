@@ -122,8 +122,8 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
             let innerString = String.concat "," fieldStrings
             sprintf "{%s}" innerString
     elif implementsSeq t then
-        let [| innerType |] = t.GetGenericArguments()
-        let serializeInner = serializer (depth, options, innerType)
+        let innerType = t.GetGenericArguments()
+        let serializeInner = serializer (depth, options, innerType[0])
 
         fun outer ->
             let asEnum = outer :?> System.Collections.IEnumerable
@@ -132,14 +132,14 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
             let join = String.Join(",", inners)
             sprintf "[%s]" join
     elif isOption t then
-        let [| innerType |] = t.GetGenericArguments()
+        let innerType = t.GetGenericArguments()
         let isSomeProp = t.GetProperty("IsSome")
 
         let isSome outer =
             isSomeProp.GetValue(None, [| outer |]) :?> bool
 
         let valueProp = t.GetProperty("Value")
-        let serializeInner = serializer (depth, options, innerType)
+        let serializeInner = serializer (depth, options, innerType[0])
 
         fun outer ->
             if isSome outer then
@@ -204,16 +204,18 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
     elif t = typeof<JsonValue> then
         fun j -> box (j)
     elif isList t then
-        let [| innerType |] = t.GetGenericArguments()
-        let deserializeInner = deserializer (options, innerType)
+        let innerType = t.GetGenericArguments()
+        let deserializeInner = deserializer (options, innerType[0])
 
         fun j ->
             let array = j.AsArray()
             let parse = Seq.map deserializeInner array
-            let list = makeList (innerType, parse)
+            let list = makeList (innerType[0], parse)
             box (list)
     elif isMap t then
-        let [| stringType; valueType |] = t.GetGenericArguments()
+        let arguments = t.GetGenericArguments()
+        let stringType = arguments[0]
+        let valueType = arguments[1]
 
         if stringType <> typeof<string> then
             raise (Exception(sprintf "Keys of %A are not strings" t))
@@ -225,15 +227,15 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
             let parse = Seq.map (fun (k, v) -> k, deserializeInner v) props
             makeMap (valueType, parse)
     elif isOption t then
-        let [| innerType |] = t.GetGenericArguments()
-        let deserializeInner = deserializer (options, innerType)
+        let innerType = t.GetGenericArguments()
+        let deserializeInner = deserializer (options, innerType[0])
 
         fun j ->
             if j = JsonValue.Null then
-                box (makeOption (innerType, None))
+                box (makeOption (innerType[0], None))
             else
                 let parse = deserializeInner j
-                box (makeOption (innerType, Some parse))
+                box (makeOption (innerType[0], Some parse))
     elif FSharpType.IsRecord t then
         let fields = FSharpType.GetRecordFields(t)
 

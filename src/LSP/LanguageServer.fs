@@ -321,7 +321,6 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
                     let n = Parser.parseNotification (method, json)
                     let task = processNotification (n)
                     processQueue.Add(ProcessNotification(method, task))
-                | Parser.NotificationMessage("exit", json) -> processQueue.Add(Quit)
                 | Parser.RequestMessage(id, method, json) ->
                     let task = processRequest (Parser.parseRequest (method, json))
                     let cancel = new CancellationTokenSource()
