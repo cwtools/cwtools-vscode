@@ -41,7 +41,7 @@ open DocumentStoreUtils
 
 type DocumentStore() =
     /// All open documents, organized by absolute path
-    let activeDocuments = new Dictionary<string, Version>()
+    let activeDocuments = Dictionary<string, Version>()
 
     /// Replace a section of an open file
     let patch (doc: VersionedTextDocumentIdentifier, range: Range, text: string) : unit =

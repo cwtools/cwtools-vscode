@@ -199,7 +199,7 @@ type GameLanguage =
     | Custom
 
 let getCachedFiles (game: GameLanguage) cachePath isVanillaFolder =
-    let timer = new System.Diagnostics.Stopwatch()
+    let timer = System.Diagnostics.Stopwatch()
     timer.Start()
 
     let cached, cachedFiles =
@@ -406,7 +406,7 @@ let loadSTL serverSettings =
 
     let folders = configs |> List.tryPick getFolderList
 
-    let timer = new System.Diagnostics.Stopwatch()
+    let timer = System.Diagnostics.Stopwatch()
     timer.Start()
 
 
