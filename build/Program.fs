@@ -47,14 +47,14 @@ let run cmd args dir =
             CommandLine = args }
 
     if Process.shellExec parms <> 0 then
-        failwithf "Error while running '%s' with args: %s" cmd args
+        failwithf $"Error while running '%s{cmd}' with args: %s{args}"
 
 let platformTool tool path =
     match Environment.isUnix with
     | true -> tool
     | _ ->
         match ProcessUtils.tryFindFileOnPath path with
-        | None -> failwithf "can't find tool %s on PATH" tool
+        | None -> failwithf $"can't find tool %s{tool} on PATH"
         | Some v -> v
 
 let npxTool = lazy (platformTool "npx" "npx.cmd")
@@ -72,10 +72,10 @@ let buildPackage dir =
     Process.killAllByName "npx"
     run npxTool.Value "--yes @vscode/vsce package" dir
 
-    !!(sprintf "%s/*.vsix" dir) |> Seq.iter (Shell.moveFile "./temp/")
+    !! $"%s{dir}/*.vsix" |> Seq.iter (Shell.moveFile "./temp/")
 
 let setPackageJsonField (name: string) (value: string) releaseDir =
-    let fileName = sprintf "./%s/package.json" releaseDir
+    let fileName = $"./%s{releaseDir}/package.json"
     let content = File.readAsString fileName
     let jsonObj = System.Text.Json.JsonDocument.Parse content
     let node = System.Text.Json.Nodes.JsonObject.Create jsonObj.RootElement
@@ -94,14 +94,14 @@ let publishToGallery releaseDir =
         | _ -> UserInput.getUserPassword "VSCE Token: "
 
     Process.killAllByName "npx"
-    run npxTool.Value (sprintf "@vscode/vsce publish --pat %s" token) releaseDir
+    run npxTool.Value $"@vscode/vsce publish --pat %s{token}" releaseDir
 
 let ensureGitUser user email =
     match Fake.Tools.Git.CommandHelper.runGitCommand "." "config user.name" with
     | true, [ username ], _ when username = user -> ()
     | _, _, _ ->
-        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." (sprintf "config user.name %s" user)
-        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." (sprintf "config user.email %s" email)
+        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." $"config user.name %s{user}"
+        Fake.Tools.Git.CommandHelper.directRunGitCommandAndFail "." $"config user.email %s{email}"
 
 let releaseGithub (release: ReleaseNotes.ReleaseNotes) =
     let user =
@@ -124,7 +124,7 @@ let releaseGithub (release: ReleaseNotes.ReleaseNotes) =
 
     Staging.stageAll ""
     ensureGitUser user email
-    Commit.exec "." (sprintf "Bump version to %s" release.NugetVersion)
+    Commit.exec "." $"Bump version to %s{release.NugetVersion}"
     Branches.pushBranch "" remote "main"
     Branches.tag "" release.NugetVersion
     Branches.pushTag "" remote release.NugetVersion

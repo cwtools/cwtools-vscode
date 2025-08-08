@@ -1,16 +1,13 @@
 namespace Main.Lang
 
-open LSP.Json.Ser
 open LSP
 open LSP.Types
 open System
 open System.Runtime.InteropServices
 open CWTools.Utilities.Position
-open CWTools.Utilities.StringResource
 open CWTools.Games
 open System.IO
 open CWTools.Localisation
-open LSP.Types
 
 module LanguageServerFeatures =
     let convRangeToLSPRange (range: range) =
@@ -104,7 +101,7 @@ module LanguageServerFeatures =
                     game.ScopesAtPos position (path) (docs.GetText(FileInfo(doc.LocalPath)) |> Option.defaultValue "")
 
                 let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
-                eprintfn "Looking for effect %s in the %i effects loaded" (unescapedWord.ToString()) (allEffects.Length)
+                eprintfn $"Looking for effect %s{unescapedWord.ToString()} in the %i{allEffects.Length} effects loaded"
 
                 let hovered =
                     allEffects |> List.tryFind (fun e -> e.Name.GetString() = unescapedWord)
@@ -118,7 +115,7 @@ module LanguageServerFeatures =
                     else
                         let scopes = scopeContext.Value
                         let header = "| Context | Scope |\n| ----- | -----|\n"
-                        let root = sprintf "| ROOT | %s |\n" (scopes.Root.ToString())
+                        let root = $"| ROOT | %s{scopes.Root.ToString()} |\n"
 
                         let prevs =
                             scopes.Scopes
@@ -257,7 +254,7 @@ module LanguageServerFeatures =
             let docChanges = { documentChanges = [ changes ] }
 
             client.ApplyWorkspaceEdit
-                { label = Some(sprintf "Pretriggers %s" fileInfo.Name)
+                { label = Some $"Pretriggers %s{fileInfo.Name}"
                   edit = docChanges }
             |> Async.RunSynchronously
             |> ignore

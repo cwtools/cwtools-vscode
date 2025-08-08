@@ -3,7 +3,6 @@ module LSP.LanguageServer
 open LSP.Log
 open System
 open System.Threading
-open System.Threading.Tasks
 open System.IO
 open System.Text
 open FSharp.Data
@@ -127,7 +126,7 @@ let responseAgent =
 
                     match result with
                     | Some(_, reply) -> reply.Reply(value)
-                    | None -> eprintfn "Unexpected response %i" id
+                    | None -> eprintfn $"Unexpected response %i{id}"
 
                     return! loop (state |> List.filter (fun (i, _) -> i <> id))
             }
@@ -138,7 +137,7 @@ let monitor = Lock()
 
 let private writeClient (client: BinaryWriter, messageText: string) =
     let messageBytes = Encoding.UTF8.GetBytes(messageText)
-    let headerText = sprintf "Content-Length: %d\r\n\r\n" messageBytes.Length
+    let headerText = $"Content-Length: %d{messageBytes.Length}\r\n\r\n"
     let headerBytes = Encoding.UTF8.GetBytes(headerText)
 
     monitor.Enter()
@@ -150,11 +149,11 @@ let private writeClient (client: BinaryWriter, messageText: string) =
         monitor.Exit()
 
 let respond (client: BinaryWriter, requestId: int, jsonText: string) =
-    let messageText = sprintf """{"id":%d,"result":%s}""" requestId jsonText
+    let messageText = $"""{{"id":%d{requestId},"result":%s{jsonText}}}"""
     writeClient (client, messageText)
 
 let private notifyClient (client: BinaryWriter, method: string, jsonText: string) =
-    let messageText = sprintf """{"method":"%s","params":%s}""" method jsonText
+    let messageText = $"""{{"method":"%s{method}","params":%s{jsonText}}}"""
     writeClient (client, messageText)
 
 let private requestClient (client: BinaryWriter, id: int, method: string, jsonText: string) =
@@ -163,7 +162,7 @@ let private requestClient (client: BinaryWriter, id: int, method: string, jsonTe
             responseAgent.PostAndAsyncReply((fun replyChannel -> Request(id, replyChannel)))
 
         let messageText =
-            sprintf """{"id":%d,"method":"%s", "params":%s}""" id method jsonText
+            $"""{{"id":%d{id},"method":"%s{method}", "params":%s{jsonText}}}"""
 
         writeClient (client, messageText)
         return! reply
@@ -330,7 +329,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
 
             processQueue.Add(Quit)
         with e ->
-            dprintfn "Exception in read thread %O" e
+            dprintfn $"Exception in read thread {e}"
 
     )
         .Start()

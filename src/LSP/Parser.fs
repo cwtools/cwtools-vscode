@@ -6,7 +6,6 @@ open FSharp.Data
 open FSharp.Data.JsonExtensions
 open LSP.Json.Ser
 open LSP.Types
-open Types
 
 type RawMessage =
     { id: int option
@@ -20,21 +19,21 @@ let parseTextDocumentSaveReason (i: int) : TextDocumentSaveReason =
     | 1 -> TextDocumentSaveReason.Manual
     | 2 -> TextDocumentSaveReason.AfterDelay
     | 3 -> TextDocumentSaveReason.FocusOut
-    | _ -> raise (Exception(sprintf "%d is not a known TextDocumentSaveReason" i))
+    | _ -> raise (Exception $"%d{i} is not a known TextDocumentSaveReason")
 
 let parseFileChangeType (i: int) : FileChangeType =
     match i with
     | 1 -> FileChangeType.Created
     | 2 -> FileChangeType.Changed
     | 3 -> FileChangeType.Deleted
-    | _ -> raise (Exception(sprintf "%d is not a known FileChangeType" i))
+    | _ -> raise (Exception $"%d{i} is not a known FileChangeType")
 
 let parseTrace (text: string) : Trace =
     match text with
     | "off" -> Trace.Off
     | "messages" -> Trace.Messages
     | "verbose" -> Trace.Verbose
-    | _ -> raise (Exception(sprintf "Unexpected trace %s" text))
+    | _ -> raise (Exception $"Unexpected trace %s{text}")
 
 let parseCompletionItemKind (i: int) : CompletionItemKind =
     match i with
@@ -63,13 +62,13 @@ let parseCompletionItemKind (i: int) : CompletionItemKind =
     | 23 -> CompletionItemKind.Event
     | 24 -> CompletionItemKind.Operator
     | 25 -> CompletionItemKind.TypeParameter
-    | _ -> raise (Exception(sprintf "%d is not a known CompletionItemKind" i))
+    | _ -> raise (Exception $"%d{i} is not a known CompletionItemKind")
 
 let parseInsertTextFormat (i: int) : InsertTextFormat =
     match i with
     | 1 -> InsertTextFormat.PlainText
     | 2 -> InsertTextFormat.Snippet
-    | _ -> raise (Exception(sprintf "%d is not a known InsertTextFormat" i))
+    | _ -> raise (Exception $"%d{i} is not a known InsertTextFormat")
 
 let parseDiagnosticSeverity (i: int) : DiagnosticSeverity =
     match i with
@@ -77,20 +76,20 @@ let parseDiagnosticSeverity (i: int) : DiagnosticSeverity =
     | 2 -> DiagnosticSeverity.Warning
     | 3 -> DiagnosticSeverity.Information
     | 4 -> DiagnosticSeverity.Hint
-    | _ -> raise (Exception(sprintf "%d is not a known DiagnosticSeverity" i))
+    | _ -> raise (Exception $"%d{i} is not a known DiagnosticSeverity")
 
 let parseMarkupKind (s: string) : MarkupKind =
     match s with
     | "plaintext" -> MarkupKind.PlainText
     | "markdown" -> MarkupKind.Markdown
-    | _ -> raise (Exception(sprintf "%s is not a known MarkupKind" s))
+    | _ -> raise (Exception $"%s{s} is not a known MarkupKind")
 
 let parseCompletionTriggerKind (i: int) : CompletionTriggerKind =
     match i with
     | 1 -> CompletionTriggerKind.Invoked
     | 2 -> CompletionTriggerKind.TriggerCharacter
     | 3 -> CompletionTriggerKind.TriggerForIncompleteCompletions
-    | _ -> raise (Exception(sprintf "%d is not a known CompletionTriggerKind" i))
+    | _ -> raise (Exception $"%d{i} is not a known CompletionTriggerKind")
 
 let private readOptions =
     { defaultJsonReadOptions with
@@ -119,11 +118,10 @@ let parseMessage (jsonText: string) : Message =
     | Some id, Some method, Some p, _, _ -> RequestMessage(id, method, p)
     | Some id, _, _, Some r, _ -> ResponseMessage(id, r)
     | Some id, None, _, _, Some e -> ResponseMessage(id, JsonValue.Null)
-    | Some id, None, _, _, _ ->
-        raise (Exception(sprintf "Request message with id %d missing params. Text: %s" id jsonText))
+    | Some id, None, _, _, _ -> raise (Exception $"Request message with id %d{id} missing params. Text: %s{jsonText}")
     | None, Some m, _, _, _ -> NotificationMessage(m, raw.``params``)
     | Some id, Some method, _, _, _ -> RequestMessage(id, method, JsonValue.Null)
-    | _ -> raise (Exception(sprintf "Message %s doesn't match format expected" jsonText))
+    | _ -> raise (Exception $"Message %s{jsonText} doesn't match format expected")
 
 let parseDidChangeConfigurationParams =
     deserializerFactory<DidChangeConfigurationParams> readOptions
@@ -161,10 +159,10 @@ let parseNotification (method: string, maybeBody: JsonValue option) : Notificati
     | "workspace/didChangeWatchedFiles", Some json -> DidChangeWatchedFiles(parseDidChangeWatchedFilesParams json)
     | "didFocusFile", Some json -> DidFocusFile(parseDidFocusFileParams json)
     | _, None ->
-        dprintfn "%s is not a known notification, or it is expected to contain a body" method
+        dprintfn $"%s{method} is not a known notification, or it is expected to contain a body"
         OtherNotification method
     | _, _ ->
-        dprintfn "%s is not a known notification" method
+        dprintfn $"%s{method} is not a known notification"
         OtherNotification method
 
 type InitializeParamsRaw =
@@ -324,4 +322,4 @@ let parseRequest (method: string, json: JsonValue) : Request =
     | "textDocument/rename" -> Rename(parseRenameParams json)
     | "workspace/executeCommand" -> ExecuteCommand(parseExecuteCommandParams json)
     | "workspace/didChangeWorkspaceFolders" -> DidChangeWorkspaceFolders(parseDidChangeWorkspaceFoldersParams json)
-    | _ -> raise (Exception(sprintf "Unexpected request method %s" method))
+    | _ -> raise (Exception $"Unexpected request method %s{method}")

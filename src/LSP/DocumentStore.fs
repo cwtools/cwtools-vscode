@@ -77,7 +77,7 @@ type DocumentStore() =
         if doc.textDocument.version <= existing.version then
             let oldVersion = existing.version
             let newVersion = doc.textDocument.version
-            dprintfn "Change %d to doc %s is earlier than existing version %d" newVersion file.Name oldVersion
+            dprintfn $"Change %d{newVersion} to doc %s{file.Name} is earlier than existing version %d{oldVersion}"
         else
             for change in doc.contentChanges do
                 match change.range with

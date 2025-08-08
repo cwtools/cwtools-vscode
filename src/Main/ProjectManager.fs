@@ -1,14 +1,11 @@
 namespace Main
 
-open LSP
 open System
 open System.IO
 open System.Collections.Generic
-open System.Net
 open System.Xml
 open FSharp.Data
 open FSharp.Data.JsonExtensions
-open Microsoft.VisualBasic.CompilerServices
 
 type CompilerOptions =
     { sources: list<FileInfo>
@@ -111,7 +108,7 @@ module ProjectManagerUtils =
                                     yield resolved.Value
                                 else
                                     let packageFolders = String.concat ", " assets.packageFolders
-                                    eprintfn "Couldn't find %s in %s" dll packageFolders
+                                    eprintfn $"Couldn't find %s{dll} in %s{packageFolders}"
             }
         )
     // Parse fsproj
@@ -183,10 +180,10 @@ type ProjectManager() =
     let tryFindAndCache (sourceFile: FileInfo) : option<CompilerOptions> =
         match findProjectFileInParents sourceFile with
         | None ->
-            eprintfn "No project file for %s" sourceFile.Name
+            eprintfn $"No project file for %s{sourceFile.Name}"
             None
         | Some projectFile ->
-            eprintfn "Found project file %s for %s" projectFile.FullName sourceFile.Name
+            eprintfn $"Found project file %s{projectFile.FullName} for %s{sourceFile.Name}"
             Some(addToCache projectFile)
 
     member this.UpdateProjectFile(project: Uri) : unit =
