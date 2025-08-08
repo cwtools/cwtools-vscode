@@ -220,14 +220,14 @@ type RealClient(send: BinaryWriter) =
         member this.ApplyWorkspaceEdit(p: ApplyWorkspaceEditParams) : Async<JsonValue> =
             async {
                 let json = serializeApplyWorkspaceEdit p
-                let id = System.Random().Next()
+                let id = Random().Next()
                 return! requestClient (send, id, "workspace/applyEdit", json)
             }
 
         member this.CustomRequest(method: string, json: string) : Async<JsonValue> =
             async {
                 // let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
-                let id = System.Random().Next()
+                let id = Random().Next()
                 return! requestClient (send, id, method, json)
             }
 
@@ -354,4 +354,4 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
             //dprintfn "Request %d was cancelled" id
             pendingRequests.TryRemove(id) |> ignore
 
-    System.Environment.Exit(1)
+    Environment.Exit(1)

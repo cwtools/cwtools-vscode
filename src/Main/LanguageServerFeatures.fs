@@ -29,11 +29,7 @@ module LanguageServerFeatures =
         else
             u.LocalPath
 
-    let lochoverFromInfo
-        (localisation: (string * Entry) list)
-        (infoOption: CWTools.Games.SymbolInformation option)
-        (word: string)
-        =
+    let lochoverFromInfo (localisation: (string * Entry) list) (infoOption: SymbolInformation option) (word: string) =
         let locToText (loc: SymbolLocalisationInfo) =
             let locdesc =
                 localisation
@@ -59,7 +55,7 @@ module LanguageServerFeatures =
             localisation
             |> List.tryPick (fun (k, v) -> if k = word then Some v.desc else None)
 
-    let docstringFromInfo (infoOption: CWTools.Games.SymbolInformation option) =
+    let docstringFromInfo (infoOption: SymbolInformation option) =
         match infoOption with
         | Some info ->
             let ruleDesc = info.ruleDescription
@@ -85,7 +81,7 @@ module LanguageServerFeatures =
         customGameObj
         (docs: DocumentStore)
         (doc: Uri)
-        (pos: LSP.Types.Position)
+        (pos: Position)
         =
         async {
             let unescapedWord = docs.GetTextAtPosition(doc, pos)

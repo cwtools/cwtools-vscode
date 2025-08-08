@@ -60,11 +60,7 @@ let fixEmbeddedFileName (s: string) =
     let mutable out = "//" + s
 
     [ 1 .. count - 1 ]
-    |> List.iter (fun _ ->
-        out <-
-            (replaceFirst ((=) '.') '\\' (out |> List.ofSeq))
-            |> Array.ofList
-            |> System.String)
+    |> List.iter (fun _ -> out <- (replaceFirst ((=) '.') '\\' (out |> List.ofSeq)) |> Array.ofList |> String)
 
     out
 
