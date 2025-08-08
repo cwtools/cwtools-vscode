@@ -117,8 +117,6 @@ let getConfigFiles cachePath useManualRules manualRulesFolder =
             configFiles |> List.map (fun f -> f, File.ReadAllText(f))
         | _ -> []
 
-    let configpath = "Main.files.config.cwt"
-
     let configFiles =
         match useManualRules, manualRulesFolder with
         | true, Some rf ->
@@ -280,7 +278,7 @@ let loadHOI4 serverSettings =
 
     let folders = configs |> List.tryPick getFolderList
 
-    let hoi4modpath = "Main.files.hoi4.modifiers"
+    let _ = "Main.files.hoi4.modifiers"
 
     let hoi4settings =
         { rootDirectories = getRootDirectories serverSettings

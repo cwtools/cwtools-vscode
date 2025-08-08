@@ -139,7 +139,7 @@ let checkPartialCompletionCache (p: CompletionParams) genItems =
         completionPartialCache <- Some(p, items)
         items
 
-let completionCallLSP (game: IGame) (p: CompletionParams) docs debugMode filetext position =
+let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext position =
 
     let path =
         let u = p.textDocument.uri

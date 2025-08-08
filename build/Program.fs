@@ -183,7 +183,7 @@ let initTargets () =
                     { MSBuild.CliArguments.Create() with
                         DisableInternalBinLog = true } }
 
-    let buildParams (release: bool) (local: bool) =
+    let buildParams (release: bool) =
         fun (b: DotNet.BuildOptions) ->
             { b with
                 OutputPath = Some(releaseDir </> "bin/server" </> platformShortCode)
@@ -203,7 +203,7 @@ let initTargets () =
         else
             ()
 
-        DotNet.build (buildParams true false) cwtoolsProjectPath
+        DotNet.build (buildParams true) cwtoolsProjectPath
 
     Target.create "BuildServerDebug"
     <| fun _ ->
@@ -212,7 +212,7 @@ let initTargets () =
         else
             ()
 
-        DotNet.build (buildParams false false) cwtoolsProjectPath
+        DotNet.build (buildParams false) cwtoolsProjectPath
 
     Target.create "PublishServer"
     <| fun _ ->

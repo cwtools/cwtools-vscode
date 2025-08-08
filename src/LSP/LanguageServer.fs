@@ -339,7 +339,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
     while not quit do
         match processQueue.Take() with
         | Quit -> quit <- true
-        | ProcessNotification(method, task) -> Async.RunSynchronously(task)
+        | ProcessNotification(_, task) -> Async.RunSynchronously(task)
         | ProcessRequest(id, task, cancel) ->
             if cancel.IsCancellationRequested then
                 ()
