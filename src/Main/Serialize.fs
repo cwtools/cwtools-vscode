@@ -3,29 +3,15 @@ module Main.Serialize
 open System.Text
 open CWTools.Common
 open System.IO
-open CWTools.Parser
-open CWTools
-open FParsec
-open System.Diagnostics.Tracing
 open System.Reflection
-open CWTools.Localisation
-open CWTools.Localisation.STL
 open CWTools.Games.Files
-open CWTools.Common.STLConstants
 open CWTools.Games.Compute
 open CWTools.Games
-open CWTools.Validation.Stellaris
 open MBrace.FsPickler
 open CWTools.Process
 open CWTools.Utilities.Position
 open CWTools.Utilities
-open CWTools.Games.EU4
-open CWTools.Validation.EU4
-open CWTools.Validation
-open CWTools.Validation.HOI4
-open CWTools.Validation.VIC2
 open CWTools.Rules
-open CWTools.Games.Stellaris.STLLookup
 open System.IO.Compression
 open System.Collections.Generic
 open System.Collections.Concurrent
@@ -124,7 +110,7 @@ let serializeSTL folder cacheDirectory =
         )
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<STLComputedData>(
@@ -172,7 +158,7 @@ let serializeEU4 folder cacheDirectory =
         FileManager(folders, Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<EU4ComputedData>(
@@ -220,7 +206,7 @@ let serializeHOI4 folder cacheDirectory =
         FileManager(folders, Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<HOI4ComputedData>(
@@ -272,7 +258,7 @@ let serializeCK2 folder cacheDirectory =
         )
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<CK2ComputedData>(
@@ -324,7 +310,7 @@ let serializeIR folder cacheDirectory =
         )
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<IRComputedData>(
@@ -376,7 +362,7 @@ let serializeVIC2 folder cacheDirectory =
         )
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<VIC2ComputedData>(
@@ -428,7 +414,7 @@ let serializeCK3 folder cacheDirectory =
         )
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<CK3ComputedData>(
@@ -481,7 +467,7 @@ let serializeVIC3 folder cacheDirectory =
         )
 
     let files = fileManager.AllFilesByPath()
-    let computefun: unit -> InfoService option = (fun () -> (None))
+    let computefun: unit -> InfoService option = (fun () -> None)
 
     let resources =
         ResourceManager<VIC3ComputedData>(

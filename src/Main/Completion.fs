@@ -7,7 +7,6 @@ open System.Runtime.InteropServices
 open CWTools.Common
 open CWTools.Games
 open CWTools.Utilities.Position
-open CWTools.Utilities.StringResource
 open FSharp.Data
 open LSP
 open LSP.Types
@@ -112,11 +111,11 @@ let optimiseCompletion (completionList: CompletionItem list) =
     | x when x > 1000 ->
         let sorted = completionList |> List.sortBy (fun c -> c.sortText)
 
-        let first = sorted |> List.take (1000)
+        let first = sorted |> List.take 1000
 
         let rest =
             sorted
-            |> List.skip (1000)
+            |> List.skip 1000
             |> List.take (min 1000 (x - 1000))
             |> List.map (fun item ->
                 let key = addToCache item

@@ -176,7 +176,7 @@ type InitializeParamsRaw =
 let private parseCapabilities (nested: JsonValue) : Map<string, bool> =
     let rec flatten (path: string, node: JsonValue) =
         seq {
-            for (key, value) in node.Properties do
+            for key, value in node.Properties do
                 let newPath = path + "." + key
 
                 match value with
@@ -186,7 +186,7 @@ let private parseCapabilities (nested: JsonValue) : Map<string, bool> =
 
     let kvs =
         seq {
-            for (key, value) in nested.Properties do
+            for key, value in nested.Properties do
                 if key <> "experimental" then
                     yield! flatten (key, value)
         }

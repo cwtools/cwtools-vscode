@@ -74,15 +74,15 @@ module LanguageServerFeatures =
 
 
     let hoverDocument
-        (eu4GameObj)
-        (hoi4GameObj)
-        (stlGameObj)
-        (ck2GameObj)
-        (irGameObj)
-        (vic2GameObj)
-        (ck3GameObj)
+        eu4GameObj
+        hoi4GameObj
+        stlGameObj
+        ck2GameObj
+        irGameObj
+        vic2GameObj
+        ck3GameObj
         (vic3GameObj: 'h option)
-        (customGameObj)
+        customGameObj
         (client: ILanguageClient)
         (docs: DocumentStore)
         (doc: Uri)
@@ -98,7 +98,7 @@ module LanguageServerFeatures =
                     game.InfoAtPos position path (docs.GetText(FileInfo(doc.LocalPath)) |> Option.defaultValue "")
 
                 let scopeContext =
-                    game.ScopesAtPos position (path) (docs.GetText(FileInfo(doc.LocalPath)) |> Option.defaultValue "")
+                    game.ScopesAtPos position path (docs.GetText(FileInfo(doc.LocalPath)) |> Option.defaultValue "")
 
                 let allEffects = game.ScriptedEffects() @ game.ScriptedTriggers()
                 eprintfn $"Looking for effect %s{unescapedWord.ToString()} in the %i{allEffects.Length} effects loaded"
@@ -121,16 +121,16 @@ module LanguageServerFeatures =
                             scopes.Scopes
                             |> List.mapi (fun i s ->
                                 "| "
-                                + (if i = 0 then "THIS" else (String.replicate (i) "PREV"))
+                                + (if i = 0 then "THIS" else (String.replicate i "PREV"))
                                 + " | "
-                                + (s.ToString())
+                                + s.ToString()
                                 + " |\n")
                             |> String.concat ""
 
                         let froms =
                             scopes.From
                             |> List.mapi (fun i s ->
-                                "| " + (String.replicate (i + 1) "FROM") + " | " + (s.ToString()) + " |\n")
+                                "| " + (String.replicate (i + 1) "FROM") + " | " + s.ToString() + " |\n")
                             |> String.concat ""
 
                         header + root + prevs + froms
@@ -146,11 +146,11 @@ module LanguageServerFeatures =
                                 de.Desc.Replace("_", "\\_").Trim()
                                 |> (fun s -> if s = "" then "" else "_" + s + "_")
 
-                            (String.Join("\n***\n", [ desc; "Supports scopes: " + scopes ])) // TODO: usageeffect.Usage])
+                            String.Join("\n***\n", [ desc; "Supports scopes: " + scopes ]) // TODO: usageeffect.Usage])
                         | e ->
                             let scopes = String.Join(", ", e.Scopes |> List.map (fun f -> f.ToString()))
                             let name = e.Name.GetString().Replace("_", "\\_").Trim()
-                            (String.Join("\n***\n", [ "_" + name + "_"; "Supports scopes: " + scopes ])) // TODO: usageeffect.Usage])
+                            String.Join("\n***\n", [ "_" + name + "_"; "Supports scopes: " + scopes ]) // TODO: usageeffect.Usage])
                     )
 
                 let docStringOrEffect = Option.orElse (docstringFromInfo symbolInfo) effect
@@ -213,7 +213,7 @@ module LanguageServerFeatures =
 
         }
 
-    let pretriggerForFile (client: ILanguageClient) (game: IGame) (docs: DocumentStore) (filename) =
+    let pretriggerForFile (client: ILanguageClient) (game: IGame) (docs: DocumentStore) filename =
         let getEventChanges (deletes, insertPos, insertText) =
             let removes =
                 deletes
@@ -228,14 +228,12 @@ module LanguageServerFeatures =
 
             add :: removes
 
-        let getFileText (filename) = File.ReadAllText filename
+        let getFileText filename = File.ReadAllText filename
 
         let edits =
-            game.GetCodeEdits
-                (filename)
-                ((docs.GetText(FileInfo(filename)) |> Option.defaultValue (getFileText filename)))
+            game.GetCodeEdits filename (docs.GetText(FileInfo(filename)) |> Option.defaultValue (getFileText filename))
 
-        let combined = edits |> Option.defaultValue [] |> List.collect (getEventChanges)
+        let combined = edits |> Option.defaultValue [] |> List.collect getEventChanges
 
         match combined with
         | [] -> ()

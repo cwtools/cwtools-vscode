@@ -159,7 +159,7 @@ let private notifyClient (client: BinaryWriter, method: string, jsonText: string
 let private requestClient (client: BinaryWriter, id: int, method: string, jsonText: string) =
     async {
         let reply =
-            responseAgent.PostAndAsyncReply((fun replyChannel -> Request(id, replyChannel)))
+            responseAgent.PostAndAsyncReply(fun replyChannel -> Request(id, replyChannel))
 
         let messageText =
             $"""{{"id":%d{id},"method":"%s{method}", "params":%s{jsonText}}}"""
@@ -183,22 +183,22 @@ let private notExit (message: Parser.Message) =
     | _ -> true
 
 let readMessages (receive: BinaryReader) : seq<Parser.Message> =
-    let tokens = Tokenizer.tokenize (receive)
+    let tokens = Tokenizer.tokenize receive
     let parse = Seq.map Parser.parseMessage tokens
     Seq.takeWhile notExit parse
 
 type RealClient(send: BinaryWriter) =
     interface ILanguageClient with
         member this.LogMessage(p: LogMessageParams) : unit =
-            let json = serializeLogMessageParams (p)
+            let json = serializeLogMessageParams p
             notifyClient (send, "window/logMessage", json)
 
         member this.PublishDiagnostics(p: PublishDiagnosticsParams) : unit =
-            let json = serializePublishDiagnostics (p)
+            let json = serializePublishDiagnostics p
             notifyClient (send, "textDocument/publishDiagnostics", json)
 
         member this.ShowMessage(p: ShowMessageParams) : unit =
-            let json = serializeShowMessage (p)
+            let json = serializeShowMessage p
             notifyClient (send, "window/showMessage", json)
 
         member this.RegisterCapability(p: RegisterCapability) : unit =
@@ -210,7 +210,7 @@ type RealClient(send: BinaryWriter) =
                       registerOptions = p }
 
                 let message = { registrations = [ register ] }
-                let json = serializeRegistrationParams (message)
+                let json = serializeRegistrationParams message
                 notifyClient (send, "client/registerCapability", json)
 
         member this.CustomNotification(method: string, json: JsonValue) : unit =
@@ -219,7 +219,7 @@ type RealClient(send: BinaryWriter) =
 
         member this.ApplyWorkspaceEdit(p: ApplyWorkspaceEditParams) : Async<JsonValue> =
             async {
-                let json = serializeApplyWorkspaceEdit (p)
+                let json = serializeApplyWorkspaceEdit p
                 let id = System.Random().Next()
                 return! requestClient (send, id, "workspace/applyEdit", json)
             }
@@ -291,7 +291,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
         | DidCloseTextDocument(p) -> server.DidCloseTextDocument(p)
         | DidChangeWatchedFiles(p) -> server.DidChangeWatchedFiles(p)
         | DidFocusFile(p) -> server.DidFocusFile(p)
-        | OtherNotification(_) -> async { () }
+        | OtherNotification _ -> async { () }
     // Read messages and process cancellations on a separate thread
     let pendingRequests =
         new System.Collections.Concurrent.ConcurrentDictionary<int, CancellationTokenSource>()
@@ -302,7 +302,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
     Thread(fun () ->
         try
             // Read all messages on the main thread
-            for m in readMessages (receive) do
+            for m in readMessages receive do
                 // Process cancellations immediately
                 match m with
                 | Parser.NotificationMessage("$/cancelRequest", Some json) ->
@@ -318,7 +318,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
                 // Process other requests on worker thread
                 | Parser.NotificationMessage(method, json) ->
                     let n = Parser.parseNotification (method, json)
-                    let task = processNotification (n)
+                    let task = processNotification n
                     processQueue.Add(ProcessNotification(method, task))
                 | Parser.RequestMessage(id, method, json) ->
                     let task = processRequest (Parser.parseRequest (method, json))
