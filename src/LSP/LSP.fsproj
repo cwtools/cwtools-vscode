@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Log.fs" />
-    <Compile Include="Ser.fs" />
-    <Compile Include="Types.fs" />
-    <Compile Include="Tokenizer.fs" />
-    <Compile Include="Parser.fs" />
-    <Compile Include="DocumentStore.fs" />
-    <Compile Include="LanguageServer.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpExtensions\CSharpExtensions.csproj" />
-  </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Log.fs"/>
+        <Compile Include="Ser.fs"/>
+        <Compile Include="Types.fs"/>
+        <Compile Include="Tokenizer.fs"/>
+        <Compile Include="Parser.fs"/>
+        <Compile Include="DocumentStore.fs"/>
+        <Compile Include="LanguageServer.fs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\CSharpExtensions\CSharpExtensions.csproj"/>
+    </ItemGroup>
+    <Import Project="..\..\.paket\Paket.Restore.targets"/>
 </Project>

@@ -3,7 +3,6 @@ module LSP.Tokenizer
 open System
 open System.IO
 open System.Text
-open Log
 
 type Header =
     | ContentLength of int

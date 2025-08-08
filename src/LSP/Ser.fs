@@ -3,7 +3,6 @@ module LSP.Json.Ser
 open System
 open System.Reflection
 open Microsoft.FSharp.Reflection
-open Microsoft.FSharp.Reflection.FSharpReflectionExtensions
 open System.Text.RegularExpressions
 open FSharp.Data
 
@@ -21,7 +20,7 @@ let private replaceChars =
 
 let private escapeStr (text: string) =
     let escaped = escapeChars.Replace(text, replaceChars)
-    sprintf "\"%s\"" escaped
+    $"\"%s{escaped}\""
 
 let private isOption (t: Type) =
     t.IsGenericType && t.GetGenericTypeDefinition() = typedefof<_ option>
@@ -92,11 +91,11 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
         let transform = asFun (fObj)
         fun o -> serialize (transform (o))
     elif t = typeof<bool> then
-        fun o -> sprintf "%b" (unbox<bool> o)
+        fun o -> $"%b{unbox<bool> o}"
     elif t = typeof<int> then
-        fun o -> sprintf "%d" (unbox<int> o)
+        fun o -> $"%d{unbox<int> o}"
     elif t = typeof<char> then
-        fun o -> sprintf "%c" (unbox<char> o) |> escapeStr
+        fun o -> $"%c{unbox<char> o}" |> escapeStr
     elif t = typeof<string> then
         fun o -> escapeStr (o :?> string)
     elif t = typeof<Uri> then
@@ -120,7 +119,7 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
                        yield f (outer) |]
 
             let innerString = String.concat "," fieldStrings
-            sprintf "{%s}" innerString
+            $"{{%s{innerString}}}"
     elif implementsSeq t then
         let innerType = t.GetGenericArguments()
         let serializeInner = serializer (depth, options, innerType[0])
@@ -130,7 +129,7 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
             let asSeq = Seq.cast<obj> (asEnum)
             let inners = Seq.map serializeInner asSeq
             let join = String.Join(",", inners)
-            sprintf "[%s]" join
+            $"[%s{join}]"
     elif isOption t then
         let innerType = t.GetGenericArguments()
         let isSomeProp = t.GetProperty("IsSome")
@@ -148,7 +147,7 @@ let rec private serializer (depth: int, options: JsonWriteOptions, t: Type) : ob
             else
                 "null"
     else
-        raise (Exception(sprintf "Don't know how to serialize %s to JSON" (t.ToString())))
+        raise (Exception $"Don't know how to serialize %s{t.ToString()} to JSON")
 
 and fieldSerializer (depth: int, options: JsonWriteOptions, field: PropertyInfo) : obj -> string =
     let name = escapeStr (field.Name)
@@ -157,7 +156,7 @@ and fieldSerializer (depth: int, options: JsonWriteOptions, field: PropertyInfo)
     fun outer ->
         let value = field.GetValue(outer)
         let json = innerSerializer (value)
-        sprintf "%s:%s" name json
+        $"%s{name}:%s{json}"
 
 let serializerFactory<'T> (options: JsonWriteOptions) : 'T -> string = serializer (1, options, typeof<'T>)
 
@@ -192,7 +191,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
             if s.Length = 1 then
                 box (s.[0])
             else
-                raise (Exception(sprintf "Expected char but found '%s'" s))
+                raise (Exception $"Expected char but found '%s{s}'")
     elif t = typeof<string> then
         fun j -> box (j.AsString())
     elif t = typeof<Uri> then
@@ -218,7 +217,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
         let valueType = arguments[1]
 
         if stringType <> typeof<string> then
-            raise (Exception(sprintf "Keys of %A are not strings" t))
+            raise (Exception $"Keys of %A{t} are not strings")
 
         let deserializeInner = deserializer (options, valueType)
 
@@ -250,7 +249,7 @@ let rec private deserializer<'T> (options: JsonReadOptions, t: Type) : JsonValue
 
             FSharpValue.MakeRecord(t, array)
     else
-        raise (Exception(sprintf "Don't know how to deserialize %A from JSON" t))
+        raise (Exception $"Don't know how to deserialize %A{t} from JSON")
 
 and fieldDeserializer (options: JsonReadOptions, field: PropertyInfo) : string * (JsonValue -> obj) =
     let deserializeInner = deserializer (options, field.PropertyType)

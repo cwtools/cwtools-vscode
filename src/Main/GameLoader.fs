@@ -1,23 +1,11 @@
 module Main.Lang.GameLoader
 
-open LSP.Json.Ser
-open LSP
 open LSP.Types
 open System
-open System.Runtime.InteropServices
-open CWTools.Utilities.Position
 open CWTools.Games
 open System.IO
-open System.IO.Compression
-open CWTools.Localisation
-open LSP.Types
 open CWTools.Games.Files
-open CWTools.Parser
 open Main.Serialize
-open CWTools.Common
-open System.Text
-open System.Reflection
-open FParsec
 open CWTools.Utilities.Utils
 
 // let loadSTL() =
@@ -231,7 +219,7 @@ let getCachedFiles (game: GameLanguage) cachePath isVanillaFolder =
         | CK3, Some cp, _ -> deserialize (cp + "/../ck3.cwb")
         | _ -> ([], [])
 
-    logInfo (sprintf "Parse cache time: %i" timer.ElapsedMilliseconds)
+    logInfo $"Parse cache time: %i{timer.ElapsedMilliseconds}"
     timer.Restart()
     cached, cachedFiles
 

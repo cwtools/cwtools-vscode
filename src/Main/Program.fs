@@ -75,7 +75,7 @@ type Server(client: ILanguageClient) =
     let projects = ProjectManager()
 
     let notFound (doc: Uri) () : 'Any =
-        raise (Exception(sprintf "%s does not exist" (doc.ToString())))
+        raise (Exception $"%s{doc.ToString()} does not exist")
 
     let mutable docErrors: DocumentHighlight list = []
 
@@ -206,7 +206,7 @@ type Server(client: ILanguageClient) =
                              Uri "/")
                       diagnostics = List.map snd rs }
                 with e ->
-                    failwith (sprintf "%A %A" e rs))
+                    failwith $"%A{e} %A{rs}")
         )
         |> List.iter (client.PublishDiagnostics)
 
@@ -320,7 +320,7 @@ type Server(client: ILanguageClient) =
                         try
                             try
                                 let shallowAnalyse = DateTime.Now < nextTime
-                                logDiag (sprintf "lint force: %b, shallow: %b" force shallowAnalyse)
+                                logDiag $"lint force: %b{force}, shallow: %b{shallowAnalyse}"
                                 lint uri (shallowAnalyse && (not (force))) false |> Async.RunSynchronously
 
                                 if not (shallowAnalyse) then
@@ -332,7 +332,7 @@ type Server(client: ILanguageClient) =
                                 else
                                     ()
                             with e ->
-                                logError (sprintf "uri %A \n exception %A" uri.LocalPath e)
+                                logError $"uri %A{uri.LocalPath} \n exception %A{e}"
                         finally
                             agent.Post(WorkComplete(nextTime)))
 
@@ -346,7 +346,7 @@ type Server(client: ILanguageClient) =
                         let! msg = agent.Receive()
 
                         if state.Count > 0 then
-                            logDiag (sprintf "queue length: %i" state.Count)
+                            logDiag $"queue length: %i{state.Count}"
 
                         match msg, inprogress with
                         | UpdateRequest(ur, force), false ->
@@ -391,8 +391,7 @@ type Server(client: ILanguageClient) =
 
             match initOrUpdateRules rp cp stable true with
             | true, Some date ->
-                let text =
-                    sprintf "Validation rules for %O have been updated to %O." activeGame date
+                let text = $"Validation rules for {activeGame} have been updated to {date}."
 
                 client.CustomNotification("forceReload", JsonValue.String(text))
             | _ -> ()
@@ -439,7 +438,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeSTL (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | STL, None, _, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("stellaris"))
@@ -452,7 +451,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeEU4 (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | EU4, _, None, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("eu4"))
@@ -465,7 +464,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeHOI4 (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | HOI4, _, _, None, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("hoi4"))
@@ -478,7 +477,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeCK2 (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK2, _, _, _, None, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("ck2"))
@@ -491,7 +490,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeIR (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | IR, _, _, _, _, None, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("imperator"))
@@ -504,7 +503,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeVIC2 (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC2, _, _, _, _, _, None, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic2"))
@@ -517,7 +516,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeCK3 (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK3, _, _, _, _, _, _, None, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("ck3"))
@@ -530,7 +529,7 @@ type Server(client: ILanguageClient) =
                     )
 
                     serializeVIC3 (vp) (gameCachePath)
-                    let text = sprintf "Vanilla cache for %O has been updated." activeGame
+                    let text = $"Vanilla cache for {activeGame} has been updated."
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC3, _, _, _, _, _, _, _, None ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic3"))
@@ -670,7 +669,7 @@ type Server(client: ILanguageClient) =
                 valErrors @ locErrors |> List.map parserErrorToDiagnostics |> sendDiagnostics
                 GC.Collect()
             with e ->
-                eprintfn "%A" e
+                eprintfn $"%A{e}"
 
         | None -> ()
 
@@ -706,7 +705,7 @@ type Server(client: ILanguageClient) =
             with ex ->
                 client.LogMessage
                     { ``type`` = MessageType.Error
-                      message = (sprintf "%A" ex) }
+                      message = $"%A{ex}" }
 
                 return defaultValue
         }
@@ -756,7 +755,7 @@ type Server(client: ILanguageClient) =
 
                     match opt.Item("repoPath") with
                     | JsonValue.String x ->
-                        logInfo (sprintf "repo path %A" x)
+                        logInfo $"repo path %A{x}"
                         remoteRepoPath <- Some x
                     | _ -> ()
 
@@ -792,7 +791,7 @@ type Server(client: ILanguageClient) =
 
                 | None -> ()
 
-                logInfo (sprintf "New init %s" (p.ToString()))
+                logInfo $"New init %s{p.ToString()}"
 
                 return
                     { capabilities =
@@ -1052,7 +1051,7 @@ type Server(client: ILanguageClient) =
                 | JsonValue.Number x -> maxFileSize <- int x
                 | _ -> ()
 
-                logInfo (sprintf "New configuration %s" (p.ToString()))
+                logInfo $"New configuration %s{p.ToString()}"
 
                 match cachePath with
                 | Some dir ->
@@ -1222,7 +1221,7 @@ type Server(client: ILanguageClient) =
                     match gameObj with
                     | Some game ->
                         let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
-                        logInfo (sprintf "goto fn %A" p.textDocument.uri)
+                        logInfo $"goto fn %A{p.textDocument.uri}"
 
                         let path =
                             let u = p.textDocument.uri
@@ -1243,7 +1242,7 @@ type Server(client: ILanguageClient) =
 
                         match gototype with
                         | Some goto ->
-                            logInfo (sprintf "goto %s" goto.FileName)
+                            logInfo $"goto %s{goto.FileName}"
 
                             [ { uri = Uri(goto.FileName)
                                 range = (convRangeToLSPRange goto) } ]
@@ -1445,7 +1444,7 @@ type Server(client: ILanguageClient) =
                                 les
                                 |> List.sortBy (fun e -> (e.range.FileName, e.range.StartLine))
                                 |> List.choose (fun e -> e.data)
-                                |> List.map (fun lockey -> sprintf " %s%s" lockey generatedStrings)
+                                |> List.map (fun lockey -> $" %s{lockey}%s{generatedStrings}")
                                 |> List.distinct
 
                             let text = String.Join(Environment.NewLine, keys)
@@ -1465,7 +1464,7 @@ type Server(client: ILanguageClient) =
                                 les
                                 |> List.sortBy (fun e -> (e.range.FileName, e.range.StartLine))
                                 |> List.choose (fun e -> e.data)
-                                |> List.map (fun lockey -> sprintf " %s%s" lockey generatedStrings)
+                                |> List.map (fun lockey -> $" %s{lockey}%s{generatedStrings}")
                                 |> List.distinct
 
                             let text = String.Join(Environment.NewLine, keys)
@@ -1518,14 +1517,7 @@ type Server(client: ILanguageClient) =
                             let texts =
                                 errors
                                 |> List.map (fun e ->
-                                    sprintf
-                                        "%s, %O, %O, %s, %O, \"%s\""
-                                        e.range.FileName
-                                        e.range.StartLine
-                                        e.range.StartColumn
-                                        e.code
-                                        e.severity
-                                        e.message)
+                                    $"%s{e.range.FileName}, {e.range.StartLine}, {e.range.StartColumn}, %s{e.code}, {e.severity}, \"%s{e.message}\"")
 
                             let text = String.Join(Environment.NewLine, (texts))
 
@@ -1725,7 +1717,7 @@ let main (argv: array<string>) : int =
         LanguageServer.connect (serverFactory, read, write)
         0 // return an integer exit code
     with e ->
-        LSP.Log.dprintfn "Exception in language server %O" e
+        LSP.Log.dprintfn $"Exception in language server {e}"
         1
 //eprintfn "%A" (JsonValue.Parse "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"processId\":12660,\"rootUri\": \"file:///c%3A/Users/Thomas/Documents/Paradox%20Interactive/Stellaris\"},\"capabilities\":{\"workspace\":{}}}")
 //0

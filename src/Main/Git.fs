@@ -1,8 +1,6 @@
 module Main.Git
 
 open LibGit2Sharp
-open System.Text
-open CWTools.Common
 open System.IO
 open System.Linq
 open CWTools.Utilities.Utils
@@ -26,7 +24,7 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
         let refSpecs = remote.FetchRefSpecs.Select((fun x -> x.Specification))
         Commands.Fetch(git, remote.Name, refSpecs, null, "")
         let currentHash = git.Head.Tip.Sha
-        logInfo (sprintf "cwtools current rules version: %A" currentHash)
+        logInfo $"cwtools current rules version: %A{currentHash}"
 
         match stable with
         | true ->
@@ -40,10 +38,10 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
         | false -> git.Reset(ResetMode.Hard, git.Branches.["origin/master"].Tip)
 
         let newHash = git.Head.Tip.Sha
-        logInfo (sprintf "cwtools new rules version: %A" newHash)
+        logInfo $"cwtools new rules version: %A{newHash}"
         (newHash <> currentHash) || not isRepo, Some git.Head.Tip.Committer.When
     with ex ->
-        logError (sprintf "cwtools git error, recovering, error: %A" ex)
+        logError $"cwtools git error, recovering, error: %A{ex}"
         use git = new Repository(gameCacheDir)
         git.Reset(ResetMode.Hard, git.Branches.["origin/master"].Tip) |> ignore
 
