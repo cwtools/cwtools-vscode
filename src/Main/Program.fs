@@ -314,7 +314,7 @@ type Server(client: ILanguageClient) =
                             if not shallowAnalyse then
                                 delayedAnalyze ()
                                 logDiag "lint after delayed"
-                                /// Somehow get updated localisation errors after loccache is updated
+                                // Somehow get updated localisation errors after loccache is updated
                                 lint uri true false |> Async.RunSynchronously
                                 nextTime <- DateTime.Now.Add(delayTime)
                             else
@@ -666,7 +666,7 @@ type Server(client: ILanguageClient) =
         )
 
     let createRange startLine startCol endLine endCol =
-        { ``start`` =
+        { start =
             { line = startLine
               character = startCol }
           ``end`` = { line = endLine; character = endCol } }

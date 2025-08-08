@@ -63,7 +63,7 @@ module LanguageServerFeatures =
             let scopes =
                 match info.ruleRequiredScopes with
                 | [] -> None
-                | x -> Some("Supports scopes: " + String.Join(", ", info.ruleRequiredScopes))
+                | _ -> Some("Supports scopes: " + String.Join(", ", info.ruleRequiredScopes))
 
             Some(String.Join("\n***\n", [| ruleDesc; scopes |] |> Array.choose id))
         | None -> None
