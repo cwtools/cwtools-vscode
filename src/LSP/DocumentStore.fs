@@ -27,7 +27,7 @@ module DocumentStoreUtils =
                 endOffset <- offset
 
             if offset < text.Length then
-                let c = text.[offset]
+                let c = text[offset]
 
                 if c = '\n' then
                     line <- line + 1
@@ -46,7 +46,7 @@ type DocumentStore() =
     /// Replace a section of an open file
     let patch (doc: VersionedTextDocumentIdentifier, range: Range, text: string) : unit =
         let file = FileInfo(doc.uri.LocalPath)
-        let existing = activeDocuments.[file.FullName]
+        let existing = activeDocuments[file.FullName]
         let struct (startOffset, endOffset) = findRange (existing.text, range)
         existing.text.Remove(startOffset, endOffset - startOffset) |> ignore
         existing.text.Insert(startOffset, text) |> ignore
@@ -55,7 +55,7 @@ type DocumentStore() =
     /// Replace the entire contents of an open file
     let replace (doc: VersionedTextDocumentIdentifier, text: string) : unit =
         let file = FileInfo(doc.uri.LocalPath)
-        let existing = activeDocuments.[file.FullName]
+        let existing = activeDocuments[file.FullName]
         existing.text.Clear() |> ignore
         existing.text.Append(text) |> ignore
         existing.version <- doc.version
@@ -68,11 +68,11 @@ type DocumentStore() =
             { text = text
               version = doc.textDocument.version }
 
-        activeDocuments.[file.FullName] <- version
+        activeDocuments[file.FullName] <- version
 
     member this.Change(doc: DidChangeTextDocumentParams) : unit =
         let file = FileInfo(doc.textDocument.uri.LocalPath)
-        let existing = activeDocuments.[file.FullName]
+        let existing = activeDocuments[file.FullName]
 
         if doc.textDocument.version <= existing.version then
             let oldVersion = existing.version

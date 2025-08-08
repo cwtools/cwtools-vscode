@@ -20,7 +20,7 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
             Repository.Clone(repoPath, gameCacheDir) |> ignore
 
         let git = new Repository(gameCacheDir)
-        let remote = git.Network.Remotes.["origin"]
+        let remote = git.Network.Remotes["origin"]
         let refSpecs = remote.FetchRefSpecs.Select(fun x -> x.Specification)
         Commands.Fetch(git, remote.Name, refSpecs, null, "")
         let currentHash = git.Head.Tip.Sha
@@ -31,11 +31,11 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
             let describeOptions = DescribeOptions()
             describeOptions.Strategy <- DescribeStrategy.Tags
             describeOptions.MinimumCommitIdAbbreviatedSize <- 0
-            let tag = git.Describe(git.Branches.["origin/master"].Tip, describeOptions)
+            let tag = git.Describe(git.Branches["origin/master"].Tip, describeOptions)
             let checkoutOptions = CheckoutOptions()
             checkoutOptions.CheckoutModifiers <- CheckoutModifiers.Force
             Commands.Checkout(git, tag, checkoutOptions) |> ignore
-        | false -> git.Reset(ResetMode.Hard, git.Branches.["origin/master"].Tip)
+        | false -> git.Reset(ResetMode.Hard, git.Branches["origin/master"].Tip)
 
         let newHash = git.Head.Tip.Sha
         logInfo $"cwtools new rules version: %A{newHash}"
@@ -43,7 +43,7 @@ let rec initOrUpdateRules repoPath gameCacheDir stable first =
     with ex ->
         logError $"cwtools git error, recovering, error: %A{ex}"
         use git = new Repository(gameCacheDir)
-        git.Reset(ResetMode.Hard, git.Branches.["origin/master"].Tip) |> ignore
+        git.Reset(ResetMode.Hard, git.Branches["origin/master"].Tip) |> ignore
 
         if first then
             initOrUpdateRules repoPath gameCacheDir stable false

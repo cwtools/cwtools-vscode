@@ -324,7 +324,7 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
                     let task = processRequest (Parser.parseRequest (method, json))
                     let cancel = new CancellationTokenSource()
                     processQueue.Add(ProcessRequest(id, task, cancel))
-                    pendingRequests.[id] <- cancel
+                    pendingRequests[id] <- cancel
                 | Parser.ResponseMessage(id, result) -> responseAgent.Post(Response(id, result))
 
             processQueue.Add(Quit)

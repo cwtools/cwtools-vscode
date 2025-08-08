@@ -253,7 +253,7 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
 
         //        logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
         let split = filetext.Split('\n')
-        let targetLine = split.[position.Line - 1]
+        let targetLine = split[position.Line - 1]
         let textBeforeCursor = targetLine.Remove(position.Column)
 
         let prefixSoFar =
