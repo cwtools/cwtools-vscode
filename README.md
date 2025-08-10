@@ -68,18 +68,17 @@ This extension is still in preview, it may not work, it may stop working at any 
 
 1. Install this extension
 2. If on linux, possibly follow [these instructions](https://code.visualstudio.com/docs/setup/linux#_error-enospc)
-3. If on linux, install libcurl3
-4. Either open your mod folder directly
-5. or open the Game folder containing your mods. E.g. for Stellaris this can be one of:
+3. Either open your mod folder directly
+4. or open the Game folder containing your mods. E.g. for Stellaris this can be one of:
     * "C:\Users\name\Paradox Interactive\Stellaris"
     * "C:\Program Files(x86)\Steam\steamapps\common\Stellaris"
 
     or on linux
     * "/home/name/.local/share/Paradox Interactive/Stellars"
     * "/home/name/.steam/steam/steamapps/common/Stellaris"
-6. Follow the prompts to select your vanilla folder
-7. Edit files and watch syntax errors show up when you make mistakes
-8. Wait up to a minute for the extension to scan all your mods and find all errors
+5. Follow the prompts to select your vanilla folder
+6. Edit files and watch syntax errors show up when you make mistakes
+7. Wait up to a minute for the extension to scan all your mods and find all errors
 
 ## Links
 
