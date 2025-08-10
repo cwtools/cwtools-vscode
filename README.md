@@ -38,31 +38,31 @@ This extension is still in preview, it may not work, it may stop working at any 
 
 ### Completion
 
-![Completion](./docs/completion.gif)
+![Completion](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/completion.gif)
 
 ### Tooltips
 
-![Tooltips](./docs/tooltips.gif)
+![Tooltips](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/tooltips.gif)
 
 ### Scope tooltips
 
-![Scope tooltips](./docs/scopetooltip.gif)
+![Scope tooltips](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/scopetooltip.gif)
 
 ### Scope errors
 
-![Scope ](./docs/scopeerror.gif)
+![Scope ](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/scopeerror.gif)
 
 ### Localisation error
 
-![Localisation error](./docs/localisationerror.gif)
+![Localisation error](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/localisationerror.gif)
 
 ### Go to definition
 
-![Go to definition](./docs/gotodef.gif)
+![Go to definition](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/gotodef.gif)
 
 ### Find all references
 
-![Find all references](./docs/findallrefs.png)
+![Find all references](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/findallrefs.png)
 
 ## Usage
 
