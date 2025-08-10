@@ -67,18 +67,17 @@ This extension is still in preview, it may not work, it may stop working at any 
 ## Usage
 
 1. Install this extension
-2. If on linux, possibly follow [these instructions](https://code.visualstudio.com/docs/setup/linux#_error-enospc)
-3. Either open your mod folder directly
-4. or open the Game folder containing your mods. E.g. for Stellaris this can be one of:
+2. Either open your mod folder directly
+3. or open the Game folder containing your mods. E.g. for Stellaris this can be one of:
     * "C:\Users\name\Paradox Interactive\Stellaris"
     * "C:\Program Files(x86)\Steam\steamapps\common\Stellaris"
 
     or on linux
     * "/home/name/.local/share/Paradox Interactive/Stellars"
     * "/home/name/.steam/steam/steamapps/common/Stellaris"
-5. Follow the prompts to select your vanilla folder
-6. Edit files and watch syntax errors show up when you make mistakes
-7. Wait up to a minute for the extension to scan all your mods and find all errors
+4. Follow the prompts to select your vanilla folder
+5. Edit files and watch syntax errors show up when you make mistakes
+6. Wait up to a minute for the extension to scan all your mods and find all errors
 
 ## Links
 
