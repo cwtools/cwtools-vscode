@@ -23,6 +23,7 @@
     "name": "Extension Tests",
     "type": "extensionHost",
     "request": "launch",
+    "preLaunchTask": "UpdateBuild",
     "runtimeExecutable": "${execPath}",
     "args": [
         "--extensionDevelopmentPath=${workspaceFolder}/release",
