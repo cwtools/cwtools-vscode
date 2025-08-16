@@ -8,7 +8,7 @@ import * as path from 'path';
 import * as os from 'os';
 import * as fs from 'fs';
 import * as vs from 'vscode';
-import { workspace, ExtensionContext, window, Disposable, Position, Uri, WorkspaceEdit, TextEdit, Range, commands, env } from 'vscode';
+import { workspace, ExtensionContext, window, Disposable, Uri, WorkspaceEdit, TextEdit, Range, commands, env } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, ExecuteCommandRequest, ExecuteCommandParams, RevealOutputChannelOn } from 'vscode-languageclient/node';
 
 import { FileExplorer, FileListItem } from './fileExplorer';
@@ -133,7 +133,6 @@ export async function activate(context: ExtensionContext) {
 		const promptVanillaPath = new NotificationType<string>('promptVanillaPath')
 		interface DidFocusFile { uri : string }
 		const didFocusFile = new NotificationType<DidFocusFile>('didFocusFile')
-		interface GetWordRangeAtPositionParams { position : Position, uri: string }
 		let status: Disposable;
 		interface UpdateFileList { fileList: FileListItem[] }
 		const updateFileList = new NotificationType<UpdateFileList>('updateFileList');
