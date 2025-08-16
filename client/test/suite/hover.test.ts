@@ -8,6 +8,39 @@ const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
 // const testDefinesFile = path.join(sampleRoot, 'common', 'defines', 'irm_defines.txt');
 const testEffectsFile = path.join(sampleRoot, 'common', 'scripted_effects', 'irm_scripted_effects.txt');
 
+/**
+ * Wait for the language server to be ready by checking if it can provide hover information
+ */
+async function waitForLanguageServer(uri: vscode.Uri, maxRetries = 30, delayMs = 500): Promise<boolean> {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            // Try to get hover information at a simple position
+            const position = new vscode.Position(0, 0);
+            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
+                'vscode.executeHoverProvider',
+                uri,
+                position
+            );
+            
+            // If we get a response (even empty), the LSP is responding
+            if (hovers !== undefined) {
+                console.log(`Language server ready after ${attempt} attempts (${attempt * delayMs}ms)`);
+                return true;
+            }
+        } catch (error) {
+            // LSP might not be ready yet, continue retrying
+            console.log(`LSP check attempt ${attempt} failed:`, error instanceof Error ? error.message : error);
+        }
+        
+        if (attempt < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+    }
+    
+    console.log(`Language server not ready after ${maxRetries} attempts (${maxRetries * delayMs}ms total)`);
+    return false;
+}
+
 suite('LSP Hover Tests', function () {
     this.timeout(60000); // 1 minute timeout for LSP operations
 
@@ -20,8 +53,19 @@ suite('LSP Hover Tests', function () {
         extension = vscode.extensions.getExtension('tboby.cwtools-vscode')!;
         assert.ok(extension?.isActive, 'Extension should be active');
 
-        // Wait a bit for the language server to initialize
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // Open a test document to check LSP readiness
+        const uri = vscode.Uri.file(testEventFile);
+        const document = await vscode.workspace.openTextDocument(uri);
+        await vscode.window.showTextDocument(document);
+
+        // Wait for the language server to be ready
+        const isReady = await waitForLanguageServer(uri);
+        if (!isReady) {
+            console.warn('Language server not ready, tests may not work as expected');
+        }
+        
+        // Close the test document
+        await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
     });
 
     teardown(async function () {
@@ -36,8 +80,8 @@ suite('LSP Hover Tests', function () {
             testDocument = await vscode.workspace.openTextDocument(uri);
             await vscode.window.showTextDocument(testDocument);
 
-            // Wait for the document to be processed by the language server
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Wait for the language server to process this document
+            await waitForLanguageServer(uri, 10, 100); // Shorter wait since LSP should already be ready
         });
 
         teardown(async function () {
@@ -136,7 +180,7 @@ suite('LSP Hover Tests', function () {
             await vscode.window.showTextDocument(document);
 
             // Wait for document processing
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await waitForLanguageServer(document.uri, 10, 100);
 
             // Test hover inside a country scope (line 35, inside every_country)
             const position = new vscode.Position(34, 4); // 0-indexed
@@ -180,7 +224,7 @@ suite('LSP Hover Tests', function () {
                 await vscode.window.showTextDocument(document);
 
                 // Wait for document processing
-                await new Promise(resolve => setTimeout(resolve, 1000));
+                await waitForLanguageServer(document.uri, 10, 100);
 
                 // Test hover on the first line which should be a scripted effect definition
                 const position = new vscode.Position(0, 0);
@@ -215,7 +259,7 @@ suite('LSP Hover Tests', function () {
             await vscode.window.showTextDocument(document);
 
             // Wait for document processing
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await waitForLanguageServer(document.uri, 10, 100);
 
             // Test various positions that might have localization keys
             const testPositions = [
@@ -318,7 +362,7 @@ suite('LSP Hover Tests', function () {
             await vscode.window.showTextDocument(document);
 
             // Wait for document processing
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await waitForLanguageServer(document.uri, 10, 100);
 
             const position = new vscode.Position(8, 7);
             const startTime = Date.now();
