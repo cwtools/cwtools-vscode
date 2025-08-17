@@ -4,9 +4,9 @@ module.exports = {
   vscode: 'stable',
   extensionDevelopmentPath: "release",
   files: './release/bin/client/test/suite/**/*.test.js',
-  workspaceFolder: "./release/bin/client/test/sample",
+  workspaceFolder: "./release/bin/client/test/Stellaris/sample",
   launchArgs: [
     // Bring the file under test into the workspace
-    './client/test/sample/events/irm.txt'
+    './client/test/Stellaris/sample/events/irm.txt'
   ]
 }

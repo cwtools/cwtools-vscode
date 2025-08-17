@@ -241,8 +241,8 @@ let initTargets () =
 
     Target.create "CopyHtml" (fun _ -> !!("client/webview/*.css") |> Shell.copyFiles "release/bin/client/webview")
 
-    Target.create "CopyTestSamples" (fun _ -> 
-        Shell.copyDir "release/bin/client/test/sample" "client/test/sample" (fun _ -> true))
+    Target.create "CopyTestSamples" (fun _ ->
+        Shell.copyDir "release/bin/client/test/Stellaris" "client/test/Stellaris" (fun _ -> true))
 
 
     Target.create "BuildPackage" (fun _ -> buildPackage "release")

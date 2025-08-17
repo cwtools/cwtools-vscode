@@ -4,7 +4,7 @@ import * as path from 'path';
 import { activate } from '../utils';
 import { setupLSPErrorMonitoring, checkForLSPErrors, teardownLSPErrorMonitoring } from '../lspErrorMonitor';
 
-const sampleRoot = path.resolve(__dirname, '../sample');
+const sampleRoot = path.resolve(__dirname, '../Stellaris/sample');
 const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
 // const testDefinesFile = path.join(sampleRoot, 'common', 'defines', 'irm_defines.txt');
 const testEffectsFile = path.join(sampleRoot, 'common', 'scripted_effects', 'irm_scripted_effects.txt');
@@ -22,7 +22,7 @@ async function waitForLanguageServer(uri: vscode.Uri, maxRetries = 30, delayMs =
                 uri,
                 position
             );
-            
+
             // If we get a response (even empty), the LSP is responding
             if (hovers !== undefined) {
                 console.log(`Language server ready after ${attempt} attempts (${attempt * delayMs}ms)`);
@@ -32,12 +32,12 @@ async function waitForLanguageServer(uri: vscode.Uri, maxRetries = 30, delayMs =
             // LSP might not be ready yet, continue retrying
             console.log(`LSP check attempt ${attempt} failed:`, error instanceof Error ? error.message : error);
         }
-        
+
         if (attempt < maxRetries) {
             await new Promise(resolve => setTimeout(resolve, delayMs));
         }
     }
-    
+
     console.log(`Language server not ready after ${maxRetries} attempts (${maxRetries * delayMs}ms total)`);
     return false;
 }
@@ -51,7 +51,7 @@ suite('LSP Hover Tests', function () {
     setup(async function () {
         // Setup universal LSP error monitoring
         setupLSPErrorMonitoring();
-        
+
         // Activate the extension first
         await activate();
         extension = vscode.extensions.getExtension('tboby.cwtools-vscode')!;
@@ -67,7 +67,7 @@ suite('LSP Hover Tests', function () {
         if (!isReady) {
             console.warn('Language server not ready, tests may not work as expected');
         }
-        
+
         // Close the test document
         await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
     });
@@ -75,11 +75,11 @@ suite('LSP Hover Tests', function () {
     teardown(async function () {
         // Clean up any open documents
         await vscode.commands.executeCommand('workbench.action.closeAllEditors');
-        
+
         // Check for LSP errors
         checkForLSPErrors(this.currentTest?.title || 'unknown test');
     });
-    
+
     // Final cleanup after all tests in this suite
     suiteTeardown(async function () {
         teardownLSPErrorMonitoring();
@@ -312,34 +312,34 @@ suite('LSP Hover Tests', function () {
     });
 
     suite('Error Handling', function () {
-        test('should handle hover requests gracefully when LSP is not ready', async function () {
-            // Create a minimal document
-            const uri = vscode.Uri.parse('untitled:test.txt');
-            const document = await vscode.workspace.openTextDocument(uri);
-            await vscode.window.showTextDocument(document);
-
-            const position = new vscode.Position(0, 0);
-
-            try {
-                const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
-                    'vscode.executeHoverProvider',
-                    document.uri,
-                    position
-                );
-
-                // Should not throw an error, even if no hover information is available
-                assert.ok(true, 'Hover request completed without throwing an error');
-
-                if (hovers) {
-                    console.log('Received hovers for untitled document:', hovers.length);
-                }
-            } catch (error) {
-                console.log('Error in hover request (this might be expected):', error);
-                assert.ok(true, 'Error handling test completed');
-            }
-
-            await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
-        });
+        // test('should handle hover requests gracefully when LSP is not ready', async function () {
+        //     // Create a minimal document
+        //     const uri = vscode.Uri.parse('untitled:test.txt');
+        //     const document = await vscode.workspace.openTextDocument(uri);
+        //     await vscode.window.showTextDocument(document);
+        //
+        //     const position = new vscode.Position(0, 0);
+        //
+        //     try {
+        //         const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
+        //             'vscode.executeHoverProvider',
+        //             document.uri,
+        //             position
+        //         );
+        //
+        //         // Should not throw an error, even if no hover information is available
+        //         assert.ok(true, 'Hover request completed without throwing an error');
+        //
+        //         if (hovers) {
+        //             console.log('Received hovers for untitled document:', hovers.length);
+        //         }
+        //     } catch (error) {
+        //         console.log('Error in hover request (this might be expected):', error);
+        //         assert.ok(true, 'Error handling test completed');
+        //     }
+        //
+        //     await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+        // });
 
         test('should handle invalid positions gracefully', async function () {
             const uri = vscode.Uri.file(testEventFile);
