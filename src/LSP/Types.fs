@@ -124,15 +124,10 @@ type Command =
 
 type TextEdit = { range: Range; newText: string }
 
-type InsertReplaceEdit = {
-    newText: string
-    insert: Range
-    replace: Range
-}
-
-type CompletionTextEdit =
-    | TextEdit of TextEdit
-    | InsertReplaceEdit of InsertReplaceEdit
+type InsertReplaceEdit =
+    { newText: string
+      insert: Range
+      replace: Range }
 
 type TextDocumentEdit =
     { textDocument: VersionedTextDocumentIdentifier
@@ -257,10 +252,10 @@ let writeMarkupKind (m: MarkupKind) : string =
     | MarkupKind.Markdown -> "markdown"
 
 type MarkupContent = { kind: MarkupKind; value: string }
-type CompletionItemLabelDetails = {
-    detail : string option
-    description: string option
-}
+
+type CompletionItemLabelDetails =
+    { detail: string option
+      description: string option }
 
 
 type CompletionItem =
@@ -273,7 +268,7 @@ type CompletionItem =
       filterText: string option
       insertText: string option
       insertTextFormat: InsertTextFormat option
-      textEdit: CompletionTextEdit option
+      textEdit: InsertReplaceEdit option
       additionalTextEdits: TextEdit list
       commitCharacters: char list
       command: Command option
@@ -526,82 +521,6 @@ let writeHoverContent (s: HoverContent) : JsonValue =
     | MarkupContent(kind, value) ->
         JsonValue.Record [| "kind", (JsonValue.String kind); "value", (JsonValue.String value) |]
 
-let writeInsertReplaceEdit (edit: InsertReplaceEdit) : JsonValue =
-    JsonValue.Record [|
-        "newText", JsonValue.String edit.newText
-        "insert", JsonValue.Record [|
-            "start", JsonValue.Record [|
-                "line", JsonValue.Number (decimal edit.insert.start.line)
-                "character", JsonValue.Number (decimal edit.insert.start.character)
-            |]
-            "end", JsonValue.Record [|
-                "line", JsonValue.Number (decimal edit.insert.``end``.line)
-                "character", JsonValue.Number (decimal edit.insert.``end``.character)
-            |]
-        |]
-        "replace", JsonValue.Record [|
-            "start", JsonValue.Record [|
-                "line", JsonValue.Number (decimal edit.replace.start.line)
-                "character", JsonValue.Number (decimal edit.replace.start.character)
-            |]
-            "end", JsonValue.Record [|
-                "line", JsonValue.Number (decimal edit.replace.``end``.line)
-                "character", JsonValue.Number (decimal edit.replace.``end``.character)
-            |]
-        |]
-    |]
-
-let writeCompletionTextEdit (edit: CompletionTextEdit) : JsonValue =
-    match edit with
-    | TextEdit te ->
-        JsonValue.Record
-            [|
-            "range", JsonValue.Record [|
-                "start", JsonValue.Record [|
-                    "line", JsonValue.Number (decimal te.range.start.line)
-                    "character", JsonValue.Number (decimal te.range.start.character)
-                |]
-                "end", JsonValue.Record [|
-                    "line", JsonValue.Number (decimal te.range.``end``.line)
-                    "character", JsonValue.Number (decimal te.range.``end``.character)
-                |]
-            |]
-            "newText", JsonValue.String te.newText
-        |]
-    | InsertReplaceEdit ire -> writeInsertReplaceEdit ire
-
-let readPosition (json: JsonValue) : Position =
-    {
-        line = json.Item("line").AsInteger()
-        character = json.Item("character").AsInteger()
-    }
-
-let readRange (json: JsonValue) : Range =
-    {
-        start = readPosition (json.Item("start"))
-        ``end`` = readPosition (json.Item("end"))
-    }
-
-let readTextEdit (json: JsonValue) : TextEdit =
-    {
-        range = readRange (json.Item("range"))
-        newText = json.Item("newText").AsString()
-    }
-
-let readInsertReplaceEdit (json: JsonValue) : InsertReplaceEdit =
-    {
-        newText = json.Item("newText").AsString()
-        insert = readRange (json.Item("insert"))
-        replace = readRange (json.Item("replace"))
-    }
-
-let readCompletionTextEdit (json: JsonValue) : CompletionTextEdit =
-    // Check if this is an InsertReplaceEdit by looking for the 'insert' property
-    if json.TryGetProperty("insert").IsSome then
-        InsertReplaceEdit (readInsertReplaceEdit json)
-    else
-        // Otherwise it's a regular TextEdit with 'range' property
-        TextEdit (readTextEdit json)
 
 type Hover =
     { contents: HoverContent
