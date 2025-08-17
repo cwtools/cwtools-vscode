@@ -4,7 +4,7 @@ import * as path from 'path';
 import { activate } from '../utils';
 import { setupLSPErrorMonitoring, checkForLSPErrors, teardownLSPErrorMonitoring } from '../lspErrorMonitor';
 
-const sampleRoot = path.resolve(__dirname, '../sample');
+const sampleRoot = path.resolve(__dirname, '../Stellaris/sample');
 const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
 
 /**
