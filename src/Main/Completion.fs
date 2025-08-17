@@ -14,6 +14,8 @@ open CWTools.Utilities.Utils
 
 
 let completionCache = Dictionary<int, CompletionItem>()
+let mutable private rangeCache: (string * int * int * Range * Range) option = None
+
 let mutable private completionCacheKey = 0
 
 let addToCache completionItem =
@@ -24,7 +26,7 @@ let addToCache completionItem =
 
 let mutable completionCacheCount = 0
 
-let mutable private completionPartialCache: (CompletionParams * CompletionItem list) option =
+let mutable private completionPartialCache: (CompletionParams * CompletionItem seq) option =
     None
 
 let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
@@ -102,67 +104,77 @@ let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
 
 /// Compute ranges for InsertReplaceEdit based on word boundaries using simple position data
 let computeCompletionRanges (filetext: string) (line: int) (character: int) =
-    let lines = filetext.Split('\n')
+    // Check cache first - if same file content, line, and character, return cached result
+    match rangeCache with
+    | Some(cachedText, cachedLine, cachedChar, cachedInsert, cachedReplace) when
+        cachedText = filetext && cachedLine = line && cachedChar = character
+        ->
+        (cachedInsert, cachedReplace)
+    | _ ->
+        let lines = filetext.Split('\n')
 
-    let targetLine =
-        if line > 0 && line <= lines.Length then
-            lines.[line - 1]
-        else
-            ""
+        let targetLine =
+            if line > 0 && line <= lines.Length then
+                lines.[line - 1]
+            else
+                ""
 
-    // Find word boundaries using F# syntax rules (letters, digits, underscore)
-    let isWordChar c =
-        System.Char.IsLetterOrDigit(c) || c = '_'
+        let isWordChar c = Char.IsLetterOrDigit(c)
 
-    // Walk backward to find start of word/identifier
-    let mutable wordStart = character
+        // Walk backward to find start of word/identifier
+        let mutable wordStart = character
 
-    while wordStart > 0
-          && wordStart <= targetLine.Length
-          && isWordChar targetLine.[wordStart - 1] do
-        wordStart <- wordStart - 1
+        while wordStart > 0
+              && wordStart <= targetLine.Length
+              && isWordChar targetLine.[wordStart - 1] do
+            wordStart <- wordStart - 1
 
-    // Walk forward to find end of word/identifier
-    let mutable wordEnd = character
+        // Walk forward to find end of word/identifier
+        let mutable wordEnd = character
 
-    while wordEnd < targetLine.Length && isWordChar targetLine.[wordEnd] do
-        wordEnd <- wordEnd + 1
+        while wordEnd < targetLine.Length && isWordChar targetLine.[wordEnd] do
+            wordEnd <- wordEnd + 1
 
-    // Return the ranges as a tuple to avoid anonymous record issues
-    let insertRange =
-        { start =
-            { line = line - 1
-              character = wordStart }
-          ``end`` =
-            { line = line - 1
-              character = character } }
+        // Return the ranges as a tuple to avoid anonymous record issues
+        let insertRange =
+            { start =
+                { line = line - 1
+                  character = wordStart }
+              ``end`` =
+                { line = line - 1
+                  character = character } }
 
-    let replaceRange =
-        { start =
-            { line = line - 1
-              character = wordStart }
-          ``end`` = { line = line - 1; character = wordEnd } }
+        let replaceRange =
+            { start =
+                { line = line - 1
+                  character = wordStart }
+              ``end`` = { line = line - 1; character = wordEnd } }
 
-    (insertRange, replaceRange)
+        // Cache the result
+        rangeCache <- Some(filetext, line, character, insertRange, replaceRange)
 
-let optimiseCompletion (completionList: CompletionItem list) =
+        (insertRange, replaceRange)
+
+let optimiseCompletion (completionList: CompletionItem seq) =
     if completionCacheCount > 2 then
         completionCache.Clear()
         completionCacheCount <- 0
     else
         completionCacheCount <- completionCacheCount + 1
 
-    match completionList.Length with
-    | x when x > 1000 ->
-        let sorted = completionList |> List.sortBy (fun c -> c.sortText)
+    let cachedCompletionList = Seq.cache completionList
 
-        let first = sorted |> List.take 1000
+    match cachedCompletionList |> Seq.length with
+    | x when x > 1000 ->
+        let sorted = cachedCompletionList |> Seq.sortBy (fun c -> c.sortText)
+
+        let first = sorted |> Seq.take 1000
 
         let rest =
             sorted
-            |> List.skip 1000
-            |> List.take (min 1000 (x - 1000))
-            |> List.map (fun item ->
+            |> Seq.skip 1000
+            |> Seq.take (min 1000 (x - 1000))
+            |> Seq.map (fun item ->
                 let key = addToCache item
 
                 { item with
@@ -170,8 +182,11 @@ let optimiseCompletion (completionList: CompletionItem list) =
                     detail = None
                     data = JsonValue.Number(decimal key) })
 
-        first @ rest
-    | _ -> completionList
+        seq {
+            yield! first
+            yield! rest
+        }
+    | _ -> cachedCompletionList
 
 let checkPartialCompletionCache (p: CompletionParams) genItems =
     match p.context, completionPartialCache, p.textDocument, p.position with
@@ -236,7 +251,7 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode supportsIn
 
     let items =
         comp
-        |> List.map (function
+        |> Seq.map (function
             | CompletionResponse.Simple(e, Some score, kind) ->
                 let insertText = createInsertText e
 
@@ -350,6 +365,7 @@ let completion
         let items =
             checkPartialCompletionCache p (fun () ->
                 completionCallLSP game p docs debugMode supportsInsertReplaceEdit filetext position)
+            |> Seq.cache
 
         logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
         let split = filetext.Split('\n')
@@ -362,7 +378,7 @@ let completion
             | Some lastWord when not (String.IsNullOrWhiteSpace lastWord) -> lastWord.Split('.') |> Array.last |> Some
             | _ -> None
 
-        let partialReturn = items |> List.length > 2000
+        let partialReturn = items |> Seq.length > 2000
 
         let filtered =
             match prefixSoFar, partialReturn with
@@ -370,20 +386,20 @@ let completion
             | _, false -> items
             | Some prefix, true ->
                 items
-                |> List.filter (fun i -> i.label.Contains(prefix, StringComparison.OrdinalIgnoreCase))
+                |> Seq.filter (fun i -> i.label.Contains(prefix, StringComparison.OrdinalIgnoreCase))
 
         let deduped =
             filtered
-            |> List.distinctBy (fun i -> (i.label, i.documentation))
-            |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
+            |> Seq.distinctBy (fun i -> (i.label, i.documentation))
+            |> Seq.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
 
         let optimised = optimiseCompletion deduped
 
         // Log completion info only if we have items
-        if not deduped.IsEmpty then
-            logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
-        else
-            logInfo $"completion mid %A{prefixSoFar} - no items after filtering"
+        // if not deduped.IsEmpty then
+        // logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
+        // else
+        // logInfo $"completion mid %A{prefixSoFar} - no items after filtering"
 
         //        let docLength =
         //            optimised
@@ -407,7 +423,7 @@ let completion
 
         Some
             { isIncomplete = partialReturn
-              items = optimised }
+              items = optimised |> Seq.toList }
     // |false ->
     //     let extraKeywords = ["yes"; "no";]
     //     let eventIDs = game.References.EventIDs

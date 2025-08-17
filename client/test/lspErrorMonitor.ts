@@ -31,7 +31,7 @@ export function setupLSPErrorMonitoring(): void {
             // Check for error messages and log them with timestamps
             if (message.toLowerCase().includes('error') || 
                 message.toLowerCase().includes('exception') ||
-                message.toLowerCase().includes('failed')) {
+                message.toLowerCase().includes('[Error')) {
                 errorLog.push({
                     timestamp,
                     message: message
