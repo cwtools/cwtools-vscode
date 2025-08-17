@@ -4,8 +4,24 @@ import * as path from 'path';
 import { activate } from '../utils';
 import { setupLSPErrorMonitoring, checkForLSPErrors, teardownLSPErrorMonitoring } from '../lspErrorMonitor';
 
-const sampleRoot = path.resolve(__dirname, '../Stellaris/sample');
+const sampleRoot = path.resolve(__dirname, '../sample');
 const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
+
+/**
+ * Checks if any completion items are Text type (kind: 0), which indicates VS Code text completion fallback
+ */
+function checkForTextCompletions(completions: vscode.CompletionList): void {
+    if (!completions || !completions.items || completions.items.length === 0) {
+        assert.fail('No completions received - LSP may not be responding');
+    }
+
+    const textTypeCompletions = completions.items.filter(item => (item.kind || 0) === 0);
+
+    if (textTypeCompletions.length > 0) {
+        const totalItems = completions.items.length;
+        assert.fail(`LSP not being used: ${textTypeCompletions.length}/${totalItems} completions are Text type (kind: 0), indicating VS Code text completion fallback instead of LSP`);
+    }
+}
 
 /**
  * Wait for the language server to be ready by checking if it can provide completion information
@@ -112,37 +128,32 @@ suite('LSP Completion Tests', function () {
                 console.log('Completion result type:', typeof completions);
                 console.log('Completion result:', completions);
 
-                if (completions && completions.items && completions.items.length > 0) {
-                    console.log(`Found ${completions.items.length} completion items`);
+                // Validate that LSP is being used (not VS Code text completion)
+                checkForTextCompletions(completions);
 
-                    // Log first few completions for debugging
-                    const firstFew = completions.items.slice(0, 5);
-                    firstFew.forEach((item, index) => {
-                        console.log(`Completion ${index + 1}: ${item.label} (kind: ${item.kind})`);
-                    });
+                console.log(`Found ${completions.items.length} completion items`);
 
-                    assert.ok(completions.items.length > 0, 'Should have completion items');
+                // Log first few completions for debugging
+                const firstFew = completions.items.slice(0, 5);
+                firstFew.forEach((item, index) => {
+                    console.log(`Completion ${index + 1}: ${item.label} (kind: ${item.kind})`);
+                });
 
-                    // Look for common triggers
-                    const triggerLabels = completions.items.map(item => item.label);
-                    const hasTriggers = triggerLabels.some(label =>
-                        typeof label === 'string' && (
-                            label.includes('is_ai') ||
-                            label.includes('limit') ||
-                            label.includes('trigger') ||
-                            label.includes('country_type')
-                        )
-                    );
+                // Look for common triggers
+                const triggerLabels = completions.items.map(item => item.label);
+                const hasTriggers = triggerLabels.some(label =>
+                    typeof label === 'string' && (
+                        label.includes('is_ai') ||
+                        label.includes('limit') ||
+                        label.includes('trigger') ||
+                        label.includes('country_type')
+                    )
+                );
 
-                    if (hasTriggers) {
-                        console.log('Found trigger-related completions');
-                    } else {
-                        console.log('No obvious trigger completions found. Available:', triggerLabels.slice(0, 10));
-                    }
+                if (hasTriggers) {
+                    console.log('Found trigger-related completions');
                 } else {
-                    console.log('No completion items returned');
-                    console.log('Completions object structure:', Object.keys(completions || {}));
-                    assert.ok(false, 'Expected completion items but got none');
+                    console.log('No obvious trigger completions found. Available:', triggerLabels.slice(0, 10));
                 }
             } catch (error) {
                 console.log('Completion test failed:', error);
@@ -163,29 +174,25 @@ suite('LSP Completion Tests', function () {
 
                 console.log('Effect completion result:', completions);
 
-                if (completions && completions.items && completions.items.length > 0) {
-                    console.log(`Found ${completions.items.length} effect completion items`);
+                // Validate that LSP is being used (not VS Code text completion)
+                checkForTextCompletions(completions);
 
-                    const effectLabels = completions.items.map(item => item.label);
-                    const hasEffects = effectLabels.some(label =>
-                        typeof label === 'string' && (
-                            label.includes('country_event') ||
-                            label.includes('set_variable') ||
-                            label.includes('add_modifier') ||
-                            label.includes('effect')
-                        )
-                    );
+                console.log(`Found ${completions.items.length} effect completion items`);
 
-                    if (hasEffects) {
-                        console.log('Found effect-related completions');
-                    } else {
-                        console.log('No obvious effect completions found. Available:', effectLabels.slice(0, 10));
-                    }
+                const effectLabels = completions.items.map(item => item.label);
+                const hasEffects = effectLabels.some(label =>
+                    typeof label === 'string' && (
+                        label.includes('country_event') ||
+                        label.includes('set_variable') ||
+                        label.includes('add_modifier') ||
+                        label.includes('effect')
+                    )
+                );
 
-                    assert.ok(completions.items.length > 0, 'Should have effect completion items');
+                if (hasEffects) {
+                    console.log('Found effect-related completions');
                 } else {
-                    console.log('No effect completion items returned');
-                    assert.fail('Expected effect completion items but got none');
+                    console.log('No obvious effect completions found. Available:', effectLabels.slice(0, 10));
                 }
             } catch (error) {
                 console.log('Effect completion test failed:', error);

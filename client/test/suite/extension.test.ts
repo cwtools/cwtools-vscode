@@ -18,7 +18,7 @@ import sinon from 'sinon';
 import * as fs from "node:fs";
 import * as os from "node:os";
 import {State} from "../../extension/graphPanel";
-const root = path.resolve(__dirname, '../../../../client/test/Stellaris/sample');  // Assumes tests are one level deep in 'test/'
+const root = path.resolve(__dirname, '../../../../client/test/sample');  // Assumes tests are one level deep in 'test/'
 
 // Defines a Mocha test suite to group tests of similar kind together
 suite("Extension Tests", () => {
@@ -300,7 +300,7 @@ describe('GraphPanel Tests', function () {
 suite('Manual Testing Suite', () => {
     // suiteSetup(async () => {
     // });
-	test.skip('Manual test', async function () {
+	test('Manual test', async function () {
 		this.timeout(300000);
 		await activate();
 		await new Promise(() => { })
