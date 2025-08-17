@@ -297,7 +297,7 @@ describe('GraphPanel Tests', function () {
 		after();
 	});
 });
-suite('Manual Testing Suite', () => {
+suite.skip('Manual Testing Suite', () => {
     // suiteSetup(async () => {
     // });
 	test('Manual test', async function () {

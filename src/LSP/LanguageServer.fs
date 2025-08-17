@@ -26,7 +26,9 @@ let private jsonWriteOptions =
               writeRegisterCapability
               writeMessageType
               writeMarkupKind
-              writeHoverContent ] }
+              writeHoverContent
+              writeInsertReplaceEdit
+              writeCompletionTextEdit ] }
 
 let private serializeInitializeResult =
     serializerFactory<InitializeResult> jsonWriteOptions
