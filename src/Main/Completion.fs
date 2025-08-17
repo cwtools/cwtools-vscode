@@ -167,8 +167,6 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
         | CompletionCategory.Variable -> (false, CompletionItemKind.Variable)
         | _ -> (false, CompletionItemKind.Function)
 
-    let createLabel = (fun l score -> if debugMode then $"{l}({score})" else l)
-
     /// Wrap in quotes if it contains spaces
     let createInsertText (s: string) =
         if s.Contains " " && not (s.StartsWith("\"")) && not (s.EndsWith("\"")) then
@@ -181,7 +179,8 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
         |> List.map (function
             | CompletionResponse.Simple(e, Some score, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
-                    label = createLabel e score
+                    label = e
+                    labelDetails = if debugMode then Some { detail = Some $"({score})"; description = None } else None
                     insertText = createInsertText e
                     sortText = Some((maxCompletionScore - score).ToString()) }
             | CompletionResponse.Simple(e, None, kind) ->
@@ -191,7 +190,8 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
                     sortText = Some(maxCompletionScore.ToString()) }
             | CompletionResponse.Detailed(l, d, Some score, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
-                    label = createLabel l score
+                    label = l
+                    labelDetails = if debugMode then Some { detail = Some $"({score})"; description = None } else None
                     insertText = createInsertText l
                     documentation =
                         d
@@ -210,7 +210,8 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
                               value = d }) }
             | CompletionResponse.Snippet(l, e, d, Some score, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
-                    label = createLabel l score
+                    label = l
+                    labelDetails = if debugMode then Some { detail = Some $"({score})"; description = None } else None
                     insertText = Some e
                     insertTextFormat = Some InsertTextFormat.Snippet
                     documentation =
@@ -241,20 +242,20 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
         // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
         // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
 
-        //        let stopwatch = System.Diagnostics.Stopwatch.StartNew()
-        //        stopwatch.Start()
+        let stopwatch = System.Diagnostics.Stopwatch.StartNew()
+        stopwatch.Start()
         let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
 
         let filetext =
             (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
-
         let items =
             checkPartialCompletionCache p (fun () -> completionCallLSP game p docs debugMode filetext position)
 
-        //        logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
+        logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
         let split = filetext.Split('\n')
         let targetLine = split[position.Line - 1]
         let textBeforeCursor = targetLine.Remove(position.Column)
+        logInfo $"{p} {position}"
 
         let prefixSoFar =
             match textBeforeCursor.Split([||]) |> Array.tryLast with
@@ -277,7 +278,12 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
             |> List.filter (fun i -> not (i.label.StartsWith("$", StringComparison.OrdinalIgnoreCase)))
 
         let optimised = optimiseCompletion deduped
-        // logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
+
+        // Log completion info only if we have items
+        if not deduped.IsEmpty then
+            logInfo $"completion mid %A{prefixSoFar} %A{deduped.Head.sortText} %A{deduped.Head.label}"
+        else
+            logInfo $"completion mid %A{prefixSoFar} - no items after filtering"
 
         //        let docLength =
         //            optimised

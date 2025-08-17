@@ -247,9 +247,15 @@ let writeMarkupKind (m: MarkupKind) : string =
     | MarkupKind.Markdown -> "markdown"
 
 type MarkupContent = { kind: MarkupKind; value: string }
+type CompletionItemLabelDetails = {
+    detail : string option
+    description: string option
+}
+
 
 type CompletionItem =
     { label: string
+      labelDetails: CompletionItemLabelDetails option
       kind: CompletionItemKind option
       detail: string option
       documentation: MarkupContent option
@@ -267,6 +273,7 @@ let maxCompletionScore = 1000000
 
 let defaultCompletionItem: CompletionItem =
     { label = ""
+      labelDetails = None
       kind = None
       detail = None
       documentation = None
