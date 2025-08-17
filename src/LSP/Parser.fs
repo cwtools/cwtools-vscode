@@ -101,13 +101,7 @@ let private readOptions =
               parseInsertTextFormat
               parseDiagnosticSeverity
               parseMarkupKind
-              parseCompletionTriggerKind
-              readPosition
-              readRange
-              readTextEdit
-              readInsertReplaceEdit
-              readCompletionTextEdit
-               ] }
+              parseCompletionTriggerKind ] }
 
 let private deserializeRawMessage =
     JsonValue.Parse >> deserializerFactory<RawMessage> readOptions
