@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { activate } from '../utils';
+import { setupLSPErrorMonitoring, checkForLSPErrors, teardownLSPErrorMonitoring } from '../lspErrorMonitor';
 
 const sampleRoot = path.resolve(__dirname, '../sample');
 const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
@@ -48,6 +49,9 @@ suite('LSP Hover Tests', function () {
     let extension: vscode.Extension<unknown>;
 
     setup(async function () {
+        // Setup universal LSP error monitoring
+        setupLSPErrorMonitoring();
+        
         // Activate the extension first
         await activate();
         extension = vscode.extensions.getExtension('tboby.cwtools-vscode')!;
@@ -71,6 +75,14 @@ suite('LSP Hover Tests', function () {
     teardown(async function () {
         // Clean up any open documents
         await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+        
+        // Check for LSP errors
+        checkForLSPErrors(this.currentTest?.title || 'unknown test');
+    });
+    
+    // Final cleanup after all tests in this suite
+    suiteTeardown(async function () {
+        teardownLSPErrorMonitoring();
     });
 
     suite('Basic Hover Functionality', function () {

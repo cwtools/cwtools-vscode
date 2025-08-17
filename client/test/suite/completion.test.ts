@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { activate } from '../utils';
+import { setupLSPErrorMonitoring, checkForLSPErrors, teardownLSPErrorMonitoring } from '../lspErrorMonitor';
 
 const sampleRoot = path.resolve(__dirname, '../sample');
 const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
@@ -47,6 +48,9 @@ suite('LSP Completion Tests', function () {
     let extension: vscode.Extension<unknown>;
 
     setup(async function () {
+        // Setup universal LSP error monitoring
+        setupLSPErrorMonitoring();
+        
         // Activate the extension first
         await activate();
         extension = vscode.extensions.getExtension('tboby.cwtools-vscode')!;
@@ -70,10 +74,18 @@ suite('LSP Completion Tests', function () {
     teardown(async function () {
         // Clean up any open documents
         await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+        
+        // Check for LSP errors
+        checkForLSPErrors(this.currentTest?.title || 'unknown test');
+    });
+    
+    // Final cleanup after all tests in this suite
+    suiteTeardown(async function () {
+        teardownLSPErrorMonitoring();
     });
 
     suite('Basic Completion Functionality', function () {
-        setup(async function () {
+        setup(async function () {            
             // Open the test event file
             const uri = vscode.Uri.file(testEventFile);
             testDocument = await vscode.workspace.openTextDocument(uri);
@@ -225,7 +237,7 @@ suite('LSP Completion Tests', function () {
         });
     });
 
-    suite('Completion Context and Scopes', function () {
+    suite('Completion Context and Scopes', function () {        
         test('should provide different completions based on context', async function () {
             const uri = vscode.Uri.file(testEventFile);
             const document = await vscode.workspace.openTextDocument(uri);
@@ -273,7 +285,7 @@ suite('LSP Completion Tests', function () {
         });
     });
 
-    suite('Completion Server Configuration', function () {
+    suite('Completion Server Configuration', function () {        
         test('should check if LSP server is actually called for completion', async function () {
             // This test determines if the LSP server is being invoked at all
             const uri = vscode.Uri.file(testEventFile);
@@ -512,7 +524,7 @@ function getCompletionKindName(kind: number): string {
     return kindNames[kind] || `Unknown(${kind})`;
 }
 
-    suite('Completion Performance', function () {
+    suite('Completion Performance', function () {        
         test('should respond to completion requests within reasonable time', async function () {
             const uri = vscode.Uri.file(testEventFile);
             const document = await vscode.workspace.openTextDocument(uri);
@@ -551,4 +563,5 @@ function getCompletionKindName(kind: number): string {
             await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
         });
     });
+
 });
