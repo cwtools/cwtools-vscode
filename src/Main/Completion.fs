@@ -100,6 +100,40 @@ let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
 
 
 
+/// Compute ranges for InsertReplaceEdit based on word boundaries using simple position data
+let computeCompletionRanges (filetext: string) (line: int) (character: int) =
+    let lines = filetext.Split('\n')
+    let targetLine = 
+        if line > 0 && line <= lines.Length then
+            lines.[line - 1]
+        else 
+            ""
+    
+    // Find word boundaries using F# syntax rules (letters, digits, underscore)
+    let isWordChar c = System.Char.IsLetterOrDigit(c) || c = '_'
+    
+    // Walk backward to find start of word/identifier
+    let mutable wordStart = character
+    while wordStart > 0 && wordStart <= targetLine.Length && isWordChar targetLine.[wordStart - 1] do
+        wordStart <- wordStart - 1
+    
+    // Walk forward to find end of word/identifier  
+    let mutable wordEnd = character
+    while wordEnd < targetLine.Length && isWordChar targetLine.[wordEnd] do
+        wordEnd <- wordEnd + 1
+    
+    // Return the ranges as a tuple to avoid anonymous record issues
+    let insertRange = {
+        start = { line = line - 1; character = wordStart }
+        ``end`` = { line = line - 1; character = character }
+    }
+    let replaceRange = {
+        start = { line = line - 1; character = wordStart }
+        ``end`` = { line = line - 1; character = wordEnd }
+    }
+    
+    (insertRange, replaceRange)
+
 let optimiseCompletion (completionList: CompletionItem list) =
     if completionCacheCount > 2 then
         completionCache.Clear()
@@ -139,7 +173,7 @@ let checkPartialCompletionCache (p: CompletionParams) genItems =
         completionPartialCache <- Some(p, items)
         items
 
-let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext position =
+let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode supportsInsertReplaceEdit filetext position =
 
     let path =
         let u = p.textDocument.uri
@@ -170,29 +204,48 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
     /// Wrap in quotes if it contains spaces
     let createInsertText (s: string) =
         if s.Contains " " && not (s.StartsWith("\"")) && not (s.EndsWith("\"")) then
-            Some $"\"{s}\""
+            $"\"{s}\""
         else
-            Some s
+            s
+
+    /// Create the appropriate textEdit based on client capabilities  
+    let createTextEdit text =
+        if supportsInsertReplaceEdit then
+            let (insertRange, replaceRange) = computeCompletionRanges filetext position.Line position.Column
+            Some (CompletionTextEdit.InsertReplaceEdit {
+                newText = text
+                insert = insertRange
+                replace = replaceRange
+            })
+        else
+            // Fallback to regular TextEdit for older clients
+            None // Let the client use insertText instead
 
     let items =
         comp
         |> List.map (function
             | CompletionResponse.Simple(e, Some score, kind) ->
+                let insertText = createInsertText e
                 { defaultCompletionItemKind (convertKind kind) with
                     label = e
                     labelDetails = if debugMode then Some { detail = Some $"({score})"; description = None } else None
-                    insertText = createInsertText e
+                    insertText = if supportsInsertReplaceEdit then None else Some insertText
+                    textEdit = createTextEdit insertText
                     sortText = Some((maxCompletionScore - score).ToString()) }
             | CompletionResponse.Simple(e, None, kind) ->
+                let insertText = createInsertText e
                 { defaultCompletionItemKind (convertKind kind) with
                     label = e
-                    insertText = createInsertText e
+                    insertText = if supportsInsertReplaceEdit then None else Some insertText
+                    textEdit = createTextEdit insertText
                     sortText = Some(maxCompletionScore.ToString()) }
             | CompletionResponse.Detailed(l, d, Some score, kind) ->
+                let insertText = createInsertText l
                 { defaultCompletionItemKind (convertKind kind) with
                     label = l
                     labelDetails = if debugMode then Some { detail = Some $"({score})"; description = None } else None
-                    insertText = createInsertText l
+                    insertText = if supportsInsertReplaceEdit then None else Some insertText
+                    textEdit = createTextEdit insertText
                     documentation =
                         d
                         |> Option.map (fun d ->
@@ -200,9 +253,11 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
                               value = d })
                     sortText = Some((maxCompletionScore - score).ToString()) }
             | CompletionResponse.Detailed(l, d, None, kind) ->
+                let insertText = createInsertText l
                 { defaultCompletionItemKind (convertKind kind) with
                     label = l
-                    insertText = createInsertText l
+                    insertText = if supportsInsertReplaceEdit then None else Some insertText
+                    textEdit = createTextEdit insertText
                     documentation =
                         d
                         |> Option.map (fun d ->
@@ -212,8 +267,9 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
                 { defaultCompletionItemKind (convertKind kind) with
                     label = l
                     labelDetails = if debugMode then Some { detail = Some $"({score})"; description = None } else None
-                    insertText = Some e
+                    insertText = if supportsInsertReplaceEdit then None else Some e
                     insertTextFormat = Some InsertTextFormat.Snippet
+                    textEdit = createTextEdit e
                     documentation =
                         d
                         |> Option.map (fun d ->
@@ -223,8 +279,9 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
             | CompletionResponse.Snippet(l, e, d, None, kind) ->
                 { defaultCompletionItemKind (convertKind kind) with
                     label = l
-                    insertText = Some e
+                    insertText = if supportsInsertReplaceEdit then None else Some e
                     insertTextFormat = Some InsertTextFormat.Snippet
+                    textEdit = createTextEdit e
                     documentation =
                         d
                         |> Option.map (fun d ->
@@ -233,7 +290,7 @@ let completionCallLSP (game: IGame) (p: CompletionParams) _ debugMode filetext p
 
     items
 
-let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStore) (debugMode: bool) =
+let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStore) (debugMode: bool) (supportsInsertReplaceEdit: bool) =
     match gameObj with
     | Some game ->
         // match experimental_completion with
@@ -249,7 +306,7 @@ let completion (gameObj: IGame option) (p: CompletionParams) (docs: DocumentStor
         let filetext =
             (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
         let items =
-            checkPartialCompletionCache p (fun () -> completionCallLSP game p docs debugMode filetext position)
+            checkPartialCompletionCache p (fun () -> completionCallLSP game p docs debugMode supportsInsertReplaceEdit filetext position)
 
         logInfo $"completion items time %i{stopwatch.ElapsedMilliseconds}ms"
         let split = filetext.Split('\n')
