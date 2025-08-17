@@ -1,8 +1,8 @@
 {
   "scripts": {
     "compile": "tsc -p ./tsconfig.extension.json && rollup -c -o ./release/bin/client/webview/graph.js",
-    "test": "npm run compile && vscode-test -c ./.vscode-test.mjs",
-    "test:watch": "tsc -w -p . & vscode-test -c ./.vscode-test.mjs -w"
+    "test": "npm run compile && vscode-test -c ./.vscode-test.js",
+    "test:watch": "tsc -w -p . & vscode-test -c ./.vscode-test.js -w"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
