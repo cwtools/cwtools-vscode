@@ -11,7 +11,7 @@ import path from 'path';
 // as well as import your extension to test it
 import * as vscode from 'vscode';
 import { activate } from '../utils';
-import { it, describe, before } from 'mocha';
+import { it, describe } from 'mocha';
 import * as gp from '../../extension/graphPanel';
 import { GraphData } from '../../common/graphTypes';
 import sinon from 'sinon';
@@ -47,10 +47,6 @@ async function retryAsync(fn : (() => Promise<boolean>), maxRetries = 3, delayMs
 	}
 	throw new Error('All retries failed');  // Fallback if no error but still failed
 }
-
-before(() => {
-
-})
 
 suite(`Debug Integration Test: `, function() {
 	test('Extension should be present', () => {
