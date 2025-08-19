@@ -111,6 +111,7 @@ type Server(client: ILanguageClient) =
     let mutable debugMode: bool = false
     let mutable maxFileSize: int = 2
     let mutable generatedStrings: string = ":0 \"REPLACE_ME\""
+    let mutable clientSupportsInsertReplaceEdit: bool = false
 
     let mutable ignoreCodes: string list = []
     let mutable ignoreFiles: string list = []
@@ -711,6 +712,11 @@ type Server(client: ILanguageClient) =
             async {
                 rootUri <- p.rootUri
                 workspaceFolders <- p.workspaceFolders
+                
+                // Check if client supports InsertReplaceEdit
+                clientSupportsInsertReplaceEdit <- 
+                    p.capabilitiesMap.ContainsKey("textDocument.completion.completionItem.insertReplaceSupport") &&
+                    p.capabilitiesMap.["textDocument.completion.completionItem.insertReplaceSupport"]
 
                 match p.initializationOptions with
                 | Some opt ->
@@ -1168,7 +1174,7 @@ type Server(client: ILanguageClient) =
             }
 
         member this.Completion(p: CompletionParams) =
-            async { return completion gameObj p docs debugMode } |> catchError None
+            async { return completion gameObj p docs debugMode clientSupportsInsertReplaceEdit } |> catchError None
 
         member this.Hover(p: TextDocumentPositionParams) =
             async {

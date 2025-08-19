@@ -23,14 +23,16 @@
     "name": "Extension Tests",
     "type": "extensionHost",
     "request": "launch",
-    "runtimeExecutable": "${execPath}",
+    "preLaunchTask": "UpdateBuild",
+    // "runtimeExecutable": "${execPath}",
+    "testConfiguration": "${workspaceFolder}/.vscode-test.js",
     "args": [
         "--extensionDevelopmentPath=${workspaceFolder}/release",
-        "--extensionTestsPath=${workspaceFolder}/release/bin/client/test/suite/index"
+        // "--extensionTestsPath=${workspaceFolder}/release/bin/client/test/suite/index"
     ],
-    "outFiles": [
-        "${workspaceFolder}/release/bin/client/test/**/*.js"
-    ]
+    // "outFiles": [
+        // "${workspaceFolder}/release/bin/client/test/**/*.js"
+    // ]
 },
         {
             "preLaunchTask": "UpdateBuildDebug",
