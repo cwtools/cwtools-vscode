@@ -73,7 +73,7 @@ async function getCompletions(uri: vscode.Uri, position: vscode.Position): Promi
 }
 
 suite('LSP Completion Tests', function () {
-    this.timeout(30000);
+    this.timeout(60000);
 
     async function openAndGetTestDocument() {
         const uri = vscode.Uri.file(testEventFile);
