@@ -10,15 +10,7 @@ const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
 const testNicheFile = path.join(sampleRoot, 'common', 'pop_faction_types', 'irm_regionalist.txt');
 
 async function waitForLSP(uri: vscode.Uri, maxRetries = 60, delayMs = 500): Promise<void> {
-    let statusBarCleared = false;
     let diagnosticsReady = false;
-
-    // Monitor status bar changes to detect when loading is complete
-    const statusBarDisposable = vscode.window.onDidChangeWindowState((state) => {
-        // This is a rough approximation - when the window state changes after loading,
-        // it often indicates the extension has finished initializing
-        statusBarCleared = true;
-    });
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
@@ -40,7 +32,6 @@ async function waitForLSP(uri: vscode.Uri, maxRetries = 60, delayMs = 500): Prom
                 const hasNonTextCompletions = completions.items.some(item => (item.kind || 0) !== 0);
 
                 if (hasNonTextCompletions) {
-                    statusBarDisposable.dispose();
                     console.log(`LSP ready after ${attempt} attempts (${attempt * delayMs}ms) - found ${completions.items.length} completions`);
                     return;
                 }
@@ -61,7 +52,6 @@ async function waitForLSP(uri: vscode.Uri, maxRetries = 60, delayMs = 500): Prom
         }
     }
 
-    statusBarDisposable.dispose();
     throw new Error(`LSP not ready after ${maxRetries} attempts (${maxRetries * delayMs}ms total)`);
 }
 
@@ -85,9 +75,18 @@ async function getCompletions(uri: vscode.Uri, position: vscode.Position): Promi
 suite('LSP Completion Tests', function () {
     this.timeout(30000);
 
-    let testDocument: vscode.TextDocument;
-    let testNicheDocument: vscode.TextDocument;
-
+    async function openAndGetTestDocument() {
+        const uri = vscode.Uri.file(testEventFile);
+        const document = await vscode.workspace.openTextDocument(uri);
+        await vscode.window.showTextDocument(document);
+        return document;
+    }
+    async function openAndGetNicheDocument() {
+        const uriNiche = vscode.Uri.file(testNicheFile);
+        const document = await vscode.workspace.openTextDocument(uriNiche);
+        await vscode.window.showTextDocument(document);
+        return document;
+    }
     setup(async function () {
         setupLSPErrorMonitoring();
         await activate();
@@ -95,13 +94,8 @@ suite('LSP Completion Tests', function () {
         const extension = vscode.extensions.getExtension('tboby.cwtools-vscode')!;
         assert.ok(extension?.isActive, 'Extension should be active');
 
-        const uri = vscode.Uri.file(testEventFile);
-        testDocument = await vscode.workspace.openTextDocument(uri);
-        // const uriNiche = vscode.Uri.file(testNicheFile);
-        // testNicheDocument = await vscode.workspace.openTextDocument(uriNiche);
-        await vscode.window.showTextDocument(testDocument);
-
-        await waitForLSP(uri);
+        const document = await openAndGetTestDocument();
+        await waitForLSP(document.uri);
     });
 
     teardown(async function () {
@@ -112,17 +106,19 @@ suite('LSP Completion Tests', function () {
     suiteTeardown(async function () {
         teardownLSPErrorMonitoring();
     });
-    // test('should provide completions in niche context', async function () {
-    //     const completions = await getCompletions(testNicheDocument.uri, new vscode.Position(26,41));
+    test('should provide completions in niche context', async function () {
+        const document = await openAndGetNicheDocument();
+        const completions = await getCompletions(document.uri, new vscode.Position(26,41));
 
-    //     const labels = completions.items.map(item =>
-    //         typeof item.label === 'string' ? item.label : item.label.label
-    //     );
-    //     expect(labels).deep.equal(["regionalist_dublicated", "sector_policy_leadership"])
-    // });
+        const labels = completions.items.map(item =>
+            typeof item.label === 'string' ? item.label : item.label.label
+        );
+        expect(labels).deep.equal(["regionalist_dublicated", "sector_policy_leadership"])
+    });
 
     test('should provide completions in trigger context', async function () {
-        const completions = await getCompletions(testDocument.uri, new vscode.Position(12, 0));
+        const document = await openAndGetTestDocument();
+        const completions = await getCompletions(document.uri, new vscode.Position(12, 0));
 
         const labels = completions.items.map(item =>
             typeof item.label === 'string' ? item.label : item.label.label
@@ -139,7 +135,8 @@ suite('LSP Completion Tests', function () {
     });
 
     test('should provide completions in effect context', async function () {
-        const completions = await getCompletions(testDocument.uri, new vscode.Position(17, 8));
+        const document = await openAndGetTestDocument();
+        const completions = await getCompletions(document.uri, new vscode.Position(17, 8));
 
         const labels = completions.items.map(item =>
             typeof item.label === 'string' ? item.label : item.label.label
@@ -150,8 +147,9 @@ suite('LSP Completion Tests', function () {
     });
 
     test('should respond to completion requests quickly', async function () {
+        const document = await openAndGetTestDocument();
         const start = Date.now();
-        const completions = await getCompletions(testDocument.uri, new vscode.Position(12, 0));
+        const completions = await getCompletions(document.uri, new vscode.Position(12, 0));
         const duration = Date.now() - start;
 
         assert.ok(duration < 5000, `Completion should be fast, took ${duration}ms`);
@@ -159,7 +157,8 @@ suite('LSP Completion Tests', function () {
     });
 
     test('should provide LSP-based completions not just text fallback', async function () {
-        const completions = await getCompletions(testDocument.uri, new vscode.Position(12, 0));
+        const document = await openAndGetTestDocument();
+        const completions = await getCompletions(document.uri, new vscode.Position(12, 0));
 
         // The getCompletions helper already validates no Text type completions
         // This test confirms completions have LSP-specific characteristics
