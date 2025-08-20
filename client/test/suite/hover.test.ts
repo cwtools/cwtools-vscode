@@ -1,14 +1,59 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { activate } from '../utils';
+import { activate, wait } from '../utils';
 import { setupLSPErrorMonitoring, checkForLSPErrors, teardownLSPErrorMonitoring } from '../lspErrorMonitor';
+import { expect } from 'chai';
 
 const sampleRoot = path.resolve(__dirname, '../sample');
 const testEventFile = path.join(sampleRoot, 'events', 'irm.txt');
 // const testDefinesFile = path.join(sampleRoot, 'common', 'defines', 'irm_defines.txt');
 const testEffectsFile = path.join(sampleRoot, 'common', 'scripted_effects', 'irm_scripted_effects.txt');
+async function waitForLSP(uri: vscode.Uri, maxRetries = 60, delayMs = 500): Promise<void> {
+    let diagnosticsReady = false;
 
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            // Check if diagnostics are available (indicates LSP is processing files)
+            const diagnostics = vscode.languages.getDiagnostics(uri);
+            if (diagnostics && diagnostics.length >= 0) {
+                diagnosticsReady = true;
+            }
+
+            // Try to get meaningful completions (not just any response)
+            const completions = await vscode.commands.executeCommand<vscode.CompletionList>(
+                'vscode.executeCompletionItemProvider',
+                uri,
+                new vscode.Position(12, 0) // Position where we expect trigger completions
+            );
+
+            // Check if we have actual LSP completions (not just fallback)
+            if (completions?.items?.length) {
+                const hasNonTextCompletions = completions.items.some(item => (item.kind || 0) !== 0);
+
+                if (hasNonTextCompletions) {
+                    console.log(`LSP ready after ${attempt} attempts (${attempt * delayMs}ms) - found ${completions.items.length} completions`);
+                    return;
+                }
+            }
+
+            // If we have diagnostics but no good completions yet, LSP is still starting up
+            if (diagnosticsReady) {
+                console.log(`LSP starting (attempt ${attempt}) - diagnostics available but completions not ready`);
+            }
+
+        } catch (error) {
+            // LSP might not be ready yet, continue retrying
+            console.log(`LSP check attempt ${attempt} failed:`, error instanceof Error ? error.message : String(error));
+        }
+
+        if (attempt < maxRetries) {
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+    }
+
+    throw new Error(`LSP not ready after ${maxRetries} attempts (${maxRetries * delayMs}ms total)`);
+}
 /**
  * Wait for the language server to be ready by checking if it can provide hover information
  */
@@ -98,6 +143,29 @@ suite('LSP Hover Tests', function () {
 
         teardown(async function () {
             await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+        });
+        test('should provide hover information with scope change', async function () {
+            await waitForLSP(vscode.Uri.file(testEventFile));
+            // Test hover on "irm.txt" at line 35, column 54 (approximate position)
+            const position = new vscode.Position(34, 45); // 0-indexed, so line 35 becomes 34
+
+            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
+                'vscode.executeHoverProvider',
+                testDocument.uri,
+                position
+            );
+
+            const hover = hovers[0];
+            assert.ok(hover.contents.length > 0, 'Hover should contain content');
+
+            // Check if the hover content is meaningful
+            const content = hover.contents[0];
+            if (content instanceof vscode.MarkdownString) {
+                assert.ok(content.value.length > 0, 'Hover content should not be empty');
+                expect(content.value).to.contain("Checks if the country is a specific type")
+                    .and.to.contain(["Any", "Country", "ROOT", "THIS"]);
+                console.log('Hover content for event ID:', content.value);
+            }
         });
 
         test('should provide hover information for event IDs', async function () {
