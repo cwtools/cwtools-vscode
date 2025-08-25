@@ -220,14 +220,14 @@ type RealClient(send: BinaryWriter) =
         member this.ApplyWorkspaceEdit(p: ApplyWorkspaceEditParams) : Async<JsonValue> =
             async {
                 let json = serializeApplyWorkspaceEdit p
-                let id = Random().Next()
+                let id = Random.Shared.Next()
                 return! requestClient (send, id, "workspace/applyEdit", json)
             }
 
         member this.CustomRequest(method: string, json: string) : Async<JsonValue> =
             async {
                 // let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
-                let id = Random().Next()
+                let id = Random.Shared.Next()
                 return! requestClient (send, id, method, json)
             }
 
