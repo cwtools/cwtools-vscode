@@ -1202,7 +1202,7 @@ type Server(client: ILanguageClient) =
                 return
                     match gameObj with
                     | Some game ->
-                        let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
+                        let position = PosHelper.fromZ p.position.line p.position.character
                         logInfo $"goto fn %A{p.textDocument.uri}"
 
                         let path =
@@ -1238,7 +1238,7 @@ type Server(client: ILanguageClient) =
                 return
                     match gameObj with
                     | Some game ->
-                        let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
+                        let position = PosHelper.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
 
                         let path =
                             let u = p.textDocument.uri
@@ -1288,18 +1288,18 @@ type Server(client: ILanguageClient) =
                     | Some game ->
                         let types = game.Types()
 
-                        let (all: DocumentSymbol list) =
+                        let (all: DocumentSymbol array) =
                             types
-                            |> Map.toList
-                            |> List.collect (fun (k, vs) ->
+                            |> Map.toArray
+                            |> Array.collect (fun (k, vs) ->
                                 vs
-                                |> List.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
-                                |> List.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
-                            |> List.rev
-                            |> List.filter (fun ds -> not (ds.detail.Contains(".")))
+                                |> Array.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
+                                |> Array.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
+                            |> Array.rev
+                            |> Array.filter (fun ds -> not (ds.detail.Contains(".")))
 
                         all
-                        |> List.fold
+                        |> Array.fold
                             (fun (acc: DocumentSymbol list) (next: DocumentSymbol) ->
                                 if
                                     acc
@@ -1465,9 +1465,8 @@ type Server(client: ILanguageClient) =
                             | Some ir, _ ->
                                 let text =
                                     ir.References().ConfigRules
-                                    |> List.map (fun r -> r.ToString())
-                                    |> List.toArray
-                                    |> (fun l -> String.Join("\n", l))
+                                    |> Seq.map _.ToString()
+                                    |> (fun l -> String.Join('\n', l))
 
                                 client.CustomNotification(
                                     "createVirtualFile",
@@ -1478,9 +1477,8 @@ type Server(client: ILanguageClient) =
                             | _, Some hoi4 ->
                                 let text =
                                     hoi4.References().ConfigRules
-                                    |> List.map (fun r -> r.ToString())
-                                    |> List.toArray
-                                    |> (fun l -> String.Join("\n", l))
+                                    |> Seq.map _.ToString()
+                                    |> (fun l -> String.Join('\n', l))
                                 // let text = sprintf "%O" (ir.References().ConfigRules)
                                 client.CustomNotification(
                                     "createVirtualFile",
@@ -1633,17 +1631,17 @@ type Server(client: ILanguageClient) =
 
                                 let types = game.Types()
 
-                                let (all: string list) =
+                                let (all: string array) =
                                     types
-                                    |> Map.toList
-                                    |> List.filter (fun (k, _) -> typesWithGraph |> List.contains k)
-                                    |> List.collect (fun (k, vs) ->
+                                    |> Map.toArray
+                                    |> Array.filter (fun (k, _) -> typesWithGraph |> List.contains k)
+                                    |> Array.collect (fun (k, vs) ->
                                         vs
-                                        |> List.filter (fun tdi -> tdi.range.FileName = lastFile)
-                                        |> List.map (fun _ -> k))
-                                    |> List.filter (fun ds -> not (ds.Contains(".")))
+                                        |> Array.filter (fun tdi -> tdi.range.FileName = lastFile)
+                                        |> Array.map (fun _ -> k))
+                                    |> Array.filter (fun ds -> not (ds.Contains('.')))
 
-                                Some(all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
+                                Some(all |> Array.map JsonValue.String |> JsonValue.Array)
                             | None -> None
                         | { command = "exportTypes"
                             arguments = _ } ->
@@ -1653,17 +1651,17 @@ type Server(client: ILanguageClient) =
 
                                 let res =
                                     game.Types()
-                                    |> Map.toList
-                                    |> List.collect (fun (s, vs) -> vs |> List.map (fun v -> s, v))
+                                    |> Map.toArray
+                                    |> Array.collect (fun (s, vs) -> vs |> Array.map (fun v -> s, v))
 
                                 let text =
                                     res
-                                    |> List.map (fun (t, td) ->
+                                    |> Array.map (fun (t, td) ->
                                         sprintf
                                             "%s,%s,%s,%A"
                                             t
                                             td.id
-                                            (td.range.FileName.Replace("\\", "/"))
+                                            (td.range.FileName.Replace('\\', '/'))
                                             td.range.StartLine)
                                     |> String.concat Environment.NewLine
 

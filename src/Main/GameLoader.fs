@@ -259,7 +259,8 @@ let loadEU4 (serverSettings: ServerSettings) =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           modFilter = None
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.EU4.EU4Game(eu4settings)
     game
@@ -292,7 +293,8 @@ let loadHOI4 serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           modFilter = None
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.HOI4.HOI4Game(hoi4settings)
     game
@@ -324,7 +326,8 @@ let loadCK2 serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           modFilter = None
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.CK2.CK2Game(ck2settings)
     game
@@ -357,7 +360,8 @@ let loadIR serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           modFilter = None
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.IR.IRGame(irsettings)
     game
@@ -388,7 +392,8 @@ let loadVIC2 serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           modFilter = None
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.VIC2.VIC2Game(vic2settings)
     game
@@ -423,7 +428,8 @@ let loadSTL serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           embedded = FromConfig(cachedFiles, cached)
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.Stellaris.STLGame(stlsettings)
     game
@@ -455,7 +461,8 @@ let loadCK3 serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           embedded = FromConfig(cachedFiles, cached)
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.CK3.CK3Game(stlsettings)
     game
@@ -489,7 +496,8 @@ let loadVIC3 serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           embedded = FromConfig(cachedFiles, cached)
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.VIC3.VIC3Game(stlsettings)
     game
@@ -519,7 +527,8 @@ let loadCustom serverSettings =
                   debugRulesOnly = false
                   debugMode = serverSettings.debug_mode }
           embedded = FromConfig([], [])
-          maxFileSize = Some serverSettings.maxFileSize }
+          maxFileSize = Some serverSettings.maxFileSize
+          debugSettings = DebugSettings.Default }
 
     let game = CWTools.Games.Custom.CustomGame(stlsettings, "custom")
     game
