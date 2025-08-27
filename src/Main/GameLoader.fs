@@ -161,10 +161,7 @@ let getConfigFiles cachePath useManualRules manualRulesFolder =
 
 let getFolderList (filename: string, filetext: string) =
     if Path.GetFileName filename = "folders.cwt" then
-        Some(
-            filetext.Split([| "\r\n"; "\r"; "\n" |], StringSplitOptions.None)
-            |> Array.filter (fun s -> s <> "")
-        )
+        Some(filetext.Split([| "\r\n"; "\r"; "\n" |], StringSplitOptions.RemoveEmptyEntries ||| StringSplitOptions.TrimEntries))
     else
         None
 
