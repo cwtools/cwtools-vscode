@@ -114,7 +114,7 @@ type Server(client: ILanguageClient) =
 
     let mutable ignoreCodes: string list = []
     let mutable ignoreFiles: string list = []
-    let mutable dontLoadPatterns: string list = []
+    let mutable dontLoadPatterns: string array = [||]
     /// key: FileName
     let mutable locCache: Map<string, CWError list> = Map.empty
 
@@ -980,8 +980,7 @@ type Server(client: ILanguageClient) =
                         |> Array.choose (function
                             | JsonValue.String s -> Some s
                             | _ -> None)
-                        |> List.ofArray
-                    | _ -> []
+                    | _ -> [||]
 
                 dontLoadPatterns <- excludePatterns
 

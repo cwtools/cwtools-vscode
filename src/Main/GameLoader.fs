@@ -172,7 +172,7 @@ type ServerSettings =
       isVanillaFolder: bool
       path: string
       workspaceFolders: WorkspaceFolder list
-      dontLoadPatterns: string list
+      dontLoadPatterns: string array
       validateVanilla: bool
       languages: CWTools.Common.Lang list
       experimental: bool
