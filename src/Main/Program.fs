@@ -822,8 +822,9 @@ type Server(client: ILanguageClient) =
 
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
             async {
+                let config = p.settings.Item("cwtools")
                 let newLanguages =
-                    match p.settings.Item("cwtools").Item("localisation").Item("languages"), activeGame with
+                    match config.Item("localisation").Item("languages"), activeGame with
                     | JsonValue.Array o, STL ->
                         o
                         |> Array.choose (function
@@ -916,33 +917,33 @@ type Server(client: ILanguageClient) =
 
                 languages <- newLanguages
 
-                match p.settings.Item("cwtools").Item("localisation").Item("generated_strings") with
+                match config.Item("localisation").Item("generated_strings") with
                 | JsonValue.String newString -> generatedStrings <- newString
                 | _ -> ()
 
                 let newVanillaOnly =
-                    match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
+                    match config.Item("errors").Item("vanilla") with
                     | JsonValue.Boolean b -> b
                     | _ -> false
 
                 validateVanilla <- newVanillaOnly
 
                 let newExperimental =
-                    match p.settings.Item("cwtools").Item("experimental") with
+                    match config.Item("experimental") with
                     | JsonValue.Boolean b -> b
                     | _ -> false
 
                 experimental <- newExperimental
 
                 let newDebugMode =
-                    match p.settings.Item("cwtools").Item("debug_mode") with
+                    match config.Item("debug_mode") with
                     | JsonValue.Boolean b -> b
                     | _ -> false
 
                 debugMode <- newDebugMode
 
                 let newIgnoreCodes =
-                    match p.settings.Item("cwtools").Item("errors").Item("ignore") with
+                    match config.Item("errors").Item("ignore") with
                     | JsonValue.Array o ->
                         o
                         |> Array.choose (function
@@ -954,7 +955,7 @@ type Server(client: ILanguageClient) =
                 ignoreCodes <- newIgnoreCodes
 
                 let newIgnoreFiles =
-                    match p.settings.Item("cwtools").Item("errors").Item("ignorefiles") with
+                    match config.Item("errors").Item("ignorefiles") with
                     | JsonValue.Array o ->
                         o
                         |> Array.choose (function
@@ -966,7 +967,7 @@ type Server(client: ILanguageClient) =
                 ignoreFiles <- newIgnoreFiles
 
                 let excludePatterns =
-                    match p.settings.Item("cwtools").Item("ignore_patterns") with
+                    match config.Item("ignore_patterns") with
                     | JsonValue.Array o ->
                         o
                         |> Array.choose (function
@@ -976,56 +977,56 @@ type Server(client: ILanguageClient) =
 
                 dontLoadPatterns <- excludePatterns
 
-                match p.settings.Item("cwtools").Item("trace").Item("server") with
+                match config.Item("trace").Item("server") with
                 | JsonValue.String "messages"
                 | JsonValue.String "verbose" -> loglevel <- LogLevel.Verbose
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("eu4") with
+                match config.Item("cache").Item("eu4") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> eu4VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("stellaris") with
+                match config.Item("cache").Item("stellaris") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> stlVanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("hoi4") with
+                match config.Item("cache").Item("hoi4") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> hoi4VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("ck2") with
+                match config.Item("cache").Item("ck2") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> ck2VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("imperator") with
+                match config.Item("cache").Item("imperator") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> irVanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("vic2") with
+                match config.Item("cache").Item("vic2") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> vic2VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("ck3") with
+                match config.Item("cache").Item("ck3") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> ck3VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("vic3") with
+                match config.Item("cache").Item("vic3") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> vic3VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("rules_folder") with
+                match config.Item("rules_folder") with
                 | JsonValue.String x -> manualRulesFolder <- Some x
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("maxFileSize") with
+                match config.Item("maxFileSize") with
                 | JsonValue.Number x -> maxFileSize <- int x
                 | _ -> ()
 
