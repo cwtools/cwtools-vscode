@@ -112,8 +112,8 @@ type Server(client: ILanguageClient) =
     let mutable maxFileSize: int = 2
     let mutable generatedStrings: string = ":0 \"REPLACE_ME\""
 
-    let mutable ignoreCodes: string list = []
-    let mutable ignoreFiles: string list = []
+    let mutable ignoreCodes: string array = [||]
+    let mutable ignoreFiles: string array = [||]
     let mutable dontLoadPatterns: string array = [||]
     /// key: FileName
     let mutable locCache: Map<string, CWError list> = Map.empty
@@ -177,8 +177,8 @@ type Server(client: ILanguageClient) =
     let sendDiagnostics s =
         let diagnosticFilter (f: string, d) =
             match (f, d) with
-            | _, { Diagnostic.code = Some code } when List.contains code ignoreCodes -> false
-            | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
+            | _, { Diagnostic.code = Some code } when Array.contains code ignoreCodes -> false
+            | f, _ when Array.contains (Path.GetFileName f) ignoreFiles -> false
             | _, _ -> true
 
         s
@@ -949,8 +949,7 @@ type Server(client: ILanguageClient) =
                         |> Array.choose (function
                             | JsonValue.String s -> Some s
                             | _ -> None)
-                        |> List.ofArray
-                    | _ -> []
+                    | _ -> [||]
 
                 ignoreCodes <- newIgnoreCodes
 
@@ -961,8 +960,7 @@ type Server(client: ILanguageClient) =
                         |> Array.choose (function
                             | JsonValue.String s -> Some s
                             | _ -> None)
-                        |> List.ofArray
-                    | _ -> []
+                    | _ -> [||]
 
                 ignoreFiles <- newIgnoreFiles
 
