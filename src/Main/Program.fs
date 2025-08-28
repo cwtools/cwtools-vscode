@@ -89,7 +89,7 @@ type Server(client: ILanguageClient) =
     let mutable vic3GameObj: option<IGame<VIC3ComputedData>> = None
     let mutable customGameObj: option<IGame<JominiComputedData>> = None
 
-    let mutable languages: Lang list = []
+    let mutable languages: Lang array = [||]
     let mutable rootUri: Uri option = None
     let mutable workspaceFolders: WorkspaceFolder list = []
     let mutable cachePath: string option = None
@@ -832,10 +832,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ STLLang.English ] else l)
-                        |> List.map Lang.STL
-                    | _, STL -> [ Lang.STL STLLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| STLLang.English |] else l)
+                        |> Array.map Lang.STL
+                    | _, STL -> [| Lang.STL STLLang.English |]
                     | JsonValue.Array o, EU4 ->
                         o
                         |> Array.choose (function
@@ -844,10 +843,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ EU4Lang.English ] else l)
-                        |> List.map Lang.EU4
-                    | _, EU4 -> [ Lang.EU4 EU4Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| EU4Lang.English |] else l)
+                        |> Array.map Lang.EU4
+                    | _, EU4 -> [| Lang.EU4 EU4Lang.English |]
                     | JsonValue.Array o, HOI4 ->
                         o
                         |> Array.choose (function
@@ -856,10 +854,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ HOI4Lang.English ] else l)
-                        |> List.map Lang.HOI4
-                    | _, HOI4 -> [ Lang.HOI4 HOI4Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| HOI4Lang.English |] else l)
+                        |> Array.map Lang.HOI4
+                    | _, HOI4 -> [| Lang.HOI4 HOI4Lang.English |]
                     | JsonValue.Array o, CK2 ->
                         o
                         |> Array.choose (function
@@ -868,10 +865,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ CK2Lang.English ] else l)
-                        |> List.map Lang.CK2
-                    | _, CK2 -> [ Lang.CK2 CK2Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| CK2Lang.English |] else l)
+                        |> Array.map Lang.CK2
+                    | _, CK2 -> [| Lang.CK2 CK2Lang.English |]
                     | JsonValue.Array o, IR ->
                         o
                         |> Array.choose (function
@@ -880,10 +876,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ IRLang.English ] else l)
-                        |> List.map Lang.IR
-                    | _, IR -> [ Lang.IR IRLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| IRLang.English |] else l)
+                        |> Array.map Lang.IR
+                    | _, IR -> [| Lang.IR IRLang.English |]
                     | JsonValue.Array o, VIC2 ->
                         o
                         |> Array.choose (function
@@ -892,10 +887,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ VIC2Lang.English ] else l)
-                        |> List.map Lang.VIC2
-                    | _, VIC2 -> [ Lang.VIC2 VIC2Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| VIC2Lang.English |] else l)
+                        |> Array.map Lang.VIC2
+                    | _, VIC2 -> [| Lang.VIC2 VIC2Lang.English |]
                     | JsonValue.Array o, CK3 ->
                         o
                         |> Array.choose (function
@@ -904,10 +898,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ CK3Lang.English ] else l)
-                        |> List.map Lang.CK3
-                    | _, CK3 -> [ Lang.CK3 CK3Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| CK3Lang.English |] else l)
+                        |> Array.map Lang.CK3
+                    | _, CK3 -> [| Lang.CK3 CK3Lang.English |]
                     | JsonValue.Array o, VIC3 ->
                         o
                         |> Array.choose (function
@@ -916,11 +909,10 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ VIC3Lang.English ] else l)
-                        |> List.map Lang.VIC3
-                    | _, VIC3 -> [ Lang.VIC3 VIC3Lang.English ]
-                    | _, Custom -> [ Lang.Custom CustomLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| VIC3Lang.English |] else l)
+                        |> Array.map Lang.VIC3
+                    | _, VIC3 -> [| Lang.VIC3 VIC3Lang.English |]
+                    | _, Custom -> [| Lang.Custom CustomLang.English |]
 
                 languages <- newLanguages
 

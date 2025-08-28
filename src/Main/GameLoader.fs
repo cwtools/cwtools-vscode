@@ -174,7 +174,7 @@ type ServerSettings =
       workspaceFolders: WorkspaceFolder list
       dontLoadPatterns: string array
       validateVanilla: bool
-      languages: CWTools.Common.Lang list
+      languages: CWTools.Common.Lang array
       experimental: bool
       debug_mode: bool
       maxFileSize: int }
