@@ -103,7 +103,7 @@ let serializeSTL folder cacheDirectory =
             STLConstants.scriptFolders,
             "stellaris",
             Encoding.UTF8,
-            [],
+            [||],
             2
         )
 
@@ -153,7 +153,7 @@ let serializeEU4 folder cacheDirectory =
     let folders = (WD rawdir) :: (addDLCs rawdir)
 
     let fileManager =
-        FileManager(folders, Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [], 2)
+        FileManager(folders, Some "", EU4Constants.scriptFolders, "europa universalis iv", Encoding.UTF8, [||], 2)
 
     let files = fileManager.AllFilesByPath()
     let computefun: unit -> InfoService option = (fun () -> None)
@@ -201,7 +201,7 @@ let serializeHOI4 folder cacheDirectory =
     let folders = (WD rawdir) :: (addDLCs rawdir)
 
     let fileManager =
-        FileManager(folders, Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [], 2)
+        FileManager(folders, Some "", HOI4Constants.scriptFolders, "hearts of iron iv", Encoding.UTF8, [||], 2)
 
     let files = fileManager.AllFilesByPath()
     let computefun: unit -> InfoService option = (fun () -> None)
@@ -251,7 +251,7 @@ let serializeCK2 folder cacheDirectory =
             CK2Constants.scriptFolders,
             "crusader kings ii",
             Encoding.UTF8,
-            [],
+            [||],
             2
         )
 
@@ -303,7 +303,7 @@ let serializeIR folder cacheDirectory =
             IRConstants.scriptFolders,
             "imperator",
             Encoding.UTF8,
-            [],
+            [||],
             2
         )
 
@@ -355,7 +355,7 @@ let serializeVIC2 folder cacheDirectory =
             VIC2Constants.scriptFolders,
             "victoria 2",
             Encoding.UTF8,
-            [],
+            [||],
             2
         )
 
@@ -407,7 +407,7 @@ let serializeCK3 folder cacheDirectory =
             CK3Constants.scriptFolders,
             "crusader kings iii",
             Encoding.UTF8,
-            [],
+            [||],
             2
         )
 
@@ -460,7 +460,7 @@ let serializeVIC3 folder cacheDirectory =
             VIC3Constants.scriptFolders,
             "Victoria 3",
             Encoding.UTF8,
-            [],
+            [||],
             2
         )
 

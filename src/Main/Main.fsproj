@@ -11,6 +11,7 @@
     <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Languages\Languages.csproj" />
     <RuntimeHostConfigurationOption Include="System.GC.NoAffinitize" Value="true" />
 
     <ProjectReference Include="..\LSP\LSP.fsproj" />
@@ -18,6 +19,7 @@
     <ProjectReference Condition="'$(UseLocalCwtools)' == 'True'" Include="$(CwtoolsPath)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PosHelper.fs" /> 
     <Compile Include="Serialize.fs" />
     <Compile Include="Git.fs" />
     <Compile Include="LanguageServerFeatures.fs" />

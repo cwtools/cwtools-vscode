@@ -39,6 +39,7 @@ module DocumentStoreUtils =
 
 open DocumentStoreUtils
 
+[<Sealed>]
 type DocumentStore() =
     /// All open documents, organized by absolute path
     let activeDocuments = Dictionary<string, Version>()
