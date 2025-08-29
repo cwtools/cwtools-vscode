@@ -15,6 +15,7 @@ open System.Runtime.InteropServices
 open FSharp.Data
 open CWTools.Rules
 open CWTools.Utilities.Position
+open Languages
 open Main.Serialize
 open Main.Git
 open System.Diagnostics
@@ -420,12 +421,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeSTL vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | STL, None, _, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("stellaris"))
@@ -433,12 +434,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeEU4 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | EU4, _, None, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("eu4"))
@@ -446,12 +447,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeHOI4 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | HOI4, _, _, None, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("hoi4"))
@@ -459,12 +460,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeCK2 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK2, _, _, _, None, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("ck2"))
@@ -472,12 +473,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeIR vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | IR, _, _, _, _, None, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("imperator"))
@@ -485,12 +486,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeVIC2 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC2, _, _, _, _, _, None, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic2"))
@@ -498,12 +499,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeCK3 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK3, _, _, _, _, _, _, None, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("ck3"))
@@ -511,12 +512,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeVIC3 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC3, _, _, _, _, _, _, _, None ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic3"))
@@ -527,7 +528,7 @@ type Server(client: ILanguageClient) =
         client.CustomNotification(
             "loadingBar",
             JsonValue.Record
-                [| "value", JsonValue.String("Loading project...")
+                [| "value", JsonValue.String(LangResources.loadingBar_LoadingProject)
                    "enable", JsonValue.Boolean(true) |]
         )
 
@@ -636,7 +637,7 @@ type Server(client: ILanguageClient) =
                 client.CustomNotification(
                     "loadingBar",
                     JsonValue.Record
-                        [| "value", JsonValue.String("Validating files...")
+                        [| "value", JsonValue.String(LangResources.loadingBar_ValidatingFiles)
                            "enable", JsonValue.Boolean(true) |]
                 )
 
@@ -1673,7 +1674,8 @@ type Server(client: ILanguageClient) =
 [<EntryPoint>]
 let main (_: array<string>) : int =
     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
-    let cultureInfo = System.Globalization.CultureInfo("en-US") //System.Globalization.CultureInfo.InvariantCulture;
+    LangResources.Culture <- System.Globalization.CultureInfo.CurrentCulture
+    let cultureInfo = System.Globalization.CultureInfo("en-US")
     System.Globalization.CultureInfo.DefaultThreadCurrentCulture <- cultureInfo
     System.Globalization.CultureInfo.DefaultThreadCurrentUICulture <- cultureInfo
     System.Threading.Thread.CurrentThread.CurrentCulture <- cultureInfo
