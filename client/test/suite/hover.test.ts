@@ -163,7 +163,10 @@ suite('LSP Hover Tests', function () {
             if (content instanceof vscode.MarkdownString) {
                 assert.ok(content.value.length > 0, 'Hover content should not be empty');
                 expect(content.value).to.contain("Checks if the country is a specific type")
-                    .and.to.contain(["Any", "Country", "ROOT", "THIS"]);
+                    .and.to.contain("Any")
+                    .and.to.contain("Country")
+                    .and.to.contain("ROOT")
+                    .and.to.contain("THIS");
                 console.log('Hover content for event ID:', content.value);
             }
         });

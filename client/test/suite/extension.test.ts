@@ -10,7 +10,7 @@ import path from 'path';
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
 import * as vscode from 'vscode';
-import { activate } from '../utils';
+import { activate, retryAsync, wait } from '../utils';
 import { it, describe } from 'mocha';
 import * as gp from '../../extension/graphPanel';
 import { GraphData } from '../../common/graphTypes';
@@ -29,24 +29,7 @@ suite("Extension Tests", () => {
         assert.equal(-1, [1, 2, 3].indexOf(0));
     });
 });
-async function retryAsync(fn : (() => Promise<boolean>), maxRetries = 3, delayMs = 500) {
-	for (let attempt = 1; attempt <= maxRetries; attempt++) {
-		try {
-			const result = await fn();  // Execute the async function
-			if (result === true) {  // Check if it returns true (customize as needed)
-				return result;  // Success: return the result
-			}
-			// If not true, continue to retry
-		} catch (error) {
-			if (attempt === maxRetries) {
-				throw error;  // Final failure: rethrow the error
-			}
-		}
-		// Wait before next attempt
-		await new Promise(resolve => setTimeout(resolve, delayMs));
-	}
-	throw new Error('All retries failed');  // Fallback if no error but still failed
-}
+// retryAsync moved to shared test utils
 
 suite(`Debug Integration Test: `, function() {
 	test('Extension should be present', () => {
@@ -251,7 +234,7 @@ describe('GraphPanel Tests', function () {
 		await vscode.commands.executeCommand('graphFromJson');
 
 		// Wait for the panel to be created and initialized
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await wait(1000);
 
 		const rendered = await retryAsync(
 			() => gp.GraphPanel.currentPanel!.checkCytoscapeRendered(),
@@ -303,8 +286,8 @@ suite.skip('Manual Testing Suite', () => {
 	test('Manual test', async function () {
 		this.timeout(300000);
 		await activate();
-		await new Promise(() => { })
+		await wait(300000);
 
-	})
+	});
 
 });
