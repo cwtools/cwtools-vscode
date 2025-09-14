@@ -86,7 +86,10 @@ let addDLCs (workspaceDirectory: WorkspaceDirectory) =
                     )
                 with _ ->
                     None
-            | None -> None
+            | None ->
+                Some(
+                    WD { WorkspaceDirectory.name = (Path.GetDirectoryName dlcDir); path = dlcDir }
+                )
 
         dlcs |> Seq.choose createZippedDirectory |> List.ofSeq
     else

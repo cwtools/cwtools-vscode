@@ -1,5 +1,6 @@
 ### 0.10.28
 * Add basic support for EU5
+* Fix DLC references
 
 ### 0.10.27
 * Remove unused config settings
