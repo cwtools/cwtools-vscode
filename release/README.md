@@ -85,8 +85,6 @@ If you want to browse vanilla files, you can use the "CWTOOLS LOADED FILES" sect
 
 ![Find all references](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/findallrefs.png)
 
-
-
 ## Links
 
 * [vic2-config](https://github.com/cwtools/cwtools-vic2-config)
