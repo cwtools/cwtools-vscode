@@ -119,7 +119,8 @@ let computeCompletionRanges (filetext: string) (line: int) (character: int) =
             else
                 ""
 
-        let isWordChar c = Char.IsLetterOrDigit(c)
+        //TODO: This needs to handle localisation differently really
+        let isWordChar c = not (Char.IsWhiteSpace(c) || c = '.')
 
         // Walk backward to find start of word/identifier
         let mutable wordStart = character

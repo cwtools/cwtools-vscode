@@ -1,6 +1,7 @@
 ### 0.10.28
 * Add basic support for EU5
 * Fix DLC references
+* Fix completion replacement range
 
 ### 0.10.27
 * Remove unused config settings
