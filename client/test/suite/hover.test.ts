@@ -144,10 +144,9 @@ suite('LSP Hover Tests', function () {
         teardown(async function () {
             await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
         });
-        test('should provide hover information with scope change', async function () {
+        test('should provide hover information with scope change - effect', async function () {
             await waitForLSP(vscode.Uri.file(testEventFile));
-            // Test hover on "irm.txt" at line 35, column 54 (approximate position)
-            const position = new vscode.Position(34, 45); // 0-indexed, so line 35 becomes 34
+            const position = new vscode.Position(37, 45); // 0-indexed, so line 38 becomes 37
 
             const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
                 'vscode.executeHoverProvider',
@@ -167,13 +166,13 @@ suite('LSP Hover Tests', function () {
                     .and.to.contain("Country")
                     .and.to.contain("ROOT")
                     .and.to.contain("THIS");
-                console.log('Hover content for event ID:', content.value);
+                console.log('Hover content:', content.value);
             }
         });
 
-        test('should provide hover information for event IDs', async function () {
-            // Test hover on "irm.1" at line 9, column 7 (approximate position)
-            const position = new vscode.Position(8, 7); // 0-indexed, so line 9 becomes 8
+        test('should provide hover information with scope change - trigger', async function () {
+            await waitForLSP(vscode.Uri.file(testEventFile));
+            const position = new vscode.Position(15, 20);
 
             const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
                 'vscode.executeHoverProvider',
@@ -181,167 +180,52 @@ suite('LSP Hover Tests', function () {
                 position
             );
 
-            if (hovers && hovers.length > 0) {
-                const hover = hovers[0];
-                assert.ok(hover.contents.length > 0, 'Hover should contain content');
+            const hover = hovers[0];
+            assert.ok(hover.contents.length > 0, 'Hover should contain content');
 
-                // Check if the hover content is meaningful
-                const content = hover.contents[0];
-                if (content instanceof vscode.MarkdownString) {
-                    assert.ok(content.value.length > 0, 'Hover content should not be empty');
-                    console.log('Hover content for event ID:', content.value);
-                }
-            } else {
-                assert.fail('No hover information found for event ID');
+            // Check if the hover content is meaningful
+            const content = hover.contents[0];
+            if (content instanceof vscode.MarkdownString) {
+                assert.ok(content.value.length > 0, 'Hover content should not be empty');
+                expect(content.value).to.contain("Checks if the planet is its owner's homeworld")
+                    .and.to.contain("System")
+                    .and.to.contain("Country")
+                    .and.to.contain("ROOT")
+                    .and.to.contain("THIS")
+                    .and.to.contain("PREV");
+                console.log('Hover content:', content.value);
             }
-        });
-
-        test('should provide hover information for triggers', async function () {
-            // Test hover on "is_ai" trigger at line 13
-            const position = new vscode.Position(12, 3); // 0-indexed
-
-            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
-                'vscode.executeHoverProvider',
-                testDocument.uri,
-                position
-            );
-
-            if (hovers && hovers.length > 0) {
-                const hover = hovers[0];
-                assert.ok(hover.contents.length > 0, 'Hover should contain content for triggers');
-                console.log('Hover content for trigger:', hover.contents[0]);
-            } else {
-                assert.fail('No hover information found for trigger');
-            }
-        });
-
-        test('should provide hover information for effects', async function () {
-            // Test hover on "country_event" effect at line 19
-            const position = new vscode.Position(18, 8); // 0-indexed
-
-            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
-                'vscode.executeHoverProvider',
-                testDocument.uri,
-                position
-            );
-
-            if (hovers && hovers.length > 0) {
-                const hover = hovers[0];
-                assert.ok(hover.contents.length > 0, 'Hover should contain content for effects');
-                console.log('Hover content for effect:', hover.contents[0]);
-            } else {
-                assert.fail('No hover information found for effect');
-            }
-        });
-    });
-
-    suite('Scope Context in Hover', function () {
-        test('should provide scope context information in hover', async function () {
-            const uri = vscode.Uri.file(testEventFile);
-            const document = await vscode.workspace.openTextDocument(uri);
-            await vscode.window.showTextDocument(document);
-
-            // Wait for document processing
-            await waitForLanguageServer(document.uri, 10, 100);
-
-            // Test hover inside a country scope (line 35, inside every_country)
-            const position = new vscode.Position(34, 4); // 0-indexed
-
-            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
-                'vscode.executeHoverProvider',
-                document.uri,
-                position
-            );
-
-            if (hovers && hovers.length > 0) {
-                const hover = hovers[0];
-                const content = hover.contents[0];
-
-                if (content instanceof vscode.MarkdownString) {
-                    // Check if scope context is included
-                    assert.ok(content.value.includes('Context') || content.value.includes('Scope') || content.value.length > 0,
-                        'Hover should contain scope context information');
-                    console.log('Scope context hover:', content.value);
-                }
-            } else {
-                assert.fail('No scope context hover found');
-            }
-
-            await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
-        });
-    });
-
-    suite('Scripted Effects Hover', function () {
-        test('should provide hover information for scripted effects', async function () {
-            const uri = vscode.Uri.file(testEffectsFile);
-            const document = await vscode.workspace.openTextDocument(uri);
-            await vscode.window.showTextDocument(document);
-
-            // Wait for document processing
-            await waitForLanguageServer(document.uri, 10, 100);
-
-            // Test hover on the first line which should be a scripted effect definition
-            const position = new vscode.Position(0, 0);
-
-            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
-                'vscode.executeHoverProvider',
-                document.uri,
-                position
-            );
-
-            if (hovers && hovers.length > 0) {
-                const hover = hovers[0];
-                assert.ok(hover.contents.length > 0, 'Hover should contain content for scripted effects');
-                console.log('Scripted effect hover:', hover.contents[0]);
-            } else {
-                assert.fail('No hover information found for scripted effects');
-            }
-
-            await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
         });
     });
 
     suite('Localization Hover', function () {
         test('should provide localization information in hover', async function () {
-            const uri = vscode.Uri.file(testEventFile);
-            const document = await vscode.workspace.openTextDocument(uri);
-            await vscode.window.showTextDocument(document);
+            const uri = vscode.Uri.file(testEffectsFile);
+            testDocument = await vscode.workspace.openTextDocument(uri);
+            const doc = await vscode.window.showTextDocument(testDocument);
+            await waitForLSP(vscode.Uri.file(testEffectsFile));
+            const position = new vscode.Position(36, 70);
 
-            // Wait for document processing
-            await waitForLanguageServer(document.uri, 10, 100);
+            const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
+                'vscode.executeHoverProvider',
+                testDocument.uri,
+                position
+            );
 
-            // Test various positions that might have localization keys
-            const testPositions = [
-                new vscode.Position(8, 7),   // event id
-                new vscode.Position(12, 3),  // trigger
-                new vscode.Position(18, 8),  // effect
-            ];
+            console.log(doc.document.getText(new vscode.Range(new vscode.Position(35,0) ,new vscode.Position(36,0))));
 
-            let found = false;
-            for (const position of testPositions) {
-                const hovers = await vscode.commands.executeCommand<vscode.Hover[]>(
-                    'vscode.executeHoverProvider',
-                    document.uri,
-                    position
-                );
 
-                if (hovers && hovers.length > 0) {
-                    const hover = hovers[0];
-                    const content = hover.contents[0];
 
-                    if (content instanceof vscode.MarkdownString) {
-                        // Check if localization information is included
-                        if (content.value.includes('|') || content.value.toLowerCase().includes('loc')) {
-                            console.log('Found localization in hover:', content.value);
-                            found = true;
-                            break;
-                        }
-                    }
-                }
+            const hover = hovers[0];
+            assert.ok(hover.contents.length > 0, 'Hover should contain content');
+
+            // Check if the hover content is meaningful
+            const content = hover.contents[0];
+            if (content instanceof vscode.MarkdownString) {
+                assert.ok(content.value.length > 0, 'Hover content should not be empty');
+                expect(content.value).to.contain("Faction Governance");
+                console.log('Hover content:', content.value);
             }
-
-            assert.ok(found, 'Expected to find localization information in hover at one of the test positions');
-            await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
         });
     });
 
@@ -418,8 +302,7 @@ suite('LSP Hover Tests', function () {
 
             console.log(`Hover request took ${duration}ms`);
 
-            // Allow up to 5 seconds for hover response (generous for test environment)
-            assert.ok(duration < 5000, `Hover request should complete within 5 seconds, took ${duration}ms`);
+            assert.ok(duration < 100, `Hover request should complete within 100 ms, took ${duration}ms`);
 
             if (hovers) {
                 console.log('Performance test - hovers found:', hovers.length);
