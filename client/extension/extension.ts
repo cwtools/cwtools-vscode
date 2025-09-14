@@ -24,6 +24,7 @@ const irRemote = `https://github.com/cwtools/cwtools-ir-config`;
 const vic2Remote = `https://github.com/cwtools/cwtools-vic2-config`;
 const vic3Remote = `https://github.com/cwtools/cwtools-vic3-config`;
 const ck3Remote = `https://github.com/cwtools/cwtools-ck3-config`;
+const eu5Remote = `https://github.com/kaiser-chris/cwtools-eu5-config`;
 
 export let defaultClient: LanguageClient;
 let fileList : FileListItem[];
@@ -75,6 +76,7 @@ export async function activate(context: ExtensionContext) {
 			case "vic2": repoPath = vic2Remote; break;
 			case "vic3": repoPath = vic3Remote; break;
 			case "ck3": repoPath = ck3Remote; break;
+			case "eu5": repoPath = eu5Remote; break;
 			default: repoPath = stellarisRemote; break;
 		}
 		console.log(language + " " + repoPath);
@@ -100,7 +102,7 @@ export async function activate(context: ExtensionContext) {
 			// Register the server for F# documents
 			documentSelector: [{ scheme: 'file', language: 'paradox' }, { scheme: 'file', language: 'yaml' }, { scheme: 'file', language: 'stellaris' },
 				{ scheme: 'file', language: 'hoi4' }, { scheme: 'file', language: 'eu4' }, { scheme: 'file', language: 'ck2' }, { scheme: 'file', language: 'imperator' }
-				, { scheme: 'file', language: 'vic2' }, { scheme: 'file', language: 'vic3' }, { scheme: 'file', language: 'ck3' }, { scheme: 'file', language: 'paradox'}],
+				, { scheme: 'file', language: 'vic2' }, { scheme: 'file', language: 'vic3' }, { scheme: 'file', language: 'ck3' }, { scheme: 'file', language: 'eu5' }, { scheme: 'file', language: 'paradox'}],
 			synchronize: {
 				// Synchronize the setting section 'languageServerExample' to the server
 				configurationSection: 'cwtools',
@@ -109,7 +111,7 @@ export async function activate(context: ExtensionContext) {
 				fileEvents: fileEvents
 			},
 			initializationOptions: {
-				language: language,
+				language: language === 'eu5' ? 'paradox' : language,
 				isVanillaFolder: isVanillaFolder,
 				rulesCache: cacheDir,
 				rules_version: workspace.getConfiguration('cwtools').get('rules_version'),
@@ -226,6 +228,7 @@ export async function activate(context: ExtensionContext) {
 				case "vic2": gameDisplay = "Victoria II"; break;
 				case "vic3": gameDisplay = "Victoria 3"; break;
 				case "ck3": gameDisplay = "Crusader Kings III"; break;
+				case "eu5": gameDisplay = "Europa Universalis V"; break;
 			}
 			const result = await window.showInformationMessage("Please select the vanilla installation folder for " + gameDisplay, "Select folder");
 			if(!result) {
@@ -267,6 +270,10 @@ export async function activate(context: ExtensionContext) {
 					game = "imperator";
 					dir = path.join(dir, "game");
 					break;
+                case "Europa Universalis V":
+                    game = "eu5";
+                    dir = path.join(dir, "game");
+                    break;
 			}
 			console.log(path.join(dir, "common"));
 			if (game === "" || !(fs.existsSync(path.join(dir, "common")))) {
@@ -365,7 +372,7 @@ export async function activate(context: ExtensionContext) {
 	}
 
 	let languageId : string;
-	const knownLanguageIds = ["stellaris", "eu4", "hoi4", "ck2", "imperator", "vic2", "vic3", "ck3"];
+	const knownLanguageIds = ["stellaris", "eu4", "hoi4", "ck2", "imperator", "vic2", "vic3", "ck3", "eu5"];
 	const getLanguageIdFallback = async function() {
 		const markerFiles = await workspace.findFiles("**/*.txt", null, 1);
 		if (markerFiles.length == 1) {
@@ -388,6 +395,7 @@ export async function activate(context: ExtensionContext) {
 		case "vic2": languageId = "vic2"; break;
 		case "vic3": languageId = "vic3"; break;
 		case "ck3": languageId = "ck3"; break;
+        case "eu5": languageId = "eu5"; break;
 		default: languageId = "paradox"; break;
 	}
 	async function findExeInFiles(gameExeName: string, binariesPrefix = false) {
@@ -421,6 +429,7 @@ export async function activate(context: ExtensionContext) {
 		{ id: "vic2", exeName: "v2game", binariesPrefix: false },
 		{ id: "ck3", exeName: "ck3", binariesPrefix: true },
 		{ id: "vic3", exeName: "victoria3", binariesPrefix: true },
+        { id: "eu5", exeName: "eu5", binariesPrefix: true },
 	];
 
 	const promises = games.map(({ exeName, binariesPrefix }) =>

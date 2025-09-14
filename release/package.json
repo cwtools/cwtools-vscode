@@ -296,6 +296,11 @@
           "type": "string",
           "description": "%configuration.cwtools.cache.vic3.description%"
         },
+        "cwtools.cache.eu5": {
+          "scope": "application",
+          "type": "string",
+          "description": "%configuration.cwtools.cache.eu5.description%"
+        },
         "cwtools.graph.zoomSensitivity": {
           "scope": "resource",
           "type": "number",
@@ -497,6 +502,32 @@
           "**/victoria*3/**/*.gfx",
           "**/victoria*3/**/*.sfx",
           "**/victoria*3/**/*.asset"
+        ]
+      },
+      {
+        "id": "eu5",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/europa*universalis*v/**/*.txt",
+          "**/europa*universalis*v/**/*.gui",
+          "**/europa*universalis*v/**/*.gfx",
+          "**/europa*universalis*v/**/*.asset",
+          "**/europa*universalis*5/**/*.txt",
+          "**/europa*universalis*5/**/*.gui",
+          "**/europa*universalis*5/**/*.gfx",
+          "**/europa*universalis*5/**/*.asset"
         ]
       },
       {
