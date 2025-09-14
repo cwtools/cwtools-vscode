@@ -20,16 +20,16 @@ let isMonitoringActive = false;
 export function setupLSPErrorMonitoring(): void {
     // Mark the start time for this test
     testStartTime = Date.now();
-    
+
     // Only setup the interceptor once
     if (!isMonitoringActive && defaultClient && defaultClient.outputChannel) {
         originalAppendLine = defaultClient.outputChannel.appendLine.bind(defaultClient.outputChannel);
-        
+
         defaultClient.outputChannel.appendLine = (message: string) => {
             const timestamp = Date.now();
-            
+
             // Check for error messages and log them with timestamps
-            if (message.toLowerCase().includes('error') || 
+            if (message.toLowerCase().includes('error') ||
                 message.toLowerCase().includes('exception') ||
                 message.toLowerCase().includes('[Error')) {
                 errorLog.push({
@@ -37,11 +37,11 @@ export function setupLSPErrorMonitoring(): void {
                     message: message
                 });
             }
-            
+
             // Call the original method
             return originalAppendLine!(message);
         };
-        
+
         isMonitoringActive = true;
     } else {
         // If already monitoring, just update the test start time
@@ -56,15 +56,15 @@ export function setupLSPErrorMonitoring(): void {
 export function checkForLSPErrors(testName: string): void {
     // Filter errors to only those that occurred during or after this test started
     const testErrors = errorLog.filter(entry => entry.timestamp >= testStartTime);
-    
     if (testErrors.length > 0) {
-        const errorMessages = testErrors.map(entry => 
+        const errorMessages = testErrors.map(entry =>
             `[${new Date(entry.timestamp).toISOString()}] ${entry.message}`
         ).join('\n');
-        
+
         // Remove the errors we're reporting so they don't affect future tests
         errorLog = errorLog.filter(entry => entry.timestamp < testStartTime);
-        
+        console.log(errorMessages)
+
         assert.fail(`LSP Server errors detected during test "${testName}":\n${errorMessages}`);
     }
 }
@@ -79,7 +79,7 @@ export function teardownLSPErrorMonitoring(): void {
         originalAppendLine = undefined;
         isMonitoringActive = false;
     }
-    
+
     // Clear the error log
     errorLog = [];
     testStartTime = 0;
