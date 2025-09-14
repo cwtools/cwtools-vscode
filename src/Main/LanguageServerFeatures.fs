@@ -12,10 +12,10 @@ open CWTools.Localisation
 module LanguageServerFeatures =
     let convRangeToLSPRange (range: range) =
         { start =
-            { line = (int range.StartLine - 1)
+            { line = max 0 (int range.StartLine - 1)
               character = (int range.StartColumn) }
           ``end`` =
-            { line = (int range.EndLine - 1)
+            { line = max 0 (int range.EndLine - 1)
               character = (int range.EndColumn) } }
 
     let getPathFromDoc (doc: Uri) =
