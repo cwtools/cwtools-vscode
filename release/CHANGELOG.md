@@ -1,5 +1,7 @@
-## Unreleased
+### 0.10.27
 * Remove unused config settings
+* Added chinese localisation for extension setings and actions
+* Various performance improvements
 
 ### 0.10.26
 * Fix stellaris log parsing
