@@ -192,6 +192,7 @@ type GameLanguage =
     | VIC2
     | CK3
     | VIC3
+    | EU5
     | Custom
 
 let getCachedFiles (game: GameLanguage) cachePath isVanillaFolder =
@@ -205,6 +206,7 @@ let getCachedFiles (game: GameLanguage) cachePath isVanillaFolder =
             ([], [])
         | STL, Some cp, _ -> deserialize (cp + "/../stl.cwb")
         | EU4, Some cp, _ -> deserialize (cp + "/../eu4.cwb")
+        | EU5, Some cp, _ -> deserialize (cp + "/../eu5.cwb")
         | HOI4, Some cp, _ -> deserialize (cp + "/../hoi4.cwb")
         | CK2, Some cp, _ -> deserialize (cp + "/../ck2.cwb")
         | IR, Some cp, _ -> deserialize (cp + "/../ir.cwb")
@@ -501,7 +503,38 @@ let loadVIC3 serverSettings =
 
     let game = CWTools.Games.VIC3.VIC3Game(stlsettings)
     game
+let loadEU5 serverSettings =
+    let cached, cachedFiles =
+        getCachedFiles EU5 serverSettings.cachePath serverSettings.isVanillaFolder
 
+    let configs =
+        getConfigFiles serverSettings.cachePath serverSettings.useManualRules serverSettings.manualRulesFolder
+
+    let folders = configs |> List.tryPick getFolderList
+
+
+
+    let stlsettings =
+        { CWTools.Games.EU5.EU5Settings.rootDirectories = getRootDirectories serverSettings
+          modFilter = None
+          scriptFolders = folders
+          excludeGlobPatterns = Some serverSettings.dontLoadPatterns
+          validation =
+            { validateVanilla = serverSettings.validateVanilla
+              experimental = serverSettings.experimental
+              langs = serverSettings.languages }
+          rules =
+            Some
+                { ruleFiles = configs
+                  validateRules = true
+                  debugRulesOnly = false
+                  debugMode = serverSettings.debug_mode }
+          embedded = FromConfig(cachedFiles, cached)
+          debugSettings = DebugSettings.Default
+          maxFileSize = Some serverSettings.maxFileSize }
+
+    let game = CWTools.Games.EU5.EU5Game(stlsettings)
+    game
 let loadCustom serverSettings =
     // let cached, cachedFiles = getCachedFiles STL serverSettings.cachePath serverSettings.isVanillaFolder
     let configs =
