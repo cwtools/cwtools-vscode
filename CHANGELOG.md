@@ -1,3 +1,6 @@
+### 0.10.28
+* Add basic support for EU5
+
 ### 0.10.27
 * Remove unused config settings
 * Added chinese localisation for extension setings and actions
