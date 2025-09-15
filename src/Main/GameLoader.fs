@@ -232,7 +232,9 @@ let getRootDirectories (serverSettings: ServerSettings) =
                 { WorkspaceDirectory.name = wd.name
                   path = wd.uri.LocalPath })
 
-    (rawdirs |> List.map WD) @ (rawdirs |> List.collect addDLCs)
+    (rawdirs |> List.map WD)
+    @ (rawdirs |> List.collect (CWTools.Serializer.addDLCs "dlc"))
+    @ (rawdirs |> List.collect (CWTools.Serializer.addDLCs "integrated_dlc"))
 
 
 let loadEU4 (serverSettings: ServerSettings) =
@@ -503,6 +505,7 @@ let loadVIC3 serverSettings =
 
     let game = CWTools.Games.VIC3.VIC3Game(stlsettings)
     game
+
 let loadEU5 serverSettings =
     let cached, cachedFiles =
         getCachedFiles EU5 serverSettings.cachePath serverSettings.isVanillaFolder
@@ -535,6 +538,7 @@ let loadEU5 serverSettings =
 
     let game = CWTools.Games.EU5.EU5Game(stlsettings)
     game
+
 let loadCustom serverSettings =
     // let cached, cachedFiles = getCachedFiles STL serverSettings.cachePath serverSettings.isVanillaFolder
     let configs =
