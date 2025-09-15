@@ -1,3 +1,6 @@
+### 0.10.29
+* Add "integrated_dlc" directory
+
 ### 0.10.28
 * Add basic support for EU5
 * Fix DLC references
