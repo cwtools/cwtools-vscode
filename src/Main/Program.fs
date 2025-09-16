@@ -736,8 +736,8 @@ type Server(client: ILanguageClient) =
 
                 // Check if client supports InsertReplaceEdit
                 clientSupportsInsertReplaceEdit <-
-                    p.capabilitiesMap.ContainsKey("textDocument.completion.completionItem.insertReplaceSupport") &&
-                    p.capabilitiesMap.["textDocument.completion.completionItem.insertReplaceSupport"]
+                    p.capabilitiesMap.ContainsKey("textDocument.completion.completionItem.insertReplaceSupport")
+                    && p.capabilitiesMap.["textDocument.completion.completionItem.insertReplaceSupport"]
 
                 match p.initializationOptions with
                 | Some opt ->
@@ -937,7 +937,7 @@ type Server(client: ILanguageClient) =
                         |> (fun l -> if List.isEmpty l then [ CK3Lang.English ] else l)
                         |> List.map Lang.CK3
                     | _, CK3 -> [ Lang.CK3 CK3Lang.English ]
-                    | JsonValue.Array (o: JsonValue array), VIC3 ->
+                    | JsonValue.Array(o: JsonValue array), VIC3 ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s ->
@@ -949,7 +949,7 @@ type Server(client: ILanguageClient) =
                         |> (fun l -> if List.isEmpty l then [ VIC3Lang.English ] else l)
                         |> List.map Lang.VIC3
                     | _, VIC3 -> [ Lang.VIC3 VIC3Lang.English ]
-                    | JsonValue.Array (o: JsonValue array), EU5 ->
+                    | JsonValue.Array(o: JsonValue array), EU5 ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s ->
@@ -1214,7 +1214,8 @@ type Server(client: ILanguageClient) =
             }
 
         member this.Completion(p: CompletionParams) =
-            async { return completion gameObj p docs debugMode clientSupportsInsertReplaceEdit } |> catchError None
+            async { return completion gameObj p docs debugMode clientSupportsInsertReplaceEdit }
+            |> catchError None
 
         member this.Hover(p: TextDocumentPositionParams) =
             async {
@@ -1319,6 +1320,7 @@ type Server(client: ILanguageClient) =
         member this.DocumentSymbols(p: DocumentSymbolParams) =
             let createDocumentSymbol name detail range =
                 let range = convRangeToLSPRange range
+                let name = if String.IsNullOrWhiteSpace name then "unnamed" else name
 
                 { name = name
                   detail = detail
