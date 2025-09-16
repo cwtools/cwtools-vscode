@@ -1,3 +1,6 @@
+### 0.10.30
+* HOI4: Add country_metadata, music, portraits, and sound folders to cache
+
 ### 0.10.29
 * Add "integrated_dlc" directory
 
