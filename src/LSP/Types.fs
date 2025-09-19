@@ -124,6 +124,11 @@ type Command =
 
 type TextEdit = { range: Range; newText: string }
 
+type InsertReplaceEdit =
+    { newText: string
+      insert: Range
+      replace: Range }
+
 type TextDocumentEdit =
     { textDocument: VersionedTextDocumentIdentifier
       edits: TextEdit list }
@@ -248,8 +253,14 @@ let writeMarkupKind (m: MarkupKind) : string =
 
 type MarkupContent = { kind: MarkupKind; value: string }
 
+type CompletionItemLabelDetails =
+    { detail: string option
+      description: string option }
+
+
 type CompletionItem =
     { label: string
+      labelDetails: CompletionItemLabelDetails option
       kind: CompletionItemKind option
       detail: string option
       documentation: MarkupContent option
@@ -257,7 +268,7 @@ type CompletionItem =
       filterText: string option
       insertText: string option
       insertTextFormat: InsertTextFormat option
-      textEdit: TextEdit option
+      textEdit: InsertReplaceEdit option
       additionalTextEdits: TextEdit list
       commitCharacters: char list
       command: Command option
@@ -267,6 +278,7 @@ let maxCompletionScore = 1000000
 
 let defaultCompletionItem: CompletionItem =
     { label = ""
+      labelDetails = None
       kind = None
       detail = None
       documentation = None
@@ -508,6 +520,7 @@ let writeHoverContent (s: HoverContent) : JsonValue =
     | MarkedStrings(s) -> JsonValue.Array(s |> Array.map writeMarkedString)
     | MarkupContent(kind, value) ->
         JsonValue.Record [| "kind", (JsonValue.String kind); "value", (JsonValue.String value) |]
+
 
 type Hover =
     { contents: HoverContent

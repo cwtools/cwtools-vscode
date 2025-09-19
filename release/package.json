@@ -5,7 +5,7 @@
   "description": "%extension.description%",
   "author": "Dayshine",
   "license": "MIT",
-  "version": "0.10.26",
+  "version": "0.10.30",
   "preview": true,
   "publisher": "tboby",
   "qna": "https://forum.paradoxplaza.com/forum/index.php?threads/tool-cwtools-a-mod-validating-extension-for-vs-code.1066033/",
@@ -222,7 +222,7 @@
         "cwtools.debug_mode": {
           "scope": "window",
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "%configuration.cwtools.debug_mode.description%"
         },
         "cwtools.logging.diagnostic": {
@@ -295,6 +295,11 @@
           "scope": "application",
           "type": "string",
           "description": "%configuration.cwtools.cache.vic3.description%"
+        },
+        "cwtools.cache.eu5": {
+          "scope": "application",
+          "type": "string",
+          "description": "%configuration.cwtools.cache.eu5.description%"
         },
         "cwtools.graph.zoomSensitivity": {
           "scope": "resource",
@@ -500,6 +505,32 @@
         ]
       },
       {
+        "id": "eu5",
+        "aliases": [
+          "",
+          "paradox",
+          "pdxscript"
+        ],
+        "extensions": [
+          "txt",
+          "gui",
+          "gfx",
+          "asset",
+          "cwt"
+        ],
+        "configuration": "./language-configuration.json",
+        "filenamePatterns": [
+          "**/europa*universalis*v/**/*.txt",
+          "**/europa*universalis*v/**/*.gui",
+          "**/europa*universalis*v/**/*.gfx",
+          "**/europa*universalis*v/**/*.asset",
+          "**/europa*universalis*5/**/*.txt",
+          "**/europa*universalis*5/**/*.gui",
+          "**/europa*universalis*5/**/*.gfx",
+          "**/europa*universalis*5/**/*.asset"
+        ]
+      },
+      {
         "id": "paradox",
         "aliases": [
           "",
@@ -612,6 +643,17 @@
         "editor.acceptSuggestionOnEnter": "off",
         "editor.suggest.insertMode": "replace"
       },
+      "[eu5]": {
+        "files.autoGuessEncoding": true,
+        "editor.quickSuggestions": {
+          "other": true,
+          "comments": false,
+          "strings": true
+        },
+        "editor.insertSpaces": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.suggest.insertMode": "replace"
+      },
       "[customparadox]": {
         "files.autoGuessEncoding": true,
         "editor.quickSuggestions": {
@@ -634,7 +676,7 @@
   },
   "dependencies": {
     "executable": "4.1.1",
-    "vscode-languageclient": "^6.1.3"
+    "vscode-languageclient": "^9.0.1"
   },
   "extensionPack": [
     "tboby.paradox-syntax"

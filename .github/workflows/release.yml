@@ -47,7 +47,7 @@ jobs:
         user-email: ${{ github.event.inputs.email }}
       run: dotnet run --project build -- -t Release
     - name: Publish to Open VSX Registry
-      uses: HaaLeo/publish-vscode-extension@v1
+      uses: HaaLeo/publish-vscode-extension@v2
       id: publishToOpenVSX
       with:
         packagePath: "./release"

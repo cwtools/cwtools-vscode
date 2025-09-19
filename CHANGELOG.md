@@ -1,6 +1,18 @@
-### 0.10.27-pre
+### 0.10.30
+* HOI4: Add country_metadata, music, portraits, and sound folders to cache
+
+### 0.10.29
+* Add "integrated_dlc" directory
+
+### 0.10.28
+* Add basic support for EU5
+* Fix DLC references
+* Fix completion replacement range
+
+### 0.10.27
 * Remove unused config settings
 * Added chinese localisation for extension setings and actions
+* Various performance improvements
 
 ### 0.10.26
 * Fix stellaris log parsing

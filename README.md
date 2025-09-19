@@ -36,6 +36,27 @@ This extension is still in preview, it may not work, it may stop working at any 
   * and a number of other specific validators
 * "Code actions" to generate .yml for missing localisation
 
+## Usage
+
+1. Install this extension
+2. Open your mod folder directly, which should be within a folder containing the game name:
+
+* `C:\Users\name\Documents\Paradox Interactive\Stellaris\mod\your_mod`
+
+3. Follow the prompts to select your vanilla folder
+4. Edit files and watch syntax errors show up when you make mistakes
+5. Wait up to a minute for the extension to scan your mod and find errors
+
+### Multiple mods - workspace
+
+If you have multiple mods that need to be loaded at once, use VS Code's [multi-root workspace](https://code.visualstudio.com/docs/editing/workspaces/workspaces#_untitled-multiroot-workspaces) feature.
+
+1. Open your first mod
+2. Use "File", "Add folder to workspace" to add your next mod
+3. cwtools should reload including both mods and vanilla in context using correct mod load order
+
+If you want to browse vanilla files, you can use the "CWTOOLS LOADED FILES" section in the Explorer tab.
+
 ### Completion
 
 ![Completion](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/completion.gif)
@@ -63,22 +84,6 @@ This extension is still in preview, it may not work, it may stop working at any 
 ### Find all references
 
 ![Find all references](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/findallrefs.png)
-
-## Usage
-
-1. Install this extension
-2. If on linux, possibly follow [these instructions](https://code.visualstudio.com/docs/setup/linux#_error-enospc)
-3. Either open your mod folder directly
-4. or open the Game folder containing your mods. E.g. for Stellaris this can be one of:
-    * "C:\Users\name\Paradox Interactive\Stellaris"
-    * "C:\Program Files(x86)\Steam\steamapps\common\Stellaris"
-
-    or on linux
-    * "/home/name/.local/share/Paradox Interactive/Stellars"
-    * "/home/name/.steam/steam/steamapps/common/Stellaris"
-5. Follow the prompts to select your vanilla folder
-6. Edit files and watch syntax errors show up when you make mistakes
-7. Wait up to a minute for the extension to scan all your mods and find all errors
 
 ## Links
 
