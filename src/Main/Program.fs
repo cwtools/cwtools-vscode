@@ -853,6 +853,7 @@ type Server(client: ILanguageClient) =
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
             async {
                 let config = p.settings.Item("cwtools")
+
                 let newLanguages =
                     match config.Item("localisation").Item("languages"), activeGame with
                     | JsonValue.Array o, STL ->
@@ -1326,18 +1327,18 @@ type Server(client: ILanguageClient) =
                     | Some game ->
                         let types = game.Types()
 
-                        let (all: DocumentSymbol array) =
+                        let (all: DocumentSymbol seq) =
                             types
-                            |> Map.toArray
-                            |> Array.collect (fun (k, vs) ->
+                            |> Map.toList
+                            |> Seq.collect (fun (k, vs) ->
                                 vs
-                                |> Array.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
-                                |> Array.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
-                            |> Array.rev
-                            |> Array.filter (fun ds -> not (ds.detail.Contains(".")))
+                                |> Seq.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
+                                |> Seq.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
+                            |> Seq.rev
+                            |> Seq.filter (fun ds -> not (ds.detail.Contains(".")))
 
                         all
-                        |> Array.fold
+                        |> Seq.fold
                             (fun (acc: DocumentSymbol list) (next: DocumentSymbol) ->
                                 if
                                     acc
@@ -1669,17 +1670,17 @@ type Server(client: ILanguageClient) =
 
                                 let types = game.Types()
 
-                                let (all: string array) =
+                                let (all: string seq) =
                                     types
-                                    |> Map.toArray
-                                    |> Array.filter (fun (k, _) -> typesWithGraph |> List.contains k)
-                                    |> Array.collect (fun (k, vs) ->
+                                    |> Map.toList
+                                    |> Seq.filter (fun (k, _) -> typesWithGraph |> List.contains k)
+                                    |> Seq.collect (fun (k, vs) ->
                                         vs
-                                        |> Array.filter (fun tdi -> tdi.range.FileName = lastFile)
-                                        |> Array.map (fun _ -> k))
-                                    |> Array.filter (fun ds -> not (ds.Contains('.')))
+                                        |> Seq.filter (fun tdi -> tdi.range.FileName = lastFile)
+                                        |> Seq.map (fun _ -> k))
+                                    |> Seq.filter (fun ds -> not (ds.Contains(".")))
 
-                                Some(all |> Array.map JsonValue.String |> JsonValue.Array)
+                                Some(all |> Seq.map JsonValue.String |> Array.ofSeq |> JsonValue.Array)
                             | None -> None
                         | { command = "exportTypes"
                             arguments = _ } ->
@@ -1689,12 +1690,12 @@ type Server(client: ILanguageClient) =
 
                                 let res =
                                     game.Types()
-                                    |> Map.toArray
-                                    |> Array.collect (fun (s, vs) -> vs |> Array.map (fun v -> s, v))
+                                    |> Map.toList
+                                    |> Seq.collect (fun (s, vs) -> vs |> Seq.map (fun v -> s, v))
 
                                 let text =
                                     res
-                                    |> Array.map (fun (t, td) ->
+                                    |> Seq.map (fun (t, td) ->
                                         sprintf
                                             "%s,%s,%s,%A"
                                             t
