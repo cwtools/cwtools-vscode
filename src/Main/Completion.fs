@@ -356,8 +356,8 @@ let completion
         // let variables = game.References.ScriptVariableNames |> List.map (fun v -> {defaultCompletionItem with label = v; kind = Some CompletionItemKind.Variable })
         // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
 
-        //        let stopwatch = System.Diagnostics.Stopwatch.StartNew()
-        //        stopwatch.Start()
+        let stopwatch = System.Diagnostics.Stopwatch.StartNew()
+        stopwatch.Start()
         let position = PosHelper.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
 
         let filetext =

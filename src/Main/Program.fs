@@ -940,10 +940,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ VIC3Lang.English ] else l)
-                        |> List.map Lang.VIC3
-                    | _, VIC3 -> [ Lang.VIC3 VIC3Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| VIC3Lang.English |] else l)
+                        |> Array.map Lang.VIC3
+                    | _, VIC3 -> [| Lang.VIC3 VIC3Lang.English |]
                     | JsonValue.Array (o: JsonValue array), EU5 ->
                         o
                         |> Array.choose (function
@@ -952,11 +951,10 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ EU5Lang.English ] else l)
-                        |> List.map Lang.EU5
-                    | _, EU5 -> [ Lang.EU5 EU5Lang.English ]
-                    | _, Custom -> [ Lang.Custom CustomLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| EU5Lang.English |] else l)
+                        |> Array.map Lang.EU5
+                    | _, EU5 -> [| Lang.EU5 EU5Lang.English |]
+                    | _, Custom -> [| Lang.Custom CustomLang.English |]
 
                 languages <- newLanguages
 
