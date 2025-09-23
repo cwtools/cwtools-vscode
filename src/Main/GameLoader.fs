@@ -161,11 +161,7 @@ let getConfigFiles cachePath useManualRules manualRulesFolder =
 
 let getFolderList (filename: string, filetext: string) =
     if Path.GetFileName filename = "folders.cwt" then
-        Some(
-            filetext.Split([| "\r\n"; "\r"; "\n" |], StringSplitOptions.None)
-            |> List.ofArray
-            |> List.filter (fun s -> s <> "")
-        )
+        Some(filetext.Split([| "\r\n"; "\r"; "\n" |], StringSplitOptions.RemoveEmptyEntries ||| StringSplitOptions.TrimEntries))
     else
         None
 
@@ -176,9 +172,9 @@ type ServerSettings =
       isVanillaFolder: bool
       path: string
       workspaceFolders: WorkspaceFolder list
-      dontLoadPatterns: string list
+      dontLoadPatterns: string array
       validateVanilla: bool
-      languages: CWTools.Common.Lang list
+      languages: CWTools.Common.Lang array
       experimental: bool
       debug_mode: bool
       maxFileSize: int }

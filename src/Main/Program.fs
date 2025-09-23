@@ -15,6 +15,7 @@ open System.Runtime.InteropServices
 open FSharp.Data
 open CWTools.Rules
 open CWTools.Utilities.Position
+open Languages
 open Main.Serialize
 open Main.Git
 open System.Diagnostics
@@ -90,7 +91,7 @@ type Server(client: ILanguageClient) =
     let mutable eu5GameObj: option<IGame<EU5ComputedData>> = None
     let mutable customGameObj: option<IGame<JominiComputedData>> = None
 
-    let mutable languages: Lang list = []
+    let mutable languages: Lang array = [||]
     let mutable rootUri: Uri option = None
     let mutable workspaceFolders: WorkspaceFolder list = []
     let mutable cachePath: string option = None
@@ -115,9 +116,9 @@ type Server(client: ILanguageClient) =
     let mutable generatedStrings: string = ":0 \"REPLACE_ME\""
     let mutable clientSupportsInsertReplaceEdit: bool = false
 
-    let mutable ignoreCodes: string list = []
-    let mutable ignoreFiles: string list = []
-    let mutable dontLoadPatterns: string list = []
+    let mutable ignoreCodes: string array = [||]
+    let mutable ignoreFiles: string array = [||]
+    let mutable dontLoadPatterns: string array = [||]
     /// key: FileName
     let mutable locCache: Map<string, CWError list> = Map.empty
 
@@ -180,8 +181,8 @@ type Server(client: ILanguageClient) =
     let sendDiagnostics s =
         let diagnosticFilter (f: string, d) =
             match (f, d) with
-            | _, { Diagnostic.code = Some code } when List.contains code ignoreCodes -> false
-            | f, _ when List.contains (Path.GetFileName f) ignoreFiles -> false
+            | _, { Diagnostic.code = Some code } when Array.contains code ignoreCodes -> false
+            | f, _ when Array.contains (Path.GetFileName f) ignoreFiles -> false
             | _, _ -> true
 
         s
@@ -425,12 +426,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeSTL vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | STL, None, _, _, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("stellaris"))
@@ -438,12 +439,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeEU4 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | EU4, _, None, _, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("eu4"))
@@ -451,12 +452,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeHOI4 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | HOI4, _, _, None, _, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("hoi4"))
@@ -464,12 +465,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeCK2 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK2, _, _, _, None, _, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("ck2"))
@@ -477,12 +478,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeIR vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | IR, _, _, _, _, None, _, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("imperator"))
@@ -490,12 +491,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeVIC2 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC2, _, _, _, _, _, None, _, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic2"))
@@ -503,12 +504,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeCK3 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | CK3, _, _, _, _, _, _, None, _, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("ck3"))
@@ -516,12 +517,12 @@ type Server(client: ILanguageClient) =
                     client.CustomNotification(
                         "loadingBar",
                         JsonValue.Record
-                            [| "value", JsonValue.String("Generating vanilla cache...")
+                            [| "value", JsonValue.String(LangResources.loadingBar_GeneratingVanillaCache)
                                "enable", JsonValue.Boolean(true) |]
                     )
 
                     serializeVIC3 vp gameCachePath
-                    let text = $"Vanilla cache for {activeGame} has been updated."
+                    let text = String.Format(LangResources.vanillaCacheUpdated, activeGame)
                     client.CustomNotification("forceReload", JsonValue.String(text))
                 | VIC3, _, _, _, _, _, _, _, None, _ ->
                     client.CustomNotification("promptVanillaPath", JsonValue.String("vic3"))
@@ -545,7 +546,7 @@ type Server(client: ILanguageClient) =
         client.CustomNotification(
             "loadingBar",
             JsonValue.Record
-                [| "value", JsonValue.String("Loading project...")
+                [| "value", JsonValue.String(LangResources.loadingBar_LoadingProject)
                    "enable", JsonValue.Boolean(true) |]
         )
 
@@ -658,7 +659,7 @@ type Server(client: ILanguageClient) =
                 client.CustomNotification(
                     "loadingBar",
                     JsonValue.Record
-                        [| "value", JsonValue.String("Validating files...")
+                        [| "value", JsonValue.String(LangResources.loadingBar_ValidatingFiles)
                            "enable", JsonValue.Boolean(true) |]
                 )
 
@@ -851,8 +852,9 @@ type Server(client: ILanguageClient) =
 
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
             async {
+                let config = p.settings.Item("cwtools")
                 let newLanguages =
-                    match p.settings.Item("cwtools").Item("localisation").Item("languages"), activeGame with
+                    match config.Item("localisation").Item("languages"), activeGame with
                     | JsonValue.Array o, STL ->
                         o
                         |> Array.choose (function
@@ -861,10 +863,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ STLLang.English ] else l)
-                        |> List.map Lang.STL
-                    | _, STL -> [ Lang.STL STLLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| STLLang.English |] else l)
+                        |> Array.map Lang.STL
+                    | _, STL -> [| Lang.STL STLLang.English |]
                     | JsonValue.Array o, EU4 ->
                         o
                         |> Array.choose (function
@@ -873,10 +874,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ EU4Lang.English ] else l)
-                        |> List.map Lang.EU4
-                    | _, EU4 -> [ Lang.EU4 EU4Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| EU4Lang.English |] else l)
+                        |> Array.map Lang.EU4
+                    | _, EU4 -> [| Lang.EU4 EU4Lang.English |]
                     | JsonValue.Array o, HOI4 ->
                         o
                         |> Array.choose (function
@@ -885,10 +885,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ HOI4Lang.English ] else l)
-                        |> List.map Lang.HOI4
-                    | _, HOI4 -> [ Lang.HOI4 HOI4Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| HOI4Lang.English |] else l)
+                        |> Array.map Lang.HOI4
+                    | _, HOI4 -> [| Lang.HOI4 HOI4Lang.English |]
                     | JsonValue.Array o, CK2 ->
                         o
                         |> Array.choose (function
@@ -897,10 +896,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ CK2Lang.English ] else l)
-                        |> List.map Lang.CK2
-                    | _, CK2 -> [ Lang.CK2 CK2Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| CK2Lang.English |] else l)
+                        |> Array.map Lang.CK2
+                    | _, CK2 -> [| Lang.CK2 CK2Lang.English |]
                     | JsonValue.Array o, IR ->
                         o
                         |> Array.choose (function
@@ -909,10 +907,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ IRLang.English ] else l)
-                        |> List.map Lang.IR
-                    | _, IR -> [ Lang.IR IRLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| IRLang.English |] else l)
+                        |> Array.map Lang.IR
+                    | _, IR -> [| Lang.IR IRLang.English |]
                     | JsonValue.Array o, VIC2 ->
                         o
                         |> Array.choose (function
@@ -921,10 +918,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ VIC2Lang.English ] else l)
-                        |> List.map Lang.VIC2
-                    | _, VIC2 -> [ Lang.VIC2 VIC2Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| VIC2Lang.English |] else l)
+                        |> Array.map Lang.VIC2
+                    | _, VIC2 -> [| Lang.VIC2 VIC2Lang.English |]
                     | JsonValue.Array o, CK3 ->
                         o
                         |> Array.choose (function
@@ -933,11 +929,10 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ CK3Lang.English ] else l)
-                        |> List.map Lang.CK3
-                    | _, CK3 -> [ Lang.CK3 CK3Lang.English ]
-                    | JsonValue.Array (o: JsonValue array), VIC3 ->
+                        |> (fun l -> if Array.isEmpty l then [| CK3Lang.English |] else l)
+                        |> Array.map Lang.CK3
+                    | _, CK3 -> [| Lang.CK3 CK3Lang.English |]
+                    | JsonValue.Array o, VIC3 ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s ->
@@ -945,10 +940,9 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ VIC3Lang.English ] else l)
-                        |> List.map Lang.VIC3
-                    | _, VIC3 -> [ Lang.VIC3 VIC3Lang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| VIC3Lang.English |] else l)
+                        |> Array.map Lang.VIC3
+                    | _, VIC3 -> [| Lang.VIC3 VIC3Lang.English |]
                     | JsonValue.Array (o: JsonValue array), EU5 ->
                         o
                         |> Array.choose (function
@@ -957,130 +951,126 @@ type Server(client: ILanguageClient) =
                                  | TrySuccess s -> Some s
                                  | TryFailure -> None)
                             | _ -> None)
-                        |> List.ofArray
-                        |> (fun l -> if List.isEmpty l then [ EU5Lang.English ] else l)
-                        |> List.map Lang.EU5
-                    | _, EU5 -> [ Lang.EU5 EU5Lang.English ]
-                    | _, Custom -> [ Lang.Custom CustomLang.English ]
+                        |> (fun l -> if Array.isEmpty l then [| EU5Lang.English |] else l)
+                        |> Array.map Lang.EU5
+                    | _, EU5 -> [| Lang.EU5 EU5Lang.English |]
+                    | _, Custom -> [| Lang.Custom CustomLang.English |]
 
                 languages <- newLanguages
 
-                match p.settings.Item("cwtools").Item("localisation").Item("generated_strings") with
+                match config.Item("localisation").Item("generated_strings") with
                 | JsonValue.String newString -> generatedStrings <- newString
                 | _ -> ()
 
                 let newVanillaOnly =
-                    match p.settings.Item("cwtools").Item("errors").Item("vanilla") with
+                    match config.Item("errors").Item("vanilla") with
                     | JsonValue.Boolean b -> b
                     | _ -> false
 
                 validateVanilla <- newVanillaOnly
 
                 let newExperimental =
-                    match p.settings.Item("cwtools").Item("experimental") with
+                    match config.Item("experimental") with
                     | JsonValue.Boolean b -> b
                     | _ -> false
 
                 experimental <- newExperimental
 
                 let newDebugMode =
-                    match p.settings.Item("cwtools").Item("debug_mode") with
+                    match config.Item("debug_mode") with
                     | JsonValue.Boolean b -> b
                     | _ -> false
 
                 debugMode <- newDebugMode
 
                 let newIgnoreCodes =
-                    match p.settings.Item("cwtools").Item("errors").Item("ignore") with
+                    match config.Item("errors").Item("ignore") with
                     | JsonValue.Array o ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s -> Some s
                             | _ -> None)
-                        |> List.ofArray
-                    | _ -> []
+                    | _ -> [||]
 
                 ignoreCodes <- newIgnoreCodes
 
                 let newIgnoreFiles =
-                    match p.settings.Item("cwtools").Item("errors").Item("ignorefiles") with
+                    match config.Item("errors").Item("ignorefiles") with
                     | JsonValue.Array o ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s -> Some s
                             | _ -> None)
-                        |> List.ofArray
-                    | _ -> []
+                    | _ -> [||]
 
                 ignoreFiles <- newIgnoreFiles
 
                 let excludePatterns =
-                    match p.settings.Item("cwtools").Item("ignore_patterns") with
+                    match config.Item("ignore_patterns") with
                     | JsonValue.Array o ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s -> Some s
                             | _ -> None)
-                        |> List.ofArray
-                    | _ -> []
+                    | _ -> [||]
 
                 dontLoadPatterns <- excludePatterns
 
-                match p.settings.Item("cwtools").Item("trace").Item("server") with
+                match config.Item("trace").Item("server") with
                 | JsonValue.String "messages"
                 | JsonValue.String "verbose" -> loglevel <- LogLevel.Verbose
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("eu4") with
+                match config.Item("cache").Item("eu4") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> eu4VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("stellaris") with
+                match config.Item("cache").Item("stellaris") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> stlVanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("hoi4") with
+                match config.Item("cache").Item("hoi4") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> hoi4VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("ck2") with
+                match config.Item("cache").Item("ck2") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> ck2VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("imperator") with
+                match config.Item("cache").Item("imperator") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> irVanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("vic2") with
+                match config.Item("cache").Item("vic2") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> vic2VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("ck3") with
+                match config.Item("cache").Item("ck3") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> ck3VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("vic3") with
+                match config.Item("cache").Item("vic3") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> vic3VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("cache").Item("eu5") with
+                match config.Item("cache").Item("eu5") with
                 | JsonValue.String "" -> ()
                 | JsonValue.String s -> eu5VanillaPath <- Some s
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("rules_folder") with
+                match config.Item("rules_folder") with
                 | JsonValue.String x -> manualRulesFolder <- Some x
                 | _ -> ()
 
-                match p.settings.Item("cwtools").Item("maxFileSize") with
+                match config.Item("maxFileSize") with
                 | JsonValue.Number x -> maxFileSize <- int x
                 | _ -> ()
 
@@ -1248,7 +1238,7 @@ type Server(client: ILanguageClient) =
                 return
                     match gameObj with
                     | Some game ->
-                        let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
+                        let position = PosHelper.fromZ p.position.line p.position.character
                         logInfo $"goto fn %A{p.textDocument.uri}"
 
                         let path =
@@ -1284,7 +1274,7 @@ type Server(client: ILanguageClient) =
                 return
                     match gameObj with
                     | Some game ->
-                        let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
+                        let position = PosHelper.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
 
                         let path =
                             let u = p.textDocument.uri
@@ -1334,18 +1324,18 @@ type Server(client: ILanguageClient) =
                     | Some game ->
                         let types = game.Types()
 
-                        let (all: DocumentSymbol list) =
+                        let (all: DocumentSymbol array) =
                             types
-                            |> Map.toList
-                            |> List.collect (fun (k, vs) ->
+                            |> Map.toArray
+                            |> Array.collect (fun (k, vs) ->
                                 vs
-                                |> List.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
-                                |> List.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
-                            |> List.rev
-                            |> List.filter (fun ds -> not (ds.detail.Contains(".")))
+                                |> Array.filter (fun tdi -> tdi.range.FileName = p.textDocument.uri.LocalPath)
+                                |> Array.map (fun tdi -> createDocumentSymbol tdi.id k tdi.range))
+                            |> Array.rev
+                            |> Array.filter (fun ds -> not (ds.detail.Contains(".")))
 
                         all
-                        |> List.fold
+                        |> Array.fold
                             (fun (acc: DocumentSymbol list) (next: DocumentSymbol) ->
                                 if
                                     acc
@@ -1511,9 +1501,8 @@ type Server(client: ILanguageClient) =
                             | Some ir, _ ->
                                 let text =
                                     ir.References().ConfigRules
-                                    |> List.map (fun r -> r.ToString())
-                                    |> List.toArray
-                                    |> (fun l -> String.Join("\n", l))
+                                    |> Seq.map _.ToString()
+                                    |> (fun l -> String.Join('\n', l))
 
                                 client.CustomNotification(
                                     "createVirtualFile",
@@ -1524,9 +1513,8 @@ type Server(client: ILanguageClient) =
                             | _, Some hoi4 ->
                                 let text =
                                     hoi4.References().ConfigRules
-                                    |> List.map (fun r -> r.ToString())
-                                    |> List.toArray
-                                    |> (fun l -> String.Join("\n", l))
+                                    |> Seq.map _.ToString()
+                                    |> (fun l -> String.Join('\n', l))
                                 // let text = sprintf "%O" (ir.References().ConfigRules)
                                 client.CustomNotification(
                                     "createVirtualFile",
@@ -1679,17 +1667,17 @@ type Server(client: ILanguageClient) =
 
                                 let types = game.Types()
 
-                                let (all: string list) =
+                                let (all: string array) =
                                     types
-                                    |> Map.toList
-                                    |> List.filter (fun (k, _) -> typesWithGraph |> List.contains k)
-                                    |> List.collect (fun (k, vs) ->
+                                    |> Map.toArray
+                                    |> Array.filter (fun (k, _) -> typesWithGraph |> List.contains k)
+                                    |> Array.collect (fun (k, vs) ->
                                         vs
-                                        |> List.filter (fun tdi -> tdi.range.FileName = lastFile)
-                                        |> List.map (fun _ -> k))
-                                    |> List.filter (fun ds -> not (ds.Contains(".")))
+                                        |> Array.filter (fun tdi -> tdi.range.FileName = lastFile)
+                                        |> Array.map (fun _ -> k))
+                                    |> Array.filter (fun ds -> not (ds.Contains('.')))
 
-                                Some(all |> Array.ofList |> Array.map JsonValue.String |> JsonValue.Array)
+                                Some(all |> Array.map JsonValue.String |> JsonValue.Array)
                             | None -> None
                         | { command = "exportTypes"
                             arguments = _ } ->
@@ -1699,17 +1687,17 @@ type Server(client: ILanguageClient) =
 
                                 let res =
                                     game.Types()
-                                    |> Map.toList
-                                    |> List.collect (fun (s, vs) -> vs |> List.map (fun v -> s, v))
+                                    |> Map.toArray
+                                    |> Array.collect (fun (s, vs) -> vs |> Array.map (fun v -> s, v))
 
                                 let text =
                                     res
-                                    |> List.map (fun (t, td) ->
+                                    |> Array.map (fun (t, td) ->
                                         sprintf
                                             "%s,%s,%s,%A"
                                             t
                                             td.id
-                                            (td.range.FileName.Replace("\\", "/"))
+                                            (td.range.FileName.Replace('\\', '/'))
                                             td.range.StartLine)
                                     |> String.concat Environment.NewLine
 
@@ -1731,7 +1719,8 @@ type Server(client: ILanguageClient) =
 [<EntryPoint>]
 let main (_: array<string>) : int =
     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
-    let cultureInfo = System.Globalization.CultureInfo("en-US") //System.Globalization.CultureInfo.InvariantCulture;
+    LangResources.Culture <- System.Globalization.CultureInfo.CurrentCulture
+    let cultureInfo = System.Globalization.CultureInfo("en-US")
     System.Globalization.CultureInfo.DefaultThreadCurrentCulture <- cultureInfo
     System.Globalization.CultureInfo.DefaultThreadCurrentUICulture <- cultureInfo
     System.Threading.Thread.CurrentThread.CurrentCulture <- cultureInfo

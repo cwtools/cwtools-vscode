@@ -8,6 +8,7 @@ open CWTools.Utilities.Position
 open CWTools.Games
 open System.IO
 open CWTools.Localisation
+open Main
 
 module LanguageServerFeatures =
     let convRangeToLSPRange (range: range) =
@@ -23,7 +24,7 @@ module LanguageServerFeatures =
 
         if
             RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-            && u.LocalPath.StartsWith "/"
+            && u.LocalPath.StartsWith '/'
         then
             u.LocalPath.Substring(1)
         else
@@ -85,7 +86,7 @@ module LanguageServerFeatures =
         =
         async {
             let unescapedWord = docs.GetTextAtPosition(doc, pos)
-            let position = Pos.fromZ pos.line pos.character
+            let position = PosHelper.fromZ pos.line pos.character
             let path = getPathFromDoc doc
 
             let hoverFunction (game: IGame<_>) =

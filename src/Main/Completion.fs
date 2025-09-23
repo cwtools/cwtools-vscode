@@ -357,8 +357,7 @@ let completion
         // logInfo (sprintf "completion prefix %A %A" prefixSoFar (items |> List.map (fun x -> x.label)))
 
         let stopwatch = System.Diagnostics.Stopwatch.StartNew()
-        stopwatch.Start()
-        let position = Pos.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
+        let position = PosHelper.fromZ p.position.line p.position.character // |> (fun p -> Pos.fromZ)
 
         let filetext =
             (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
