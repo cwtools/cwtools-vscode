@@ -227,10 +227,11 @@ let getRootDirectories (serverSettings: ServerSettings) =
             |> List.map (fun wd ->
                 { WorkspaceDirectory.name = wd.name
                   path = wd.uri.LocalPath })
-
-    (rawdirs |> List.map WD)
-    @ (rawdirs |> List.collect (CWTools.Serializer.addDLCs "dlc"))
-    @ (rawdirs |> List.collect (CWTools.Serializer.addDLCs "integrated_dlc"))
+    let rawdirs = rawdirs |> Array.ofList
+    Array.concat
+        [ rawdirs |> Array.map WD;
+            rawdirs |> Array.collect (CWTools.Serializer.addDLCs "dlc");
+            rawdirs |> Array.collect (CWTools.Serializer.addDLCs "integrated_dlc") ]
 
 
 let loadEU4 (serverSettings: ServerSettings) =

@@ -933,7 +933,7 @@ type Server(client: ILanguageClient) =
                         |> (fun l -> if Array.isEmpty l then [| CK3Lang.English |] else l)
                         |> Array.map Lang.CK3
                     | _, CK3 -> [| Lang.CK3 CK3Lang.English |]
-                    | JsonValue.Arrayo, VIC3 ->
+                    | JsonValue.Array o, VIC3 ->
                         o
                         |> Array.choose (function
                             | JsonValue.String s ->
