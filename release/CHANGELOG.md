@@ -1,3 +1,7 @@
+### 0.10.31
+* Stellaris: Allow "(", ")" as values, to allow parsing (but not proper support for) `@[()]`
+* Fix a bug with document symbols
+
 ### 0.10.30
 * HOI4: Add country_metadata, music, portraits, and sound folders to cache
 
