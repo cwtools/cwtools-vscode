@@ -29,6 +29,12 @@ let mutable completionCacheCount = 0
 let mutable private completionPartialCache: (CompletionParams * CompletionItem seq) option =
     None
 
+let clearCompletionCaches () =
+    completionCache.Clear()
+    rangeCache <- None
+    completionPartialCache <- None
+    completionCacheCount <- 0
+
 let completionResolveItem (gameObj: IGame option) (item: CompletionItem) =
     async {
         logInfo "Completion resolve"
@@ -157,7 +163,8 @@ let computeCompletionRanges (filetext: string) (line: int) (character: int) =
         (insertRange, replaceRange)
 
 let optimiseCompletion (completionList: CompletionItem seq) =
-    if completionCacheCount > 2 then
+    // Clear cache more aggressively - every other call
+    if completionCacheCount > 1 then
         completionCache.Clear()
         completionCacheCount <- 0
     else

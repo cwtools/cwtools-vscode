@@ -8,6 +8,7 @@ open CWTools.Parser
 open CWTools.Common
 open CWTools.Games
 open FParsec
+open System.Threading
 open System.Threading.Tasks
 open System.Text
 open System.Reflection
@@ -74,6 +75,8 @@ type Server(client: ILanguageClient) =
     do setupLogger client
     let docs = DocumentStore()
 
+
+
     let notFound (doc: Uri) () : 'Any =
         raise (Exception $"%s{doc.ToString()} does not exist")
 
@@ -125,6 +128,21 @@ type Server(client: ILanguageClient) =
     let mutable lastFocusedFile: string option = None
 
     let mutable currentlyRefreshingFiles: bool = false
+    /// Counter for periodic deep cleanup (every N full analyses)
+    let mutable cleanupCounter = 0
+    let cleanupInterval = 10
+
+    let clearGameCaches () =
+        match gameObj with
+        | Some game ->
+            logDiag "Performing deep cache cleanup"
+            game.ClearValidationCache()
+            game.ClearResources()
+            clearCompletionCaches ()
+            GC.Collect(2, GCCollectionMode.Optimized, true)
+            GC.WaitForPendingFinalizers()
+            logDiag "Deep cache cleanup completed"
+        | None -> ()
 
     let (|TrySuccess|TryFailure|) tryResult =
         match tryResult with
@@ -269,12 +287,14 @@ type Server(client: ILanguageClient) =
         }
 
     let mutable delayTime = TimeSpan(0, 0, 30)
-
+    /// Track trigger count across RefreshCaches() to detect accumulation leaks
+    let mutable previousTriggerCount = -1
     let delayedAnalyze () =
         match gameObj with
         | Some game ->
             let timestamp = Stopwatch.GetTimestamp()
             game.RefreshCaches()
+            previousTriggerCount <- game.ScriptedTriggers() |> List.length
 
             if delayedLocUpdate then
                 logDiag "delayedLocUpdate true"
@@ -298,7 +318,17 @@ type Server(client: ILanguageClient) =
 
             delayTime <-
                 TimeSpan(Math.Min(TimeSpan(0, 0, 60).Ticks, Math.Max(TimeSpan(0, 0, 10).Ticks, 3L * time.Ticks)))
-        //GC.Collect(2, System.GCCollectionMode.Optimized, false, false)
+
+            // Periodic memory cleanup
+            cleanupCounter <- cleanupCounter + 1
+
+            if cleanupCounter >= cleanupInterval then
+                cleanupCounter <- 0
+                logDiag "Triggering deep memory cleanup"
+                clearGameCaches ()
+            else
+                // Lightweight GC between deep cleanups
+                GC.Collect(2, GCCollectionMode.Optimized, false)
         | None -> ()
 
     let lintAgent =
@@ -844,7 +874,8 @@ type Server(client: ILanguageClient) =
                                           "listAllLocFiles"
                                           "gettech"
                                           "getGraphData"
-                                          "exportTypes" ] } } }
+                                          "exportTypes"
+                                          "getMemoryDetails" ] } } }
             }
 
         member this.Initialized() = async { () }
@@ -1713,6 +1744,134 @@ type Server(client: ILanguageClient) =
 
                                 None
                             | _ -> None
+                        | { command = "getMemoryDetails"
+                            arguments = _ } ->
+                            let proc = Process.GetCurrentProcess()
+                            // ── File breakdown from AllFiles() ──
+                            let allFiles = match gameObj with Some g -> g.AllFiles() | None -> []
+                            let totalFiles = allFiles.Length
+                            let entityFiles = allFiles |> List.choose (function EntityResource _ -> Some 1 | _ -> None) |> List.length
+                            let fileResources = allFiles |> List.choose (function FileResource _ -> Some 1 | _ -> None) |> List.length
+                            let fileWithContentFiles = allFiles |> List.choose (function FileWithContentResource _ -> Some 1 | _ -> None) |> List.length
+                            // ── Open documents in DocumentStore ──
+                            let openDocs = docs.OpenFiles() |> List.length
+                            // ── Validation / errors ──
+                            let valErrors = match gameObj with Some g -> g.ValidationErrors() |> List.length | None -> 0
+                            let locErrors = match gameObj with Some g -> g.LocalisationErrors(false, true) |> List.length | None -> 0
+                            let locCacheCount = locCache |> Map.count
+                            // ── Type system / effects / triggers ──
+                            let typeDefCount, typeEntryCount, effectsCount, triggersCount, staticModCount =
+                                match gameObj with
+                                | Some g ->
+                                    let tds = g.TypeDefs() |> List.length
+                                    let tes = g.Types() |> Map.toList |> List.sumBy (fun (_, arr) -> arr.Length)
+                                    let efs = g.ScriptedEffects() |> List.length
+                                    let trs = g.ScriptedTriggers() |> List.length
+                                    let sms = g.StaticModifiers() |> Array.length
+                                    tds, tes, efs, trs, sms
+                                | None -> 0, 0, 0, 0, 0
+                            // ── String resource manager internals (via reflection) ──
+                            let stringUniqueKeys, stringTotalEntries =
+                                try
+                                    let sm = CWTools.Utilities.StringResource.stringManager
+                                    let t = sm.GetType()
+                                    let stringsField = t.GetField("strings", System.Reflection.BindingFlags.NonPublic ||| System.Reflection.BindingFlags.Instance)
+                                    let intsField = t.GetField("ints", System.Reflection.BindingFlags.NonPublic ||| System.Reflection.BindingFlags.Instance)
+                                    let stringsDict = stringsField.GetValue(sm)
+                                    let intsDict = intsField.GetValue(sm)
+                                    let uniqueKeys = stringsDict.GetType().GetProperty("Count").GetValue(stringsDict) :?> int
+                                    let totalEntries = intsDict.GetType().GetProperty("Count").GetValue(intsDict) :?> int
+                                    uniqueKeys, totalEntries
+                                with _ -> -1, -1
+                            // ── Try to get entitiesMap (the AST cache) size from ResourceManager via IGame<'T> ──
+                            let entityCacheCount =
+                                match stlGameObj, eu4GameObj, hoi4GameObj, ck2GameObj, irGameObj,
+                                      vic2GameObj, ck3GameObj, vic3GameObj, eu5GameObj, customGameObj with
+                                | Some g, _, _, _, _, _, _, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, Some g, _, _, _, _, _, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, Some g, _, _, _, _, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, Some g, _, _, _, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, _, Some g, _, _, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, _, _, Some g, _, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, _, _, _, Some g, _, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, _, _, _, _, Some g, _, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, _, _, _, _, _, Some g, _ -> g.AllEntities() |> Seq.length
+                                | _, _, _, _, _, _, _, _, _, Some g -> g.AllEntities() |> Seq.length
+                                | _ -> -1
+                            // Pre-compute localized labels for the memory monitor display
+                            let loc key = Languages.LangResources.ResourceManager.GetString(key, Languages.LangResources.Culture)
+                            let locLabels =
+                                JsonValue.Record [|
+                                "title", JsonValue.String(loc "memoryMonitor.title")
+                                "sectionProcessMemory", JsonValue.String(loc "memoryMonitor.section.processMemory")
+                                "workingSet", JsonValue.String(loc "memoryMonitor.workingSet")
+                                "managedHeap", JsonValue.String(loc "memoryMonitor.managedHeap")
+                                "unmanaged", JsonValue.String(loc "memoryMonitor.unmanaged")
+                                "sectionGcStatus", JsonValue.String(loc "memoryMonitor.section.gcStatus")
+                                "gcCollections", JsonValue.String(loc "memoryMonitor.gcCollections")
+                                "totalAllocated", JsonValue.String(loc "memoryMonitor.totalAllocated")
+                                "sectionFileCache", JsonValue.String(loc "memoryMonitor.section.fileCache")
+                                "parsedEntities", JsonValue.String(loc "memoryMonitor.parsedEntities")
+                                "parsedEntitiesHint", JsonValue.String(loc "memoryMonitor.parsedEntitiesHint")
+                                "fileReferences", JsonValue.String(loc "memoryMonitor.fileReferences")
+                                "fileReferencesHint", JsonValue.String(loc "memoryMonitor.fileReferencesHint")
+                                "filesWithContent", JsonValue.String(loc "memoryMonitor.filesWithContent")
+                                "filesWithContentHint", JsonValue.String(loc "memoryMonitor.filesWithContentHint")
+                                "entityCacheEntries", JsonValue.String(loc "memoryMonitor.entityCacheEntries")
+                                "entityCacheHint", JsonValue.String(loc "memoryMonitor.entityCacheHint")
+                                "openDocuments", JsonValue.String(loc "memoryMonitor.openDocuments")
+                                "sectionTypeSystem", JsonValue.String(loc "memoryMonitor.section.typeSystem")
+                                "typeDefinitions", JsonValue.String(loc "memoryMonitor.typeDefinitions")
+                                "typeEntries", JsonValue.String(loc "memoryMonitor.typeEntries")
+                                "scriptedEffects", JsonValue.String(loc "memoryMonitor.scriptedEffects")
+                                "scriptedTriggers", JsonValue.String(loc "memoryMonitor.scriptedTriggers")
+                                "staticModifiers", JsonValue.String(loc "memoryMonitor.staticModifiers")
+                                "sectionValidationCache", JsonValue.String(loc "memoryMonitor.section.validationCache")
+                                "validationErrors", JsonValue.String(loc "memoryMonitor.validationErrors")
+                                "localisationErrors", JsonValue.String(loc "memoryMonitor.localisationErrors")
+                                "locCacheEntries", JsonValue.String(loc "memoryMonitor.locCacheEntries")
+                                "sectionStringInterning", JsonValue.String(loc "memoryMonitor.section.stringInterning")
+                                "uniqueKeys", JsonValue.String(loc "memoryMonitor.uniqueKeys")
+                                "totalEntries", JsonValue.String(loc "memoryMonitor.totalEntries")
+                                "clickForDetails", JsonValue.String(loc "memoryMonitor.clickForDetails")
+                                "totalWorkingSet", JsonValue.String(loc "memoryMonitor.totalWorkingSet")
+                                |]
+                            Some(
+                                JsonValue.Record [|
+                                    // Total process
+                                    "processWorkingSet", JsonValue.Number(decimal proc.WorkingSet64)
+                                    "managedHeap", JsonValue.Number(decimal (GC.GetTotalMemory false))
+                                    // Files
+                                    "totalFiles", JsonValue.Number(decimal totalFiles)
+                                    "entityFiles", JsonValue.Number(decimal entityFiles)
+                                    "fileResources", JsonValue.Number(decimal fileResources)
+                                    "fileWithContentFiles", JsonValue.Number(decimal fileWithContentFiles)
+                                    "openDocuments", JsonValue.Number(decimal openDocs)
+                                    "entityCacheEntries", JsonValue.Number(decimal entityCacheCount)
+                                    // Validation
+                                    "totalValidationErrors", JsonValue.Number(decimal valErrors)
+                                    "totalLocalisationErrors", JsonValue.Number(decimal locErrors)
+                                    "locCacheEntries", JsonValue.Number(decimal locCacheCount)
+                                    // Type system
+                                    "typeDefinitions", JsonValue.Number(decimal typeDefCount)
+                                    "typeEntries", JsonValue.Number(decimal typeEntryCount)
+                                    "scriptedEffects", JsonValue.Number(decimal effectsCount)
+                                    "scriptedTriggers", JsonValue.Number(decimal triggersCount)
+                                    "scriptedTriggersPrev", JsonValue.Number(decimal previousTriggerCount)
+                                    "scriptedTriggersGrowth", JsonValue.Number(decimal (if previousTriggerCount >= 0 then max 0 (triggersCount - previousTriggerCount) else 0))
+                                    "staticModifiers", JsonValue.Number(decimal staticModCount)
+                                    // String interning
+                                    "internedUniqueKeys", JsonValue.Number(decimal stringUniqueKeys)
+                                    "internedTotalEntries", JsonValue.Number(decimal stringTotalEntries)
+                                    // GC diagnostics
+                                    "gcGen0", JsonValue.Number(decimal (GC.CollectionCount 0))
+                                    "gcGen1", JsonValue.Number(decimal (GC.CollectionCount 1))
+                                    "gcGen2", JsonValue.Number(decimal (GC.CollectionCount 2))
+                                    "gcTotalAllocatedMB", JsonValue.Number(decimal (GC.GetTotalAllocatedBytes() / 1048576L))
+                                    "nonManagedMB", JsonValue.Number(decimal (max 0L (proc.WorkingSet64 - (GC.GetTotalMemory false |> int64)) / 1048576L))
+                                    "locLabels", locLabels
+                                |]
+                            )
                         | _ -> None
                     | None -> None
             }
