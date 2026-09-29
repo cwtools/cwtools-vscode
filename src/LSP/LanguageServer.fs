@@ -149,11 +149,19 @@ let private writeClient (client: BinaryWriter, messageText: string) =
         monitor.Exit()
 
 let respond (client: BinaryWriter, requestId: int, jsonText: string) =
-    let messageText = $"""{{"id":%d{requestId},"result":%s{jsonText}}}"""
+    let messageText = $"""{{"jsonrpc":"2.0","id":%d{requestId},"result":%s{jsonText}}}"""
     writeClient (client, messageText)
 
+let private respondError (client: BinaryWriter, requestId: int, code: int, message: string) =
+    let response =
+        JsonValue.Record
+            [| "jsonrpc", JsonValue.String "2.0"
+               "id", JsonValue.Number(decimal requestId)
+               "error", JsonValue.Record [| "code", JsonValue.Number(decimal code); "message", JsonValue.String message |] |]
+    writeClient (client, response.ToString(JsonSaveOptions.DisableFormatting))
+
 let private notifyClient (client: BinaryWriter, method: string, jsonText: string) =
-    let messageText = $"""{{"method":"%s{method}","params":%s{jsonText}}}"""
+    let messageText = $"""{{"jsonrpc":"2.0","method":"%s{method}","params":%s{jsonText}}}"""
     writeClient (client, messageText)
 
 let private requestClient (client: BinaryWriter, id: int, method: string, jsonText: string) =
@@ -162,7 +170,7 @@ let private requestClient (client: BinaryWriter, id: int, method: string, jsonTe
             responseAgent.PostAndAsyncReply(fun replyChannel -> Request(id, replyChannel))
 
         let messageText =
-            $"""{{"id":%d{id},"method":"%s{method}", "params":%s{jsonText}}}"""
+            $"""{{"jsonrpc":"2.0","id":%d{id},"method":"%s{method}", "params":%s{jsonText}}}"""
 
         writeClient (client, messageText)
         return! reply
@@ -188,18 +196,35 @@ let readMessages (receive: BinaryReader) : seq<Parser.Message> =
     Seq.takeWhile notExit parse
 
 type RealClient(send: BinaryWriter) =
+    let pendingNotifications = System.Collections.Generic.Queue<string * string>()
+    let mutable initialized = false
+
+    let notify (method, json) =
+        lock pendingNotifications (fun () ->
+            if initialized || method = "window/logMessage" || method = "window/showMessage" || method = "telemetry/event" then
+                notifyClient (send, method, json)
+            else
+                pendingNotifications.Enqueue(method, json))
+
+    member this.Initialized() =
+        lock pendingNotifications (fun () ->
+            initialized <- true
+            while pendingNotifications.Count > 0 do
+                let method, json = pendingNotifications.Dequeue()
+                notifyClient (send, method, json))
+
     interface ILanguageClient with
         member this.LogMessage(p: LogMessageParams) : unit =
             let json = serializeLogMessageParams p
-            notifyClient (send, "window/logMessage", json)
+            notify ("window/logMessage", json)
 
         member this.PublishDiagnostics(p: PublishDiagnosticsParams) : unit =
             let json = serializePublishDiagnostics p
-            notifyClient (send, "textDocument/publishDiagnostics", json)
+            notify ("textDocument/publishDiagnostics", json)
 
         member this.ShowMessage(p: ShowMessageParams) : unit =
             let json = serializeShowMessage p
-            notifyClient (send, "window/showMessage", json)
+            notify ("window/showMessage", json)
 
         member this.RegisterCapability(p: RegisterCapability) : unit =
             match p with
@@ -211,11 +236,11 @@ type RealClient(send: BinaryWriter) =
 
                 let message = { registrations = [ register ] }
                 let json = serializeRegistrationParams message
-                notifyClient (send, "client/registerCapability", json)
+                notify ("client/registerCapability", json)
 
         member this.CustomNotification(method: string, json: JsonValue) : unit =
             let jsonString = json.ToString(JsonSaveOptions.DisableFormatting)
-            notifyClient (send, method, jsonString)
+            notify (method, jsonString)
 
         member this.ApplyWorkspaceEdit(p: ApplyWorkspaceEditParams) : Async<JsonValue> =
             async {
@@ -238,12 +263,20 @@ type private PendingTask =
     | Quit
 
 let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryReader, send: BinaryWriter) =
-    let server = serverFactory (RealClient(send))
+    let client = RealClient(send)
+    let server = serverFactory client
+    let mutable shutdownCompleted = false
+    let mutable inputFailed = false
 
     let processRequest (request: Request) : Async<string option> =
         match request with
         | Initialize(p) -> server.Initialize(p) |> thenMap serializeInitializeResult |> thenSome
-        | Shutdown -> server.Shutdown() |> thenMap serializeShutdownResponse |> thenSome
+        | Shutdown ->
+            async {
+                let! result = server.Shutdown()
+                shutdownCompleted <- true
+                return Some(serializeShutdownResponse result)
+            }
         | WillSaveWaitUntilTextDocument(p) ->
             server.WillSaveWaitUntilTextDocument(p)
             |> thenMap serializeTextEditList
@@ -282,7 +315,10 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
 
     let processNotification (n: Notification) =
         match n with
-        | Initialized -> server.Initialized()
+        | Initialized -> async {
+            client.Initialized()
+            do! server.Initialized()
+          }
         | DidChangeConfiguration(p) -> server.DidChangeConfiguration(p)
         | DidOpenTextDocument(p) -> server.DidOpenTextDocument(p)
         | DidChangeTextDocument(p) -> server.DidChangeTextDocument(p)
@@ -299,9 +335,9 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
     let processQueue =
         new System.Collections.Concurrent.BlockingCollection<PendingTask>(10)
 
-    Thread(fun () ->
+    let readInput () =
         try
-            // Read all messages on the main thread
+            // Read messages independently so cancellations can interrupt requests.
             for m in readMessages receive do
                 // Process cancellations immediately
                 match m with
@@ -327,11 +363,15 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
                     pendingRequests[id] <- cancel
                 | Parser.ResponseMessage(id, result) -> responseAgent.Post(Response(id, result))
 
-            processQueue.Add(Quit)
         with e ->
+            inputFailed <- true
             dprintfn $"Exception in read thread {e}"
 
-    )
+    Thread(fun () ->
+        try
+            readInput ()
+        finally
+            processQueue.Add(Quit))
         .Start()
     // Process messages on main thread
     let mutable quit = false
@@ -349,9 +389,10 @@ let connect (serverFactory: ILanguageClient -> ILanguageServer, receive: BinaryR
                     match Async.RunSynchronously(task, 0, cancel.Token) with
                     | Some(result) -> respond (send, id, result)
                     | None -> respond (send, id, "null")
-                with :? OperationCanceledException ->
-                    ()
+                with
+                | :? OperationCanceledException -> ()
+                | error -> respondError (send, id, -32603, error.Message)
             //dprintfn "Request %d was cancelled" id
             pendingRequests.TryRemove(id) |> ignore
 
-    Environment.Exit(1)
+    if shutdownCompleted && not inputFailed then 0 else 1

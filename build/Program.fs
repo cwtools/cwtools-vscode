@@ -164,11 +164,12 @@ let initTargets () =
     Target.create "NpmInstall" <| fun _ -> run npmTool.Value "install" "."
 
     Target.create "PackageNpmInstall"
-    <| fun _ -> run npmTool.Value "install" "release"
+    <| fun _ -> run npmTool.Value "ci" "release"
 
     Target.create "CopyDocs" (fun _ ->
         Shell.copyFiles "release" [ "README.md"; "LICENSE.md" ]
-        Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md")
+        Shell.copyFile "release/CHANGELOG.md" "CHANGELOG.md"
+        Shell.copyFile "release/docs/standalone-lsp.md" "docs/standalone-lsp.md")
 
     let publishParams (framework: string) =
         fun (p: DotNet.PublishOptions) ->
@@ -315,7 +316,7 @@ let buildTargetTree () =
     ==> "PublishToGallery"
     ==>! "Release"
 
-    "Clean" ==> "BuildPackage" ==>! "DryRelease"
+    "Clean" ==> "PublishServer" ==> "PackageNpmInstall" ==> "BuildPackage" ==>! "DryRelease"
 
     "BuildServer" ==>! "QuickBuild"
 

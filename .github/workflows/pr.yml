@@ -8,6 +8,9 @@ on:
 
 name: Test
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,20 +19,34 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - run: npm install
+    - run: npm ci
     - name: Set chmod
       run: chmod +x ./build.sh
     - name: Test build
       run: /bin/sh ./build.sh DryRelease
-    - name: Test
-      run: xvfb-run -a npm test
+    - name: Publish standalone server
+      run: dotnet publish src/Main/Main.fsproj -c Release --no-self-contained -p:PublishTrimmed=false -p:PublishReadyToRunComposite=false -o "$RUNNER_TEMP/cwtools-standalone"
+    - name: Test standalone server
+      run: node --test --test-concurrency=1 tests/*.test.mjs
+      env:
+        CWTOOLS_SERVER: ${{ runner.temp }}/cwtools-standalone/CWTools Server.dll
+    - name: Verify VS Code package
+      run: |
+        test -x "release/bin/server/linux-x64/CWTools Server"
+        test -f release/node_modules/vscode-languageclient/package.json
+        unzip -Z1 temp/*.vsix > "$RUNNER_TEMP/vsix-contents.txt"
+        grep -Fxq 'extension/bin/server/linux-x64/CWTools Server' "$RUNNER_TEMP/vsix-contents.txt"
+        grep -Fxq 'extension/node_modules/vscode-languageclient/package.json' "$RUNNER_TEMP/vsix-contents.txt"
+        grep -Fxq 'extension/docs/standalone-lsp.md' "$RUNNER_TEMP/vsix-contents.txt"
+    - name: Test VS Code integration
+      run: xvfb-run -a npx vscode-test --config ./.vscode-test.smoke.js
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:

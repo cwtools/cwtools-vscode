@@ -85,6 +85,10 @@ If you want to browse vanilla files, you can use the "CWTOOLS LOADED FILES" sect
 
 ![Find all references](https://raw.githubusercontent.com/cwtools/cwtools-vscode/refs/heads/main/release/docs/findallrefs.png)
 
+## Standalone LSP
+
+The server can also run from an LSP client without VS Code. See the [standalone installation and configuration guide](docs/standalone-lsp.md) for the .NET 10 build, game rules, client settings and localisation actions.
+
 ## Links
 
 * [vic2-config](https://github.com/cwtools/cwtools-vic2-config)

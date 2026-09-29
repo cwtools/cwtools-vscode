@@ -115,6 +115,9 @@ type Server(client: ILanguageClient) =
     let mutable maxFileSize: int = 2
     let mutable generatedStrings: string = ":0 \"REPLACE_ME\""
     let mutable clientSupportsInsertReplaceEdit: bool = false
+    let mutable localisationOutputWorkspaceEdit = false
+    let mutable clientSupportsLocalisationEdit = false
+    let mutable workspaceRootPath: string option = None
 
     let mutable ignoreCodes: string array = [||]
     let mutable ignoreFiles: string array = [||]
@@ -125,6 +128,19 @@ type Server(client: ILanguageClient) =
     let mutable lastFocusedFile: string option = None
 
     let mutable currentlyRefreshingFiles: bool = false
+    let mutable workspaceLoad: Task = Task.CompletedTask
+    let mutable initialConfiguration: JsonValue option = None
+
+    let rec normalizeConfiguration = function
+        | JsonValue.Record properties ->
+            properties
+            |> Array.sortBy fst
+            |> Array.map (fun (key, value) -> key, normalizeConfiguration value)
+            |> JsonValue.Record
+        | JsonValue.Array values -> values |> Array.map normalizeConfiguration |> JsonValue.Array
+        | value -> value
+
+    let workspaceAccess = new System.Threading.SemaphoreSlim(1, 1)
 
     let (|TrySuccess|TryFailure|) tryResult =
         match tryResult with
@@ -205,8 +221,24 @@ type Server(client: ILanguageClient) =
 
     let mutable delayedLocUpdate = false
 
-    let lint (doc: Uri) (shallowAnalyze: bool) (forceDisk: bool) : Async<unit> =
+    let rec withLoadedWorkspace action =
         async {
+            let loading = workspaceLoad
+            do! loading |> Async.AwaitTask
+            do! workspaceAccess.WaitAsync() |> Async.AwaitTask
+
+            if Object.ReferenceEquals(loading, workspaceLoad) then
+                try
+                    return! action ()
+                finally
+                    workspaceAccess.Release() |> ignore
+            else
+                workspaceAccess.Release() |> ignore
+                return! withLoadedWorkspace action
+        }
+
+    let lint (doc: Uri) (shallowAnalyze: bool) (forceDisk: bool) : Async<unit> =
+        withLoadedWorkspace (fun () -> async {
             let name =
                 if
                     RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
@@ -226,6 +258,12 @@ type Server(client: ILanguageClient) =
                     None
                 else
                     docs.GetText(FileInfo(doc.LocalPath))
+                    |> Option.map (fun text ->
+                        // File.ReadAllText strips a UTF-8 BOM; buffers must reach the YAML parser the same way.
+                        if name.EndsWith(".yml") && text.Length > 0 && text.[0] = '\uFEFF' then
+                            text.Substring(1)
+                        else
+                            text)
 
             let getRange (start: Position) (endp: Position) =
                 mkRange
@@ -245,28 +283,36 @@ type Server(client: ILanguageClient) =
                     | _, Failure(msg, p, _) ->
                         [ ("CW001", Severity.Error, name, msg, (getRange p.Position p.Position), 0, None) ]
 
+            let updateErrors =
+                match gameObj with
+                | None -> []
+                | Some game ->
+                    let results = game.UpdateFile shallowAnalyze name filetext
+
+                    if name.EndsWith(".yml") then
+                        // UpdateFile changes localisation sources, but not their processed diagnostics.
+                        game.RefreshLocalisationCaches()
+                        locCache <-
+                            game.LocalisationErrors(true, true)
+                            |> List.groupBy _.range.FileName
+                            |> Map.ofList
+
+                    results
+                    |> List.map (fun e ->
+                        (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
+
             let locErrors =
                 locCache.TryFind(doc.LocalPath)
                 |> Option.defaultValue []
                 |> List.map (fun e ->
                     (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
-            // logDiag (sprintf "lint le %A" (locCache.TryFind (doc.LocalPath) |> Option.defaultValue []))
-            let errors =
-                parserErrors
-                @ locErrors
-                @ match gameObj with
-                  | None -> []
-                  | Some game ->
-                      let results = game.UpdateFile shallowAnalyze name filetext
-                      // logDiag (sprintf "lint uf %A" results)
-                      results
-                      |> List.map (fun e ->
-                          (e.code, e.severity, e.range.FileName, e.message, e.range, e.keyLength, e.relatedErrors))
+
+            let errors = parserErrors @ locErrors @ updateErrors
 
             match errors with
             | [] -> client.PublishDiagnostics { uri = doc; diagnostics = [] }
             | x -> x |> List.map parserErrorToDiagnostics |> sendDiagnostics
-        }
+        })
 
     let mutable delayTime = TimeSpan(0, 0, 30)
 
@@ -316,7 +362,9 @@ type Server(client: ILanguageClient) =
                             lint uri (shallowAnalyse && (not force)) false |> Async.RunSynchronously
 
                             if not shallowAnalyse then
-                                delayedAnalyze ()
+                                withLoadedWorkspace (fun () -> async { delayedAnalyze () })
+                                |> Async.RunSynchronously
+
                                 logDiag "lint after delayed"
                                 // Somehow get updated localisation errors after loccache is updated
                                 lint uri true false |> Async.RunSynchronously
@@ -543,6 +591,7 @@ type Server(client: ILanguageClient) =
         | _ -> logInfo "No cache path"
 
     let processWorkspace (uri: option<Uri>) =
+        let mutable loaded = false
         client.CustomNotification(
             "loadingBar",
             JsonValue.Record
@@ -562,6 +611,7 @@ type Server(client: ILanguageClient) =
                     u.LocalPath
 
             try
+                workspaceRootPath <- Some path
                 let serverSettings =
                     { cachePath = cachePath
                       useManualRules = useManualRules
@@ -678,6 +728,7 @@ type Server(client: ILanguageClient) =
 
                 valErrors @ locErrors |> List.map parserErrorToDiagnostics |> sendDiagnostics
                 GC.Collect()
+                loaded <- true
             with e ->
                 eprintfn $"%A{e}"
 
@@ -687,6 +738,8 @@ type Server(client: ILanguageClient) =
             "loadingBar",
             JsonValue.Record [| "value", JsonValue.String(""); "enable", JsonValue.Boolean(false) |]
         )
+
+        loaded
 
     let createRange startLine startCol endLine endCol =
         { start =
@@ -729,6 +782,68 @@ type Server(client: ILanguageClient) =
 
         memoize id inner path
 
+    let generateLocalisationEdit fileName keys =
+        let warn message =
+            client.ShowMessage { ``type`` = MessageType.Warning; message = message }
+
+        match workspaceRootPath with
+        | None -> warn "Open a workspace before generating localisation."
+        | Some root when not clientSupportsLocalisationEdit ->
+            warn "The client must support workspace edits, document changes and file creation."
+        | Some root when activeGame = CK2 ->
+            warn "Workspace edit generation is not available for CK2 CSV localisation."
+        | Some root when not (languages |> Array.exists (fun lang -> lang.ToString().EndsWith("English"))) ->
+            warn "Workspace edit generation currently requires English localisation."
+        | Some root ->
+            let folder = Path.Combine(root, "localisation")
+            let destination = Path.Combine(folder, fileName + "_l_english.yml")
+
+            if not (Directory.Exists folder) then
+                warn "Create the localisation folder in the workspace before generating a file."
+            elif File.Exists destination || Directory.Exists destination then
+                warn "The generated localisation file already exists; no file was changed."
+            elif List.isEmpty keys then
+                warn "No missing localisation keys were found."
+            else
+                let uri = Uri(destination).AbsoluteUri
+                let position = JsonValue.Record [| "line", JsonValue.Number 0M; "character", JsonValue.Number 0M |]
+                let text = "\uFEFFl_english:" + Environment.NewLine + String.Join(Environment.NewLine, keys) + Environment.NewLine
+                let create =
+                    JsonValue.Record
+                        [| "kind", JsonValue.String "create"
+                           "uri", JsonValue.String uri
+                           "options", JsonValue.Record [| "overwrite", JsonValue.Boolean false; "ignoreIfExists", JsonValue.Boolean false |] |]
+                let change =
+                    JsonValue.Record
+                        [| "textDocument", JsonValue.Record [| "uri", JsonValue.String uri; "version", JsonValue.Null |]
+                           "edits", JsonValue.Array [| JsonValue.Record
+                                [| "range", JsonValue.Record [| "start", position; "end", position |]
+                                   "newText", JsonValue.String text |] |] |]
+                // The typed WorkspaceEdit cannot represent a CreateFile followed by a text edit.
+                let parameters =
+                    JsonValue.Record
+                        [| "label", JsonValue.String "Generate localisation"
+                           "edit", JsonValue.Record [| "documentChanges", JsonValue.Array [| create; change |] |] |]
+
+                try
+                    let response =
+                        client.CustomRequest("workspace/applyEdit", parameters.ToString(JsonSaveOptions.DisableFormatting))
+                        |> fun request -> Async.RunSynchronously(request, 30000)
+
+                    match response with
+                    | JsonValue.Record _ ->
+                        match response.TryGetProperty("applied") with
+                        | Some(JsonValue.Boolean true) -> ()
+                        | _ ->
+                            let reason =
+                                match response.TryGetProperty("failureReason") with
+                                | Some(JsonValue.String text) -> " " + text
+                                | _ -> ""
+                            warn ("The client did not apply the localisation edit." + reason)
+                    | _ -> warn "The client did not apply the localisation edit."
+                with :? TimeoutException ->
+                    warn "The client did not answer the localisation edit request."
+
     interface ILanguageServer with
         member this.Initialize(p: InitializeParams) =
             async {
@@ -740,8 +855,17 @@ type Server(client: ILanguageClient) =
                     p.capabilitiesMap.ContainsKey("textDocument.completion.completionItem.insertReplaceSupport")
                     && p.capabilitiesMap.["textDocument.completion.completionItem.insertReplaceSupport"]
 
+                let supports capability = p.capabilitiesMap |> Map.tryFind capability |> Option.defaultValue false
+                clientSupportsLocalisationEdit <-
+                    supports "workspace.applyEdit"
+                    && supports "workspace.workspaceEdit.documentChanges"
+                    && supports "workspace.workspaceEdit.resourceOperations.create"
+
                 match p.initializationOptions with
                 | Some opt ->
+                    localisationOutputWorkspaceEdit <-
+                        opt.TryGetProperty("localisationOutput") = Some(JsonValue.String "workspaceEdit")
+
                     match opt.Item("language") with
                     | JsonValue.String "stellaris" -> activeGame <- STL
                     | JsonValue.String "hoi4" -> activeGame <- HOI4
@@ -810,6 +934,17 @@ type Server(client: ILanguageClient) =
 
                 logInfo $"New init %s{p.ToString()}"
 
+                match p.initializationOptions with
+                | Some options ->
+                    match options.TryGetProperty("cwtools") with
+                    | Some config ->
+                        initialConfiguration <- None
+                        do! (this :> ILanguageServer).DidChangeConfiguration { settings = options }
+                        do! workspaceLoad |> Async.AwaitTask
+                        initialConfiguration <- Some(normalizeConfiguration config)
+                    | None -> ()
+                | None -> ()
+
                 return
                     { capabilities =
                         { defaultServerCapabilities with
@@ -851,7 +986,7 @@ type Server(client: ILanguageClient) =
         member this.Shutdown() = async { return None }
 
         member this.DidChangeConfiguration(p: DidChangeConfigurationParams) =
-            async {
+            let applyConfiguration () = async {
                 let config = p.settings.Item("cwtools")
 
                 let newLanguages =
@@ -1085,14 +1220,47 @@ type Server(client: ILanguageClient) =
                         Directory.CreateDirectory dir |> ignore
                 | _ -> ()
 
-                let task =
-                    new Task(fun () ->
-                        checkOrSetGameCache false
-                        processWorkspace rootUri)
+                let openedDocuments =
+                    docs.OpenFiles()
+                    |> List.choose (fun file ->
+                        docs.GetVersion(file)
+                        |> Option.map (fun version ->
+                            { VersionedTextDocumentIdentifier.uri = Uri(file.FullName)
+                              version = version }))
 
-                task.Start()
+                // Serialize reloads; a new configuration can retry even if the previous load failed.
+                workspaceLoad <-
+                    workspaceLoad.ContinueWith(
+                        (fun (_: Task) ->
+                            workspaceAccess.Wait()
+
+                            try
+                                checkOrSetGameCache false
+
+                                if not (processWorkspace rootUri) then
+                                    failwith "Workspace loading failed; see the server log for details."
+
+                                for document in openedDocuments do
+                                    lintAgent.Post(UpdateRequest(document, true))
+                            finally
+                                workspaceAccess.Release() |> ignore),
+                        TaskScheduler.Default
+                    )
+
                 let task = new Task(fun () -> setupRulesCaches ())
                 task.Start()
+            }
+
+            async {
+                let config = p.settings.Item("cwtools")
+                let alreadyLoaded =
+                    initialConfiguration
+                    |> Option.exists (fun initial -> initial = normalizeConfiguration config)
+
+                // Generic clients can send these same settings again after initialize.
+                initialConfiguration <- None
+                if not alreadyLoaded then
+                    do! applyConfiguration ()
             }
 
         member this.DidOpenTextDocument(p: DidOpenTextDocumentParams) =
@@ -1289,19 +1457,19 @@ type Server(client: ILanguageClient) =
                             else
                                 u.LocalPath
 
-                        let gototype =
-                            game.FindAllRefs
-                                position
-                                path
-                                (docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue "")
+                        let text = docs.GetText(FileInfo(p.textDocument.uri.LocalPath)) |> Option.defaultValue ""
+                        let references = game.FindAllRefs position path text |> Option.defaultValue []
+                        let declarations =
+                            if p.context.includeDeclaration then
+                                game.GoToType position path text |> Option.toList
+                            else
+                                []
 
-                        match gototype with
-                        | Some gotos ->
-                            gotos
-                            |> List.map (fun goto ->
-                                { uri = Uri(goto.FileName)
-                                  range = (convRangeToLSPRange goto) })
-                        | None -> []
+                        references @ declarations
+                        |> List.map (fun location ->
+                            { uri = Uri(location.FileName)
+                              range = convRangeToLSPRange location })
+                        |> List.distinct
                     | None -> []
             }
             |> catchError []
@@ -1459,7 +1627,12 @@ type Server(client: ILanguageClient) =
                             arguments = x :: _ } ->
                             let les =
                                 game.LocalisationErrors(true, true)
-                                |> List.filter (fun e -> e.range |> (fun a -> a.FileName = x.AsString()))
+                                |> List.filter (fun e ->
+                                    String.Equals(
+                                        Path.GetFullPath(e.range.FileName),
+                                        Path.GetFullPath(x.AsString()),
+                                        StringComparison.OrdinalIgnoreCase
+                                    ))
 
                             let keys =
                                 les
@@ -1470,12 +1643,15 @@ type Server(client: ILanguageClient) =
 
                             let text = String.Join(Environment.NewLine, keys)
 
-                            client.CustomNotification(
-                                "createVirtualFile",
-                                JsonValue.Record
-                                    [| "uri", JsonValue.String("cwtools://1")
-                                       "fileContent", JsonValue.String(text) |]
-                            )
+                            if localisationOutputWorkspaceEdit then
+                                generateLocalisationEdit ("cwtools_" + Path.GetFileNameWithoutExtension(x.AsString())) keys
+                            else
+                                client.CustomNotification(
+                                    "createVirtualFile",
+                                    JsonValue.Record
+                                        [| "uri", JsonValue.String("cwtools://1")
+                                           "fileContent", JsonValue.String(text) |]
+                                )
 
                             None
                         | { command = "genlocall"; arguments = _ } ->
@@ -1490,12 +1666,15 @@ type Server(client: ILanguageClient) =
 
                             let text = String.Join(Environment.NewLine, keys)
 
-                            client.CustomNotification(
-                                "createVirtualFile",
-                                JsonValue.Record
-                                    [| "uri", JsonValue.String("cwtools://1")
-                                       "fileContent", JsonValue.String(text) |]
-                            )
+                            if localisationOutputWorkspaceEdit then
+                                generateLocalisationEdit "cwtools_generated" keys
+                            else
+                                client.CustomNotification(
+                                    "createVirtualFile",
+                                    JsonValue.Record
+                                        [| "uri", JsonValue.String("cwtools://1")
+                                           "fileContent", JsonValue.String(text) |]
+                                )
 
                             None
                         | { command = "debugrules"
@@ -1729,13 +1908,12 @@ let main (_: array<string>) : int =
     System.Threading.Thread.CurrentThread.CurrentCulture <- cultureInfo
     System.Threading.Thread.CurrentThread.CurrentUICulture <- cultureInfo
     // CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-    let read = new BinaryReader(Console.OpenStandardInput())
-    let write = new BinaryWriter(Console.OpenStandardOutput())
+    use read = new BinaryReader(Console.OpenStandardInput())
+    use write = new BinaryWriter(Console.OpenStandardOutput())
     let serverFactory client = Server(client) :> ILanguageServer
     // "Listening on stdin"
     try
         LanguageServer.connect (serverFactory, read, write)
-        0 // return an integer exit code
     with e ->
         Log.dprintfn $"Exception in language server {e}"
         1

@@ -181,7 +181,13 @@ let private parseCapabilities (nested: JsonValue) : Map<string, bool> =
 
                 match value with
                 | JsonValue.Boolean setting -> yield (newPath, setting)
-                | _ -> yield! flatten (newPath, value)
+                | JsonValue.Record _ -> yield! flatten (newPath, value)
+                | JsonValue.Array values ->
+                    for item in values do
+                        match item with
+                        | JsonValue.String name -> yield (newPath + "." + name, true)
+                        | _ -> ()
+                | _ -> ()
         }
 
     let kvs =
