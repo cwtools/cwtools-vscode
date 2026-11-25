@@ -1225,7 +1225,6 @@ type Server(client: ILanguageClient) =
                         p.textDocument.uri
                         p.position)
                     |> Async.RunSynchronously
-                    |> Some
             }
             |> catchError None
 
