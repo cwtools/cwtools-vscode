@@ -154,15 +154,15 @@ module LanguageServerFeatures =
                 let text =
                     [| docStringOrEffect; lochover; Some scopesExtra |]
                     |> Array.choose id
+                    |> Array.filter (fun s -> not (String.IsNullOrWhiteSpace s))
                     |> (fun a -> String.Join("\n\n***\n\n", a))
 
                 match text with
-                | "" ->
-                    { contents = MarkupContent("markdown", "")
-                      range = None }
+                | "" -> None
                 | text ->
-                    { contents = MarkupContent("markdown", text)
-                      range = None }
+                    Some
+                        { contents = MarkupContent("markdown", text)
+                          range = None }
             // match hovered, lochover, docstringFromInfo symbolInfo with
             // |Some effect, _, _ ->
             //     match effect with
@@ -203,9 +203,7 @@ module LanguageServerFeatures =
                 | _, _, _, _, _, _, Some game, _, _ -> hoverFunction game
                 | _, _, _, _, _, _, _, Some game, _ -> hoverFunction game
                 | _, _, _, _, _, _, _, _, Some game -> hoverFunction game
-                | _ ->
-                    { contents = MarkupContent("markdown", "")
-                      range = None }
+                | _ -> None
 
         }
 
